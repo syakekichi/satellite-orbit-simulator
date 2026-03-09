@@ -1,6 +1,8 @@
 from skyfield.api import EarthSatellite, load
 from mpl_toolkits.mplot3d import Axes3D
 from PIL import Image
+from matplotlib.animation import FuncAnimation
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -65,5 +67,22 @@ ax.plot(x, y, z, color='red', linewidth=2)
 # 軸スケール
 ax.set_box_aspect([1,1,1])
 
+
+iss_point = ax.scatter(sat_x[0], sat_y[0], sat_z[0], color='yellow', s=200)
+
+def update(frame):
+    iss_point._offsets3d = (
+        [sat_x[frame]],
+        [sat_y[frame]],
+        [sat_z[frame]]
+    )
+    return iss_point,
+
+ani = FuncAnimation(
+    fig,
+    update,
+    frames=len(sat_x),
+    interval=50
+)
 
 plt.show()
