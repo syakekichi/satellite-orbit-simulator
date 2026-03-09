@@ -50,13 +50,13 @@ earth_y = earth_radius * np.sin(u) * np.sin(v)
 earth_z = earth_radius * np.cos(v)
 
 
-ax.plot_surface(
+earth = ax.plot_surface(
     earth_x,
     earth_y,
     earth_z,
     facecolors=texture,
-    rstride=4,
-    cstride=4
+    rstride=6,
+    cstride=6
 )
 
 # -------- ISS軌道 --------
@@ -75,6 +75,25 @@ def update(frame):
         [sat_x[frame]],
         [sat_y[frame]],
         [sat_z[frame]]
+    )
+     # 地球回転
+    angle = frame * 0.02
+
+    cos_a = np.cos(angle)
+    sin_a = np.sin(angle)
+
+    x_rot = earth_x * cos_a - earth_y * sin_a
+    y_rot = earth_x * sin_a + earth_y * cos_a
+
+    earth.remove()
+
+    globals()['earth'] = ax.plot_surface(
+        x_rot,
+        y_rot,
+        earth_z,
+        facecolors=texture,
+        rstride=6,
+        cstride=6
     )
     return iss_point,
 
