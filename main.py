@@ -34,6 +34,9 @@ ax = fig.add_subplot(111, projection='3d')
 # -------- 地球を描く --------
 earth_radius = 6371
 
+sun_direction = np.array([1, 0, 0])
+sun_direction = sun_direction / np.linalg.norm(sun_direction)
+
 h, w, _ = texture.shape
 
 u = np.linspace(0, 2*np.pi, w)
@@ -49,12 +52,24 @@ earth_x = earth_radius * np.cos(u) * np.sin(v)
 earth_y = earth_radius * np.sin(u) * np.sin(v)
 earth_z = earth_radius * np.cos(v)
 
+normals = np.stack((earth_x, earth_y, earth_z), axis=-1)
+normals = normals / np.linalg.norm(normals, axis=2)[...,None]
+
+sun_dot = (
+    normals[:,:,0]*sun_direction[0] +
+    normals[:,:,1]*sun_direction[1] +
+    normals[:,:,2]*sun_direction[2]
+)
+
+light = np.clip(sun_dot, 0, 1)
+
+texture_lit = texture * light[:,:,None]
 
 earth = ax.plot_surface(
     earth_x,
     earth_y,
     earth_z,
-    facecolors=texture,
+    facecolors=texture_lit,
     rstride=6,
     cstride=6
 )
@@ -63,6 +78,15 @@ earth = ax.plot_surface(
 
 ax.scatter(x[0], y[0], z[0], color='yellow', s=200)
 ax.plot(x, y, z, color='red', linewidth=2)
+
+
+limit = 15000
+
+ax.set_xlim(-limit, limit)
+ax.set_ylim(-limit, limit)
+ax.set_zlim(-limit, limit)
+ax.grid(False)
+ax.set_axis_off()
 
 # 軸スケール
 ax.set_box_aspect([1,1,1])
@@ -85,13 +109,26 @@ def update(frame):
     x_rot = earth_x * cos_a - earth_y * sin_a
     y_rot = earth_x * sin_a + earth_y * cos_a
 
+    normals = np.stack((x_rot, y_rot, earth_z), axis=-1)
+    normals = normals / np.linalg.norm(normals, axis=2)[...,None]
+
+    sun_dot = (
+        normals[:,:,0]*sun_direction[0] +
+        normals[:,:,1]*sun_direction[1] +
+        normals[:,:,2]*sun_direction[2]
+    )
+
+    light = np.clip(sun_dot, 0, 1)
+
+    texture_lit = texture * light[:,:,None]
+
     earth.remove()
 
     globals()['earth'] = ax.plot_surface(
         x_rot,
         y_rot,
         earth_z,
-        facecolors=texture,
+        facecolors=texture_lit,
         rstride=6,
         cstride=6
     )
@@ -103,5 +140,14 @@ ani = FuncAnimation(
     frames=len(sat_x),
     interval=50
 )
+
+# 星を描く
+num_stars = 500
+star_x = np.random.uniform(-50000, 50000, num_stars)
+star_y = np.random.uniform(-50000, 50000, num_stars)
+star_z = np.random.uniform(-50000, 50000, num_stars)
+ax.scatter(star_x, star_y, star_z, color="white", s=1)
+ax.set_facecolor("black")
+fig.patch.set_facecolor("black")
 
 plt.show()
