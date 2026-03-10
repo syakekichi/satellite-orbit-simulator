@@ -40,7 +40,8 @@ satellite = EarthSatellite(line1, line2, "ISS")
 
 ts = load.timescale()
 
-times = ts.utc(2024,3,10,range(0,1440,5))
+minutes = np.arange(0,1440,0.5)
+times = ts.utc(2024,3,10,minutes)
 
 geocentric = satellite.at(times)
 x, y, z = geocentric.position.km
@@ -72,19 +73,23 @@ earth = ax.plot_surface(
     earth_z,
     facecolors=texture_lit,
     rstride=3,
-    cstride=3
+    cstride=3,
+    linewidth=0,
+    antialiased=False
 )
 
 # ISS軌道
-ax.plot(x,y,z,color="red",linewidth=2)
+# ax.plot(x,y,z,color="red",linewidth=2)
 
 iss_point = ax.scatter(
     sat_x[0],
     sat_y[0],
     sat_z[0],
     color="yellow",
-    s=200
+    s=300,
+    marker="*"
 )
+trail, = ax.plot([],[],[],color="yellow",linewidth=2)
 
 limit = 15000
 
@@ -107,6 +112,29 @@ def update(frame):
         [sat_y[frame]],
         [sat_z[frame]]
     )
+    iss = np.array([sat_x[frame], sat_y[frame], sat_z[frame]])
+
+    sun_dir = sun_direction
+
+# 太陽方向への距離
+    proj = np.dot(iss, sun_dir)
+
+# 太陽の反対側にいるか
+    if proj < 0:
+
+    # 太陽軸からの距離
+        dist = np.linalg.norm(iss - proj * sun_dir)
+
+        if dist < earth_radius:
+            iss_point.set_color("gray")  # 地球の影
+        else:
+            iss_point.set_color("yellow")
+    else:
+        iss_point.set_color("yellow")
+
+
+    trail.set_data(sat_x[:frame], sat_y[:frame])
+    trail.set_3d_properties(sat_z[:frame])
 
     angle = frame * 0.02
 
@@ -137,10 +165,12 @@ def update(frame):
         earth_z,
         facecolors=texture_lit,
         rstride=3,
-        cstride=3
+        cstride=3,
+        linewidth=0,
+        antialiased=False
     )
 
-    return iss_point,
+    return iss_point, trail
 
 ani = FuncAnimation(
     fig,
