@@ -9,10 +9,16 @@ import numpy as np
 print("program started")
 
 # 地球テクスチャ
-texture = Image.open("earth_texture.jpg")
-texture = texture.resize((512,256))
-texture = np.array(texture) / 255
-texture = np.flipud(texture)
+day_img = Image.open("earth_texture.jpg")
+night_img = Image.open("earth_night.jpg")
+mesh_w = 180
+mesh_h = 90
+
+day_img = day_img.resize((mesh_w, mesh_h))
+night_img = night_img.resize((mesh_w, mesh_h))
+
+texture_day = np.array(day_img) / 255
+texture_night = np.array(night_img) / 255
 
 # -------- 地球設定 --------
 
@@ -21,10 +27,10 @@ earth_radius = 6371
 sun_direction = np.array([1,0,0])
 sun_direction = sun_direction / np.linalg.norm(sun_direction)
 
-h, w, _ = texture.shape
 
-u = np.linspace(0, 2*np.pi, w)
-v = np.linspace(0, np.pi, h)
+
+u = np.linspace(0, 2*np.pi, mesh_w)
+v = np.linspace(0, np.pi, mesh_h)
 u, v = np.meshgrid(u, v)
 
 earth_x = earth_radius * np.cos(u) * np.sin(v)
@@ -65,15 +71,15 @@ sun_dot = (
 
 light = np.clip(sun_dot,0,1)
 
-texture_lit = texture * light[:,:,None]
-
+texture_lit = (
+    texture_day * light[:,:,None] +
+    texture_night * (1 - light)[:,:,None] * 0.6
+)
 earth = ax.plot_surface(
     earth_x,
     earth_y,
     earth_z,
-    facecolors=texture_lit,
-    rstride=3,
-    cstride=3,
+    facecolors=texture_day[:-1,:-1],
     linewidth=0,
     antialiased=False
 )
@@ -106,6 +112,10 @@ ax.set_box_aspect([1,1,1])
 def update(frame):
 
     global earth
+    angle = frame * 0.02
+
+    sun_dir = sun_direction
+    
 
     iss_point._offsets3d = (
         [sat_x[frame]],
@@ -113,8 +123,6 @@ def update(frame):
         [sat_z[frame]]
     )
     iss = np.array([sat_x[frame], sat_y[frame], sat_z[frame]])
-
-    sun_dir = sun_direction
 
 # 太陽方向への距離
     proj = np.dot(iss, sun_dir)
@@ -136,7 +144,7 @@ def update(frame):
     trail.set_data(sat_x[:frame], sat_y[:frame])
     trail.set_3d_properties(sat_z[:frame])
 
-    angle = frame * 0.02
+   
 
     cos_a = np.cos(angle)
     sin_a = np.sin(angle)
@@ -148,14 +156,17 @@ def update(frame):
     normals = normals / np.linalg.norm(normals, axis=2)[...,None]
 
     sun_dot = (
-        normals[:,:,0]*sun_direction[0] +
-        normals[:,:,1]*sun_direction[1] +
-        normals[:,:,2]*sun_direction[2]
+        normals[:,:,0]*sun_dir[0] +
+        normals[:,:,1]*sun_dir[1] +
+        normals[:,:,2]*sun_dir[2]
     )
 
     light = np.clip(sun_dot,0,1)
 
-    texture_lit = texture * light[:,:,None]
+    texture_lit = (
+        texture_day * light[:,:,None] +
+        texture_night * (1 - light)[:,:,None] * 0.6
+    )
 
     earth.remove()
 
@@ -163,20 +174,19 @@ def update(frame):
         x_rot,
         y_rot,
         earth_z,
-        facecolors=texture_lit,
-        rstride=3,
-        cstride=3,
+        facecolors=texture_lit[:-1,:-1],
         linewidth=0,
         antialiased=False
     )
 
-    return iss_point, trail
+    return iss_point, earth
 
 ani = FuncAnimation(
     fig,
     update,
     frames=len(sat_x),
-    interval=50
+    interval=50,
+    blit=False
 )
 
 # -------- 星 --------
