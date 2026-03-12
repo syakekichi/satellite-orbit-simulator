@@ -51,21 +51,25 @@ earth_z = earth_z_tilt
 #follow:ISSを追跡
 #free:自由
 
-camera_mode = "earth"
+camera_mode = "overview"
 
 def earth_view(event):
     global camera_mode
-    camera_mode = "earth"
+    camera_mode = "overview"
 
 def iss_view(event):
     global camera_mode
     camera_mode = "iss"
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection="3d")
+
 #ボタン描画
 ax_button1 = plt.axes([0.3,0.05,0.15,0.05])
 ax_button2 = plt.axes([0.55,0.05,0.15,0.05])
 
-btn1 = Button(ax_button1,"Earth View")
-btn2 = Button(ax_button2,"ISS View")
+btn1 = Button(ax_button1,"Overview")
+btn2 = Button(ax_button2,"Track ISS")
 
 btn1.on_clicked(earth_view)
 btn2.on_clicked(iss_view)
@@ -83,8 +87,7 @@ sun_x = sun_distance + sun_radius * np.cos(u_s) * np.sin(v_s)
 sun_y = sun_radius * np.sin(u_s) * np.sin(v_s)
 sun_z = sun_radius * np.cos(v_s)
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection="3d")
+
 ax.plot_surface(
     sun_x,
     sun_y,
@@ -157,14 +160,7 @@ iss_point = ax.scatter(
     s=300,
     marker="*"
 )
-orbit_radius = 1.06
-theta = np.linspace(0, 2*np.pi, 200)
 
-inclination = np.radians(51.6)
-
-orbit_x = orbit_radius * np.cos(theta)
-orbit_y = orbit_radius * np.sin(theta) * np.cos(inclination)
-orbit_z = orbit_radius * np.sin(theta) * np.sin(inclination)
 
 trail, = ax.plot([], [], [], color="cyan", linewidth=2, alpha=0.7)
 
@@ -212,8 +208,12 @@ def update(frame):
         iss_point.set_color("yellow")
 
 
-    trail.set_data(sat_x[:frame], sat_y[:frame])
-    trail.set_3d_properties(sat_z[:frame])
+    trail_length = 200
+
+    start = max(0, frame - trail_length)
+
+    trail.set_data(sat_x[start:frame], sat_y[start:frame])
+    trail.set_3d_properties(sat_z[start:frame])
 
    
 
@@ -253,13 +253,18 @@ def update(frame):
     ax.view_init(elev=20, azim=frame*0.3)
 
     if camera_mode == "iss":
-        ax.set_xlim(sat_x[frame]-8000, sat_x[frame]+8000)
-        ax.set_ylim(sat_y[frame]-8000, sat_y[frame]+8000)
-        ax.set_zlim(sat_z[frame]-8000, sat_z[frame]+8000)
-    elif camera_mode == "earth":
+        ax.set_xlim(-12000,12000)
+        ax.set_ylim(-12000,12000)
+        ax.set_zlim(-12000,12000)
+
+        ax.view_init(elev=20, azim=frame*0.5)
+
+    elif camera_mode == "overview":
         ax.set_xlim(-20000, 20000)
         ax.set_ylim(-20000, 20000)
         ax.set_zlim(-20000, 20000)
+
+        ax.view_init(elev=25, azim=45)
     
     return iss_point, earth
 
