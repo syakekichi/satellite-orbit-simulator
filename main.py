@@ -173,10 +173,10 @@ def update(frame):
     )
     iss = np.array([sat_x[frame], sat_y[frame], sat_z[frame]])
 
-# 太陽方向への距離
+    # 太陽方向への距離
     proj = np.dot(iss, sun_dir)
 
-# 太陽の反対側にいるか
+    # 太陽の反対側にいるか
     if proj < 0:
 
     # 太陽軸からの距離
@@ -227,6 +227,12 @@ def update(frame):
         linewidth=0,
         antialiased=False
     )
+
+    ax.view_init(elev=20, azim=frame*0.3)
+
+    ax.set_xlim(sat_x[frame]-8000, sat_x[frame]+8000)
+    ax.set_ylim(sat_y[frame]-8000, sat_y[frame]+8000)
+    ax.set_zlim(sat_z[frame]-8000, sat_z[frame]+8000)
 
     return iss_point, earth
 
