@@ -22,6 +22,8 @@ texture_night = np.array(night_img) / 255
 
 # -------- 地球設定 --------
 
+tilt = np.radians(23.4)
+
 earth_radius = 6371
 
 sun_direction = np.array([1,0,0])
@@ -36,6 +38,12 @@ u, v = np.meshgrid(u, v)
 earth_x = earth_radius * np.cos(u) * np.sin(v)
 earth_y = earth_radius * np.sin(u) * np.sin(v)
 earth_z = earth_radius * np.cos(v)
+
+earth_y_tilt = earth_y * np.cos(tilt) - earth_z * np.sin(tilt)
+earth_z_tilt = earth_y * np.sin(tilt) + earth_z * np.cos(tilt)
+
+earth_y = earth_y_tilt
+earth_z = earth_z_tilt
 
 # -------- ISS TLE --------
 
