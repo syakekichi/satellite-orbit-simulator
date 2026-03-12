@@ -45,6 +45,40 @@ earth_z_tilt = earth_y * np.sin(tilt) + earth_z * np.cos(tilt)
 earth_y = earth_y_tilt
 earth_z = earth_z_tilt
 
+# -------- 描画 --------
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+#-----太陽設定-----
+
+sun_distance = 30000
+sun_radius = 2000
+
+u_s = np.linspace(0, 2*np.pi, 30)
+v_s = np.linspace(0, np.pi, 15)
+u_s, v_s = np.meshgrid(u_s, v_s)
+
+sun_x = sun_distance + sun_radius * np.cos(u_s) * np.sin(v_s)
+sun_y = sun_radius * np.sin(u_s) * np.sin(v_s)
+sun_z = sun_radius * np.cos(v_s)
+
+ax.plot_surface(
+    sun_x,
+    sun_y,
+    sun_z,
+    color="yellow",
+    linewidth=0,
+    alpha=0.9
+)
+#太陽周辺の光の点
+ax.scatter(
+    sun_distance,
+    0,
+    0,
+    color="orange",
+    s=2000
+)
 # -------- ISS TLE --------
 
 line1 = "1 25544U 98067A   24060.54791667  .00016717  00000+0  10270-3 0  9001"
@@ -54,7 +88,7 @@ satellite = EarthSatellite(line1, line2, "ISS")
 
 ts = load.timescale()
 
-minutes = np.arange(0,1440,0.5)
+minutes = np.arange(0,1440,0.05)
 times = ts.utc(2024,3,10,minutes)
 
 geocentric = satellite.at(times)
@@ -62,10 +96,7 @@ x, y, z = geocentric.position.km
 
 sat_x, sat_y, sat_z = geocentric.position.km
 
-# -------- 描画 --------
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
 
 # 初期光計算
 normals = np.stack((earth_x, earth_y, earth_z), axis=-1)
