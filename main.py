@@ -89,7 +89,8 @@ earth = ax.plot_surface(
     earth_z,
     facecolors=texture_day[:-1,:-1],
     linewidth=0,
-    antialiased=False
+    antialiased=False,
+    alpha=0.9
 )
 
 # ISS軌道
@@ -103,7 +104,22 @@ iss_point = ax.scatter(
     s=300,
     marker="*"
 )
-trail, = ax.plot([],[],[],color="yellow",linewidth=2)
+orbit_radius = 1.06
+theta = np.linspace(0, 2*np.pi, 200)
+
+orbit_x = orbit_radius * np.cos(theta)
+orbit_y = orbit_radius * np.sin(theta)
+orbit_z = np.zeros_like(theta)
+
+trail, = ax.plot(
+    orbit_x,
+    orbit_y,
+    orbit_z,
+    color="cyan",
+    linewidth=2,
+    linestyle="--",
+    alpha=0.7
+)
 
 limit = 15000
 
