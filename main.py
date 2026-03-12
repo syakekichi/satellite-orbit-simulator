@@ -107,19 +107,13 @@ iss_point = ax.scatter(
 orbit_radius = 1.06
 theta = np.linspace(0, 2*np.pi, 200)
 
-orbit_x = orbit_radius * np.cos(theta)
-orbit_y = orbit_radius * np.sin(theta)
-orbit_z = np.zeros_like(theta)
+inclination = np.radians(51.6)
 
-trail, = ax.plot(
-    orbit_x,
-    orbit_y,
-    orbit_z,
-    color="cyan",
-    linewidth=2,
-    linestyle="--",
-    alpha=0.7
-)
+orbit_x = orbit_radius * np.cos(theta)
+orbit_y = orbit_radius * np.sin(theta) * np.cos(inclination)
+orbit_z = orbit_radius * np.sin(theta) * np.sin(inclination)
+
+trail, = ax.plot([], [], [], color="cyan", linewidth=2, alpha=0.7)
 
 limit = 15000
 
