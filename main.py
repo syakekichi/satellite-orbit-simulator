@@ -7,6 +7,9 @@ from matplotlib.widgets import Button
 import matplotlib.pyplot as plt
 import numpy as np
 
+fig = plt.figure()
+ax = fig.add_subplot(111, projection="3d")
+
 print("program started")
 
 # 地球テクスチャ
@@ -46,10 +49,35 @@ earth_z_tilt = earth_y * np.sin(tilt) + earth_z * np.cos(tilt)
 earth_y = earth_y_tilt
 earth_z = earth_z_tilt
 
+# -------- Earth Shadow Cone (Umbra) --------
+
+shadow_length = 40000
+shadow_radius = 9000
+
+theta = np.linspace(0, 2*np.pi, 40)
+r = np.linspace(0, shadow_radius, 20)
+
+theta, r = np.meshgrid(theta, r)
+
+shadow_x = -r * 0.1
+shadow_y = r * np.cos(theta)
+shadow_z = r * np.sin(theta)
+
+shadow_x = shadow_x - np.linspace(0, shadow_length, shadow_x.shape[0])[:,None]
+
+ax.plot_surface(
+    shadow_x,
+    shadow_y,
+    shadow_z,
+    color="black",
+    alpha=0.15,
+    linewidth=0
+)
+
 #カメラモード
-#normal:通常
-#follow:ISSを追跡
-#free:自由
+ #normal:通常
+ #follow:ISSを追跡
+ #free:自由
 
 camera_mode = "overview"
 
@@ -61,8 +89,6 @@ def iss_view(event):
     global camera_mode
     camera_mode = "iss"
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection="3d")
 
 #ボタン描画
 ax_button1 = plt.axes([0.3,0.05,0.15,0.05])
