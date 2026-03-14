@@ -75,8 +75,8 @@ ax.plot_surface(
 )
 
 # -------- 月設定 --------
-moon_radius = 0.27   # 地球の約1/4
-moon_distance = 6
+moon_radius = 1700
+moon_distance = 30000
 
 u = np.linspace(0, 2*np.pi, 40)
 v = np.linspace(0, np.pi, 20)
@@ -234,8 +234,7 @@ def update(frame):
 
     sun_dir = sun_direction
     
-    moon_radius = 1700
-    moon_distance = 80000
+
         # 月の角度
     moon_angle = frame * 0.01
 
@@ -340,7 +339,7 @@ def update(frame):
         ax.set_ylim(-20000, 20000)
         ax.set_zlim(-20000, 20000)
 
-        ax.view_init(elev=25, azim=45)
+       # ax.view_init(elev=25, azim=45)
     
     print(frame, sat_x[frame])
     return iss_point, earth, trail
