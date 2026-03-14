@@ -74,6 +74,26 @@ ax.plot_surface(
     linewidth=0
 )
 
+# -------- 月設定 --------
+moon_radius = 0.27   # 地球の約1/4
+moon_distance = 6
+
+u = np.linspace(0, 2*np.pi, 40)
+v = np.linspace(0, np.pi, 20)
+
+moon_x = moon_radius * np.outer(np.cos(u), np.sin(v)) + moon_distance
+moon_y = moon_radius * np.outer(np.sin(u), np.sin(v))
+moon_z = moon_radius * np.outer(np.ones(np.size(u)), np.cos(v))
+
+moon = ax.plot_surface(
+    moon_x,
+    moon_y,
+    moon_z,
+    color="lightgray",
+    alpha=1
+)
+
+
 #カメラモード
  #normal:通常
  #follow:ISSを追跡
@@ -139,7 +159,7 @@ satellite = EarthSatellite(line1, line2, "ISS")
 
 ts = load.timescale()
 
-minutes = np.arange(0,1440,0.05)
+minutes = np.arange(0,1440,0.5)
 times = ts.utc(2024,3,10,minutes)
 
 geocentric = satellite.at(times)
@@ -204,11 +224,42 @@ ax.set_box_aspect([1,1,1])
 
 def update(frame):
 
-    global earth
+    ax.set_xlim(-20000, 20000)
+    ax.set_ylim(-20000, 20000)
+    ax.set_zlim(-20000, 20000)
+    ax.set_box_aspect([1,1,1])
+
+    global earth, moon
     angle = frame * 0.02
 
     sun_dir = sun_direction
     
+    moon_radius = 1700
+    moon_distance = 80000
+        # 月の角度
+    moon_angle = frame * 0.01
+
+    moon_x = moon_distance * np.cos(moon_angle)
+    moon_y = moon_distance * np.sin(moon_angle)
+    moon_z = 0
+
+    #moon_radius = 1737
+    #moon_distance = 384400
+
+
+
+
+    u = np.linspace(0, 2*np.pi, 40)
+    v = np.linspace(0, np.pi, 20)
+
+    x = moon_radius * np.outer(np.cos(u), np.sin(v)) + moon_x
+    y = moon_radius * np.outer(np.sin(u), np.sin(v)) + moon_y
+    z = moon_radius * np.outer(np.ones(np.size(u)), np.cos(v)) + moon_z
+
+    moon.remove()
+    moon = ax.plot_surface(x, y, z, color="lightgray")
+
+        #----
 
     iss_point._offsets3d = (
         [sat_x[frame]],
@@ -241,7 +292,6 @@ def update(frame):
     trail.set_data(sat_x[start:frame], sat_y[start:frame])
     trail.set_3d_properties(sat_z[start:frame])
 
-   
 
     cos_a = np.cos(angle)
     sin_a = np.sin(angle)
@@ -276,7 +326,7 @@ def update(frame):
         antialiased=False
     )
 
-    ax.view_init(elev=20, azim=frame*0.3)
+    ax.view_init(elev=20, azim=45)
 
     if camera_mode == "iss":
         ax.set_xlim(-12000,12000)
@@ -292,7 +342,8 @@ def update(frame):
 
         ax.view_init(elev=25, azim=45)
     
-    return iss_point, earth
+    print(frame, sat_x[frame])
+    return iss_point, earth, trail
 
 ani = FuncAnimation(
     fig,
