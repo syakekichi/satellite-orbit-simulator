@@ -159,13 +159,13 @@ satellite = EarthSatellite(line1, line2, "ISS")
 
 ts = load.timescale()
 
-minutes = np.arange(0,1440,0.5)
+minutes = np.arange(0,1440,0.05)
 times = ts.utc(2024,3,10,minutes)
 
 geocentric = satellite.at(times)
 x, y, z = geocentric.position.km
 
-sat_scale = 1.08
+sat_scale = 1.07
 
 sat_x = x * sat_scale
 sat_y = y * sat_scale
@@ -208,11 +208,17 @@ iss_point = ax.scatter(
     sat_z[0],
     color="yellow",
     s=50,
-    marker="*"
+    marker="*",
+    zorder=11
 )
 
 
-trail, = ax.plot([], [], [], color="cyan", linewidth=2, alpha=0.7)
+trail_line, = ax.plot([], [], [], color="cyan", linewidth=1, alpha=0.7, zorder=10)
+
+trail_x = []
+trail_y = []
+trail_z = []
+trail_length = 200
 
 limit = 500000
 
@@ -224,13 +230,19 @@ ax.grid(False)
 ax.set_axis_off()
 ax.set_box_aspect([1,1,1])
 
+if camera_mode == "overview":
+    ax.set_xlim(-12000,12000)
+    ax.set_ylim(-12000,12000)
+    ax.set_zlim(-12000,12000)
+
+    ax.view_init(elev=20, azim=30)
+
 # -------- アニメーション --------
 
 def update(frame):
 
-    ax.set_xlim(-500000, 500000)
-    ax.set_ylim(-500000, 500000)
-    ax.set_zlim(-500000, 500000)
+    frame = frame % len(sat_x)
+
     ax.set_box_aspect([1,1,1])
 
     global earth, moon
@@ -281,14 +293,19 @@ def update(frame):
     else:
         iss_point.set_color("yellow")
 
+    orbit_scale = 1.0
 
-    trail_length = frame
+    trail_x.append(sat_x[frame] * orbit_scale)
+    trail_y.append(sat_y[frame] * orbit_scale)
+    trail_z.append(sat_z[frame] * orbit_scale)
 
-    start = max(0, frame - trail_length)
+    if len(trail_x) > trail_length:
+        trail_x.pop(0)
+        trail_y.pop(0)
+        trail_z.pop(0)
 
-    trail.set_data(sat_x[start:frame], sat_y[start:frame])
-    trail.set_3d_properties(sat_z[start:frame])
-
+    trail_line.set_data(trail_x, trail_y)
+    trail_line.set_3d_properties(trail_z)
 
     cos_a = np.cos(angle)
     sin_a = np.sin(angle)
@@ -331,31 +348,31 @@ def update(frame):
 
         ax.view_init(elev=20, azim=frame*0.5)
 
-    elif camera_mode == "overview":
-        ax.set_xlim(-20000, 20000)
-        ax.set_ylim(-20000, 20000)
-        ax.set_zlim(-20000, 20000)
-
-       # ax.view_init(elev=25, azim=45)
     
-    return iss_point, earth, trail
+    return iss_point, earth, trail_line, moon
 
 ani = FuncAnimation(
     fig,
     update,
     frames=len(sat_x),
-    interval=50,
+    interval=30,
     blit=False
 )
 
 # -------- 星 --------
 
-num_stars = 500
-star_x = np.random.uniform(-50000,50000,num_stars)
-star_y = np.random.uniform(-50000,50000,num_stars)
-star_z = np.random.uniform(-50000,50000,num_stars)
+num_stars = 1000
+star_distance = 300000
 
-ax.scatter(star_x,star_y,star_z,color="white",s=1)
+theta = np.random.uniform(0, 2*np.pi, num_stars)
+phi = np.random.uniform(0, np.pi, num_stars)
+
+star_x = star_distance * np.sin(phi) * np.cos(theta)
+star_y = star_distance * np.sin(phi) * np.sin(theta)
+star_z = star_distance * np.cos(phi)
+
+sizes = np.random.uniform(0.5, 2.5, num_stars)
+ax.scatter(star_x, star_y, star_z, color="white", s=sizes)
 
 ax.set_facecolor("black")
 fig.patch.set_facecolor("black")
