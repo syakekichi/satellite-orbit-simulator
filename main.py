@@ -96,21 +96,23 @@ moon_radius = 1700
 moon_distance = 30000
 
 # 初期描画
-moon_u = np.linspace(0, 2*np.pi, 30)
-moon_v = np.linspace(0, np.pi, 15)
+moon_u = np.linspace(0, 2*np.pi, 80)
+moon_v = np.linspace(0, np.pi, 40)
 moon_x = moon_radius * np.outer(np.cos(moon_u), np.sin(moon_v))
 moon_y = moon_radius * np.outer(np.sin(moon_u), np.sin(moon_v))
 moon_z = moon_radius * np.outer(np.ones(np.size(moon_u)), np.cos(moon_v))
 
 #月のテクスチャ
 moon_img = Image.open("moon_texture.jpg")
+moon_img = moon_img.resize((len(moon_v), len(moon_u)))
 moon_texture = np.array(moon_img) / 255
+moon_texture = np.flipud(moon_texture)
 
 moon = ax.plot_surface(
     moon_x + moon_distance,
     moon_y,
     moon_z,
-    facecolors=moon_texture,
+    facecolors=moon_texture[:-1, :-1],
     rstride=1,
     cstride=1,
     shade=False
@@ -308,7 +310,7 @@ def update(frame):
         moon_x + moon_x_pos,
         moon_y + moon_y_pos,
         moon_z,
-        facecolors=moon_texture,
+        facecolors=moon_texture[:-1, :-1],
         rstride=1,
         cstride=1,
         shade=False
