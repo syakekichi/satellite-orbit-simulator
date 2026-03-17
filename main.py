@@ -213,7 +213,7 @@ iss_point = ax.scatter(
 )
 
 
-trail_line, = ax.plot([], [], [], color="cyan", linewidth=1, alpha=0.7, zorder=10)
+trail_line, = ax.plot([], [], [], color="cyan", linewidth=1, alpha=1, zorder=10)
 
 trail_x = []
 trail_y = []
@@ -277,6 +277,11 @@ def update(frame):
     )
     iss = np.array([sat_x[frame], sat_y[frame], sat_z[frame]])
 
+    if sat_z[frame] < 0:
+        iss_point.set_alpha(0.3)
+    else:
+        iss_point.set_alpha(1.0)
+
     # 太陽方向への距離
     proj = np.dot(iss, sun_dir)
 
@@ -293,6 +298,30 @@ def update(frame):
     else:
         iss_point.set_color("yellow")
 
+
+    visible_x = []
+    visible_y = []
+    visible_z = []
+
+    for x, y, z in zip(trail_x, trail_y, trail_z):
+
+    # 地球中心からの距離
+        r = np.sqrt(x*x + y*y + z*z)
+
+    # 地球の裏なら描画しない
+        if r > earth_radius * 1.01:
+            visible_x.append(x)
+            visible_y.append(y)
+            visible_z.append(z)
+
+    trail_line.set_data(visible_x, visible_y)
+    trail_line.set_3d_properties(visible_z)
+
+    if sat_z[frame] < 0:
+        trail_line.set_alpha(0.2)
+    else:
+        trail_line.set_alpha(0.7)
+
     orbit_scale = 1.0
 
     trail_x.append(sat_x[frame] * orbit_scale)
@@ -303,9 +332,6 @@ def update(frame):
         trail_x.pop(0)
         trail_y.pop(0)
         trail_z.pop(0)
-
-    trail_line.set_data(trail_x, trail_y)
-    trail_line.set_3d_properties(trail_z)
 
     cos_a = np.cos(angle)
     sin_a = np.sin(angle)
