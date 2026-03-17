@@ -95,20 +95,27 @@ ax.plot_surface(
 moon_radius = 1700
 moon_distance = 30000
 
-u = np.linspace(0, 2*np.pi, 40)
-v = np.linspace(0, np.pi, 20)
+# 初期描画
+moon_u = np.linspace(0, 2*np.pi, 30)
+moon_v = np.linspace(0, np.pi, 15)
+moon_x = moon_radius * np.outer(np.cos(moon_u), np.sin(moon_v))
+moon_y = moon_radius * np.outer(np.sin(moon_u), np.sin(moon_v))
+moon_z = moon_radius * np.outer(np.ones(np.size(moon_u)), np.cos(moon_v))
 
-moon_x = moon_radius * np.outer(np.cos(u), np.sin(v)) + moon_distance
-moon_y = moon_radius * np.outer(np.sin(u), np.sin(v))
-moon_z = moon_radius * np.outer(np.ones(np.size(u)), np.cos(v))
+#月のテクスチャ
+moon_img = Image.open("moon_texture.jpg")
+moon_texture = np.array(moon_img) / 255
 
-# 月を scatter で初期描画
-moon_point = ax.scatter(
-    moon_distance, 0, 0,
-    color="lightgray",
-    s=500,  # サイズを調整
-    alpha=1.0
+moon = ax.plot_surface(
+    moon_x + moon_distance,
+    moon_y,
+    moon_z,
+    facecolors=moon_texture,
+    rstride=1,
+    cstride=1,
+    shade=False
 )
+
 
 
 #カメラモード
@@ -282,7 +289,7 @@ def update(frame):
 
     ax.set_box_aspect([1,1,1])
 
-    global earth, moon_point, iss_point, trail_line, atmosphere
+    global earth, moon, iss_point, trail_line, atmosphere
     angle = frame * 0.004
 
     sun_dir = sun_direction
@@ -290,23 +297,22 @@ def update(frame):
 
          # 月の角度
     # 月も滑らかに動かす
+ # update 関数内
     moon_angle = frame * 0.01
-    moon_x_frame = moon_distance * np.cos(moon_angle)
-    moon_y_frame = moon_distance * np.sin(moon_angle)
-    moon_z_frame = 0
-    # scatter の位置を更新
-    moon_point._offsets3d = (
-        [moon_x_frame],
-        [moon_y_frame],
-        [moon_z_frame]
+    moon_x_pos = moon_distance * np.cos(moon_angle)
+    moon_y_pos = moon_distance * np.sin(moon_angle)
+
+    moon.remove()
+
+    moon = ax.plot_surface(
+        moon_x + moon_x_pos,
+        moon_y + moon_y_pos,
+        moon_z,
+        facecolors=moon_texture,
+        rstride=1,
+        cstride=1,
+        shade=False
     )
-
-    u = np.linspace(0, 2*np.pi, 40)
-    v = np.linspace(0, np.pi, 20)
-
-    x = moon_radius * np.outer(np.cos(u), np.sin(v)) + moon_x
-    y = moon_radius * np.outer(np.sin(u), np.sin(v)) + moon_y
-    z = moon_radius * np.outer(np.ones(np.size(u)), np.cos(v)) + moon_z
 
 
         #----
@@ -349,16 +355,16 @@ def update(frame):
     visible_y = []
     visible_z = []
 
-    for x, y, z in zip(trail_x, trail_y, trail_z):
+    for tx, ty, tz in zip(trail_x, trail_y, trail_z):
 
     # 地球中心からの距離
-        r = np.sqrt(x*x + y*y + z*z)
+        r = np.sqrt(tx*tx + ty*ty + tz*tz)
 
     # 地球の裏なら描画しない
         if r > earth_radius * 1.01:
-            visible_x.append(x)
-            visible_y.append(y)
-            visible_z.append(z)
+            visible_x.append(tx)
+            visible_y.append(ty)
+            visible_z.append(tz)
 
     trail_line.set_data(visible_x, visible_y)
     trail_line.set_3d_properties(visible_z)
@@ -431,7 +437,7 @@ def update(frame):
         ax.view_init(elev=20, azim=frame*0.5)
 
     
-    return iss_point, earth, trail_line, moon_point, atmosphere
+    return iss_point, earth, moon, trail_line, atmosphere
 
 ani = FuncAnimation(
     fig,
