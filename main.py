@@ -3,6 +3,9 @@ from mpl_toolkits.mplot3d import Axes3D
 from PIL import Image
 from matplotlib.animation import FuncAnimation
 from matplotlib.widgets import Button
+from scipy.interpolate import interp1d
+from datetime import datetime, timedelta
+from skyfield.api import utc
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -49,6 +52,20 @@ earth_z_tilt = earth_y * np.sin(tilt) + earth_z * np.cos(tilt)
 earth_y = earth_y_tilt
 earth_z = earth_z_tilt
 
+# -------- 大気グロー --------
+
+atmo_radius = earth_radius * 1.08
+
+atmo_x = atmo_radius * np.cos(u) * np.sin(v)
+atmo_y = atmo_radius * np.sin(u) * np.sin(v)
+atmo_z = atmo_radius * np.cos(v)
+
+atmo_y_tilt = atmo_y * np.cos(tilt) - atmo_z * np.sin(tilt)
+atmo_z_tilt = atmo_y * np.sin(tilt) + atmo_z * np.cos(tilt)
+
+atmo_y = atmo_y_tilt
+atmo_z = atmo_z_tilt
+
 # -------- Earth Shadow Cone (Umbra) --------
 
 shadow_length = 200000
@@ -70,7 +87,7 @@ ax.plot_surface(
     shadow_y,
     shadow_z,
     color="black",
-    alpha=0.15,
+    alpha=0.25,
     linewidth=0
 )
 
@@ -85,12 +102,12 @@ moon_x = moon_radius * np.outer(np.cos(u), np.sin(v)) + moon_distance
 moon_y = moon_radius * np.outer(np.sin(u), np.sin(v))
 moon_z = moon_radius * np.outer(np.ones(np.size(u)), np.cos(v))
 
-moon = ax.plot_surface(
-    moon_x,
-    moon_y,
-    moon_z,
+# 月を scatter で初期描画
+moon_point = ax.scatter(
+    moon_distance, 0, 0,
     color="lightgray",
-    alpha=1
+    s=500,  # サイズを調整
+    alpha=1.0
 )
 
 
@@ -159,8 +176,19 @@ satellite = EarthSatellite(line1, line2, "ISS")
 
 ts = load.timescale()
 
-minutes = np.arange(0,1440,0.05)
-times = ts.utc(2024,3,10,minutes)
+# シミュレーション開始日時
+start_time = datetime(2024, 3, 10, 0, 0, 0, tzinfo=utc)
+# 軌道計算（1分刻み）
+
+minutes = np.arange(0, 1440, 1)
+times = ts.utc([start_time + timedelta(minutes=int(m)) for m in minutes])
+geocentric = satellite.at(times)
+x, y, z = geocentric.position.km
+
+# 補間関数
+interp_x = interp1d(np.arange(len(x)), x, kind='cubic')
+interp_y = interp1d(np.arange(len(y)), y, kind='cubic')
+interp_z = interp1d(np.arange(len(z)), z, kind='cubic')
 
 geocentric = satellite.at(times)
 x, y, z = geocentric.position.km
@@ -197,6 +225,15 @@ earth = ax.plot_surface(
     linewidth=0,
     antialiased=False,
     alpha=0.9
+)
+
+atmosphere = ax.plot_surface(
+    atmo_x,
+    atmo_y,
+    atmo_z,
+    color="deepskyblue",
+    alpha=0.15,
+    linewidth=0
 )
 
 # ISS軌道
@@ -245,18 +282,24 @@ def update(frame):
 
     ax.set_box_aspect([1,1,1])
 
-    global earth, moon
+    global earth, moon_point, iss_point, trail_line, atmosphere
     angle = frame * 0.004
 
     sun_dir = sun_direction
     
 
          # 月の角度
+    # 月も滑らかに動かす
     moon_angle = frame * 0.01
-
-    moon_x = moon_distance * np.cos(moon_angle)
-    moon_y = moon_distance * np.sin(moon_angle)
-    moon_z = 0
+    moon_x_frame = moon_distance * np.cos(moon_angle)
+    moon_y_frame = moon_distance * np.sin(moon_angle)
+    moon_z_frame = 0
+    # scatter の位置を更新
+    moon_point._offsets3d = (
+        [moon_x_frame],
+        [moon_y_frame],
+        [moon_z_frame]
+    )
 
     u = np.linspace(0, 2*np.pi, 40)
     v = np.linspace(0, np.pi, 20)
@@ -265,19 +308,22 @@ def update(frame):
     y = moon_radius * np.outer(np.sin(u), np.sin(v)) + moon_y
     z = moon_radius * np.outer(np.ones(np.size(u)), np.cos(v)) + moon_z
 
-    moon.remove()
-    moon = ax.plot_surface(x, y, z, color="lightgray")
 
         #----
 
-    iss_point._offsets3d = (
-        [sat_x[frame]],
-        [sat_y[frame]],
-        [sat_z[frame]]
-    )
-    iss = np.array([sat_x[frame], sat_y[frame], sat_z[frame]])
+        # frame に対応する ISS の滑らか位置を補間
+    sat_x_frame = interp_x(frame)
+    sat_y_frame = interp_y(frame)
+    sat_z_frame = interp_z(frame)
 
-    if sat_z[frame] < 0:
+    iss_point._offsets3d = (
+        [sat_x_frame],
+        [sat_y_frame],
+        [sat_z_frame]
+    )
+    iss = np.array([sat_x_frame, sat_y_frame, sat_z_frame])
+
+    if sat_z_frame < 0:
         iss_point.set_alpha(0.3)
     else:
         iss_point.set_alpha(1.0)
@@ -317,16 +363,16 @@ def update(frame):
     trail_line.set_data(visible_x, visible_y)
     trail_line.set_3d_properties(visible_z)
 
-    if sat_z[frame] < 0:
+    if sat_z_frame < 0:
         trail_line.set_alpha(0.2)
     else:
         trail_line.set_alpha(0.7)
 
     orbit_scale = 1.0
 
-    trail_x.append(sat_x[frame] * orbit_scale)
-    trail_y.append(sat_y[frame] * orbit_scale)
-    trail_z.append(sat_z[frame] * orbit_scale)
+    trail_x.append(sat_x_frame * orbit_scale)
+    trail_y.append(sat_y_frame * orbit_scale)
+    trail_z.append(sat_z_frame * orbit_scale)
 
     if len(trail_x) > trail_length:
         trail_x.pop(0)
@@ -356,7 +402,6 @@ def update(frame):
     )
 
     earth.remove()
-
     earth = ax.plot_surface(
         x_rot,
         y_rot,
@@ -365,6 +410,17 @@ def update(frame):
         linewidth=0,
         antialiased=False
     )
+
+    atmosphere.remove()
+    atmosphere = ax.plot_surface(
+        atmo_x,
+        atmo_y,
+        atmo_z,
+        color="deepskyblue",
+        alpha=0.08,
+        linewidth=0
+    )
+
 
 
     if camera_mode == "iss":
@@ -375,12 +431,12 @@ def update(frame):
         ax.view_init(elev=20, azim=frame*0.5)
 
     
-    return iss_point, earth, trail_line, moon
+    return iss_point, earth, trail_line, moon_point, atmosphere
 
 ani = FuncAnimation(
     fig,
     update,
-    frames=len(sat_x),
+    frames=np.arange(0, len(sat_x), 0.5),
     interval=30,
     blit=False
 )
