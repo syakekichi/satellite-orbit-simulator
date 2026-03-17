@@ -122,8 +122,8 @@ btn2.on_clicked(iss_view)
 
 #-----太陽設定-----
 
-sun_distance = 1500000
-sun_radius = 50000
+sun_distance = 120000
+sun_radius = 8000
 
 u_s = np.linspace(0, 2*np.pi, 30)
 v_s = np.linspace(0, np.pi, 15)
@@ -165,7 +165,11 @@ times = ts.utc(2024,3,10,minutes)
 geocentric = satellite.at(times)
 x, y, z = geocentric.position.km
 
-sat_x, sat_y, sat_z = geocentric.position.km
+sat_scale = 1.08
+
+sat_x = x * sat_scale
+sat_y = y * sat_scale
+sat_z = z * sat_scale
 
 
 
@@ -278,7 +282,7 @@ def update(frame):
         iss_point.set_color("yellow")
 
 
-    trail_length = 200
+    trail_length = frame
 
     start = max(0, frame - trail_length)
 
