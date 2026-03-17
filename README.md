@@ -1,14 +1,39 @@
 # Satellite Orbit Simulator
 
-Python project that simulates satellite orbits using TLE data.
+Python-based 3D orbital simulation of satellites around Earth.
 
-Features
-- orbit propagation
-- satellite trajectory visualization
-- 3D plotting
+
 
 Technology
-- Python
-- Skyfield
-- NumPy
-- Matplotlib
+
+* Python
+* Skyfield
+* NumPy
+* Matplotlib
+
+
+
+Features
+
+\- Real orbital propagation using TLE (Skyfield)
+
+\- Earth day/night texture rendering
+
+\- Satellite eclipse detection
+
+\- Moon orbit simulation
+
+\- Star background
+
+\- Camera control
+
+
+
+Future work
+
+\- Multiple satellites (GPS / BeiDou / Starlink)
+
+\- Ground track visualization
+
+\- WebGL version
+

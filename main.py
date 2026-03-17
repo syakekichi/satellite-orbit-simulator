@@ -51,8 +51,8 @@ earth_z = earth_z_tilt
 
 # -------- Earth Shadow Cone (Umbra) --------
 
-shadow_length = 40000
-shadow_radius = 9000
+shadow_length = 200000
+shadow_radius = earth_radius * 1.2
 
 theta = np.linspace(0, 2*np.pi, 40)
 r = np.linspace(0, shadow_radius, 20)
@@ -122,8 +122,8 @@ btn2.on_clicked(iss_view)
 
 #-----太陽設定-----
 
-sun_distance = 30000
-sun_radius = 2000
+sun_distance = 1500000
+sun_radius = 50000
 
 u_s = np.linspace(0, 2*np.pi, 30)
 v_s = np.linspace(0, np.pi, 15)
@@ -203,14 +203,14 @@ iss_point = ax.scatter(
     sat_y[0],
     sat_z[0],
     color="yellow",
-    s=300,
+    s=50,
     marker="*"
 )
 
 
 trail, = ax.plot([], [], [], color="cyan", linewidth=2, alpha=0.7)
 
-limit = 15000
+limit = 500000
 
 ax.set_xlim(-limit,limit)
 ax.set_ylim(-limit,limit)
@@ -224,29 +224,23 @@ ax.set_box_aspect([1,1,1])
 
 def update(frame):
 
-    ax.set_xlim(-20000, 20000)
-    ax.set_ylim(-20000, 20000)
-    ax.set_zlim(-20000, 20000)
+    ax.set_xlim(-500000, 500000)
+    ax.set_ylim(-500000, 500000)
+    ax.set_zlim(-500000, 500000)
     ax.set_box_aspect([1,1,1])
 
     global earth, moon
-    angle = frame * 0.02
+    angle = frame * 0.004
 
     sun_dir = sun_direction
     
 
-        # 月の角度
+         # 月の角度
     moon_angle = frame * 0.01
 
     moon_x = moon_distance * np.cos(moon_angle)
     moon_y = moon_distance * np.sin(moon_angle)
     moon_z = 0
-
-    #moon_radius = 1737
-    #moon_distance = 384400
-
-
-
 
     u = np.linspace(0, 2*np.pi, 40)
     v = np.linspace(0, np.pi, 20)
@@ -325,7 +319,6 @@ def update(frame):
         antialiased=False
     )
 
-    ax.view_init(elev=20, azim=45)
 
     if camera_mode == "iss":
         ax.set_xlim(-12000,12000)
@@ -341,7 +334,6 @@ def update(frame):
 
        # ax.view_init(elev=25, azim=45)
     
-    print(frame, sat_x[frame])
     return iss_point, earth, trail
 
 ani = FuncAnimation(
