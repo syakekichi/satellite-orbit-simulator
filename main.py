@@ -52,6 +52,39 @@ earth_z_tilt = earth_y * np.sin(tilt) + earth_z * np.cos(tilt)
 earth_y = earth_y_tilt
 earth_z = earth_z_tilt
 
+ #雲テクスチャ
+cloud_img = Image.open("earth_clouds.png").convert("RGBA")
+cloud_img = cloud_img.resize((mesh_w, mesh_h))
+
+texture_cloud = np.array(cloud_img) / 255
+
+cloud_radius = earth_radius * 1.01
+
+cloud_x = cloud_radius * np.cos(u) * np.sin(v)
+cloud_y = cloud_radius * np.sin(u) * np.sin(v)
+cloud_z = cloud_radius * np.cos(v)
+
+cloud_y_tilt = cloud_y * np.cos(tilt) - cloud_z * np.sin(tilt)
+cloud_z_tilt = cloud_y * np.sin(tilt) + cloud_z * np.cos(tilt)
+
+cloud_y = cloud_y_tilt
+cloud_z = cloud_z_tilt
+
+#雲初期描画
+clouds = ax.plot_surface(
+    cloud_x,
+    cloud_y,
+    cloud_z,
+    facecolors=texture_cloud[:-1,:-1],
+    rstride=2,
+    cstride=2,
+    linewidth=0,
+    antialiased=False,
+    shade=False
+)
+
+
+
 # -------- 大気グロー --------
 
 atmo_radius = earth_radius * 1.08
@@ -96,8 +129,8 @@ moon_radius = 1700
 moon_distance = 30000
 
 # 初期描画
-moon_u = np.linspace(0, 2*np.pi, 80)
-moon_v = np.linspace(0, np.pi, 40)
+moon_u = np.linspace(0, 2*np.pi, 40)
+moon_v = np.linspace(0, np.pi, 20)
 moon_x = moon_radius * np.outer(np.cos(moon_u), np.sin(moon_v))
 moon_y = moon_radius * np.outer(np.sin(moon_u), np.sin(moon_v))
 moon_z = moon_radius * np.outer(np.ones(np.size(moon_u)), np.cos(moon_v))
@@ -231,9 +264,11 @@ earth = ax.plot_surface(
     earth_y,
     earth_z,
     facecolors=texture_day[:-1,:-1],
+    rstride=3,
+    cstride=3,
     linewidth=0,
     antialiased=False,
-    alpha=0.9
+    shade=False
 )
 
 atmosphere = ax.plot_surface(
@@ -291,9 +326,9 @@ def update(frame):
 
     ax.set_box_aspect([1,1,1])
 
-    global earth, moon, iss_point, trail_line, atmosphere
+    global earth, moon, iss_point, trail_line, atmosphere, clouds
     angle = frame * 0.004
-
+    cloud_angle = frame * 0.0045
     sun_dir = sun_direction
     
 
@@ -415,8 +450,30 @@ def update(frame):
         y_rot,
         earth_z,
         facecolors=texture_lit[:-1,:-1],
+        rstride=3,
+        cstride=3,
         linewidth=0,
-        antialiased=False
+        antialiased=False,
+        shade=False
+    )
+
+    clouds.remove()
+
+    cos_c = np.cos(cloud_angle)
+    sin_c = np.sin(cloud_angle)
+
+    cloud_x_rot = cloud_x * cos_c - cloud_y * sin_c
+    cloud_y_rot = cloud_x * sin_c + cloud_y * cos_c
+
+    clouds = ax.plot_surface(
+        cloud_x_rot,
+        cloud_y_rot,
+        cloud_z,
+        facecolors=texture_cloud[:-1,:-1],
+        rstride=1,
+        cstride=1,
+        linewidth=0,
+        shade=False
     )
 
     atmosphere.remove()
@@ -439,7 +496,7 @@ def update(frame):
         ax.view_init(elev=20, azim=frame*0.5)
 
     
-    return iss_point, earth, moon, trail_line, atmosphere
+    return iss_point, earth, moon, trail_line, atmosphere, clouds
 
 ani = FuncAnimation(
     fig,
@@ -451,7 +508,7 @@ ani = FuncAnimation(
 
 # -------- 星 --------
 
-num_stars = 1000
+num_stars = 300
 star_distance = 300000
 
 theta = np.random.uniform(0, 2*np.pi, num_stars)
