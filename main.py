@@ -27,6 +27,9 @@ night_img = night_img.resize((mesh_w, mesh_h))
 texture_day = np.array(day_img) / 255
 texture_night = np.array(night_img) / 255
 
+texture_day = np.roll(texture_day, 36, axis=1)
+texture_night = np.roll(texture_night, 36, axis=1)
+
 # -------- 地球設定 --------
 
 tilt = np.radians(23.4)
@@ -146,8 +149,8 @@ moon = ax.plot_surface(
     moon_y,
     moon_z,
     facecolors=moon_texture[:-1, :-1],
-    rstride=1,
-    cstride=1,
+    rstride=2,
+    cstride=2,
     shade=False
 )
 
@@ -468,8 +471,8 @@ def update(frame):
         cloud_y,
         cloud_z,
         facecolors=texture_cloud_rot[:-1,:-1],
-        rstride=1,
-        cstride=1,
+        rstride=2,
+        cstride=2,
         linewidth=0,
         shade=False
     )
