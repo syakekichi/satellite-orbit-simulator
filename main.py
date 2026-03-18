@@ -18,8 +18,8 @@ print("program started")
 # 地球テクスチャ
 day_img = Image.open("earth_texture.jpg")
 night_img = Image.open("earth_night.jpg")
-mesh_w = 140
-mesh_h = 70
+mesh_w = 72
+mesh_h = 36
 
 day_img = day_img.resize((mesh_w, mesh_h))
 night_img = night_img.resize((mesh_w, mesh_h))
@@ -330,7 +330,29 @@ def update(frame):
     angle = frame * 0.004
     cloud_angle = frame * 0.0045
     sun_dir = sun_direction
+    
 
+         # 月の角度
+    # 月も滑らかに動かす
+ # update 関数内
+ #   moon_angle = frame * 0.01
+ #   moon_x_pos = moon_distance * np.cos(moon_angle)
+ #   moon_y_pos = moon_distance * np.sin(moon_angle)
+ 
+    # moon.remove()
+
+ #   moon = ax.plot_surface(
+  #      moon_x + moon_x_pos,
+   #     moon_y + moon_y_pos,
+    #    moon_z,
+     #   facecolors=moon_texture[:-1, :-1],
+      #  rstride=1,
+       # cstride=1,
+        #shade=False
+    #)
+
+
+        #----
 
         # frame に対応する ISS の滑らか位置を補間
     sat_x_frame = interp_x(frame)
