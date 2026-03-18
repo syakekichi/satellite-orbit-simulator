@@ -222,17 +222,27 @@ satellite = EarthSatellite(line1, line2, "ISS")
 
 ts = load.timescale()
 t = ts.now()
-#Chinese Beidou(北斗)
+#Chinese Beidou(北斗) TLE
 beidou = EarthSatellite(
 "1 40749U 15037A   24160.12345678  .00000000  00000-0  00000-0 0  9993",
 "2 40749  55.0000 123.0000 0001000 180.0000  90.0000  1.00270000    01",
 "BEIDOU",
 ts
 )
-
-
 geocentric = beidou.at(t)
 subpoint = wgs84.subpoint(geocentric)
+
+#TiangGong(天宫) TLE
+tiangong = EarthSatellite(
+"1 42063U 17027A   24160.12345678  .00000000  00000-0  00000-0 0  9993",
+"2 42063  51.6416 247.4627 0006703 130.5360 325.0288 15.50256479  1234",
+"TIANGONG",
+ts
+)
+geocentric_tg = tiangong.at(t)
+x_tg, y_tg, z_tg = geocentric_tg.position.km
+
+
 
 # シミュレーション開始日時
 start_time = datetime(2024, 3, 10, 0, 0, 0, tzinfo=utc)
@@ -348,6 +358,20 @@ beidou_trail_y = []
 beidou_trail_z = []
 beidou_trail_line, = ax.plot([],[],[], color="red", linewidth=1)
 
+# 天宫位置(天宫)初期描画
+tiangong_point = ax.scatter(
+    0,0,0,
+    color="lime",
+    s=50,
+    marker="s",
+    zorder=11
+)
+
+tiangong_trail_x = []
+tiangong_trail_y = []
+tiangong_trail_z = []
+tiangong_trail_line, = ax.plot([],[],[], color="blue", linewidth=1)
+
 # -------- アニメーション --------
 
 def update(frame):
@@ -356,8 +380,8 @@ def update(frame):
 
     ax.set_box_aspect([1,1,1])
 
-    global earth, moon, iss_point, trail_line, atmosphere, clouds, beidou_point, beidou_trail_line
-    global trail_x, trail_y, trail_z, beidou_trail_x, beidou_trail_y, beidou_trail_z
+    global earth, moon, iss_point, trail_line, atmosphere, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line
+    global trail_x, trail_y, trail_z, beidou_trail_x, beidou_trail_y, beidou_trail_z, tiangong_trail_x, tiangong_trail_y, tiangong_trail_z
     angle = frame * 0.004
     cloud_angle = frame * 0.0045
     sun_dir = sun_direction
@@ -535,8 +559,27 @@ def update(frame):
     beidou_trail_x[:] = beidou_trail_x[-max_points:]
     beidou_trail_y[:] = beidou_trail_y[-max_points:]
     beidou_trail_z[:] = beidou_trail_z[-max_points:]
+
+    # 天宫位置更新
+    geocentric_tg = tiangong.at(t)
+    subpoint_tg = wgs84.subpoint(geocentric_tg)
+    x_tg_f, y_tg_f, z_tg_f = geocentric_tg.position.km
+    tiangong_point._offsets3d = (
+        [x_tg_f],
+        [y_tg_f],
+        [z_tg_f]
+    )
+    tiangong_trail_x.append(x_tg_f)
+    tiangong_trail_y.append(y_tg_f)
+    tiangong_trail_z.append(z_tg_f)
+    tiangong_trail_line.set_data(tiangong_trail_x, tiangong_trail_y)
+    tiangong_trail_line.set_3d_properties(tiangong_trail_z)
+    max_points = 200
+    tiangong_trail_x[:] = tiangong_trail_x[-max_points:]
+    tiangong_trail_y[:] = tiangong_trail_y[-max_points:]
+    tiangong_trail_z[:] = tiangong_trail_z[-max_points:]
     
-    return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line
+    return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line
 
 ani = FuncAnimation(
     fig,
