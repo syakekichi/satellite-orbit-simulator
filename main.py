@@ -6,6 +6,7 @@ from matplotlib.widgets import Button
 from scipy.interpolate import interp1d
 from datetime import datetime, timedelta
 from skyfield.api import utc
+from skyfield.api import wgs84
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -220,6 +221,18 @@ line2 = "2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.50256479  1234"
 satellite = EarthSatellite(line1, line2, "ISS")
 
 ts = load.timescale()
+t = ts.now()
+#Chinese Beidou(北斗)
+beidou = EarthSatellite(
+"1 40749U 15037A   24160.12345678  .00000000  00000-0  00000-0 0  9993",
+"2 40749  55.0000 123.0000 0001000 180.0000  90.0000  1.00270000    01",
+"BEIDOU",
+ts
+)
+
+
+geocentric = beidou.at(t)
+subpoint = wgs84.subpoint(geocentric)
 
 # シミュレーション開始日時
 start_time = datetime(2024, 3, 10, 0, 0, 0, tzinfo=utc)
@@ -321,6 +334,20 @@ if camera_mode == "overview":
 
     ax.view_init(elev=20, azim=30)
 
+# 北斗衛星位置(Chinese Beidou)初期描画
+beidou_point = ax.scatter(
+    0,0,0,
+    color="red",
+    s=40,
+    marker="o",
+    zorder=12
+)
+
+beidou_trail_x = []
+beidou_trail_y = []
+beidou_trail_z = []
+beidou_trail_line, = ax.plot([],[],[], color="red", linewidth=1)
+
 # -------- アニメーション --------
 
 def update(frame):
@@ -329,7 +356,8 @@ def update(frame):
 
     ax.set_box_aspect([1,1,1])
 
-    global earth, moon, iss_point, trail_line, atmosphere, clouds
+    global earth, moon, iss_point, trail_line, atmosphere, clouds, beidou_point, beidou_trail_line
+    global trail_x, trail_y, trail_z, beidou_trail_x, beidou_trail_y, beidou_trail_z
     angle = frame * 0.004
     cloud_angle = frame * 0.0045
     sun_dir = sun_direction
@@ -485,8 +513,30 @@ def update(frame):
 
         ax.view_init(elev=20, azim=frame*0.5)
 
+
+#北斗衛星位置(Chinese Beidou)
+    t = ts.now() + frame/1440 #1日 = 1440分、１フレーム＝１分
+    geocentric = beidou.at(t)
+    subpoint = wgs84.subpoint(geocentric)
+    x_b, y_b, z_b = geocentric.position.km
+    beidou_point._offsets3d = (
+        [x_b],
+        [y_b],
+        [z_b]
+    )
+    lat = subpoint.latitude.degrees
+    lon = subpoint.longitude.degrees
+    beidou_trail_x.append(x_b)
+    beidou_trail_y.append(y_b)
+    beidou_trail_z.append(z_b)
+    beidou_trail_line.set_data(beidou_trail_x, beidou_trail_y)
+    beidou_trail_line.set_3d_properties(beidou_trail_z)
+    max_points = 200
+    beidou_trail_x[:] = beidou_trail_x[-max_points:]
+    beidou_trail_y[:] = beidou_trail_y[-max_points:]
+    beidou_trail_z[:] = beidou_trail_z[-max_points:]
     
-    return iss_point, earth, moon, trail_line, clouds
+    return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line
 
 ani = FuncAnimation(
     fig,
