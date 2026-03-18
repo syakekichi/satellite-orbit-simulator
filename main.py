@@ -18,8 +18,8 @@ print("program started")
 # 地球テクスチャ
 day_img = Image.open("earth_texture.jpg")
 night_img = Image.open("earth_night.jpg")
-mesh_w = 180
-mesh_h = 90
+mesh_w = 140
+mesh_h = 70
 
 day_img = day_img.resize((mesh_w, mesh_h))
 night_img = night_img.resize((mesh_w, mesh_h))
@@ -38,7 +38,7 @@ sun_direction = sun_direction / np.linalg.norm(sun_direction)
 
 
 
-u = np.linspace(0, 2*np.pi, mesh_w)
+u = np.linspace(0, 2*np.pi, mesh_w, endpoint=False)
 v = np.linspace(0, np.pi, mesh_h)
 u, v = np.meshgrid(u, v)
 
@@ -82,7 +82,7 @@ clouds = ax.plot_surface(
     antialiased=False,
     shade=False
 )
-
+clouds.set_edgecolor("none")
 
 
 # -------- 大気グロー --------
@@ -264,8 +264,8 @@ earth = ax.plot_surface(
     earth_y,
     earth_z,
     facecolors=texture_day[:-1,:-1],
-    rstride=3,
-    cstride=3,
+    rstride=5,
+    cstride=5,
     linewidth=0,
     antialiased=False,
     shade=False
@@ -330,29 +330,7 @@ def update(frame):
     angle = frame * 0.004
     cloud_angle = frame * 0.0045
     sun_dir = sun_direction
-    
 
-         # 月の角度
-    # 月も滑らかに動かす
- # update 関数内
-    moon_angle = frame * 0.01
-    moon_x_pos = moon_distance * np.cos(moon_angle)
-    moon_y_pos = moon_distance * np.sin(moon_angle)
-
-    moon.remove()
-
-    moon = ax.plot_surface(
-        moon_x + moon_x_pos,
-        moon_y + moon_y_pos,
-        moon_z,
-        facecolors=moon_texture[:-1, :-1],
-        rstride=1,
-        cstride=1,
-        shade=False
-    )
-
-
-        #----
 
         # frame に対応する ISS の滑らか位置を補間
     sat_x_frame = interp_x(frame)
@@ -450,8 +428,8 @@ def update(frame):
         y_rot,
         earth_z,
         facecolors=texture_lit[:-1,:-1],
-        rstride=3,
-        cstride=3,
+        rstride=5,
+        cstride=5,
         linewidth=0,
         antialiased=False,
         shade=False
@@ -459,34 +437,21 @@ def update(frame):
 
     clouds.remove()
 
-    cos_c = np.cos(cloud_angle)
-    sin_c = np.sin(cloud_angle)
+    shift = int(frame * 0.2)
 
-    cloud_x_rot = cloud_x * cos_c - cloud_y * sin_c
-    cloud_y_rot = cloud_x * sin_c + cloud_y * cos_c
+    texture_cloud_rot = np.roll(texture_cloud, shift, axis=1)
 
     clouds = ax.plot_surface(
-        cloud_x_rot,
-        cloud_y_rot,
+        cloud_x,
+        cloud_y,
         cloud_z,
-        facecolors=texture_cloud[:-1,:-1],
+        facecolors=texture_cloud_rot[:-1,:-1],
         rstride=1,
         cstride=1,
         linewidth=0,
         shade=False
     )
-
-    atmosphere.remove()
-    atmosphere = ax.plot_surface(
-        atmo_x,
-        atmo_y,
-        atmo_z,
-        color="deepskyblue",
-        alpha=0.08,
-        linewidth=0
-    )
-
-
+    clouds.set_edgecolor("none")
 
     if camera_mode == "iss":
         ax.set_xlim(-12000,12000)
@@ -496,7 +461,7 @@ def update(frame):
         ax.view_init(elev=20, azim=frame*0.5)
 
     
-    return iss_point, earth, moon, trail_line, atmosphere, clouds
+    return iss_point, earth, moon, trail_line, clouds
 
 ani = FuncAnimation(
     fig,
