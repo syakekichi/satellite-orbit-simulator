@@ -331,7 +331,7 @@ trail_length = 200
 iss_label = ax.text(
     sat_x[0],
     sat_y[0],
-    sat_z[0] + 200,
+    sat_z[0] + 300,
     "ISS",
     color="white",
     fontsize=9
@@ -376,7 +376,7 @@ beidou_trail_line, = ax.plot([],[],[], color="red", linewidth=1)
 #beidou label
 
 beidou_label = ax.text(
-    x_b, y_b, z_b + 200,
+    x_b, y_b, z_b + 1500,
     "Beidou",
     color="red",
     fontsize=9
@@ -397,7 +397,7 @@ tiangong_trail_z = []
 tiangong_trail_line, = ax.plot([],[],[], color="blue", linewidth=1)
 #tiangong label
 tiangong_label = ax.text(
-    x_tg, y_tg, z_tg + 200,
+    x_tg, y_tg, z_tg + 300,
     "Tiangong",
     color="lime",
     fontsize=9
@@ -510,7 +510,8 @@ def update(frame):
         trail_y.pop(0)
         trail_z.pop(0)
 
-    iss_label._position3d = (sat_x_frame, sat_y_frame, sat_z_frame + 200)
+    iss_label.set_position((sat_x_frame, sat_y_frame))
+    iss_label.set_3d_properties(sat_z_frame + 300)
 
     cos_a = np.cos(angle)
     sin_a = np.sin(angle)
@@ -595,7 +596,8 @@ def update(frame):
     beidou_trail_y[:] = beidou_trail_y[-max_points:]
     beidou_trail_z[:] = beidou_trail_z[-max_points:]
 
-    beidou_label._position3d = (x_b, y_b, z_b + 200)
+    beidou_label.set_position((x_b, y_b))
+    beidou_label.set_3d_properties(z_b + 1500)
     
     # 天宫位置更新
     geocentric_tg = tiangong.at(t)
@@ -616,7 +618,10 @@ def update(frame):
     tiangong_trail_y[:] = tiangong_trail_y[-max_points:]
     tiangong_trail_z[:] = tiangong_trail_z[-max_points:]
     
-    tiangong_label._position3d = (x_tg_f, y_tg_f, z_tg_f + 200)
+    tiangong_label.set_position((x_tg_f, y_tg_f))
+    tiangong_label.set_3d_properties(z_tg_f + 300)
+
+    fig.canvas.draw_idle()
     
     return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line, iss_label, beidou_label, tiangong_label
 
