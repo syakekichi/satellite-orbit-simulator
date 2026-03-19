@@ -1,39 +1,46 @@
 # Satellite Orbit Simulator
 
+Pythonで作成した3D人工衛星軌道シミュレーター。
+
 Python-based 3D orbital simulation of satellites around Earth.
+
+
 
 
 
 Technology
 
-* Python
-* Skyfield
-* NumPy
-* Matplotlib
+
+
+Python
+
+NumPy
+
+Matplotlib 3D
+
+Skyfield
+
+SciPy
+
+Pillow
+
+
 
 
 
 Features
 
-\- Real orbital propagation using TLE (Skyfield)
+\- Earth 3D rendering with day/night texture
 
-\- Earth day/night texture rendering
+\- Cloud layer
 
-\- Satellite eclipse detection
+\- Atmospheric glow
 
-\- Moon orbit simulation
+\- Satellite orbit calculation using Skyfield
 
-\- Star background
+\- Real-time positions of ISS, Tiangong, Beidou
 
-\- Camera control
+\- Satellite trail visualization
 
-
-
-Future work
-
-\- Multiple satellites (GPS / BeiDou / Starlink)
-
-\- Ground track visualization
-
-\- WebGL version
+\- Camera tracking mode
 

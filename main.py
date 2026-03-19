@@ -7,6 +7,7 @@ from scipy.interpolate import interp1d
 from datetime import datetime, timedelta
 from skyfield.api import utc
 from skyfield.api import wgs84
+from mpl_toolkits.mplot3d import proj3d
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -330,7 +331,7 @@ trail_length = 200
 iss_label = ax.text(
     sat_x[0],
     sat_y[0],
-    sat_z[0],
+    sat_z[0] + 200,
     "ISS",
     color="white",
     fontsize=9
@@ -357,8 +358,11 @@ if camera_mode == "overview":
 
 
 # 北斗衛星位置(Chinese Beidou)初期描画
+geocentric_b = beidou.at(t)
+x_b, y_b, z_b = geocentric_b.position.km
+
 beidou_point = ax.scatter(
-    0,0,0,
+    x_b, y_b, z_b,
     color="red",
     s=40,
     marker="o",
@@ -372,7 +376,7 @@ beidou_trail_line, = ax.plot([],[],[], color="red", linewidth=1)
 #beidou label
 
 beidou_label = ax.text(
-    0, 0, 0,
+    x_b, y_b, z_b + 200,
     "Beidou",
     color="red",
     fontsize=9
@@ -380,7 +384,7 @@ beidou_label = ax.text(
 
 # 天宫位置(天宫)初期描画
 tiangong_point = ax.scatter(
-    0,0,0,
+    x_tg, y_tg, z_tg,
     color="lime",
     s=50,
     marker="s",
@@ -393,7 +397,7 @@ tiangong_trail_z = []
 tiangong_trail_line, = ax.plot([],[],[], color="blue", linewidth=1)
 #tiangong label
 tiangong_label = ax.text(
-    0, 0, 0,
+    x_tg, y_tg, z_tg + 200,
     "Tiangong",
     color="lime",
     fontsize=9
@@ -506,8 +510,7 @@ def update(frame):
         trail_y.pop(0)
         trail_z.pop(0)
 
-    iss_label.set_position((sat_x_frame, sat_y_frame))
-    iss_label.set_3d_properties(sat_z_frame)
+    iss_label._position3d = (sat_x_frame, sat_y_frame, sat_z_frame + 200)
 
     cos_a = np.cos(angle)
     sin_a = np.sin(angle)
@@ -592,8 +595,7 @@ def update(frame):
     beidou_trail_y[:] = beidou_trail_y[-max_points:]
     beidou_trail_z[:] = beidou_trail_z[-max_points:]
 
-    beidou_label.set_position((x_b, y_b))
-    beidou_label.set_3d_properties(z_b)
+    beidou_label._position3d = (x_b, y_b, z_b + 200)
     
     # 天宫位置更新
     geocentric_tg = tiangong.at(t)
@@ -614,8 +616,7 @@ def update(frame):
     tiangong_trail_y[:] = tiangong_trail_y[-max_points:]
     tiangong_trail_z[:] = tiangong_trail_z[-max_points:]
     
-    tiangong_label.set_position((x_tg_f, y_tg_f))
-    tiangong_label.set_3d_properties(z_tg_f)
+    tiangong_label._position3d = (x_tg_f, y_tg_f, z_tg_f + 200)
     
     return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line, iss_label, beidou_label, tiangong_label
 
