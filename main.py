@@ -334,7 +334,8 @@ iss_label = ax.text(
     sat_z[0] + 300,
     "ISS",
     color="white",
-    fontsize=9
+    fontsize=9,
+    zorder=20
 )
 
 
@@ -379,7 +380,8 @@ beidou_label = ax.text(
     x_b, y_b, z_b + 1500,
     "Beidou",
     color="red",
-    fontsize=9
+    fontsize=9,
+    zorder=20
 )
 
 # 天宫位置(天宫)初期描画
@@ -400,7 +402,8 @@ tiangong_label = ax.text(
     x_tg, y_tg, z_tg + 300,
     "Tiangong",
     color="lime",
-    fontsize=9
+    fontsize=9,
+    zorder=20   
 )
 
 
