@@ -351,6 +351,13 @@ trail_x = []
 trail_y = []
 trail_z = []
 trail_length = 200
+
+#Ground Track line 地上軌跡
+ground_track_line, = ax.plot([], [], [], color="yellow", linewidth=3, zorder=25)
+ground_x = []
+ground_y = []
+ground_z = []
+
 # ISSラベル
 iss_label = ax.text(
     sat_x[0],
@@ -435,7 +442,7 @@ tiangong_label = ax.text(
 
 def update(frame):
     sim_time = start_time + timedelta(minutes=frame * sim_speed)
-    
+
     time_label.set_text(
         sim_time.strftime("Simulation Time: %Y-%m-%d %H:%M UTC")
     )
@@ -479,6 +486,32 @@ def update(frame):
     sat_x_frame = interp_x(frame)
     sat_y_frame = interp_y(frame)
     sat_z_frame = interp_z(frame)
+
+    # ---- Ground Track 計算 ----
+
+    # ---- Ground Track (ISS位置から直接計算) ----
+
+    r = np.sqrt(
+        sat_x_frame**2 +
+        sat_y_frame**2 +
+        sat_z_frame**2
+    )
+
+    gx = earth_radius * sat_x_frame / r
+    gy = earth_radius * sat_y_frame / r
+    gz = earth_radius * sat_z_frame / r
+
+    ground_x.append(gx)
+    ground_y.append(gy)
+    ground_z.append(gz)
+
+    max_points = 400
+    ground_x[:] = ground_x[-max_points:]
+    ground_y[:] = ground_y[-max_points:]
+    ground_z[:] = ground_z[-max_points:]
+
+    ground_track_line.set_data(ground_x, ground_y)
+    ground_track_line.set_3d_properties(ground_z)
 
     # 高度計算
     altitude = np.linalg.norm([sat_x_frame, sat_y_frame, sat_z_frame]) - earth_radius
@@ -664,7 +697,7 @@ def update(frame):
 
     fig.canvas.draw_idle()
     
-    return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line, iss_label, beidou_label, tiangong_label
+    return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line, iss_label, beidou_label, tiangong_label, ground_track_line
 
 ani = FuncAnimation(
     fig,
