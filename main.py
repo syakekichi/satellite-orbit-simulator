@@ -411,8 +411,14 @@ tiangong_label = ax.text(
 
 def update(frame):
 
-    frame = frame % len(sat_x)
+    sim_time = start_time + timedelta(minutes=frame)
 
+    time_label.set_text(
+        sim_time.strftime("Simulation Time: %Y-%m-%d %H:%M UTC")
+    )
+
+
+    frame = frame % len(sat_x)
     ax.set_box_aspect([1,1,1])
 
     global earth, moon, iss_point, trail_line, atmosphere, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line
@@ -449,6 +455,14 @@ def update(frame):
     sat_x_frame = interp_x(frame)
     sat_y_frame = interp_y(frame)
     sat_z_frame = interp_z(frame)
+
+    # 高度計算
+    altitude = np.linalg.norm([sat_x_frame, sat_y_frame, sat_z_frame]) - earth_radius
+
+    # 高度表示
+    altitude_label.set_text(
+        f"ISS Altitude: {altitude:.0f} km"
+    )
 
     iss_point._offsets3d = (
         [sat_x_frame],
@@ -653,5 +667,27 @@ ax.scatter(star_x, star_y, star_z, color="white", s=sizes)
 
 ax.set_facecolor("black")
 fig.patch.set_facecolor("black")
+
+time_label = fig.text(
+    0.02,
+    0.95,
+    "",
+    color="white",
+    fontsize=12
+)
+speed_label = fig.text(
+    0.02,
+    0.91,
+    "Speed: 1000x",
+    color="cyan",
+    fontsize=10
+)
+altitude_label = fig.text(
+    0.02,
+    0.87,
+    "",
+    color="cyan",
+    fontsize=11
+)
 
 plt.show()
