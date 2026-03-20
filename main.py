@@ -164,6 +164,7 @@ moon = ax.plot_surface(
  #free:自由
 
 camera_mode = "overview"
+sim_speed = 1
 
 def earth_view(event):
     global camera_mode
@@ -173,10 +174,33 @@ def iss_view(event):
     global camera_mode
     camera_mode = "iss"
 
+def speed_1(event):
+    global sim_speed
+    sim_speed = 1
+
+def speed_10(event):
+    global sim_speed
+    sim_speed = 10
+
+def speed_100(event):
+    global sim_speed
+    sim_speed = 100
+
 
 #ボタン描画
 ax_button1 = plt.axes([0.3,0.05,0.15,0.05])
 ax_button2 = plt.axes([0.55,0.05,0.15,0.05])
+ax_button3 = plt.axes([0.75,0.05,0.07,0.05])
+ax_button4 = plt.axes([0.83,0.05,0.07,0.05])
+ax_button5 = plt.axes([0.91,0.05,0.07,0.05])
+
+btn3 = Button(ax_button3,"1x")
+btn4 = Button(ax_button4,"10x")
+btn5 = Button(ax_button5,"100x")
+
+btn3.on_clicked(speed_1)
+btn4.on_clicked(speed_10)
+btn5.on_clicked(speed_100)
 
 btn1 = Button(ax_button1,"Overview")
 btn2 = Button(ax_button2,"Track ISS")
@@ -410,13 +434,13 @@ tiangong_label = ax.text(
 # -------- アニメーション --------
 
 def update(frame):
-
-    sim_time = start_time + timedelta(minutes=frame)
-
+    sim_time = start_time + timedelta(minutes=frame * sim_speed)
+    
     time_label.set_text(
         sim_time.strftime("Simulation Time: %Y-%m-%d %H:%M UTC")
     )
 
+    speed_label.set_text(f"Speed: {sim_speed}x")
 
     frame = frame % len(sat_x)
     ax.set_box_aspect([1,1,1])
@@ -592,7 +616,7 @@ def update(frame):
 
 
 #北斗衛星位置(Chinese Beidou)
-    t = ts.now() + frame/1440 #1日 = 1440分、１フレーム＝１分
+    t = ts.now() + (frame * sim_speed)/1440 #1日 = 1440分、１フレーム＝１分
     geocentric = beidou.at(t)
     subpoint = wgs84.subpoint(geocentric)
     x_b, y_b, z_b = geocentric.position.km
