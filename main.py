@@ -267,6 +267,44 @@ ts
 geocentric_tg = tiangong.at(t)
 x_tg, y_tg, z_tg = geocentric_tg.position.km
 
+#GPS TLE
+gps_sats = [
+EarthSatellite(
+"1 24876U 97035A   24160.12345678  .00000000  00000-0  00000-0 0  9991",
+"2 24876  55.0000 100.0000 0001000 0.0000 0.0000 2.00560000    01",
+"GPS1",
+ts),
+
+EarthSatellite(
+"1 25933U 99055A   24160.12345678  .00000000  00000-0  00000-0 0  9992",
+"2 25933  55.0000 160.0000 0001000 0.0000 0.0000 2.00560000    02",
+"GPS2",
+ts),
+
+EarthSatellite(
+"1 27663U 03005A   24160.12345678  .00000000  00000-0  00000-0 0  9993",
+"2 27663  55.0000 220.0000 0001000 0.0000 0.0000 2.00560000    03",
+"GPS3",
+ts),
+
+EarthSatellite(
+"1 28474U 04045A   24160.12345678  .00000000  00000-0  00000-0 0  9994",
+"2 28474  55.0000 280.0000 0001000 0.0000 0.0000 2.00560000    04",
+"GPS4",
+ts),
+
+EarthSatellite(
+"1 29486U 06042A   24160.12345678  .00000000  00000-0  00000-0 0  9995",
+"2 29486  55.0000 340.0000 0001000 0.0000 0.0000 2.00560000    05",
+"GPS5",
+ts),
+
+EarthSatellite(
+"1 36585U 10022A   24160.12345678  .00000000  00000-0  00000-0 0  9996",
+"2 36585  55.0000 40.0000 0001000 0.0000 0.0000 2.00560000    06",
+"GPS6",
+ts)
+]
 
 
 # シミュレーション開始日時
@@ -339,7 +377,7 @@ iss_point = ax.scatter(
     sat_y[0],
     sat_z[0],
     color="yellow",
-    s=50,
+    s=10,
     marker="*",
     zorder=11
 )
@@ -353,7 +391,7 @@ trail_z = []
 trail_length = 200
 
 #Ground Track line 地上軌跡
-ground_track_line, = ax.plot([], [], [], color="yellow", linewidth=3, zorder=25)
+ground_track_line, = ax.plot([], [], [], color="yellow", linewidth=2, zorder=25)
 ground_x = []
 ground_y = []
 ground_z = []
@@ -436,6 +474,47 @@ tiangong_label = ax.text(
     fontsize=9,
     zorder=20   
 )
+
+#GPS 初期描画
+gps_points = []
+gps_trails = []
+gps_trail_x = []
+gps_trail_y = []
+gps_trail_z = []
+gps_labels = []
+
+for sat in gps_sats:
+
+    geocentric = sat.at(t)
+    xg, yg, zg = geocentric.position.km
+
+    point = ax.scatter(
+        xg, yg, zg,
+        color="orange",
+        s=20,
+        marker="o",
+        zorder=10
+    )
+
+    label = ax.text(
+        xg, yg, zg,
+        sat.name,
+        color="orange",
+        fontsize=8
+    )
+
+    trail_line, = ax.plot([],[],[], color="orange", linewidth=1)
+
+    gps_points.append(point)
+    gps_trails.append(trail_line)
+    gps_labels.append(label)
+
+    gps_trail_x.append([])
+    gps_trail_y.append([])
+    gps_trail_z.append([])
+
+   
+
 
 
 # -------- アニメーション --------
@@ -695,9 +774,33 @@ def update(frame):
     tiangong_label.set_position((x_tg_f, y_tg_f))
     tiangong_label.set_3d_properties(z_tg_f + 300)
 
+#GPS
+    for i, sat in enumerate(gps_sats):
+
+        geocentric = sat.at(t)
+        xg, yg, zg = geocentric.position.km
+
+        gps_points[i]._offsets3d = ([xg],[yg],[zg])
+
+        gps_trail_x[i].append(xg)
+        gps_trail_y[i].append(yg)
+        gps_trail_z[i].append(zg)
+
+        max_points = 200
+        gps_trail_x[i] = gps_trail_x[i][-max_points:]
+        gps_trail_y[i] = gps_trail_y[i][-max_points:]
+        gps_trail_z[i] = gps_trail_z[i][-max_points:]
+
+        gps_trails[i].set_data(gps_trail_x[i], gps_trail_y[i])
+        gps_trails[i].set_3d_properties(gps_trail_z[i])
+
+        gps_labels[i].set_position((xg, yg))
+        gps_labels[i].set_3d_properties(zg)
+
     fig.canvas.draw_idle()
     
-    return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line, iss_label, beidou_label, tiangong_label, ground_track_line
+    return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line, tiangong_point, 
+    tiangong_trail_line, iss_label, beidou_label, tiangong_label, ground_track_line, gps_points, gps_trails, gps_labels
 
 ani = FuncAnimation(
     fig,
