@@ -313,6 +313,10 @@ line2 = "2 41836 0.0181 195.9127 0001481 198.3287 3.9124 1.00270475 34237"
 
 himawari9 = EarthSatellite(line1, line2, "Himawari-9", ts)
 
+#Starlink TLE
+starlinks = load.tle_file("starlink.txt")
+print("Loaded", len(starlinks), "Starlink satellites")
+starlinks = starlinks[:100]
 
 
 
@@ -547,8 +551,12 @@ himawari9_label = ax.text(
     zorder=20
 )
 
+#Starlink初期描画
+starlink_points = ax.scatter([], [], [], color="cyan", s=5)
 
-   
+starlink_x = []
+starlink_y = []
+starlink_z = []
 
 
 
@@ -852,11 +860,26 @@ def update(frame):
     himawari9_label.set_position((xh, yh))
     himawari9_label.set_3d_properties(zh + 1500)
 
+    #Starlink
+    starlink_x.clear()
+    starlink_y.clear()
+    starlink_z.clear()
+
+    for i, sat in enumerate(starlinks):
+        geocentric = sat.at(t)
+        xs, ys, zs = geocentric.position.km
+
+        starlink_x.append(xs)
+        starlink_y.append(ys)
+        starlink_z.append(zs)
+
+    starlink_points._offsets3d = (starlink_x, starlink_y, starlink_z)
+
     fig.canvas.draw_idle()
     
     return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line, tiangong_point, 
     tiangong_trail_line, iss_label, beidou_label, tiangong_label, ground_track_line, gps_points, gps_trails, 
-    gps_labels, himawari9_point, himawari9_trail_line, himawari9_label
+    gps_labels, himawari9_point, himawari9_trail_line, himawari9_label, starlink_points
 
 ani = FuncAnimation(
     fig,
