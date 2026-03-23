@@ -306,6 +306,15 @@ EarthSatellite(
 ts)
 ]
 
+#Himawari-9 TLE
+# Himawari-9
+line1 = "1 41836U 16064A   26071.24307837 -.00000274 00000-0 00000-0 0 9993"
+line2 = "2 41836 0.0181 195.9127 0001481 198.3287 3.9124 1.00270475 34237"
+
+himawari9 = EarthSatellite(line1, line2, "Himawari-9", ts)
+
+
+
 
 # シミュレーション開始日時
 start_time = datetime(2024, 3, 10, 0, 0, 0, tzinfo=utc)
@@ -513,6 +522,32 @@ for sat in gps_sats:
     gps_trail_y.append([])
     gps_trail_z.append([])
 
+#Himawari-9初期描画
+geocentric_him = himawari9.at(t)
+xh, yh, zh = geocentric_him.position.km
+
+himawari9_point = ax.scatter(
+    xh, yh, zh,
+    color="cyan",
+    s=30,
+    marker="o",
+    zorder=13
+)
+
+himawari9_trail_x = []
+himawari9_trail_y = []
+himawari9_trail_z = []
+himawari9_trail_line, = ax.plot([],[],[], color="cyan", linewidth=1)
+#himawari9 label
+himawari9_label = ax.text(
+    xh, yh, zh + 1500,
+    "Himawari-9",
+    color="cyan",
+    fontsize=9,
+    zorder=20
+)
+
+
    
 
 
@@ -712,8 +747,8 @@ def update(frame):
         cloud_y,
         cloud_z,
         facecolors=texture_cloud_rot[:-1,:-1],
-        rstride=2,
-        cstride=2,
+        rstride=1,
+        cstride=1,
         linewidth=0,
         shade=False
     )
@@ -774,7 +809,7 @@ def update(frame):
     tiangong_label.set_position((x_tg_f, y_tg_f))
     tiangong_label.set_3d_properties(z_tg_f + 300)
 
-#GPS
+    #GPS
     for i, sat in enumerate(gps_sats):
 
         geocentric = sat.at(t)
@@ -797,10 +832,31 @@ def update(frame):
         gps_labels[i].set_position((xg, yg))
         gps_labels[i].set_3d_properties(zg)
 
+
+    # Himawari-9
+    geocentric_him = himawari9.at(t)
+    xh, yh, zh = geocentric_him.position.km
+
+    himawari9_point._offsets3d = ([xh],[yh],[zh])
+
+    himawari9_trail_x.append(xh)
+    himawari9_trail_y.append(yh)
+    himawari9_trail_z.append(zh)
+    himawari9_trail_line.set_data(himawari9_trail_x, himawari9_trail_y)
+    himawari9_trail_line.set_3d_properties(himawari9_trail_z)
+    max_points = 200
+    himawari9_trail_x[:] = himawari9_trail_x[-max_points:]
+    himawari9_trail_y[:] = himawari9_trail_y[-max_points:]
+    himawari9_trail_z[:] = himawari9_trail_z[-max_points:]
+
+    himawari9_label.set_position((xh, yh))
+    himawari9_label.set_3d_properties(zh + 1500)
+
     fig.canvas.draw_idle()
     
     return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line, tiangong_point, 
-    tiangong_trail_line, iss_label, beidou_label, tiangong_label, ground_track_line, gps_points, gps_trails, gps_labels
+    tiangong_trail_line, iss_label, beidou_label, tiangong_label, ground_track_line, gps_points, gps_trails, 
+    gps_labels, himawari9_point, himawari9_trail_line, himawari9_label
 
 ani = FuncAnimation(
     fig,
