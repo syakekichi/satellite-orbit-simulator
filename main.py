@@ -63,6 +63,8 @@ cloud_img = Image.open("earth_clouds.png").convert("RGBA")
 cloud_img = cloud_img.resize((mesh_w, mesh_h))
 
 texture_cloud = np.array(cloud_img) / 255
+# 雲を薄くする
+texture_cloud[:,:,3] *= 0.35
 
 cloud_radius = earth_radius * 1.01
 
@@ -554,11 +556,13 @@ himawari9_label = ax.text(
 
 #Starlink初期描画
 starlink_planes = defaultdict(list)
+starlink_plane_ids = []
 
 for sat in starlinks:
     raan = sat.model.nodeo  # RAAN
     plane_id = int(raan // 5)  # 5度ごとにグループ化
     starlink_planes[plane_id].append(sat)
+    starlink_plane_ids.append(plane_id)
 
 plane_colors = [
 "cyan",
@@ -581,6 +585,12 @@ for i, plane in enumerate(starlink_planes):
     starlink_plane_points[plane] = ax.scatter(
         [], [], [], color=color, s=6
     )
+#starlink label
+starlink_labels = []
+
+for i in range(len(starlinks)):
+    label = ax.text(0, 0, 0, "", color="white", fontsize=6)
+    starlink_labels.append(label)
 
 
 # -------- アニメーション --------
@@ -903,13 +913,34 @@ def update(frame):
             zs.append(z)
 
         starlink_plane_points[plane]._offsets3d = (xs, ys, zs)
+    
+    for i, sat in enumerate(starlinks):
+        geocentric = sat.at(t)
+        xs, ys, zs = geocentric.position.km
+
+        plane_id = starlink_plane_ids[i]
+
+    # ラベル（最初の10機だけ表示）
+        if i < 10:
+            starlink_labels[i].set_position((xs, ys))
+            starlink_labels[i].set_3d_properties(zs + 200)
+            starlink_labels[i].set_text(f"SL-{i+1}")
+    
+    for i in range(10, len(starlink_labels)):
+        starlink_labels[i].set_text("")
 
 
     fig.canvas.draw_idle()
     
-    return iss_point, earth, moon, trail_line, clouds, beidou_point, beidou_trail_line, tiangong_point, 
-    tiangong_trail_line, iss_label, beidou_label, tiangong_label, ground_track_line, gps_points, gps_trails, 
-    gps_labels, himawari9_point, himawari9_trail_line, himawari9_label, starlink_points
+    return (
+    iss_point, earth, moon, trail_line, clouds,
+    beidou_point, beidou_trail_line,
+    tiangong_point, tiangong_trail_line,
+    iss_label, beidou_label, tiangong_label,
+    ground_track_line,
+    gps_points, gps_trails, gps_labels,
+    himawari9_point, himawari9_trail_line, himawari9_label
+    )
 
 ani = FuncAnimation(
     fig,
