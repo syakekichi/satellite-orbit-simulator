@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from skyfield.api import utc
 from skyfield.api import wgs84
 from mpl_toolkits.mplot3d import proj3d
+from collections import defaultdict
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -548,16 +549,38 @@ himawari9_label = ax.text(
     "Himawari-9",
     color="cyan",
     fontsize=9,
-    zorder=20
+    rotation=0
 )
 
 #Starlink初期描画
-starlink_points = ax.scatter([], [], [], color="cyan", s=5)
+starlink_planes = defaultdict(list)
 
-starlink_x = []
-starlink_y = []
-starlink_z = []
+for sat in starlinks:
+    raan = sat.model.nodeo  # RAAN
+    plane_id = int(raan // 5)  # 5度ごとにグループ化
+    starlink_planes[plane_id].append(sat)
 
+plane_colors = [
+"cyan",
+"blue",
+"purple",
+"green",
+"orange",
+"red",
+"magenta",
+"yellow"
+]
+
+ #scatterを軌道面ごとに作成
+starlink_plane_points = {}
+
+for i, plane in enumerate(starlink_planes):
+
+    color = plane_colors[i % len(plane_colors)]
+
+    starlink_plane_points[plane] = ax.scatter(
+        [], [], [], color=color, s=6
+    )
 
 
 # -------- アニメーション --------
@@ -708,6 +731,7 @@ def update(frame):
 
     iss_label.set_position((sat_x_frame, sat_y_frame))
     iss_label.set_3d_properties(sat_z_frame + 300)
+    iss_label.set_rotation(0)
 
     cos_a = np.cos(angle)
     sin_a = np.sin(angle)
@@ -794,6 +818,7 @@ def update(frame):
 
     beidou_label.set_position((x_b, y_b))
     beidou_label.set_3d_properties(z_b + 1500)
+    beidou_label.set_rotation(0)
     
     # 天宫位置更新
     geocentric_tg = tiangong.at(t)
@@ -816,7 +841,7 @@ def update(frame):
     
     tiangong_label.set_position((x_tg_f, y_tg_f))
     tiangong_label.set_3d_properties(z_tg_f + 300)
-
+    tiangong_label.set_rotation(0)
     #GPS
     for i, sat in enumerate(gps_sats):
 
@@ -859,21 +884,26 @@ def update(frame):
 
     himawari9_label.set_position((xh, yh))
     himawari9_label.set_3d_properties(zh + 1500)
+    himawari9_label.set_rotation(0)
 
     #Starlink
-    starlink_x.clear()
-    starlink_y.clear()
-    starlink_z.clear()
+    for plane, sats in starlink_planes.items():
 
-    for i, sat in enumerate(starlinks):
-        geocentric = sat.at(t)
-        xs, ys, zs = geocentric.position.km
+        xs = []
+        ys = []
+        zs = []
 
-        starlink_x.append(xs)
-        starlink_y.append(ys)
-        starlink_z.append(zs)
+        for sat in sats:
 
-    starlink_points._offsets3d = (starlink_x, starlink_y, starlink_z)
+            geocentric = sat.at(t)
+            x, y, z = geocentric.position.km
+
+            xs.append(x)
+            ys.append(y)
+            zs.append(z)
+
+        starlink_plane_points[plane]._offsets3d = (xs, ys, zs)
+
 
     fig.canvas.draw_idle()
     
