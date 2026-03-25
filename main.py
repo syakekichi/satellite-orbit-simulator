@@ -368,7 +368,7 @@ earth = ax.plot_surface(
     earth_x,
     earth_y,
     earth_z,
-    facecolors=texture_day[:-1,:-1],
+    facecolors=texture_lit[:-1,:-1],
     rstride=5,
     cstride=5,
     linewidth=0,
@@ -593,6 +593,56 @@ for i in range(len(starlinks)):
     starlink_labels.append(label)
 
 
+# -------- Cities --------
+
+cities = {
+    "Tokyo": (35.6762, 139.6503),
+    "New York": (40.7128, -74.0060),
+    "London": (51.5074, -0.1278),
+    "Beijing": (39.9042, 116.4074),
+    "Sydney": (-33.8688, 151.2093)
+}
+
+city_points = []
+city_labels = []
+
+for name, (lat, lon) in cities.items():
+
+    lat = np.radians(lat)
+    lon = np.radians(lon)
+
+    x = earth_radius * np.cos(lat) * np.cos(lon)
+    y = earth_radius * np.cos(lat) * np.sin(lon)
+    z = earth_radius * np.sin(lat)
+
+    point = ax.scatter(
+        x, y, z,
+        color="white",
+        s=20,
+        marker="o",
+        zorder=30
+    )
+
+    label = ax.text(
+        x, y, z + 300,
+        name,
+        color="white",
+        fontsize=8,
+        zorder=30
+    )
+
+    city_points.append(point)
+    city_labels.append(label)
+
+# Tokyo test marker
+tokyo_marker = ax.scatter(
+    0,0,0,
+    color="red",
+    s=80,
+    marker="o",
+    zorder=50
+)
+
 # -------- アニメーション --------
 
 def update(frame):
@@ -609,8 +659,9 @@ def update(frame):
 
     global earth, moon, iss_point, trail_line, atmosphere, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line
     global trail_x, trail_y, trail_z, beidou_trail_x, beidou_trail_y, beidou_trail_z, tiangong_trail_x, tiangong_trail_y, tiangong_trail_z
-    global iss_label, beidou_label, tiangong_label
-    angle = frame * 0.004
+    global iss_label, beidou_label, tiangong_label, tokyo_marker
+    angle = frame * 0.03
+    shift = int(angle * 100)
     cloud_angle = frame * 0.0045
     sun_dir = sun_direction
     
@@ -746,6 +797,7 @@ def update(frame):
     cos_a = np.cos(angle)
     sin_a = np.sin(angle)
 
+    # 地球自転
     x_rot = earth_x * cos_a - earth_y * sin_a
     y_rot = earth_x * sin_a + earth_y * cos_a
 
@@ -760,11 +812,54 @@ def update(frame):
 
     light = np.clip(sun_dot,0,1)
 
+    shift = int(frame * 0.4)
+
+    texture_day_rot = np.roll(texture_day, shift, axis=1)
+    texture_night_rot = np.roll(texture_night, shift, axis=1)
+
     texture_lit = (
-        texture_day * light[:,:,None] +
-        texture_night * (1 - light)[:,:,None] * 0.6
+        texture_day_rot * light[:,:,None] +
+        texture_night_rot * (1 - light)[:,:,None] * 0.6
     )
 
+    # ---- city rotation ----
+
+    for i, (name, (lat, lon)) in enumerate(cities.items()):
+
+        lat = np.radians(lat)
+        lon = np.radians(lon)
+
+        lon_rot = lon + angle
+
+        x = earth_radius * np.cos(lat) * np.cos(lon_rot)
+        y = earth_radius * np.cos(lat) * np.sin(lon_rot)
+        z = earth_radius * np.sin(lat)
+
+        # 地球の傾きを適用
+        y_tilt = y * np.cos(tilt) - z * np.sin(tilt)
+        z_tilt = y * np.sin(tilt) + z * np.cos(tilt)
+
+        city_points[i]._offsets3d = ([x],[y_tilt],[z_tilt])
+
+        city_labels[i].set_position((x, y_tilt))
+        city_labels[i].set_3d_properties(z_tilt + 300)
+
+    # Tokyo marker
+    lat = np.radians(35.6762)
+    lon = np.radians(139.6503)
+
+    lon_rot = lon + angle
+
+    tx = earth_radius * np.cos(lat) * np.cos(lon_rot)
+    ty = earth_radius * np.cos(lat) * np.sin(lon_rot)
+    tz = earth_radius * np.sin(lat)
+
+    ty_tilt = ty * np.cos(tilt) - tz * np.sin(tilt)
+    tz_tilt = ty * np.sin(tilt) + tz * np.cos(tilt)
+
+    tokyo_marker._offsets3d = ([tx],[ty_tilt],[tz_tilt])
+  
+    #
     earth.remove()
     earth = ax.plot_surface(
         x_rot,
@@ -784,9 +879,12 @@ def update(frame):
 
     texture_cloud_rot = np.roll(texture_cloud, shift, axis=1)
 
+    cloud_x_rot = cloud_x * cos_a - cloud_y * sin_a
+    cloud_y_rot = cloud_x * sin_a + cloud_y * cos_a
+
     clouds = ax.plot_surface(
-        cloud_x,
-        cloud_y,
+        cloud_x_rot,
+        cloud_y_rot,
         cloud_z,
         facecolors=texture_cloud_rot[:-1,:-1],
         rstride=1,
@@ -938,7 +1036,7 @@ def update(frame):
     tiangong_point, tiangong_trail_line,
     iss_label, beidou_label, tiangong_label,
     ground_track_line,
-    gps_points, gps_trails, gps_labels,
+    *gps_points, *gps_trails, *gps_labels,
     himawari9_point, himawari9_trail_line, himawari9_label
     )
 
