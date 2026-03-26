@@ -36,14 +36,48 @@ texture_night = np.roll(texture_night, 36, axis=1)
 # -------- 地球設定 --------
 
 tilt = np.radians(23.4)
-
 earth_radius = 6371
+
 axis = np.array([
     0,
     np.cos(tilt),
     np.sin(tilt)
 ])
 
+# Axis length 地軸
+axis_length = earth_radius * 1.5
+
+axis_line, = ax.plot(
+        [0, axis[0]*axis_length],
+        [0, axis[1]*axis_length],
+        [0, axis[2]*axis_length],
+        color="brown",
+        linewidth=2
+    )
+
+#赤道　
+theta = np.linspace(0, 2*np.pi, 200)
+radius_eq = earth_radius * 1.02
+
+v1 = np.cross(axis, [1,0,0])
+v1 = v1 / np.linalg.norm(v1)
+
+v2 = np.cross(axis, v1)
+
+x_eq = radius_eq * (v1[0]*np.cos(theta) + v2[0]*np.sin(theta))
+y_eq = radius_eq * (v1[1]*np.cos(theta) + v2[1]*np.sin(theta))
+z_eq = radius_eq * (v1[2]*np.cos(theta) + v2[2]*np.sin(theta))
+
+equator_line, = ax.plot(
+    x_eq,
+    y_eq,
+    z_eq,
+    color="red",
+    linewidth=2,
+    zorder=50
+)
+
+# -------- 太陽光線 --------
 
 sun_direction = np.array([1,0,0])
 sun_direction = sun_direction / np.linalg.norm(sun_direction)
@@ -166,7 +200,7 @@ moon = ax.plot_surface(
  #free:自由
 
 camera_mode = "overview"
-sim_speed = 1000
+sim_speed = 10
 
 def earth_view(event):
     global camera_mode
@@ -591,38 +625,7 @@ for i in range(len(starlinks)):
     label = ax.text(0, 0, 0, "", color="white", fontsize=6)
     starlink_labels.append(label)
 
- # Axis length 地軸
-    axis_length = earth_radius * 1.5
-    x_axis = [0, 0]
-    y_axis = [-axis_length * np.cos(tilt), axis_length * np.cos(tilt)]
-    z_axis = [-axis_length * np.sin(tilt), axis_length * np.sin(tilt)]
 
-    axis_line, =ax.plot(
-        [0, 0],
-        [-axis_length*np.cos(tilt), axis_length*np.cos(tilt)],
-        [-axis_length*np.sin(tilt), axis_length*np.sin(tilt)],
-        color="brown",
-        linewidth=1
-    )
-
-    #赤道　
-    theta = np.linspace(0, 2*np.pi, 200)
-    radius_eq = earth_radius * 1.01
-
-    x_eq = radius_eq * np.cos(theta)
-    y_eq = radius_eq * np.sin(theta)
-    z_eq = np.zeros_like(theta)
-
-    x_eq, y_eq, z_eq = tilt_rotate(x_eq, y_eq, z_eq)
-    
-    equator_line, = ax.plot(
-        x_eq,
-        y_eq,
-        z_eq,
-        color="red",
-        linewidth=3,
-        alpha=0.8
-    )
 
 # -------- Cities --------
 
@@ -630,7 +633,6 @@ cities = {
     "Tokyo": (35.6762, 139.6503),
     "New York": (40.7128, -74.0060),
     "London": (51.5074, -0.1278),
-    "Beijing": (39.9042, 116.4074),
     "Sydney": (-33.8688, 151.2093)
 }
 
