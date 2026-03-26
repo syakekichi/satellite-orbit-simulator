@@ -38,6 +38,12 @@ texture_night = np.roll(texture_night, 36, axis=1)
 tilt = np.radians(23.4)
 
 earth_radius = 6371
+axis = np.array([
+    0,
+    np.cos(tilt),
+    np.sin(tilt)
+])
+
 
 sun_direction = np.array([1,0,0])
 sun_direction = sun_direction / np.linalg.norm(sun_direction)
@@ -52,11 +58,12 @@ earth_x = earth_radius * np.cos(u) * np.sin(v)
 earth_y = earth_radius * np.sin(u) * np.sin(v)
 earth_z = earth_radius * np.cos(v)
 
-earth_y_tilt = earth_y * np.cos(tilt) - earth_z * np.sin(tilt)
-earth_z_tilt = earth_y * np.sin(tilt) + earth_z * np.cos(tilt)
+def tilt_rotate(x,y,z):
+    y2 = y*np.cos(tilt) - z*np.sin(tilt)
+    z2 = y*np.sin(tilt) + z*np.cos(tilt)
+    return x,y2,z2
 
-earth_y = earth_y_tilt
-earth_z = earth_z_tilt
+earth_x, earth_y, earth_z = tilt_rotate(earth_x, earth_y, earth_z)
 
  #雲テクスチャ
 cloud_img = Image.open("earth_clouds.png").convert("RGBA")
@@ -72,11 +79,7 @@ cloud_x = cloud_radius * np.cos(u) * np.sin(v)
 cloud_y = cloud_radius * np.sin(u) * np.sin(v)
 cloud_z = cloud_radius * np.cos(v)
 
-cloud_y_tilt = cloud_y * np.cos(tilt) - cloud_z * np.sin(tilt)
-cloud_z_tilt = cloud_y * np.sin(tilt) + cloud_z * np.cos(tilt)
-
-cloud_y = cloud_y_tilt
-cloud_z = cloud_z_tilt
+cloud_x, cloud_y, cloud_z = tilt_rotate(cloud_x, cloud_y, cloud_z)
 
 #雲初期描画
 clouds = ax.plot_surface(
@@ -101,11 +104,7 @@ atmo_x = atmo_radius * np.cos(u) * np.sin(v)
 atmo_y = atmo_radius * np.sin(u) * np.sin(v)
 atmo_z = atmo_radius * np.cos(v)
 
-atmo_y_tilt = atmo_y * np.cos(tilt) - atmo_z * np.sin(tilt)
-atmo_z_tilt = atmo_y * np.sin(tilt) + atmo_z * np.cos(tilt)
-
-atmo_y = atmo_y_tilt
-atmo_z = atmo_z_tilt
+atmo_x, atmo_y, atmo_z = tilt_rotate(atmo_x, atmo_y, atmo_z)
 
 # -------- Earth Shadow Cone (Umbra) --------
 
@@ -167,7 +166,7 @@ moon = ax.plot_surface(
  #free:自由
 
 camera_mode = "overview"
-sim_speed = 1
+sim_speed = 1000
 
 def earth_view(event):
     global camera_mode
@@ -592,6 +591,38 @@ for i in range(len(starlinks)):
     label = ax.text(0, 0, 0, "", color="white", fontsize=6)
     starlink_labels.append(label)
 
+ # Axis length 地軸
+    axis_length = earth_radius * 1.5
+    x_axis = [0, 0]
+    y_axis = [-axis_length * np.cos(tilt), axis_length * np.cos(tilt)]
+    z_axis = [-axis_length * np.sin(tilt), axis_length * np.sin(tilt)]
+
+    axis_line, =ax.plot(
+        [0, 0],
+        [-axis_length*np.cos(tilt), axis_length*np.cos(tilt)],
+        [-axis_length*np.sin(tilt), axis_length*np.sin(tilt)],
+        color="brown",
+        linewidth=1
+    )
+
+    #赤道　
+    theta = np.linspace(0, 2*np.pi, 200)
+    radius_eq = earth_radius * 1.01
+
+    x_eq = radius_eq * np.cos(theta)
+    y_eq = radius_eq * np.sin(theta)
+    z_eq = np.zeros_like(theta)
+
+    x_eq, y_eq, z_eq = tilt_rotate(x_eq, y_eq, z_eq)
+    
+    equator_line, = ax.plot(
+        x_eq,
+        y_eq,
+        z_eq,
+        color="red",
+        linewidth=3,
+        alpha=0.8
+    )
 
 # -------- Cities --------
 
@@ -661,7 +692,6 @@ def update(frame):
     global trail_x, trail_y, trail_z, beidou_trail_x, beidou_trail_y, beidou_trail_z, tiangong_trail_x, tiangong_trail_y, tiangong_trail_z
     global iss_label, beidou_label, tiangong_label, tokyo_marker
     angle = frame * 0.03
-    shift = int(angle * 100)
     cloud_angle = frame * 0.0045
     sun_dir = sun_direction
     
@@ -846,20 +876,8 @@ def update(frame):
         city_labels[i].set_position((x, y_tilt))
         city_labels[i].set_3d_properties(z_tilt + 500)
     
-    # Axis length 地軸
-    axis_length = earth_radius * 1.5
-    x_axis = [0, 0]
-    y_axis = [-axis_length * np.cos(tilt), axis_length * np.cos(tilt)]
-    z_axis = [-axis_length * np.sin(tilt), axis_length * np.sin(tilt)]
-
-    ax.plot(
-        x_axis,
-        y_axis,
-        z_axis,
-        color="brown",
-        linewidth=1
-    )
-
+   
+    
 
     # Tokyo marker
     lat = np.radians(35.6762)
@@ -873,10 +891,9 @@ def update(frame):
     ty = radius * np.cos(lat) * np.sin(lon_rot)
     tz = radius * np.sin(lat)
 
-    ty_tilt = ty * np.cos(tilt) - tz * np.sin(tilt)
-    tz_tilt = ty * np.sin(tilt) + tz * np.cos(tilt)
+    tx, ty, tz = tilt_rotate(tx, ty, tz)
 
-    tokyo_marker._offsets3d = ([tx],[ty_tilt],[tz_tilt])
+    tokyo_marker._offsets3d = ([tx],[ty],[tz])
   
     #
     earth.remove()
@@ -1095,7 +1112,7 @@ time_label = fig.text(
 speed_label = fig.text(
     0.02,
     0.91,
-    "Speed: 1000x",
+    f"Speed: {sim_speed} min/frame",
     color="cyan",
     fontsize=10
 )
