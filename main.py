@@ -831,9 +831,11 @@ def update(frame):
 
         lon_rot = lon + angle
 
-        x = earth_radius * np.cos(lat) * np.cos(lon_rot)
-        y = earth_radius * np.cos(lat) * np.sin(lon_rot)
-        z = earth_radius * np.sin(lat)
+        radius = earth_radius + 20   # 地表より少し浮かせる
+
+        x = radius * np.cos(lat) * np.cos(lon_rot)
+        y = radius * np.cos(lat) * np.sin(lon_rot)
+        z = radius * np.sin(lat)
 
         # 地球の傾きを適用
         y_tilt = y * np.cos(tilt) - z * np.sin(tilt)
@@ -842,7 +844,22 @@ def update(frame):
         city_points[i]._offsets3d = ([x],[y_tilt],[z_tilt])
 
         city_labels[i].set_position((x, y_tilt))
-        city_labels[i].set_3d_properties(z_tilt + 300)
+        city_labels[i].set_3d_properties(z_tilt + 500)
+    
+    # Axis length 地軸
+    axis_length = earth_radius * 1.5
+    x_axis = [0, 0]
+    y_axis = [-axis_length * np.cos(tilt), axis_length * np.cos(tilt)]
+    z_axis = [-axis_length * np.sin(tilt), axis_length * np.sin(tilt)]
+
+    ax.plot(
+        x_axis,
+        y_axis,
+        z_axis,
+        color="brown",
+        linewidth=1
+    )
+
 
     # Tokyo marker
     lat = np.radians(35.6762)
@@ -850,9 +867,11 @@ def update(frame):
 
     lon_rot = lon + angle
 
-    tx = earth_radius * np.cos(lat) * np.cos(lon_rot)
-    ty = earth_radius * np.cos(lat) * np.sin(lon_rot)
-    tz = earth_radius * np.sin(lat)
+    radius = earth_radius + 20   # 地表より少し浮かせる
+
+    tx = radius * np.cos(lat) * np.cos(lon_rot)
+    ty = radius * np.cos(lat) * np.sin(lon_rot)
+    tz = radius * np.sin(lat)
 
     ty_tilt = ty * np.cos(tilt) - tz * np.sin(tilt)
     tz_tilt = ty * np.sin(tilt) + tz * np.cos(tilt)
