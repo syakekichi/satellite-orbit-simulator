@@ -13,8 +13,13 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 import numpy as np
 
-fig = plt.figure()
+fig = plt.figure(figsize=(12,7))
 ax = fig.add_subplot(111, projection="3d")
+
+#mng = plt.get_current_fig_manager()
+#mng.window.state('zoomed')
+
+
 
 print("program started")
 
