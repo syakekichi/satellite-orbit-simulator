@@ -55,27 +55,30 @@ axis_line, = ax.plot(
         linewidth=2
     )
 
-#赤道　
+# 赤道
 theta = np.linspace(0, 2*np.pi, 200)
-radius_eq = earth_radius * 1.02
+radius_eq = earth_radius * 1.03
 
-v1 = np.cross(axis, [1,0,0])
+# 赤道平面ベクトル
+if abs(axis[0]) < 0.9:
+    ref = np.array([1,0,0])
+else:
+    ref = np.array([0,1,0])
+
+v1 = np.cross(axis, ref)
 v1 = v1 / np.linalg.norm(v1)
-
 v2 = np.cross(axis, v1)
 
+# 赤道円
 x_eq = radius_eq * (v1[0]*np.cos(theta) + v2[0]*np.sin(theta))
 y_eq = radius_eq * (v1[1]*np.cos(theta) + v2[1]*np.sin(theta))
 z_eq = radius_eq * (v1[2]*np.cos(theta) + v2[2]*np.sin(theta))
 
-equator_line, = ax.plot(
-    x_eq,
-    y_eq,
-    z_eq,
-    color="red",
-    linewidth=2,
-    zorder=50
-)
+equator_front, = ax.plot([], [], [], color="red", linewidth=2, zorder=40)
+equator_back,  = ax.plot([], [], [], color="gray", alpha=0.2, zorder=39)
+
+
+
 
 # -------- 太陽光線 --------
 
@@ -128,7 +131,6 @@ clouds = ax.plot_surface(
     shade=False
 )
 clouds.set_edgecolor("none")
-
 
 # -------- 大気グロー --------
 
@@ -854,6 +856,39 @@ def update(frame):
         texture_night_rot * (1 - light)[:,:,None] * 0.6
     )
 
+    # ---- 赤道可視判定 ----
+    # ---- 赤道回転 ----
+    cos_a = np.cos(angle)
+    sin_a = np.sin(angle)
+
+    x_eq_rot = x_eq * cos_a - y_eq * sin_a
+    y_eq_rot = x_eq * sin_a + y_eq * cos_a
+    z_eq_rot = z_eq
+            
+    # カメラ方向
+    elev = np.radians(ax.elev)
+    azim = np.radians(ax.azim)
+
+    cam = np.array([
+    np.cos(elev)*np.cos(azim),
+    np.cos(elev)*np.sin(azim),
+    np.sin(elev)
+    ])
+
+    # 手前側だけ描画
+    mask = x_eq*cam[0] + y_eq*cam[1] + z_eq*cam[2] > 0
+
+    front = mask
+    back = ~mask
+
+    equator_front.set_data(x_eq[front], y_eq[front])
+    equator_front.set_3d_properties(z_eq[front])
+
+    equator_back.set_data(x_eq[back], y_eq[back])
+    equator_back.set_3d_properties(z_eq[back])
+
+
+
     # ---- city rotation ----
 
     for i, (name, (lat, lon)) in enumerate(cities.items()):
@@ -896,7 +931,7 @@ def update(frame):
     tx, ty, tz = tilt_rotate(tx, ty, tz)
 
     tokyo_marker._offsets3d = ([tx],[ty],[tz])
-  
+    
     #
     earth.remove()
     earth = ax.plot_surface(
@@ -909,7 +944,7 @@ def update(frame):
         linewidth=0,
         antialiased=False,
         shade=False
-    )
+        )
 
     clouds.remove()
 
@@ -929,7 +964,7 @@ def update(frame):
         cstride=1,
         linewidth=0,
         shade=False
-    )
+        )
     clouds.set_edgecolor("none")
 
     if camera_mode == "iss":
@@ -940,7 +975,7 @@ def update(frame):
         ax.view_init(elev=20, azim=frame*0.5)
 
 
-#北斗衛星位置(Chinese Beidou)
+    #北斗衛星位置(Chinese Beidou)
     t = ts.now() + (frame * sim_speed)/1440 #1日 = 1440分、１フレーム＝１分
     geocentric = beidou.at(t)
     subpoint = wgs84.subpoint(geocentric)
@@ -965,7 +1000,7 @@ def update(frame):
     beidou_label.set_position((x_b, y_b))
     beidou_label.set_3d_properties(z_b + 1500)
     beidou_label.set_rotation(0)
-    
+        
     # 天宫位置更新
     geocentric_tg = tiangong.at(t)
     subpoint_tg = wgs84.subpoint(geocentric_tg)
@@ -984,32 +1019,32 @@ def update(frame):
     tiangong_trail_x[:] = tiangong_trail_x[-max_points:]
     tiangong_trail_y[:] = tiangong_trail_y[-max_points:]
     tiangong_trail_z[:] = tiangong_trail_z[-max_points:]
-    
+        
     tiangong_label.set_position((x_tg_f, y_tg_f))
     tiangong_label.set_3d_properties(z_tg_f + 300)
     tiangong_label.set_rotation(0)
     #GPS
     for i, sat in enumerate(gps_sats):
 
-        geocentric = sat.at(t)
-        xg, yg, zg = geocentric.position.km
+            geocentric = sat.at(t)
+            xg, yg, zg = geocentric.position.km
 
-        gps_points[i]._offsets3d = ([xg],[yg],[zg])
+            gps_points[i]._offsets3d = ([xg],[yg],[zg])
 
-        gps_trail_x[i].append(xg)
-        gps_trail_y[i].append(yg)
-        gps_trail_z[i].append(zg)
+            gps_trail_x[i].append(xg)
+            gps_trail_y[i].append(yg)
+            gps_trail_z[i].append(zg)
 
-        max_points = 200
-        gps_trail_x[i] = gps_trail_x[i][-max_points:]
-        gps_trail_y[i] = gps_trail_y[i][-max_points:]
-        gps_trail_z[i] = gps_trail_z[i][-max_points:]
+            max_points = 200
+            gps_trail_x[i] = gps_trail_x[i][-max_points:]
+            gps_trail_y[i] = gps_trail_y[i][-max_points:]
+            gps_trail_z[i] = gps_trail_z[i][-max_points:]
 
-        gps_trails[i].set_data(gps_trail_x[i], gps_trail_y[i])
-        gps_trails[i].set_3d_properties(gps_trail_z[i])
+            gps_trails[i].set_data(gps_trail_x[i], gps_trail_y[i])
+            gps_trails[i].set_3d_properties(gps_trail_z[i])
 
-        gps_labels[i].set_position((xg, yg))
-        gps_labels[i].set_3d_properties(zg)
+            gps_labels[i].set_position((xg, yg))
+            gps_labels[i].set_3d_properties(zg)
 
 
     # Himawari-9
@@ -1035,48 +1070,48 @@ def update(frame):
     #Starlink
     for plane, sats in starlink_planes.items():
 
-        xs = []
-        ys = []
-        zs = []
+            xs = []
+            ys = []
+            zs = []
 
-        for sat in sats:
+            for sat in sats:
 
-            geocentric = sat.at(t)
-            x, y, z = geocentric.position.km
+                geocentric = sat.at(t)
+                x, y, z = geocentric.position.km
 
-            xs.append(x)
-            ys.append(y)
-            zs.append(z)
+                xs.append(x)
+                ys.append(y)
+                zs.append(z)
 
-        starlink_plane_points[plane]._offsets3d = (xs, ys, zs)
-    
+            starlink_plane_points[plane]._offsets3d = (xs, ys, zs)
+        
     for i, sat in enumerate(starlinks):
-        geocentric = sat.at(t)
-        xs, ys, zs = geocentric.position.km
+            geocentric = sat.at(t)
+            xs, ys, zs = geocentric.position.km
 
-        plane_id = starlink_plane_ids[i]
+            plane_id = starlink_plane_ids[i]
 
-    # ラベル（最初の10機だけ表示）
-        if i < 10:
-            starlink_labels[i].set_position((xs, ys))
-            starlink_labels[i].set_3d_properties(zs + 200)
-            starlink_labels[i].set_text(f"SL-{i+1}")
-    
+        # ラベル（最初の10機だけ表示）
+            if i < 10:
+                starlink_labels[i].set_position((xs, ys))
+                starlink_labels[i].set_3d_properties(zs + 200)
+                starlink_labels[i].set_text(f"SL-{i+1}")
+        
     for i in range(10, len(starlink_labels)):
-        starlink_labels[i].set_text("")
-
+            starlink_labels[i].set_text("")
 
     fig.canvas.draw_idle()
-    
+        
     return (
-    iss_point, earth, moon, trail_line, clouds,
-    beidou_point, beidou_trail_line,
-    tiangong_point, tiangong_trail_line,
-    iss_label, beidou_label, tiangong_label,
-    ground_track_line,
-    *gps_points, *gps_trails, *gps_labels,
-    himawari9_point, himawari9_trail_line, himawari9_label
-    )
+        iss_point, earth, moon, trail_line, clouds,
+        beidou_point, beidou_trail_line,
+        tiangong_point, tiangong_trail_line,
+        iss_label, beidou_label, tiangong_label,
+        ground_track_line,
+        *gps_points, *gps_trails, *gps_labels,
+        himawari9_point, himawari9_trail_line, himawari9_label,
+        equator_front, equator_back
+        )
 
 ani = FuncAnimation(
     fig,
