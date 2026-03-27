@@ -678,6 +678,29 @@ tokyo_marker = ax.scatter(
     zorder=50
 )
 
+# -------- ズーム --------
+zoom_scale = 1.2
+
+def on_scroll(event):
+    global zoom_scale
+
+    if event.button == 'up':
+        scale = 0.8   # ズームイン
+    elif event.button == 'down':
+        scale = 1.2   # ズームアウト
+    else:
+        scale = 1
+
+    xlim = ax.get_xlim3d()
+    ylim = ax.get_ylim3d()
+    zlim = ax.get_zlim3d()
+
+    ax.set_xlim3d([xlim[0]*scale, xlim[1]*scale])
+    ax.set_ylim3d([ylim[0]*scale, ylim[1]*scale])
+    ax.set_zlim3d([zlim[0]*scale, zlim[1]*scale])
+
+    plt.draw()
+
 # -------- アニメーション --------
 
 def update(frame):
@@ -1120,7 +1143,7 @@ ani = FuncAnimation(
     interval=30,
     blit=False
 )
-
+fig.canvas.mpl_connect('scroll_event', on_scroll)
 # -------- 星 --------
 
 num_stars = 300
