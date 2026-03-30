@@ -435,7 +435,9 @@ iss_point = ax.scatter(
     color="yellow",
     s=10,
     marker="*",
-    zorder=11
+    zorder=11,
+    picker=True,
+    pickradius=5
 )
 
 
@@ -549,7 +551,9 @@ for sat in gps_sats:
         color="orange",
         s=20,
         marker="o",
-        zorder=10
+        zorder=10,
+        picker=True,
+        pickradius=5
     )
 
     label = ax.text(
@@ -578,7 +582,9 @@ himawari9_point = ax.scatter(
     color="cyan",
     s=30,
     marker="o",
-    zorder=13
+    zorder=13,
+    picker=True,
+    pickradius=5
 )
 
 himawari9_trail_x = []
@@ -706,6 +712,19 @@ def on_scroll(event):
 
     plt.draw()
 
+# -------- ピック　人工衛星へのクリックイベント作成--------
+def on_pick(event):
+    artist = event.artist   # ← これが超重要
+
+    if artist == iss_point:
+        info_label.set_text("ISS")
+
+    for i, p in enumerate(gps_points):
+        if artist == p:
+            info_label.set_text(f"GPS-{i+1}")
+
+
+
 # -------- アニメーション --------
 
 def update(frame):
@@ -806,16 +825,17 @@ def update(frame):
 
     # 太陽の反対側にいるか
     if proj < 0:
-
-    # 太陽軸からの距離
         dist = np.linalg.norm(iss - proj * sun_dir)
 
         if dist < earth_radius:
-            iss_point.set_color("gray")  # 地球の影
+            iss_point.set_color("gray")
+            iss_point.set_alpha(0.3)   # ← 暗くする
         else:
             iss_point.set_color("yellow")
+            iss_point.set_alpha(1.0)
     else:
         iss_point.set_color("yellow")
+        iss_point.set_alpha(1.0)
 
 
     visible_x = []
@@ -1149,8 +1169,8 @@ ani = FuncAnimation(
     blit=False
 )
 fig.canvas.mpl_connect('scroll_event', on_scroll)
+fig.canvas.mpl_connect('pick_event', on_pick)
 # -------- 星 --------
-
 num_stars = 300
 star_distance = 300000
 
@@ -1188,5 +1208,12 @@ altitude_label = fig.text(
     color="cyan",
     fontsize=11
 )
+info_label = fig.text(
+    0.75, 0.9,
+    "",
+    color="white",
+    fontsize=10
+)
+
 
 plt.show()
