@@ -717,13 +717,23 @@ def on_pick(event):
     artist = event.artist   # ← これが超重要
 
     if artist == iss_point:
-        info_label.set_text("ISS")
+        info_label.set_text(
+    f"🛰 ISS\nAlt: {current_altitude:.0f} km\nSpeed: 7.66 km/s"
+)
+        iss_point.set_color("red")
+        iss_point.set_sizes([100])
+    else:
+        iss_point.set_color("yellow")
+        iss_point.set_sizes([10])
 
     for i, p in enumerate(gps_points):
         if artist == p:
             info_label.set_text(f"GPS-{i+1}")
+            p.set_color("red")
+            p.set_sizes([100])
 
 
+current_altitude = 0  # グローバル
 
 # -------- アニメーション --------
 
@@ -742,6 +752,8 @@ def update(frame):
     global earth, moon, iss_point, trail_line, atmosphere, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line
     global trail_x, trail_y, trail_z, beidou_trail_x, beidou_trail_y, beidou_trail_z, tiangong_trail_x, tiangong_trail_y, tiangong_trail_z
     global iss_label, beidou_label, tiangong_label, tokyo_marker
+    global current_altitude
+
     angle = frame * 0.03
     cloud_angle = frame * 0.0045
     sun_dir = sun_direction
@@ -802,6 +814,7 @@ def update(frame):
 
     # 高度計算
     altitude = np.linalg.norm([sat_x_frame, sat_y_frame, sat_z_frame]) - earth_radius
+    current_altitude = altitude
 
     # 高度表示
     altitude_label.set_text(
