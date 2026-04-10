@@ -1,17 +1,59 @@
-from skyfield.api import EarthSatellite, load
+from skyfield.api import EarthSatellite, utc, wgs84, Loader
 from mpl_toolkits.mplot3d import Axes3D
 from PIL import Image
 from matplotlib.animation import FuncAnimation
 from matplotlib.widgets import Button
 from scipy.interpolate import interp1d
 from datetime import datetime, timedelta
-from skyfield.api import utc
-from skyfield.api import wgs84
 from mpl_toolkits.mplot3d import proj3d
 from collections import defaultdict
 
 import matplotlib.pyplot as plt
 import numpy as np
+import requests
+import os
+
+def update_tle_file():
+    url = "https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle"
+    headers = {"User-Agent": "Mozilla/5.0"}
+
+    os.makedirs("data", exist_ok=True)
+    try:
+        r = requests.get(url, headers=headers)
+        if r.status_code == 200:
+            print("Exists:", os.path.exists("data/starlink.txt"))
+            with open("data/starlink.txt", "w") as f:
+                f.write(r.text)
+            print("TLE updated!")
+        else:
+            print("Failed to update TLE:", r.status_code)
+    except Exception as e:
+        print("Update error:", e)
+
+def load_tle_from_url(url, ts):
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "text/plain",
+        "Referer": "https://celestrak.org/",
+    }
+
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+
+    lines = response.text.splitlines()
+
+    sats = []
+    for i in range(0, len(lines), 3):
+        name = lines[i]
+        line1 = lines[i+1]
+        line2 = lines[i+2]
+        sats.append(EarthSatellite(line1, line2, name, ts))
+
+    return sats
+
+
+if not os.path.exists("data/starlink.txt"):
+    update_tle_file()
 
 fig = plt.figure(figsize=(12,7))
 ax = fig.add_subplot(111, projection="3d")
@@ -283,13 +325,18 @@ ax.scatter(
 )
 # -------- ISS TLE --------
 
-line1 = "1 25544U 98067A   24060.54791667  .00016717  00000+0  10270-3 0  9001"
-line2 = "2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.50256479  1234"
-
-satellite = EarthSatellite(line1, line2, "ISS")
-
+load = Loader('./data')
 ts = load.timescale()
 t = ts.now()
+start_time = t.utc_datetime()
+def load_tle(url):
+    satellites = load.tle_file(url, reload=True)
+    return {sat.name: sat for sat in satellites}
+
+update_tle_file()
+stations = load_tle("https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle")
+iss = stations["ISS (ZARYA)"]
+
 #Chinese Beidou(北斗) TLE
 beidou = EarthSatellite(
 "1 40749U 15037A   24160.12345678  .00000000  00000-0  00000-0 0  9993",
@@ -357,34 +404,23 @@ line2 = "2 41836 0.0181 195.9127 0001481 198.3287 3.9124 1.00270475 34237"
 himawari9 = EarthSatellite(line1, line2, "Himawari-9", ts)
 
 #Starlink TLE
-starlinks = load.tle_file("starlink.txt")
+starlinks = load.tle_file("https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle")
 print("Loaded", len(starlinks), "Starlink satellites")
 starlinks = starlinks[:100]
 
+#Iridium-33 debris TLE
+debris = load_tle_from_url("https://celestrak.org/NORAD/elements/gp.php?GROUP=iridium-33-debris&FORMAT=tle",ts)
 
-
-# シミュレーション開始日時
-start_time = datetime(2024, 3, 10, 0, 0, 0, tzinfo=utc)
 # 軌道計算（1分刻み）
 
-minutes = np.arange(0, 1440, 1)
-times = ts.utc([start_time + timedelta(minutes=int(m)) for m in minutes])
-geocentric = satellite.at(times)
-x, y, z = geocentric.position.km
-
-# 補間関数
-interp_x = interp1d(np.arange(len(x)), x, kind='cubic')
-interp_y = interp1d(np.arange(len(y)), y, kind='cubic')
-interp_z = interp1d(np.arange(len(z)), z, kind='cubic')
-
-geocentric = satellite.at(times)
-x, y, z = geocentric.position.km
+geocentric = iss.at(t)
+sat_x_frame, sat_y_frame, sat_z_frame = geocentric.position.km
 
 sat_scale = 1.07
 
-sat_x = x * sat_scale
-sat_y = y * sat_scale
-sat_z = z * sat_scale
+sat_x = sat_x_frame * sat_scale
+sat_y = sat_y_frame * sat_scale
+sat_z = sat_z_frame * sat_scale
 
 
 
@@ -429,9 +465,9 @@ atmosphere = ax.plot_surface(
 # ax.plot(x,y,z,color="red",linewidth=2)
 
 iss_point = ax.scatter(
-    sat_x[0],
-    sat_y[0],
-    sat_z[0],
+    sat_x,
+    sat_y,
+    sat_z,
     color="yellow",
     s=10,
     marker="*",
@@ -456,9 +492,9 @@ ground_z = []
 
 # ISSラベル
 iss_label = ax.text(
-    sat_x[0],
-    sat_y[0],
-    sat_z[0] + 300,
+    sat_x,
+    sat_y,
+    sat_z + 300,
     "ISS",
     color="white",
     fontsize=9,
@@ -718,8 +754,8 @@ def on_pick(event):
 
     if artist == iss_point:
         info_label.set_text(
-    f"🛰 ISS\nAlt: {current_altitude:.0f} km\nSpeed: 7.66 km/s"
-)
+            f"🛰 ISS\nAlt: {current_altitude:.0f} km\nSpeed: 7.66 km/s"
+        )
         iss_point.set_color("red")
         iss_point.set_sizes([100])
     else:
@@ -738,7 +774,9 @@ current_altitude = 0  # グローバル
 # -------- アニメーション --------
 
 def update(frame):
-    sim_time = start_time + timedelta(minutes=frame * sim_speed)
+    dt = start_time + timedelta(minutes=frame * sim_speed)
+    t = ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+    sim_time = t.utc_datetime()
 
     time_label.set_text(
         sim_time.strftime("Simulation Time: %Y-%m-%d %H:%M UTC")
@@ -746,7 +784,6 @@ def update(frame):
 
     speed_label.set_text(f"Speed: {sim_speed}x")
 
-    frame = frame % len(sat_x)
     ax.set_box_aspect([1,1,1])
 
     global earth, moon, iss_point, trail_line, atmosphere, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line
@@ -777,14 +814,6 @@ def update(frame):
        # cstride=1,
         #shade=False
     #)
-
-
-        #----
-
-        # frame に対応する ISS の滑らか位置を補間
-    sat_x_frame = interp_x(frame)
-    sat_y_frame = interp_y(frame)
-    sat_z_frame = interp_z(frame)
 
     # ---- Ground Track 計算 ----
 
@@ -1037,7 +1066,7 @@ def update(frame):
 
 
     #北斗衛星位置(Chinese Beidou)
-    t = ts.now() + (frame * sim_speed)/1440 #1日 = 1440分、１フレーム＝１分
+
     geocentric = beidou.at(t)
     subpoint = wgs84.subpoint(geocentric)
     x_b, y_b, z_b = geocentric.position.km
@@ -1177,7 +1206,7 @@ def update(frame):
 ani = FuncAnimation(
     fig,
     update,
-    frames=np.arange(0, len(sat_x), 0.5),
+    frames=1000,
     interval=30,
     blit=False
 )
