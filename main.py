@@ -464,20 +464,27 @@ atmosphere = ax.plot_surface(
 # ISS軌道
 # ax.plot(x,y,z,color="red",linewidth=2)
 
+# 本体（小さい球）
+iss_body = ax.scatter(0, 0, 0, color="white", s=50, zorder=100)
+
+# ソーラーパネル（左右の線）
+iss_panel_left, = ax.plot([], [], [], color="orange", linewidth=3)
+iss_panel_right, = ax.plot([], [], [], color="orange", linewidth=3)
+
 iss_point = ax.scatter(
     sat_x,
     sat_y,
     sat_z,
     color="yellow",
-    s=10,
+    s=40,
     marker="*",
-    zorder=11,
+    zorder=50,
     picker=True,
     pickradius=5
 )
 
 
-trail_line, = ax.plot([], [], [], color="cyan", linewidth=1, alpha=1, zorder=10)
+trail_line, = ax.plot([], [], [], color="cyan", linewidth=0.5, alpha=0.3, zorder=10)
 
 trail_x = []
 trail_y = []
@@ -757,10 +764,10 @@ def on_pick(event):
             f"🛰 ISS\nAlt: {current_altitude:.0f} km\nSpeed: 7.66 km/s"
         )
         iss_point.set_color("red")
-        iss_point.set_sizes([100])
+        iss_point.set_sizes([80])
     else:
-        iss_point.set_color("yellow")
-        iss_point.set_sizes([10])
+        iss_point.set_color("gray")
+        iss_point.set_sizes([30])
 
     for i, p in enumerate(gps_points):
         if artist == p:
@@ -780,7 +787,6 @@ def is_visible_fast(difference, t): #可視判定関数
     alt, az, distance = topocentric.altaz()
     return alt.degrees > 0
 
-
 # -------- アニメーション --------
 
 def update(frame):
@@ -789,6 +795,9 @@ def update(frame):
     # ISS位置更新
     geocentric = iss.at(t)
     sat_x_frame, sat_y_frame, sat_z_frame = geocentric.position.km
+      #ISS可視判定
+    visible = is_visible_fast(difference_iss, t)
+
     sim_time = t.utc_datetime()
 
     time_label.set_text(
@@ -863,6 +872,58 @@ def update(frame):
         f"ISS Altitude: {altitude:.0f} km"
     )
 
+    # ISS位置
+    x, y, z = sat_x_frame, sat_y_frame, sat_z_frame
+
+    # 本体
+    iss_body._offsets3d = ([x], [y], [z])
+    velocity = geocentric.velocity.km_per_s
+    vx, vy, vz = velocity
+
+    v = np.array([vx, vy, vz])
+    v = v / np.linalg.norm(v)
+
+    panel_length = 2000  # 長さ（調整OK）
+
+    # 左右に伸ばす（適当に垂直方向）
+    # 適当な直交ベクトル作る
+    if abs(v[0]) < 0.9:
+        ref = np.array([1,0,0])
+    else:
+        ref = np.array([0,1,0])
+
+    panel_dir = np.cross(sun_dir, v)
+    panel_dir = panel_dir / np.linalg.norm(panel_dir)
+    px, py, pz = panel_dir * panel_length
+
+    # 左
+    iss_panel_left.set_data([x, x + px], [y, y + py])
+    iss_panel_left.set_3d_properties([z, z + pz])
+
+    # 右
+    iss_panel_right.set_data([x, x - px], [y, y - py])
+    iss_panel_right.set_3d_properties([z, z - pz])
+
+    sat_pos = [sat_x_frame, sat_y_frame, sat_z_frame]
+  
+    if visible:
+        iss_body.set_color("yellow")
+        iss_panel_left.set_alpha(1.0)
+    else:
+        iss_body.set_color("gray")
+        iss_panel_left.set_alpha(0.3)
+
+        # 裏側なら非表示
+    if sat_z_frame < 0:
+        iss_body.set_visible(False)
+        iss_panel_left.set_visible(False)
+        iss_panel_right.set_visible(False)
+    else:
+        iss_body.set_visible(True)
+        iss_panel_left.set_visible(True)
+        iss_panel_right.set_visible(True)
+
+
     iss_point._offsets3d = (
         [sat_x_frame],
         [sat_y_frame],
@@ -871,7 +932,7 @@ def update(frame):
     iss_pos = np.array([sat_x_frame, sat_y_frame, sat_z_frame])
 
     if sat_z_frame < 0:
-        iss_point.set_alpha(0.3)
+        iss_point.set_alpha(0.6)
     else:
         iss_point.set_alpha(1.0)
 
@@ -914,7 +975,7 @@ def update(frame):
     if sat_z_frame < 0:
         trail_line.set_alpha(0.2)
     else:
-        trail_line.set_alpha(0.7)
+        trail_line.set_alpha(0.8)
 
     orbit_scale = 1.0
 
@@ -1203,12 +1264,17 @@ def update(frame):
     for i in range(10, len(starlink_labels)):
             starlink_labels[i].set_text("")
 
-    #ISS可視判定
-    if is_visible_fast(difference_iss, t):
-        iss_point.set_color("lime")
-    else:
-        iss_point.set_color("gray")
+  
 
+    if visible:
+        iss_point.set_color("red")     # 見える
+        iss_point.set_alpha(1.0)       # はっきり表示
+        iss_point.set_sizes([80])      # デカく
+    else:
+        iss_point.set_color("gray")    # 見えない
+        iss_point.set_alpha(0.2)       # ほぼ透明
+        iss_point.set_sizes([30])      # 小さく
+    
 
     fig.canvas.draw_idle()
         
