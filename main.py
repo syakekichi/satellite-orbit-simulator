@@ -465,24 +465,11 @@ atmosphere = ax.plot_surface(
 # ax.plot(x,y,z,color="red",linewidth=2)
 
 # 本体（小さい球）
-iss_body = ax.scatter(0, 0, 0, color="white", s=50, zorder=100)
+iss_body = ax.scatter(0, 0, 0, color="white", s=120, zorder=100,picker=True,pickradius=10)
 
 # ソーラーパネル（左右の線）
-iss_panel_left, = ax.plot([], [], [], color="orange", linewidth=3)
-iss_panel_right, = ax.plot([], [], [], color="orange", linewidth=3)
-
-iss_point = ax.scatter(
-    sat_x,
-    sat_y,
-    sat_z,
-    color="yellow",
-    s=40,
-    marker="*",
-    zorder=50,
-    picker=True,
-    pickradius=5
-)
-
+iss_panel_left, = ax.plot([], [], [], color="orange", linewidth=5)
+iss_panel_right, = ax.plot([], [], [], color="orange", linewidth=5)
 
 trail_line, = ax.plot([], [], [], color="cyan", linewidth=0.5, alpha=0.3, zorder=10)
 
@@ -759,15 +746,15 @@ def on_scroll(event):
 def on_pick(event):
     artist = event.artist   # ← これが超重要
 
-    if artist == iss_point:
+    if artist == iss_body:
         info_label.set_text(
             f"🛰 ISS\nAlt: {current_altitude:.0f} km\nSpeed: 7.66 km/s"
         )
-        iss_point.set_color("red")
-        iss_point.set_sizes([80])
+        iss_body.set_color("red")
+        iss_body.set_sizes([80])
     else:
-        iss_point.set_color("gray")
-        iss_point.set_sizes([30])
+        iss_body.set_color("gray")
+        iss_body.set_sizes([30])
 
     for i, p in enumerate(gps_points):
         if artist == p:
@@ -808,7 +795,7 @@ def update(frame):
 
     ax.set_box_aspect([1,1,1])
 
-    global earth, moon, iss_point, trail_line, atmosphere, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line
+    global earth, moon, iss_body, trail_line, atmosphere, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line
     global trail_x, trail_y, trail_z, beidou_trail_x, beidou_trail_y, beidou_trail_z, tiangong_trail_x, tiangong_trail_y, tiangong_trail_z
     global iss_label, beidou_label, tiangong_label, tokyo_marker
     global current_altitude
@@ -892,7 +879,9 @@ def update(frame):
     else:
         ref = np.array([0,1,0])
 
-    panel_dir = np.cross(sun_dir, v)
+    panel_dir = np.cross(v, [0,0,1])
+    if np.linalg.norm(panel_dir) < 0.1:
+        panel_dir = np.cross(v, [0,1,0])
     panel_dir = panel_dir / np.linalg.norm(panel_dir)
     px, py, pz = panel_dir * panel_length
 
@@ -913,28 +902,12 @@ def update(frame):
         iss_body.set_color("gray")
         iss_panel_left.set_alpha(0.3)
 
-        # 裏側なら非表示
-    if sat_z_frame < 0:
-        iss_body.set_visible(False)
-        iss_panel_left.set_visible(False)
-        iss_panel_right.set_visible(False)
-    else:
-        iss_body.set_visible(True)
-        iss_panel_left.set_visible(True)
-        iss_panel_right.set_visible(True)
-
-
-    iss_point._offsets3d = (
-        [sat_x_frame],
-        [sat_y_frame],
-        [sat_z_frame]
-    )
     iss_pos = np.array([sat_x_frame, sat_y_frame, sat_z_frame])
 
     if sat_z_frame < 0:
-        iss_point.set_alpha(0.6)
+        iss_body.set_alpha(0.6)
     else:
-        iss_point.set_alpha(1.0)
+        iss_body.set_alpha(1.0)
 
     # 太陽方向への距離
     proj = np.dot(iss_pos, sun_dir)
@@ -944,14 +917,14 @@ def update(frame):
         dist = np.linalg.norm(iss_pos - proj * sun_dir)
 
         if dist < earth_radius:
-            iss_point.set_color("gray")
-            iss_point.set_alpha(0.3)   # ← 暗くする
+            iss_body.set_color("gray")
+            iss_body.set_alpha(0.3)   # ← 暗くする
         else:
-            iss_point.set_color("yellow")
-            iss_point.set_alpha(1.0)
+            iss_body.set_color("yellow")
+            iss_body.set_alpha(1.0)
     else:
-        iss_point.set_color("yellow")
-        iss_point.set_alpha(1.0)
+        iss_body.set_color("yellow")
+        iss_body.set_alpha(1.0)
 
 
     visible_x = []
@@ -960,11 +933,28 @@ def update(frame):
 
     for tx, ty, tz in zip(trail_x, trail_y, trail_z):
 
-    # 地球中心からの距離
-        r = np.sqrt(tx*tx + ty*ty + tz*tz)
+        pos = np.array([tx, ty, tz])
+        # カメラ方向ベクトル
+        elev = np.radians(ax.elev)
+        azim = np.radians(ax.azim)
 
-    # 地球の裏なら描画しない
-        if r > earth_radius * 1.01:
+        cam = np.array([
+            np.cos(elev) * np.cos(azim),
+            np.cos(elev) * np.sin(azim),
+            np.sin(elev)
+        ])
+
+      # カメラ方向との内積
+        dot = np.dot(pos, cam)
+
+     # ② 地球に隠れてないか（超重要）
+        proj = np.dot(pos, cam)
+        closest = pos - proj * cam
+        dist_to_center = np.linalg.norm(closest)
+
+        visible = (dot > 0) and (dist_to_center > earth_radius)
+
+        if visible:
             visible_x.append(tx)
             visible_y.append(ty)
             visible_z.append(tz)
@@ -1267,19 +1257,19 @@ def update(frame):
   
 
     if visible:
-        iss_point.set_color("red")     # 見える
-        iss_point.set_alpha(1.0)       # はっきり表示
-        iss_point.set_sizes([80])      # デカく
+        iss_body.set_color("red")     # 見える
+        iss_body.set_alpha(1.0)       # はっきり表示
+        iss_body.set_sizes([80])      # デカく
     else:
-        iss_point.set_color("gray")    # 見えない
-        iss_point.set_alpha(0.2)       # ほぼ透明
-        iss_point.set_sizes([30])      # 小さく
+        iss_body.set_color("gray")    # 見えない
+        iss_body.set_alpha(0.2)       # ほぼ透明
+        iss_body.set_sizes([30])      # 小さく
     
 
     fig.canvas.draw_idle()
         
     return (
-        iss_point, earth, moon, trail_line, clouds,
+        iss_body, earth, moon, trail_line, clouds,
         beidou_point, beidou_trail_line,
         tiangong_point, tiangong_trail_line,
         iss_label, beidou_label, tiangong_label,
