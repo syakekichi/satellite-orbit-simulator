@@ -771,11 +771,24 @@ def on_pick(event):
 
 current_altitude = 0  # グローバル
 
+#人工衛星地上観測地点
+observer = wgs84.latlon(35.6762, 139.6503)  # 東京
+difference_iss = iss - observer  # 高速化のため事前計算
+
+def is_visible_fast(difference, t): #可視判定関数
+    topocentric = difference.at(t)
+    alt, az, distance = topocentric.altaz()
+    return alt.degrees > 0
+
+
 # -------- アニメーション --------
 
 def update(frame):
     dt = start_time + timedelta(minutes=frame * sim_speed)
     t = ts.utc(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+    # ISS位置更新
+    geocentric = iss.at(t)
+    sat_x_frame, sat_y_frame, sat_z_frame = geocentric.position.km
     sim_time = t.utc_datetime()
 
     time_label.set_text(
@@ -855,7 +868,7 @@ def update(frame):
         [sat_y_frame],
         [sat_z_frame]
     )
-    iss = np.array([sat_x_frame, sat_y_frame, sat_z_frame])
+    iss_pos = np.array([sat_x_frame, sat_y_frame, sat_z_frame])
 
     if sat_z_frame < 0:
         iss_point.set_alpha(0.3)
@@ -863,11 +876,11 @@ def update(frame):
         iss_point.set_alpha(1.0)
 
     # 太陽方向への距離
-    proj = np.dot(iss, sun_dir)
+    proj = np.dot(iss_pos, sun_dir)
 
     # 太陽の反対側にいるか
     if proj < 0:
-        dist = np.linalg.norm(iss - proj * sun_dir)
+        dist = np.linalg.norm(iss_pos - proj * sun_dir)
 
         if dist < earth_radius:
             iss_point.set_color("gray")
@@ -1189,6 +1202,13 @@ def update(frame):
         
     for i in range(10, len(starlink_labels)):
             starlink_labels[i].set_text("")
+
+    #ISS可視判定
+    if is_visible_fast(difference_iss, t):
+        iss_point.set_color("lime")
+    else:
+        iss_point.set_color("gray")
+
 
     fig.canvas.draw_idle()
         
