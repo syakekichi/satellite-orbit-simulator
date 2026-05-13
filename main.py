@@ -55,8 +55,12 @@ def load_tle_from_url(url, ts):
 if not os.path.exists("data/starlink.txt"):
     update_tle_file()
 
-fig = plt.figure(figsize=(12,7))
-ax = fig.add_subplot(111, projection="3d")
+fig = plt.figure(figsize=(16,7), facecolor="black")
+
+ax = fig.add_axes(
+    [0.02, 0.12, 0.96, 0.83],
+    projection='3d'
+)
 
 #mng = plt.get_current_fig_manager()
 #mng.window.state('zoomed')
@@ -79,6 +83,16 @@ texture_night = np.array(night_img) / 255
 
 texture_day = np.roll(texture_day, 36, axis=1)
 texture_night = np.roll(texture_night, 36, axis=1)
+
+texture_day = np.concatenate(
+    [texture_day, texture_day[:,0:1,:]],
+    axis=1
+)
+
+texture_night = np.concatenate(
+    [texture_night, texture_night[:,0:1,:]],
+    axis=1
+)
 
 # -------- 地球設定 --------
 
@@ -134,7 +148,7 @@ sun_direction = sun_direction / np.linalg.norm(sun_direction)
 
 
 
-u = np.linspace(0, 2*np.pi, mesh_w, endpoint=False)
+u = np.linspace(0, 2*np.pi, mesh_w + 1)
 v = np.linspace(0, np.pi, mesh_h)
 u, v = np.meshgrid(u, v)
 
@@ -154,6 +168,12 @@ cloud_img = Image.open("earth_clouds.png").convert("RGBA")
 cloud_img = cloud_img.resize((mesh_w, mesh_h))
 
 texture_cloud = np.array(cloud_img) / 255
+
+texture_cloud = np.concatenate(
+    [texture_cloud, texture_cloud[:,0:1,:]],
+    axis=1
+)
+
 # 雲を薄くする
 texture_cloud[:,:,3] *= 0.35
 
@@ -505,7 +525,7 @@ ax.set_zlim(-limit,limit)
 
 ax.grid(False)
 ax.set_axis_off()
-ax.set_box_aspect([1,1,1])
+ax.set_box_aspect(None)
 
 if camera_mode == "overview":
     ax.set_xlim(-12000,12000)
@@ -793,7 +813,7 @@ def update(frame):
 
     speed_label.set_text(f"Speed: {sim_speed}x")
 
-    ax.set_box_aspect([1,1,1])
+    ax.set_box_aspect(None)
 
     global earth, moon, iss_body, trail_line, atmosphere, clouds, beidou_point, beidou_trail_line, tiangong_point, tiangong_trail_line
     global trail_x, trail_y, trail_z, beidou_trail_x, beidou_trail_y, beidou_trail_z, tiangong_trail_x, tiangong_trail_y, tiangong_trail_z
@@ -905,9 +925,9 @@ def update(frame):
     iss_pos = np.array([sat_x_frame, sat_y_frame, sat_z_frame])
 
     if sat_z_frame < 0:
-        iss_body.set_alpha(0.6)
+        alpha = 0.4
     else:
-        iss_body.set_alpha(1.0)
+        alpha = 1.0
 
     # 太陽方向への距離
     proj = np.dot(iss_pos, sun_dir)
@@ -918,7 +938,7 @@ def update(frame):
 
         if dist < earth_radius:
             iss_body.set_color("gray")
-            iss_body.set_alpha(0.3)   # ← 暗くする
+            iss_body.set_alpha(0.2)   # ← 暗くする
         else:
             iss_body.set_color("yellow")
             iss_body.set_alpha(1.0)
@@ -934,27 +954,31 @@ def update(frame):
     for tx, ty, tz in zip(trail_x, trail_y, trail_z):
 
         pos = np.array([tx, ty, tz])
+        
         # カメラ方向ベクトル
         elev = np.radians(ax.elev)
         azim = np.radians(ax.azim)
 
-        cam = np.array([
+        cam_dir = np.array([
             np.cos(elev) * np.cos(azim),
             np.cos(elev) * np.sin(azim),
             np.sin(elev)
         ])
 
-      # カメラ方向との内積
-        dot = np.dot(pos, cam)
+        # 仮想カメラ位置（遠くに置く）
+        cam_pos = cam_dir * 50000
 
-     # ② 地球に隠れてないか（超重要）
-        proj = np.dot(pos, cam)
-        closest = pos - proj * cam
-        dist_to_center = np.linalg.norm(closest)
+        # カメラ→点の方向
+        v = pos - cam_pos
+        
+        # 仮想カメラから衛星への方向ベクトル
+        # 地球中心への最短距離
+        t_proj = np.dot(-cam_pos, v) / np.dot(v, v)
+        closest = cam_pos + t_proj * v
+        dist = np.linalg.norm(closest)
 
-        visible = (dot > 0) and (dist_to_center > earth_radius)
-
-        if visible:
+    # 地球に隠れてない
+        if dist > earth_radius:
             visible_x.append(tx)
             visible_y.append(ty)
             visible_z.append(tz)
@@ -965,7 +989,7 @@ def update(frame):
     if sat_z_frame < 0:
         trail_line.set_alpha(0.2)
     else:
-        trail_line.set_alpha(0.8)
+        trail_line.set_alpha(0.6)
 
     orbit_scale = 1.0
 
@@ -1259,7 +1283,7 @@ def update(frame):
     if visible:
         iss_body.set_color("red")     # 見える
         iss_body.set_alpha(1.0)       # はっきり表示
-        iss_body.set_sizes([80])      # デカく
+        iss_body.set_sizes([100])      # デカく
     else:
         iss_body.set_color("gray")    # 見えない
         iss_body.set_alpha(0.2)       # ほぼ透明
