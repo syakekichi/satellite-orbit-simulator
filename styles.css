@@ -112,13 +112,26 @@ html, body {
     border-color: var(--panel-border-hover);
 }
 
-/* Top Header */
-.hud-header {
+/* Top Split Floating Islands (Keeps Center View 100% Unobstructed!) */
+.hud-top-split {
     grid-column: 1 / -1;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 14px 24px;
+    align-items: flex-start;
+    pointer-events: none;
+    width: 100%;
+}
+
+.header-left-island {
+    padding: 10px 18px;
+    pointer-events: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.header-right-island {
+    padding: 10px 18px;
+    pointer-events: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .logo-group {

@@ -28,44 +28,54 @@
     
     <!-- UI Overlay HUD -->
     <div class="hud-layer">
-        <!-- Top Header -->
-        <header class="hud-header glass-panel">
-            <div class="logo-group">
-                <div class="pulse-icon">
-                    <span class="pulse-ring"></span>
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-                        <circle cx="12" cy="12" r="9"></circle>
-                        <ellipse cx="12" cy="12" rx="9" ry="3" transform="rotate(-30 12 12)"></ellipse>
-                        <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="app-title">SatViewer3D</h1>
-                    <p class="app-subtitle">Real-time Satellite & Space Debris 3D Visualizer</p>
+        <!-- Top Split HUD Floating Islands (Separated to keep Earth Center View 100% Unobstructed!) -->
+        <div class="hud-top-split">
+            <!-- Left Island: Brand Logo -->
+            <div class="header-left-island glass-panel">
+                <div class="logo-group">
+                    <div class="pulse-icon">
+                        <span class="pulse-ring"></span>
+                        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <ellipse cx="12" cy="12" rx="9" ry="3" transform="rotate(-30 12 12)"></ellipse>
+                            <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="app-title">SatViewer3D</h1>
+                        <p class="app-subtitle">Real-time Satellite & Space Debris 3D Visualizer</p>
+                    </div>
                 </div>
             </div>
             
-            <!-- Quick Stats Header & Multilingual Selector -->
-            <div class="stats-pills">
-                <div class="stat-pill">
-                    <span class="stat-label" id="statCountLabel" data-i18n="statCount">追跡衛星数</span>
-                    <span class="stat-value" id="statCount">0</span>
-                </div>
-                <div class="stat-pill">
-                    <span class="stat-label" id="statTimeLabel" data-i18n="statTime">シミュレーション時刻</span>
-                    <span class="stat-value mono-text" id="statTime">--:--:--</span>
-                </div>
-                <div class="stat-pill" style="padding: 4px 8px;">
-                    <select id="langSelect" class="custom-select" style="padding: 4px 8px; font-size: 0.78rem; font-weight:600; border-color: rgba(56,189,248,0.4);" onchange="window.changeLanguage(this.value)">
-                        <option value="ja" selected>🇯🇵 日本語</option>
-                        <option value="en">🇺🇸 English</option>
-                        <option value="zh">🇨🇳 中文</option>
-                        <option value="es">🇪🇸 Español</option>
-                        <option value="ru">🇷🇺 Русский</option>
-                    </select>
+            <!-- Right Island: Quick Stats & Language Selector -->
+            <div class="header-right-island glass-panel">
+                <div class="stats-pills">
+                    <div class="stat-pill">
+                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">追跡衛星数</span>
+                        <span class="stat-value" id="statCount">0</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">シミュレーション時刻</span>
+                        <span class="stat-value mono-text" id="statTime">--:--:--</span>
+                    </div>
+                    <div class="stat-pill" style="padding: 4px 10px; display: flex; align-items: center; gap: 6px; border-color: rgba(56,189,248,0.5); background: rgba(56, 189, 248, 0.08);">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="#38bdf8" stroke-width="2.2" fill="none" style="filter: drop-shadow(0 0 4px rgba(56,189,248,0.6)); flex-shrink: 0;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <select id="langSelect" class="custom-select" style="padding: 2px 4px; font-size: 0.78rem; font-weight:700; border: none; background: transparent; color: #38bdf8; cursor: pointer;" onchange="window.changeLanguage(this.value)">
+                            <option value="ja" selected style="background:#0b1329; color:#fff;">🇯🇵 日本語</option>
+                            <option value="en" style="background:#0b1329; color:#fff;">🇺🇸 English</option>
+                            <option value="zh" style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
+                            <option value="es" style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
+                            <option value="ru" style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </header>
+        </div>
 
         <!-- Sidebar Navigation & Control -->
         <aside id="sidebarPanel" class="hud-sidebar glass-panel">
@@ -274,7 +284,7 @@
         </div>
     </div>
 
-    <!-- Application Script (Cache Busted v73) -->
-    <script src="app.js?v=20260819_73"></script>
+    <!-- Application Script (Cache Busted v77) -->
+    <script src="app.js?v=20260819_77"></script>
 </body>
 </html>

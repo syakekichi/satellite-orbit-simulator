@@ -755,9 +755,9 @@ function initCesiumViewer() {
 
     const scene = viewer.scene;
     scene.globe.show = true;
-    scene.globe.enableLighting = false;
-    scene.globe.showGroundAtmosphere = false;
-    scene.skyAtmosphere.show = false;
+    scene.globe.enableLighting = true;
+    scene.globe.showGroundAtmosphere = true;
+    scene.skyAtmosphere.show = true;
     scene.backgroundColor = Cesium.Color.fromCssColorString('#07090e');
 
     // Apply High-Res Base Imagery
