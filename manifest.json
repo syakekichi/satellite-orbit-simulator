@@ -1,0 +1,18 @@
+{
+  "name": "SatViewer3D | Real-time 3D Satellite Visualizer",
+  "short_name": "SatViewer3D",
+  "description": "Real-time 3D Satellite & Space Debris Orbit Visualization Simulator with 24h MOID Risk Radar.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07090e",
+  "theme_color": "#07090e",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='120' fill='%2307090e'/><circle cx='256' cy='256' r='140' fill='%230b1329' stroke='%2338bdf8' stroke-width='16'/><ellipse cx='256' cy='256' rx='200' ry='64' fill='none' stroke='%23ff0055' stroke-width='14' transform='rotate(-30 256 256)' stroke-dasharray='30 15'/><circle cx='384' cy='176' r='32' fill='%23c084fc'/><circle cx='384' cy='176' r='56' fill='none' stroke='%2338bdf8' stroke-width='12'/><circle cx='256' cy='256' r='48' fill='%2338bdf8'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
