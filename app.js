@@ -2,9 +2,57 @@
  * SatViewer3D Engine: CesiumJS + satellite.js
  */
 
-// Global i18n Language State (Guaranteed 100% defined everywhere)
-window.currentLang = localStorage.getItem('sat_lang') || 'ja';
+// Smart Auto Language Detection (Defaults to English for International Visitors)
+function detectDefaultLanguage() {
+    const saved = localStorage.getItem('sat_lang');
+    if (saved) return saved;
+
+    const navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (navLang.startsWith('ja')) return 'ja';
+    if (navLang.startsWith('zh')) return 'zh';
+    if (navLang.startsWith('es')) return 'es';
+    if (navLang.startsWith('ru')) return 'ru';
+    
+    // Default for all international visitors worldwide is English
+    return 'en';
+}
+
+window.currentLang = detectDefaultLanguage();
 var currentLang = window.currentLang;
+
+// Bulletproof Guaranteed getSatDisplayName Function
+function getSatDisplayName(name) {
+    if (!name || typeof name !== 'string') return 'Satellite';
+    const lang = window.currentLang || currentLang || 'ja';
+    const upper = name.toUpperCase();
+    
+    if (lang === 'ja') {
+        if (upper.includes('HIMAWARI-8')) return 'HIMAWARI-8 (ひまわり8号 - バックアップ)';
+        if (upper.includes('HIMAWARI-9')) return 'HIMAWARI-9 (ひまわり9号 - メイン観測)';
+        if (upper.includes('MICHIBIKI-1R')) return 'MICHIBIKI-1R (みちびき1号R後継機)';
+        if (upper.includes('MICHIBIKI-6')) return 'MICHIBIKI-6 (みちびき6号機 - H3最新打上)';
+        if (upper.includes('MICHIBIKI-5')) return 'MICHIBIKI-5 (みちびき5号機)';
+        if (upper.includes('MICHIBIKI-1')) return 'MICHIBIKI-1 (みちびき1号初号機)';
+        if (upper.includes('MICHIBIKI-2')) return 'MICHIBIKI-2 (みちびき2号機)';
+        if (upper.includes('MICHIBIKI-3')) return 'MICHIBIKI-3 (みちびき3号機)';
+        if (upper.includes('MICHIBIKI-4')) return 'MICHIBIKI-4 (みちびき4号機)';
+        if (upper.includes('ISS')) return 'ISS (国際宇宙ステーション)';
+        if (upper.includes('TIANGONG')) return 'TIANGONG (天宮宇宙ステーション)';
+        if (upper.includes('BEIDOU')) return 'BEIDOU-3 (北斗3号測位衛星)';
+        if (upper.includes('HUBBLE')) return 'HUBBLE (ハッブル宇宙望遠鏡)';
+    } else if (lang === 'zh') {
+        if (upper.includes('HIMAWARI-8')) return 'HIMAWARI-8 (葵花8号备用星)';
+        if (upper.includes('HIMAWARI-9')) return 'HIMAWARI-9 (葵花9号主观星)';
+        if (upper.includes('MICHIBIKI-6')) return 'MICHIBIKI-6 (引路6号 - H3发射)';
+        if (upper.includes('MICHIBIKI')) return name.replace('MICHIBIKI', '引路号');
+        if (upper.includes('ISS')) return 'ISS (国际空间站)';
+        if (upper.includes('TIANGONG')) return 'TIANGONG (天宫空间站)';
+        if (upper.includes('BEIDOU')) return 'BEIDOU-3 (北斗3号导航星)';
+        if (upper.includes('HUBBLE')) return 'HUBBLE (哈勃空间望远镜)';
+    }
+    
+    return name;
+}
 
 const TRANSLATIONS = {
     ja: {
@@ -210,9 +258,14 @@ function applyLanguage(lang) {
     localStorage.setItem('sat_lang', lang);
     const dict = TRANSLATIONS[lang] || TRANSLATIONS['ja'];
 
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect) {
+        langSelect.value = lang;
+    }
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (dict[key]) {
+        if (dict && dict[key]) {
             el.textContent = dict[key];
         }
     });
@@ -266,7 +319,7 @@ function applyLanguage(lang) {
         if (satDescEl) {
             satDescEl.textContent = getSatDescription(satellitesData[selectedSatIndex].name);
         }
-        if (viewer) {
+        if (typeof viewer !== 'undefined' && viewer && viewer.clock) {
             const jsDate = customSimTime || Cesium.JulianDate.toDate(viewer.clock.currentTime);
             const gmst = satellite.gstime(jsDate);
             updateSelectedSatDetails(jsDate, gmst);
@@ -513,6 +566,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initCesiumViewer();
         setupEventListeners();
         loadMajorSatellitesPreset();
+        applyLanguage(currentLang);
     } catch (e) {
         console.error("Initialization error:", e);
     } finally {
@@ -850,37 +904,6 @@ const sourceStatusBadge = document.getElementById('sourceStatusBadge');
 /**
  * Clean & Categorized Dropdown Menu (Includes Space Debris Category)
  */
-function getSatDisplayName(name) {
-    const lang = currentLang || 'ja';
-    const upper = name.toUpperCase();
-    
-    if (lang === 'ja') {
-        if (upper.includes('HIMAWARI-8')) return 'HIMAWARI-8 (ひまわり8号 - バックアップ)';
-        if (upper.includes('HIMAWARI-9')) return 'HIMAWARI-9 (ひまわり9号 - メイン観測)';
-        if (upper.includes('MICHIBIKI-1R')) return 'MICHIBIKI-1R (みちびき1号R後継機)';
-        if (upper.includes('MICHIBIKI-6')) return 'MICHIBIKI-6 (みちびき6号機 - H3最新打上)';
-        if (upper.includes('MICHIBIKI-5')) return 'MICHIBIKI-5 (みちびき5号機)';
-        if (upper.includes('MICHIBIKI-1')) return 'MICHIBIKI-1 (みちびき1号初号機)';
-        if (upper.includes('MICHIBIKI-2')) return 'MICHIBIKI-2 (みちびき2号機)';
-        if (upper.includes('MICHIBIKI-3')) return 'MICHIBIKI-3 (みちびき3号機)';
-        if (upper.includes('MICHIBIKI-4')) return 'MICHIBIKI-4 (みちびき4号機)';
-        if (upper.includes('ISS')) return 'ISS (国際宇宙ステーション)';
-        if (upper.includes('TIANGONG')) return 'TIANGONG (天宮宇宙ステーション)';
-        if (upper.includes('BEIDOU')) return 'BEIDOU-3 (北斗3号測位衛星)';
-        if (upper.includes('HUBBLE')) return 'HUBBLE (ハッブル宇宙望遠鏡)';
-    } else if (lang === 'zh') {
-        if (upper.includes('HIMAWARI-8')) return 'HIMAWARI-8 (葵花8号备用星)';
-        if (upper.includes('HIMAWARI-9')) return 'HIMAWARI-9 (葵花9号主观星)';
-        if (upper.includes('MICHIBIKI-6')) return 'MICHIBIKI-6 (引路6号 - H3发射)';
-        if (upper.includes('MICHIBIKI')) return name.replace('MICHIBIKI', '引路号');
-        if (upper.includes('ISS')) return 'ISS (国际空间站)';
-        if (upper.includes('TIANGONG')) return 'TIANGONG (天宫空间站)';
-        if (upper.includes('BEIDOU')) return 'BEIDOU-3 (北斗3号导航星)';
-        if (upper.includes('HUBBLE')) return 'HUBBLE (哈勃空间望远镜)';
-    }
-    
-    return name;
-}
 
 function updateDropdownOptions() {
     const dict = TRANSLATIONS[currentLang] || TRANSLATIONS['ja'];
