@@ -6,6 +6,16 @@
     <!-- Favicon (High-Res Neon Orbit Satellite Icon) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><ellipse cx='32' cy='32' rx='25' ry='8' fill='none' stroke='%23ff0055' stroke-width='2' transform='rotate(-30 32 32)' stroke-dasharray='4 2'/><circle cx='48' cy='22' r='4' fill='%23c084fc'/><circle cx='48' cy='22' r='7' fill='none' stroke='%2338bdf8' stroke-width='1.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
     
+    <!-- Google Analytics (gtag.js) GA4 Tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TM540MSBGM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-TM540MSBGM');
+    </script>
+
     <!-- Google AdSense Auto-Ads & Verification Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
     
@@ -34,7 +44,10 @@
         <!-- Top Split HUD Floating Islands (Separated to keep Earth Center View 100% Unobstructed!) -->
         <div class="hud-top-split">
             <!-- Left Island: Brand Logo -->
-            <div class="header-left-island glass-panel">
+            <div id="headerLeftIsland" class="header-left-island glass-panel">
+                <div class="panel-drag-bar drag-handle" style="margin-bottom:4px; padding:2px 4px; font-size:0.65rem;">
+                    <span class="drag-dots">⋮⋮</span>
+                </div>
                 <div class="logo-group">
                     <div class="pulse-icon">
                         <span class="pulse-ring"></span>
@@ -52,7 +65,10 @@
             </div>
             
             <!-- Right Island: Quick Stats & Language Selector -->
-            <div class="header-right-island glass-panel">
+            <div id="headerRightIsland" class="header-right-island glass-panel">
+                <div class="panel-drag-bar drag-handle" style="margin-bottom:4px; padding:2px 4px; font-size:0.65rem;">
+                    <span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">ドラッグで移動</span>
+                </div>
                 <div class="stats-pills">
                     <div class="stat-pill">
                         <span class="stat-label" id="statCountLabel" data-i18n="statCount">追跡衛星数</span>
@@ -329,6 +345,21 @@
                     <div id="tabAbout" class="tab-content">
                         <h3 data-i18n="guideTitleAbout">ℹ️ SatViewer3D について</h3>
                         <p data-i18n="aboutText1">SatViewer3D は、地球周回軌道上の人工衛星（ひまわり、みちびき、ISS、Starlink等）および宇宙デブリ（スペースデブリ）のリアルタイム 3D 可視化シミュレーターです。</p>
+                        
+                        <div class="about-highlights" style="margin: 14px 0; padding: 14px 16px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 8px;">
+                            <h4 style="margin:0 0 10px 0; color:#38bdf8; font-size:0.95rem; font-weight:700;" data-i18n="aboutFeaturesTitle">🌟 NASA公開ツールを超越する『SatViewer3D』の 8 大世界最高峰機能</h4>
+                            <ul style="margin:0; padding-left:18px; font-size:0.83rem; color:#e2e8f0; line-height:1.7;">
+                                <li data-i18n="feat1">🚀 <strong>世界最速級 最新衛星組み込み</strong>: H3ロケット打ち上げ「みちびき6号機 (QZSS-6)」含む最新衛星・デブリ群をどこよりも早く組み込み。</li>
+                                <li data-i18n="feat2">🔮 <strong>NASA/JAXA管制室レベル 24hデブリ衝突予測</strong>: 宇宙状況把握 (SSA) アルゴリズムによる今後24時間の全デブリ最接近 (MOID) リアルタイム探知。</li>
+                                <li data-i18n="feat3">🎬 <strong>映画のように滑らかな 1/10 速度カメラ操作</strong>: 特有の物理スクロールインターセプトによる絹のように吸い付く超微細ズーム。</li>
+                                <li data-i18n="feat4">🌐 <strong>スマート自動言語判定 ＆ 5大言語対応</strong>: 海外アクセス自動英語化 ＆ 5大言語 (日英中西露) 0秒一括全切り替え。</li>
+                                <li data-i18n="feat5">💎 <strong>地球視界を 100% 遮らない 浮遊アイランドHUD</strong>: 画面中央を完全透過開放し、地球と極軌道を障害物ゼロで観測。</li>
+                                <li data-i18n="feat6">🌊 <strong>地球自転の波状パターン可視化 (Multi-Lap)</strong>: 地球の自転に伴う軌道面歳差のサインカーブ波状軌跡を 3D 空間で表現。</li>
+                                <li data-i18n="feat7">☀️ <strong>リアルタイム太陽光陰影 ＆ 大気圏描画</strong>: 太陽の角度に応じた昼夜グラデーション (Lighting) ＆ 青い大気ベール。</li>
+                                <li data-i18n="feat8">👁️ <strong>超高コントラスト 国境線・都市名ラベル</strong>: 宇宙空間の暗闇でも全地球の都市と境界線がくっきり浮き出る高輝度表示。</li>
+                            </ul>
+                        </div>
+
                         <p><strong>Data & Orbit Sources:</strong> NORAD / Space-Track (Public TLE Data), JAXA & NASA (Mission Specs)</p>
                         <p><strong>Domain:</strong> satviewer3d.com</p>
                         <p><strong data-i18n="aboutContactTitle">お問い合わせ:</strong> <span data-i18n="aboutContactDesc">ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。</span></p>
@@ -347,7 +378,7 @@
         </div>
     </div>
 
-    <!-- Application Script (Cache Busted v82) -->
-    <script src="app.js?v=20260819_82"></script>
+    <!-- Application Script (Cache Busted v85) -->
+    <script src="app.js?v=20260819_85"></script>
 </body>
 </html>

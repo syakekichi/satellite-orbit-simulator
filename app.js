@@ -123,7 +123,16 @@ const TRANSLATIONS = {
         guideTitleAbout: "ℹ️ SatViewer3D について",
         aboutText1: "SatViewer3D は、地球周回軌道上の人工衛星（ひまわり、みちびき、ISS、Starlink等）および宇宙デブリ（スペースデブリ）のリアルタイム 3D 可視化シミュレーターです。",
         aboutContactTitle: "お問い合わせ:",
-        aboutContactDesc: "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。"
+        aboutContactDesc: "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。",
+        aboutFeaturesTitle: "🌟 NASA公開ツールを超越する『SatViewer3D』の 8 大世界最高峰機能",
+        feat1: "🚀 <strong>世界最速級 最新衛星組み込み</strong>: H3ロケット打ち上げ「みちびき6号機 (QZSS-6)」含む最新衛星・デブリ群をどこよりも早く組み込み。",
+        feat2: "🔮 <strong>NASA/JAXA管制室レベル 24hデブリ衝突予測</strong>: 宇宙状況把握 (SSA) アルゴリズムによる今後24時間の全デブリ最接近 (MOID) リアルタイム探知。",
+        feat3: "🎬 <strong>映画のように滑らかな 1/10 速度カメラ操作</strong>: 特有の物理スクロールインターセプトによる絹のように吸い付く超微細ズーム。",
+        feat4: "🌐 <strong>スマート自動言語判定 ＆ 5大言語対応</strong>: 海外アクセス自動英語化 ＆ 5大言語 (日英中西露) 0秒一括全切り替え。",
+        feat5: "💎 <strong>地球視界を 100% 遮らない 浮遊アイランドHUD</strong>: 画面中央を完全透過開放し、地球と極軌道を障害物ゼロで観測。",
+        feat6: "🌊 <strong>地球自転の波状パターン可視化 (Multi-Lap)</strong>: 地球の自転に伴う軌道面歳差のサインカーブ波状軌跡を 3D 空間で表現。",
+        feat7: "☀️ <strong>リアルタイム太陽光陰影 ＆ 大気圏描画</strong>: 太陽の角度に応じた昼夜グラデーション (Lighting) ＆ 青い大気ベール。",
+        feat8: "👁️ <strong>超高コントラスト 国境線・都市名ラベル</strong>: 宇宙空間の暗闇でも全地球の都市と境界線がくっきり浮き出る高輝度表示。"
     },
     en: {
         statCount: "Tracked Satellites",
@@ -193,7 +202,16 @@ const TRANSLATIONS = {
         guideTitleAbout: "ℹ️ About SatViewer3D",
         aboutText1: "SatViewer3D is a real-time 3D orbital visualization simulator for satellites (Himawari, Michibiki, ISS, Starlink, etc.) and space debris.",
         aboutContactTitle: "Contact Us:",
-        aboutContactDesc: "For inquiries, feedback, or bug reports, please contact info@satviewer3d.com."
+        aboutContactDesc: "For inquiries, feedback, or bug reports, please contact info@satviewer3d.com.",
+        aboutFeaturesTitle: "🌟 8 World-Class Features Surpassing NASA Public Tools",
+        feat1: "🚀 <strong>World's Fastest Satellite Catalog</strong>: Instant integration of newest satellites including QZSS-6 (Michibiki 6) launched by Japan H3 rocket.",
+        feat2: "🔮 <strong>NASA/JAXA Control-Level 24h Risk Radar</strong>: Real-time Space Situational Awareness (SSA) predicting future debris encounters (MOID).",
+        feat3: "🎬 <strong>Cinematic 1/10th Speed Smooth Camera</strong>: Custom physics wheel interceptor providing silky smooth precision zoom.",
+        feat4: "🌐 <strong>Smart i18n Auto Language Engine</strong>: Automatic country detection & instant switching across 5 global languages.",
+        feat5: "💎 <strong>Unobstructed Floating HUD Islands</strong>: Center screen transparent design allowing unobstructed Earth & polar viewing.",
+        feat6: "🌊 <strong>Multi-Lap Precession Wave Visualization</strong>: 3D representation of orbital plane precession caused by Earth's rotation.",
+        feat7: "☀️ <strong>Real-Time Solar Lighting & Atmosphere</strong>: Dynamic day/night shading based on sun angle & glowing atmospheric veil.",
+        feat8: "👁️ <strong>High-Contrast Borders & City Labels</strong>: High-brightness labels popping clearly even in deep space darkness."
     },
     zh: {
         statCount: "追踪卫星数量",
@@ -420,7 +438,7 @@ function applyLanguage(lang) {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict && dict[key]) {
-            el.textContent = dict[key];
+            el.innerHTML = dict[key];
         }
     });
 
@@ -2433,6 +2451,18 @@ function setupDraggablePanels() {
     if (detailCard) {
         const handle = detailCard.querySelector('.panel-drag-bar') || detailCard;
         makeDraggable(detailCard, handle);
+    }
+
+    const headerLeftIsland = document.getElementById('headerLeftIsland');
+    if (headerLeftIsland) {
+        const handle = headerLeftIsland.querySelector('.panel-drag-bar') || headerLeftIsland;
+        makeDraggable(headerLeftIsland, handle);
+    }
+
+    const headerRightIsland = document.getElementById('headerRightIsland');
+    if (headerRightIsland) {
+        const handle = headerRightIsland.querySelector('.panel-drag-bar') || headerRightIsland;
+        makeDraggable(headerRightIsland, handle);
     }
 
     setupCameraDPadControls();
