@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SatViewer3D | リアルタイム3D人工衛星・宇宙デブリシミュレーター</title>
-    <meta name="description" content="SatViewer3D: CesiumJSとsatellite.jsを使用したリアルタイム3D人工衛星・宇宙ゴミ軌道シミュレーター。Starlink、ひまわり、みちびき、宇宙デブリをインタラクティブに可視化します。">
+    <!-- Favicon (High-Res Neon Orbit Satellite Icon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><ellipse cx='32' cy='32' rx='25' ry='8' fill='none' stroke='%23ff0055' stroke-width='2' transform='rotate(-30 32 32)' stroke-dasharray='4 2'/><circle cx='48' cy='22' r='4' fill='%23c084fc'/><circle cx='48' cy='22' r='7' fill='none' stroke='%2338bdf8' stroke-width='1.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,6 +74,9 @@
                             <option value="ru" style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
                         </select>
                     </div>
+                    <button id="openGuideBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer;" data-i18n="btnGuide">
+                        ❓ ガイド & 規約
+                    </button>
                 </div>
             </div>
         </div>
@@ -275,6 +279,59 @@
             </div>
         </div>
 
+        <!-- Help, Guide, Terms & Privacy Policy Modal for Google AdSense Approval -->
+        <div id="guideModal" class="modal-overlay hidden">
+            <div class="modal-content glass-panel">
+                <div class="modal-header">
+                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D 操作ガイド & 利用規約</h2>
+                    <button id="closeGuideBtn" class="btn-close">&times;</button>
+                </div>
+                <div class="modal-tabs">
+                    <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 操作方法</button>
+                    <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ 免責事項</button>
+                    <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 プライバシーポリシー</button>
+                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ サイト情報</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Tab 1: Controls -->
+                    <div id="tabControls" class="tab-content active">
+                        <h3 data-i18n="guideTitleControls">🖱️ 3D 空間の操作ガイド</h3>
+                        <ul class="guide-list">
+                            <li><strong data-i18n="guideWheel">マウスホイール / タッチ操作</strong>: <span data-i18n="guideWheelDesc">絹のように滑らかな 1/10 速度でズームイン / ズームアウト。</span></li>
+                            <li><strong data-i18n="guideDrag">左ドラッグ</strong>: <span data-i18n="guideDragDesc">地球を全方向（360度）自由回転。</span></li>
+                            <li><strong data-i18n="guideTilt">右ドラッグ / Ctrl + ドラッグ</strong>: <span data-i18n="guideTiltDesc">カメラの角度（チルト・俯瞰視点）を変更。</span></li>
+                            <li><strong data-i18n="guideClick">衛星をクリック / 検索</strong>: <span data-i18n="guideClickDesc">衛生を選択し、リアルタイム軌道・高度・速度・衝突危険度を表示。</span></li>
+                            <li><strong data-i18n="guideFocus">🎯 追跡カメラフォーカス</strong>: <span data-i18n="guideFocusDesc">選択した衛星をカメラが自動追跡。</span></li>
+                            <li><strong data-i18n="guideRadar">🔮 宇宙デブリ危険分析</strong>: <span data-i18n="guideRadarDesc">今後24時間の軌道交差予測 (MOID) をリアルタイム表示。</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab 2: Disclaimer -->
+                    <div id="tabDisclaimer" class="tab-content">
+                        <h3 data-i18n="guideTitleDisclaimer">⚠️ 免責事項 (Disclaimer)</h3>
+                        <p data-i18n="discText1">SatViewer3D（以下、「本シミュレーター」）が提供する軌道データ、衛星位置、上空通過予報、および宇宙デブリ最接近危険度の予測計算は、CelesTrak および Space-Track の公開 TLE データに基づき教育・観測補助・科学的探求を目的としてリアルタイム計算されています。</p>
+                        <p data-i18n="discText2">本シミュレーターのデータは、実際の宇宙船や人工衛星の運用、衝突回避操作等の安全保証を目的としたものではありません。本情報の利用により発生したいかなる損害についても、運営者は一切の責任を負いかねます。</p>
+                    </div>
+
+                    <!-- Tab 3: Privacy Policy -->
+                    <div id="tabPrivacy" class="tab-content">
+                        <h3 data-i18n="guideTitlePrivacy">🔒 プライバシーポリシー (Google AdSense 準拠)</h3>
+                        <p><strong data-i18n="privText1Title">広告の配信について:</strong><br><span data-i18n="privText1Desc">本サイトでは、第三者配信事業者（Google AdSense 等）による広告サービスを利用する場合があります。広告事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、本サイトや他サイトへのアクセスに関する情報 Cookie（氏名、住所、メール アドレス、電話番号は含まれません）を使用することがあります。</span></p>
+                        <p><strong data-i18n="privText2Title">アクセス解析ツールについて:</strong><br><span data-i18n="privText2Desc">本サイトでは、アクセス解析ツールを利用してトラフィックデータを収集する場合があります。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。</span></p>
+                    </div>
+
+                    <!-- Tab 4: About & Contact -->
+                    <div id="tabAbout" class="tab-content">
+                        <h3 data-i18n="guideTitleAbout">ℹ️ SatViewer3D について</h3>
+                        <p data-i18n="aboutText1">SatViewer3D は、地球周回軌道上の人工衛星（ひまわり、みちびき、ISS、Starlink等）および宇宙デブリ（スペースデブリ）のリアルタイム 3D 可視化シミュレーターです。</p>
+                        <p><strong>Data & Orbit Sources:</strong> NORAD / Space-Track (Public TLE Data), JAXA & NASA (Mission Specs)</p>
+                        <p><strong>Domain:</strong> satviewer3d.com</p>
+                        <p><strong data-i18n="aboutContactTitle">お問い合わせ:</strong> <span data-i18n="aboutContactDesc">ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Loading Spinner overlay (Hidden by default) -->
         <div id="loadingOverlay" class="loading-overlay hidden" style="display:none;">
             <div class="spinner-container">
@@ -284,7 +341,7 @@
         </div>
     </div>
 
-    <!-- Application Script (Cache Busted v78) -->
-    <script src="app.js?v=20260819_78"></script>
+    <!-- Application Script (Cache Busted v81) -->
+    <script src="app.js?v=20260819_81"></script>
 </body>
 </html>

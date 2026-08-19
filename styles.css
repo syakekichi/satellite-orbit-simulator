@@ -893,6 +893,114 @@ input:focus + .slider.purple-slider {
     animation: hazardPulse 1s infinite ease-in-out;
 }
 
+/* Help, Guide, Terms & Privacy Policy Modal CSS */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(7, 9, 14, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    padding: 20px;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    background: rgba(11, 19, 41, 0.92);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(168, 85, 247, 0.2);
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #f3e8ff;
+    margin: 0;
+}
+
+.modal-tabs {
+    display: flex;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    overflow-x: auto;
+}
+
+.modal-tab {
+    flex: 1;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.modal-tab:hover {
+    color: #e9d5ff;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.modal-tab.active {
+    color: #c084fc;
+    border-bottom-color: #c084fc;
+    background: rgba(168, 85, 247, 0.12);
+}
+
+.modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content h3 {
+    margin-top: 0;
+    font-size: 1.05rem;
+    color: #38bdf8;
+    margin-bottom: 14px;
+}
+
+.guide-list {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.guide-list li {
+    margin-bottom: 12px;
+}
+
 .hidden {
     display: none !important;
 }
@@ -900,6 +1008,7 @@ input:focus + .slider.purple-slider {
 /* Scrollbar Style */
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 ::-webkit-scrollbar-track {
     background: rgba(0,0,0,0.1);

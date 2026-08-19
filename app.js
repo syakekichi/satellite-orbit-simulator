@@ -92,7 +92,38 @@ const TRANSLATIONS = {
         btnGeo: "📍現在地",
         btnTrack: "🎯 追跡カメラフォーカス",
         btnUntrack: "🔓 追跡解除",
-        pointerHint: "画面外にあります (クリックでカメラ移動)"
+        pointerHint: "画面外にあります (クリックでカメラ移動)",
+        btnGuide: "❓ ガイド & 規約",
+        modalTitle: "SatViewer3D 操作ガイド & 利用規約",
+        tabControls: "🎮 操作方法",
+        tabDisclaimer: "⚠️ 免責事項",
+        tabPrivacy: "🔒 プライバシーポリシー",
+        tabAbout: "ℹ️ サイト情報",
+        guideTitleControls: "🖱️ 3D 空間の操作ガイド",
+        guideWheel: "マウスホイール / タッチ操作",
+        guideWheelDesc: "絹のように滑らかな 1/10 速度でズームイン / ズームアウト。",
+        guideDrag: "左ドラッグ",
+        guideDragDesc: "地球を全方向（360度）自由回転。",
+        guideTilt: "右ドラッグ / Ctrl + ドラッグ",
+        guideTiltDesc: "カメラの角度（チルト・俯瞰視点）を変更。",
+        guideClick: "衛星をクリック / 検索",
+        guideClickDesc: "衛星を選択し、リアルタイム軌道・高度・速度・衝突危険度を表示。",
+        guideFocus: "🎯 追跡カメラフォーカス",
+        guideFocusDesc: "選択した衛星をカメラが自動追跡。",
+        guideRadar: "🔮 宇宙デブリ危険分析",
+        guideRadarDesc: "今後24時間の軌道交差予測 (MOID) をリアルタイム表示。",
+        guideTitleDisclaimer: "⚠️ 免責事項 (Disclaimer)",
+        discText1: "SatViewer3D（以下、「本シミュレーター」）が提供する軌道データ、衛星位置、上空通過予報、および宇宙デブリ最接近危険度の予測計算は、NORAD および Space-Track 等の公開 TLE データに基づき教育・観測補助・科学的探求を目的としてリアルタイム計算されています。",
+        discText2: "本シミュレーターのデータは、実際の宇宙船や人工衛星の運用、衝突回避操作等の安全保証を目的としたものではありません。本情報の利用により発生したいかなる損害についても、運営者は一切の責任を負いかねます。",
+        guideTitlePrivacy: "🔒 プライバシーポリシー (Google AdSense 準拠)",
+        privText1Title: "広告の配信について:",
+        privText1Desc: "本サイトでは、第三者配信事業者（Google AdSense 等）による広告サービスを利用する場合があります。広告事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、本サイトや他サイトへのアクセスに関する情報 Cookie（氏名、住所、メール アドレス、電話番号は含まれません）を使用することがあります。",
+        privText2Title: "アクセス解析ツールについて:",
+        privText2Desc: "本サイトでは、アクセス解析ツールを利用してトラフィックデータを収集する場合があります。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。",
+        guideTitleAbout: "ℹ️ SatViewer3D について",
+        aboutText1: "SatViewer3D は、地球周回軌道上の人工衛星（ひまわり、みちびき、ISS、Starlink等）および宇宙デブリ（スペースデブリ）のリアルタイム 3D 可視化シミュレーターです。",
+        aboutContactTitle: "お問い合わせ:",
+        aboutContactDesc: "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。"
     },
     en: {
         statCount: "Tracked Satellites",
@@ -131,7 +162,38 @@ const TRANSLATIONS = {
         btnGeo: "📍My Location",
         btnTrack: "🎯 Focus Camera",
         btnUntrack: "🔓 Unfocus Camera",
-        pointerHint: "Off-screen (Click to view)"
+        pointerHint: "Off-screen (Click to view)",
+        btnGuide: "❓ Guide & Terms",
+        modalTitle: "SatViewer3D User Guide & Legal Terms",
+        tabControls: "🎮 How to Use",
+        tabDisclaimer: "⚠️ Disclaimer",
+        tabPrivacy: "🔒 Privacy Policy",
+        tabAbout: "ℹ️ About",
+        guideTitleControls: "🖱️ 3D Controls Guide",
+        guideWheel: "Mouse Wheel / Touch",
+        guideWheelDesc: "Silky smooth 1/10th speed zoom in / out.",
+        guideDrag: "Left Drag",
+        guideDragDesc: "Free 360-degree Earth rotation.",
+        guideTilt: "Right Drag / Ctrl + Drag",
+        guideTiltDesc: "Adjust camera tilt angle & elevation.",
+        guideClick: "Click Satellite / Search",
+        guideClickDesc: "Select satellite to display real-time orbit, altitude, velocity & risk.",
+        guideFocus: "🎯 Focus Camera",
+        guideFocusDesc: "Camera automatically tracks the selected satellite.",
+        guideRadar: "🔮 Space Debris Risk Radar",
+        guideRadarDesc: "Real-time future 24-hour orbit intersection prediction (MOID).",
+        guideTitleDisclaimer: "⚠️ Disclaimer",
+        discText1: "Orbital data, satellite positions, pass predictions, and debris risk calculations provided by SatViewer3D are calculated in real-time based on public TLE data from NORAD and Space-Track for educational, observational, and scientific purposes.",
+        discText2: "Data in this simulator is not intended for operational spacecraft safety or collision avoidance guarantee. The operator assumes no liability for damages incurred through use of this service.",
+        guideTitlePrivacy: "🔒 Privacy Policy (Google AdSense Compliant)",
+        privText1Title: "Ad Serving Policy:",
+        privText1Desc: "This website may use third-party advertising services (e.g. Google AdSense). Ad vendors may use cookies to serve ads based on user visits to this or other websites on the Internet.",
+        privText2Title: "Analytics Policy:",
+        privText2Desc: "This website may use analytics tools to collect anonymous traffic data. Traffic data is collected anonymously and does not identify individuals.",
+        guideTitleAbout: "ℹ️ About SatViewer3D",
+        aboutText1: "SatViewer3D is a real-time 3D orbital visualization simulator for satellites (Himawari, Michibiki, ISS, Starlink, etc.) and space debris.",
+        aboutContactTitle: "Contact Us:",
+        aboutContactDesc: "For inquiries, feedback, or bug reports, please contact info@satviewer3d.com."
     },
     zh: {
         statCount: "追踪卫星数量",
@@ -170,7 +232,37 @@ const TRANSLATIONS = {
         btnGeo: "📍当前位置",
         btnTrack: "🎯 聚焦相机",
         btnUntrack: "🔓 取消聚焦",
-        pointerHint: "在屏幕外 (点击查看)"
+        btnGuide: "❓ 指南与条款",
+        modalTitle: "SatViewer3D 用户指南与法律条款",
+        tabControls: "🎮 操作指南",
+        tabDisclaimer: "⚠️ 免责声明",
+        tabPrivacy: "🔒 隐私政策",
+        tabAbout: "ℹ️ 关于本站",
+        guideTitleControls: "🖱️ 3D 空间操作指南",
+        guideWheel: "鼠标滚轮 / 触控",
+        guideWheelDesc: "1/10 极微平滑缩放。",
+        guideDrag: "左键拖拽",
+        guideDragDesc: "360度自由旋转地球。",
+        guideTilt: "右键拖拽 / Ctrl + 拖拽",
+        guideTiltDesc: "调整相机倾角与视角。",
+        guideClick: "点击卫星 / 搜索",
+        guideClickDesc: "选择卫星显示实时轨道、高度、速度及风险。",
+        guideFocus: "🎯 聚焦相机",
+        guideFocusDesc: "相机自动追踪所选卫星。",
+        guideRadar: "🔮 空间碎片危险分析",
+        guideRadarDesc: "实时预测未来24小时轨道交汇 (MOID)。",
+        guideTitleDisclaimer: "⚠️ 免责声明 (Disclaimer)",
+        discText1: "SatViewer3D 提供的轨道数据、卫星位置及碎片风险预测计算，均基于 NORAD 及 Space-Track 的公开 TLE 数据，仅供教育与科研目的使用。",
+        discText2: "本模拟器数据不用于实际航天器安全或避碰保证。因使用本服务产生的任何损失，本站概不负责。",
+        guideTitlePrivacy: "🔒 隐私政策 (Google AdSense 合规)",
+        privText1Title: "广告服务政策:",
+        privText1Desc: "本网站可能使用第三方广告服务（如 Google AdSense）。广告商可能会使用 Cookie 根据用户在本网站或互联网上其他网站的访问情况展示广告。",
+        privText2Title: "分析政策:",
+        privText2Desc: "本网站可能使用分析工具收集匿名流量数据。",
+        guideTitleAbout: "ℹ️ 关于 SatViewer3D",
+        aboutText1: "SatViewer3D 是一个用于卫星及空间碎片的实时 3D 轨道可视化模拟器。",
+        aboutContactTitle: "联系我们:",
+        aboutContactDesc: "如有建议或反馈，请联系 info@satviewer3d.com。"
     },
     es: {
         statCount: "Satélites Rastreados",
@@ -209,7 +301,38 @@ const TRANSLATIONS = {
         btnGeo: "📍Mi Ubicación",
         btnTrack: "🎯 Enfocar Cámara",
         btnUntrack: "🔓 Desenrocar",
-        pointerHint: "Fuera de pantalla (Clic para ver)"
+        pointerHint: "Fuera de pantalla (Clic para ver)",
+        btnGuide: "❓ Guía y Términos",
+        modalTitle: "Guía de Usuario y Términos Legales de SatViewer3D",
+        tabControls: "🎮 Cómo Usar",
+        tabDisclaimer: "⚠️ Descargo de Responsabilidad",
+        tabPrivacy: "🔒 Política de Privacidad",
+        tabAbout: "ℹ️ Acerca de",
+        guideTitleControls: "🖱️ Guía de Controles 3D",
+        guideWheel: "Rueda de Ratón / Táctil",
+        guideWheelDesc: "Zoom suave de 1/10 de velocidad.",
+        guideDrag: "Arrastrar Izquierdo",
+        guideDragDesc: "Rotación libre de 360 grados de la Tierra.",
+        guideTilt: "Arrastrar Derecho / Ctrl + Arrastrar",
+        guideTiltDesc: "Ajustar ángulo de inclinación de la cámara.",
+        guideClick: "Clic en Satélite / Buscar",
+        guideClickDesc: "Seleccionar satélite para mostrar órbita, altitud, velocidad y riesgo.",
+        guideFocus: "🎯 Enfocar Cámara",
+        guideFocusDesc: "La cámara rastrea automáticamente el satélite seleccionado.",
+        guideRadar: "🔮 Radar de Basura Espacial",
+        guideRadarDesc: "Predicción de intersección de órbita en 24 horas en tiempo real (MOID).",
+        guideTitleDisclaimer: "⚠️ Descargo de Responsabilidad",
+        discText1: "Los datos orbitales y cálculos de riesgo proporcionados por SatViewer3D se calculan en tiempo real basados en datos TLE públicos de NORAD y Space-Track con fines educativos y científicos.",
+        discText2: "Los datos no están destinados a la seguridad operativa de naves espaciales.",
+        guideTitlePrivacy: "🔒 Política de Privacidad (Cumple con AdSense)",
+        privText1Title: "Política de Anuncios:",
+        privText1Desc: "Este sitio web puede utilizar servicios publicitarios de terceros (Google AdSense).",
+        privText2Title: "Política de Analítica:",
+        privText2Desc: "Este sitio web puede recopilar datos de tráfico anónimos.",
+        guideTitleAbout: "ℹ️ Acerca de SatViewer3D",
+        aboutText1: "SatViewer3D es un simulador de visualización 3D en tiempo real para satélites y basura espacial.",
+        aboutContactTitle: "Contacto:",
+        aboutContactDesc: "Para consultas, por favor contacte a info@satviewer3d.com."
     },
     ru: {
         statCount: "Отслеживаемые спутники",
@@ -248,7 +371,38 @@ const TRANSLATIONS = {
         btnGeo: "📍Мое местоположение",
         btnTrack: "🎯 Фокус камеры",
         btnUntrack: "🔓 Снять фокус",
-        pointerHint: "За экраном (Нажмите)"
+        pointerHint: "За экраном (Нажмите)",
+        btnGuide: "❓ Руководство и условия",
+        modalTitle: "Руководство пользователя и условия SatViewer3D",
+        tabControls: "🎮 Как использовать",
+        tabDisclaimer: "⚠️ Отказ от ответственности",
+        tabPrivacy: "🔒 Политика конфиденциальности",
+        tabAbout: "ℹ️ О проекте",
+        guideTitleControls: "🖱️ Управление 3D",
+        guideWheel: "Колесико мыши / Тачпад",
+        guideWheelDesc: "Плавный зум со скоростью 1/10.",
+        guideDrag: "Левая кнопка",
+        guideDragDesc: "Вращение Земли на 360 градусов.",
+        guideTilt: "Правая кнопка / Ctrl + Мышь",
+        guideTiltDesc: "Изменение угла наклона камеры.",
+        guideClick: "Клик на спутник / Поиск",
+        guideClickDesc: "Выбор спутника для отображения орбиты, высоты и риска.",
+        guideFocus: "🎯 Фокус камеры",
+        guideFocusDesc: "Автоматическое отслеживание выбранного спутника.",
+        guideRadar: "🔮 Радар космического мусора",
+        guideRadarDesc: "Прогноз пересечения орбит на 24 часа в реальном времени (MOID).",
+        guideTitleDisclaimer: "⚠️ Отказ от ответственности",
+        discText1: "Орбитальные данные и расчеты рисков рассчитываются в реальном времени на основе открытых данных TLE от NORAD и Space-Track.",
+        discText2: "Данные не предназначены для оперативного управления космическими аппаратами.",
+        guideTitlePrivacy: "🔒 Политика конфиденциальности (Google AdSense)",
+        privText1Title: "Рекламная политика:",
+        privText1Desc: "Сайт может использовать сторонние рекламные сервисы (Google AdSense).",
+        privText2Title: "Аналитика:",
+        privText2Desc: "Сайт может собирать анонимные данные о трафике.",
+        guideTitleAbout: "ℹ️ О проекте SatViewer3D",
+        aboutText1: "SatViewer3D — это 3D-симулятор орбитальной визуализации спутников и космического мусора.",
+        aboutContactTitle: "Контакты:",
+        aboutContactDesc: "По всем вопросам обращайтесь на info@satviewer3d.com."
     }
 };
 
@@ -278,7 +432,9 @@ function applyLanguage(lang) {
         'resetNowBtn': 'resetNow',
         'geoLocateBtn': 'btnGeo',
         'trackBtn': 'btnTrack',
-        'untrackBtn': 'btnUntrack'
+        'untrackBtn': 'btnUntrack',
+        'openGuideBtn': 'btnGuide',
+        'modalTitle': 'modalTitle'
     };
 
     for (const [id, key] of Object.entries(idsToTranslate)) {
@@ -1960,6 +2116,48 @@ function updatePassPredictionAndRisk(sat, jsDate) {
  * Event Listeners Registration
  */
 function setupEventListeners() {
+    // Guide & Privacy Modal Event Listeners
+    const openGuideBtn = document.getElementById('openGuideBtn');
+    const closeGuideBtn = document.getElementById('closeGuideBtn');
+    const guideModal = document.getElementById('guideModal');
+
+    if (openGuideBtn && guideModal) {
+        openGuideBtn.addEventListener('click', () => {
+            guideModal.classList.remove('hidden');
+        });
+    }
+
+    if (closeGuideBtn && guideModal) {
+        closeGuideBtn.addEventListener('click', () => {
+            guideModal.classList.add('hidden');
+        });
+    }
+
+    if (guideModal) {
+        guideModal.addEventListener('click', (e) => {
+            if (e.target === guideModal) {
+                guideModal.classList.add('hidden');
+            }
+        });
+    }
+
+    const modalTabs = document.querySelectorAll('.modal-tab');
+    modalTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetTab = tab.getAttribute('data-tab');
+            modalTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            document.querySelectorAll('.tab-content').forEach(content => {
+                if (content.id === targetTab) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        });
+    });
+
     satSelect.addEventListener('change', (e) => {
         const val = e.target.value;
         if (val !== "") {
