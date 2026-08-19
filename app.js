@@ -50,6 +50,7 @@ const loadMajorBtn = document.getElementById('loadMajorBtn');
 const loadLocalBtn = document.getElementById('loadLocalBtn');
 const loadOnlineBtn = document.getElementById('loadOnlineBtn');
 const labelsContainer = document.getElementById('labelsContainer');
+const tzSelect = document.getElementById('tzSelect');
 
 // Off-Screen Pointer DOM Elements
 const edgePointer = document.getElementById('edgePointer');
@@ -278,7 +279,7 @@ async function fetchTLEText(url) {
  * Load TLE Satellite Data from URL / File
  */
 async function loadSatelliteData(sourceUrl) {
-    showLoading(`衛星データを読み込んでいます...`);
+    showLoading(`衛星データを計算・ロード中...`);
     
     try {
         const text = await fetchTLEText(sourceUrl);
@@ -292,7 +293,6 @@ async function loadSatelliteData(sourceUrl) {
         statCount.textContent = satellitesData.length.toLocaleString();
         updateDropdownOptions();
         renderSatellitePoints();
-        hideLoading();
     } catch (error) {
         console.error("Error loading TLE:", error);
         
@@ -301,15 +301,19 @@ async function loadSatelliteData(sourceUrl) {
             setTimeout(() => {
                 loadMajorBtn.click();
             }, 1800);
+            return;
         } else {
             loadingText.textContent = `エラー: ${error.message}`;
-            setTimeout(hideLoading, 3000);
+            setTimeout(hideLoading, 2000);
+            return;
         }
+    } finally {
+        hideLoading();
     }
 }
 
 /**
- * Create Point Primitives and 100% Sharp HTML DOM Overlay Labels
+ * Create Point Primitives and 100% Sharp HTML DOM Overlay Labels (Optimized for Large Constellations)
  */
 function renderSatellitePoints() {
     satPointPrimitives.removeAll();
@@ -329,33 +333,48 @@ function renderSatellitePoints() {
     edgePointer.classList.add('hidden');
 
     const pointColor = Cesium.Color.fromCssColorString('#00f3ff');
+    const isLargeConstellation = satellitesData.length > 50;
 
     satellitesData.forEach((sat, index) => {
+        // Point Primitive for 3D Earth View
         const point = satPointPrimitives.add({
             position: Cesium.Cartesian3.ZERO,
-            pixelSize: 12,
+            pixelSize: isLargeConstellation ? 6 : 12, // Compact dot size for Starlink cluster
             color: pointColor,
             outlineColor: Cesium.Color.fromCssColorString('#000000'),
-            outlineWidth: 2,
+            outlineWidth: isLargeConstellation ? 1 : 2,
             disableDepthTestDistance: Number.POSITIVE_INFINITY,
             id: index
         });
         sat.primitive = point;
 
-        if (labelsContainer) {
-            const labelElem = document.createElement('div');
-            labelElem.className = 'sat-dom-label';
-            labelElem.textContent = sat.name;
-            labelElem.dataset.index = index;
-            labelElem.addEventListener('click', () => {
-                selectSatellite(index);
-            });
-            labelsContainer.appendChild(labelElem);
-            sat.domLabel = labelElem;
+        // Optimized DOM Label Creation: Limit DOM nodes for large constellations (>50 sats) to top 25 to ensure sub-millisecond loading
+        const shouldCreateLabel = !isLargeConstellation || index < 25;
+        if (labelsContainer && shouldCreateLabel) {
+            createDomLabelForSat(sat, index);
+        } else {
+            sat.domLabel = null;
         }
     });
 
     updateSatellitePositions(new Date());
+}
+
+/**
+ * Helper to Create Crisp HTML DOM Label for Satellite
+ */
+function createDomLabelForSat(sat, index) {
+    if (!labelsContainer || sat.domLabel) return;
+    const labelElem = document.createElement('div');
+    labelElem.className = 'sat-dom-label';
+    labelElem.textContent = sat.name;
+    labelElem.dataset.index = index;
+    labelElem.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectSatellite(index);
+    });
+    labelsContainer.appendChild(labelElem);
+    sat.domLabel = labelElem;
 }
 
 /**
@@ -530,11 +549,49 @@ function updateOffScreenPointer() {
 }
 
 /**
+ * Format Simulation Time based on selected Timezone (JST, UTC, NY, LOCAL)
+ */
+function formatSimTime(jsDate) {
+    const tz = tzSelect ? tzSelect.value : 'JST';
+    
+    if (tz === 'UTC') {
+        return jsDate.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+    } else if (tz === 'JST') {
+        // JST = UTC + 9 Hours
+        const jstDate = new Date(jsDate.getTime() + 9 * 60 * 60 * 1000);
+        return jstDate.toISOString().replace('T', ' ').substring(0, 19) + ' JST';
+    } else if (tz === 'NY') {
+        try {
+            const formatter = new Intl.DateTimeFormat('ja-JP', {
+                timeZone: 'America/New_York',
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hour12: false
+            });
+            const parts = formatter.formatToParts(jsDate);
+            const p = {};
+            parts.forEach(part => p[part.type] = part.value);
+            return `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}:${p.second} NY`;
+        } catch (e) {
+            return jsDate.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+        }
+    } else {
+        const y = jsDate.getFullYear();
+        const m = String(jsDate.getMonth() + 1).padStart(2, '0');
+        const d = String(jsDate.getDate()).padStart(2, '0');
+        const hh = String(jsDate.getHours()).padStart(2, '0');
+        const mm = String(jsDate.getMinutes()).padStart(2, '0');
+        const ss = String(jsDate.getSeconds()).padStart(2, '0');
+        return `${y}-${m}-${d} ${hh}:${mm}:${ss} LOCAL`;
+    }
+}
+
+/**
  * Clock Tick Handler
  */
 function onClockTick(clock) {
     const jsDate = Cesium.JulianDate.toDate(clock.currentTime);
-    statTime.textContent = jsDate.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+    statTime.textContent = formatSimTime(jsDate);
     updateSatellitePositions(jsDate);
 }
 
@@ -571,6 +628,11 @@ function selectSatellite(index) {
 
     selectedSatIndex = index;
     const sat = satellitesData[index];
+
+    // Ensure DOM label exists for selected satellite even in large constellations
+    if (!sat.domLabel) {
+        createDomLabelForSat(sat, index);
+    }
 
     // Highlight selected satellite
     sat.primitive.color = Cesium.Color.fromCssColorString('#ff0055');
@@ -617,26 +679,41 @@ function selectSatellite(index) {
 }
 
 /**
- * Fly Camera smoothly to Satellite using BoundingSphere for perfect focus
+ * Fly Camera smoothly to Satellite while maintaining Earth in view during zoom out
  */
 function flyToSatellite(sat) {
     if (!sat || !sat.currentCartesian) return;
 
+    // Reset camera reference frame to Earth center (0,0,0) so zooming out never loses Earth
+    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+
+    const satPos = sat.currentCartesian;
     const nameUpper = sat.name.toUpperCase();
-    let targetRange = 5000000;
+
+    // Distance offset factor depending on orbit altitude
+    let distMultiplier = 2.2;
     if (nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI')) {
-        targetRange = 28000000;
+        distMultiplier = 1.4; // Geostationary
     } else if (nameUpper.includes('GPS')) {
-        targetRange = 15000000;
+        distMultiplier = 1.6; // MEO
     }
 
-    const boundingSphere = new Cesium.BoundingSphere(sat.currentCartesian, 100);
-    viewer.camera.flyToBoundingSphere(boundingSphere, {
-        offset: new Cesium.HeadingPitchRange(
-            Cesium.Math.toRadians(0),
-            Cesium.Math.toRadians(-25),
-            targetRange
-        ),
+    // Position camera along the vector from Earth center through satellite
+    const satNorm = Cesium.Cartesian3.normalize(satPos, new Cesium.Cartesian3());
+    const cameraDistance = Cesium.Cartesian3.magnitude(satPos) * distMultiplier;
+    
+    // Offset camera position slightly to give a beautiful 3D view of both Earth & Satellite
+    const cameraPos = Cesium.Cartesian3.multiplyByScalar(satNorm, cameraDistance, new Cesium.Cartesian3());
+
+    viewer.camera.flyTo({
+        destination: cameraPos,
+        orientation: {
+            direction: Cesium.Cartesian3.normalize(
+                Cesium.Cartesian3.subtract(satPos, cameraPos, new Cesium.Cartesian3()),
+                new Cesium.Cartesian3()
+            ),
+            up: Cesium.Cartesian3.UNIT_Z
+        },
         duration: 1.6
     });
 }
@@ -769,6 +846,13 @@ function setupEventListeners() {
             deselectSatellite();
         }
     });
+
+    if (tzSelect) {
+        tzSelect.addEventListener('change', () => {
+            const jsDate = Cesium.JulianDate.toDate(viewer.clock.currentTime);
+            statTime.textContent = formatSimTime(jsDate);
+        });
+    }
 
     edgePointer.addEventListener('click', () => {
         if (selectedSatIndex >= 0) {

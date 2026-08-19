@@ -83,12 +83,12 @@
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                    衛星プリセット・データ
+                    衛星データソース & プリセット
                 </h2>
                 <div class="source-buttons">
-                    <button class="btn btn-secondary active" id="loadMajorBtn">主要・有名衛星 (ひまわり, ISS等)</button>
-                    <button class="btn btn-secondary" id="loadLocalBtn">Starlink (ローカルデータ)</button>
-                    <button class="btn btn-secondary" id="loadOnlineBtn">Starlink (CelesTrak最新)</button>
+                    <button class="btn btn-secondary active" id="loadMajorBtn">⭐ 主要・有名衛星 (ひまわり, ISS等)</button>
+                    <button class="btn btn-secondary" id="loadLocalBtn">🛰️ Starlink (ローカル保存データ)</button>
+                    <button class="btn btn-secondary" id="loadOnlineBtn">🌐 Starlink (CelesTrak最新オンライン)</button>
                 </div>
             </div>
 
@@ -118,17 +118,16 @@
                         <span class="slider"></span>
                         <span class="toggle-label">2D世界地図モード</span>
                     </label>
-                </div>
-            </div>
 
-            <div class="sidebar-section">
-                <h2 class="section-title">
-                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                    データソース
-                </h2>
-                <div class="source-buttons">
-                    <button class="btn btn-secondary active" id="loadLocalBtn">Starlink (ローカルデータ)</button>
-                    <button class="btn btn-secondary" id="loadOnlineBtn">CelesTrak (最新オンライン)</button>
+                    <div class="control-group" style="margin-top: 12px; display: flex; flex-direction: column; gap: 4px;">
+                        <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);">時刻表示タイムゾーン</span>
+                        <select id="tzSelect" class="custom-select" style="padding: 6px 10px; font-size: 0.8rem;">
+                            <option value="JST" selected>🇯🇵 日本標準時 (JST / UTC+9)</option>
+                            <option value="UTC">🌐 協定世界時 (UTC)</option>
+                            <option value="NY">🇺🇸 ニューヨーク時間 (EST/EDT)</option>
+                            <option value="LOCAL">💻 ローカル時間 (ブラウザ依存)</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </aside>
