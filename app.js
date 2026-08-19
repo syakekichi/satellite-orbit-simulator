@@ -723,6 +723,11 @@ document.addEventListener('DOMContentLoaded', () => {
         setupEventListeners();
         loadMajorSatellitesPreset();
         applyLanguage(currentLang);
+
+        const yr = new Date().getFullYear();
+        const yrEl = document.getElementById('copyrightYear');
+        if (yrEl) yrEl.textContent = yr;
+        document.querySelectorAll('.copyrightYearRef').forEach(el => el.textContent = yr);
     } catch (e) {
         console.error("Initialization error:", e);
     } finally {
