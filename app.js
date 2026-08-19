@@ -58,6 +58,42 @@ IRIDIUM 33 DEBRIS #5 (イリジウム33 衝突デブリ破片5)
 IRIDIUM 33 DEBRIS #6 (イリジウム33 衝突デブリ破片6)
 1 33782U 09005F   26100.12345678  .00000000  00000-0  00000-0 0  9994
 2 33782  86.5000 128.0000 0022000  90.0000 270.0000 14.38000000  1006
+COSMOS 2251 DEBRIS #1 (コスモス2251 衝突デブリ)
+1 33750U 09005AA  26100.12345678  .00000000  00000-0  00000-0 0  9901
+2 33750  74.0300  45.1200 0015000 120.0000 240.0000 14.78000000  2001
+COSMOS 2251 DEBRIS #2 (コスモス2251 衝突デブリ)
+1 33751U 09005AB  26100.12345678  .00000000  00000-0  00000-0 0  9902
+2 33751  74.1000  55.3000 0021000 180.0000 180.0000 14.85000000  2002
+COSMOS 2251 DEBRIS #3 (コスモス2251 衝突デブリ)
+1 33752U 09005AC  26100.12345678  .00000000  00000-0  00000-0 0  9903
+2 33752  74.0000  65.4000 0009000  45.0000 315.0000 14.72000000  2003
+COSMOS 2251 DEBRIS #4 (コスモス2251 衝突デブリ)
+1 33753U 09005AD  26100.12345678  .00000000  00000-0  00000-0 0  9904
+2 33753  74.2000  78.2000 0030000  90.0000 270.0000 14.90000000  2004
+FENGYUN 1C DEBRIS #1 (風雲1号C 破壊実験デブリ)
+1 29700U 07001A   26100.12345678  .00000000  00000-0  00000-0 0  9911
+2 29700  98.6000 110.5000 0035000 210.0000 150.0000 13.95000000  3001
+FENGYUN 1C DEBRIS #2 (風雲1号C 破壊実験デブリ)
+1 29701U 07001B   26100.12345678  .00000000  00000-0  00000-0 0  9912
+2 29701  98.6500 125.1000 0042000 160.0000 200.0000 14.05000000  3002
+FENGYUN 1C DEBRIS #3 (風雲1号C 破壊実験デブリ)
+1 29702U 07001C   26100.12345678  .00000000  00000-0  00000-0 0  9913
+2 29702  98.5500 140.8000 0028000  80.0000 280.0000 13.88000000  3003
+SL-8 ROCKET BODY DEBRIS #1 (SL-8 ロケット残骸デブリ)
+1 12345U 80001A   26100.12345678  .00000000  00000-0  00000-0 0  9921
+2 12345  82.9000  12.4000 0018000 300.0000  60.0000 14.12000000  4001
+SL-8 ROCKET BODY DEBRIS #2 (SL-8 ロケット残骸デブリ)
+1 12346U 80001B   26100.12345678  .00000000  00000-0  00000-0 0  9922
+2 12346  82.9500  35.8000 0025000 150.0000 210.0000 14.20000000  4002
+SL-16 ROCKET BODY DEBRIS (SL-16 大型ロケット残骸)
+1 22000U 92001A   26100.12345678  .00000000  00000-0  00000-0 0  9931
+2 22000  71.0000 190.2000 0011000  95.0000 265.0000 14.50000000  5001
+DELTA 2 ROCKET DEBRIS (デルタ2 ロケット破片)
+1 25000U 97001A   26100.12345678  .00000000  00000-0  00000-0 0  9941
+2 25000  39.0000 210.5000 0038000  10.0000 350.0000 14.65000000  6001
+ARIANE 4 DEBRIS (アリアン4 ロケット破片)
+1 27000U 01001A   26100.12345678  .00000000  00000-0  00000-0 0  9951
+2 27000  98.2000 300.1000 0015000 180.0000 180.0000 14.10000000  7001
 `;
 
 // Global State
@@ -453,18 +489,22 @@ const tzSelect = document.getElementById('tzSelect');
 const sourceStatusBadge = document.getElementById('sourceStatusBadge');
 
 /**
- * Clean & Compact Dropdown Menu
+ * Clean & Categorized Dropdown Menu (Includes Space Debris Category)
  */
 function updateDropdownOptions() {
-    satSelect.innerHTML = '<option value="">-- 衛星を選択してください --</option>';
+    satSelect.innerHTML = '<option value="">-- 衛星または宇宙ゴミを選択してください --</option>';
 
     const majorGroup = document.createElement('optgroup');
-    majorGroup.label = '⭐ 主要・有名衛星 (ひまわり / ISS / みちびき等)';
+    majorGroup.label = '⭐ 主要・有名衛星 (ひまわり / ISS / みchibiki等)';
+
+    const debrisGroup = document.createElement('optgroup');
+    debrisGroup.label = '🚨 宇宙ゴミ・デブリ (COSMOS / FENGYUN / SL-8等)';
     
     const starlinkGroup = document.createElement('optgroup');
     starlinkGroup.label = '🛰️ Starlink衛星群 (ピックアップ30機)';
 
     let majorCount = 0;
+    let debrisCount = 0;
     let starlinkCount = 0;
 
     satellitesData.forEach((sat, index) => {
@@ -473,7 +513,12 @@ function updateDropdownOptions() {
         opt.textContent = `${sat.name} (NORAD ${sat.noradId})`;
 
         const nameUpper = sat.name.toUpperCase();
-        if (nameUpper.includes('HIMAWARI') || nameUpper.includes('ISS') || nameUpper.includes('MICHIBIKI') || nameUpper.includes('HUBBLE') || nameUpper.includes('GPS')) {
+        const isDebris = nameUpper.includes('DEBRIS') || nameUpper.includes('COSMOS') || nameUpper.includes('FENGYUN') || nameUpper.includes('SL-8') || nameUpper.includes('SL-16') || nameUpper.includes('DELTA') || nameUpper.includes('ARIANE');
+
+        if (isDebris) {
+            debrisGroup.appendChild(opt);
+            debrisCount++;
+        } else if (nameUpper.includes('HIMAWARI') || nameUpper.includes('ISS') || nameUpper.includes('MICHIBIKI') || nameUpper.includes('HUBBLE') || nameUpper.includes('GPS') || nameUpper.includes('TIANGONG') || nameUpper.includes('BEIDOU')) {
             majorGroup.appendChild(opt);
             majorCount++;
         } else {
@@ -485,17 +530,8 @@ function updateDropdownOptions() {
     });
 
     if (majorCount > 0) satSelect.appendChild(majorGroup);
+    if (debrisCount > 0) satSelect.appendChild(debrisGroup);
     if (starlinkCount > 0) satSelect.appendChild(starlinkGroup);
-
-    if (satellitesData.length <= 50) {
-        satSelect.innerHTML = '<option value="">-- 衛星を一覧から選択 (全' + satellitesData.length + '機) --</option>';
-        satellitesData.forEach((sat, index) => {
-            const opt = document.createElement('option');
-            opt.value = index;
-            opt.textContent = `${sat.name} (NORAD ${sat.noradId})`;
-            satSelect.appendChild(opt);
-        });
-    }
 }
 
 /**
@@ -654,7 +690,7 @@ function renderSatellitePoints() {
     edgePointer.classList.add('hidden');
 
     const defaultPointColor = Cesium.Color.fromCssColorString('#00f3ff');
-    const debrisPointColor = Cesium.Color.fromCssColorString('#ff3344'); // Danger red for debris fragments
+    const debrisPointColor = Cesium.Color.fromCssColorString('#a855f7'); // Neon Purple for debris fragments
     const isLargeConstellation = satellitesData.length > 50;
 
     satellitesData.forEach((sat, index) => {
@@ -1002,7 +1038,8 @@ function selectSatellite(index) {
 
     if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
         const prevSat = satellitesData[selectedSatIndex];
-        prevSat.primitive.color = Cesium.Color.fromCssColorString('#00f3ff');
+        const isPrevDebris = prevSat.name.toUpperCase().includes('DEBRIS') || prevSat.name.toUpperCase().includes('COSMOS') || prevSat.name.toUpperCase().includes('FENGYUN') || prevSat.name.toUpperCase().includes('SL-8');
+        prevSat.primitive.color = isPrevDebris ? Cesium.Color.fromCssColorString('#a855f7') : Cesium.Color.fromCssColorString('#00f3ff');
         prevSat.primitive.pixelSize = 12;
         if (prevSat.domLabel) {
             prevSat.domLabel.classList.remove('selected');
@@ -1011,14 +1048,15 @@ function selectSatellite(index) {
 
     selectedSatIndex = index;
     const sat = satellitesData[index];
+    const isDebris = sat.name.toUpperCase().includes('DEBRIS') || sat.name.toUpperCase().includes('COSMOS') || sat.name.toUpperCase().includes('FENGYUN') || sat.name.toUpperCase().includes('SL-8');
 
     // Ensure DOM label exists for selected satellite even in large constellations
     if (!sat.domLabel) {
         createDomLabelForSat(sat, index);
     }
 
-    // Highlight selected satellite
-    sat.primitive.color = Cesium.Color.fromCssColorString('#ff0055');
+    // Highlight selected satellite (Use vibrant neon purple #c084fc for debris)
+    sat.primitive.color = isDebris ? Cesium.Color.fromCssColorString('#c084fc') : Cesium.Color.fromCssColorString('#ff0055');
     sat.primitive.pixelSize = 18;
     if (sat.domLabel) {
         sat.domLabel.classList.add('selected');
@@ -1102,7 +1140,8 @@ function flyToSatellite(sat) {
 function deselectSatellite() {
     if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
         const prevSat = satellitesData[selectedSatIndex];
-        prevSat.primitive.color = Cesium.Color.fromCssColorString('#00f3ff');
+        const isPrevDebris = prevSat.name.toUpperCase().includes('DEBRIS') || prevSat.name.toUpperCase().includes('COSMOS') || prevSat.name.toUpperCase().includes('FENGYUN') || prevSat.name.toUpperCase().includes('SL-8');
+        prevSat.primitive.color = isPrevDebris ? Cesium.Color.fromCssColorString('#a855f7') : Cesium.Color.fromCssColorString('#00f3ff');
         prevSat.primitive.pixelSize = 12;
         if (prevSat.domLabel) {
             prevSat.domLabel.classList.remove('selected');
@@ -1499,12 +1538,14 @@ function setupEventListeners() {
     if (toggleDebrisRisk) {
         toggleDebrisRisk.addEventListener('change', (e) => {
             const isRiskOn = e.target.checked;
+            const purpleColor = Cesium.Color.fromCssColorString('#a855f7');
+            const purpleDim = Cesium.Color.fromCssColorString('#8b5cf6').withAlpha(0.6);
             satellitesData.forEach(sat => {
-                const isDebris = sat.name.toUpperCase().includes('DEBRIS') || sat.name.toUpperCase().includes('IRIDIUM');
+                const isDebris = sat.name.toUpperCase().includes('DEBRIS') || sat.name.toUpperCase().includes('COSMOS') || sat.name.toUpperCase().includes('FENGYUN') || sat.name.toUpperCase().includes('SL-8');
                 if (isDebris && sat.entity && sat.entity.point) {
-                    sat.entity.point.color = isRiskOn ? Cesium.Color.RED : Cesium.Color.RED.withAlpha(0.6);
+                    sat.entity.point.color = isRiskOn ? purpleColor : purpleDim;
                     sat.entity.point.pixelSize = isRiskOn ? 16 : 8;
-                    sat.entity.point.outlineColor = isRiskOn ? Cesium.Color.YELLOW : Cesium.Color.BLACK;
+                    sat.entity.point.outlineColor = isRiskOn ? Cesium.Color.CYAN : Cesium.Color.BLACK;
                     sat.entity.point.outlineWidth = isRiskOn ? 3 : 1;
                 }
             });

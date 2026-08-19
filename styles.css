@@ -447,15 +447,35 @@ html, body {
     grid-row: 2;
     align-self: start;
     width: 360px !important;
-    max-width: 360px !important;
+    min-width: 300px;
+    max-width: 520px;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    resize: both;
     box-sizing: border-box;
     margin-top: 45px;
-    padding: 24px;
+    padding: 20px 22px;
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
     animation: fadeInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-blue) rgba(0, 0, 0, 0.3);
+}
+
+.hud-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.hud-card::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.hud-card::-webkit-scrollbar-thumb {
+    background: var(--accent-blue);
+    border-radius: 3px;
 }
 
 @keyframes fadeInRight {
@@ -840,18 +860,18 @@ html, body {
     border-color: rgba(56, 189, 248, 0.3);
 }
 
-/* Red Hazard Toggle Slider & Debris Danger Animation */
-input:checked + .slider.red-slider {
-    background-color: #f43f5e;
+/* Purple Debris Toggle Slider & Hazard Animation */
+input:checked + .slider.purple-slider {
+    background-color: #a855f7;
 }
-input:focus + .slider.red-slider {
-    box-shadow: 0 0 8px rgba(244, 63, 94, 0.6);
+input:focus + .slider.purple-slider {
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
 }
 
 @keyframes hazardPulse {
-    0% { opacity: 0.8; filter: drop-shadow(0 0 4px #ff3344); }
-    50% { opacity: 1; filter: drop-shadow(0 0 12px #ff3344); }
-    100% { opacity: 0.8; filter: drop-shadow(0 0 4px #ff3344); }
+    0% { opacity: 0.8; filter: drop-shadow(0 0 4px #c084fc); }
+    50% { opacity: 1; filter: drop-shadow(0 0 14px #a855f7); }
+    100% { opacity: 0.8; filter: drop-shadow(0 0 4px #c084fc); }
 }
 
 .hazard-alert-text {
