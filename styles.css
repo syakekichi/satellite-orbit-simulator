@@ -832,21 +832,21 @@ html, body {
 
 .dpad-grid {
     display: grid;
-    grid-template-columns: repeat(3, 36px);
-    grid-template-rows: repeat(3, 36px);
-    gap: 4px;
+    grid-template-columns: repeat(3, 48px);
+    grid-template-rows: repeat(3, 48px);
+    gap: 6px;
     justify-content: center;
     align-items: center;
 }
 
 .dpad-btn {
-    width: 36px;
-    height: 36px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 48px;
+    height: 48px;
+    background: rgba(13, 27, 42, 0.85);
+    border: 1.5px solid rgba(56, 189, 248, 0.4);
     border-radius: var(--radius-sm);
-    color: var(--text-primary);
-    font-size: 0.85rem;
+    color: #38bdf8;
+    font-size: 1.4rem;
     font-weight: 700;
     cursor: pointer;
     display: flex;
@@ -1027,4 +1027,77 @@ input:focus + .slider.purple-slider {
 .cesium-credit-logoContainer,
 .cesium-credit-expand-link {
     display: none !important;
+}
+
+/* Mobile Responsive Optimization (Android & iOS) */
+@media (max-width: 768px) {
+    .hud-top-split {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        max-width: 96vw;
+    }
+
+    .header-left-island,
+    .header-right-island {
+        padding: 8px 12px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .sidebar-panel {
+        width: calc(100vw - 20px) !important;
+        max-width: 380px;
+        font-size: 0.85rem;
+    }
+
+    .detail-card {
+        width: calc(100vw - 20px) !important;
+        max-width: 380px;
+    }
+
+    .app-title {
+        font-size: 1.15rem;
+    }
+
+    .app-subtitle {
+        font-size: 0.65rem;
+    }
+
+    .modal-content {
+        width: 95vw;
+        max-height: 85vh;
+        padding: 16px;
+    }
+}
+
+/* Camera D-Pad Mobile & Tablet Touch Boost (58px Huge Buttons) */
+@media (max-width: 1024px) {
+    .camera-dpad-hud {
+        padding: 14px !important;
+        bottom: 16px !important;
+        right: 16px !important;
+    }
+
+    .camera-dpad-hud .dpad-grid {
+        grid-template-columns: repeat(3, 58px) !important;
+        grid-template-rows: repeat(3, 58px) !important;
+        gap: 8px !important;
+    }
+
+    .camera-dpad-hud .dpad-btn {
+        width: 58px !important;
+        height: 58px !important;
+        font-size: 1.8rem !important;
+        border-width: 2px !important;
+        background: rgba(13, 27, 42, 0.95) !important;
+        border-color: rgba(56, 189, 248, 0.6) !important;
+        color: #38bdf8 !important;
+        box-shadow: 0 0 14px rgba(56, 189, 248, 0.4) !important;
+    }
+
+    .camera-dpad-hud .dpad-btn:active {
+        background: rgba(56, 189, 248, 0.6) !important;
+        transform: scale(0.90) !important;
+    }
 }

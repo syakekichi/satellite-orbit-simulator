@@ -2400,15 +2400,15 @@ function makeDraggable(panelEl, handleEl) {
     let startX = 0, startY = 0;
     let initialLeft = 0, initialTop = 0;
 
-    handleEl.addEventListener('mousedown', (e) => {
-        if (['INPUT', 'BUTTON', 'SELECT', 'A', 'LABEL', 'OPTION'].includes(e.target.tagName)) return;
+    const startDrag = (clientX, clientY, target) => {
+        if (['INPUT', 'BUTTON', 'SELECT', 'A', 'LABEL', 'OPTION'].includes(target.tagName)) return false;
 
         isDragging = true;
         panelEl.classList.add('is-dragging');
 
         const rect = panelEl.getBoundingClientRect();
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = clientX;
+        startY = clientY;
         initialLeft = rect.left;
         initialTop = rect.top;
 
@@ -2419,18 +2419,32 @@ function makeDraggable(panelEl, handleEl) {
         panelEl.style.margin = '0';
         panelEl.style.right = 'auto';
         panelEl.style.bottom = 'auto';
+        return true;
+    };
+
+    const doMove = (clientX, clientY) => {
+        if (!isDragging) return;
+        const deltaX = clientX - startX;
+        const deltaY = clientY - startY;
+        panelEl.style.left = `${initialLeft + deltaX}px`;
+        panelEl.style.top = `${initialTop + deltaY}px`;
+    };
+
+    const stopDrag = () => {
+        isDragging = false;
+        panelEl.classList.remove('is-dragging');
+    };
+
+    // Mouse Events
+    handleEl.addEventListener('mousedown', (e) => {
+        if (!startDrag(e.clientX, e.clientY, e.target)) return;
 
         const onMouseMove = (moveEvent) => {
-            if (!isDragging) return;
-            const deltaX = moveEvent.clientX - startX;
-            const deltaY = moveEvent.clientY - startY;
-            panelEl.style.left = `${initialLeft + deltaX}px`;
-            panelEl.style.top = `${initialTop + deltaY}px`;
+            doMove(moveEvent.clientX, moveEvent.clientY);
         };
 
         const onMouseUp = () => {
-            isDragging = false;
-            panelEl.classList.remove('is-dragging');
+            stopDrag();
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
         };
@@ -2438,6 +2452,27 @@ function makeDraggable(panelEl, handleEl) {
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
     });
+
+    // Touch Events for Mobile (Android / iOS)
+    handleEl.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        const touch = e.touches[0];
+        if (!startDrag(touch.clientX, touch.clientY, e.target)) return;
+
+        const onTouchMove = (moveEvent) => {
+            if (!moveEvent.touches || moveEvent.touches.length === 0) return;
+            doMove(moveEvent.touches[0].clientX, moveEvent.touches[0].clientY);
+        };
+
+        const onTouchEnd = () => {
+            stopDrag();
+            document.removeEventListener('touchmove', onTouchMove);
+            document.removeEventListener('touchend', onTouchEnd);
+        };
+
+        document.addEventListener('touchmove', onTouchMove, { passive: true });
+        document.addEventListener('touchend', onTouchEnd);
+    }, { passive: true });
 }
 
 function setupDraggablePanels() {
