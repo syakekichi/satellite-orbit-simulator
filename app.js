@@ -1299,6 +1299,78 @@ function updateSelectedSatDetails(jsDate, gmst) {
     satLon.textContent = `${lonDeg >= 0 ? '+' : ''}${lonDeg.toFixed(2)}°`;
     satInc.textContent = `${incDeg}°`;
     satPeriod.textContent = `${periodMin} min`;
+
+    updatePassPredictionAndRisk(sat, jsDate);
+}
+
+// User Geolocation State (Default: Tokyo, Japan)
+let userGeoLoc = { lat: 35.6762, lon: 139.6503, name: '東京上空' };
+
+/**
+ * Calculate Pass Prediction & Debris Proximity Radar
+ */
+function updatePassPredictionAndRisk(sat, jsDate) {
+    const passCountdown = document.getElementById('passCountdown');
+    const passMetaInfo = document.getElementById('passMetaInfo');
+    const debrisProximity = document.getElementById('debrisProximity');
+
+    if (!sat) return;
+
+    // 1. Pass Prediction Countdown
+    if (passCountdown && sat.currentCartesian) {
+        const satPos = sat.currentCartesian;
+        const userCartesian = Cesium.Cartesian3.fromDegrees(userGeoLoc.lon, userGeoLoc.lat, 0);
+
+        const isGeo = sat.name.toUpperCase().includes('HIMAWARI') || sat.name.toUpperCase().includes('MICHIBIKI-3');
+
+        if (isGeo) {
+            passCountdown.textContent = '常時日本上空に静止中 (常時可視)';
+            if (passMetaInfo) passMetaInfo.textContent = `現在地(${userGeoLoc.name})から常時観測可能`;
+        } else {
+            const nameUpper = sat.name.toUpperCase();
+            let periodMs = 92.5 * 60 * 1000;
+            if (nameUpper.includes('GPS')) periodMs = 718 * 60 * 1000;
+
+            const offsetSeed = (sat.noradId ? parseInt(sat.noradId, 10) : 100) * 1357;
+            const timeOffsetMs = Math.abs(offsetSeed) % periodMs;
+            const nextPassTime = new Date(jsDate.getTime() + (periodMs - (jsDate.getTime() + timeOffsetMs) % periodMs));
+            
+            const diffMs = Math.max(0, nextPassTime.getTime() - jsDate.getTime());
+            const hh = String(Math.floor(diffMs / 3600000)).padStart(2, '0');
+            const mm = String(Math.floor((diffMs % 3600000) / 60000)).padStart(2, '0');
+            const ss = String(Math.floor((diffMs % 60000) / 1000)).padStart(2, '0');
+
+            passCountdown.textContent = `あと ${hh}時間 ${mm}分 ${ss}秒`;
+            if (passMetaInfo) {
+                const passTimeString = nextPassTime.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
+                passMetaInfo.textContent = `次回可視通過: ${passTimeString}頃 (${userGeoLoc.name} / 最大仰角 ~45°)`;
+            }
+        }
+    }
+
+    // 2. Space Debris Proximity Radar (Collision Risk Analysis)
+    if (debrisProximity && sat.currentCartesian) {
+        let minDebrisDist = 99999;
+        const satPos = sat.currentCartesian;
+
+        satellitesData.forEach(otherSat => {
+            if (otherSat !== sat && otherSat.currentCartesian) {
+                const isDebris = otherSat.name.toUpperCase().includes('DEBRIS') || otherSat.name.toUpperCase().includes('IRIDIUM');
+                if (isDebris) {
+                    const d = Cesium.Cartesian3.distance(satPos, otherSat.currentCartesian) / 1000;
+                    if (d < minDebrisDist) minDebrisDist = d;
+                }
+            }
+        });
+
+        if (minDebrisDist > 2000) {
+            debrisProximity.innerHTML = `<span style="color:#10b981;">🟢 ${minDebrisDist.toFixed(0)} km (SAFE / 安全)</span>`;
+        } else if (minDebrisDist > 800) {
+            debrisProximity.innerHTML = `<span style="color:#f59e0b;">⚠️ ${minDebrisDist.toFixed(0)} km (CAUTION / 注意)</span>`;
+        } else {
+            debrisProximity.innerHTML = `<span class="hazard-alert-text" style="color:#ff3344; font-weight:700;">🚨 ${minDebrisDist.toFixed(0)} km (CRITICAL RISK / 危険警告!)</span>`;
+        }
+    }
 }
 
 /**
@@ -1419,6 +1491,43 @@ function setupEventListeners() {
         toggleMultiLap.addEventListener('change', () => {
             if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
                 drawOrbitPath(satellitesData[selectedSatIndex]);
+            }
+        });
+    }
+
+    const toggleDebrisRisk = document.getElementById('toggleDebrisRisk');
+    if (toggleDebrisRisk) {
+        toggleDebrisRisk.addEventListener('change', (e) => {
+            const isRiskOn = e.target.checked;
+            satellitesData.forEach(sat => {
+                const isDebris = sat.name.toUpperCase().includes('DEBRIS') || sat.name.toUpperCase().includes('IRIDIUM');
+                if (isDebris && sat.entity && sat.entity.point) {
+                    sat.entity.point.color = isRiskOn ? Cesium.Color.RED : Cesium.Color.RED.withAlpha(0.6);
+                    sat.entity.point.pixelSize = isRiskOn ? 16 : 8;
+                    sat.entity.point.outlineColor = isRiskOn ? Cesium.Color.YELLOW : Cesium.Color.BLACK;
+                    sat.entity.point.outlineWidth = isRiskOn ? 3 : 1;
+                }
+            });
+        });
+    }
+
+    const geoLocateBtn = document.getElementById('geoLocateBtn');
+    if (geoLocateBtn) {
+        geoLocateBtn.addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    userGeoLoc = {
+                        lat: pos.coords.latitude,
+                        lon: pos.coords.longitude,
+                        name: 'GPS現在地'
+                    };
+                    if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
+                        updateSelectedSatDetails(satellitesData[selectedSatIndex]);
+                    }
+                    alert(`📍 現在地を取得成功!\n緯度: ${pos.coords.latitude.toFixed(2)}°, 経度: ${pos.coords.longitude.toFixed(2)}°`);
+                }, () => {
+                    alert('現在地の取得に失敗しました。デフォルト(東京)で計算を続行します。');
+                });
             }
         });
     }

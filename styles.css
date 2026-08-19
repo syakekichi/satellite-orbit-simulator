@@ -840,6 +840,24 @@ html, body {
     border-color: rgba(56, 189, 248, 0.3);
 }
 
+/* Red Hazard Toggle Slider & Debris Danger Animation */
+input:checked + .slider.red-slider {
+    background-color: #f43f5e;
+}
+input:focus + .slider.red-slider {
+    box-shadow: 0 0 8px rgba(244, 63, 94, 0.6);
+}
+
+@keyframes hazardPulse {
+    0% { opacity: 0.8; filter: drop-shadow(0 0 4px #ff3344); }
+    50% { opacity: 1; filter: drop-shadow(0 0 12px #ff3344); }
+    100% { opacity: 0.8; filter: drop-shadow(0 0 4px #ff3344); }
+}
+
+.hazard-alert-text {
+    animation: hazardPulse 1s infinite ease-in-out;
+}
+
 .hidden {
     display: none !important;
 }
