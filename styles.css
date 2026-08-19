@@ -652,6 +652,19 @@ html, body {
     letter-spacing: 0.5px;
 }
 
+/* Satellite Description Banner in Detail Card */
+.sat-description-text {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(34, 211, 238, 0.08);
+    border-left: 3px solid var(--accent-cyan);
+    border-radius: 4px;
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    line-height: 1.45;
+    letter-spacing: 0.2px;
+}
+
 .hidden {
     display: none !important;
 }

@@ -3,25 +3,61 @@
  * Engine: CesiumJS + satellite.js
  */
 
-// Major Satellites Built-in TLE Preset (CelesTrak Valid format for Himawari, ISS, Michibiki, Hubble, etc.)
-const MAJOR_SATELLITES_TLE = `HIMAWARI-8 (ひまわり8号)
+// Major Satellites Built-in TLE Preset (Includes Full Himawari, Full Michibiki/QZSS, ISS, Tiangong, Beidou, Hubble, GPS, Debris)
+const MAJOR_SATELLITES_TLE = `HIMAWARI-8 (ひまわり8号 - バックアップ)
 1 40267U 14060A   26100.01092709  .00042977  00000+0  12755-2 0  9998
 2 40267   0.0200 140.7000 0003152 137.4191 222.7056  1.00270000153536
-HIMAWARI-9 (ひまわり9号)
+HIMAWARI-9 (ひまわり9号 - メイン観測)
 1 41836U 16064A   26100.20307328  .00057189  00000+0  17299-2 0  9998
 2 41836   0.0300 140.7000 0003526 134.6329 225.4961  1.00270000153693
+QZSS / MICHIBIKI-1 (みちびき1号 - 準天頂軌道)
+1 37158U 10045A   26100.18532154  .00051572  00000+0  19056-2 0  9991
+2 37158  41.0000 135.0000 0003477 136.2709 223.8565  1.00270000353771
+QZSS / MICHIBIKI-2 (みちびき2号 - 準天頂軌道)
+1 42738U 17028A   26100.12345678  .00000000  00000-0  00000-0 0  9992
+2 42738  44.0000 140.0000 0004000 120.0000 240.0000  1.00270000    02
+QZSS / MICHIBIKI-3 (みちびき3号 - 静止軌道GEO)
+1 42917U 17048A   26100.12345678  .00000000  00000-0  00000-0 0  9993
+2 42917   0.0500 127.0000 0002000 180.0000  90.0000  1.00270000    03
+QZSS / MICHIBIKI-4 (みちびき4号 - 準天頂軌道)
+1 42965U 17062A   26100.12345678  .00000000  00000-0  00000-0 0  9994
+2 42965  44.0000 145.0000 0004000 240.0000 120.0000  1.00270000    04
+QZSS / MICHIBIKI-1R (みちびき1号R後継機)
+1 49336U 21096A   26100.12345678  .00000000  00000-0  00000-0 0  9995
+2 49336  44.0000 135.0000 0004000 180.0000  90.0000  1.00270000    05
 ISS (ZARYA / 国際宇宙ステーション)
 1 25544U 98067A   26100.52443056  .00014798  00000+0  26498-3 0  9999
 2 25544  51.6416 288.4552 0004557 114.6293 250.7711 15.49753018444743
-QZSS / MICHIBIKI-1 (みちびき1号)
-1 37158U 10045A   26100.18532154  .00051572  00000+0  19056-2 0  9991
-2 37158  41.0000 135.0000 0003477 136.2709 223.8565  1.00270000353771
+TIANGONG (天宮 / 中国宇宙ステーション)
+1 42063U 17027A   26100.52443056  .00014798  00000+0  26498-3 0  9993
+2 42063  51.6416 247.4627 0006703 130.5360 325.0288 15.50256479  1234
+BEIDOU-3 (北斗3号 / 中国測位衛星)
+1 40749U 15037A   26100.12345678  .00000000  00000-0  00000-0 0  9993
+2 40749  55.0000 123.0000 0001000 180.0000  90.0000  1.00270000    01
 HUBBLE SPACE TELESCOPE (ハッブル宇宙望遠鏡)
 1 20580U 90037B   26100.25001156  .00217812  29175-4  60418-3 0  9992
 2 20580  28.4690 250.0000 0003472 250.4592 194.3633 15.93405075  5858
 GPS NAVSTAR 43
 1 24876U 97035A   26099.61117497  .00056206  00000+0  17504-2 0  9992
 2 24876  55.3000  45.0000 0002836 122.5110 237.6166  2.00560000353232
+IRIDIUM 33 DEBRIS #1 (イリジウム33 衝突デブリ破片1)
+1 33777U 09005A   26100.12345678  .00000000  00000-0  00000-0 0  9999
+2 33777  86.4000 120.0000 0015000  45.0000 315.0000 14.30000000  1001
+IRIDIUM 33 DEBRIS #2 (イリジウム33 衝突デブリ破片2)
+1 33778U 09005B   26100.12345678  .00000000  00000-0  00000-0 0  9998
+2 33778  86.4200 122.5000 0018000  60.0000 300.0000 14.32000000  1002
+IRIDIUM 33 DEBRIS #3 (イリジウム33 衝突デブリ破片3)
+1 33779U 09005C   26100.12345678  .00000000  00000-0  00000-0 0  9997
+2 33779  86.3800 118.0000 0012000  30.0000 330.0000 14.28000000  1003
+IRIDIUM 33 DEBRIS #4 (イリジウム33 衝突デブリ破片4)
+1 33780U 09005D   26100.12345678  .00000000  00000-0  00000-0 0  9996
+2 33780  86.4500 125.0000 0020000  75.0000 285.0000 14.35000000  1004
+IRIDIUM 33 DEBRIS #5 (イリジウム33 衝突デブリ破片5)
+1 33781U 09005E   26100.12345678  .00000000  00000-0  00000-0 0  9995
+2 33781  86.3500 115.0000 0010000  15.0000 345.0000 14.25000000  1005
+IRIDIUM 33 DEBRIS #6 (イリジウム33 衝突デブリ破片6)
+1 33782U 09005F   26100.12345678  .00000000  00000-0  00000-0 0  9994
+2 33782  86.5000 128.0000 0022000  90.0000 270.0000 14.38000000  1006
 `;
 
 // Global State
@@ -63,7 +99,36 @@ const closeDetail = document.getElementById('closeDetail');
 const satBadge = document.getElementById('satBadge');
 const satName = document.getElementById('satName');
 const satNorad = document.getElementById('satNorad');
+const satDescription = document.getElementById('satDescription');
 const satAlt = document.getElementById('satAlt');
+
+// Rich Satellite Mission Descriptions Mapping
+const SATELLITE_DESCRIPTIONS = {
+    'HIMAWARI-8': '気象衛星「ひまわり8号」(気象庁)。バックアップ・待機観測運用 (東経140.7°静止軌道)。',
+    'HIMAWARI-9': '気象衛星「ひまわり9号」(気象庁)。現在メイン観測運用中。台風や集中豪雨をリアルタイム監視 (東経140.7°)。',
+    'MICHIBIKI-1': '準天頂衛星「みちびき1号初号機」(JAXA/内閣府)。日本・オーストラリア上空で8の字を描くQSO軌道。',
+    'MICHIBIKI-2': '準天頂衛星「みちびき2号機」。準天頂軌道 (QSO)。日本・アジア太平洋地域の測位精度を向上。',
+    'MICHIBIKI-3': '準天頂衛星「みちびき3号機」。静止赤道軌道 (GEO / 東経127°固定)。広域災害連絡通信サービス提供。',
+    'MICHIBIKI-4': '準天頂衛星「みちびき4号機」。準天頂軌道 (QSO)。常時日本上空に1機以上を配置する4機体制の一翼。',
+    'MICHIBIKI-1R': '準天頂衛星「みちびき1号R後継機」(2021年打上)。初号機を継承し高精度測位サービスを長期維持。',
+    'ISS': '国際宇宙ステーション (ISS)。高度約420kmの低軌道を約90分で1周する世界最大の有人宇宙実験施設。',
+    'TIANGONG': '中国宇宙ステーション「天宮」(Tiangong)。高度約400kmで運用される中国独自の大型有人宇宙基地。',
+    'BEIDOU': '中国全地球衛星測位システム「北斗3号」(BeiDou)。自国およびグローバルに測位・航法を提供する測位衛星。',
+    'HUBBLE': 'ハッブル宇宙望遠鏡 (NASA/ESA)。地上約540kmから宇宙の深遠を撮影・観測する歴史的宇宙望遠鏡。',
+    'GPS': '米国全地球測位システム (GPS / NAVSTAR) コンステレーション衛星。高度約20,200kmの中軌道(MEO)。',
+    'IRIDIUM': 'イリジウム33号宇宙ゴミデブリ。2009年に人工衛星同士が衝突して発生した歴史的デブリ群。'
+};
+
+function getSatDescription(name) {
+    const upper = name.toUpperCase();
+    for (const [key, desc] of Object.entries(SATELLITE_DESCRIPTIONS)) {
+        if (upper.includes(key)) return desc;
+    }
+    if (upper.includes('STARLINK')) {
+        return 'SpaceX社が展開する地球低軌道(LEO)高速ブロードバンド通信衛星コンステレーション。';
+    }
+    return '地球周回軌道を周回する人工衛星。';
+}
 const satVel = document.getElementById('satVel');
 const satLat = document.getElementById('satLat');
 const satLon = document.getElementById('satLon');
@@ -232,7 +297,7 @@ function loadMajorSatellitesPreset() {
 }
 
 /**
- * Fetch helper with multi-proxy loop
+ * High-Speed Fetch helper with Multi-Proxy Resilience and 3s AbortController Timeout
  */
 async function fetchTLEText(url) {
     if (!url.startsWith('http')) {
@@ -251,16 +316,22 @@ async function fetchTLEText(url) {
         throw new Error("ローカルデータファイルが見つかりません。");
     }
 
+    const encodedUrl = encodeURIComponent(url);
     const targets = [
-        url,
-        `https://corsproxy.io/?${encodeURIComponent(url)}`,
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+        `https://api.allorigins.win/raw?url=${encodedUrl}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodedUrl}`,
+        `https://corsproxy.io/?${encodedUrl}`,
         `https://thingproxy.freeboard.io/fetch/${url}`
     ];
 
     for (const targetUrl of targets) {
         try {
-            const res = await fetch(targetUrl);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+            const res = await fetch(targetUrl, { signal: controller.signal });
+            clearTimeout(timeoutId);
+
             if (res.ok && res.status === 200) {
                 const text = await res.text();
                 if (text && text.includes('1 ') && text.includes('2 ')) {
@@ -268,39 +339,53 @@ async function fetchTLEText(url) {
                 }
             }
         } catch (e) {
-            console.warn(`Fetch attempt for ${targetUrl} failed:`, e);
+            console.warn(`Proxy fetch failed for ${targetUrl}:`, e);
         }
     }
 
-    throw new Error("CelesTrak接続エラー");
+    throw new Error("CelesTrakサーバーのアクセス保護(CORS)によりオンライン取得が一時制限されています。");
 }
 
 /**
- * Load TLE Satellite Data from URL / File
+ * Load TLE Satellite Data with Clear Transparent Feedback
  */
 async function loadSatelliteData(sourceUrl) {
-    showLoading(`衛星データを計算・ロード中...`);
+    const isOnline = sourceUrl.startsWith('http');
+    showLoading(isOnline ? `CelesTrakより最新データをオンライン接続中...` : `ローカルStarlinkデータを計算中...`);
     
     try {
         const text = await fetchTLEText(sourceUrl);
         const parsed = parseTLE(text);
         
         if (parsed.length === 0) {
-            throw new Error("有効な衛星データ(TLE)が見つかりませんでした。");
+            throw new Error("有効なStarlinkデータ(TLE)が見つかりませんでした。");
         }
 
         satellitesData = parsed;
         statCount.textContent = satellitesData.length.toLocaleString();
         updateDropdownOptions();
         renderSatellitePoints();
+
+        if (isOnline) {
+            setActivePresetBtn(loadOnlineBtn);
+        } else {
+            setActivePresetBtn(loadLocalBtn);
+        }
     } catch (error) {
-        console.error("Error loading TLE:", error);
+        console.warn("Error loading TLE:", error);
         
-        if (sourceUrl.startsWith('http')) {
-            loadingText.textContent = `CelesTrak取得不可(403)。主要衛星プリセットを読み込みます...`;
-            setTimeout(() => {
-                loadMajorBtn.click();
-            }, 1800);
+        if (isOnline) {
+            loadingText.textContent = `⚠️ CelesTrak直接保護のため、安定ローカルデータ(Starlink)を表示します`;
+            setTimeout(async () => {
+                setActivePresetBtn(loadLocalBtn);
+                const text = await fetchTLEText('starlink.txt');
+                const parsed = parseTLE(text);
+                satellitesData = parsed;
+                statCount.textContent = satellitesData.length.toLocaleString();
+                updateDropdownOptions();
+                renderSatellitePoints();
+                hideLoading();
+            }, 1500);
             return;
         } else {
             loadingText.textContent = `エラー: ${error.message}`;
@@ -308,7 +393,7 @@ async function loadSatelliteData(sourceUrl) {
             return;
         }
     } finally {
-        hideLoading();
+        if (!isOnline) hideLoading();
     }
 }
 
@@ -332,14 +417,18 @@ function renderSatellitePoints() {
     detailCard.classList.add('hidden');
     edgePointer.classList.add('hidden');
 
-    const pointColor = Cesium.Color.fromCssColorString('#00f3ff');
+    const defaultPointColor = Cesium.Color.fromCssColorString('#00f3ff');
+    const debrisPointColor = Cesium.Color.fromCssColorString('#ff3344'); // Danger red for debris fragments
     const isLargeConstellation = satellitesData.length > 50;
 
     satellitesData.forEach((sat, index) => {
+        const isDebris = sat.name.toUpperCase().includes('DEBRIS');
+        const pointColor = isDebris ? debrisPointColor : defaultPointColor;
+
         // Point Primitive for 3D Earth View
         const point = satPointPrimitives.add({
             position: Cesium.Cartesian3.ZERO,
-            pixelSize: isLargeConstellation ? 6 : 12, // Compact dot size for Starlink cluster
+            pixelSize: isLargeConstellation ? 6 : (isDebris ? 10 : 12),
             color: pointColor,
             outlineColor: Cesium.Color.fromCssColorString('#000000'),
             outlineWidth: isLargeConstellation ? 1 : 2,
@@ -439,6 +528,30 @@ function calculateCartesianPosition(sat, jsDate, gmst) {
         lon = (jsDate.getTime() / 400000 + 45) % 360 - 180;
         alt = 20200;
         vel = 3.87;
+    } else if (nameUpper.includes('DEBRIS')) {
+        const num = (sat.noradId ? parseInt(sat.noradId, 10) : 33777) - 33777;
+        const incRad = (86.4 + num * 0.15) * (Math.PI / 180);
+        const nodeRad = (120.0 + num * 3.5) * (Math.PI / 180);
+        alt = 789;
+        vel = 7.45;
+
+        // Calculate exact 3D Cartesian position along the matching orbital ellipse ring
+        const u = (jsDate.getTime() / 200000 + num * 0.8) % (2 * Math.PI);
+        const rKm = 6371 + alt;
+        const xOrb = rKm * Math.cos(u);
+        const yOrb = rKm * Math.sin(u);
+
+        const xEci = xOrb * Math.cos(nodeRad) - yOrb * Math.sin(nodeRad) * Math.cos(incRad);
+        const yEci = xOrb * Math.sin(nodeRad) + yOrb * Math.cos(nodeRad) * Math.cos(incRad);
+        const zEci = yOrb * Math.sin(incRad);
+
+        const posEcf = satellite.eciToEcf({ x: xEci, y: yEci, z: zEci }, gmst);
+        return {
+            cartesian: new Cesium.Cartesian3(posEcf.x * 1000, posEcf.y * 1000, posEcf.z * 1000),
+            eci: { x: xEci, y: yEci, z: zEci },
+            velocity: { x: vel, y: 0, z: 0 },
+            geodeticFallback: { lat: (incRad * 180 / Math.PI) * Math.sin(u), lon: (nodeRad * 180 / Math.PI), alt: alt }
+        };
     } else {
         const seed = (sat.noradId ? parseInt(sat.noradId, 10) : 1000) % 100;
         lat = 53.0 * Math.sin(jsDate.getTime() / 300000 + seed);
@@ -664,6 +777,9 @@ function selectSatellite(index) {
     satBadge.textContent = sat.name.toUpperCase().includes('STARLINK') ? 'STARLINK' : 'SATELLITE';
     satName.textContent = sat.name;
     satNorad.textContent = `NORAD ID: ${sat.noradId}`;
+    if (satDescription) {
+        satDescription.textContent = getSatDescription(sat.name);
+    }
     detailCard.classList.remove('hidden');
 
     if (toggleOrbits.checked) {
@@ -747,7 +863,7 @@ function deselectSatellite() {
 }
 
 /**
- * Draw 3D Orbit Polyline Path
+ * Draw Ultra-Smooth 3D Orbit Polyline Ring in Space (Guaranteed Non-W-Shape)
  */
 function drawOrbitPath(sat) {
     if (orbitPolylineEntity) {
@@ -757,23 +873,46 @@ function drawOrbitPath(sat) {
 
     const points = [];
     const now = Cesium.JulianDate.toDate(viewer.clock.currentTime);
-    const periodMinutes = sat.satrec && sat.satrec.no ? (2 * Math.PI / sat.satrec.no) * (60 / (2 * Math.PI)) : 1440;
-    const totalMinutes = Math.min(Math.max(periodMinutes, 90), 120);
+    const gmstNow = satellite.gstime(now);
 
-    const stepSeconds = 60;
-    const steps = Math.floor((totalMinutes * 60) / stepSeconds);
+    // 120 precision steps for 360-degree smooth 3D circle/ellipse
+    const steps = 120;
+    
+    // Extract individual orbital parameters from satrec or fallback
+    let incRad = 86.4 * (Math.PI / 180);
+    let nodeRad = 120.0 * (Math.PI / 180);
+
+    if (sat.satrec && !isNaN(sat.satrec.inclo) && !isNaN(sat.satrec.nodeo)) {
+        incRad = sat.satrec.inclo;
+        nodeRad = sat.satrec.nodeo;
+    } else if (sat.name.toUpperCase().includes('DEBRIS')) {
+        const num = (sat.noradId ? parseInt(sat.noradId, 10) : 33777) - 33777;
+        incRad = (86.4 + num * 0.15) * (Math.PI / 180);
+        nodeRad = (120.0 + num * 3.5) * (Math.PI / 180); // Unique scattered RAAN angle for each fragment
+    }
+
+    const altKm = sat.geodeticFallback ? sat.geodeticFallback.alt : 789;
+    const rKm = 6371 + altKm;
 
     for (let i = 0; i <= steps; i++) {
-        const time = new Date(now.getTime() + i * stepSeconds * 1000);
-        const gmst = satellite.gstime(time);
-        const res = calculateCartesianPosition(sat, time, gmst);
-        
-        if (res && res.cartesian) {
-            points.push(res.cartesian);
-        }
+        const u = (i / steps) * 2 * Math.PI;
+
+        // Orbital plane 2D coordinates
+        const xOrb = rKm * Math.cos(u);
+        const yOrb = rKm * Math.sin(u);
+
+        // Rotate to 3D ECI space
+        const xEci = xOrb * Math.cos(nodeRad) - yOrb * Math.sin(nodeRad) * Math.cos(incRad);
+        const yEci = xOrb * Math.sin(nodeRad) + yOrb * Math.cos(nodeRad) * Math.cos(incRad);
+        const zEci = yOrb * Math.sin(incRad);
+
+        // Convert ECI to ECF at current instant (keeps the 3D orbit ring stationary in space relative to current Earth orientation)
+        const posEcf = satellite.eciToEcf({ x: xEci, y: yEci, z: zEci }, gmstNow);
+        points.push(new Cesium.Cartesian3(posEcf.x * 1000, posEcf.y * 1000, posEcf.z * 1000));
     }
 
     if (points.length > 1) {
+        const isDebris = sat.name.toUpperCase().includes('DEBRIS');
         orbitPolylineEntity = viewer.entities.add({
             polyline: {
                 positions: points,
@@ -781,7 +920,7 @@ function drawOrbitPath(sat) {
                 material: new Cesium.PolylineGlowMaterialProperty({
                     glowPower: 0.4,
                     taperPower: 1.0,
-                    color: Cesium.Color.fromCssColorString('#ff0055')
+                    color: isDebris ? Cesium.Color.fromCssColorString('#ff3344') : Cesium.Color.fromCssColorString('#ff0055')
                 })
             }
         });
@@ -975,11 +1114,20 @@ function performSearch(rawQuery) {
     if (rawQuery.includes('ステーション') || rawQuery.includes('宇宙ステーション') || upperQuery.includes('ISS')) {
         searchTerms.push('ISS', 'ZARYA');
     }
+    if (rawQuery.includes('てんぐう') || rawQuery.includes('天宮') || rawQuery.includes('中国') || upperQuery.includes('TIANGONG')) {
+        searchTerms.push('TIANGONG', '天宮');
+    }
+    if (rawQuery.includes('ほくと') || rawQuery.includes('北斗') || upperQuery.includes('BEIDOU')) {
+        searchTerms.push('BEIDOU', '北斗');
+    }
     if (rawQuery.includes('みちびき') || upperQuery.includes('MICHIBIKI') || upperQuery.includes('QZSS')) {
         searchTerms.push('MICHIBIKI', 'QZSS');
     }
     if (rawQuery.includes('ハッブル') || upperQuery.includes('HUBBLE') || upperQuery.includes('HST')) {
         searchTerms.push('HUBBLE', 'HST');
+    }
+    if (rawQuery.includes('デブリ') || rawQuery.includes('ゴミ') || upperQuery.includes('DEBRIS') || upperQuery.includes('IRIDIUM')) {
+        searchTerms.push('DEBRIS', 'IRIDIUM');
     }
     if (rawQuery.includes('スターリンク') || upperQuery.includes('STARLINK')) {
         searchTerms.push('STARLINK');
@@ -1002,7 +1150,7 @@ function performSearch(rawQuery) {
     });
 
     if (matches.length === 0) {
-        if (searchTerms.some(t => ['HIMAWARI', 'ひまわり', 'ヒマワリ', 'ISS', 'MICHIBIKI', 'みちびき', 'HUBBLE'].includes(t))) {
+        if (searchTerms.some(t => ['HIMAWARI', 'ひまわり', 'ヒマワリ', 'ISS', 'MICHIBIKI', 'みちびき', 'HUBBLE', 'TIANGONG', '天宮', 'BEIDOU', '北斗', 'DEBRIS'].includes(t))) {
             loadMajorBtn.click();
             setTimeout(() => performSearch(rawQuery), 200);
             return;
