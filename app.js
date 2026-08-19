@@ -5,11 +5,11 @@
 
 // Major Satellites Built-in TLE Preset (Includes Full Himawari, Full Michibiki/QZSS, ISS, Tiangong, Beidou, Hubble, GPS, Debris)
 const MAJOR_SATELLITES_TLE = `HIMAWARI-8 (ひまわり8号 - バックアップ)
-1 40267U 14060A   26100.01092709  .00042977  00000+0  12755-2 0  9998
-2 40267   0.0200 140.7000 0003152 137.4191 222.7056  1.00270000153536
+1 40267U 14060A   26100.00000000  .00000000  00000-0  00000-0 0  9998
+2 40267   0.0100 284.2800 0001000   0.00000   0.00000  1.00273791153536
 HIMAWARI-9 (ひまわり9号 - メイン観測)
-1 41836U 16064A   26100.20307328  .00057189  00000+0  17299-2 0  9998
-2 41836   0.0300 140.7000 0003526 134.6329 225.4961  1.00270000153693
+1 41836U 16064A   26100.00000000  .00000000  00000-0  00000-0 0  9998
+2 41836   0.0100 284.2800 0001000   0.00000   0.00000  1.00273791153693
 QZSS / MICHIBIKI-1 (みちびき1号 - 準天頂軌道)
 1 37158U 10045A   26100.18532154  .00051572  00000+0  19056-2 0  9991
 2 37158  41.0000 135.0000 0003477 136.2709 223.8565  1.00270000353771
@@ -86,8 +86,8 @@ const satAlt = document.getElementById('satAlt');
 
 // Rich Satellite Mission Descriptions Mapping
 const SATELLITE_DESCRIPTIONS = {
-    'HIMAWARI-8': '気象衛星「ひまわり8号」(気象庁)。バックアップ・待機観測運用 (東経140.7°静止軌道)。',
-    'HIMAWARI-9': '気象衛星「ひまわり9号」(気象庁)。現在メイン観測運用中。台風や集中豪雨をリアルタイム監視 (東経140.7°)。',
+    'HIMAWARI-8': '気象衛星「ひまわり8号」(気象庁)。赤道上空約35,786kmの【静止気象衛星】。ひまわり9号と同位置の東経140.7°静止軌道にてバックアップ・待機観測運用。',
+    'HIMAWARI-9': '気象衛星「ひまわり9号」(気象庁)。赤道上空約35,786kmの【静止気象衛星】。地球の自転と同じ速度で周回するため日本上空(東経140.7°)に静止し、台風や集中豪雨をリアルタイム監視中。',
     'MICHIBIKI-1': '準天頂衛星「みちびき1号初号機」(JAXA/内閣府)。日本・オーストラリア上空で8の字を描くQSO軌道。',
     'MICHIBIKI-2': '準天頂衛星「みちびき2号機」。準天頂軌道 (QSO)。日本・アジア太平洋地域の測位精度を向上。',
     'MICHIBIKI-3': '準天頂衛星「みちびき3号機」。静止赤道軌道 (GEO / 東経127°固定)。広域災害連絡通信サービス提供。',
@@ -737,12 +737,12 @@ function calculateCartesianPosition(sat, jsDate, gmst) {
     let vel = 3.07;
 
     if (nameUpper.includes('HIMAWARI-8')) {
-        lon = 140.7;
-        alt = 35786;
+        lon = 140.74;
+        alt = 35792.8;
         vel = 3.07;
     } else if (nameUpper.includes('HIMAWARI-9')) {
-        lon = 145.0;
-        alt = 35786;
+        lon = 140.70;
+        alt = 35786.4;
         vel = 3.07;
     } else if (nameUpper.includes('ISS') || nameUpper.includes('TIANGONG')) {
         const isTiangong = nameUpper.includes('TIANGONG');
@@ -1496,6 +1496,7 @@ function makeDraggable(panelEl, handleEl) {
         initialTop = rect.top;
 
         panelEl.style.position = 'fixed';
+        panelEl.style.width = `${rect.width}px`;
         panelEl.style.left = `${initialLeft}px`;
         panelEl.style.top = `${initialTop}px`;
         panelEl.style.margin = '0';
@@ -1533,6 +1534,108 @@ function setupDraggablePanels() {
     if (detailCard) {
         const handle = detailCard.querySelector('.panel-drag-bar') || detailCard;
         makeDraggable(detailCard, handle);
+    }
+
+    setupCameraDPadControls();
+}
+
+/**
+ * 3D Camera Direction D-Pad Control System (Supports Holding Click & Smooth Rotation)
+ */
+function setupCameraDPadControls() {
+    const btnUp = document.getElementById('btnCamUp');
+    const btnDown = document.getElementById('btnCamDown');
+    const btnLeft = document.getElementById('btnCamLeft');
+    const btnRight = document.getElementById('btnCamRight');
+    const btnReset = document.getElementById('btnCamReset');
+    const dpadPanel = document.getElementById('cameraDPad');
+
+    if (dpadPanel) {
+        const handle = dpadPanel.querySelector('.panel-drag-bar') || dpadPanel;
+        makeDraggable(dpadPanel, handle);
+    }
+
+    let moveInterval = null;
+
+    const startMove = (action) => {
+        if (moveInterval) clearInterval(moveInterval);
+        action();
+        moveInterval = setInterval(action, 30); // 30ms continuous smooth rotation
+    };
+
+    const stopMove = () => {
+        if (moveInterval) {
+            clearInterval(moveInterval);
+            moveInterval = null;
+        }
+    };
+
+    const bindHold = (btn, action) => {
+        if (!btn) return;
+        btn.addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+            startMove(action);
+        });
+        btn.addEventListener('mouseup', stopMove);
+        btn.addEventListener('mouseleave', stopMove);
+        btn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            startMove(action);
+        }, { passive: false });
+        btn.addEventListener('touchend', stopMove);
+    };
+
+    // Parallel Pan Movement helper based on current camera altitude
+    const panCamera = (directionVector, isPositive) => {
+        if (!viewer) return;
+        
+        // Reset camera lookAt transform if bound to entity to allow free panning
+        viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+
+        const carto = viewer.camera.positionCartographic;
+        const alt = carto ? carto.height : 10000000;
+        // Dynamic step distance proportional to current altitude for smooth slide
+        const stepDist = Math.max(50000, alt * 0.035);
+
+        const dir = isPositive ? directionVector : Cesium.Cartesian3.negate(directionVector, new Cesium.Cartesian3());
+        viewer.camera.move(dir, stepDist);
+    };
+
+    bindHold(btnUp, () => {
+        if (!viewer) return;
+        panCamera(viewer.camera.up, true);
+    });
+
+    bindHold(btnDown, () => {
+        if (!viewer) return;
+        panCamera(viewer.camera.up, false);
+    });
+
+    bindHold(btnLeft, () => {
+        if (!viewer) return;
+        panCamera(viewer.camera.right, false);
+    });
+
+    bindHold(btnRight, () => {
+        if (!viewer) return;
+        panCamera(viewer.camera.right, true);
+    });
+
+    if (btnReset) {
+        btnReset.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!viewer) return;
+            viewer.camera.flyTo({
+                destination: Cesium.Cartesian3.fromDegrees(138.2, 36.2, 22000000),
+                orientation: {
+                    heading: Cesium.Math.toRadians(0),
+                    pitch: Cesium.Math.toRadians(-90),
+                    roll: 0
+                },
+                duration: 1.5
+            });
+        });
     }
 }
 

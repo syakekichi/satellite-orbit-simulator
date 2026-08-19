@@ -130,7 +130,7 @@
                         <span class="toggle-label">選択衛星の軌道を表示</span>
                     </label>
                     <label class="toggle-switch">
-                        <input type="checkbox" id="toggleMultiLap">
+                        <input type="checkbox" id="toggleMultiLap" checked>
                         <span class="slider"></span>
                         <span class="toggle-label">🌐 複数周回軌跡を表示 (地球自転の波状パターン)</span>
                     </label>
@@ -164,6 +164,23 @@
         </aside>
 
         <!-- Selected Satellite Detail Card -->
+        <!-- 3D Camera Direction Control D-Pad HUD -->
+        <div id="cameraDPad" class="camera-dpad-hud glass-panel">
+            <div class="panel-drag-bar drag-handle" style="margin-bottom:6px; padding:4px 8px; font-size:0.68rem;">
+                <span class="drag-dots">⋮⋮</span> カメラ視点移動
+            </div>
+            <div class="dpad-grid">
+                <div></div>
+                <button class="dpad-btn dpad-up" id="btnCamUp" title="上へ視点移動 (▲)">▲</button>
+                <div></div>
+                <button class="dpad-btn dpad-left" id="btnCamLeft" title="左へ視点移動 (◀)">◀</button>
+                <button class="dpad-btn dpad-reset" id="btnCamReset" title="視点リセット (🏠)">🏠</button>
+                <button class="dpad-btn dpad-right" id="btnCamRight" title="右へ視点移動 (▶)">▶</button>
+                <div></div>
+                <button class="dpad-btn dpad-down" id="btnCamDown" title="下へ視点移動 (▼)">▼</button>
+                <div></div>
+            </div>
+        </div>
         <div id="detailCard" class="hud-card glass-panel hidden">
             <div class="panel-drag-bar drag-handle">
                 <span class="drag-dots">⋮⋮</span> ドラッグで詳細カード移動
@@ -228,7 +245,7 @@
         </div>
     </div>
 
-    <!-- Application Script (Cache Busted v37) -->
-    <script src="app.js?v=20260819_37"></script>
+    <!-- Application Script (Cache Busted v45) -->
+    <script src="app.js?v=20260819_45"></script>
 </body>
 </html>
