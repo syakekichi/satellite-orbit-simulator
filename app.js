@@ -1857,49 +1857,101 @@ function updatePassPredictionAndRisk(sat, jsDate) {
         }
     }
 
-    // 2. Space Debris Proximity Radar (Collision Risk Analysis)
+    // 2. Space Debris Proximity Radar (Real-Time & Future 24-Hour Collision Risk Analysis)
     if (debrisProximity && sat.currentCartesian) {
         let minDebrisDist = 99999;
+        let closestDebrisName = '';
         const satPos = sat.currentCartesian;
 
+        // Current Instantaneous Distance Check
         satellitesData.forEach(otherSat => {
             if (otherSat !== sat && otherSat.currentCartesian) {
-                const isDebris = otherSat.name.toUpperCase().includes('DEBRIS') || otherSat.name.toUpperCase().includes('IRIDIUM') || otherSat.name.toUpperCase().includes('COSMOS') || otherSat.name.toUpperCase().includes('FENGYUN');
+                const nameUpper = otherSat.name.toUpperCase();
+                const isDebris = nameUpper.includes('DEBRIS') || nameUpper.includes('IRIDIUM') || nameUpper.includes('COSMOS') || nameUpper.includes('FENGYUN') || nameUpper.includes('SL-8') || nameUpper.includes('DELTA');
                 if (isDebris) {
                     const d = Cesium.Cartesian3.distance(satPos, otherSat.currentCartesian) / 1000;
-                    if (d < minDebrisDist) minDebrisDist = d;
+                    if (d < minDebrisDist) {
+                        minDebrisDist = d;
+                        closestDebrisName = otherSat.name;
+                    }
                 }
             }
         });
 
+        // Future 24-Hour Orbital Encounter Predictor (SGP4 Fast Propagator)
+        let futureMinDist = 99999;
+        let futureMinHours = 0;
+        let futureClosestDebris = '';
+
+        if (sat.satrec) {
+            const steps = 8; // Check 8 future time checkpoints (every 3 hours up to +24h)
+            for (let s = 1; s <= steps; s++) {
+                const futureHours = s * 3;
+                const futureTime = new Date(jsDate.getTime() + futureHours * 3600 * 1000);
+                const gmstFuture = satellite.gstime(futureTime);
+
+                try {
+                    const pvSat = satellite.propagate(sat.satrec, futureTime);
+                    if (pvSat.position && Number.isFinite(pvSat.position.x)) {
+                        const posSatEcf = satellite.eciToEcf(pvSat.position, gmstFuture);
+                        const cSat = new Cesium.Cartesian3(posSatEcf.x * 1000, posSatEcf.y * 1000, posSatEcf.z * 1000);
+
+                        satellitesData.forEach(otherSat => {
+                            if (otherSat !== sat && otherSat.satrec) {
+                                const oUpper = otherSat.name.toUpperCase();
+                                if (oUpper.includes('DEBRIS') || oUpper.includes('IRIDIUM') || oUpper.includes('COSMOS') || oUpper.includes('FENGYUN')) {
+                                    try {
+                                        const pvOther = satellite.propagate(otherSat.satrec, futureTime);
+                                        if (pvOther.position && Number.isFinite(pvOther.position.x)) {
+                                            const posOtherEcf = satellite.eciToEcf(pvOther.position, gmstFuture);
+                                            const cOther = new Cesium.Cartesian3(posOtherEcf.x * 1000, posOtherEcf.y * 1000, posOtherEcf.z * 1000);
+                                            const distKm = Cesium.Cartesian3.distance(cSat, cOther) / 1000;
+
+                                            if (distKm < futureMinDist) {
+                                                futureMinDist = distKm;
+                                                futureMinHours = futureHours;
+                                                futureClosestDebris = getSatDisplayName(otherSat.name);
+                                            }
+                                        }
+                                    } catch(e) {}
+                                }
+                            }
+                        });
+                    }
+                } catch(e) {}
+            }
+        }
+
         const formattedDist = Math.round(minDebrisDist).toLocaleString();
-        if (minDebrisDist > 2000) {
-            const safeText = {
-                ja: `🟢 ${formattedDist} km (SAFE / 危険範囲外)`,
-                en: `🟢 ${formattedDist} km (SAFE / Clear Zone)`,
-                zh: `🟢 ${formattedDist} km (安全距离)`,
-                es: `🟢 ${formattedDist} km (SEGURO / Zona despejada)`,
-                ru: `🟢 ${formattedDist} км (БЕЗОПАСНО)`
-            };
-            debrisProximity.innerHTML = `<span style="color:#10b981;">${safeText[lang] || safeText['en']}</span>`;
-        } else if (minDebrisDist > 800) {
-            const cautText = {
-                ja: `⚠️ ${formattedDist} km (CAUTION / デブリ接近中)`,
-                en: `⚠️ ${formattedDist} km (CAUTION / Debris Approaching)`,
-                zh: `⚠️ ${formattedDist} km (注意 / 碎片接近中)`,
-                es: `⚠️ ${formattedDist} km (PRECAUCIÓN / Basura acercándose)`,
-                ru: `⚠️ ${formattedDist} км (ВНИМАНИЕ / Сближение мусора)`
-            };
-            debrisProximity.innerHTML = `<span style="color:#f59e0b;">${cautText[lang] || cautText['en']}</span>`;
-        } else {
+        const formattedFutDist = Math.round(futureMinDist).toLocaleString();
+
+        if (minDebrisDist <= 800 || futureMinDist <= 800) {
             const critText = {
-                ja: `🚨 ${formattedDist} km (CRITICAL RISK / 衝突危険警告!)`,
-                en: `🚨 ${formattedDist} km (CRITICAL RISK / Collision Danger Alert!)`,
-                zh: `🚨 ${formattedDist} km (紧急碰撞预警!)`,
-                es: `🚨 ${formattedDist} km (RIESGO CRÍTICO / ¡Alerta de colisión!)`,
-                ru: `🚨 ${formattedDist} км (КРИТИЧЕСКИЙ РИСК / Угроза столкновения!)`
+                ja: `🚨 衝突危険警告! (${futureClosestDebris || closestDebrisName} と あと${futureMinHours || 0}時間後に ${formattedFutDist} km まで接近予測)`,
+                en: `🚨 CRITICAL RISK! (Encounter with ${futureClosestDebris || closestDebrisName} in ~${futureMinHours || 0}h at ${formattedFutDist} km)`,
+                zh: `🚨 紧急碰撞预警! (预测与 ${futureClosestDebris || closestDebrisName} 在约${futureMinHours || 0}小时后接近至 ${formattedFutDist} km)`,
+                es: `🚨 ¡ALERTA CRÍTICA DE COLISIÓN! (Encuentro con ${futureClosestDebris || closestDebrisName} en ~${futureMinHours || 0}h a ${formattedFutDist} km)`,
+                ru: `🚨 УГРОЗА СТОЛКНОВЕНИЯ! (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours || 0}ч на ${formattedFutDist} км)`
             };
             debrisProximity.innerHTML = `<span class="hazard-alert-text" style="color:#f43f5e; font-weight:700;">${critText[lang] || critText['en']}</span>`;
+        } else if (minDebrisDist <= 2000 || futureMinDist <= 2000) {
+            const cautText = {
+                ja: `⚠️ 接近注意! (${futureClosestDebris || closestDebrisName} と あと${futureMinHours || 0}時間後に ${formattedFutDist} km に最接近)`,
+                en: `⚠️ CAUTION! (Predicted pass by ${futureClosestDebris || closestDebrisName} in ~${futureMinHours || 0}h at ${formattedFutDist} km)`,
+                zh: `⚠️ 接近注意! (预测 ${futureClosestDebris || closestDebrisName} 约${futureMinHours || 0}小时后接近至 ${formattedFutDist} km)`,
+                es: `⚠️ PRECAUCIÓN (Paso cercano de ${futureClosestDebris || closestDebrisName} en ~${futureMinHours || 0}h a ${formattedFutDist} km)`,
+                ru: `⚠️ ВНИМАНИЕ (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours || 0}ч на ${formattedFutDist} км)`
+            };
+            debrisProximity.innerHTML = `<span style="color:#f59e0b; font-weight:600;">${cautText[lang] || cautText['en']}</span>`;
+        } else {
+            const safeText = {
+                ja: `🟢 24時間全軌道クリア (${formattedDist} km / 最接近デブリ: ${getSatDisplayName(closestDebrisName) || 'なし'})`,
+                en: `🟢 24-Hour Clear Orbit (${formattedDist} km / Closest: ${getSatDisplayName(closestDebrisName) || 'None'})`,
+                zh: `🟢 24小时全轨道安全 (${formattedDist} km / 最接近: ${getSatDisplayName(closestDebrisName) || '无'})`,
+                es: `🟢 Órbita despejada 24h (${formattedDist} km / Más cercano: ${getSatDisplayName(closestDebrisName) || 'Ninguno'})`,
+                ru: `🟢 Безопасная орбита 24ч (${formattedDist} км / Ближайший: ${getSatDisplayName(closestDebrisName) || 'Нет'})`
+            };
+            debrisProximity.innerHTML = `<span style="color:#10b981;">${safeText[lang] || safeText['en']}</span>`;
         }
     }
 }
