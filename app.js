@@ -953,7 +953,9 @@ function initCesiumViewer() {
                 maximumLevel: 12
             })
         );
-        bordersOverlayLayer.alpha = 0.85;
+        bordersOverlayLayer.alpha = 1.0;
+        bordersOverlayLayer.brightness = 1.6;
+        bordersOverlayLayer.contrast = 1.8;
     } catch (e) {
         console.warn("Borders overlay load skipped:", e);
     }
