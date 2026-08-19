@@ -59,7 +59,10 @@
         </header>
 
         <!-- Sidebar Navigation & Control -->
-        <aside class="hud-sidebar glass-panel">
+        <aside id="sidebarPanel" class="hud-sidebar glass-panel">
+            <div class="panel-drag-bar drag-handle">
+                <span class="drag-dots">⋮⋮</span> ドラッグでパネル移動
+            </div>
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -162,6 +165,9 @@
 
         <!-- Selected Satellite Detail Card -->
         <div id="detailCard" class="hud-card glass-panel hidden">
+            <div class="panel-drag-bar drag-handle">
+                <span class="drag-dots">⋮⋮</span> ドラッグで詳細カード移動
+            </div>
             <button id="closeDetail" class="btn-close">&times;</button>
             <div class="card-header">
                 <span class="badge badge-accent" id="satBadge">STARLINK</span>
@@ -222,7 +228,7 @@
         </div>
     </div>
 
-    <!-- Application Script (Cache Busted v34) -->
-    <script src="app.js?v=20260819_34"></script>
+    <!-- Application Script (Cache Busted v37) -->
+    <script src="app.js?v=20260819_37"></script>
 </body>
 </html>

@@ -884,9 +884,11 @@ function updateOffScreenPointer() {
         let screenX = windowCoord ? windowCoord.x : width / 2;
         let screenY = windowCoord ? windowCoord.y : height / 2;
 
-        const margin = 80;
-        const clampedX = Math.max(margin, Math.min(width - margin, screenX));
-        const clampedY = Math.max(margin, Math.min(height - margin, screenY));
+        const marginX = 90;
+        const marginTop = 90;
+        const marginBottom = 110;
+        const clampedX = Math.max(marginX, Math.min(width - marginX, screenX));
+        const clampedY = Math.max(marginTop, Math.min(height - marginBottom, screenY));
 
         const centerX = width / 2;
         const centerY = height / 2;
@@ -1467,6 +1469,70 @@ function setupEventListeners() {
             if (oneXBtn) oneXBtn.classList.add('active');
             timeSpeedMultiplier = 1;
         });
+    }
+
+    setupDraggablePanels();
+}
+
+/**
+ * Generic Drag & Drop UI Engine for Panel Manipulation
+ */
+function makeDraggable(panelEl, handleEl) {
+    if (!panelEl || !handleEl) return;
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let initialLeft = 0, initialTop = 0;
+
+    handleEl.addEventListener('mousedown', (e) => {
+        if (['INPUT', 'BUTTON', 'SELECT', 'A', 'LABEL', 'OPTION'].includes(e.target.tagName)) return;
+
+        isDragging = true;
+        panelEl.classList.add('is-dragging');
+
+        const rect = panelEl.getBoundingClientRect();
+        startX = e.clientX;
+        startY = e.clientY;
+        initialLeft = rect.left;
+        initialTop = rect.top;
+
+        panelEl.style.position = 'fixed';
+        panelEl.style.left = `${initialLeft}px`;
+        panelEl.style.top = `${initialTop}px`;
+        panelEl.style.margin = '0';
+        panelEl.style.right = 'auto';
+        panelEl.style.bottom = 'auto';
+
+        const onMouseMove = (moveEvent) => {
+            if (!isDragging) return;
+            const deltaX = moveEvent.clientX - startX;
+            const deltaY = moveEvent.clientY - startY;
+            panelEl.style.left = `${initialLeft + deltaX}px`;
+            panelEl.style.top = `${initialTop + deltaY}px`;
+        };
+
+        const onMouseUp = () => {
+            isDragging = false;
+            panelEl.classList.remove('is-dragging');
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        };
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+}
+
+function setupDraggablePanels() {
+    const sidebar = document.getElementById('sidebarPanel');
+    if (sidebar) {
+        const handle = sidebar.querySelector('.panel-drag-bar') || sidebar;
+        makeDraggable(sidebar, handle);
+    }
+
+    const detailCard = document.getElementById('detailCard');
+    if (detailCard) {
+        const handle = detailCard.querySelector('.panel-drag-bar') || detailCard;
+        makeDraggable(detailCard, handle);
     }
 }
 

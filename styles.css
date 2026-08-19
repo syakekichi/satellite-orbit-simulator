@@ -54,11 +54,25 @@ html, body {
 }
 
 /* Customize / Hide Cesium default UI components */
+/* Position Cesium Standard Toolbar lower to prevent overlap */
+.cesium-viewer-toolbar {
+    top: 140px !important;
+    right: 24px !important;
+    z-index: 99 !important;
+}
+
+.cesium-navigation-help {
+    top: 185px !important;
+    right: 24px !important;
+}
+
+/* Completely hide default Cesium clock animation widget in bottom-left */
 .cesium-viewer-bottom,
 .cesium-viewer-animationContainer,
+.cesium-animation-theme-default,
 .cesium-viewer-timelineContainer,
-.cesium-selection-wrapper {
-    z-index: 2 !important;
+.cesium-viewer-fullscreenContainer {
+    display: none !important;
 }
 
 .cesium-credit-logoContainer, .cesium-credit-textContainer {
@@ -432,6 +446,7 @@ html, body {
     grid-column: 3;
     grid-row: 2;
     align-self: start;
+    margin-top: 45px;
     padding: 24px;
     position: relative;
     display: flex;
@@ -719,6 +734,48 @@ html, body {
     display: flex;
     gap: 8px;
     align-items: center;
+}
+
+/* Drag & Drop UI Handles & Cursor Styles */
+.panel-drag-bar {
+    width: 100%;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+    border-radius: 6px 6px 0 0;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    cursor: grab !important;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.panel-drag-bar:hover {
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--accent-cyan);
+}
+
+.panel-drag-bar:active {
+    cursor: grabbing !important;
+    background: rgba(56, 189, 248, 0.2);
+}
+
+.drag-dots {
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--accent-blue);
+}
+
+.is-dragging {
+    box-shadow: 0 20px 45px rgba(56, 189, 248, 0.35), 0 0 20px rgba(34, 211, 238, 0.2) !important;
+    border-color: var(--accent-cyan) !important;
+    z-index: 10000 !important;
 }
 
 .hidden {
