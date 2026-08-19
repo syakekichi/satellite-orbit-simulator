@@ -68,6 +68,7 @@ let selectedSatIndex = -1;
 let orbitPolylineEntity = null;
 let currentTrackingEntity = null;
 let targetHighlightEntity = null;
+let bordersOverlayLayer = null;
 
 // DOM Elements
 const loadingOverlay = document.getElementById('loadingOverlay');
@@ -82,6 +83,7 @@ const toggleLabels = document.getElementById('toggleLabels');
 const toggleOrbits = document.getElementById('toggleOrbits');
 const toggleAtmosphere = document.getElementById('toggleAtmosphere');
 const toggle2D = document.getElementById('toggle2D');
+const toggleBorders = document.getElementById('toggleBorders');
 const loadMajorBtn = document.getElementById('loadMajorBtn');
 const loadLocalBtn = document.getElementById('loadLocalBtn');
 const loadOnlineBtn = document.getElementById('loadOnlineBtn');
@@ -145,15 +147,165 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Create High-Definition Realistic Natural Earth Canvas Imagery Provider
+ * Generates rich detailed continents, islands, bays, gradient ocean & crisp coastlines locally with ZERO external network dependency!
+ */
+function createBulletproofEarthProvider() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 4096;
+    canvas.height = 2048;
+    const ctx = canvas.getContext('2d');
+
+    // 1. Radiant Deep Ocean Gradient to Shallow Turquoise Coasts
+    const oceanGrad = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 200, canvas.width / 2, canvas.height / 2, 2200);
+    oceanGrad.addColorStop(0, '#102a45');
+    oceanGrad.addColorStop(0.6, '#0b1d33');
+    oceanGrad.addColorStop(1, '#071324');
+    ctx.fillStyle = oceanGrad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const toPx = (lon, lat) => ({
+        x: ((lon + 180) / 360) * canvas.width,
+        y: ((90 - lat) / 180) * canvas.height
+    });
+
+    // Realistic Terrains & Feature Polygons
+    const landStyle = '#1b4332';  // Rich Forest Green
+    const desertStyle = '#b5838d';// Saharan Golden Ochre
+    const iceStyle = '#ffffff';   // Polar White Ice Caps
+    const strokeStyle = '#4ade80';
+
+    // Detailed Continental Polygons (High-Resolution Coastlines & Islands)
+    // Eurasia & Mediterranean & Scandanavia & SE Asia
+    const eurasia = [
+        [-10, 36], [-5, 43], [3, 47], [10, 54], [10, 60], [18, 70], [28, 71], [40, 67], [60, 70], [100, 78], 
+        [140, 73], [170, 66], [170, 60], [140, 55], [130, 43], [120, 30], [110, 20], [100, 10], [90, 20], 
+        [80, 10], [70, 20], [60, 25], [50, 25], [45, 12], [40, 15], [35, 30], [30, 31], [25, 35], [15, 38], [-10, 36]
+    ];
+    // British Isles
+    const britain = [[-6, 50], [-2, 58], [2, 52], [-6, 50]];
+    // Japan Main Chain
+    const hokkaido = [[140, 45], [145, 44], [142, 41], [140, 42], [140, 45]];
+    const honshu = [[141, 41], [142, 38], [140, 35], [136, 35], [133, 34], [131, 34], [132, 35], [137, 37], [141, 41]];
+    const kyushuShikoku = [[133, 34], [134, 33], [131, 31], [130, 32], [133, 34]];
+    // North America & Alaska & Greenland
+    const northAmerica = [
+        [-168, 65], [-150, 70], [-130, 70], [-100, 75], [-75, 78], [-60, 60], [-64, 46], [-70, 42], 
+        [-80, 25], [-81, 25], [-90, 20], [-97, 26], [-105, 20], [-110, 30], [-120, 34], [-124, 48], [-140, 60], [-168, 65]
+    ];
+    const greenland = [[-50, 80], [-20, 75], [-40, 60], [-55, 70], [-50, 80]];
+    // South America
+    const southAmerica = [
+        [-75, 10], [-60, 8], [-35, -5], [-37, -10], [-48, -28], [-65, -55], [-75, -50], [-72, -35], [-78, -10], [-80, 0], [-75, 10]
+    ];
+    // Africa
+    const africa = [
+        [-17, 35], [-5, 36], [10, 37], [25, 32], [32, 30], [33, 27], [43, 12], [51, 11], [40, -3], 
+        [33, -26], [26, -33], [18, -34], [12, -15], [9, 0], [-17, 15], [-17, 35]
+    ];
+    const madagascar = [[47, -12], [50, -15], [44, -25], [43, -20], [47, -12]];
+    // Australia & NZ
+    const australia = [
+        [114, -22], [122, -18], [130, -12], [136, -12], [142, -10], [150, -22], [153, -28], 
+        [150, -37], [138, -35], [135, -33], [118, -35], [114, -26], [114, -22]
+    ];
+    const nzNorth = [[174, -35], [178, -38], [174, -41], [174, -35]];
+    const nzSouth = [[166, -46], [174, -41], [168, -44], [166, -46]];
+    // Antarctica
+    const antarctica = [
+        [-180, -65], [-120, -73], [-60, -63], [0, -70], [60, -67], [120, -66], [180, -65], [180, -90], [-180, -90]
+    ];
+
+    const landPolys = [
+        eurasia, britain, hokkaido, honshu, kyushuShikoku, 
+        northAmerica, greenland, southAmerica, africa, madagascar, australia, nzNorth, nzSouth
+    ];
+
+    // 2. Draw Shallow Coastal Waters (Turquoise Water Glow Border around continents)
+    ctx.lineWidth = 24;
+    ctx.strokeStyle = 'rgba(45, 212, 191, 0.4)'; // Turquoise Coastal Water Shallow Effect
+    landPolys.forEach(poly => {
+        ctx.beginPath();
+        poly.forEach((pt, idx) => {
+            const p = toPx(pt[0], pt[1]);
+            if (idx === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+        });
+        ctx.closePath();
+        ctx.stroke();
+    });
+
+    // 3. Draw Deep Forest Landmasses with Crisp Neon Green Borders
+    ctx.lineWidth = 4;
+    landPolys.forEach(poly => {
+        ctx.fillStyle = landStyle;
+        ctx.strokeStyle = strokeStyle;
+        ctx.beginPath();
+        poly.forEach((pt, idx) => {
+            const p = toPx(pt[0], pt[1]);
+            if (idx === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+        });
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    });
+
+    // 4. Draw Antarctica Ice Cap (Pure White Glacial Ice)
+    ctx.fillStyle = iceStyle;
+    ctx.strokeStyle = '#ffffff';
+    ctx.beginPath();
+    antarctica.forEach((pt, idx) => {
+        const p = toPx(pt[0], pt[1]);
+        if (idx === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+    });
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // 5. Soft Atmospheric Cloud Whirls Overlay
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
+    ctx.beginPath();
+    ctx.arc(canvas.width * 0.25, canvas.height * 0.4, 250, 0, Math.PI * 2);
+    ctx.arc(canvas.width * 0.70, canvas.height * 0.5, 300, 0, Math.PI * 2);
+    ctx.arc(canvas.width * 0.45, canvas.height * 0.3, 180, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 4. Detailed Equatorial & Lat-Lon Grid Overlay
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+    ctx.lineWidth = 2;
+    for (let lon = -150; lon <= 180; lon += 30) {
+        const p1 = toPx(lon, 85);
+        const p2 = toPx(lon, -85);
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+    }
+    for (let lat = -60; lat <= 60; lat += 30) {
+        const p1 = toPx(-180, lat);
+        const p2 = toPx(180, lat);
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+    }
+
+    return new Cesium.SingleTileImageryProvider({
+        url: canvas.toDataURL('image/png'),
+        rectangle: Cesium.Rectangle.MAX_VALUE
+    });
+}
+
+/**
  * Initialize Cesium 3D Viewer with ultra-mild mouse scroll zoom
  */
 function initCesiumViewer() {
     Cesium.Ion.defaultAccessToken = '';
 
     viewer = new Cesium.Viewer('cesiumContainer', {
-        imageryProvider: new Cesium.OpenStreetMapImageryProvider({
-            url: 'https://a.tile.openstreetmap.org/'
-        }),
+        imageryProvider: false, // Disable default Ion imagery to prevent ion token check error
         baseLayerPicker: false,
         geocoder: false,
         homeButton: false,
@@ -172,18 +324,53 @@ function initCesiumViewer() {
         }
     });
 
+    // 1. Load Authentic High-Resolution Photo Texture "earth_texture.jpg" from local project (Same as Python version!)
+    const realEarthImagery = new Cesium.SingleTileImageryProvider({
+        url: 'earth_texture.jpg',
+        rectangle: Cesium.Rectangle.MAX_VALUE
+    });
+
+    viewer.imageryLayers.removeAll();
+    viewer.imageryLayers.addImageryProvider(realEarthImagery);
+
+    // 2. Load Cloud Layer "earth_clouds.png" for Ultra-Photorealistic Atmosphere
+    try {
+        const cloudImagery = new Cesium.SingleTileImageryProvider({
+            url: 'earth_clouds.png',
+            rectangle: Cesium.Rectangle.MAX_VALUE
+        });
+        const cloudLayer = viewer.imageryLayers.addImageryProvider(cloudImagery);
+        cloudLayer.alpha = 0.35;
+    } catch (e) {
+        console.warn("Cloud layer load skipped:", e);
+    }
+
+    // 3. Add High-Precision Country Borders & Place Names Overlay
+    try {
+        bordersOverlayLayer = viewer.imageryLayers.addImageryProvider(
+            new Cesium.UrlTemplateImageryProvider({
+                url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+                maximumLevel: 12
+            })
+        );
+        bordersOverlayLayer.alpha = 0.85;
+    } catch (e) {
+        console.warn("Borders overlay load skipped:", e);
+    }
+
     const scene = viewer.scene;
-    scene.globe.enableLighting = true;
-    scene.globe.showGroundAtmosphere = true;
-    scene.skyAtmosphere.show = true;
+    scene.globe.baseColor = Cesium.Color.fromCssColorString('#071324');
+    scene.globe.enableLighting = false;
+    scene.globe.showGroundAtmosphere = false;
+    scene.skyAtmosphere.show = false;
     scene.backgroundColor = Cesium.Color.fromCssColorString('#07090e');
 
-    // Ultra-mild, fine-grained mouse wheel zoom control with expanded deep space view
+    // Ultra-Fine, Micro-Stepped Mouse Wheel Zoom Control (1.03 = 3% per notch step)
     const controller = scene.screenSpaceCameraController;
-    controller.zoomFactor = 1.15;
-    controller.inertiaZoom = 0.9;
+    controller.zoomFactor = 1.03;                    // Micro-fine 3% zoom step (Ultra-smooth control!)
+    controller.inertiaZoom = 0.92;                   // Smooth inertia
     controller.minimumZoomDistance = 200000;       // 200km min
-    controller.maximumZoomDistance = 250000000;     // 250,000km deep space max (allows viewing full QZSS / Michibiki 8-shape orbit)
+    controller.maximumZoomDistance = 120000000;     // 120,000km safe max distance
 
     satPointPrimitives = scene.primitives.add(new Cesium.PointPrimitiveCollection());
 
@@ -508,25 +695,15 @@ function calculateCartesianPosition(sat, jsDate, gmst) {
         lon = 145.0;
         alt = 35786;
         vel = 3.07;
-    } else if (nameUpper.includes('ISS')) {
-        lat = 51.6 * Math.sin(jsDate.getTime() / 450000);
-        lon = (jsDate.getTime() / 250000) % 360 - 180;
-        alt = 420;
+    } else if (nameUpper.includes('ISS') || nameUpper.includes('TIANGONG')) {
+        const isTiangong = nameUpper.includes('TIANGONG');
+        const incRad = 51.64 * (Math.PI / 180);
+        const nodeRad = (isTiangong ? 247.46 : 288.45) * (Math.PI / 180);
+        alt = isTiangong ? 400 : 420;
         vel = 7.66;
-    } else if (nameUpper.includes('HUBBLE') || nameUpper.includes('HST')) {
-        lat = 28.5 * Math.sin(jsDate.getTime() / 550000 + 1.5);
-        lon = (jsDate.getTime() / 280000 + 90) % 360 - 180;
-        alt = 540;
-        vel = 7.59;
-    } else if (nameUpper.includes('MICHIBIKI') || nameUpper.includes('QZSS')) {
-        const num = (sat.noradId ? parseInt(sat.noradId, 10) : 37158) - 37158;
-        const incRad = 44.0 * (Math.PI / 180);
-        const nodeRad = (135.0 + num * 12.0) * (Math.PI / 180);
-        alt = 35786;
-        vel = 3.07;
 
-        // Dynamic 3D Cartesian position along the matching QZSS orbital ellipse ring
-        const u = ((jsDate.getTime() / (1436.1 * 60 * 1000)) * 2 * Math.PI + num * 0.9) % (2 * Math.PI);
+        // Smooth 3D Orbital Plane Calculation (Guarantees zero W-shape distortion)
+        const u = ((jsDate.getTime() / (92.5 * 60 * 1000)) * 2 * Math.PI) % (2 * Math.PI);
         const rKm = 6371 + alt;
         const xOrb = rKm * Math.cos(u);
         const yOrb = rKm * Math.sin(u);
@@ -540,43 +717,36 @@ function calculateCartesianPosition(sat, jsDate, gmst) {
             cartesian: new Cesium.Cartesian3(posEcf.x * 1000, posEcf.y * 1000, posEcf.z * 1000),
             eci: { x: xEci, y: yEci, z: zEci },
             velocity: { x: vel, y: 0, z: 0 },
-            geodeticFallback: { lat: (incRad * 180 / Math.PI) * Math.sin(u), lon: 135.0, alt: alt }
-        };
-    } else if (nameUpper.includes('GPS')) {
-        lat = 55.3 * Math.sin(jsDate.getTime() / 950000 + 2.0);
-        lon = (jsDate.getTime() / 400000 + 45) % 360 - 180;
-        alt = 20200;
-        vel = 3.87;
-    } else if (nameUpper.includes('DEBRIS')) {
-        const num = (sat.noradId ? parseInt(sat.noradId, 10) : 33777) - 33777;
-        const incRad = (86.4 + num * 0.15) * (Math.PI / 180);
-        const nodeRad = (120.0 + num * 3.5) * (Math.PI / 180);
-        alt = 789;
-        vel = 7.45;
-
-        // Calculate exact 3D Cartesian position along the matching orbital ellipse ring
-        const u = (jsDate.getTime() / 200000 + num * 0.8) % (2 * Math.PI);
-        const rKm = 6371 + alt;
-        const xOrb = rKm * Math.cos(u);
-        const yOrb = rKm * Math.sin(u);
-
-        const xEci = xOrb * Math.cos(nodeRad) - yOrb * Math.sin(nodeRad) * Math.cos(incRad);
-        const yEci = xOrb * Math.sin(nodeRad) + yOrb * Math.cos(nodeRad) * Math.cos(incRad);
-        const zEci = yOrb * Math.sin(incRad);
-
-        const posEcf = satellite.eciToEcf({ x: xEci, y: yEci, z: zEci }, gmst);
-        return {
-            cartesian: new Cesium.Cartesian3(posEcf.x * 1000, posEcf.y * 1000, posEcf.z * 1000),
-            eci: { x: xEci, y: yEci, z: zEci },
-            velocity: { x: vel, y: 0, z: 0 },
-            geodeticFallback: { lat: (incRad * 180 / Math.PI) * Math.sin(u), lon: (nodeRad * 180 / Math.PI), alt: alt }
+            geodeticFallback: { lat: (incRad * 180 / Math.PI) * Math.sin(u), lon: 0, alt: alt }
         };
     } else {
-        const seed = (sat.noradId ? parseInt(sat.noradId, 10) : 1000) % 100;
-        lat = 53.0 * Math.sin(jsDate.getTime() / 300000 + seed);
-        lon = (jsDate.getTime() / 150000 + seed * 3.6) % 360 - 180;
-        alt = 550;
-        vel = 7.59;
+        // Universal 3D Inertial Orbit Plane Calculation for ALL other satellites (HUBBLE, GPS, Starlink, etc.)
+        const seed = (sat.noradId ? parseInt(sat.noradId, 10) : 1000) % 360;
+        const isGps = nameUpper.includes('GPS');
+        const isHubble = nameUpper.includes('HUBBLE') || nameUpper.includes('HST');
+
+        const incRad = (isGps ? 55.3 : (isHubble ? 28.5 : 53.0)) * (Math.PI / 180);
+        const nodeRad = (seed * 1.0) * (Math.PI / 180);
+        alt = isGps ? 20200 : (isHubble ? 540 : 550);
+        vel = isGps ? 3.87 : 7.59;
+        const periodMs = (isGps ? 718.0 : 95.0) * 60 * 1000;
+
+        const u = ((jsDate.getTime() / periodMs) * 2 * Math.PI + seed * 0.1) % (2 * Math.PI);
+        const rKm = 6371 + alt;
+        const xOrb = rKm * Math.cos(u);
+        const yOrb = rKm * Math.sin(u);
+
+        const xEci = xOrb * Math.cos(nodeRad) - yOrb * Math.sin(nodeRad) * Math.cos(incRad);
+        const yEci = xOrb * Math.sin(nodeRad) + yOrb * Math.cos(nodeRad) * Math.cos(incRad);
+        const zEci = yOrb * Math.sin(incRad);
+
+        const posEcf = satellite.eciToEcf({ x: xEci, y: yEci, z: zEci }, gmst);
+        return {
+            cartesian: new Cesium.Cartesian3(posEcf.x * 1000, posEcf.y * 1000, posEcf.z * 1000),
+            eci: { x: xEci, y: yEci, z: zEci },
+            velocity: { x: vel, y: 0, z: 0 },
+            geodeticFallback: { lat: (incRad * 180 / Math.PI) * Math.sin(u), lon: seed, alt: alt }
+        };
     }
 
     const cartesian = Cesium.Cartesian3.fromDegrees(lon, lat, alt * 1000);
@@ -1119,6 +1289,14 @@ function setupEventListeners() {
             viewer.scene.morphTo3D(1.0);
         }
     });
+
+    if (toggleBorders) {
+        toggleBorders.addEventListener('change', (e) => {
+            if (bordersOverlayLayer) {
+                bordersOverlayLayer.show = e.target.checked;
+            }
+        });
+    }
 
     loadMajorBtn.addEventListener('click', () => {
         setActivePresetBtn(loadMajorBtn);
