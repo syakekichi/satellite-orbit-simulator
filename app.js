@@ -365,12 +365,29 @@ function initCesiumViewer() {
     scene.skyAtmosphere.show = false;
     scene.backgroundColor = Cesium.Color.fromCssColorString('#07090e');
 
-    // Ultra-Fine, Micro-Stepped Mouse Wheel Zoom Control (1.03 = 3% per notch step)
-    const controller = scene.screenSpaceCameraController;
-    controller.zoomFactor = 1.03;                    // Micro-fine 3% zoom step (Ultra-smooth control!)
-    controller.inertiaZoom = 0.92;                   // Smooth inertia
-    controller.minimumZoomDistance = 200000;       // 200km min
-    controller.maximumZoomDistance = 120000000;     // 120,000km safe max distance
+    // Custom Precision Wheel Zoom Interceptor (Directly overrides Cesium's aggressive wheel zoom to 1/10th speed!)
+    const canvas = viewer.canvas;
+    canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const camera = viewer.camera;
+        const currentDist = Cesium.Cartesian3.magnitude(camera.positionWC);
+        
+        // Extremely gentle 0.00015 step factor (Ultra-smooth 1/10th scroll speed!)
+        const delta = e.deltaY;
+        const zoomStep = currentDist * (delta * 0.00015);
+        
+        if (delta > 0) {
+            if (currentDist + zoomStep <= 120000000) {
+                camera.zoomOut(zoomStep);
+            }
+        } else {
+            if (currentDist + zoomStep >= 6571000) {
+                camera.zoomIn(-zoomStep);
+            }
+        }
+    }, { passive: false, capture: true });
 
     satPointPrimitives = scene.primitives.add(new Cesium.PointPrimitiveCollection());
 
