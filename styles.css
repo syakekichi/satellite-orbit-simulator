@@ -222,10 +222,10 @@ html, body {
     grid-row: 2;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    gap: 14px;
+    padding: 16px;
+    max-height: calc(100vh - 100px);
     overflow-y: auto;
-    max-height: calc(100vh - 120px);
 }
 
 .sidebar-section {
@@ -1100,4 +1100,49 @@ input:focus + .slider.purple-slider {
         background: rgba(56, 189, 248, 0.6) !important;
         transform: scale(0.90) !important;
     }
+}
+
+/* Minimize Toggle Button & Animation */
+.panel-min-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #e2e8f0;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.panel-min-btn:hover {
+    background: rgba(56, 189, 248, 0.3);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+.sidebar-collapsible-content {
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+    overflow-y: auto;
+    max-height: calc(100vh - 120px);
+    opacity: 1;
+}
+
+.card-collapsible-content {
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+    overflow-y: auto;
+    max-height: calc(100vh - 140px);
+    opacity: 1;
+}
+
+.is-minimized .sidebar-collapsible-content,
+.is-minimized .card-collapsible-content {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.is-minimized {
+    padding-bottom: 6px !important;
 }

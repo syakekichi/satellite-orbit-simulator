@@ -2387,6 +2387,49 @@ function setupEventListeners() {
             timeSpeedMultiplier = 1;
         });
     }
+    const toggleSidebarMinBtn = document.getElementById('toggleSidebarMinBtn');
+    const sidebarPanel = document.getElementById('sidebarPanel');
+    if (toggleSidebarMinBtn && sidebarPanel) {
+        toggleSidebarMinBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebarPanel.classList.toggle('is-minimized');
+            const isMin = sidebarPanel.classList.contains('is-minimized');
+            toggleSidebarMinBtn.textContent = isMin ? '➕' : '➖';
+        });
+    }
+
+    const toggleDetailMinBtn = document.getElementById('toggleDetailMinBtn');
+    const detailCard = document.getElementById('detailCard');
+    if (toggleDetailMinBtn && detailCard) {
+        toggleDetailMinBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            detailCard.classList.toggle('is-minimized');
+            const isMin = detailCard.classList.contains('is-minimized');
+            toggleDetailMinBtn.textContent = isMin ? '➕' : '➖';
+        });
+    }
+
+    const toggleHeaderMinBtn = document.getElementById('toggleHeaderMinBtn');
+    const headerRightIsland = document.getElementById('headerRightIsland');
+    if (toggleHeaderMinBtn && headerRightIsland) {
+        toggleHeaderMinBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            headerRightIsland.classList.toggle('is-minimized');
+            const isMin = headerRightIsland.classList.contains('is-minimized');
+            toggleHeaderMinBtn.textContent = isMin ? '➕' : '➖';
+        });
+    }
+
+    const toggleCamMinBtn = document.getElementById('toggleCamMinBtn');
+    const cameraDPad = document.getElementById('cameraDPad');
+    if (toggleCamMinBtn && cameraDPad) {
+        toggleCamMinBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            cameraDPad.classList.toggle('is-minimized');
+            const isMin = cameraDPad.classList.contains('is-minimized');
+            toggleCamMinBtn.textContent = isMin ? '➕' : '➖';
+        });
+    }
 
     setupDraggablePanels();
 }
