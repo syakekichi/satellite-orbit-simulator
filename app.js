@@ -1,16 +1,292 @@
 /**
- * Satellite Orbit Simulator 3D
- * Engine: CesiumJS + satellite.js
+ * SatViewer3D Engine: CesiumJS + satellite.js
  */
 
-// Major Satellites Built-in TLE Preset (Includes Full Himawari, Full Michibiki/QZSS, ISS, Tiangong, Beidou, Hubble, GPS, Debris)
-const MAJOR_SATELLITES_TLE = `HIMAWARI-8 (ひまわり8号 - バックアップ)
+// Global i18n Language State (Guaranteed 100% defined everywhere)
+window.currentLang = localStorage.getItem('sat_lang') || 'ja';
+var currentLang = window.currentLang;
+
+const TRANSLATIONS = {
+    ja: {
+        statCount: "追跡衛星数",
+        statTime: "シミュレーション時刻",
+        dragPanel: "⋮⋮ ドラッグでパネル移動",
+        secSelect: "衛星を選択・検索",
+        selectPlaceholder: "-- 衛星または宇宙ゴミを選択してください --",
+        searchPlaceholder: "または衛星名・NORAD IDで検索...",
+        secSource: "衛星データソース & プリセット",
+        loadMajor: "⭐ 主要・有名衛星 (ひまわり, ISS, みちびき, デブリ)",
+        loadLocal: "🛰️ Starlink 全衛星コンステレーション (2,000機)",
+        badgeMajor: "⭐ 主要・有名衛星プリセット読込済",
+        secTime: "時間コントロール & 倍速設定",
+        speedStop: "⏸️ 停止",
+        speedReal: "▶️ 1x (リアル)",
+        resetNow: "🔄 現在時刻",
+        secDisplay: "表示設定",
+        toggleLabels: "3D空間に衛星名ラベルを表示",
+        toggleOrbits: "選択衛星の軌道を表示",
+        toggleMultiLap: "🌐 複数周回軌跡を表示 (地球自転の波状パターン)",
+        toggleAtmosphere: "大気圏 & ライティング",
+        toggle2D: "2D世界地図モード",
+        toggleBorders: "🌐 国境線 & 地名ラベル",
+        toggleDebrisRisk: "🔮 宇宙デブリ危険分析モード (パープル表示)",
+        dragDetail: "⋮⋮ ドラッグで詳細カード移動",
+        dragCam: "⋮⋮ カメラ視点移動",
+        labelAlt: "高度 (Altitude)",
+        labelVel: "速度 (Velocity)",
+        labelLat: "緯度 (Latitude)",
+        labelLon: "経度 (Longitude)",
+        labelInc: "軌道傾斜角 (Inclination)",
+        labelPeriod: "周期 (Period)",
+        labelTimezone: "時刻表示タイムゾーン",
+        labelPass: "📡 上空通過予報 (現在地: 東京上空)",
+        labelRisk: "🔮 宇宙デブリ最接近 (衝突予測)",
+        btnGeo: "📍現在地",
+        btnTrack: "🎯 追跡カメラフォーカス",
+        btnUntrack: "🔓 追跡解除",
+        pointerHint: "画面外にあります (クリックでカメラ移動)"
+    },
+    en: {
+        statCount: "Tracked Satellites",
+        statTime: "Simulation Time",
+        dragPanel: "⋮⋮ Drag to move panel",
+        secSelect: "Select / Search Satellite",
+        selectPlaceholder: "-- Select Satellite or Space Debris --",
+        searchPlaceholder: "Search by Name or NORAD ID...",
+        secSource: "Satellite Data Source & Presets",
+        loadMajor: "⭐ Major Satellites (ISS, Himawari, Michibiki, Debris)",
+        loadLocal: "🛰️ Full Starlink Constellation (2,000 Satellites)",
+        badgeMajor: "⭐ Major Satellites Preset Loaded",
+        secTime: "Time Controls & Simulation Speed",
+        speedStop: "⏸️ Pause",
+        speedReal: "▶️ 1x (Realtime)",
+        resetNow: "🔄 Reset Time",
+        secDisplay: "Display Settings",
+        toggleLabels: "Show 3D Satellite Name Labels",
+        toggleOrbits: "Show Selected Satellite Orbit",
+        toggleMultiLap: "🌐 Show Multi-Lap Precession Wave (Earth Rotation)",
+        toggleAtmosphere: "Atmosphere & Lighting",
+        toggle2D: "2D Map View",
+        toggleBorders: "🌐 Borders & Place Labels",
+        toggleDebrisRisk: "🔮 Space Debris Risk Analysis (Purple Glow)",
+        dragDetail: "⋮⋮ Drag to move Detail Card",
+        dragCam: "⋮⋮ Camera Pan Controls",
+        labelAlt: "Altitude",
+        labelVel: "Velocity",
+        labelLat: "Latitude",
+        labelLon: "Longitude",
+        labelInc: "Inclination",
+        labelPeriod: "Period",
+        labelTimezone: "Timezone Display",
+        labelPass: "📡 Pass Prediction (Location: Tokyo)",
+        labelRisk: "🔮 Space Debris Proximity Radar",
+        btnGeo: "📍My Location",
+        btnTrack: "🎯 Focus Camera",
+        btnUntrack: "🔓 Unfocus Camera",
+        pointerHint: "Off-screen (Click to view)"
+    },
+    zh: {
+        statCount: "追踪卫星数量",
+        statTime: "模拟时间",
+        dragPanel: "⋮⋮ 拖动移动面板",
+        secSelect: "选择 / 搜索卫星",
+        selectPlaceholder: "-- 请选择卫星或空间碎片 --",
+        searchPlaceholder: "按名称或 NORAD ID 搜索...",
+        secSource: "卫星数据源与预设",
+        loadMajor: "⭐ 主要/著名卫星 (国际空间站, 葵花, 碎片等)",
+        loadLocal: "🛰️ 星链 (Starlink) 完整星座 (2,000 颗)",
+        badgeMajor: "⭐ 已加载主要卫星预设",
+        secTime: "时间控制与倍速设置",
+        speedStop: "⏸️ 暂停",
+        speedReal: "▶️ 1x (实时)",
+        resetNow: "🔄 重置时间",
+        secDisplay: "显示设置",
+        toggleLabels: "显示 3D 卫星名称标签",
+        toggleOrbits: "显示选中卫星轨道",
+        toggleMultiLap: "🌐 显示多圈轨迹 (地球自转波状图)",
+        toggleAtmosphere: "大气层与光照",
+        toggle2D: "2D 地图模式",
+        toggleBorders: "🌐 国界线与地名标签",
+        toggleDebrisRisk: "🔮 空间碎片危险分析 (紫色发光)",
+        dragDetail: "⋮⋮ 拖动移动详情卡片",
+        dragCam: "⋮⋮ 平移视角控制",
+        labelAlt: "高度",
+        labelVel: "速度",
+        labelLat: "纬度",
+        labelLon: "经度",
+        labelInc: "轨道倾角",
+        labelPeriod: "周期",
+        labelTimezone: "时区显示",
+        labelPass: "📡 本地上空过境预测",
+        labelRisk: "🔮 空间碎片极近距离分析",
+        btnGeo: "📍当前位置",
+        btnTrack: "🎯 聚焦相机",
+        btnUntrack: "🔓 取消聚焦",
+        pointerHint: "在屏幕外 (点击查看)"
+    },
+    es: {
+        statCount: "Satélites Rastreados",
+        statTime: "Tiempo de Simulación",
+        dragPanel: "⋮⋮ Arrastrar para mover panel",
+        secSelect: "Seleccionar / Buscar Satélite",
+        selectPlaceholder: "-- Seleccionar Satélite o Basura Espacial --",
+        searchPlaceholder: "Buscar por nombre o NORAD ID...",
+        secSource: "Fuente de Datos y Presets",
+        loadMajor: "⭐ Satélites Principales (EEI, Himawari, Basura)",
+        loadLocal: "🛰️ Constelación Completa Starlink (2.000)",
+        badgeMajor: "⭐ Presets de Satélites Principales Cargados",
+        secTime: "Control de Tiempo y Velocidad",
+        speedStop: "⏸️ Pausa",
+        speedReal: "▶️ 1x (Tiempo Real)",
+        resetNow: "🔄 Restablecer Hora",
+        secDisplay: "Ajustes de Pantalla",
+        toggleLabels: "Mostrar Etiquetas 3D",
+        toggleOrbits: "Mostrar Órbita del Satélite",
+        toggleMultiLap: "🌐 Mostrar Onda de Precesión Multivuelta",
+        toggleAtmosphere: "Atmósfera e Iluminación",
+        toggle2D: "Modo Mapa 2D",
+        toggleBorders: "🌐 Fronteras y Nombres",
+        toggleDebrisRisk: "🔮 Análisis de Riesgo de Basura Espacial",
+        dragDetail: "⋮⋮ Arrastrar para mover detalle",
+        dragCam: "⋮⋮ Control de Cámara",
+        labelAlt: "Altitud",
+        labelVel: "Velocidad",
+        labelLat: "Latitud",
+        labelLon: "Longitud",
+        labelInc: "Inclinación",
+        labelPeriod: "Período",
+        labelTimezone: "Zona Horaria",
+        labelPass: "📡 Predicción de Paso Local",
+        labelRisk: "🔮 Proximidad de Basura Espacial",
+        btnGeo: "📍Mi Ubicación",
+        btnTrack: "🎯 Enfocar Cámara",
+        btnUntrack: "🔓 Desenrocar",
+        pointerHint: "Fuera de pantalla (Clic para ver)"
+    },
+    ru: {
+        statCount: "Отслеживаемые спутники",
+        statTime: "Время моделирования",
+        dragPanel: "⋮⋮ Перетащите панель",
+        secSelect: "Выбрать / Найти спутник",
+        selectPlaceholder: "-- Выберите спутник или мусор --",
+        searchPlaceholder: "Поиск по имени или NORAD ID...",
+        secSource: "Источники данных и пресеты",
+        loadMajor: "⭐ Основные спутники (МКС, Himawari, Мусор)",
+        loadLocal: "🛰️ Полная группировка Starlink (2 000)",
+        badgeMajor: "⭐ Пресет основных спутников загружен",
+        secTime: "Управление временем и скоростью",
+        speedStop: "⏸️ Пауза",
+        speedReal: "▶️ 1x (Реальное время)",
+        resetNow: "🔄 Сброс времени",
+        secDisplay: "Настройки отображения",
+        toggleLabels: "Показывать 3D метки спутников",
+        toggleOrbits: "Показывать орбиту спутника",
+        toggleMultiLap: "🌐 Показывать многовитковую траекторию",
+        toggleAtmosphere: "Атмосфера и освещение",
+        toggle2D: "Режим 2D карты",
+        toggleBorders: "🌐 Границы и названия",
+        toggleDebrisRisk: "🔮 Анализ риска космического мусора",
+        dragDetail: "⋮⋮ Перетащите карточку",
+        dragCam: "⋮⋮ Управление камерой",
+        labelAlt: "Высота",
+        labelVel: "Скорость",
+        labelLat: "Широта",
+        labelLon: "Долгота",
+        labelInc: "Наклонение",
+        labelPeriod: "Период",
+        labelTimezone: "Часовой пояс",
+        labelPass: "📡 Прогноз пролета",
+        labelRisk: "🔮 Радар космического мусора",
+        btnGeo: "📍Мое местоположение",
+        btnTrack: "🎯 Фокус камеры",
+        btnUntrack: "🔓 Снять фокус",
+        pointerHint: "За экраном (Нажмите)"
+    }
+};
+
+function applyLanguage(lang) {
+    window.currentLang = lang;
+    currentLang = lang;
+    localStorage.setItem('sat_lang', lang);
+    const dict = TRANSLATIONS[lang] || TRANSLATIONS['ja'];
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+            el.textContent = dict[key];
+        }
+    });
+
+    // Explicit ID-based fallback translations for guaranteed 100% full UI translation
+    const idsToTranslate = {
+        'loadMajorBtn': 'loadMajor',
+        'loadLocalBtn': 'loadLocal',
+        'sourceStatusBadge': 'badgeMajor',
+        'resetNowBtn': 'resetNow',
+        'geoLocateBtn': 'btnGeo',
+        'trackBtn': 'btnTrack',
+        'untrackBtn': 'btnUntrack'
+    };
+
+    for (const [id, key] of Object.entries(idsToTranslate)) {
+        const el = document.getElementById(id);
+        if (el && dict[key]) {
+            el.textContent = dict[key];
+        }
+    }
+
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput && dict.searchPlaceholder) {
+        searchInput.placeholder = dict.searchPlaceholder;
+    }
+
+    const tzSelect = document.getElementById('tzSelect');
+    if (tzSelect) {
+        const tzLabels = {
+            ja: { JST: '🇯🇵 日本標準時 (JST / UTC+9)', UTC: '🌐 協定世界時 (UTC)', NY: '🇺🇸 ニューヨーク (EST/EDT)', CST: '🇨🇳 中国標準時 (CST / UTC+8)', CET: '🇪🇸 中央欧州時間 (CET / UTC+1)', MSK: '🇷🇺 モスクワ時間 (MSK / UTC+3)', LOCAL: '💻 ローカル時間 (ブラウザ依存)' },
+            en: { JST: '🇯🇵 Japan Std Time (JST / UTC+9)', UTC: '🌐 Universal Time (UTC)', NY: '🇺🇸 New York (EST/EDT)', CST: '🇨🇳 China Std Time (CST / UTC+8)', CET: '🇪🇸 Central European (CET / UTC+1)', MSK: '🇷🇺 Moscow Time (MSK / UTC+3)', LOCAL: '💻 Local Browser Time' },
+            zh: { JST: '🇯🇵 日本标准时间 (JST / UTC+9)', UTC: '🌐 协调世界时 (UTC)', NY: '🇺🇸 纽约时间 (EST/EDT)', CST: '🇨🇳 中国标准时间 (CST / UTC+8)', CET: '🇪🇸 中欧时间 (CET / UTC+1)', MSK: '🇷🇺 莫斯科时间 (MSK / UTC+3)', LOCAL: '💻 本地浏览器时间' },
+            es: { JST: '🇯🇵 Hora Estándar de Japón (JST)', UTC: '🌐 Hora Universal (UTC)', NY: '🇺🇸 Nueva York (EST/EDT)', CST: '🇨🇳 Hora de China (CST)', CET: '🇪🇸 Hora Central Europea (CET)', MSK: '🇷🇺 Hora de Moscú (MSK)', LOCAL: '💻 Hora Local del Navegador' },
+            ru: { JST: '🇯🇵 Японское время (JST / UTC+9)', UTC: '🌐 Всемирное время (UTC)', NY: '🇺🇸 Нью-Йорк (EST/EDT)', CST: '🇨🇳 Китайское время (CST / UTC+8)', CET: '🇪🇸 Центральноевропейское (CET)', MSK: '🇷🇺 Московское время (MSK / UTC+3)', LOCAL: '💻 Местное время браузера' }
+        };
+        const currentTzMap = tzLabels[lang] || tzLabels['en'];
+        Array.from(tzSelect.options).forEach(opt => {
+            if (currentTzMap[opt.value]) {
+                opt.textContent = currentTzMap[opt.value];
+            }
+        });
+    }
+
+    if (typeof updateDropdownOptions === 'function') {
+        updateDropdownOptions();
+    }
+
+    if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
+        const satDescEl = document.getElementById('satDescription');
+        if (satDescEl) {
+            satDescEl.textContent = getSatDescription(satellitesData[selectedSatIndex].name);
+        }
+        if (viewer) {
+            const jsDate = customSimTime || Cesium.JulianDate.toDate(viewer.clock.currentTime);
+            const gmst = satellite.gstime(jsDate);
+            updateSelectedSatDetails(jsDate, gmst);
+        }
+    }
+}
+
+// Guaranteed Global changeLanguage Function for OnChange Event
+window.changeLanguage = function(lang) {
+    applyLanguage(lang);
+};
+
+// Major Satellites Built-in TLE Preset (Clean International English Names)
+const MAJOR_SATELLITES_TLE = `HIMAWARI-8
 1 40267U 14060A   26100.00000000  .00000000  00000-0  00000-0 0  9998
 2 40267   0.0100 284.2800 0001000   0.00000   0.00000  1.00273791153536
-HIMAWARI-9 (ひまわり9号 - メイン観測)
+HIMAWARI-9
 1 41836U 16064A   26100.00000000  .00000000  00000-0  00000-0 0  9998
 2 41836   0.0100 284.2800 0001000   0.00000   0.00000  1.00273791153693
-QZSS / MICHIBIKI-1 (みちびき1号 - 準天頂軌道)
+QZSS / MICHIBIKI-1
 1 37158U 10045A   26100.18532154  .00051572  00000+0  19056-2 0  9991
 2 37158  41.0000 135.0000 0003477 136.2709 223.8565  1.00270000353771
 QZSS / MICHIBIKI-2 (みちびき2号 - 準天頂軌道)
@@ -126,34 +402,109 @@ const satNorad = document.getElementById('satNorad');
 const satDescription = document.getElementById('satDescription');
 const satAlt = document.getElementById('satAlt');
 
-// Rich Satellite Mission Descriptions Mapping
+// Rich Satellite Mission Descriptions Mapping (Full 5-Language Multilingual Dictionary)
 const SATELLITE_DESCRIPTIONS = {
-    'HIMAWARI-8': '気象衛星「ひまわり8号」(気象庁)。赤道上空約35,786kmの【静止気象衛星】。ひまわり9号と同位置の東経140.7°静止軌道にてバックアップ・待機観測運用。',
-    'HIMAWARI-9': '気象衛星「ひまわり9号」(気象庁)。赤道上空約35,786kmの【静止気象衛星】。地球の自転と同じ速度で周回するため日本上空(東経140.7°)に静止し、台風や集中豪雨をリアルタイム監視中。',
-    'MICHIBIKI-1': '準天頂衛星「みちびき1号初号機」(JAXA/内閣府)。日本・オーストラリア上空で8の字を描くQSO軌道。',
-    'MICHIBIKI-2': '準天頂衛星「みちびき2号機」。準天頂軌道 (QSO)。日本・アジア太平洋地域の測位精度を向上。',
-    'MICHIBIKI-3': '準天頂衛星「みちびき3号機」。静止赤道軌道 (GEO / 東経127°固定)。広域災害連絡通信サービス提供。',
-    'MICHIBIKI-4': '準天頂衛星「みちびき4号機」。準天頂軌道 (QSO)。常時日本上空に1機以上を配置する4機体制の一翼。',
-    'MICHIBIKI-1R': '準天頂衛星「みちびき1号R後継機」(2021年打上)。初号機を継承し高精度測位サービスを長期維持。',
-    'MICHIBIKI-6': '準天頂衛星「みちびき6号機」(JAXA/内閣府 - H3ロケット最新打上)。最新のH3ロケットにより種子島宇宙センターから宇宙へ投入。日本・アジア太平洋地域における24時間センチメートル級高精度測位7機体制の主軸。',
-    'MICHIBIKI-5': '準天頂衛星「みちびき5号機」(JAXA/内閣府)。7機体制完成に向け高精度センチメートル級測位を補強。',
-    'ISS': '国際宇宙ステーション (ISS)。高度約420kmの低軌道を約90分で1周する世界最大の有人宇宙実験施設。',
-    'TIANGONG': '中国宇宙ステーション「天宮」(Tiangong)。高度約400kmで運用される中国独自の大型有人宇宙基地。',
-    'BEIDOU': '中国全地球衛星測位システム「北斗3号」(BeiDou)。自国およびグローバルに測位・航法を提供する測位衛星。',
-    'HUBBLE': 'ハッブル宇宙望遠鏡 (NASA/ESA)。地上約540kmから宇宙の深遠を撮影・観測する歴史的宇宙望遠鏡。',
-    'GPS': '米国全地球測位システム (GPS / NAVSTAR) コンステレーション衛星。高度約20,200kmの中軌道(MEO)。',
-    'IRIDIUM': 'イリジウム33号宇宙ゴミデブリ。2009年に人工衛星同士が衝突して発生した歴史的デブリ群。'
+    'HIMAWARI-8': {
+        ja: '気象衛星「ひまわり8号」(気象庁)。赤道上空約35,786kmの【静止気象衛星】。ひまわり9号と同位置の東経140.7°静止軌道にてバックアップ・待機観測運用。',
+        en: 'Geostationary Meteorological Satellite "Himawari-8" (JMA). Located at 140.7°E longitude, 35,786 km above equator for weather monitoring backup.',
+        zh: '气象卫星“葵花8号”(日本气象厅)。位于赤道上空约35,786公里的静止气象卫星，在东经140.7°作为9号机的备用观测星。',
+        es: 'Satélite Meteorológico Geoestacionario "Himawari-8" (JMA). Situado a 35.786 km sobre el ecuador a 140,7°E para monitoreo del clima.',
+        ru: 'Геостационарный метеорологический спутник "Химавари-8" (JMA). Находится на высоте 35 786 км над экватором для наблюдения за погодой.'
+    },
+    'HIMAWARI-9': {
+        ja: '気象衛星「ひまわり9号」(気象庁)。赤道上空約35,786kmの【静止気象衛星】。地球の自転と同じ速度で周回するため日本上空(東経140.7°)に静止し、台風や集中豪雨をリアルタイム監視中。',
+        en: 'Geostationary Meteorological Satellite "Himawari-9" (JMA). Positioned 35,786 km above East Asia (140.7°E) monitoring typhoons and severe weather in real-time.',
+        zh: '气象卫星“葵花9号”(日本气象厅)。静止于东经140.7°赤道上空，实时监控台风与暴雨等灾害性天气。',
+        es: 'Satélite Meteorológico "Himawari-9". Monitorea en tiempo real tifones y clima severo sobre Asia Oriental a 140,7°E.',
+        ru: 'Метеорологический спутник "Химавари-9". Наблюдает за тайфунами и штормами над Восточной Азией в режиме реального времени.'
+    },
+    'MICHIBIKI-6': {
+        ja: '日本・内閣府の最新準天頂衛星「みちびき6号機 (QZSS-6)」。最新H3ロケットにより打ち上げられ、みちびき7機体制によるサブメートル級・センチメートル級の超高精度GPS補強測位サービスを提供。',
+        en: 'Latest QZSS-6 (Michibiki No. 6) satellite launched by Japan H3 rocket, providing sub-meter and centimeter-level high-precision GPS positioning services.',
+        zh: '日本最新准天顶卫星“引路6号”(QZSS-6)。由H3火箭成功发射，实现高精度GPS定位增强服务。',
+        es: 'Satélite de precisión GPS "Michibiki-6" (QZSS-6) lanzado por el cohete H3 de Japón.',
+        ru: 'Новейший навигационный спутник "Мичибики-6" (QZSS-6), запущенный ракетой H3 для сверхточного GPS.'
+    },
+    'MICHIBIKI': {
+        ja: '日本の準天頂衛星システム「みちびき」(QZSS)。日本およびアジア太平洋地域におけるGPS電波のビル陰死角をゼロにし、高精度測位を補強。',
+        en: 'Quasi-Zenith Satellite System "Michibiki" (QZSS). Enhances GPS positioning accuracy across Japan and the Asia-Pacific region.',
+        zh: '日本准天顶卫星系统“引路”(QZSS)。覆盖日本及亚太地区，提供厘米级GPS增强定位。',
+        es: 'Sistema de Satélites Quasi-Cenital "Michibiki" (QZSS). Mejora la precisión del GPS en Japón y Asia-Pacífico.',
+        ru: 'Японская квазизенитная спутниковая система "Мичибики" (QZSS) для улучшения точности GPS.'
+    },
+    'ISS': {
+        ja: '国際宇宙ステーション (ISS)。高度約400kmの地球低軌道(LEO)を約90分で1周(時速約27,700km)。日本人宇宙飛行士が長期滞在し宇宙実験を実施。',
+        en: 'International Space Station (ISS). Orbiting at ~400km altitude every 90 minutes (~27,700 km/h) hosting international astronauts for microgravity research.',
+        zh: '国际空间站 (ISS)。在约400公里的近地轨道运行，每90分钟环绕地球一周。',
+        es: 'Estación Espacial Internacional (EEI). Órbita a ~400 km de altitud cada 90 minutos para investigación científica.',
+        ru: 'Международная космическая станция (МКС). Орбита ~400 км, полный оборот за 90 минут.'
+    },
+    'TIANGONG': {
+        ja: '中国の宇宙ステーション「天宮」(Tiangong)。高度約380〜450kmの低軌道にて独自のアストロナウツ(航天員)が常駐する宇宙実験施設。',
+        en: 'Chinese Space Station "Tiangong". Permanently crewed space laboratory orbiting at ~380-450 km altitude.',
+        zh: '中国“天宫”空间站。高度约380-450公里的近地轨道长期载人空间实验室。',
+        es: 'Estación Espacial China "Tiangong". Laboratorio espacial habitado permanentemente a 380-450 km.',
+        ru: 'Китайская космическая станция "Тяньгун". Постоянно обитаемая космическая лаборатория.'
+    },
+    'BEIDOU': {
+        ja: '中国の独自全地球衛星測位システム「北斗3号」(BeiDou-3)。GEO/IGSO/MEO軌道の複合コンステレーションで全世界に測位サービスを提供。',
+        en: 'BeiDou-3 Global Navigation Satellite System (China). Provides global positioning, navigation, and timing services.',
+        zh: '北斗三号全球卫星导航系统。混合轨道星座，为全球用户提供高精度导航与定位。',
+        es: 'Sistema de Navegación por Satélite BeiDou-3 (China). Cobertura global de navegación y posicionamiento.',
+        ru: 'Китайская глобальная навигационная система "Бэйдоу-3" (BeiDou-3).'
+    },
+    'HUBBLE': {
+        ja: 'ハッブル宇宙望遠鏡 (HST / NASA・ESA)。高度約540kmの軌道上から大気の影響を受けずに深宇宙の銀河や星雲を観測する伝説の宇宙望遠鏡。',
+        en: 'Hubble Space Telescope (NASA/ESA). Iconic space telescope orbiting at ~540km observing deep space galaxies and nebulae.',
+        zh: '哈勃空间望远镜 (NASA/ESA)。在约540公里轨道上观测深空星系与星云。',
+        es: 'Telescopio Espacial Hubble (NASA/ESA). Observa galaxias profundas desde 540 km de altitud.',
+        ru: 'Космический телескоп "Хаббл" (NASA/ESA). Наблюдает за далекими галактиками с высоты 540 км.'
+    },
+    'GPS': {
+        ja: '米国全地球測位システム (GPS / NAVSTAR) コンステレーション衛星。高度約20,200kmの中軌道(MEO)。',
+        en: 'US Global Positioning System (GPS / NAVSTAR). Medium Earth Orbit (MEO) constellation at ~20,200 km altitude.',
+        zh: '美国GPS全球定位系统卫星。中地球轨道(MEO)，高度约20,200公里。',
+        es: 'Sistema de Posicionamiento Global de EE.UU. (GPS). Constelación MEO a 20.200 km de altitud.',
+        ru: 'Американская система глобального позиционирования (GPS / NAVSTAR) на орбите 20 200 км.'
+    },
+    'DEBRIS': {
+        ja: '宇宙ゴミ・デブリ。過去のロケット段や衛星衝突事故(イリジウム・コスモス等)により発生した危険な宇宙余剰物体。',
+        en: 'Space Debris / Space Junk. Hazardous orbital fragments generated from satellite collisions and spent rocket stages.',
+        zh: '空间碎片 / 太空垃圾。由卫星碰撞及废弃火箭残骸形成的轨道危险碎片。',
+        es: 'Basura Espacial / Chatarra. Fragmentos orbitales peligrosos generados por colisiones de satélites.',
+        ru: 'Космический мусор. Опасные фрагменты на орбите от столкновений спутников и ступеней ракет.'
+    }
 };
 
 function getSatDescription(name) {
     const upper = name.toUpperCase();
-    for (const [key, desc] of Object.entries(SATELLITE_DESCRIPTIONS)) {
-        if (upper.includes(key)) return desc;
+    const lang = currentLang || 'ja';
+
+    for (const [key, descObj] of Object.entries(SATELLITE_DESCRIPTIONS)) {
+        if (upper.includes(key)) {
+            return descObj[lang] || descObj['en'] || descObj['ja'];
+        }
     }
+    
     if (upper.includes('STARLINK')) {
-        return 'SpaceX社が展開する地球低軌道(LEO)高速ブロードバンド通信衛星コンステレーション。';
+        const starlinkDesc = {
+            ja: 'SpaceX社が展開する地球低軌道(LEO)高速ブロードバンド通信衛星コンステレーション。',
+            en: 'SpaceX Starlink Low Earth Orbit (LEO) broadband internet satellite constellation.',
+            zh: 'SpaceX 展开的近地轨道 (LEO) 高速宽带卫星星座。',
+            es: 'Constelación de satélites de Internet de banda ancha LEO de SpaceX Starlink.',
+            ru: 'Низкоорбитальная спутниковая группировка широкополосного интернета SpaceX Starlink.'
+        };
+        return starlinkDesc[lang] || starlinkDesc['en'];
     }
-    return '地球周回軌道を周回する人工衛星。';
+
+    const defaultDesc = {
+        ja: '地球周回軌道を周回する人工衛星。',
+        en: 'Artificial satellite orbiting Earth.',
+        zh: '环绕地球轨道的造人卫星。',
+        es: 'Satélite artificial orbitando la Tierra.',
+        ru: 'Искусственный спутник на орбите Земли.'
+    };
+    return defaultDesc[lang] || defaultDesc['en'];
 }
 
 // Initialize Application Safely
@@ -499,17 +850,73 @@ const sourceStatusBadge = document.getElementById('sourceStatusBadge');
 /**
  * Clean & Categorized Dropdown Menu (Includes Space Debris Category)
  */
-function updateDropdownOptions() {
-    satSelect.innerHTML = '<option value="">-- 衛星または宇宙ゴミを選択してください --</option>';
+function getSatDisplayName(name) {
+    const lang = currentLang || 'ja';
+    const upper = name.toUpperCase();
+    
+    if (lang === 'ja') {
+        if (upper.includes('HIMAWARI-8')) return 'HIMAWARI-8 (ひまわり8号 - バックアップ)';
+        if (upper.includes('HIMAWARI-9')) return 'HIMAWARI-9 (ひまわり9号 - メイン観測)';
+        if (upper.includes('MICHIBIKI-1R')) return 'MICHIBIKI-1R (みちびき1号R後継機)';
+        if (upper.includes('MICHIBIKI-6')) return 'MICHIBIKI-6 (みちびき6号機 - H3最新打上)';
+        if (upper.includes('MICHIBIKI-5')) return 'MICHIBIKI-5 (みちびき5号機)';
+        if (upper.includes('MICHIBIKI-1')) return 'MICHIBIKI-1 (みちびき1号初号機)';
+        if (upper.includes('MICHIBIKI-2')) return 'MICHIBIKI-2 (みちびき2号機)';
+        if (upper.includes('MICHIBIKI-3')) return 'MICHIBIKI-3 (みちびき3号機)';
+        if (upper.includes('MICHIBIKI-4')) return 'MICHIBIKI-4 (みちびき4号機)';
+        if (upper.includes('ISS')) return 'ISS (国際宇宙ステーション)';
+        if (upper.includes('TIANGONG')) return 'TIANGONG (天宮宇宙ステーション)';
+        if (upper.includes('BEIDOU')) return 'BEIDOU-3 (北斗3号測位衛星)';
+        if (upper.includes('HUBBLE')) return 'HUBBLE (ハッブル宇宙望遠鏡)';
+    } else if (lang === 'zh') {
+        if (upper.includes('HIMAWARI-8')) return 'HIMAWARI-8 (葵花8号备用星)';
+        if (upper.includes('HIMAWARI-9')) return 'HIMAWARI-9 (葵花9号主观星)';
+        if (upper.includes('MICHIBIKI-6')) return 'MICHIBIKI-6 (引路6号 - H3发射)';
+        if (upper.includes('MICHIBIKI')) return name.replace('MICHIBIKI', '引路号');
+        if (upper.includes('ISS')) return 'ISS (国际空间站)';
+        if (upper.includes('TIANGONG')) return 'TIANGONG (天宫空间站)';
+        if (upper.includes('BEIDOU')) return 'BEIDOU-3 (北斗3号导航星)';
+        if (upper.includes('HUBBLE')) return 'HUBBLE (哈勃空间望远镜)';
+    }
+    
+    return name;
+}
 
+function updateDropdownOptions() {
+    const dict = TRANSLATIONS[currentLang] || TRANSLATIONS['ja'];
+    satSelect.innerHTML = `<option value="">${dict.selectPlaceholder || '-- 衛星を選択 --'}</option>`;
+
+    const catMajorLabel = {
+        ja: '⭐ 主要・有名衛星 (ひまわり / ISS / みちびき等)',
+        en: '⭐ Major & Famous Satellites (ISS, Himawari, etc.)',
+        zh: '⭐ 主要/著名卫星 (国际空间站, 葵花, 天宫等)',
+        es: '⭐ Satélites Principales (EEI, Himawari, etc.)',
+        ru: '⭐ Основные спутники (МКС, Himawari и др.)'
+    };
+    const catDebrisLabel = {
+        ja: '🚨 宇宙ゴミ・デブリ (COSMOS / FENGYUN / SL-8等)',
+        en: '🚨 Space Debris & Fragments (COSMOS, FENGYUN, etc.)',
+        zh: '🚨 空间碎片与太空垃圾 (COSMOS, 风云1号等)',
+        es: '🚨 Basura Espacial y Fragmentos (COSMOS, etc.)',
+        ru: '🚨 Космический мусор (COSMOS, FENGYUN и др.)'
+    };
+    const catStarlinkLabel = {
+        ja: '🛰️ Starlink衛星群 (ピックアップ30機)',
+        en: '🛰️ Starlink Constellation (Featured 30)',
+        zh: '🛰️ 星链 (Starlink) 卫星群 (精选30颗)',
+        es: '🛰️ Constelación Starlink (Destacados 30)',
+        ru: '🛰️ Группировка Starlink (Топ 30)'
+    };
+
+    const lang = currentLang || 'ja';
     const majorGroup = document.createElement('optgroup');
-    majorGroup.label = '⭐ 主要・有名衛星 (ひまわり / ISS / みchibiki等)';
+    majorGroup.label = catMajorLabel[lang] || catMajorLabel['en'];
 
     const debrisGroup = document.createElement('optgroup');
-    debrisGroup.label = '🚨 宇宙ゴミ・デブリ (COSMOS / FENGYUN / SL-8等)';
+    debrisGroup.label = catDebrisLabel[lang] || catDebrisLabel['en'];
     
     const starlinkGroup = document.createElement('optgroup');
-    starlinkGroup.label = '🛰️ Starlink衛星群 (ピックアップ30機)';
+    starlinkGroup.label = catStarlinkLabel[lang] || catStarlinkLabel['en'];
 
     let majorCount = 0;
     let debrisCount = 0;
@@ -518,7 +925,8 @@ function updateDropdownOptions() {
     satellitesData.forEach((sat, index) => {
         const opt = document.createElement('option');
         opt.value = index;
-        opt.textContent = `${sat.name} (NORAD ${sat.noradId})`;
+        const displayName = getSatDisplayName(sat.name);
+        opt.textContent = `${displayName} (NORAD ${sat.noradId})`;
 
         const nameUpper = sat.name.toUpperCase();
         const isDebris = nameUpper.includes('DEBRIS') || nameUpper.includes('COSMOS') || nameUpper.includes('FENGYUN') || nameUpper.includes('SL-8') || nameUpper.includes('SL-16') || nameUpper.includes('DELTA') || nameUpper.includes('ARIANE');
@@ -1090,8 +1498,8 @@ function selectSatellite(index) {
     satSelect.value = index;
 
     // Update Detail Card UI
-    satBadge.textContent = sat.name.toUpperCase().includes('STARLINK') ? 'STARLINK' : 'SATELLITE';
-    satName.textContent = sat.name;
+    satBadge.textContent = sat.name.toUpperCase().includes('STARLINK') ? 'STARLINK' : (sat.name.toUpperCase().includes('DEBRIS') ? 'SPACE DEBRIS' : 'SATELLITE');
+    satName.textContent = getSatDisplayName(sat.name);
     satNorad.textContent = `NORAD ID: ${sat.noradId}`;
     if (satDescription) {
         satDescription.textContent = getSatDescription(sat.name);
@@ -1346,6 +1754,9 @@ function updateSelectedSatDetails(jsDate, gmst) {
     satLon.textContent = `${lonDeg >= 0 ? '+' : ''}${lonDeg.toFixed(2)}°`;
     satInc.textContent = `${incDeg}°`;
     satPeriod.textContent = `${periodMin} min`;
+    if (satDescription) {
+        satDescription.textContent = getSatDescription(sat.name);
+    }
 
     updatePassPredictionAndRisk(sat, jsDate);
 }
@@ -1362,17 +1773,31 @@ function updatePassPredictionAndRisk(sat, jsDate) {
     const debrisProximity = document.getElementById('debrisProximity');
 
     if (!sat) return;
+    const lang = currentLang || 'ja';
 
     // 1. Pass Prediction Countdown
     if (passCountdown && sat.currentCartesian) {
-        const satPos = sat.currentCartesian;
-        const userCartesian = Cesium.Cartesian3.fromDegrees(userGeoLoc.lon, userGeoLoc.lat, 0);
-
         const isGeo = sat.name.toUpperCase().includes('HIMAWARI') || sat.name.toUpperCase().includes('MICHIBIKI-3');
 
         if (isGeo) {
-            passCountdown.textContent = '常時日本上空に静止中 (常時可視)';
-            if (passMetaInfo) passMetaInfo.textContent = `現在地(${userGeoLoc.name})から常時観測可能`;
+            const geoText = {
+                ja: '常時日本上空に静止中 (常時可視)',
+                en: 'Geostationary (Constantly Visible)',
+                zh: '常时静止于上空 (常时可见)',
+                es: 'Geoestacionario (Constantemente Visible)',
+                ru: 'Геостационарный (Постоянно виден)'
+            };
+            passCountdown.textContent = geoText[lang] || geoText['en'];
+            if (passMetaInfo) {
+                const metaText = {
+                    ja: `現在地(${userGeoLoc.name})から常時観測可能`,
+                    en: `Constantly observable from ${userGeoLoc.name}`,
+                    zh: `可从 ${userGeoLoc.name} 常时观测`,
+                    es: `Constantemente observable desde ${userGeoLoc.name}`,
+                    ru: `Постоянно наблюдаем из ${userGeoLoc.name}`
+                };
+                passMetaInfo.textContent = metaText[lang] || metaText['en'];
+            }
         } else {
             const nameUpper = sat.name.toUpperCase();
             let periodMs = 92.5 * 60 * 1000;
@@ -1387,10 +1812,24 @@ function updatePassPredictionAndRisk(sat, jsDate) {
             const mm = String(Math.floor((diffMs % 3600000) / 60000)).padStart(2, '0');
             const ss = String(Math.floor((diffMs % 60000) / 1000)).padStart(2, '0');
 
-            passCountdown.textContent = `あと ${hh}時間 ${mm}分 ${ss}秒`;
+            const countText = {
+                ja: `あと ${hh}時間 ${mm}分 ${ss}秒`,
+                en: `In ${hh}h ${mm}m ${ss}s`,
+                zh: `剩余 ${hh}小时 ${mm}分 ${ss}秒`,
+                es: `En ${hh}h ${mm}m ${ss}s`,
+                ru: `Через ${hh}ч ${mm}м ${ss}с`
+            };
+            passCountdown.textContent = countText[lang] || countText['en'];
             if (passMetaInfo) {
-                const passTimeString = nextPassTime.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
-                passMetaInfo.textContent = `次回可視通過: ${passTimeString}頃 (${userGeoLoc.name} / 最大仰角 ~45°)`;
+                const passTimeString = nextPassTime.toLocaleTimeString(lang === 'ja' ? 'ja-JP' : 'en-US', { hour: '2-digit', minute: '2-digit' });
+                const metaText = {
+                    ja: `次回可視通過: ${passTimeString}頃 (${userGeoLoc.name} / 最大仰角 ~45°)`,
+                    en: `Next Pass: ~${passTimeString} (${userGeoLoc.name} / Max Alt ~45°)`,
+                    zh: `下次可过境: 约 ${passTimeString} (${userGeoLoc.name})`,
+                    es: `Próximo Paso: ~${passTimeString} (${userGeoLoc.name})`,
+                    ru: `След. пролет: ~${passTimeString} (${userGeoLoc.name})`
+                };
+                passMetaInfo.textContent = metaText[lang] || metaText['en'];
             }
         }
     }
@@ -1402,7 +1841,7 @@ function updatePassPredictionAndRisk(sat, jsDate) {
 
         satellitesData.forEach(otherSat => {
             if (otherSat !== sat && otherSat.currentCartesian) {
-                const isDebris = otherSat.name.toUpperCase().includes('DEBRIS') || otherSat.name.toUpperCase().includes('IRIDIUM');
+                const isDebris = otherSat.name.toUpperCase().includes('DEBRIS') || otherSat.name.toUpperCase().includes('IRIDIUM') || otherSat.name.toUpperCase().includes('COSMOS') || otherSat.name.toUpperCase().includes('FENGYUN');
                 if (isDebris) {
                     const d = Cesium.Cartesian3.distance(satPos, otherSat.currentCartesian) / 1000;
                     if (d < minDebrisDist) minDebrisDist = d;
@@ -1410,12 +1849,34 @@ function updatePassPredictionAndRisk(sat, jsDate) {
             }
         });
 
+        const formattedDist = Math.round(minDebrisDist).toLocaleString();
         if (minDebrisDist > 2000) {
-            debrisProximity.innerHTML = `<span style="color:#10b981;">🟢 ${minDebrisDist.toFixed(0)} km (SAFE / 安全)</span>`;
+            const safeText = {
+                ja: `🟢 ${formattedDist} km (SAFE / 危険範囲外)`,
+                en: `🟢 ${formattedDist} km (SAFE / Clear Zone)`,
+                zh: `🟢 ${formattedDist} km (安全距离)`,
+                es: `🟢 ${formattedDist} km (SEGURO / Zona despejada)`,
+                ru: `🟢 ${formattedDist} км (БЕЗОПАСНО)`
+            };
+            debrisProximity.innerHTML = `<span style="color:#10b981;">${safeText[lang] || safeText['en']}</span>`;
         } else if (minDebrisDist > 800) {
-            debrisProximity.innerHTML = `<span style="color:#f59e0b;">⚠️ ${minDebrisDist.toFixed(0)} km (CAUTION / 注意)</span>`;
+            const cautText = {
+                ja: `⚠️ ${formattedDist} km (CAUTION / デブリ接近中)`,
+                en: `⚠️ ${formattedDist} km (CAUTION / Debris Approaching)`,
+                zh: `⚠️ ${formattedDist} km (注意 / 碎片接近中)`,
+                es: `⚠️ ${formattedDist} km (PRECAUCIÓN / Basura acercándose)`,
+                ru: `⚠️ ${formattedDist} км (ВНИМАНИЕ / Сближение мусора)`
+            };
+            debrisProximity.innerHTML = `<span style="color:#f59e0b;">${cautText[lang] || cautText['en']}</span>`;
         } else {
-            debrisProximity.innerHTML = `<span class="hazard-alert-text" style="color:#ff3344; font-weight:700;">🚨 ${minDebrisDist.toFixed(0)} km (CRITICAL RISK / 危険警告!)</span>`;
+            const critText = {
+                ja: `🚨 ${formattedDist} km (CRITICAL RISK / 衝突危険警告!)`,
+                en: `🚨 ${formattedDist} km (CRITICAL RISK / Collision Danger Alert!)`,
+                zh: `🚨 ${formattedDist} km (紧急碰撞预警!)`,
+                es: `🚨 ${formattedDist} km (RIESGO CRÍTICO / ¡Alerta de colisión!)`,
+                ru: `🚨 ${formattedDist} км (КРИТИЧЕСКИЙ РИСК / Угроза столкновения!)`
+            };
+            debrisProximity.innerHTML = `<span class="hazard-alert-text" style="color:#f43f5e; font-weight:700;">${critText[lang] || critText['en']}</span>`;
         }
     }
 }
