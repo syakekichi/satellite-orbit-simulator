@@ -740,15 +740,10 @@ html, body {
     background: rgba(255,255,255,0.3);
 }
 
-/* Responsive Rules */
-@media (max-width: 900px) {
-    .hud-layer {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
-        overflow-y: auto;
-    }
-    .hud-card {
-        grid-column: 1;
-        grid-row: 3;
-    }
+/* Hide Cesium default bottom credits to fix UI overlap in bottom-left */
+.cesium-viewer-bottom,
+.cesium-widget-credits,
+.cesium-credit-logoContainer,
+.cesium-credit-expand-link {
+    display: none !important;
 }

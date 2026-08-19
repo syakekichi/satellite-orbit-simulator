@@ -441,6 +441,7 @@ const clearSearch = document.getElementById('clearSearch');
 const searchResults = document.getElementById('searchResults');
 const toggleLabels = document.getElementById('toggleLabels');
 const toggleOrbits = document.getElementById('toggleOrbits');
+const toggleMultiLap = document.getElementById('toggleMultiLap');
 const toggleAtmosphere = document.getElementById('toggleAtmosphere');
 const toggle2D = document.getElementById('toggle2D');
 const toggleBorders = document.getElementById('toggleBorders');
@@ -940,9 +941,10 @@ function formatSimTime(jsDate) {
 let customSimTime = null; // null means live real-time
 let timeSpeedMultiplier = 1; // 0, 1, 10, 100, 1000
 let lastRealTime = Date.now();
+let lastOrbitDrawTime = 0;
 
 /**
- * Clock Tick Handler with Time Multiplier Speed (0x, 1x, 10x, 100x, 1000x)
+ * Clock Tick Handler with Time Multiplier Speed & Dynamic Orbit Sync
  */
 function onClockTick(clock) {
     const now = Date.now();
@@ -959,6 +961,19 @@ function onClockTick(clock) {
 
     statTime.textContent = formatSimTime(customSimTime);
     updateSatellitePositions(customSimTime);
+
+    // Dynamically update Orbit Line as simulation time progresses so satellite never drifts from line in 2nd/3rd laps!
+    if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
+        const gmst = satellite.gstime(customSimTime);
+        updateSelectedSatDetails(customSimTime, gmst);
+
+        if (!toggleOrbits || toggleOrbits.checked) {
+            if (now - lastOrbitDrawTime > 150) { // Refresh path every 150ms for 100% smooth zero-drift tracking
+                lastOrbitDrawTime = now;
+                drawOrbitPath(satellitesData[selectedSatIndex]);
+            }
+        }
+    }
 }
 
 /**
@@ -1035,11 +1050,11 @@ function selectSatellite(index) {
     }
     detailCard.classList.remove('hidden');
 
-    if (toggleOrbits.checked) {
+    if (!toggleOrbits || toggleOrbits.checked) {
         drawOrbitPath(sat);
     }
 
-    const jsDate = Cesium.JulianDate.toDate(viewer.clock.currentTime);
+    const jsDate = customSimTime || Cesium.JulianDate.toDate(viewer.clock.currentTime);
     const gmst = satellite.gstime(jsDate);
     updateSelectedSatDetails(jsDate, gmst);
     updateOffScreenPointer();
@@ -1053,27 +1068,19 @@ function selectSatellite(index) {
 function flyToSatellite(sat) {
     if (!sat || !sat.currentCartesian) return;
 
-    // Reset camera reference frame to Earth center (0,0,0) so zooming out never loses Earth
     viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
 
     const satPos = sat.currentCartesian;
     const nameUpper = sat.name.toUpperCase();
-
-    // Distance offset factor depending on orbit altitude for wide panorama view
-    let distMultiplier = 2.5;
+    
+    let targetDist = 15000000;
     if (nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI')) {
-        distMultiplier = 2.2; // Wide deep-space panorama view for QZSS 8-shape orbit
+        targetDist = 45000000;
     } else if (nameUpper.includes('GPS')) {
-        distMultiplier = 2.0; // MEO
+        targetDist = 30000000;
     }
 
-    // Position camera along the vector from Earth center through satellite
-    const satNorm = Cesium.Cartesian3.normalize(satPos, new Cesium.Cartesian3());
-    const cameraDistance = Cesium.Cartesian3.magnitude(satPos) * distMultiplier;
-    
-    // Offset camera position slightly to give a beautiful 3D view of both Earth & Satellite
-    const cameraPos = Cesium.Cartesian3.multiplyByScalar(satNorm, cameraDistance, new Cesium.Cartesian3());
-
+    const cameraPos = viewer.camera.position;
     viewer.camera.flyTo({
         destination: cameraPos,
         orientation: {
@@ -1119,18 +1126,20 @@ function deselectSatellite() {
  * Unified SGP4 Orbit Path Tracer (Guarantees 100% Zero-Displacement Alignment between Satellite Dots and 3D Orbit Lines)
  */
 function drawOrbitPath(sat) {
+    if (!sat) return;
+
     if (orbitPolylineEntity) {
         viewer.entities.remove(orbitPolylineEntity);
         orbitPolylineEntity = null;
     }
 
     const points = [];
-    const now = Cesium.JulianDate.toDate(viewer.clock.currentTime);
+    const now = customSimTime || Cesium.JulianDate.toDate(viewer.clock.currentTime);
     const gmstNow = satellite.gstime(now);
 
     // Calculate exact orbital period in minutes using Kepler's 3rd Law & TLE parameters
     const nameUpper = sat.name.toUpperCase();
-    let periodMin = 95;
+    let periodMin = 92.5; // Average LEO orbit period (ISS is ~92.8 min)
 
     if (nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI')) {
         periodMin = 1436.1; // 24-hour Full Orbit Period for QZSS & Geostationary satellites
@@ -1145,43 +1154,85 @@ function drawOrbitPath(sat) {
         periodMin = (2 * Math.PI * Math.sqrt(Math.pow(rMeters, 3) / mu)) / 60;
     }
 
-    // 180 high-precision steps for seamless 360-degree closed orbit ring
-    const steps = 180;
-    const stepSeconds = (periodMin * 60) / steps;
+    const isMultiLap = toggleMultiLap && toggleMultiLap.checked;
 
-    for (let i = 0; i <= steps; i++) {
-        const time = new Date(now.getTime() + i * stepSeconds * 1000);
-        
-        let posEci = null;
-        if (sat.satrec) {
-            try {
-                const pv = satellite.propagate(sat.satrec, time);
-                if (pv.position && typeof pv.position.x === 'number' && Number.isFinite(pv.position.x)) {
-                    posEci = pv.position;
+    if (isMultiLap) {
+        // Multi-Lap Precession Ground Track Wave mode (3 full laps = ~4.5 hours of Earth rotation precession)
+        const laps = 3;
+        const stepsPerLap = 120;
+        const totalSteps = stepsPerLap * laps;
+        const stepSeconds = (periodMin * 60) / stepsPerLap;
+
+        for (let i = 0; i <= totalSteps; i++) {
+            const time = new Date(now.getTime() + (i - stepsPerLap) * stepSeconds * 1000);
+            const gmstStep = satellite.gstime(time);
+
+            let posEci = null;
+            if (sat.satrec) {
+                try {
+                    const pv = satellite.propagate(sat.satrec, time);
+                    if (pv.position && typeof pv.position.x === 'number' && Number.isFinite(pv.position.x)) {
+                        posEci = pv.position;
+                    }
+                } catch(e) {}
+            }
+
+            if (posEci) {
+                const posEcf = satellite.eciToEcf(posEci, gmstStep);
+                const cx = posEcf.x * 1000;
+                const cy = posEcf.y * 1000;
+                const cz = posEcf.z * 1000;
+                if (Number.isFinite(cx) && Number.isFinite(cy) && Number.isFinite(cz)) {
+                    points.push(new Cesium.Cartesian3(cx, cy, cz));
                 }
-            } catch(e) {}
-        }
-
-        if (posEci) {
-            // Transform ECI to ECF at gmstNow to keep the 3D orbit ring smooth & stationary in space relative to current Earth
-            const posEcf = satellite.eciToEcf(posEci, gmstNow);
-            const cx = posEcf.x * 1000;
-            const cy = posEcf.y * 1000;
-            const cz = posEcf.z * 1000;
-            if (Number.isFinite(cx) && Number.isFinite(cy) && Number.isFinite(cz)) {
-                points.push(new Cesium.Cartesian3(cx, cy, cz));
-            }
-        } else {
-            const res = calculateCartesianPosition(sat, time, gmstNow);
-            if (res && res.cartesian) {
-                points.push(res.cartesian);
+            } else {
+                const res = calculateCartesianPosition(sat, time, gmstStep);
+                if (res && res.cartesian) {
+                    points.push(res.cartesian);
+                }
             }
         }
-    }
+    } else {
+        // Standard 1-Lap 3D Orbit Ring mode
+        if (sat.currentCartesian) {
+            points.push(sat.currentCartesian);
+        }
 
-    // Explicitly close the orbital loop by connecting the last point to the starting point for a seamless 100% connected ring
-    if (points.length > 2) {
-        points.push(points[0]);
+        const steps = 180;
+        const stepSeconds = (periodMin * 60) / steps;
+
+        for (let i = 1; i <= steps; i++) {
+            const time = new Date(now.getTime() + i * stepSeconds * 1000);
+            
+            let posEci = null;
+            if (sat.satrec) {
+                try {
+                    const pv = satellite.propagate(sat.satrec, time);
+                    if (pv.position && typeof pv.position.x === 'number' && Number.isFinite(pv.position.x)) {
+                        posEci = pv.position;
+                    }
+                } catch(e) {}
+            }
+
+            if (posEci) {
+                const posEcf = satellite.eciToEcf(posEci, gmstNow);
+                const cx = posEcf.x * 1000;
+                const cy = posEcf.y * 1000;
+                const cz = posEcf.z * 1000;
+                if (Number.isFinite(cx) && Number.isFinite(cy) && Number.isFinite(cz)) {
+                    points.push(new Cesium.Cartesian3(cx, cy, cz));
+                }
+            } else {
+                const res = calculateCartesianPosition(sat, time, gmstNow);
+                if (res && res.cartesian) {
+                    points.push(res.cartesian);
+                }
+            }
+        }
+
+        if (points.length > 2) {
+            points.push(points[0]);
+        }
     }
 
     if (points.length > 1) {
@@ -1216,15 +1267,15 @@ function updateSelectedSatDetails(jsDate, gmst) {
     let incDeg = "0.02";
     let periodMin = "1436.1";
 
-    if (sat.geodeticFallback) {
-        latDeg = sat.geodeticFallback.lat;
-        lonDeg = sat.geodeticFallback.lon;
-        altKm = sat.geodeticFallback.alt;
-    } else if (sat.currentEci) {
+    if (sat.currentEci) {
         const positionGd = satellite.eciToGeodetic(sat.currentEci, gmst);
         latDeg = satellite.degreesLat(positionGd.latitude);
         lonDeg = satellite.degreesLong(positionGd.longitude);
         altKm = positionGd.height;
+    } else if (sat.geodeticFallback) {
+        latDeg = sat.geodeticFallback.lat;
+        lonDeg = sat.geodeticFallback.lon;
+        altKm = sat.geodeticFallback.alt;
     }
 
     if (sat.currentVelocity && typeof sat.currentVelocity.x === 'number' && Number.isFinite(sat.currentVelocity.x)) {
@@ -1358,6 +1409,14 @@ function setupEventListeners() {
         toggleBorders.addEventListener('change', (e) => {
             if (bordersOverlayLayer) {
                 bordersOverlayLayer.show = e.target.checked;
+            }
+        });
+    }
+
+    if (toggleMultiLap) {
+        toggleMultiLap.addEventListener('change', () => {
+            if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
+                drawOrbitPath(satellitesData[selectedSatIndex]);
             }
         });
     }
