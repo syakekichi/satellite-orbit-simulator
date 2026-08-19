@@ -178,12 +178,12 @@ function initCesiumViewer() {
     scene.skyAtmosphere.show = true;
     scene.backgroundColor = Cesium.Color.fromCssColorString('#07090e');
 
-    // Ultra-mild, fine-grained mouse wheel zoom control
+    // Ultra-mild, fine-grained mouse wheel zoom control with expanded deep space view
     const controller = scene.screenSpaceCameraController;
     controller.zoomFactor = 1.15;
     controller.inertiaZoom = 0.9;
-    controller.minimumZoomDistance = 200000;
-    controller.maximumZoomDistance = 80000000;
+    controller.minimumZoomDistance = 200000;       // 200km min
+    controller.maximumZoomDistance = 250000000;     // 250,000km deep space max (allows viewing full QZSS / Michibiki 8-shape orbit)
 
     satPointPrimitives = scene.primitives.add(new Cesium.PointPrimitiveCollection());
 
@@ -437,9 +437,9 @@ function renderSatellitePoints() {
         });
         sat.primitive = point;
 
-        // Optimized DOM Label Creation: Limit DOM nodes for large constellations (>50 sats) to top 25 to ensure sub-millisecond loading
-        const shouldCreateLabel = !isLargeConstellation || index < 25;
-        if (labelsContainer && shouldCreateLabel) {
+        // Smart Clean DOM Labeling: Only create default labels for key iconic satellites (Himawari-9, ISS, Tiangong, Michibiki-1) to keep Earth 100% visible and unoccluded
+        const isFeaturedKeySat = sat.name.includes('HIMAWARI-9') || sat.name.includes('ISS (ZARYA)') || sat.name.includes('TIANGONG') || sat.name.includes('MICHIBIKI-1 (');
+        if (labelsContainer && isFeaturedKeySat) {
             createDomLabelForSat(sat, index);
         } else {
             sat.domLabel = null;
@@ -519,10 +519,29 @@ function calculateCartesianPosition(sat, jsDate, gmst) {
         alt = 540;
         vel = 7.59;
     } else if (nameUpper.includes('MICHIBIKI') || nameUpper.includes('QZSS')) {
-        lat = 41.0 * Math.sin(jsDate.getTime() / 800000);
-        lon = 135.0;
+        const num = (sat.noradId ? parseInt(sat.noradId, 10) : 37158) - 37158;
+        const incRad = 44.0 * (Math.PI / 180);
+        const nodeRad = (135.0 + num * 12.0) * (Math.PI / 180);
         alt = 35786;
         vel = 3.07;
+
+        // Dynamic 3D Cartesian position along the matching QZSS orbital ellipse ring
+        const u = ((jsDate.getTime() / (1436.1 * 60 * 1000)) * 2 * Math.PI + num * 0.9) % (2 * Math.PI);
+        const rKm = 6371 + alt;
+        const xOrb = rKm * Math.cos(u);
+        const yOrb = rKm * Math.sin(u);
+
+        const xEci = xOrb * Math.cos(nodeRad) - yOrb * Math.sin(nodeRad) * Math.cos(incRad);
+        const yEci = xOrb * Math.sin(nodeRad) + yOrb * Math.cos(nodeRad) * Math.cos(incRad);
+        const zEci = yOrb * Math.sin(incRad);
+
+        const posEcf = satellite.eciToEcf({ x: xEci, y: yEci, z: zEci }, gmst);
+        return {
+            cartesian: new Cesium.Cartesian3(posEcf.x * 1000, posEcf.y * 1000, posEcf.z * 1000),
+            eci: { x: xEci, y: yEci, z: zEci },
+            velocity: { x: vel, y: 0, z: 0 },
+            geodeticFallback: { lat: (incRad * 180 / Math.PI) * Math.sin(u), lon: 135.0, alt: alt }
+        };
     } else if (nameUpper.includes('GPS')) {
         lat = 55.3 * Math.sin(jsDate.getTime() / 950000 + 2.0);
         lon = (jsDate.getTime() / 400000 + 45) % 360 - 180;
@@ -806,12 +825,12 @@ function flyToSatellite(sat) {
     const satPos = sat.currentCartesian;
     const nameUpper = sat.name.toUpperCase();
 
-    // Distance offset factor depending on orbit altitude
-    let distMultiplier = 2.2;
+    // Distance offset factor depending on orbit altitude for wide panorama view
+    let distMultiplier = 2.5;
     if (nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI')) {
-        distMultiplier = 1.4; // Geostationary
+        distMultiplier = 2.2; // Wide deep-space panorama view for QZSS 8-shape orbit
     } else if (nameUpper.includes('GPS')) {
-        distMultiplier = 1.6; // MEO
+        distMultiplier = 2.0; // MEO
     }
 
     // Position camera along the vector from Earth center through satellite
@@ -863,7 +882,7 @@ function deselectSatellite() {
 }
 
 /**
- * Draw Ultra-Smooth 3D Orbit Polyline Ring in Space (Guaranteed Non-W-Shape)
+ * Unified SGP4 Orbit Path Tracer (Guarantees 100% Zero-Displacement Alignment between Satellite Dots and 3D Orbit Lines)
  */
 function drawOrbitPath(sat) {
     if (orbitPolylineEntity) {
@@ -875,40 +894,60 @@ function drawOrbitPath(sat) {
     const now = Cesium.JulianDate.toDate(viewer.clock.currentTime);
     const gmstNow = satellite.gstime(now);
 
-    // 120 precision steps for 360-degree smooth 3D circle/ellipse
-    const steps = 120;
-    
-    // Extract individual orbital parameters from satrec or fallback
-    let incRad = 86.4 * (Math.PI / 180);
-    let nodeRad = 120.0 * (Math.PI / 180);
+    // Calculate exact orbital period in minutes using Kepler's 3rd Law & TLE parameters
+    const nameUpper = sat.name.toUpperCase();
+    let periodMin = 95;
 
-    if (sat.satrec && !isNaN(sat.satrec.inclo) && !isNaN(sat.satrec.nodeo)) {
-        incRad = sat.satrec.inclo;
-        nodeRad = sat.satrec.nodeo;
-    } else if (sat.name.toUpperCase().includes('DEBRIS')) {
-        const num = (sat.noradId ? parseInt(sat.noradId, 10) : 33777) - 33777;
-        incRad = (86.4 + num * 0.15) * (Math.PI / 180);
-        nodeRad = (120.0 + num * 3.5) * (Math.PI / 180); // Unique scattered RAAN angle for each fragment
+    if (nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI')) {
+        periodMin = 1436.1; // 24-hour Full Orbit Period for QZSS & Geostationary satellites
+    } else if (nameUpper.includes('GPS')) {
+        periodMin = 718.0;  // 12-hour MEO GPS Orbit Period
+    } else if (sat.satrec && sat.satrec.no_kozai && sat.satrec.no_kozai > 0) {
+        periodMin = (2 * Math.PI) / sat.satrec.no_kozai;
+    } else if (sat.geodeticFallback) {
+        const alt = sat.geodeticFallback.alt;
+        const rMeters = (6371 + alt) * 1000;
+        const mu = 3.986004418e14;
+        periodMin = (2 * Math.PI * Math.sqrt(Math.pow(rMeters, 3) / mu)) / 60;
     }
 
-    const altKm = sat.geodeticFallback ? sat.geodeticFallback.alt : 789;
-    const rKm = 6371 + altKm;
+    // 180 high-precision steps for seamless 360-degree closed orbit ring
+    const steps = 180;
+    const stepSeconds = (periodMin * 60) / steps;
 
     for (let i = 0; i <= steps; i++) {
-        const u = (i / steps) * 2 * Math.PI;
+        const time = new Date(now.getTime() + i * stepSeconds * 1000);
+        
+        let posEci = null;
+        if (sat.satrec) {
+            try {
+                const pv = satellite.propagate(sat.satrec, time);
+                if (pv.position && typeof pv.position.x === 'number' && Number.isFinite(pv.position.x)) {
+                    posEci = pv.position;
+                }
+            } catch(e) {}
+        }
 
-        // Orbital plane 2D coordinates
-        const xOrb = rKm * Math.cos(u);
-        const yOrb = rKm * Math.sin(u);
+        if (posEci) {
+            // Transform ECI to ECF at gmstNow to keep the 3D orbit ring smooth & stationary in space relative to current Earth
+            const posEcf = satellite.eciToEcf(posEci, gmstNow);
+            const cx = posEcf.x * 1000;
+            const cy = posEcf.y * 1000;
+            const cz = posEcf.z * 1000;
+            if (Number.isFinite(cx) && Number.isFinite(cy) && Number.isFinite(cz)) {
+                points.push(new Cesium.Cartesian3(cx, cy, cz));
+            }
+        } else {
+            const res = calculateCartesianPosition(sat, time, gmstNow);
+            if (res && res.cartesian) {
+                points.push(res.cartesian);
+            }
+        }
+    }
 
-        // Rotate to 3D ECI space
-        const xEci = xOrb * Math.cos(nodeRad) - yOrb * Math.sin(nodeRad) * Math.cos(incRad);
-        const yEci = xOrb * Math.sin(nodeRad) + yOrb * Math.cos(nodeRad) * Math.cos(incRad);
-        const zEci = yOrb * Math.sin(incRad);
-
-        // Convert ECI to ECF at current instant (keeps the 3D orbit ring stationary in space relative to current Earth orientation)
-        const posEcf = satellite.eciToEcf({ x: xEci, y: yEci, z: zEci }, gmstNow);
-        points.push(new Cesium.Cartesian3(posEcf.x * 1000, posEcf.y * 1000, posEcf.z * 1000));
+    // Explicitly close the orbital loop by connecting the last point to the starting point for a seamless 100% connected ring
+    if (points.length > 2) {
+        points.push(points[0]);
     }
 
     if (points.length > 1) {
@@ -916,12 +955,14 @@ function drawOrbitPath(sat) {
         orbitPolylineEntity = viewer.entities.add({
             polyline: {
                 positions: points,
-                width: 4,
+                width: 5,
+                arcType: Cesium.ArcType.NONE, // Direct 3D space line segments
                 material: new Cesium.PolylineGlowMaterialProperty({
-                    glowPower: 0.4,
+                    glowPower: 0.5,
                     taperPower: 1.0,
                     color: isDebris ? Cesium.Color.fromCssColorString('#ff3344') : Cesium.Color.fromCssColorString('#ff0055')
-                })
+                }),
+                distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE) // Guarantees line is NEVER clipped out regardless of zoom distance
             }
         });
     }
