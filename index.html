@@ -86,9 +86,27 @@
                     衛星データソース & プリセット
                 </h2>
                 <div class="source-buttons">
-                    <button class="btn btn-secondary active" id="loadMajorBtn">⭐ 主要・有名衛星 (ひまわり, ISS等)</button>
-                    <button class="btn btn-secondary" id="loadLocalBtn">🛰️ Starlink (ローカル保存データ)</button>
-                    <button class="btn btn-secondary" id="loadOnlineBtn">🌐 Starlink (CelesTrak最新オンライン)</button>
+                    <button class="btn btn-secondary active" id="loadMajorBtn">⭐ 主要・有名衛星 (ひまわり, ISS, みちびき, デブリ)</button>
+                    <button class="btn btn-secondary" id="loadLocalBtn">🛰️ Starlink 全衛星コンステレーション (2,000機)</button>
+                </div>
+                <div id="sourceStatusBadge" class="source-status-badge">⭐ 主要・有名衛星プリセット読込済</div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    時間コントロール & 倍速設定
+                </h2>
+                <div class="speed-buttons">
+                    <button class="speed-btn" data-speed="0">⏸️ 停止</button>
+                    <button class="speed-btn active" data-speed="1">▶️ 1x (リアル)</button>
+                    <button class="speed-btn" data-speed="10">⏩ 10x</button>
+                    <button class="speed-btn" data-speed="100">⏩ 100x</button>
+                    <button class="speed-btn" data-speed="1000">🚀 1000x</button>
+                </div>
+                <div class="time-adjust-row">
+                    <input type="datetime-local" id="timePickerInput" class="custom-select" style="font-size: 0.8rem; padding: 6px;">
+                    <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="現在時刻へ復帰">🔄 現在時刻</button>
                 </div>
             </div>
 
@@ -190,8 +208,8 @@
             </div>
         </div>
 
-        <!-- Loading Spinner overlay -->
-        <div id="loadingOverlay" class="loading-overlay">
+        <!-- Loading Spinner overlay (Hidden by default) -->
+        <div id="loadingOverlay" class="loading-overlay hidden" style="display:none;">
             <div class="spinner-container">
                 <div class="spinner"></div>
                 <p id="loadingText" class="loading-text">衛星データを計算・ロード中...</p>
@@ -199,7 +217,7 @@
         </div>
     </div>
 
-    <!-- Application Script (Cache Busted v8) -->
-    <script src="app.js?v=20260819_08"></script>
+    <!-- Application Script (Cache Busted v21) -->
+    <script src="app.js?v=20260819_21"></script>
 </body>
 </html>
