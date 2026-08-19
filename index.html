@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satellite Orbit Simulator 3D | 人工衛星軌道シミュレーター</title>
+    <meta name="description" content="CesiumJSとsatellite.jsを使用したリアルタイム3D人工衛星軌道シミュレーター。Starlink等の衛星群をインタラクティブに可視化します。">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CesiumJS CSS & JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.119.0/Cesium.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.119.0/Widgets/widgets.min.css" rel="stylesheet">
+    
+    <!-- satellite.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="cesiumContainer"></div>
+    <!-- HTML DOM Overlay Container for Crisp 100% Sharp Satellite Labels -->
+    <div id="labelsContainer" class="labels-container"></div>
+    
+    <!-- UI Overlay HUD -->
+    <div class="hud-layer">
+        <!-- Top Header -->
+        <header class="hud-header glass-panel">
+            <div class="logo-group">
+                <div class="pulse-icon">
+                    <span class="pulse-ring"></span>
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <ellipse cx="12" cy="12" rx="9" ry="3" transform="rotate(-30 12 12)"></ellipse>
+                        <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="app-title">OrbitSim 3D</h1>
+                    <p class="app-subtitle">Satellite Trajectory & Constellation Visualizer</p>
+                </div>
+            </div>
+            
+            <!-- Quick Stats Header -->
+            <div class="stats-pills">
+                <div class="stat-pill">
+                    <span class="stat-label">追跡衛星数</span>
+                    <span class="stat-value" id="statCount">0</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">シミュレーション時刻</span>
+                    <span class="stat-value mono-text" id="statTime">--:--:--</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar Navigation & Control -->
+        <aside class="hud-sidebar glass-panel">
+            <div class="sidebar-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    衛星を選択・検索
+                </h2>
+                
+                <!-- Dropdown Selector -->
+                <div class="select-box">
+                    <select id="satSelect" class="custom-select">
+                        <option value="">-- 衛星を一覧から選択 --</option>
+                    </select>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="または衛星名・NORAD IDで検索..." autocomplete="off">
+                    <button id="clearSearch" class="btn-icon hidden" title="クリア">&times;</button>
+                </div>
+                <div id="searchResults" class="search-results-list"></div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    衛星プリセット・データ
+                </h2>
+                <div class="source-buttons">
+                    <button class="btn btn-secondary active" id="loadMajorBtn">主要・有名衛星 (ひまわり, ISS等)</button>
+                    <button class="btn btn-secondary" id="loadLocalBtn">Starlink (ローカルデータ)</button>
+                    <button class="btn btn-secondary" id="loadOnlineBtn">Starlink (CelesTrak最新)</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    表示設定
+                </h2>
+                <div class="control-group">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleLabels" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label">3D空間に衛星名ラベルを表示</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleOrbits" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label">選択衛星の軌道を表示</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleAtmosphere" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label">大気圏 & ライティング</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggle2D">
+                        <span class="slider"></span>
+                        <span class="toggle-label">2D世界地図モード</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    データソース
+                </h2>
+                <div class="source-buttons">
+                    <button class="btn btn-secondary active" id="loadLocalBtn">Starlink (ローカルデータ)</button>
+                    <button class="btn btn-secondary" id="loadOnlineBtn">CelesTrak (最新オンライン)</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Selected Satellite Detail Card -->
+        <div id="detailCard" class="hud-card glass-panel hidden">
+            <button id="closeDetail" class="btn-close">&times;</button>
+            <div class="card-header">
+                <span class="badge badge-accent" id="satBadge">STARLINK</span>
+                <h3 id="satName" class="card-title">STARLINK-XXXX</h3>
+                <p id="satNorad" class="card-subtitle">NORAD ID: ------</p>
+            </div>
+            <div class="card-body grid-2col">
+                <div class="data-item">
+                    <span class="data-label">高度 (Altitude)</span>
+                    <span class="data-value" id="satAlt">--- km</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">速度 (Velocity)</span>
+                    <span class="data-value" id="satVel">--- km/s</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">緯度 (Latitude)</span>
+                    <span class="data-value" id="satLat">---°</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">経度 (Longitude)</span>
+                    <span class="data-value" id="satLon">---°</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">軌道傾斜角 (Inclination)</span>
+                    <span class="data-value" id="satInc">---°</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">周期 (Period)</span>
+                    <span class="data-value" id="satPeriod">--- min</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <button class="btn btn-primary" id="trackBtn">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+                    追跡カメラフォーカス
+                </button>
+                <button class="btn btn-secondary" id="untrackBtn">追跡解除</button>
+            </div>
+        </div>
+
+        <!-- Off-Screen Edge Pointer HUD (Directs user to selected satellite outside viewport) -->
+        <div id="edgePointer" class="edge-pointer-hud hidden">
+            <span class="pointer-arrow" id="pointerArrow">👈</span>
+            <div class="pointer-content">
+                <span class="pointer-name" id="pointerName">SATELLITE</span>
+                <span class="pointer-hint">画面外にあります (クリックでカメラ移動)</span>
+            </div>
+        </div>
+
+        <!-- Loading Spinner overlay -->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="spinner-container">
+                <div class="spinner"></div>
+                <p id="loadingText" class="loading-text">衛星データを計算・ロード中...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
