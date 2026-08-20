@@ -369,33 +369,50 @@ aside#sidebarPanel.hud-sidebar {
     display: none;
 }
 
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
 .slider {
     position: relative;
-    width: 38px;
-    height: 20px;
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-    transition: var(--transition-normal);
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 24px !important;
+    background-color: rgba(255, 255, 255, 0.18);
+    border-radius: 24px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
 }
 
 .slider:before {
     content: "";
     position: absolute;
-    height: 14px;
-    width: 14px;
-    left: 3px;
-    bottom: 3px;
-    background-color: var(--text-primary);
+    height: 18px !important;
+    width: 18px !important;
+    left: 3px !important;
+    top: 3px !important;
+    background-color: #ffffff;
     border-radius: 50%;
-    transition: var(--transition-normal);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .toggle-switch input:checked + .slider {
-    background-color: var(--accent-blue);
+    background-color: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+}
+
+.toggle-switch input:checked + .purple-slider {
+    background-color: #c084fc !important;
+    box-shadow: 0 0 10px rgba(192, 132, 252, 0.6) !important;
 }
 
 .toggle-switch input:checked + .slider:before {
-    transform: translateX(18px);
+    transform: translateX(20px) !important;
 }
 
 .source-buttons {
@@ -1166,21 +1183,7 @@ input:focus + .slider.purple-slider {
 /* Mobile Optimization: Big Touch Switches, Larger Text, and Bottom Panel Layout */
 @media (max-width: 1024px) {
     /* Larger Switch Toggles for Easy Finger Tapping */
-    .switch {
-        width: 58px !important;
-        height: 32px !important;
-    }
 
-    .slider:before {
-        height: 24px !important;
-        width: 24px !important;
-        left: 4px !important;
-        bottom: 4px !important;
-    }
-
-    input:checked + .slider:before {
-        transform: translateX(26px) !important;
-    }
 
     /* Larger Readable Text Labels & Form Controls */
     .checkbox-item label,
