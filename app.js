@@ -914,10 +914,10 @@ function initCesiumViewer() {
     // Dummy access token to bypass Cesium 1.119.0 Ion token requirement exception
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkdW1teSJ9.dummy';
 
-    // Create Direct Real Earth Imagery Provider (Zero Flicker Instant NASA Photo Texture)
+    // Create Direct Real Earth Imagery Provider (Precision WGS84 Mapping)
     const realEarthProvider = new Cesium.SingleTileImageryProvider({
-        url: 'earth_texture.jpg',
-        rectangle: Cesium.Rectangle.MAX_VALUE
+        url: 'earth_texture.jpg?v=20260820_101',
+        rectangle: Cesium.Rectangle.fromDegrees(-180.0, -90.0, 180.0, 90.0)
     });
 
     // Bulletproof Standard Viewer Initialization
@@ -937,13 +937,38 @@ function initCesiumViewer() {
 
     const scene = viewer.scene;
     scene.globe.show = true;
-    scene.globe.enableLighting = true;
-    scene.globe.showGroundAtmosphere = true;
-    scene.skyAtmosphere.show = true;
-    scene.globe.nightColor = Cesium.Color.WHITE.withAlpha(0.60); // 影側（夜面）を明るくライトアップ
-    scene.globe.atmosphereLightIntensity = 12.0;                 // 大気光強度をブースト
-    scene.highDynamicRange = false;                             // モバイルHDR減光を防止して常に明るく表示
+    scene.globe.baseColor = Cesium.Color.fromCssColorString('#07090e'); // デフォルトの青い球体背景を完全削除
+    scene.globe.enableLighting = true;  // スイッチON初期状態でリアルタイム太陽光陰影（昼と夜のクッキリした境界）を再現
+    scene.globe.showGroundAtmosphere = false; // 地表全体を青く濁らせる地表大気霧をOFF
+    scene.skyAtmosphere.show = true;    // 地球外周の美しい大気圏光線リングをクッキリ描画
+    scene.highDynamicRange = false;     // モバイルHDR減光を防止
     scene.backgroundColor = Cesium.Color.fromCssColorString('#07090e');
+
+    // Tune Base Layer for Super Vivid Continents & Crisp Oceans
+    try {
+        if (viewer.imageryLayers.length > 0) {
+            const baseLayer = viewer.imageryLayers.get(0);
+            baseLayer.brightness = 1.30; // スマホ画面の明るさをクッキリ補正
+            baseLayer.contrast = 1.25;   // 大陸の緑・土色・青い海を鮮やかに強調
+            baseLayer.gamma = 0.95;
+        }
+    } catch (e) {
+        console.warn("Base layer adjustment warning:", e);
+    }
+
+    // High-Resolution World Photo Satellite Map Provider (Guarantees 100% Vivid Continents)
+    try {
+        const worldImageryProvider = new Cesium.UrlTemplateImageryProvider({
+            url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            maximumLevel: 12
+        });
+        const worldLayer = viewer.imageryLayers.addImageryProvider(worldImageryProvider);
+        worldLayer.alpha = 1.0;
+        worldLayer.brightness = 1.20;
+        worldLayer.contrast = 1.15;
+    } catch (e) {
+        console.warn("World Imagery load info:", e);
+    }
 
     // Safe Photo Texture Overlay Loader for Clouds
     const loadSafeSingleTile = (imgUrl, opacity = 1.0) => {
@@ -963,7 +988,7 @@ function initCesiumViewer() {
         img.src = imgUrl;
     };
 
-    loadSafeSingleTile('earth_clouds.png', 0.35);   // Cloud Atmosphere Overlay
+    // loadSafeSingleTile('earth_clouds.png', 0.35);   // Cloud Atmosphere Overlay
 
     // Country Borders & Place Names Overlay
     try {
@@ -2269,9 +2294,10 @@ function setupEventListeners() {
     });
 
     toggleAtmosphere.addEventListener('change', (e) => {
-        viewer.scene.globe.enableLighting = e.target.checked;
-        viewer.scene.globe.showGroundAtmosphere = e.target.checked;
-        viewer.scene.skyAtmosphere.show = e.target.checked;
+        const isLightingOn = e.target.checked;
+        viewer.scene.skyAtmosphere.show = isLightingOn;
+        viewer.scene.globe.enableLighting = isLightingOn; // スイッチONでリアルタイムの太陽光陰影（昼と夜の境界）がクッキリ出現！
+        viewer.scene.globe.showGroundAtmosphere = false;  // 地表青ボケは防止
     });
 
     toggle2D.addEventListener('change', (e) => {
