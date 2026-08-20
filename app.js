@@ -1332,17 +1332,23 @@ function renderSatellitePoints() {
     edgePointer.classList.add('hidden');
 
     const defaultPointColor = Cesium.Color.fromCssColorString('#00f3ff');
-    const debrisPointColor = Cesium.Color.fromCssColorString('#a855f7'); // Neon Purple for debris fragments
+    const normalDebrisColor = Cesium.Color.fromCssColorString('#38bdf8'); // OFF時: 落ち着いた明るいブルー
+    const hazardPurpleColor = Cesium.Color.fromCssColorString('#c084fc'); // ON時: 鮮烈な危険解析パープル
+    const isDebrisModeOn = toggleDebrisRisk && toggleDebrisRisk.checked;
     const isLargeConstellation = satellitesData.length > 50;
 
     satellitesData.forEach((sat, index) => {
         const isDebris = sat.name.toUpperCase().includes('DEBRIS');
-        const pointColor = isDebris ? debrisPointColor : defaultPointColor;
+        let pointColor = defaultPointColor;
+
+        if (isDebris) {
+            pointColor = isDebrisModeOn ? hazardPurpleColor : normalDebrisColor;
+        }
 
         // Point Primitive for 3D Earth View
         const point = satPointPrimitives.add({
             position: Cesium.Cartesian3.ZERO,
-            pixelSize: isLargeConstellation ? 6 : (isDebris ? 10 : 12),
+            pixelSize: isLargeConstellation ? (isDebris && isDebrisModeOn ? 10 : 6) : (isDebris ? 10 : 12),
             color: pointColor,
             outlineColor: Cesium.Color.fromCssColorString('#000000'),
             outlineWidth: isLargeConstellation ? 1 : 2,
@@ -2125,34 +2131,37 @@ function updatePassPredictionAndRisk(sat, jsDate) {
             }
         }
 
-        const formattedDist = Math.round(minDebrisDist).toLocaleString();
-        const formattedFutDist = Math.round(futureMinDist).toLocaleString();
+        const isDistValid = minDebrisDist < 90000;
+        const isFutValid = futureMinDist < 90000;
 
-        if (minDebrisDist <= 800 || futureMinDist <= 800) {
+        const formattedDist = isDistValid ? Math.round(minDebrisDist).toLocaleString() : '5,000+';
+        const formattedFutDist = isFutValid ? Math.round(futureMinDist).toLocaleString() : '5,000+';
+
+        if (isFutValid && futureMinDist <= 800) {
             const critText = {
-                ja: `🚨 衝突危険警告! (${futureClosestDebris || closestDebrisName} と あと${futureMinHours || 0}時間後に ${formattedFutDist} km まで接近予測)`,
-                en: `🚨 CRITICAL RISK! (Encounter with ${futureClosestDebris || closestDebrisName} in ~${futureMinHours || 0}h at ${formattedFutDist} km)`,
-                zh: `🚨 紧急碰撞预警! (预测与 ${futureClosestDebris || closestDebrisName} 在约${futureMinHours || 0}小时后接近至 ${formattedFutDist} km)`,
-                es: `🚨 ¡ALERTA CRÍTICA DE COLISIÓN! (Encuentro con ${futureClosestDebris || closestDebrisName} en ~${futureMinHours || 0}h a ${formattedFutDist} km)`,
-                ru: `🚨 УГРОЗА СТОЛКНОВЕНИЯ! (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours || 0}ч на ${formattedFutDist} км)`
+                ja: `🚨 衝突危険警告! (${futureClosestDebris || closestDebrisName} と あと${futureMinHours}時間後に ${formattedFutDist} km まで接近予測)`,
+                en: `🚨 CRITICAL RISK! (Encounter with ${futureClosestDebris || closestDebrisName} in ~${futureMinHours}h at ${formattedFutDist} km)`,
+                zh: `🚨 紧急碰撞预警! (预测与 ${futureClosestDebris || closestDebrisName} 在约${futureMinHours}小时后接近至 ${formattedFutDist} km)`,
+                es: `🚨 ¡ALERTA CRÍTICA DE COLISIÓN! (Encuentro con ${futureClosestDebris || closestDebrisName} en ~${futureMinHours}h a ${formattedFutDist} km)`,
+                ru: `🚨 УГРОЗА СТОЛКНОВЕНИЯ! (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours}ч на ${formattedFutDist} км)`
             };
             debrisProximity.innerHTML = `<span class="hazard-alert-text" style="color:#f43f5e; font-weight:700;">${critText[lang] || critText['en']}</span>`;
-        } else if (minDebrisDist <= 2000 || futureMinDist <= 2000) {
+        } else if (isFutValid && futureMinDist <= 2000) {
             const cautText = {
-                ja: `⚠️ 接近注意! (${futureClosestDebris || closestDebrisName} と あと${futureMinHours || 0}時間後に ${formattedFutDist} km に最接近)`,
-                en: `⚠️ CAUTION! (Predicted pass by ${futureClosestDebris || closestDebrisName} in ~${futureMinHours || 0}h at ${formattedFutDist} km)`,
-                zh: `⚠️ 接近注意! (预测 ${futureClosestDebris || closestDebrisName} 约${futureMinHours || 0}小时后接近至 ${formattedFutDist} km)`,
-                es: `⚠️ PRECAUCIÓN (Paso cercano de ${futureClosestDebris || closestDebrisName} en ~${futureMinHours || 0}h a ${formattedFutDist} km)`,
-                ru: `⚠️ ВНИМАНИЕ (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours || 0}ч на ${formattedFutDist} км)`
+                ja: `⚠️ 接近注意! (${futureClosestDebris || closestDebrisName} と あと${futureMinHours}時間後に ${formattedFutDist} km に最接近)`,
+                en: `⚠️ CAUTION! (Predicted pass by ${futureClosestDebris || closestDebrisName} in ~${futureMinHours}h at ${formattedFutDist} km)`,
+                zh: `⚠️ 接近注意! (预测 ${futureClosestDebris || closestDebrisName} 约${futureMinHours}小时后接近至 ${formattedFutDist} km)`,
+                es: `⚠️ PRECAUCIÓN (Paso cercano de ${futureClosestDebris || closestDebrisName} en ~${futureMinHours}h a ${formattedFutDist} km)`,
+                ru: `⚠️ ВНИМАНИЕ (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours}ч на ${formattedFutDist} км)`
             };
             debrisProximity.innerHTML = `<span style="color:#f59e0b; font-weight:600;">${cautText[lang] || cautText['en']}</span>`;
         } else {
             const safeText = {
-                ja: `🟢 24時間全軌道クリア (${formattedDist} km / 最接近デブリ: ${getSatDisplayName(closestDebrisName) || 'なし'})`,
-                en: `🟢 24-Hour Clear Orbit (${formattedDist} km / Closest: ${getSatDisplayName(closestDebrisName) || 'None'})`,
-                zh: `🟢 24小时全轨道安全 (${formattedDist} km / 最接近: ${getSatDisplayName(closestDebrisName) || '无'})`,
-                es: `🟢 Órbita despejada 24h (${formattedDist} km / Más cercano: ${getSatDisplayName(closestDebrisName) || 'Ninguno'})`,
-                ru: `🟢 Безопасная орбита 24ч (${formattedDist} км / Ближайший: ${getSatDisplayName(closestDebrisName) || 'Нет'})`
+                ja: `🟢 24時間全軌道クリア (接近デブリなし / 安全軌道維持)`,
+                en: `🟢 24-Hour Clear Orbit (No Debris Encounter / Safe Trajectory)`,
+                zh: `🟢 24小时全轨道安全 (无碎片接近 / 安全轨道)`,
+                es: `🟢 Órbita despejada 24h (Sin riesgo de escombros / Trayectoria segura)`,
+                ru: `🟢 Безопасная орбита 24ч (Нет опасных сближений / Безопасно)`
             };
             debrisProximity.innerHTML = `<span style="color:#10b981;">${safeText[lang] || safeText['en']}</span>`;
         }
@@ -2328,15 +2337,19 @@ function setupEventListeners() {
     if (toggleDebrisRisk) {
         toggleDebrisRisk.addEventListener('change', (e) => {
             const isRiskOn = e.target.checked;
-            const purpleColor = Cesium.Color.fromCssColorString('#a855f7');
-            const purpleDim = Cesium.Color.fromCssColorString('#8b5cf6').withAlpha(0.6);
+            const hazardPurple = Cesium.Color.fromCssColorString('#c084fc');
+            const normalBlue = Cesium.Color.fromCssColorString('#38bdf8');
+            const outlineCyan = Cesium.Color.fromCssColorString('#00f3ff');
+            const outlineBlack = Cesium.Color.fromCssColorString('#000000');
+
             satellitesData.forEach(sat => {
-                const isDebris = sat.name.toUpperCase().includes('DEBRIS') || sat.name.toUpperCase().includes('COSMOS') || sat.name.toUpperCase().includes('FENGYUN') || sat.name.toUpperCase().includes('SL-8');
-                if (isDebris && sat.entity && sat.entity.point) {
-                    sat.entity.point.color = isRiskOn ? purpleColor : purpleDim;
-                    sat.entity.point.pixelSize = isRiskOn ? 16 : 8;
-                    sat.entity.point.outlineColor = isRiskOn ? Cesium.Color.CYAN : Cesium.Color.BLACK;
-                    sat.entity.point.outlineWidth = isRiskOn ? 3 : 1;
+                const nameUpper = sat.name.toUpperCase();
+                const isDebris = nameUpper.includes('DEBRIS') || nameUpper.includes('IRIDIUM') || nameUpper.includes('COSMOS') || nameUpper.includes('FENGYUN') || nameUpper.includes('SL-8');
+                if (isDebris && sat.primitive) {
+                    sat.primitive.color = isRiskOn ? hazardPurple : normalBlue;
+                    sat.primitive.pixelSize = isRiskOn ? 14 : 7;
+                    sat.primitive.outlineColor = isRiskOn ? outlineCyan : outlineBlack;
+                    sat.primitive.outlineWidth = isRiskOn ? 3 : 1;
                 }
             });
         });
@@ -2544,8 +2557,17 @@ function makeDraggable(panelEl, handleEl) {
 function setupDraggablePanels() {
     const sidebar = document.getElementById('sidebarPanel');
     if (sidebar) {
-        const handle = sidebar.querySelector('.panel-drag-bar') || sidebar;
-        makeDraggable(sidebar, handle);
+        if (window.innerWidth <= 1024) {
+            sidebar.style.top = '';
+            sidebar.style.left = '';
+            sidebar.style.right = '';
+            sidebar.style.bottom = '';
+            sidebar.style.width = '';
+            sidebar.style.position = '';
+        } else {
+            const handle = sidebar.querySelector('.panel-drag-bar') || sidebar;
+            makeDraggable(sidebar, handle);
+        }
     }
 
     const detailCard = document.getElementById('detailCard');

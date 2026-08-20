@@ -216,16 +216,30 @@ html, body {
     font-family: var(--font-mono);
 }
 
-/* Sidebar */
-.hud-sidebar {
-    grid-column: 1;
-    grid-row: 2;
+/* Sidebar (Guaranteed Bottom-Left Corner Floating Panel) */
+aside#sidebarPanel.hud-sidebar {
+    position: fixed !important;
+    bottom: 16px !important;
+    left: 16px !important;
+    top: auto !important;
+    right: auto !important;
+    width: 360px !important;
+    max-width: calc(100vw - 32px) !important;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    padding: 16px;
-    max-height: calc(100vh - 100px);
+    gap: 10px;
+    padding: 12px 14px 10px 14px;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: calc(100vh - 120px) !important;
     overflow-y: auto;
+    margin: 0 !important;
+    transform: none !important;
+    z-index: 999999 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.75) !important;
+    background: rgba(11, 19, 41, 0.95) !important;
+    backdrop-filter: blur(16px) !important;
 }
 
 .sidebar-section {
@@ -1123,14 +1137,16 @@ input:focus + .slider.purple-slider {
 .sidebar-collapsible-content {
     transition: max-height 0.3s ease, opacity 0.25s ease;
     overflow-y: auto;
-    max-height: calc(100vh - 120px);
+    max-height: 800px;
+    height: fit-content;
     opacity: 1;
 }
 
 .card-collapsible-content {
     transition: max-height 0.3s ease, opacity 0.25s ease;
     overflow-y: auto;
-    max-height: calc(100vh - 140px);
+    max-height: 800px;
+    height: fit-content;
     opacity: 1;
 }
 
@@ -1145,4 +1161,83 @@ input:focus + .slider.purple-slider {
 
 .is-minimized {
     padding-bottom: 6px !important;
+}
+
+/* Mobile Optimization: Big Touch Switches, Larger Text, and Bottom Panel Layout */
+@media (max-width: 1024px) {
+    /* Larger Switch Toggles for Easy Finger Tapping */
+    .switch {
+        width: 58px !important;
+        height: 32px !important;
+    }
+
+    .slider:before {
+        height: 24px !important;
+        width: 24px !important;
+        left: 4px !important;
+        bottom: 4px !important;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(26px) !important;
+    }
+
+    /* Larger Readable Text Labels & Form Controls */
+    .checkbox-item label,
+    .toggle-label,
+    .filter-item label,
+    .control-label {
+        font-size: 0.98rem !important;
+        font-weight: 600 !important;
+    }
+
+    .checkbox-item {
+        padding: 8px 6px !important;
+        gap: 12px !important;
+    }
+
+    .custom-select,
+    .search-input,
+    .btn {
+        font-size: 0.95rem !important;
+        padding: 10px 14px !important;
+    }
+
+    /* Layout: Earth Fullscreen View, Floating Bottom-Left Compact Panel */
+    #cesiumContainer {
+        height: 100vh !important;
+    }
+
+    aside#sidebarPanel.hud-sidebar {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 12px !important;
+        left: 12px !important;
+        right: auto !important;
+        width: calc(100vw - 24px) !important;
+        max-width: 360px !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: 48vh !important;
+        border-radius: 16px !important;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85) !important;
+        z-index: 99999 !important;
+        padding: 10px 14px 8px 14px !important;
+        margin: 0 !important;
+        transform: none !important;
+        background: rgba(11, 19, 41, 0.95) !important;
+        backdrop-filter: blur(16px) !important;
+    }
+
+    .sidebar-collapsible-content {
+        max-height: calc(48vh - 36px) !important;
+        height: auto !important;
+    }
+
+    /* Floating Islands Mobile Fit */
+    .header-left-island,
+    .header-right-island {
+        max-width: 96vw !important;
+        font-size: 0.9rem !important;
+    }
 }
