@@ -937,6 +937,9 @@ function initCesiumViewer() {
     scene.globe.enableLighting = true;
     scene.globe.showGroundAtmosphere = true;
     scene.skyAtmosphere.show = true;
+    scene.globe.nightColor = Cesium.Color.WHITE.withAlpha(0.60); // 影側（夜面）を明るくライトアップ
+    scene.globe.atmosphereLightIntensity = 12.0;                 // 大気光強度をブースト
+    scene.highDynamicRange = false;                             // モバイルHDR減光を防止して常に明るく表示
     scene.backgroundColor = Cesium.Color.fromCssColorString('#07090e');
 
     // Apply High-Res Base Imagery
