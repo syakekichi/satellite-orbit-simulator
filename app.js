@@ -914,12 +914,15 @@ function initCesiumViewer() {
     // Dummy access token to bypass Cesium 1.119.0 Ion token requirement exception
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkdW1teSJ9.dummy';
 
-    // Create Base Imagery Provider (Instant 100% Guaranteed Earth Imagery)
-    const baseProvider = createBulletproofEarthProvider();
+    // Create Direct Real Earth Imagery Provider (Zero Flicker Instant NASA Photo Texture)
+    const realEarthProvider = new Cesium.SingleTileImageryProvider({
+        url: 'earth_texture.jpg',
+        rectangle: Cesium.Rectangle.MAX_VALUE
+    });
 
     // Bulletproof Standard Viewer Initialization
     viewer = new Cesium.Viewer('cesiumContainer', {
-        imageryProvider: baseProvider,
+        imageryProvider: realEarthProvider,
         baseLayerPicker: false,
         geocoder: false,
         homeButton: false,
@@ -942,15 +945,7 @@ function initCesiumViewer() {
     scene.highDynamicRange = false;                             // モバイルHDR減光を防止して常に明るく表示
     scene.backgroundColor = Cesium.Color.fromCssColorString('#07090e');
 
-    // Apply High-Res Base Imagery
-    try {
-        viewer.imageryLayers.removeAll();
-        viewer.imageryLayers.addImageryProvider(createBulletproofEarthProvider());
-    } catch(e) {
-        console.warn("Base imagery load error:", e);
-    }
-
-    // Safe Photo Texture Overlay Loader
+    // Safe Photo Texture Overlay Loader for Clouds
     const loadSafeSingleTile = (imgUrl, opacity = 1.0) => {
         const img = new Image();
         img.onload = () => {
@@ -968,7 +963,6 @@ function initCesiumViewer() {
         img.src = imgUrl;
     };
 
-    loadSafeSingleTile('earth_texture.jpg', 0.9);   // Authentic NASA Day Earth Photo Texture
     loadSafeSingleTile('earth_clouds.png', 0.35);   // Cloud Atmosphere Overlay
 
     // Country Borders & Place Names Overlay
