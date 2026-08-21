@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
-    <title>SatViewer3D | Visualizador 3D de Satélites y Basura Espacial en Tiempo Real</title>
+    <title>SatViewer3D | 3D-Echtzeit-Satelliten-Tracker & Weltraummüll-Simulator</title>
     
     <!-- SEO & Search Optimization Meta Tags -->
-    <meta name="description" content="SatViewer3D es un simulador 3D gratuito en tiempo real para rastrear satélites (ISS, Starlink, satélites meteorológicos) y basura espacial en órbita terrestre con cálculo de órbitas y predicción de colisiones.">
-    <meta name="keywords" content="SatViewer3D, rastreador de satelites, simulador orbital, basura espacial, ISS en vivo, Starlink 3D, tiempo real, orbita terrestre, prediccion de pasos">
+    <meta name="description" content="SatViewer3D ist ein kostenloser 3D-Echtzeit-Simulator zur Verfolgung von Satelliten (ISS, Starlink, Wettersatelliten) und Weltraummüll mit 24h-Kollisionsrisiko-Analyse und Überflugprognose.">
+    <meta name="keywords" content="SatViewer3D, Satelliten-Tracker, 3D Orbit Simulator, Weltraummüll, ISS live verfolgen, Starlink Tracker, Satellitenbahn berechnen, Echtzeit-Satellitenkarte">
     <meta name="author" content="SatViewer3D">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://satviewer3d.com/es/">
+    <link rel="canonical" href="https://satviewer3d.com/de/">
     
         <!-- Multilingual Alternate Links (hreflang) -->
     <link rel="alternate" hreflang="ja" href="https://satviewer3d.com/">
@@ -26,21 +26,24 @@
 
     <!-- OGP (Open Graph Protocol) -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="SatViewer3D | Visualizador 3D de Satélites y Basura Espacial en Tiempo Real">
-    <meta property="og:description" content="Simulador 3D en tiempo real para rastrear la ISS, Starlink y basura espacial con predicción de riesgos de colisión y pases orbitales.">
-    <meta property="og:url" content="https://satviewer3d.com/es/">
+    <meta property="og:title" content="SatViewer3D | 3D-Echtzeit-Satelliten-Tracker & Weltraummüll-Simulator">
+    <meta property="og:description" content="Live 3D-Bahnsimulation von ISS, Starlink-Konstellationen und Weltraummüll mit Echtzeit-Kollisionsrisikoanalyse.">
+    <meta property="og:url" content="https://satviewer3d.com/de/">
     <meta property="og:site_name" content="SatViewer3D">
     <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
-    <meta property="og:locale" content="es_ES">
+    <meta property="og:locale" content="de_DE">
     <meta property="og:locale:alternate" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:locale:alternate" content="pt_PT">
     <meta property="og:locale:alternate" content="zh_CN">
     <meta property="og:locale:alternate" content="ru_RU">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SatViewer3D | Visualizador 3D de Satélites y Basura Espacial en Tiempo Real">
-    <meta name="twitter:description" content="Rastrea miles de satélites y basura espacial en 3D en tiempo real. Explora la ISS, Starlink y predicciones de colisiones.">
+    <meta name="twitter:title" content="SatViewer3D | 3D-Echtzeit-Satelliten-Tracker & Weltraummüll">
+    <meta name="twitter:description" content="Verfolgen Sie Tausende von Satelliten und Weltraummüll im interaktiven 3D-Weltraum in Echtzeit.">
     <meta name="twitter:image" content="https://satviewer3d.com/feature_graphic.png">
 
     <!-- JSON-LD Structured Data for Google Rich Snippets -->
@@ -49,10 +52,10 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "SatViewer3D",
-      "alternateName": ["SatViewer 3D", "Visualizador 3D de Satélites", "Simulador de Basura Espacial"],
-      "url": "https://satviewer3d.com/es/",
+      "alternateName": ["SatViewer 3D", "3D Satelliten Simulator", "Weltraummüll Tracker"],
+      "url": "https://satviewer3d.com/de/",
       "image": "https://satviewer3d.com/feature_graphic.png",
-      "description": "SatViewer3D es un simulador 3D en tiempo real para el seguimiento de satélites y basura espacial en órbita terrestre.",
+      "description": "SatViewer3D ist ein kostenloser 3D-Echtzeit-Simulator für Satelliten und Weltraummüll.",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "All",
       "browserRequirements": "Requires WebGL support",
@@ -63,11 +66,11 @@
         "priceCurrency": "USD"
       },
       "featureList": [
-        "Visualización de órbitas 3D en tiempo real",
-        "Seguimiento de satélites ISS y Starlink",
-        "Análisis de riesgo de colisión de basura espacial 24h",
-        "Predicción de pasos y traza terrestre",
-        "Soporte multilingüe en 5 idiomas (ES, EN, JA, ZH, RU)"
+        "3D-Orbit-Visualisierung in Echtzeit",
+        "ISS & Starlink Satelliten-Tracking",
+        "24h-Kollisionsrisikoanalyse für Weltraummüll",
+        "Überflugprognose und Bodenspur",
+        "Unterstützung von 8 Sprachen"
       ]
     }
     </script>
@@ -113,7 +116,7 @@
     
     <!-- UI Overlay HUD -->
     <div class="hud-layer">
-        <!-- Top Split HUD Floating Islands (Separated to keep Earth Center View 100% Unobstructed!) -->
+        <!-- Top Split HUD Floating Islands -->
         <div class="hud-top-split">
             <!-- Left Island: Brand Logo -->
             <div id="headerLeftIsland" class="header-left-island glass-panel">
@@ -131,7 +134,7 @@
                     </div>
                     <div>
                         <h1 class="app-title">SatViewer3D</h1>
-                        <p class="app-subtitle">Visualizador 3D de Satélites y Basura Espacial</p>
+                        <p class="app-subtitle">Echtzeit-Satelliten & Weltraummüll 3D-Visualisierung</p>
                     </div>
                 </div>
             </div>
@@ -139,17 +142,17 @@
             <!-- Right Island: Quick Stats & Language Selector -->
             <div id="headerRightIsland" class="header-right-island glass-panel">
                 <div class="panel-drag-bar drag-handle" style="margin-bottom:4px; padding:2px 4px; font-size:0.65rem; display:flex; justify-content:space-between; align-items:center;">
-                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">Arrastrar</span></div>
-                    <button id="toggleHeaderMinBtn" class="panel-min-btn" title="Minimizar / Expandir">➖</button>
+                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">Verschieben</span></div>
+                    <button id="toggleHeaderMinBtn" class="panel-min-btn" title="Minimieren / Erweitern">➖</button>
                 </div>
                 <div id="headerIslandContent" class="card-collapsible-content">
                     <div class="stats-pills">
                     <div class="stat-pill">
-                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">Satélites Rastreados</span>
+                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">Verfolgte Satelliten</span>
                         <span class="stat-value" id="statCount">0</span>
                     </div>
                     <div class="stat-pill">
-                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">Hora Simulación</span>
+                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">Simulationszeit</span>
                         <span class="stat-value mono-text" id="statTime">--:--:--</span>
                     </div>
                     <div class="stat-pill" style="padding: 4px 10px; display: flex; align-items: center; gap: 6px; border-color: rgba(56,189,248,0.5); background: rgba(56, 189, 248, 0.08);">
@@ -161,16 +164,16 @@
                         <select id="langSelect" class="custom-select" style="padding: 2px 4px; font-size: 0.78rem; font-weight:700; border: none; background: transparent; color: #38bdf8; cursor: pointer;" onchange="window.changeLanguage(this.value)">
                             <option value="ja"  style="background:#0b1329; color:#fff;">🇯🇵 日本語</option>
                             <option value="en"  style="background:#0b1329; color:#fff;">🇺🇸 English</option>
-                            <option value="de"  style="background:#0b1329; color:#fff;">🇩🇪 Deutsch</option>
+                            <option value="de" selected style="background:#0b1329; color:#fff;">🇩🇪 Deutsch</option>
                             <option value="fr"  style="background:#0b1329; color:#fff;">🇫🇷 Français</option>
-                            <option value="es" selected style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
+                            <option value="es"  style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
                             <option value="pt"  style="background:#0b1329; color:#fff;">🇵🇹 Português</option>
                             <option value="zh"  style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
                             <option value="ru"  style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
                         </select>
                     </div>
                     <button id="openGuideBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer;" data-i18n="btnGuide">
-                        ❓ Guía y Términos
+                        ❓ Handbuch & AGB
                     </button>
                 </div>
                 </div>
@@ -180,26 +183,26 @@
         <!-- Sidebar Navigation & Control -->
         <aside id="sidebarPanel" class="hud-sidebar glass-panel">
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ Arrastrar Panel</span></div>
-                <button id="toggleSidebarMinBtn" class="panel-min-btn" title="Minimizar / Expandir">➖</button>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ Panel verschieben</span></div>
+                <button id="toggleSidebarMinBtn" class="panel-min-btn" title="Minimieren / Erweitern">➖</button>
             </div>
             <div id="sidebarContent" class="sidebar-collapsible-content">
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <span data-i18n="secSelect">Seleccionar / Buscar Satélite</span>
+                    <span data-i18n="secSelect">Satellit auswählen / suchen</span>
                 </h2>
                 
                 <!-- Dropdown Selector -->
                 <div class="select-box">
                     <select id="satSelect" class="custom-select">
-                        <option value="" data-i18n="selectPlaceholder">-- Seleccionar satélite o basura --</option>
+                        <option value="" data-i18n="selectPlaceholder">-- Satellit oder Weltraummüll auswählen --</option>
                     </select>
                 </div>
 
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="O buscar por nombre o NORAD ID..." autocomplete="off">
-                    <button id="clearSearch" class="btn-icon hidden" title="Limpiar">&times;</button>
+                    <input type="text" id="searchInput" placeholder="Nach Name oder NORAD-ID suchen..." autocomplete="off">
+                    <button id="clearSearch" class="btn-icon hidden" title="Löschen">&times;</button>
                 </div>
                 <div id="searchResults" class="search-results-list"></div>
             </div>
@@ -207,85 +210,85 @@
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                    <span data-i18n="secSource">Fuente de Datos y Ajustes</span>
+                    <span data-i18n="secSource">Satelliten-Datenquellen</span>
                 </h2>
                 <div class="source-buttons">
-                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ Satélites Principales (ISS, Starlink, Basura)</button>
-                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Starlink Constelación Completa (2.000 satélites)</button>
+                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ Wichtige Satelliten (ISS, Starlink, Müll)</button>
+                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Starlink Gesamtkonstellation (2.000)</button>
                 </div>
-                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ Satélites Principales Cargados</div>
+                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ Wichtige Satelliten geladen</div>
             </div>
 
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span data-i18n="secTime">Control de Tiempo y Velocidad</span>
+                    <span data-i18n="secTime">Zeitsteuerung & Tempo</span>
                 </h2>
                 <div class="speed-buttons">
-                    <button class="speed-btn" data-speed="0" data-i18n="speedStop">⏸️ Pausa</button>
-                    <button class="speed-btn active" data-speed="1" data-i18n="speedReal">▶️ 1x (Real)</button>
+                    <button class="speed-btn" data-speed="0" data-i18n="speedStop">⏸️ Pause</button>
+                    <button class="speed-btn active" data-speed="1" data-i18n="speedReal">▶️ 1x (Echtzeit)</button>
                     <button class="speed-btn" data-speed="10">⏩ 10x</button>
                     <button class="speed-btn" data-speed="100">⏩ 100x</button>
                     <button class="speed-btn" data-speed="1000">🚀 1000x</button>
                 </div>
                 <div class="time-adjust-row">
                     <input type="datetime-local" id="timePickerInput" class="custom-select" style="font-size: 0.8rem; padding: 6px;">
-                    <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="Restablecer a la Hora Actual" data-i18n="resetNow">🔄 Ahora</button>
+                    <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="Auf aktuelle Zeit zurücksetzen" data-i18n="resetNow">🔄 Jetzt</button>
                 </div>
             </div>
 
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    <span data-i18n="secDisplay">Configuración de Visualización</span>
+                    <span data-i18n="secDisplay">Anzeige-Einstellungen</span>
                 </h2>
                 <div class="control-group">
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleLabels" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleLabels">Mostrar Etiquetas 3D de Satélites</span>
+                        <span class="toggle-label" data-i18n="toggleLabels">3D-Satellitennamen anzeigen</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleOrbits" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleOrbits">Mostrar Trayectoria Orbital</span>
+                        <span class="toggle-label" data-i18n="toggleOrbits">Umlaufbahn anzeigen</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleMultiLap" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 Traza Terrestre Multi-Vuelta</span>
+                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 Mehrfache Bodenspur</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleAtmosphere" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleAtmosphere">Atmósfera e Iluminación Solar</span>
+                        <span class="toggle-label" data-i18n="toggleAtmosphere">Atmosphäre & Sonnenlicht</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggle2D">
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggle2D">Modo Mapa 2D</span>
+                        <span class="toggle-label" data-i18n="toggle2D">2D-Kartenmodus</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleBorders" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleBorders">🌐 Fronteras y Nombres de Ciudades</span>
+                        <span class="toggle-label" data-i18n="toggleBorders">🌐 Grenzen & Städtenamen</span>
                     </label>
-                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="Análisis de Basura">
+                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="Trümmeranalyse">
                         <input type="checkbox" id="toggleDebrisRisk">
                         <span class="slider purple-slider"></span>
-                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 Análisis de Riesgo de Basura</span>
+                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 Weltraummüll-Risikoanalyse</span>
                     </label>
 
                     <div class="control-group" style="margin-top: 12px; display: flex; flex-direction: column; gap: 4px;">
-                        <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="labelTimezone">Zona Horaria</span>
+                        <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="labelTimezone">Zeitzone</span>
                         <select id="tzSelect" class="custom-select" style="padding: 6px 10px; font-size: 0.8rem;">
-                            <option value="CET" selected>🇪🇸 Hora Central Europea (CET / UTC+1)</option>
-                            <option value="UTC">🌐 Hora Universal (UTC)</option>
-                            <option value="NY">🇺🇸 Nueva York (EST/EDT)</option>
-                            <option value="JST">🇯🇵 Hora Estándar de Japón (JST)</option>
-                            <option value="CST">🇨🇳 Hora de China (CST)</option>
-                            <option value="MSK">🇷🇺 Hora de Moscú (MSK)</option>
-                            <option value="LOCAL">💻 Hora Local del Navegador</option>
+                            <option value="CET" selected>🇩🇪 Mitteleuropäische Zeit (MEZ / UTC+1)</option>
+                            <option value="UTC">🌐 Weltzeit (UTC)</option>
+                            <option value="NY">🇺🇸 New York (EST/EDT)</option>
+                            <option value="JST">🇯🇵 Japan Std Time (JST)</option>
+                            <option value="CST">🇨🇳 China Std Time (CST)</option>
+                            <option value="MSK">🇷🇺 Moskau (MSK)</option>
+                            <option value="LOCAL">💻 Lokale Browserzeit</option>
                         </select>
                     </div>
                 </div>
@@ -300,28 +303,28 @@
         <!-- 3D Camera Direction Control D-Pad HUD -->
         <div id="cameraDPad" class="camera-dpad-hud glass-panel">
             <div class="panel-drag-bar drag-handle" style="margin-bottom:6px; padding:4px 8px; font-size:0.68rem; display:flex; justify-content:space-between; align-items:center; width:100%;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">Cámara</span></div>
-                <button id="toggleCamMinBtn" class="panel-min-btn" title="Minimizar / Expandir">➖</button>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">Kamera</span></div>
+                <button id="toggleCamMinBtn" class="panel-min-btn" title="Minimieren / Erweitern">➖</button>
             </div>
             <div id="dpadContent" class="card-collapsible-content">
                 <div class="dpad-grid">
                 <div></div>
-                <button class="dpad-btn dpad-up" id="btnCamUp" title="Arriba (▲)">▲</button>
+                <button class="dpad-btn dpad-up" id="btnCamUp" title="Hoch (▲)">▲</button>
                 <div></div>
-                <button class="dpad-btn dpad-left" id="btnCamLeft" title="Izquierda (◀)">◀</button>
-                <button class="dpad-btn dpad-reset" id="btnCamReset" title="Restablecer (🏠)">🏠</button>
-                <button class="dpad-btn dpad-right" id="btnCamRight" title="Derecha (▶)">▶</button>
+                <button class="dpad-btn dpad-left" id="btnCamLeft" title="Links (◀)">◀</button>
+                <button class="dpad-btn dpad-reset" id="btnCamReset" title="Reset (🏠)">🏠</button>
+                <button class="dpad-btn dpad-right" id="btnCamRight" title="Rechts (▶)">▶</button>
                 <div></div>
-                <button class="dpad-btn dpad-down" id="btnCamDown" title="Abajo (▼)">▼</button>
+                <button class="dpad-btn dpad-down" id="btnCamDown" title="Runter (▼)">▼</button>
                 <div></div>
             </div>
             </div>
         </div>
         <div id="detailCard" class="hud-card glass-panel hidden">
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">Arrastrar Tarjeta</span></div>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">Karte verschieben</span></div>
                 <div style="display:flex; gap:6px; align-items:center;">
-                    <button id="toggleDetailMinBtn" class="panel-min-btn" title="Minimizar / Expandir">➖</button>
+                    <button id="toggleDetailMinBtn" class="panel-min-btn" title="Minimieren / Erweitern">➖</button>
                     <button id="closeDetail" class="btn-close" style="position:static;">&times;</button>
                 </div>
             </div>
@@ -330,62 +333,62 @@
                 <span class="badge badge-accent" id="satBadge">STARLINK</span>
                 <h3 id="satName" class="card-title">STARLINK-XXXX</h3>
                 <p id="satNorad" class="card-subtitle">NORAD ID: ------</p>
-                <div id="satDescription" class="sat-description-text">Descripción del Satélite</div>
+                <div id="satDescription" class="sat-description-text">Satelliten-Beschreibung</div>
             </div>
             <div class="card-body grid-2col">
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelAlt">Altitud (Altitude)</span>
+                    <span class="data-label" data-i18n="labelAlt">Höhe (Altitude)</span>
                     <span class="data-value" id="satAlt">--- km</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelVel">Velocidad (Velocity)</span>
+                    <span class="data-label" data-i18n="labelVel">Geschwindigkeit</span>
                     <span class="data-value" id="satVel">--- km/s</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelLat">Latitud (Latitude)</span>
+                    <span class="data-label" data-i18n="labelLat">Breitengrad</span>
                     <span class="data-value" id="satLat">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelLon">Longitud (Longitude)</span>
+                    <span class="data-label" data-i18n="labelLon">Längengrad</span>
                     <span class="data-value" id="satLon">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelInc">Inclinación (Inclination)</span>
+                    <span class="data-label" data-i18n="labelInc">Inklination</span>
                     <span class="data-value" id="satInc">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelPeriod">Período (Period)</span>
+                    <span class="data-label" data-i18n="labelPeriod">Umlaufzeit</span>
                     <span class="data-value" id="satPeriod">--- min</span>
                 </div>
                 <div class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.25);">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 Próximo Pase Superior</span>
-                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPS" data-i18n="btnGeo">📍Ubicación</button>
+                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 Nächster Überflug</span>
+                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPS" data-i18n="btnGeo">📍Standort</button>
                     </div>
-                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">Calculando...</span>
-                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">Calculando paso</span>
+                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">Wird berechnet...</span>
+                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">Überflugzeit: Berechnung</span>
                 </div>
                 <div id="debrisRiskRow" class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.4);">
-                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 Riesgo de Basura Espacial (MOID 24h)</span>
-                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 SEGURO</span>
+                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 Weltraummüll-Annäherung (MOID)</span>
+                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 SICHER (SAFE)</span>
                 </div>
             </div>
             <div class="card-actions">
                 <button class="btn btn-primary" id="trackBtn">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
-                    <span data-i18n="btnTrack">🎯 Seguir Satélite</span>
+                    <span data-i18n="btnTrack">🎯 Satellit verfolgen</span>
                 </button>
-                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 Dejar de Seguir</button>
+                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 Verfolgung lösen</button>
             </div>
             </div>
         </div>
 
-        <!-- Off-Screen Edge Pointer HUD (Directs user to selected satellite outside viewport) -->
+        <!-- Off-Screen Edge Pointer HUD -->
         <div id="edgePointer" class="edge-pointer-hud hidden">
             <span class="pointer-arrow" id="pointerArrow">👈</span>
             <div class="pointer-content">
-                <span class="pointer-name" id="pointerName">SATELLITE</span>
-                <span class="pointer-hint" data-i18n="pointerHint">Fuera de pantalla (Clic para mover cámara)</span>
+                <span class="pointer-name" id="pointerName">SATELLIT</span>
+                <span class="pointer-hint" data-i18n="pointerHint">Außerhalb (Klicken zum Fokussieren)</span>
             </div>
         </div>
 
@@ -393,51 +396,51 @@
         <div id="guideModal" class="modal-overlay hidden">
             <div class="modal-content glass-panel">
                 <div class="modal-header">
-                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D Guía y Términos Legales</h2>
+                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D Anleitung & Nutzungsbedingungen</h2>
                     <button id="closeGuideBtn" class="btn-close">&times;</button>
                 </div>
                 <div class="modal-tabs">
-                    <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 Controles</button>
-                    <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ Descargo de Responsabilidad</button>
-                    <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 Privacidad</button>
-                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ Acerca de</button>
+                    <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 Steuerung</button>
+                    <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ Haftungsausschluss</button>
+                    <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 Datenschutz</button>
+                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ Über</button>
                 </div>
                 <div class="modal-body">
                     <!-- Tab 1: Controls -->
                     <div id="tabControls" class="tab-content active">
-                        <h3 data-i18n="guideTitleControls">🖱️ Guía de Navegación 3D</h3>
+                        <h3 data-i18n="guideTitleControls">🖱️ 3D-Navigationsanleitung</h3>
                         <ul class="guide-list">
-                            <li><strong data-i18n="guideWheel">Rueda del ratón / Táctil</strong>: <span data-i18n="guideWheelDesc">Zoom ultra suave a 1/10 de velocidad.</span></li>
-                            <li><strong data-i18n="guideDrag">Clic izquierdo + Arrastrar</strong>: <span data-i18n="guideDragDesc">Rotación libre de la Tierra en 360 grados.</span></li>
-                            <li><strong data-i18n="guideTilt">Clic derecho + Arrastrar / Ctrl + Arrastrar</strong>: <span data-i18n="guideTiltDesc">Inclinación y cambio de ángulo de cámara.</span></li>
-                            <li><strong data-i18n="guideClick">Clic / Buscar Satélite</strong>: <span data-i18n="guideClickDesc">Ver altitud, velocidad y riesgo de colisión en vivo.</span></li>
-                            <li><strong data-i18n="guideFocus">🎯 Seguir Satélite</strong>: <span data-i18n="guideFocusDesc">Enfoque automático de cámara en el satélite.</span></li>
-                            <li><strong data-i18n="guideRadar">🔮 Riesgo de Basura</strong>: <span data-i18n="guideRadarDesc">Análisis en tiempo real de cruces orbitales en 24h.</span></li>
+                            <li><strong data-i18n="guideWheel">Mausrad / Touch</strong>: <span data-i18n="guideWheelDesc">Ultra-sanfter Zoom mit 1/10 Geschwindigkeit.</span></li>
+                            <li><strong data-i18n="guideDrag">Linke Maustaste + Ziehen</strong>: <span data-i18n="guideDragDesc">Erde frei um 360 Grad drehen.</span></li>
+                            <li><strong data-i18n="guideTilt">Rechte Maustaste / Strg + Ziehen</strong>: <span data-i18n="guideTiltDesc">Kamerawinkel und Neigung ändern.</span></li>
+                            <li><strong data-i18n="guideClick">Satellit anklicken / Suchen</strong>: <span data-i18n="guideClickDesc">Echtzeit-Höhe, Geschwindigkeit und Kollisionsrisiko ansehen.</span></li>
+                            <li><strong data-i18n="guideFocus">🎯 Satellit verfolgen</strong>: <span data-i18n="guideFocusDesc">Kamera folgt automatisch dem Satelliten.</span></li>
+                            <li><strong data-i18n="guideRadar">🔮 Weltraummüll-Radar</strong>: <span data-i18n="guideRadarDesc">Echtzeit-Berechnung von 24h-Bahnenkreuzungen (MOID).</span></li>
                         </ul>
                     </div>
 
                     <!-- Tab 2: Disclaimer -->
                     <div id="tabDisclaimer" class="tab-content">
-                        <h3 data-i18n="guideTitleDisclaimer">⚠️ Descargo de Responsabilidad (Disclaimer)</h3>
-                        <p data-i18n="discText1">Todos los datos orbitales, posiciones y cálculos de colisión en SatViewer3D se calculan en tiempo real a partir de datos TLE públicos de CelesTrak y Space-Track con fines educativos y de observación.</p>
-                        <p data-i18n="discText2">No están destinados para maniobras operativas ni navegación de seguridad de satélites reales.</p>
+                        <h3 data-i18n="guideTitleDisclaimer">⚠️ Haftungsausschluss</h3>
+                        <p data-i18n="discText1">Alle Bahndaten und Kollisionsrisiken werden auf Basis öffentlicher TLE-Daten von CelesTrak und Space-Track in Echtzeit berechnet.</p>
+                        <p data-i18n="discText2">Die Daten dienen nur zu Bildungs- und Beobachtungszwecken und nicht für Manöver echter Raumfahrzeuge.</p>
                     </div>
 
                     <!-- Tab 3: Privacy Policy -->
                     <div id="tabPrivacy" class="tab-content">
-                        <h3 data-i18n="guideTitlePrivacy">🔒 Política de Privacidad (Google AdSense)</h3>
-                        <p><strong data-i18n="privText1Title">Publicidad:</strong><br><span data-i18n="privText1Desc">Este sitio puede utilizar servicios publicitarios de terceros (como Google AdSense) que emplean cookies anónimas para mostrar anuncios relevantes.</span></p>
-                        <p><strong data-i18n="privText2Title">Analítica:</strong><br><span data-i18n="privText2Desc">Utilizamos herramientas de análisis para recopilar datos de tráfico anónimos.</span></p>
+                        <h3 data-i18n="guideTitlePrivacy">🔒 Datenschutzerklärung (Google AdSense)</h3>
+                        <p><strong data-i18n="privText1Title">Werbung:</strong><br><span data-i18n="privText1Desc">Diese Website nutzt Werbedienste von Drittanbietern (z. B. Google AdSense) mit anonymen Cookies.</span></p>
+                        <p><strong data-i18n="privText2Title">Webanalyse:</strong><br><span data-i18n="privText2Desc">Wir verwenden Analysetools zur Erfassung anonymer Verkehrsdaten.</span></p>
                     </div>
 
                     <!-- Tab 4: About & Contact -->
                     <div id="tabAbout" class="tab-content">
-                        <h3 data-i18n="guideTitleAbout">ℹ️ Acerca de SatViewer3D</h3>
-                        <p data-i18n="aboutText1">SatViewer3D es un simulador 3D en tiempo real para visualizar satélites artificiales (ISS, Starlink, satélites meteorológicos) y basura espacial.</p>
+                        <h3 data-i18n="guideTitleAbout">ℹ️ Über SatViewer3D</h3>
+                        <p data-i18n="aboutText1">SatViewer3D ist ein kostenloser 3D-Echtzeitsimulator für künstliche Satelliten und Weltraummüll.</p>
                         
-                        <p><strong>Data & Orbit Sources:</strong> NORAD / Space-Track (Public TLE Data), JAXA & NASA</p>
+                        <p><strong>Datenquellen:</strong> NORAD / Space-Track (Public TLE Data), JAXA & NASA</p>
                         <p><strong>Domain:</strong> satviewer3d.com</p>
-                        <p><strong data-i18n="aboutContactTitle">Contacto:</strong> <span data-i18n="aboutContactDesc">Para consultas o sugerencias, escriba a info@satviewer3d.com</span></p>
+                        <p><strong data-i18n="aboutContactTitle">Kontakt:</strong> <span data-i18n="aboutContactDesc">Fragen und Feedback an info@satviewer3d.com</span></p>
                         <p style="margin-top: 18px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.78rem; color: var(--text-muted);">&copy; <span class="copyrightYearRef">2026</span> SatViewer3D. All Rights Reserved.</p>
                     </div>
                 </div>
@@ -448,12 +451,12 @@
         <div id="loadingOverlay" class="loading-overlay hidden" style="display:none;">
             <div class="spinner-container">
                 <div class="spinner"></div>
-                <p id="loadingText" class="loading-text">Calculando y cargando órbitas de satélites...</p>
+                <p id="loadingText" class="loading-text">Berechnung und Laden der Satellitenbahnen...</p>
             </div>
         </div>
     </div>
 
-    <!-- Application Script (Cache Busted v120) -->
+    <!-- Application Script (Cache Busted v121) -->
     <script src="app.js?v=20260821_122"></script>
 </body>
 </html>

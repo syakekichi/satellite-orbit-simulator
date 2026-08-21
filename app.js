@@ -4,16 +4,19 @@
 
 // Smart Auto Language Detection (Defaults to English for International Visitors)
 function detectDefaultLanguage() {
-    // 1. Prioritize HTML lang attribute from current landing page (for /en/, /es/, /zh/, /ru/, etc.)
+    // 1. Prioritize HTML lang attribute from current landing page (for /en/, /de/, /fr/, /es/, /pt/, /zh/, /ru/, etc.)
     const htmlLang = document.documentElement.getAttribute('lang');
-    if (htmlLang && ['ja', 'en', 'zh', 'es', 'ru'].includes(htmlLang)) {
+    if (htmlLang && ['ja', 'en', 'de', 'fr', 'es', 'pt', 'zh', 'ru'].includes(htmlLang)) {
         return htmlLang;
     }
 
     // 2. Check URL pathname
     const path = window.location.pathname.toLowerCase();
     if (path.includes('/en')) return 'en';
+    if (path.includes('/de')) return 'de';
+    if (path.includes('/fr')) return 'fr';
     if (path.includes('/es')) return 'es';
+    if (path.includes('/pt')) return 'pt';
     if (path.includes('/zh')) return 'zh';
     if (path.includes('/ru')) return 'ru';
 
@@ -22,8 +25,11 @@ function detectDefaultLanguage() {
 
     const navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
     if (navLang.startsWith('ja')) return 'ja';
-    if (navLang.startsWith('zh')) return 'zh';
+    if (navLang.startsWith('de')) return 'de';
+    if (navLang.startsWith('fr')) return 'fr';
+    if (navLang.startsWith('pt')) return 'pt';
     if (navLang.startsWith('es')) return 'es';
+    if (navLang.startsWith('zh')) return 'zh';
     if (navLang.startsWith('ru')) return 'ru';
     
     // Default for all international visitors worldwide is English
@@ -434,6 +440,216 @@ const TRANSLATIONS = {
         aboutText1: "SatViewer3D — это 3D-симулятор орбитальной визуализации спутников и космического мусора.",
         aboutContactTitle: "Контакты:",
         aboutContactDesc: "По всем вопросам обращайтесь на info@satviewer3d.com."
+    },
+    de: {
+        statCount: "Verfolgte Satelliten",
+        statTime: "Simulationszeit",
+        dragPanel: "⋮⋮ Panel verschieben",
+        secSelect: "Satellit auswählen / suchen",
+        selectPlaceholder: "-- Satellit oder Weltraummüll auswählen --",
+        searchPlaceholder: "Nach Name oder NORAD-ID suchen...",
+        secSource: "Satelliten-Datenquellen",
+        loadMajor: "⭐ Wichtige Satelliten (ISS, Starlink, Müll)",
+        loadLocal: "🛰️ Starlink Gesamtkonstellation (2.000)",
+        badgeMajor: "⭐ Wichtige Satelliten geladen",
+        secTime: "Zeitsteuerung & Tempo",
+        speedStop: "⏸️ Pause",
+        speedReal: "▶️ 1x (Echtzeit)",
+        resetNow: "🔄 Jetzt",
+        secDisplay: "Anzeige-Einstellungen",
+        toggleLabels: "3D-Satellitennamen anzeigen",
+        toggleOrbits: "Umlaufbahn anzeigen",
+        toggleMultiLap: "🌐 Mehrfache Bodenspur",
+        toggleAtmosphere: "Atmosphäre & Sonnenlicht",
+        toggle2D: "2D-Kartenmodus",
+        toggleBorders: "🌐 Grenzen & Städtenamen",
+        toggleDebrisRisk: "🔮 Weltraummüll-Risikoanalyse",
+        dragDetail: "⋮⋮ Karte verschieben",
+        dragCam: "⋮⋮ Kamera",
+        labelAlt: "Höhe (Altitude)",
+        labelVel: "Geschwindigkeit",
+        labelLat: "Breitengrad",
+        labelLon: "Längengrad",
+        labelInc: "Inklination",
+        labelPeriod: "Umlaufzeit",
+        labelTimezone: "Zeitzone",
+        labelPass: "📡 Nächster Überflug",
+        labelRisk: "🔮 Weltraummüll-Annäherung (MOID)",
+        btnGeo: "📍Standort",
+        btnTrack: "🎯 Satellit verfolgen",
+        btnUntrack: "🔓 Verfolgung lösen",
+        pointerHint: "Außerhalb des Sichtfelds (Klicken zum Fokussieren)",
+        btnGuide: "❓ Handbuch & AGB",
+        modalTitle: "SatViewer3D Anleitung & Nutzungsbedingungen",
+        tabControls: "🎮 Steuerung",
+        tabDisclaimer: "⚠️ Haftungsausschluss",
+        tabPrivacy: "🔒 Datenschutz",
+        tabAbout: "ℹ️ Über SatViewer3D",
+        guideTitleControls: "🖱️ 3D-Navigationsanleitung",
+        guideWheel: "Mausrad / Touch",
+        guideWheelDesc: "Ultra-sanfter Zoom mit 1/10 Geschwindigkeit.",
+        guideDrag: "Linke Maustaste",
+        guideDragDesc: "Erde frei um 360 Grad drehen.",
+        guideTilt: "Rechte Maustaste / Strg + Maus",
+        guideTiltDesc: "Kamerawinkel und Neigung ändern.",
+        guideClick: "Satellit anklicken / Suchen",
+        guideClickDesc: "Echtzeit-Höhe, Geschwindigkeit und Kollisionsrisiko ansehen.",
+        guideFocus: "🎯 Kamera-Tracking",
+        guideFocusDesc: "Kamera folgt automatisch dem Satelliten.",
+        guideRadar: "🔮 Weltraummüll-Radar",
+        guideRadarDesc: "Echtzeit-Berechnung von 24h-Bahnenkreuzungen (MOID).",
+        guideTitleDisclaimer: "⚠️ Haftungsausschluss (Disclaimer)",
+        discText1: "Alle Bahndaten und Kollisionsrisiken werden auf Basis öffentlicher TLE-Daten von CelesTrak und Space-Track in Echtzeit berechnet.",
+        discText2: "Die Daten dienen nur zu Bildungs- und Beobachtungszwecken und nicht für Manöver echter Raumfahrzeuge.",
+        guideTitlePrivacy: "🔒 Datenschutzerklärung (Google AdSense konform)",
+        privText1Title: "Werbung:",
+        privText1Desc: "Diese Website nutzt Werbedienste von Drittanbietern (z. B. Google AdSense) mit anonymen Cookies.",
+        privText2Title: "Webanalyse:",
+        privText2Desc: "Wir verwenden Analysetools zur Erfassung anonymer Verkehrsdaten.",
+        guideTitleAbout: "ℹ️ Über SatViewer3D",
+        aboutText1: "SatViewer3D ist ein kostenloser 3D-Echtzeitsimulator für künstliche Satelliten und Weltraummüll.",
+        aboutContactTitle: "Kontakt:",
+        aboutContactDesc: "Fragen und Feedback an info@satviewer3d.com."
+    },
+    fr: {
+        statCount: "Satellites Suivis",
+        statTime: "Temps Simulé",
+        dragPanel: "⋮⋮ Déplacer le panneau",
+        secSelect: "Sélectionner / Rechercher",
+        selectPlaceholder: "-- Choisir un satellite ou débris --",
+        searchPlaceholder: "Rechercher par nom ou NORAD ID...",
+        secSource: "Sources de données",
+        loadMajor: "⭐ Satellites majeurs (ISS, Starlink, débris)",
+        loadLocal: "🛰️ Constellation Starlink (2 000)",
+        badgeMajor: "⭐ Satellites majeurs chargés",
+        secTime: "Contrôle du temps & Vitesse",
+        speedStop: "⏸️ Pause",
+        speedReal: "▶️ 1x (Temps réel)",
+        resetNow: "🔄 Maintenant",
+        secDisplay: "Paramètres d'affichage",
+        toggleLabels: "Noms des satellites en 3D",
+        toggleOrbits: "Afficher l'orbite",
+        toggleMultiLap: "🌐 Trace au sol multi-tours",
+        toggleAtmosphere: "Atmosphère & Éclairage solaire",
+        toggle2D: "Mode carte 2D",
+        toggleBorders: "🌐 Frontières & Villes",
+        toggleDebrisRisk: "🔮 Analyse du risque de débris",
+        dragDetail: "⋮⋮ Déplacer la carte",
+        dragCam: "⋮⋮ Caméra",
+        labelAlt: "Altitude",
+        labelVel: "Vitesse",
+        labelLat: "Latitude",
+        labelLon: "Longitude",
+        labelInc: "Inclinaison",
+        labelPeriod: "Période",
+        labelTimezone: "Fuseau horaire",
+        labelPass: "📡 Prochain passage",
+        labelRisk: "🔮 Rapprochement de débris (MOID)",
+        btnGeo: "📍Position",
+        btnTrack: "🎯 Suivre le satellite",
+        btnUntrack: "🔓 Libérer",
+        pointerHint: "Hors champ (Cliquez pour centrer)",
+        btnGuide: "❓ Guide & Mentions",
+        modalTitle: "SatViewer3D Guide d'utilisation & Conditions",
+        tabControls: "🎮 Commandes",
+        tabDisclaimer: "⚠️ Clause de non-responsabilité",
+        tabPrivacy: "🔒 Confidentialité",
+        tabAbout: "ℹ️ À propos",
+        guideTitleControls: "🖱️ Guide de navigation 3D",
+        guideWheel: "Molette / Tactile",
+        guideWheelDesc: "Zoom fluide et précis à 1/10 de vitesse.",
+        guideDrag: "Clic gauche + Glisser",
+        guideDragDesc: "Rotation libre de la Terre à 360 degrés.",
+        guideTilt: "Clic droit / Ctrl + Glisser",
+        guideTiltDesc: "Inclinaison et angle de vue de la caméra.",
+        guideClick: "Cliquer sur un satellite / Recherche",
+        guideClickDesc: "Afficher l'altitude, la vitesse et le risque de collision.",
+        guideFocus: "🎯 Suivi caméra",
+        guideFocusDesc: "Verrouillage automatique sur le satellite.",
+        guideRadar: "🔮 Radar de débris",
+        guideRadarDesc: "Calcul en temps réel des croisements d'orbite à 24h (MOID).",
+        guideTitleDisclaimer: "⚠️ Clause de non-responsabilité",
+        discText1: "Toutes les données orbitales et prévisions sont calculées en temps réel d'après les TLE publiques de CelesTrak et Space-Track.",
+        discText2: "Ces données sont destinées à des fins éducatives et ne doivent pas être utilisées pour des manœuvres de vol réel.",
+        guideTitlePrivacy: "🔒 Politique de confidentialité (Conforme Google AdSense)",
+        privText1Title: "Publicité :",
+        privText1Desc: "Ce site utilise des services publicitaires tiers (ex. Google AdSense) utilisant des cookies anonymes.",
+        privText2Title: "Statistiques :",
+        privText2Desc: "Nous collectons des données de trafic anonymes.",
+        guideTitleAbout: "ℹ️ À propos de SatViewer3D",
+        aboutText1: "SatViewer3D est un simulateur 3D temps réel pour observer les satellites artificiels et les débris spatiaux.",
+        aboutContactTitle: "Contact :",
+        aboutContactDesc: "Pour toute question : info@satviewer3d.com."
+    },
+    pt: {
+        statCount: "Satélites Rastreados",
+        statTime: "Hora da Simulação",
+        dragPanel: "⋮⋮ Arrastar painel",
+        secSelect: "Selecionar / Buscar satélite",
+        selectPlaceholder: "-- Selecione satélite ou lixo espacial --",
+        searchPlaceholder: "Buscar por nome ou ID NORAD...",
+        secSource: "Fontes de Dados & Predefinições",
+        loadMajor: "⭐ Satélites principais (ISS, Starlink, lixo)",
+        loadLocal: "🛰️ Constelação Starlink (2.000)",
+        badgeMajor: "⭐ Satélites principais carregados",
+        secTime: "Controle de tempo & Velocidade",
+        speedStop: "⏸️ Pausar",
+        speedReal: "▶️ 1x (Tempo real)",
+        resetNow: "🔄 Agora",
+        secDisplay: "Configurações de exibição",
+        toggleLabels: "Etiquetas 3D dos satélites",
+        toggleOrbits: "Exibir órbita",
+        toggleMultiLap: "🌐 Rastreamento terrestre de múltiplas voltas",
+        toggleAtmosphere: "Atmosfera e Iluminação",
+        toggle2D: "Modo mapa 2D",
+        toggleBorders: "🌐 Fronteiras e Cidades",
+        toggleDebrisRisk: "🔮 Análise de risco de detritos",
+        dragDetail: "⋮⋮ Arrastar cartão",
+        dragCam: "⋮⋮ Câmera",
+        labelAlt: "Altitude",
+        labelVel: "Velocidade",
+        labelLat: "Latitude",
+        labelLon: "Longitude",
+        labelInc: "Inclinação",
+        labelPeriod: "Período",
+        labelTimezone: "Fuso horário",
+        labelPass: "📡 Próxima passagem",
+        labelRisk: "🔮 Aproximação de detritos (MOID)",
+        btnGeo: "📍Localização",
+        btnTrack: "🎯 Seguir satélite",
+        btnUntrack: "🔓 Liberar foco",
+        pointerHint: "Fora da tela (Clique para focar)",
+        btnGuide: "❓ Guia & Termos",
+        modalTitle: "SatViewer3D Guia de Uso & Termos Legais",
+        tabControls: "🎮 Controles",
+        tabDisclaimer: "⚠️ Isenção de responsabilidade",
+        tabPrivacy: "🔒 Privacidade",
+        tabAbout: "ℹ️ Sobre o site",
+        guideTitleControls: "🖱️ Guia de navegação 3D",
+        guideWheel: "Roda do mouse / Toque",
+        guideWheelDesc: "Zoom ultra suave a 1/10 de velocidade.",
+        guideDrag: "Clique esquerdo + Arrastar",
+        guideDragDesc: "Rotação livre da Terra em 360 graus.",
+        guideTilt: "Clique direito / Ctrl + Arrastar",
+        guideTiltDesc: "Inclinação do ângulo da câmera.",
+        guideClick: "Clique no satélite / Busca",
+        guideClickDesc: "Ver altitude, velocidade e risco de colisão em tempo real.",
+        guideFocus: "🎯 Rastreamento de câmera",
+        guideFocusDesc: "A câmera acompanha o satélite em movimento.",
+        guideRadar: "🔮 Radar de detritos espaciais",
+        guideRadarDesc: "Cálculo em tempo real de cruzamentos de órbita em 24h (MOID).",
+        guideTitleDisclaimer: "⚠️ Isenção de responsabilidade",
+        discText1: "Todos os dados orbitais e previsões são calculados em tempo real a partir de dados TLE públicos do CelesTrak e Space-Track.",
+        discText2: "Não se destinam a operações reais de espaçonaves ou navegação de segurança.",
+        guideTitlePrivacy: "🔒 Política de privacidade (Google AdSense)",
+        privText1Title: "Publicidade:",
+        privText1Desc: "Este site pode usar serviços de publicidade de terceiros (como Google AdSense) com cookies anônimos.",
+        privText2Title: "Estatísticas:",
+        privText2Desc: "Coletamos dados anônimos de tráfego para análise.",
+        guideTitleAbout: "ℹ️ Sobre o SatViewer3D",
+        aboutText1: "SatViewer3D é um simulador 3D em tempo real para visualizar satélites artificiais e detritos espaciais.",
+        aboutContactTitle: "Contato:",
+        aboutContactDesc: "Dúvidas e sugestões: info@satviewer3d.com."
     }
 };
 
@@ -485,6 +701,9 @@ function applyLanguage(lang) {
         const tzLabels = {
             ja: { JST: '🇯🇵 日本標準時 (JST / UTC+9)', UTC: '🌐 協定世界時 (UTC)', NY: '🇺🇸 ニューヨーク (EST/EDT)', CST: '🇨🇳 中国標準時 (CST / UTC+8)', CET: '🇪🇸 中央欧州時間 (CET / UTC+1)', MSK: '🇷🇺 モスクワ時間 (MSK / UTC+3)', LOCAL: '💻 ローカル時間 (ブラウザ依存)' },
             en: { JST: '🇯🇵 Japan Std Time (JST / UTC+9)', UTC: '🌐 Universal Time (UTC)', NY: '🇺🇸 New York (EST/EDT)', CST: '🇨🇳 China Std Time (CST / UTC+8)', CET: '🇪🇸 Central European (CET / UTC+1)', MSK: '🇷🇺 Moscow Time (MSK / UTC+3)', LOCAL: '💻 Local Browser Time' },
+            de: { JST: '🇯🇵 Japan Std.-Zeit (JST)', UTC: '🌐 Weltzeit (UTC)', NY: '🇺🇸 New York (EST/EDT)', CST: '🇨🇳 China-Zeit (CST)', CET: '🇩🇪 Mitteleuropäische Zeit (MEZ)', MSK: '🇷🇺 Moskauer Zeit (MSK)', LOCAL: '💻 Lokale Browserzeit' },
+            fr: { JST: '🇯🇵 Heure Standard Japon (JST)', UTC: '🌐 Temps Universel (UTC)', NY: '🇺🇸 New York (EST/EDT)', CST: '🇨🇳 Heure de Chine (CST)', CET: "🇫🇷 Heure d'Europe Centrale (CET)", MSK: '🇷🇺 Heure de Moscou (MSK)', LOCAL: '💻 Heure Locale Navigateur' },
+            pt: { JST: '🇯🇵 Hora Padrão do Japão (JST)', UTC: '🌐 Tempo Universal (UTC)', NY: '🇺🇸 Nova York (EST/EDT)', CST: '🇨🇳 Hora da China (CST)', CET: '🇵🇹 Hora da Europa Central (CET)', MSK: '🇷🇺 Hora de Moscou (MSK)', LOCAL: '💻 Hora Local do Navegador' },
             zh: { JST: '🇯🇵 日本标准时间 (JST / UTC+9)', UTC: '🌐 协调世界时 (UTC)', NY: '🇺🇸 纽约时间 (EST/EDT)', CST: '🇨🇳 中国标准时间 (CST / UTC+8)', CET: '🇪🇸 中欧时间 (CET / UTC+1)', MSK: '🇷🇺 莫斯科时间 (MSK / UTC+3)', LOCAL: '💻 本地浏览器时间' },
             es: { JST: '🇯🇵 Hora Estándar de Japón (JST)', UTC: '🌐 Hora Universal (UTC)', NY: '🇺🇸 Nueva York (EST/EDT)', CST: '🇨🇳 Hora de China (CST)', CET: '🇪🇸 Hora Central Europea (CET)', MSK: '🇷🇺 Hora de Moscú (MSK)', LOCAL: '💻 Hora Local del Navegador' },
             ru: { JST: '🇯🇵 Японское время (JST / UTC+9)', UTC: '🌐 Всемирное время (UTC)', NY: '🇺🇸 Нью-Йорк (EST/EDT)', CST: '🇨🇳 Китайское время (CST / UTC+8)', CET: '🇪🇸 Центральноевропейское (CET)', MSK: '🇷🇺 Московское время (MSK / UTC+3)', LOCAL: '💻 Местное время браузера' }
@@ -647,6 +866,9 @@ const SATELLITE_DESCRIPTIONS = {
     'HIMAWARI-8': {
         ja: '気象衛星「ひまわり8号」(気象庁)。赤道上空約35,786kmの【静止気象衛星】。ひまわり9号と同位置の東経140.7°静止軌道にてバックアップ・待機観測運用。',
         en: 'Geostationary Meteorological Satellite "Himawari-8" (JMA). Located at 140.7°E longitude, 35,786 km above equator for weather monitoring backup.',
+        de: 'Geostationärer Wettersatellit "Himawari-8" (JMA). Positioniert auf 140,7°O über dem Äquator als Backup-Wettersatellit.',
+        fr: 'Satellite météorologique géostationnaire "Himawari-8" (JMA). Situé à 140,7°E à 35 786 km pour la veille météo.',
+        pt: 'Satélite meteorológico geoestacionário "Himawari-8" (JMA). Posicionado a 140,7°E a 35.786 km para monitoramento.',
         zh: '气象卫星“葵花8号”(日本气象厅)。位于赤道上空约35,786公里的静止气象卫星，在东经140.7°作为9号机的备用观测星。',
         es: 'Satélite Meteorológico Geoestacionario "Himawari-8" (JMA). Situado a 35.786 km sobre el ecuador a 140,7°E para monitoreo del clima.',
         ru: 'Геостационарный метеорологический спутник "Химавари-8" (JMA). Находится на высоте 35 786 км над экватором для наблюдения за погодой.'
@@ -654,6 +876,9 @@ const SATELLITE_DESCRIPTIONS = {
     'HIMAWARI-9': {
         ja: '気象衛星「ひまわり9号」(気象庁)。赤道上空約35,786kmの【静止気象衛星】。地球の自転と同じ速度で周回するため日本上空(東経140.7°)に静止し、台風や集中豪雨をリアルタイム監視中。',
         en: 'Geostationary Meteorological Satellite "Himawari-9" (JMA). Positioned 35,786 km above East Asia (140.7°E) monitoring typhoons and severe weather in real-time.',
+        de: 'Geostationärer Wettersatellit "Himawari-9" (JMA). Überwacht Taifune und Unwetter über Ostasien in Echtzeit (140,7°O).',
+        fr: "Satellite météorologique \"Himawari-9\" (JMA). Surveille en temps réel typhons et tempêtes sur l'Asie de l'Est à 140,7°E.",
+        pt: 'Satélite meteorológico "Himawari-9" (JMA). Monitora tufões e tempestades severas em tempo real sobre o Leste Asiático a 140,7°E.',
         zh: '气象卫星“葵花9号”(日本气象厅)。静止于东经140.7°赤道上空，实时监控台风与暴雨等灾害性天气。',
         es: 'Satélite Meteorológico "Himawari-9". Monitorea en tiempo real tifones y clima severo sobre Asia Oriental a 140,7°E.',
         ru: 'Метеорологический спутник "Химавари-9". Наблюдает за тайфунами и штормами над Восточной Азией в режиме реального времени.'
@@ -661,6 +886,9 @@ const SATELLITE_DESCRIPTIONS = {
     'MICHIBIKI-6': {
         ja: '日本・内閣府の最新準天頂衛星「みちびき6号機 (QZSS-6)」。最新H3ロケットにより打ち上げられ、みちびき7機体制によるサブメートル級・センチメートル級の超高精度GPS補強測位サービスを提供。',
         en: 'Latest QZSS-6 (Michibiki No. 6) satellite launched by Japan H3 rocket, providing sub-meter and centimeter-level high-precision GPS positioning services.',
+        de: 'Neuester QZSS-6 (Michibiki Nr. 6) Satellit, gestartet mit der japanischen H3-Rakete für hochpräzise GPS-Ortung.',
+        fr: 'Dernier satellite QZSS-6 (Michibiki n°6) lancé par la fusée japonaise H3 pour un positionnement GPS ultra-précis.',
+        pt: 'Satélite QZSS-6 (Michibiki nº 6) lançado pelo foguete japonês H3 para serviços de alta precisão GPS.',
         zh: '日本最新准天顶卫星“引路6号”(QZSS-6)。由H3火箭成功发射，实现高精度GPS定位增强服务。',
         es: 'Satélite de precisión GPS "Michibiki-6" (QZSS-6) lanzado por el cohete H3 de Japón.',
         ru: 'Новейший навигационный спутник "Мичибики-6" (QZSS-6), запущенный ракетой H3 для сверхточного GPS.'
@@ -668,6 +896,9 @@ const SATELLITE_DESCRIPTIONS = {
     'MICHIBIKI': {
         ja: '日本の準天頂衛星システム「みちびき」(QZSS)。日本およびアジア太平洋地域におけるGPS電波のビル陰死角をゼロにし、高精度測位を補強。',
         en: 'Quasi-Zenith Satellite System "Michibiki" (QZSS). Enhances GPS positioning accuracy across Japan and the Asia-Pacific region.',
+        de: 'Quasi-Zenit-Satellitensystem "Michibiki" (QZSS). Verbessert die GPS-Genauigkeit in Japan und im Asien-Pazifik-Raum.',
+        fr: 'Système de satellites quasi-zénithaux "Michibiki" (QZSS). Améliore la précision GPS au Japon et en Asie-Pacifique.',
+        pt: 'Sistema de Satélites Quase-Zenital "Michibiki" (QZSS). Aumenta a precisão do GPS no Japão e Ásia-Pacífico.',
         zh: '日本准天顶卫星系统“引路”(QZSS)。覆盖日本及亚太地区，提供厘米级GPS增强定位。',
         es: 'Sistema de Satélites Quasi-Cenital "Michibiki" (QZSS). Mejora la precisión del GPS en Japón y Asia-Pacífico.',
         ru: 'Японская квазизенитная спутниковая система "Мичибики" (QZSS) для улучшения точности GPS.'
@@ -675,6 +906,9 @@ const SATELLITE_DESCRIPTIONS = {
     'ISS': {
         ja: '国際宇宙ステーション (ISS)。高度約400kmの地球低軌道(LEO)を約90分で1周(時速約27,700km)。日本人宇宙飛行士が長期滞在し宇宙実験を実施。',
         en: 'International Space Station (ISS). Orbiting at ~400km altitude every 90 minutes (~27,700 km/h) hosting international astronauts for microgravity research.',
+        de: 'Internationale Raumstation (ISS). Umkreist die Erde in ~400 km Höhe alle 90 Minuten für wissenschaftliche Forschung.',
+        fr: "Station spatiale internationale (ISS). En orbite à ~400 km d'altitude toutes les 90 minutes pour la recherche.",
+        pt: 'Estação Espacial Internacional (ISS). Orbita a ~400 km de altitude a cada 90 minutos para pesquisas científicas.',
         zh: '国际空间站 (ISS)。在约400公里的近地轨道运行，每90分钟环绕地球一周。',
         es: 'Estación Espacial Internacional (EEI). Órbita a ~400 km de altitud cada 90 minutos para investigación científica.',
         ru: 'Международная космическая станция (МКС). Орбита ~400 км, полный оборот за 90 минут.'
@@ -682,6 +916,9 @@ const SATELLITE_DESCRIPTIONS = {
     'TIANGONG': {
         ja: '中国の宇宙ステーション「天宮」(Tiangong)。高度約380〜450kmの低軌道にて独自のアストロナウツ(航天員)が常駐する宇宙実験施設。',
         en: 'Chinese Space Station "Tiangong". Permanently crewed space laboratory orbiting at ~380-450 km altitude.',
+        de: 'Chinesische Raumstation "Tiangong". Dauerhaft bemannte Raumstation in ~380-450 km Höhe.',
+        fr: 'Station spatiale chinoise "Tiangong". Laboratoire spatial habité en orbite à 380-450 km.',
+        pt: 'Estação Espacial Chinesa "Tiangong". Laboratório espacial permanentemente tripulado a 380-450 km.',
         zh: '中国“天宫”空间站。高度约380-450公里的近地轨道长期载人空间实验室。',
         es: 'Estación Espacial China "Tiangong". Laboratorio espacial habitado permanentemente a 380-450 km.',
         ru: 'Китайская космическая станция "Тяньгун". Постоянно обитаемая космическая лаборатория.'
@@ -689,6 +926,9 @@ const SATELLITE_DESCRIPTIONS = {
     'BEIDOU': {
         ja: '中国の独自全地球衛星測位システム「北斗3号」(BeiDou-3)。GEO/IGSO/MEO軌道の複合コンステレーションで全世界に測位サービスを提供。',
         en: 'BeiDou-3 Global Navigation Satellite System (China). Provides global positioning, navigation, and timing services.',
+        de: 'BeiDou-3 Navigationssatellitensystem (China). Bietet weltweite Ortungs- und Navigationsdienste.',
+        fr: 'Système de navigation par satellite BeiDou-3 (Chine). Fournit des services de positionnement mondial.',
+        pt: 'Sistema de Navegação por Satélite BeiDou-3 (China). Serviços globais de posicionamento e navegação.',
         zh: '北斗三号全球卫星导航系统。混合轨道星座，为全球用户提供高精度导航与定位。',
         es: 'Sistema de Navegación por Satélite BeiDou-3 (China). Cobertura global de navegación y posicionamiento.',
         ru: 'Китайская глобальная навигационная система "Бэйдоу-3" (BeiDou-3).'
@@ -696,6 +936,9 @@ const SATELLITE_DESCRIPTIONS = {
     'HUBBLE': {
         ja: 'ハッブル宇宙望遠鏡 (HST / NASA・ESA)。高度約540kmの軌道上から大気の影響を受けずに深宇宙の銀河や星雲を観測する伝説の宇宙望遠鏡。',
         en: 'Hubble Space Telescope (NASA/ESA). Iconic space telescope orbiting at ~540km observing deep space galaxies and nebulae.',
+        de: 'Hubble-Weltraumteleskop (NASA/ESA). Beobachtet ferne Galaxien aus 540 km Höhe.',
+        fr: "Télescope spatial Hubble (NASA/ESA). Observe les galaxies profondes à 540 km d'altitude.",
+        pt: 'Telescópio Espacial Hubble (NASA/ESA). Observa galáxias profundas a 540 km de altitude.',
         zh: '哈勃空间望远镜 (NASA/ESA)。在约540公里轨道上观测深空星系与星云。',
         es: 'Telescopio Espacial Hubble (NASA/ESA). Observa galaxias profundas desde 540 km de altitud.',
         ru: 'Космический телескоп "Хаббл" (NASA/ESA). Наблюдает за далекими галактиками с высоты 540 км.'
@@ -703,6 +946,9 @@ const SATELLITE_DESCRIPTIONS = {
     'GPS': {
         ja: '米国全地球測位システム (GPS / NAVSTAR) コンステレーション衛星。高度約20,200kmの中軌道(MEO)。',
         en: 'US Global Positioning System (GPS / NAVSTAR). Medium Earth Orbit (MEO) constellation at ~20,200 km altitude.',
+        de: 'US Global Positioning System (GPS / NAVSTAR). MEO-Konstellation in ca. 20.200 km Höhe.',
+        fr: "Système mondial de positionnement américain (GPS). Constellation MEO à ~20 200 km d'altitude.",
+        pt: 'Sistema de Posicionamento Global dos EUA (GPS). Constelação MEO a ~20.200 km de altitude.',
         zh: '美国GPS全球定位系统卫星。中地球轨道(MEO)，高度约20,200公里。',
         es: 'Sistema de Posicionamiento Global de EE.UU. (GPS). Constelación MEO a 20.200 km de altitud.',
         ru: 'Американская система глобального позиционирования (GPS / NAVSTAR) на орбите 20 200 км.'
@@ -710,6 +956,9 @@ const SATELLITE_DESCRIPTIONS = {
     'DEBRIS': {
         ja: '宇宙ゴミ・デブリ。過去のロケット段や衛星衝突事故(イリジウム・コスモス等)により発生した危険な宇宙余剰物体。',
         en: 'Space Debris / Space Junk. Hazardous orbital fragments generated from satellite collisions and spent rocket stages.',
+        de: 'Weltraummüll / Trümmerteile. Gefährliche Fragmente aus Satellitenkollisionen und Raketenstufen.',
+        fr: "Débris spatiaux. Fragments orbitaux dangereux issus de collisions et d'étages de fusées usagés.",
+        pt: 'Lixo Espacial / Detritos. Fragmentos orbitais perigosos gerados por colisões e estágios de foguetes.',
         zh: '空间碎片 / 太空垃圾。由卫星碰撞及废弃火箭残骸形成的轨道危险碎片。',
         es: 'Basura Espacial / Chatarra. Fragmentos orbitales peligrosos generados por colisiones de satélites.',
         ru: 'Космический мусор. Опасные фрагменты на орбите от столкновений спутников и ступеней ракет.'
@@ -730,6 +979,9 @@ function getSatDescription(name) {
         const starlinkDesc = {
             ja: 'SpaceX社が展開する地球低軌道(LEO)高速ブロードバンド通信衛星コンステレーション。',
             en: 'SpaceX Starlink Low Earth Orbit (LEO) broadband internet satellite constellation.',
+            de: 'SpaceX Starlink LEO-Breitband-Satellitenkonstellation.',
+            fr: 'Constellation de satellites Internet haut débit SpaceX Starlink en orbite basse.',
+            pt: 'Constelação de satélites de internet banda larga SpaceX Starlink em órbita baixa.',
             zh: 'SpaceX 展开的近地轨道 (LEO) 高速宽带卫星星座。',
             es: 'Constelación de satélites de Internet de banda ancha LEO de SpaceX Starlink.',
             ru: 'Низкоорбитальная спутниковая группировка широкополосного интернета SpaceX Starlink.'
@@ -740,6 +992,9 @@ function getSatDescription(name) {
     const defaultDesc = {
         ja: '地球周回軌道を周回する人工衛星。',
         en: 'Artificial satellite orbiting Earth.',
+        de: 'Künstlicher Satellit im Erdorbit.',
+        fr: 'Satellite artificiel en orbite terrestre.',
+        pt: 'Satélite artificial em órbita terrestre.',
         zh: '环绕地球轨道的造人卫星。',
         es: 'Satélite artificial orbitando la Tierra.',
         ru: 'Искусственный спутник на орбите Земли.'
@@ -1128,6 +1383,9 @@ function updateDropdownOptions() {
     const catMajorLabel = {
         ja: '⭐ 主要・有名衛星 (ひまわり / ISS / みちびき等)',
         en: '⭐ Major & Famous Satellites (ISS, Himawari, etc.)',
+        de: '⭐ Wichtige Satelliten (ISS, Himawari etc.)',
+        fr: '⭐ Satellites majeurs (ISS, Himawari, etc.)',
+        pt: '⭐ Satélites principais (ISS, Himawari, etc.)',
         zh: '⭐ 主要/著名卫星 (国际空间站, 葵花, 天宫等)',
         es: '⭐ Satélites Principales (EEI, Himawari, etc.)',
         ru: '⭐ Основные спутники (МКС, Himawari и др.)'
@@ -1135,6 +1393,9 @@ function updateDropdownOptions() {
     const catDebrisLabel = {
         ja: '🚨 宇宙ゴミ・デブリ (COSMOS / FENGYUN / SL-8等)',
         en: '🚨 Space Debris & Fragments (COSMOS, FENGYUN, etc.)',
+        de: '🚨 Weltraummüll & Fragmente (COSMOS etc.)',
+        fr: '🚨 Débris spatiaux & fragments (COSMOS, etc.)',
+        pt: '🚨 Detritos espaciais & fragmentos (COSMOS, etc.)',
         zh: '🚨 空间碎片与太空垃圾 (COSMOS, 风云1号等)',
         es: '🚨 Basura Espacial y Fragmentos (COSMOS, etc.)',
         ru: '🚨 Космический мусор (COSMOS, FENGYUN и др.)'
@@ -1142,6 +1403,9 @@ function updateDropdownOptions() {
     const catStarlinkLabel = {
         ja: '🛰️ Starlink衛星群 (ピックアップ30機)',
         en: '🛰️ Starlink Constellation (Featured 30)',
+        de: '🛰️ Starlink-Konstellation (Top 30)',
+        fr: '🛰️ Constellation Starlink (Top 30)',
+        pt: '🛰️ Constelação Starlink (Destaques 30)',
         zh: '🛰️ 星链 (Starlink) 卫星群 (精选30颗)',
         es: '🛰️ Constelación Starlink (Destacados 30)',
         ru: '🛰️ Группировка Starlink (Топ 30)'
@@ -2039,6 +2303,9 @@ function updatePassPredictionAndRisk(sat, jsDate) {
             const geoText = {
                 ja: '常時日本上空に静止中 (常時可視)',
                 en: 'Geostationary (Constantly Visible)',
+                de: 'Geostationär (Ständig sichtbar)',
+                fr: 'Géostationnaire (Constamment visible)',
+                pt: 'Geoestacionário (Constantemente visível)',
                 zh: '常时静止于上空 (常时可见)',
                 es: 'Geoestacionario (Constantemente Visible)',
                 ru: 'Геостационарный (Постоянно виден)'
@@ -2048,6 +2315,9 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 const metaText = {
                     ja: `現在地(${userGeoLoc.name})から常時観測可能`,
                     en: `Constantly observable from ${userGeoLoc.name}`,
+                    de: `Ständig beobachtbar von ${userGeoLoc.name}`,
+                    fr: `Constamment observable depuis ${userGeoLoc.name}`,
+                    pt: `Constantemente observável de ${userGeoLoc.name}`,
                     zh: `可从 ${userGeoLoc.name} 常时观测`,
                     es: `Constantemente observable desde ${userGeoLoc.name}`,
                     ru: `Постоянно наблюдаем из ${userGeoLoc.name}`
@@ -2071,6 +2341,9 @@ function updatePassPredictionAndRisk(sat, jsDate) {
             const countText = {
                 ja: `あと ${hh}時間 ${mm}分 ${ss}秒`,
                 en: `In ${hh}h ${mm}m ${ss}s`,
+                de: `In ${hh} Std. ${mm} Min. ${ss} Sek.`,
+                fr: `Dans ${hh}h ${mm}m ${ss}s`,
+                pt: `Em ${hh}h ${mm}m ${ss}s`,
                 zh: `剩余 ${hh}小时 ${mm}分 ${ss}秒`,
                 es: `En ${hh}h ${mm}m ${ss}s`,
                 ru: `Через ${hh}ч ${mm}м ${ss}с`
@@ -2081,6 +2354,9 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 const metaText = {
                     ja: `次回可視通過: ${passTimeString}頃 (${userGeoLoc.name} / 最大仰角 ~45°)`,
                     en: `Next Pass: ~${passTimeString} (${userGeoLoc.name} / Max Alt ~45°)`,
+                    de: `Nächster Überflug: ~${passTimeString} (${userGeoLoc.name} / Max. Höhe ~45°)`,
+                    fr: `Prochain passage: ~${passTimeString} (${userGeoLoc.name} / Élev. max ~45°)`,
+                    pt: `Próxima passagem: ~${passTimeString} (${userGeoLoc.name} / Elevação máx ~45°)`,
                     zh: `下次可过境: 约 ${passTimeString} (${userGeoLoc.name})`,
                     es: `Próximo Paso: ~${passTimeString} (${userGeoLoc.name})`,
                     ru: `След. пролет: ~${passTimeString} (${userGeoLoc.name})`
@@ -2165,6 +2441,9 @@ function updatePassPredictionAndRisk(sat, jsDate) {
             const critText = {
                 ja: `🚨 衝突危険警告! (${futureClosestDebris || closestDebrisName} と あと${futureMinHours}時間後に ${formattedFutDist} km まで接近予測)`,
                 en: `🚨 CRITICAL RISK! (Encounter with ${futureClosestDebris || closestDebrisName} in ~${futureMinHours}h at ${formattedFutDist} km)`,
+                de: `🚨 KRITISCHE KOLLISIONSWARNUNG! (Annäherung mit ${futureClosestDebris || closestDebrisName} in ~${futureMinHours}h auf ${formattedFutDist} km)`,
+                fr: `🚨 ALERTE CRITIQUE DE COLLISION ! (Rapprochement avec ${futureClosestDebris || closestDebrisName} dans ~${futureMinHours}h à ${formattedFutDist} km)`,
+                pt: `🚨 ALERTA CRÍTICO DE COLISÃO! (Encontro com ${futureClosestDebris || closestDebrisName} em ~${futureMinHours}h a ${formattedFutDist} km)`,
                 zh: `🚨 紧急碰撞预警! (预测与 ${futureClosestDebris || closestDebrisName} 在约${futureMinHours}小时后接近至 ${formattedFutDist} km)`,
                 es: `🚨 ¡ALERTA CRÍTICA DE COLISIÓN! (Encuentro con ${futureClosestDebris || closestDebrisName} en ~${futureMinHours}h a ${formattedFutDist} km)`,
                 ru: `🚨 УГРОЗА СТОЛКНОВЕНИЯ! (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours}ч на ${formattedFutDist} км)`
@@ -2174,6 +2453,9 @@ function updatePassPredictionAndRisk(sat, jsDate) {
             const cautText = {
                 ja: `⚠️ 接近注意! (${futureClosestDebris || closestDebrisName} と あと${futureMinHours}時間後に ${formattedFutDist} km に最接近)`,
                 en: `⚠️ CAUTION! (Predicted pass by ${futureClosestDebris || closestDebrisName} in ~${futureMinHours}h at ${formattedFutDist} km)`,
+                de: `⚠️ VORSICHT! (Vorhergesagter Vorbeiflug von ${futureClosestDebris || closestDebrisName} in ~${futureMinHours}h auf ${formattedFutDist} km)`,
+                fr: `⚠️ ATTENTION ! (Passage proche de ${futureClosestDebris || closestDebrisName} dans ~${futureMinHours}h à ${formattedFutDist} km)`,
+                pt: `⚠️ ATENÇÃO! (Passagem próxima de ${futureClosestDebris || closestDebrisName} em ~${futureMinHours}h a ${formattedFutDist} km)`,
                 zh: `⚠️ 接近注意! (预测 ${futureClosestDebris || closestDebrisName} 约${futureMinHours}小时后接近至 ${formattedFutDist} km)`,
                 es: `⚠️ PRECAUCIÓN (Paso cercano de ${futureClosestDebris || closestDebrisName} en ~${futureMinHours}h a ${formattedFutDist} km)`,
                 ru: `⚠️ ВНИМАНИЕ (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours}ч на ${formattedFutDist} км)`
@@ -2183,6 +2465,9 @@ function updatePassPredictionAndRisk(sat, jsDate) {
             const safeText = {
                 ja: `🟢 24時間全軌道クリア (接近デブリなし / 安全軌道維持)`,
                 en: `🟢 24-Hour Clear Orbit (No Debris Encounter / Safe Trajectory)`,
+                de: `🟢 24h freie Umlaufbahn (Kein Weltraummüll / Sichere Flugbahn)`,
+                fr: `🟢 Orbite dégagée 24h (Aucun débris / Trajectoire sécurisée)`,
+                pt: `🟢 Órbita livre por 24h (Sem lixo espacial / Trajetória segura)`,
                 zh: `🟢 24小时全轨道安全 (无碎片接近 / 安全轨道)`,
                 es: `🟢 Órbita despejada 24h (Sin riesgo de escombros / Trayectoria segura)`,
                 ru: `🟢 Безопасная орбита 24ч (Нет опасных сближений / Безопасно)`
