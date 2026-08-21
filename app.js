@@ -445,6 +445,18 @@ function getSatDisplayName(name) {
     const upper = name.toUpperCase();
     
     if (lang === 'ja') {
+        // Military, Defense & Reconnaissance Satellites
+        if (upper.includes('IGS RADAR') || upper.includes('IGS-')) return '🇯🇵 IGS レーダ7号機 (内閣衛星情報センター 事実上の軍事偵察衛星)';
+        if (upper.includes('KIRAMEKI') || upper.includes('DSN-2')) return '🇯🇵 きらめき2号 DSN-2 (防衛省 Xバンド自衛隊防衛通信衛星)';
+        if (upper.includes('SBIRS')) return '🇺🇸 SBIRS GEO-5 (米宇宙軍 弾道ミサイル早期警戒衛星)';
+        if (upper.includes('GSSAP')) return '🇺🇸 GSSAP-5 (米宇宙軍 静止軌道宇宙状況把握「宇宙パトロール」)';
+        if (upper.includes('AEHF')) return '🇺🇸 AEHF-6 (米宇宙軍 核戦争耐性・大統領指令極秘通信衛星)';
+        if (upper.includes('ORION') || upper.includes('MENTOR')) return '🇺🇸 Orion 10 / Mentor-7 (米国家偵察局 口径100m電波盗聴スパイ衛星)';
+        if (upper.includes('TUNDRA') || (upper.includes('COSMOS') && upper.includes('2552'))) return '🇷🇺 Tundra 5 / EKS (ロシア宇宙軍 弾道ミサイル早期警戒モルニヤ衛星)';
+        if (upper.includes('2542')) return '🇷🇺 Kosmos 2542 (ロシア宇宙軍 キラー・インスペクター機動衛星)';
+        if (upper.includes('SHIJIAN-21') || upper.includes('SJ-21')) return '🇨🇳 実践21号 Shijian-21 (中国 衛星捕獲・宇宙ゴミ投棄船)';
+        if (upper.includes('OFEQ')) return '🇮🇱 Ofeq-16 (イスラエル国防軍 逆行軌道光学スパイ衛星)';
+        if (upper.includes('SARAH')) return '🇩🇪 SARah-1 (ドイツ連邦軍 次世代フェーズドアレイレーダー偵察衛星)';
         // Super Interesting & Unique Flagship Satellites (USA / Russia / China / Japan)
         if (upper.includes('X-37B') || upper.includes('OTV')) return '🇺🇸 X-37B (米宇宙軍極秘無人スペースプレーン)';
         if (upper.includes('USA-245') || upper.includes('KEYHOLE') || upper.includes('KH-11')) return '🇺🇸 USA-245 KH-11 (米国家偵察局 口径2.4m極秘スパイ衛星)';
@@ -519,6 +531,17 @@ function getSatDisplayName(name) {
         return name;
     } else {
         let clean = name.replace(/\(.*?[぀-ヿ㐀-䶿一-鿿].*?\)/g, '').trim();
+        if (upper.includes('IGS RADAR') || upper.includes('IGS-')) return '🇯🇵 IGS Radar-7 (Japan Cabinet Reconnaissance Satellite)';
+        if (upper.includes('KIRAMEKI') || upper.includes('DSN-2')) return '🇯🇵 Kirameki-2 DSN-2 (Japan MoD Military X-Band Satcom)';
+        if (upper.includes('SBIRS')) return '🇺🇸 SBIRS GEO-5 (USSF Ballistic Missile Early Warning)';
+        if (upper.includes('GSSAP')) return '🇺🇸 GSSAP-5 (USSF Geosynchronous Space Surveillance Patrol)';
+        if (upper.includes('AEHF')) return '🇺🇸 AEHF-6 (USSF Nuclear-Survivable Protected Satcom)';
+        if (upper.includes('ORION') || upper.includes('MENTOR')) return '🇺🇸 Orion 10 / Mentor-7 (NRO 100m Antenna SIGINT Spy)';
+        if (upper.includes('TUNDRA') || (upper.includes('COSMOS') && upper.includes('2552'))) return '🇷🇺 Tundra 5 / EKS (Russian Early Warning Molniya Orbit)';
+        if (upper.includes('2542')) return '🇷🇺 Kosmos 2542 (Russian Space Stalker / Inspector)';
+        if (upper.includes('SHIJIAN-21') || upper.includes('SJ-21')) return '🇨🇳 Shijian-21 (Chinese Robotic Satellite Tug / Grappler)';
+        if (upper.includes('OFEQ')) return '🇮🇱 Ofeq-16 (Israel Defense Forces Retrograde Spy Satellite)';
+        if (upper.includes('SARAH')) return '🇩🇪 SARah-1 (German Armed Forces Phased-Array Radar Recon)';
         if (upper.includes('X-37B') || upper.includes('OTV')) return '🇺🇸 X-37B (USSF Secret Spaceplane)';
         if (upper.includes('USA-245') || upper.includes('KEYHOLE') || upper.includes('KH-11')) return '🇺🇸 USA-245 KH-11 (NRO Optical Spy Satellite)';
         if (upper.includes('SWOT')) return '🇺🇸 / 🇫🇷 SWOT (Surface Water Ocean Topography)';
@@ -2059,7 +2082,40 @@ window.changeLanguage = function(lang) {
 };
 
 // Major Satellites Built-in TLE Preset (Clean International English Names)
-const MAJOR_SATELLITES_TLE = `X-37B (OTV-7 SPACEPLANE)
+const MAJOR_SATELLITES_TLE = `IGS RADAR-7 (JAPAN RECON)
+1 55342U 23013A   26100.12345678  .00000000  00000-0  00000-0 0  9971
+2 55342  97.4000 135.0000 0012000  60.0000 300.0000 15.22000000    01
+KIRAMEKI-2 (DSN-2 MILSATCOM)
+1 41940U 17005A   26100.12345678  .00000000  00000-0  00000-0 0  9970
+2 41940   0.0300 162.0000 0001000 180.0000  90.0000  1.00270000    02
+SBIRS GEO-5 (EARLY WARNING)
+1 48618U 21042A   26100.12345678  .00000000  00000-0  00000-0 0  9969
+2 48618   0.0200 230.0000 0001000 180.0000  90.0000  1.00270000    03
+GSSAP-5 (SPACE PATROL)
+1 51100U 22005A   26100.12345678  .00000000  00000-0  00000-0 0  9968
+2 51100   0.0800  45.0000 0015000 180.0000  90.0000  1.00350000    04
+AEHF-6 (USA-298 MILSATCOM)
+1 45465U 20019A   26100.12345678  .00000000  00000-0  00000-0 0  9967
+2 45465   0.0200 290.0000 0001000 180.0000  90.0000  1.00270000    05
+ORION 10 / MENTOR-7 (USA-300)
+1 47237U 20095A   26100.12345678  .00000000  00000-0  00000-0 0  9966
+2 47237   0.0400 100.0000 0002000 180.0000  90.0000  1.00270000    06
+TUNDRA 5 (COSMOS 2552 EKS)
+1 49503U 21110A   26100.12345678  .00000000  00000-0  00000-0 0  9965
+2 49503  63.4000  60.0000 7000000 270.0000  90.0000  2.00560000    07
+KOSMOS 2542 (INSPECTOR)
+1 44797U 19079A   26100.12345678  .00000000  00000-0  00000-0 0  9964
+2 44797  97.9000 142.0000 0300000  90.0000 270.0000 15.30000000    08
+SHIJIAN-21 (SPACE TUG)
+1 49330U 21095A   26100.12345678  .00000000  00000-0  00000-0 0  9963
+2 49330   0.0400  80.0000 0001500 180.0000  90.0000  1.00270000    09
+OFEQ-16 (ISRAEL RETROGRADE)
+1 45860U 20044A   26100.12345678  .00000000  00000-0  00000-0 0  9962
+2 45860 141.7000  50.0000 0200000 120.0000 240.0000 15.85000000    10
+SARAH-1 (GERMAN RADAR)
+1 52885U 22063A   26100.12345678  .00000000  00000-0  00000-0 0  9961
+2 52885  98.4000 170.0000 0002000  85.0000 275.0000 14.45000000    11
+X-37B (OTV-7 SPACEPLANE)
 1 58641U 23210A   26100.12345678  .00000000  00000-0  00000-0 0  9983
 2 58641  37.0000 180.0000 0010000 100.0000 260.0000 15.65000000    01
 USA-245 (KH-11 KEYHOLE)
@@ -2309,6 +2365,73 @@ const sourceStatusBadge = document.getElementById('sourceStatusBadge');
 
 // Rich Satellite Mission Descriptions Mapping (Full 5-Language Multilingual Dictionary)
 const SATELLITE_DESCRIPTIONS = {
+    "IGS": {
+        "country": "🇯🇵 日本 (内閣衛星情報センター / 安全保障偵察)",
+        "country_en": "🇯🇵 Japan (Cabinet Satellite Intelligence Center)",
+        "ja": "【情報収集衛星レーダ7号機「IGS-Radar 7」】\n■ 開発・運用組織: 内閣官房 内閣衛星情報センター (CSICE) / 三菱電機\n■ 打上げ日・ロケット: 2023年1月26日 / H-IIAロケット46号機 (種子島)\n■ 軌道諸元: 高度約500km / 太陽同期軌道 (軌道傾斜角97.4度)\n■ 主要観測機器: 高性能Xバンド合成開口レーダ (SAR / サブメートル級分解能)\n■ 安全保障任務: 1998年の北朝鮮テポドン発射を契機に開発された日本の事実上の軍事偵察衛星。夜間や厚い雲、悪天候を電波で透過し、北朝鮮の移動式弾道ミサイル発射機(TEL)や周辺海域の不審船、大規模災害時の被災状況を24時間監視。",
+        "en": "[Japan Cabinet Information Gathering Satellite \"IGS Radar-7\"]\n■ Organization: Cabinet Satellite Intelligence Center (CSICE) / Japan\n■ Launch: Jan 26, 2023 / H-IIA F46\n■ Orbit: ~500 km Sun-synchronous Orbit\n■ Instruments: High-resolution Synthetic Aperture Radar (SAR, sub-meter resolution)\n■ Mission: Sovereign security reconnaissance monitoring ballistic missile launch pads (e.g. North Korea) and maritime domain 24/7 through darkness and heavy clouds."
+},
+    "KIRAMEKI": {
+        "country": "🇯🇵 日本 (防衛省 / 自衛隊専用通信衛星)",
+        "country_en": "🇯🇵 Japan (Ministry of Defense / JSDF)",
+        "ja": "【防衛通信衛星「きらめき2号」(DSN-2)】\n■ 開発・運用組織: 防衛省 (自衛隊) / 株式会社DSN (スカパーJSAT・NEC)\n■ 打上げ日・ロケット: 2017年1月24日 / H-IIAロケット32号機 (種子島)\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (東経162度・太平洋上空定点)\n■ 主要機器: Xバンド防衛通信中継器、強固な耐ジャミング(妨害電波対策)アンテナ\n■ 防衛任務: 陸上・海上・航空自衛隊の全部隊、護衛艦、潜水艦、在外PKO部隊と防衛省司令部を直接結ぶ日本初の防衛専用静止通信網。大容量・高秘匿・耐妨害通信を24時間確保。",
+        "en": "[Japan Ministry of Defense X-Band Communications Satellite \"Kirameki-2\" (DSN-2)]\n■ Organization: Ministry of Defense (Japan Self-Defense Forces)\n■ Launch: Jan 24, 2017 / H-IIA F32\n■ Orbit: Geostationary at 162.0°E (35,786 km)\n■ Instruments: Anti-jam X-band military transponders\n■ Mission: First dedicated defense satellite providing highly encrypted, jam-resistant communications for the JSDF across land, sea, air, and overseas deployments."
+},
+    "SBIRS": {
+        "country": "🇺🇸 アメリカ (米宇宙軍 / 早期警戒衛星)",
+        "country_en": "🇺🇸 USA (US Space Force / Early Warning)",
+        "ja": "【弾道ミサイル早期警戒衛星「SBIRS GEO-5」(宇宙配備赤外線システム)】\n■ 開発・運用組織: アメリカ宇宙軍 (USSF) / ロッキード・マーティン\n■ 打上げ日・ロケット: 2021年5月18日 / アトラスV ロケット (ケープカナベラル)\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道\n■ 主要観測機器: 高感度走査型赤外線センサ(スキャナ)、高精度凝視型赤外線センサ(ステアラ)\n■ 軍事任務: 敵国から発射されたICBM(大陸間弾道ミサイル)、SLBM(潜水艦発射弾道ミサイル)、極超音速滑空兵器のロケット噴煙熱を宇宙から1秒以内に検知。ミサイル防衛軍(NORAD/北米航空宇宙防衛司令部)に着弾予測と迎撃データをリアルタイム配信。",
+        "en": "[Space-Based Infrared System Early Warning Satellite \"SBIRS GEO-5\"]\n■ Organization: United States Space Force (USSF) / Lockheed Martin\n■ Launch: May 18, 2021 / Atlas V\n■ Orbit: Geostationary (35,786 km)\n■ Instruments: Scanning & Staring Infrared Sensors\n■ Mission: Detects thermal plumes from ballistic and hypersonic missile launches worldwide within seconds, providing real-time trajectory tracking for US missile defense."
+},
+    "GSSAP": {
+        "country": "🇺🇸 アメリカ (米宇宙軍 / 宇宙状況把握パトロール)",
+        "country_en": "🇺🇸 USA (US Space Force / Space Patrol)",
+        "ja": "【静止軌道宇宙パトロール衛星「GSSAP-5」(Hornet)】\n■ 開発・運用組織: アメリカ宇宙軍 (USSF) / ノースロップ・グラマン\n■ 打上げ日・ロケット: 2022年1月21日 / アトラスV ロケット\n■ 軌道諸元: 高度約35,800km / 静止軌道近傍ドリフト軌道\n■ 主要機器: 高分解能電子光学式光学センサ、精密近傍軌道変更スラスタ\n■ 極秘任務: 静止衛星軌道帯（高度36,000km）をゆっくりと巡回・パトロールし、中露の不審な軍事衛星や衛星捕獲船に近距離まで接近して高精細撮影・偵察・監視を行う「宇宙の警察官」。",
+        "en": "[Geosynchronous Space Situational Awareness Program \"GSSAP-5\"]\n■ Organization: United States Space Force (USSF) / Northrop Grumman\n■ Launch: Jan 21, 2022 / Atlas V\n■ Orbit: Near-geosynchronous drifting orbit (~35,800 km)\n■ Instruments: High-resolution electro-optical sensors, agile chemical thrusters\n■ Mission: \"Neighborhood watch\" space patrol satellite that drifts along the GEO belt to inspect and photograph foreign adversary satellites at close range."
+},
+    "AEHF": {
+        "country": "🇺🇸 アメリカ (米宇宙軍 / 戦略軍・核抗耐性通信)",
+        "country_en": "🇺🇸 USA (US Space Force / USSTRATCOM)",
+        "ja": "【高度極超音波核抗耐性軍事通信衛星「AEHF-6」(USA-298)】\n■ 開発・運用組織: アメリカ宇宙軍 (USSF) / ノースロップ・グラマン / ロッキード\n■ 打上げ日・ロケット: 2020年3月26日 / アトラスV ロケット\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道\n■ 主要機能: 核爆発時のEMP(電磁パルス)および強力な電子ジャミングに完全耐性を持つ極高周波(EHF/SHF)通信\n■ 軍事任務: 全面核戦争下であっても米大統領および統合参謀本部が戦略爆撃機、原子力潜水艦、ICBM部隊へ「核攻撃命令(NC3)」を下すための世界最高水準の生存性・抗耐性を備えた極秘防衛通信衛星。",
+        "en": "[Advanced Extremely High Frequency Protected Satcom \"AEHF-6\" (USA-298)]\n■ Organization: United States Space Force (USSF)\n■ Launch: March 26, 2020 / Atlas V\n■ Orbit: Geostationary (35,786 km)\n■ Key Features: Nuclear EMP-hardened, extreme anti-jam EHF/SHF communications\n■ Mission: Survivable Nuclear Command, Control, and Communications (NC3) connecting the US President and strategic nuclear triads during global conflict."
+},
+    "ORION": {
+        "country": "🇺🇸 アメリカ (NRO / 国家偵察局巨大電波スパイ)",
+        "country_en": "🇺🇸 USA (NRO / SIGINT Spy)",
+        "ja": "【巨大口径電波傍受スパイ衛星「Orion 10」(Mentor-7 / USA-300)】\n■ 開発・運用組織: NRO (米国家偵察局) / CIA / NSA (国家安全保障局)\n■ 打上げ日・ロケット: 2020年12月11日 / デルタIVヘビー (史上最大級の打ち上げ能力ロケット)\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (中東・アジア上空定点)\n■ 主要機器: 宇宙空間で展開する直径**約100メートル**(サッカー場サイズ)の超巨大メッシュアンテナ\n■ 偵察任務: 宇宙から地上の軍用レーダー波、軍用無線、ミサイル遠隔測定(テレメトリ)、携帯電話の通信をまるごと傍受・盗聴する、人類史上最大級の電子スパイ衛星。",
+        "en": "[NRO Massive Eavesdropping SIGINT Spy Satellite \"Orion 10\" (Mentor-7 / USA-300)]\n■ Organization: National Reconnaissance Office (NRO) / NSA / CIA\n■ Launch: Dec 11, 2020 / Delta IV Heavy\n■ Orbit: Geostationary (35,786 km)\n■ Antenna: Unfurls a massive ~100-meter diameter mesh antenna in space\n■ Mission: Eavesdrops on military radar emissions, encrypted telemetry, and wireless communications across entire continents."
+},
+    "TUNDRA": {
+        "country": "🇷🇺 ロシア (ロシア宇宙軍 / 早期警戒モルニヤ軌道)",
+        "country_en": "🇷🇺 Russia (Russian Aerospace Forces / EKS)",
+        "ja": "【ロシア弾道ミサイル早期警戒衛星「Tundra 5」(Kosmos-2552 / EKS)】\n■ 開発・運用組織: ロシア航空宇宙軍 (VKS) / ツニコマシ\n■ 打上げ日・ロケット: 2021年11月25日 / ソユーズ-2.1b (プレセツク)\n■ 軌道諸元: 近地点約1,600km〜遠地点約38,500km / 高離心率モルニヤ軌道 (軌道傾斜角63.4度 / 12時間周期)\n■ 主要観測機器: 赤外線・光学的ミサイル熱源探知センサ、核爆発探知ペイロード\n■ 軍事任務: ロシアの次世代ミサイル早期警戒システム「クポル(ドーム)」。極北・北米上空で長く滞空するモルニヤ軌道の特性を活かし、北極海や米本土からのICBM発射を監視。",
+        "en": "[Russian Integrated Early Warning Satellite \"Tundra 5\" (Kosmos-2552 / EKS Kupol)]\n■ Organization: Russian Aerospace Forces (VKS)\n■ Launch: Nov 25, 2021 / Soyuz-2.1b\n■ Orbit: ~1,600 x 38,500 km Highly Elliptical Molniya Orbit (Inclination 63.4°)\n■ Instruments: Infrared missile plume sensors, nuclear detonation detectors\n■ Mission: High-latitude early warning monitoring ICBM and submarine launches over North America and the Arctic."
+},
+    "KOSMOS 2542": {
+        "country": "🇷🇺 ロシア (ロシア宇宙軍 / キラー・インスペクター機動衛星)",
+        "country_en": "🇷🇺 Russia (Russian Aerospace Forces / Inspector)",
+        "ja": "【ロシア軍事インスペクター・追跡衛星「Kosmos 2542」(コスモス2542号)】\n■ 開発・運用組織: ロシア航空宇宙軍 (VKS) / ラボチキン\n■ 打上げ日・ロケット: 2019年11月25日 / ソユーズ-2.1v (プレセツク)\n■ 軌道諸元: 高度約370km〜860km / 低軌道 (傾斜角97.9度)\n■ 衝撃的行動: 2020年、米国の最高機密スパイ衛星「USA-245 (KH-11)」と全く同じ軌道面に入り込んで真後ろからぴったり追尾。さらに内部から小型子衛星「Kosmos 2543」を分離し、そこから謎の高速物体を発射したことで「宇宙兵器・キラー衛星の実証実験」として米国が猛抗議した事件の主役。",
+        "en": "[Russian Inspector / Co-orbital Anti-Satellite \"Kosmos 2542\"]\n■ Organization: Russian Aerospace Forces (VKS)\n■ Launch: Nov 25, 2019 / Soyuz-2.1v\n■ Orbit: ~370 x 860 km (Inclination 97.9°)\n■ Incident: Stalked US spy satellite USA-245 (KH-11) at close range and deployed a sub-satellite that fired a high-speed projectile in orbit, sparking global counterspace weapon alarms."
+},
+    "SHIJIAN-21": {
+        "country": "🇨🇳 中国 (中国国家航天局 / 衛星捕獲ロボット船)",
+        "country_en": "🇨🇳 China (CNSA / Space Tug)",
+        "ja": "【静止衛星捕獲・宇宙ゴミ投棄船「実践21号」(Shijian-21 / SJ-21)】\n■ 開発・運用組織: 中国国家航天局 (CNSA) / 中国航天科技集団 (CASC)\n■ 打上げ日・ロケット: 2021年10月24日 / 長征3号乙 ロケット (西昌)\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (高機動型スラスタ搭載)\n■ 主要機能: ロボットアーム捕獲機構、近傍誘導センサ\n■ 歴史的実績と警戒: 2022年1月、静止軌道で機能停止していた中国のナビ衛星「北斗2号G2」にドッキング捕獲し、3,000km上空の「墓場軌道」へ引っ張って投棄することに成功。「宇宙ゴミ清掃技術」とされる一方、有事には敵国の軍事衛星を宇宙から強奪・無力化できる二刀流の宇宙兵器として世界中から注視される。",
+        "en": "[Chinese Geostationary Space Tug & Satellite Grappler \"Shijian-21\" (SJ-21)]\n■ Organization: CNSA / CASC (China)\n■ Launch: Oct 24, 2021 / Long March 3B\n■ Orbit: Geostationary agile orbit (~35,786 km)\n■ Feat & Concern: In Jan 2022, physically rendezvoused with and grappled a dead BeiDou satellite, towing it 3,000 km into a graveyard orbit. Demonstrated dual-use capability to clear space debris or capture adversary satellites."
+},
+    "OFEQ": {
+        "country": "🇮🇱 イスラエル (イスラエル国防軍 / IAI)",
+        "country_en": "🇮🇱 Israel (Israel Defense Forces / IAI)",
+        "ja": "【イスラエル逆行軌道光学偵察衛星「Ofeq-16」(オフェク16号)】\n■ 開発・運用組織: イスラエル国防軍 (IDF) / イスラエル国防省 / IAI (イスラエル航空宇宙産業)\n■ 打上げ日・ロケット: 2020年7月6日 / シャビット2 (Shavit-2) ロケット (パルマヒム空軍基地)\n■ 軌道諸元: 高度約300〜600km / 逆行軌道 (軌道傾斜角141.7度 / 東から西へ飛ぶ極めて珍しい軌道)\n■ 主要機器: エルビット・システムズ製「ジュピター」高解像度宇宙カメラ (地上分解能約30cm)\n■ 軍事背景: 地中海に向けて西向きに打ち上げるため、地球の自転に逆らう「逆行軌道」を採用。中東全域の軍事基地や核施設を日中高頻度に偵察。",
+        "en": "[Israel Defense Forces Retrograde Optical Spy Satellite \"Ofeq-16\"]\n■ Organization: Israel Defense Forces (IDF) / Israel Aerospace Industries (IAI)\n■ Launch: July 6, 2020 / Shavit-2\n■ Orbit: Retrograde Orbit (Inclination 141.7° - travels East to West against Earth's spin)\n■ Instruments: Elbit Systems \"Jupiter\" high-resolution space camera (~30cm resolution)\n■ Mission: High-priority strategic military reconnaissance across the Middle East."
+},
+    "SARAH": {
+        "country": "🇩🇪 ドイツ (ドイツ連邦軍 / 宇宙コマンド)",
+        "country_en": "🇩🇪 Germany (Bundeswehr / German Space Command)",
+        "ja": "【ドイツ連邦軍フェーズドアレイレーダー偵察衛星「SARah-1」】\n■ 開発・運用組織: ドイツ連邦軍 (Bundeswehr) / エアバス・ディフェンス＆スペース\n■ 打上げ日・ロケット: 2022年6月18日 / スペースX ファルコン9 (ヴァンデンバーグ)\n■ 軌道諸元: 高度約750km / 太陽同期軌道 (軌道傾斜角98.4度)\n■ 主要観測機器: 先進型アクティブ・フェーズドアレイXバンド合成開口レーダ\n■ 軍事任務: ドイツ軍の旧世代偵察衛星「SAR-Lupe」の後継機。悪天候や夜間を問わず、ミリ波レーダによって数ミリの地表変位や装甲車両の配備状況を昼夜24時間スキャン。",
+        "en": "[German Armed Forces Active Phased-Array Radar Reconnaissance \"SARah-1\"]\n■ Organization: Bundeswehr (German Space Command) / Airbus Defence and Space\n■ Launch: June 18, 2022 / Falcon 9\n■ Orbit: ~750 km Sun-synchronous Orbit\n■ Instruments: Active Electronically Scanned Array (AESA) X-band SAR\n■ Mission: Sovereign all-weather, day-and-night high-resolution radar reconnaissance for the German military and NATO allies."
+},
+
     "X-37B": {
         "country": "🇺🇸 アメリカ (米宇宙軍 / ボーイング)",
         "country_en": "🇺🇸 USA (US Space Force / Boeing)",
@@ -2857,6 +2980,15 @@ function getSatDescription(name) {
 function getSatCountry(name) {
     const upper = (name || '').toUpperCase();
     const isEn = (currentLang !== 'ja');
+    // Military & Reconnaissance
+    if (upper.includes('IGS')) return isEn ? '🇯🇵 Japan (Cabinet Satellite Intelligence Center)' : '🇯🇵 日本 (内閣衛星情報センター / 安全保障偵察)';
+    if (upper.includes('KIRAMEKI') || upper.includes('DSN')) return isEn ? '🇯🇵 Japan (Ministry of Defense / JSDF)' : '🇯🇵 日本 (防衛省 / 自衛隊専用衛星)';
+    if (upper.includes('SBIRS') || upper.includes('GSSAP') || upper.includes('AEHF')) return isEn ? '🇺🇸 USA (US Space Force / USSTRATCOM)' : '🇺🇸 アメリカ (米宇宙軍 / 戦略軍)';
+    if (upper.includes('ORION') || upper.includes('MENTOR')) return isEn ? '🇺🇸 USA (NRO / National Reconnaissance Office)' : '🇺🇸 アメリカ (NRO / 国家偵察局シギント)';
+    if (upper.includes('TUNDRA') || (upper.includes('COSMOS') && upper.includes('2552')) || upper.includes('2542')) return isEn ? '🇷🇺 Russia (Russian Aerospace Forces / Early Warning)' : '🇷🇺 ロシア (ロシア宇宙軍 / 航空宇宙軍)';
+    if (upper.includes('SHIJIAN-21') || upper.includes('SJ-21')) return isEn ? '🇨🇳 China (CNSA / Space Debris Mitigation)' : '🇨🇳 中国 (中国国家航天局 / 衛星捕獲船)';
+    if (upper.includes('OFEQ')) return isEn ? '🇮🇱 Israel (Israel Defense Forces / IAI)' : '🇮🇱 イスラエル (イスラエル国防軍 / IDF / IAI)';
+    if (upper.includes('SARAH')) return isEn ? '🇩🇪 Germany (Bundeswehr / German Armed Forces)' : '🇩🇪 ドイツ (ドイツ連邦軍 / 宇宙コマンド)';
     // Unique Flagships
     if (upper.includes('X-37B') || upper.includes('OTV')) return isEn ? '🇺🇸 USA (US Space Force / Boeing)' : '🇺🇸 アメリカ (米宇宙軍 / ボーイング)';
     if (upper.includes('USA-245') || upper.includes('KEYHOLE') || upper.includes('KH-11')) return isEn ? '🇺🇸 USA (NRO / National Reconnaissance Office)' : '🇺🇸 アメリカ (NRO / 国家偵察局スパイ衛星)';
@@ -5063,25 +5195,25 @@ function updateDropdownOptions() {
             if (nameUpper.includes('DEBRIS') || nameUpper.includes('COSMOS 2251') || nameUpper.includes('FENGYUN 1C') || nameUpper.includes('SL-8') || nameUpper.includes('SL-16')) {
                 groups.debris.appendChild(opt);
                 counts.debris++;
-            } else if (nameUpper.includes('ALOS') || nameUpper.includes('DAICHI') || nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI') || nameUpper.includes('QZSS') || nameUpper.includes('GCOM') || nameUpper.includes('GOSAT') || nameUpper.includes('SHIZUKU') || nameUpper.includes('SHIKISAI') || nameUpper.includes('IBUKI') || nameUpper.includes('QPS') || nameUpper.includes('STRIX') || nameUpper.includes('ADRAS')) {
+            } else if (nameUpper.includes('ALOS') || nameUpper.includes('DAICHI') || nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI') || nameUpper.includes('QZSS') || nameUpper.includes('GCOM') || nameUpper.includes('GOSAT') || nameUpper.includes('SHIZUKU') || nameUpper.includes('SHIKISAI') || nameUpper.includes('IBUKI') || nameUpper.includes('QPS') || nameUpper.includes('STRIX') || nameUpper.includes('ADRAS') || nameUpper.includes('IGS') || nameUpper.includes('KIRAMEKI') || nameUpper.includes('DSN')) {
                 groups.japan.appendChild(opt);
                 counts.japan++;
-            } else if (nameUpper.includes('SENTINEL') || nameUpper.includes('GALILEO') || nameUpper.includes('METEOSAT') || nameUpper.includes('MTG')) {
+            } else if (nameUpper.includes('SENTINEL') || nameUpper.includes('GALILEO') || nameUpper.includes('METEOSAT') || nameUpper.includes('MTG') || nameUpper.includes('SARAH')) {
                 groups.eu.appendChild(opt);
                 counts.eu++;
             } else if (nameUpper.includes('KOMPSAT') || nameUpper.includes('CHOLLIAN') || nameUpper.includes('GEO-KOMPSAT') || nameUpper.includes('ARIRANG')) {
                 groups.kr.appendChild(opt);
                 counts.kr++;
-            } else if (nameUpper.includes('TIANGONG') || nameUpper.includes('BEIDOU') || nameUpper.includes('FENGYUN-4') || nameUpper.includes('GAOFEN') || nameUpper.includes('MICIUS') || nameUpper.includes('QUESS') || nameUpper.includes('DAMPE') || nameUpper.includes('WUKONG') || nameUpper.includes('YAOGAN') || nameUpper.includes('QUEQIAO')) {
+            } else if (nameUpper.includes('TIANGONG') || nameUpper.includes('BEIDOU') || nameUpper.includes('FENGYUN-4') || nameUpper.includes('GAOFEN') || nameUpper.includes('MICIUS') || nameUpper.includes('QUESS') || nameUpper.includes('DAMPE') || nameUpper.includes('WUKONG') || nameUpper.includes('YAOGAN') || nameUpper.includes('QUEQIAO') || nameUpper.includes('SHIJIAN') || nameUpper.includes('SJ-21')) {
                 groups.cn.appendChild(opt);
                 counts.cn++;
-            } else if (nameUpper.includes('CARTOSAT') || nameUpper.includes('INSAT') || nameUpper.includes('CHANDRAYAAN') || nameUpper.includes('ADITYA')) {
+            } else if (nameUpper.includes('CARTOSAT') || nameUpper.includes('INSAT') || nameUpper.includes('CHANDRAYAAN') || nameUpper.includes('ADITYA') || nameUpper.includes('OFEQ')) {
                 groups.in.appendChild(opt);
                 counts.in++;
-            } else if (nameUpper.includes('GLONASS') || nameUpper.includes('ELEKTRO') || nameUpper.includes('SOYUZ') || nameUpper.includes('OLYMP') || nameUpper.includes('LUCH') || nameUpper.includes('SPEKTR') || nameUpper.includes('METEOR')) {
+            } else if (nameUpper.includes('GLONASS') || nameUpper.includes('ELEKTRO') || nameUpper.includes('SOYUZ') || nameUpper.includes('OLYMP') || nameUpper.includes('LUCH') || nameUpper.includes('SPEKTR') || nameUpper.includes('METEOR') || nameUpper.includes('TUNDRA') || nameUpper.includes('2542')) {
                 groups.ru.appendChild(opt);
                 counts.ru++;
-            } else if (nameUpper.includes('ISS') || nameUpper.includes('HUBBLE') || nameUpper.includes('LANDSAT') || nameUpper.includes('TERRA') || nameUpper.includes('GOES') || nameUpper.includes('GPS') || nameUpper.includes('XRISM') || nameUpper.includes('X-37B') || nameUpper.includes('USA-245') || nameUpper.includes('KEYHOLE') || nameUpper.includes('SWOT') || nameUpper.includes('WORLDVIEW')) {
+            } else if (nameUpper.includes('ISS') || nameUpper.includes('HUBBLE') || nameUpper.includes('LANDSAT') || nameUpper.includes('TERRA') || nameUpper.includes('GOES') || nameUpper.includes('GPS') || nameUpper.includes('XRISM') || nameUpper.includes('X-37B') || nameUpper.includes('USA-245') || nameUpper.includes('KEYHOLE') || nameUpper.includes('SWOT') || nameUpper.includes('WORLDVIEW') || nameUpper.includes('SBIRS') || nameUpper.includes('GSSAP') || nameUpper.includes('AEHF') || nameUpper.includes('ORION') || nameUpper.includes('MENTOR')) {
                 groups.us.appendChild(opt);
                 counts.us++;
             } else {
@@ -6887,6 +7019,18 @@ function performSearch(rawQuery) {
 
     // 2. Search Satellites
     const searchTerms = [upperQuery, rawQuery];
+    if (rawQuery.includes('情報収集衛星') || upperQuery.includes('IGS')) searchTerms.push('IGS', '情報収集衛星');
+    if (rawQuery.includes('きらめき') || upperQuery.includes('KIRAMEKI') || upperQuery.includes('DSN')) searchTerms.push('KIRAMEKI', 'DSN', 'きらめき');
+    if (rawQuery.includes('ミサイル') || upperQuery.includes('SBIRS')) searchTerms.push('SBIRS', 'ミサイル');
+    if (rawQuery.includes('パトロール') || upperQuery.includes('GSSAP')) searchTerms.push('GSSAP', 'パトロール');
+    if (rawQuery.includes('核') || upperQuery.includes('AEHF')) searchTerms.push('AEHF', '核');
+    if (rawQuery.includes('オリオン') || upperQuery.includes('ORION') || upperQuery.includes('MENTOR')) searchTerms.push('ORION', 'MENTOR', 'オリオン');
+    if (rawQuery.includes('ツンドラ') || upperQuery.includes('TUNDRA')) searchTerms.push('TUNDRA', 'ツンドラ');
+    if (rawQuery.includes('キラー') || upperQuery.includes('2542')) searchTerms.push('2542', 'キラー');
+    if (rawQuery.includes('実践') || upperQuery.includes('SHIJIAN') || upperQuery.includes('SJ-21')) searchTerms.push('SHIJIAN-21', 'SJ-21', '実践');
+    if (rawQuery.includes('オフェク') || upperQuery.includes('OFEQ')) searchTerms.push('OFEQ', 'オフェク');
+    if (rawQuery.includes('ザラ') || upperQuery.includes('SARAH')) searchTerms.push('SARAH', 'ザラ');
+
     if (rawQuery.includes('スペースプレーン') || upperQuery.includes('X-37B') || upperQuery.includes('OTV')) searchTerms.push('X-37B', 'OTV');
     if (rawQuery.includes('スパイ') || upperQuery.includes('KEYHOLE') || upperQuery.includes('KH-11') || upperQuery.includes('USA-245')) searchTerms.push('USA-245', 'KH-11', 'KEYHOLE');
     if (rawQuery.includes('スウォット') || upperQuery.includes('SWOT')) searchTerms.push('SWOT', 'スウォット');
