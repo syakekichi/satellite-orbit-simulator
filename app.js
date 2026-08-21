@@ -477,6 +477,21 @@ function getSatDisplayName(name) {
 
 const TRANSLATIONS = {
     ja: {
+        btnRelease: "📜 v2.5 更新履歴",
+        tabReleases: "📜 更新履歴",
+        releaseTitle: "📜 SatViewer3D 更新履歴・リリースノート",
+        rel25Title: "🪐 3D太陽系・惑星探査 & 世界14言語宇宙百科事典 メジャーアップデート",
+        rel25_1: "🪐 太陽・月・主要惑星のリアルタイム3D探査モード: 太陽、月、火星、木星、土星、天王星、金星、水星への急接近・360度自由回転・超精密マイクロズームを実装。",
+        rel25_2: "📷 NASA公式実写フォトテクスチャ: 探査機の実写高解像度テクスチャを全天体に適用し、圧倒的リアリズムを実現。",
+        rel25_3: "💍 本物の3D直交惑星リング: 土星の多重氷リング(カッシーニ間隙・傾斜角26.7度)と天王星の縦向き垂直リング(傾斜角97.8度)を完全再現。",
+        rel25_4: "🌡️ 表面温度HUD & 太陽黒点物理解説: 各惑星の寒暖差や太陽黒点の温度メカニズム(~4,000℃)を専用HUDメトリクスとして新設。",
+        rel25_5: "🌐 世界14言語での天体百科事典・検索: 発見史や各国の探査機ミッション(アポロ、ボイジャー、カッシーニ、JAXA等)を含む全テキストを14言語に完全ローカライズ。",
+        rel20Title: "🔮 宇宙デブリ衝突リスク予測 & Starlinkメガコンステレーション",
+        rel20_1: "🔮 24時間デブリ衝突リスクレーダー: 過去の衛星衝突破片の軌道交差距離(MOID)をリアルタイム計算。",
+        rel20_2: "🛰️ Starlink 2,000機コンステレーション: SpaceXのメガコンステレーション衛星群をブラウザ上で完全描画。",
+        rel20_3: "📡 GPS現在地上空通過予測: 現在地からの可視パス、最接近仰角、通過カウントダウン自動計算。",
+        rel10Title: "🌍 SatViewer3D 正式ローンチ",
+        rel10_1: "WebAssembly / WebGL / CesiumJSを活用したリアルタイム3D人工衛星軌道シミュレーターの初版リリース。",
         appSubtitle: "リアルタイム3D人工衛星・宇宙デブリ軌道シミュレーター",
         statCount: "追跡衛星数",
         statTime: "シミュレーション時刻",
@@ -559,6 +574,21 @@ const TRANSLATIONS = {
         feat8: "👁️ <strong>超高コントラスト 国境線・都市名ラベル</strong>: 宇宙空間の暗闇でも全地球の都市と境界線がくっきり浮き出る高輝度表示。"
     },
     en: {
+        btnRelease: "📜 v2.5 Release Notes",
+        tabReleases: "📜 Release Notes",
+        releaseTitle: "📜 SatViewer3D Release Notes & Changelog",
+        rel25Title: "🪐 3D Solar System, Planetary Exploration & 14-Language Space Encyclopedia",
+        rel25_1: "🪐 3D Celestial Body Inspection Mode: Smooth camera fly-to, 360° D&D orbit rotation, and precision micro-zoom for Sun, Moon, Mars, Jupiter, Saturn, Uranus, Venus, and Mercury.",
+        rel25_2: "📷 Authentic NASA Photo Textures: Real spacecraft imagery applied to all planetary bodies for breathtaking realism.",
+        rel25_3: "💍 True 3D Cartesian Rings: Multi-layered gold/ice rings for Saturn (with Cassini division at 26.7° tilt) and vertical rings for Uranus (97.8° tilt).",
+        rel25_4: "🌡️ Dedicated Surface Temp HUD & Sunspot Physics: Comprehensive thermal metrics and scientific explanations for sunspot magnetism (~4,000°C).",
+        rel25_5: "🌐 14-Language Global Encyclopedia & Search: Complete localization for discovery histories, exploration missions (Apollo, Voyager, Cassini, JAXA, etc.).",
+        rel20Title: "🔮 Orbital Debris Collision Risk Radar & Starlink Constellation",
+        rel20_1: "🔮 24-Hour Space Debris Collision Warning: Real-time minimum orbital intersection distance (MOID) calculations.",
+        rel20_2: "🛰️ Starlink 2,000-Satellite Mega-Constellation: Full global orbital coverage grid rendered directly in the browser.",
+        rel20_3: "📡 GPS-Based Overhead Pass Forecast: Live visible pass countdown, max elevation, and sky trajectory.",
+        rel10Title: "🌍 SatViewer3D Official Launch",
+        rel10_1: "Initial release of high-precision real-time 3D satellite and space debris orbit simulation platform.",
         appSubtitle: "Real-time 3D Satellite & Space Debris Visualizer",
         statCount: "Tracked Satellites",
         statTime: "Simulation Time",
@@ -641,6 +671,21 @@ const TRANSLATIONS = {
         feat8: "👁️ <strong>High-Contrast Borders & City Labels</strong>: High-brightness labels popping clearly even in deep space darkness."
     },
     zh: {
+        btnRelease: "📜 v2.5 更新日志",
+        tabReleases: "📜 更新日志",
+        releaseTitle: "📜 SatViewer3D 更新日志与版本历史",
+        rel25Title: "🪐 3D太阳系行星探索与14语言深空百科重磅更新",
+        rel25_1: "🪐 太阳、月球及全各大行星3D探索模式：支持360度自由旋转与超高精微调缩放。",
+        rel25_2: "📷 NASA官方实拍高分辨率纹理，呈现极致太空视觉质感。",
+        rel25_3: "💍 真实3D空间行星光环：完全重现土星多层冰环与天王星垂直光环。",
+        rel25_4: "🌡️ 表面温度HUD与太阳黑子物理机制(~4,000℃)科普。",
+        rel25_5: "🌐 全球14种语言深空百科全书与实时天体搜索支持。",
+        rel20Title: "🔮 太空碎片碰撞风险雷达与星链星座",
+        rel20_1: "🔮 24小时空间碎片交会预警(MOID)实时计算。",
+        rel20_2: "🛰️ SpaceX星链(Starlink) 2,000颗巨型星座全球轨道网。",
+        rel20_3: "📡 GPS当前地理位置卫星过境预报与倒计时。",
+        rel10Title: "🌍 SatViewer3D 正式上线",
+        rel10_1: "基于WebAssembly/WebGL的实时3D卫星与太空碎片轨道模拟器初版发布。",
         appSubtitle: "实时3D人造卫星与太空碎片轨道追踪模拟器",
         statCount: "追踪卫星数量",
         statTime: "模拟时间",
@@ -713,6 +758,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "如有建议或反馈，请联系 info@satviewer3d.com。"
     },
     es: {
+        btnRelease: "📜 Notas de versión v2.5",
+        tabReleases: "📜 Notas de versión",
+        releaseTitle: "📜 Notas de versión e historial de SatViewer3D",
+        rel25Title: "🪐 Sistema Solar 3D y Enciclopedia Espacial en 14 idiomas",
+        rel25_1: "🪐 Exploración 3D del Sol, Luna y todos los planetas con rotación libre de 360°.",
+        rel25_2: "📷 Texturas fotográficas reales de la NASA.",
+        rel25_3: "💍 Sistema de anillos 3D para Saturno y Urano.",
+        rel25_4: "🌡️ Métricas de temperatura superficial y física de manchas solares.",
+        rel25_5: "🌐 Enciclopedia astronómica completa en 14 idiomas.",
+        rel20Title: "🔮 Radar de colisión de basura espacial y Starlink",
+        rel20_1: "🔮 Detección en tiempo real de aproximaciones de basura espacial (MOID).",
+        rel20_2: "🛰️ Constelación de 2.000 satélites Starlink.",
+        rel20_3: "📡 Predicción de pasos sobre su ubicación GPS.",
+        rel10Title: "🌍 Lanzamiento oficial de SatViewer3D",
+        rel10_1: "Primera versión del simulador orbital 3D en tiempo real.",
         appSubtitle: "Visualizador 3D de Satélites y Basura Espacial en Tiempo Real",
         statCount: "Satélites Rastreados",
         statTime: "Tiempo de Simulación",
@@ -786,6 +846,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "Para consultas, por favor contacte a info@satviewer3d.com."
     },
     ru: {
+        btnRelease: "📜 Примечания к выпуску v2.5",
+        tabReleases: "📜 История версий",
+        releaseTitle: "📜 История обновлений и примечания к выпуску SatViewer3D",
+        rel25Title: "🪐 3D Солнечная система и космическая энциклопедия на 14 языках",
+        rel25_1: "🪐 3D-режим исследования Солнца, Луны и всех планет с вращением на 360°.",
+        rel25_2: "📷 Официальные фототекстуры NASA ультравысокого разрешения.",
+        rel25_3: "💍 Настоящие 3D-кольца Сатурна и вертикальные кольца Урана.",
+        rel25_4: "🌡️ HUD температуры поверхности и физика солнечных пятен.",
+        rel25_5: "🌐 Полная космическая энциклопедия на 14 языках.",
+        rel20Title: "🔮 Радар риска столкновения с мусором и Starlink",
+        rel20_1: "🔮 Расчет опасных сближений с космическим мусором (MOID) в реальном времени.",
+        rel20_2: "🛰️ Группировка Starlink из 2 000 спутников.",
+        rel20_3: "📡 Прогноз пролетов спутников над вашей GPS-локацией.",
+        rel10Title: "🌍 Официальный запуск SatViewer3D",
+        rel10_1: "Первый релиз 3D-симулятора орбит спутников в реальном времени.",
         appSubtitle: "3D визуализатор спутников и космического мусора в реальном времени",
         statCount: "Отслеживаемые спутники",
         statTime: "Время моделирования",
@@ -859,6 +934,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "По всем вопросам обращайтесь на info@satviewer3d.com."
     },
     de: {
+        btnRelease: "📜 v2.5 Versionshinweise",
+        tabReleases: "📜 Versionshinweise",
+        releaseTitle: "📜 SatViewer3D Versionshinweise & Verlauf",
+        rel25Title: "🪐 3D-Sonnensystem & 14-Sprachen-Weltraumenzyklopädie",
+        rel25_1: "🪐 3D-Himmelskörper-Inspektion mit 360°-Orbit-Rotation für Sonne, Mond und alle Planeten.",
+        rel25_2: "📷 Echte NASA-Fototexturen für maximalen Realismus.",
+        rel25_3: "💍 Echtes 3D-Ringsystem für Saturn und vertikale Ringe für Uranus.",
+        rel25_4: "🌡️ Oberflächentemperatur-HUD und Physik der Sonnenflecken.",
+        rel25_5: "🌐 Vollständige Enzyklopädie in 14 Sprachen.",
+        rel20Title: "🔮 Weltraummüll-Kollisionsrisiko & Starlink-Konstellation",
+        rel20_1: "🔮 24h-Kollisionswarnung (MOID) in Echtzeit.",
+        rel20_2: "🛰️ Starlink-Megakonstellation mit 2.000 Satelliten.",
+        rel20_3: "📡 GPS-Überflugvorhersage mit Countdown.",
+        rel10Title: "🌍 SatViewer3D Offizieller Start",
+        rel10_1: "Erste Version des 3D-Satelliten-Orbit-Simulators.",
         appSubtitle: "Echtzeit-3D-Satellitentracker & Weltraummüll-Visualisierer",
         statCount: "Verfolgte Satelliten",
         statTime: "Simulationszeit",
@@ -932,6 +1022,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "Fragen und Feedback an info@satviewer3d.com."
     },
     fr: {
+        btnRelease: "📜 Notes de version v2.5",
+        tabReleases: "📜 Notes de version",
+        releaseTitle: "📜 Notes de version & Historique SatViewer3D",
+        rel25Title: "🪐 Système solaire 3D & Encyclopédie spatiale en 14 langues",
+        rel25_1: "🪐 Mode exploration 3D pour le Soleil, la Lune et toutes les planètes.",
+        rel25_2: "📷 Textures photo officielles de la NASA en haute résolution.",
+        rel25_3: "💍 Anneaux planétaires 3D authentiques (Saturne et Uranus).",
+        rel25_4: "🌡️ Température de surface HUD et physique des taches solaires.",
+        rel25_5: "🌐 Encyclopédie complète traduite en 14 langues.",
+        rel20Title: "🔮 Radar de collision de débris & Constellation Starlink",
+        rel20_1: "🔮 Surveillance en temps réel des risques de débris spatiaux (MOID).",
+        rel20_2: "🛰️ Visualisation de 2 000 satellites Starlink.",
+        rel20_3: "📡 Prévision des passages au-dessus de votre position GPS.",
+        rel10Title: "🌍 Lancement officiel de SatViewer3D",
+        rel10_1: "Première version du simulateur d'orbite spatiale 3D temps réel.",
         appSubtitle: "Visualisateur 3D de Satellites et Débris Spatiaux en Direct",
         statCount: "Satellites Suivis",
         statTime: "Temps Simulé",
@@ -1005,6 +1110,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "Pour toute question : info@satviewer3d.com."
     },
     pt: {
+        btnRelease: "📜 Notas de versão v2.5",
+        tabReleases: "📜 Notas de versão",
+        releaseTitle: "📜 Notas de versão e histórico do SatViewer3D",
+        rel25Title: "🪐 Sistema Solar 3D e Enciclopédia Espacial em 14 idiomas",
+        rel25_1: "🪐 Modo de inspeção 3D para o Sol, Lua e todos os planetas com rotação livre.",
+        rel25_2: "📷 Texturas fotográficas reais da NASA.",
+        rel25_3: "💍 Anéis planetários 3D para Saturno e Urano.",
+        rel25_4: "🌡️ HUD de temperatura e física das manchas solares.",
+        rel25_5: "🌐 Enciclopédia espacial completa em 14 idiomas.",
+        rel20Title: "🔮 Radar de colisão de lixo espacial e Starlink",
+        rel20_1: "🔮 Alerta de colisão de detritos em tempo real.",
+        rel20_2: "🛰️ Visualização de 2.000 satélites Starlink.",
+        rel20_3: "📡 Previsão de passagens sobre seu GPS.",
+        rel10Title: "🌍 Lançamento Oficial do SatViewer3D",
+        rel10_1: "Primeira versão do simulador orbital 3D em tempo real.",
         appSubtitle: "Visualizador 3D de Satélites e Lixo Espacial em Tempo Real",
         statCount: "Satélites Rastreados",
         statTime: "Hora da Simulação",
@@ -1078,6 +1198,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "Dúvidas e sugestões: info@satviewer3d.com."
     },
     it: {
+        btnRelease: "📜 Note di rilascio v2.5",
+        tabReleases: "📜 Note di rilascio",
+        releaseTitle: "📜 Note di rilascio e cronologia SatViewer3D",
+        rel25Title: "🪐 Sistema Solare 3D ed Enciclopedia Spaziale in 14 lingue",
+        rel25_1: "🪐 Esplorazione 3D di Sole, Luna e pianeti con rotazione libera a 360°.",
+        rel25_2: "📷 Texture fotografiche autentiche della NASA.",
+        rel25_3: "💍 Anelli planetari 3D per Saturno e Urano.",
+        rel25_4: "🌡️ HUD temperatura superficiale e fisica delle macchie solari.",
+        rel25_5: "🌐 Enciclopedia astronomica completa in 14 lingue.",
+        rel20Title: "🔮 Radar collisione detriti e Starlink",
+        rel20_1: "🔮 Calcolo in tempo reale del rischio detriti (MOID).",
+        rel20_2: "🛰️ Costellazione di 2.000 satelliti Starlink.",
+        rel20_3: "📡 Previsione passaggi visibili su GPS.",
+        rel10Title: "🌍 Lancio ufficiale di SatViewer3D",
+        rel10_1: "Prima versione del simulatore 3D in tempo reale.",
         appSubtitle: "Visualizzatore 3D di Satelliti e Detriti Spaziali in Tempo Reale",
         statCount: "Satelliti Tracciati",
         statTime: "Ora Simulazione",
@@ -1151,6 +1286,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "Per qualsiasi domanda: info@satviewer3d.com"
     },
     ko: {
+        btnRelease: "📜 v2.5 업데이트 내역",
+        tabReleases: "📜 업데이트 내역",
+        releaseTitle: "📜 SatViewer3D 릴리즈 노트 및 업데이트 내역",
+        rel25Title: "🪐 3D 태양계・행성 탐사 및 14개 언어 우주 백과사전 메이저 업데이트",
+        rel25_1: "🪐 태양, 달, 주요 행성의 실시간 3D 탐사 모드: 360도 자유 회전 및 초정밀 마이크로 줌 구현.",
+        rel25_2: "📷 NASA 공식 실사 포토 텍스처 적용으로 압도적인 사실감 선사.",
+        rel25_3: "💍 토성의 얼음 고리와 천왕성의 수직 고리 3D 완전 구현.",
+        rel25_4: "🌡️ 표면 온도 HUD 및 태양 흑점 물리 메커니즘(~4,000℃) 해설 수록.",
+        rel25_5: "🌐 14개 언어 지원 우주 백과사전 및 천체 실시간 검색 기능 탑재.",
+        rel20Title: "🔮 우주 쓰레기 충돌 위험 예측 & 스타링크 군집위성",
+        rel20_1: "🔮 24시간 우주 데브리 충돌 위험 레이더(MOID) 실시간 연산.",
+        rel20_2: "🛰️ 스타링크 2,000기 메가 콘스텔레이션 3D 렌더링.",
+        rel20_3: "📡 GPS 현재 위치 상공 통과 예측 및 카운트다운.",
+        rel10Title: "🌍 SatViewer3D 정식 출시",
+        rel10_1: "WebAssembly / WebGL 기반 실시간 3D 인공위성 궤도 시뮬레이터 첫 릴리즈.",
         appSubtitle: "실시간 3D 인공위성 및 우주 쓰레기 궤도 시뮬레이터",
         statCount: "추적 중인 위성",
         statTime: "시뮬레이션 시간",
@@ -1224,6 +1374,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "문의 및 피드백: info@satviewer3d.com"
     },
     nl: {
+        btnRelease: "📜 v2.5 Versienotities",
+        tabReleases: "📜 Versienotities",
+        releaseTitle: "📜 SatViewer3D Versienotities & Geschiedenis",
+        rel25Title: "🪐 3D Zonnestelsel & 14-Talige Ruimte-encyclopedie",
+        rel25_1: "🪐 3D-inspectiemodus voor Zon, Maan en alle planeten met 360° rotatie.",
+        rel25_2: "📷 Officiële NASA-fototexturen voor adembenemend realisme.",
+        rel25_3: "💍 Authentieke 3D-ringen voor Saturnus en Uranus.",
+        rel25_4: "🌡️ Oppervlaktetemperatuur HUD en zonnevlekkenfysica.",
+        rel25_5: "🌐 Volledige encyclopedie in 14 talen.",
+        rel20Title: "🔮 Ruimtepuinbotsingsradar & Starlink-constellatie",
+        rel20_1: "🔮 Realtime waarschuwing voor ruimtepuin (MOID).",
+        rel20_2: "🛰️ Starlink-constellatie met 2.000 satellieten.",
+        rel20_3: "📡 GPS-doorgangsvoorspelling met countdown.",
+        rel10Title: "🌍 Officiële lancering van SatViewer3D",
+        rel10_1: "Eerste versie van de realtime 3D-satellietsimulator.",
         appSubtitle: "Realtime 3D Satelliet & Ruimtepuin Visualisator",
         statCount: "Gevolgde Satellieten",
         statTime: "Simulatietijd",
@@ -1297,6 +1462,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "Voor vragen: info@satviewer3d.com"
     },
     id: {
+        btnRelease: "📜 Catatan Rilis v2.5",
+        tabReleases: "📜 Catatan Rilis",
+        releaseTitle: "📜 Catatan Rilis & Riwayat SatViewer3D",
+        rel25Title: "🪐 Tata Surya 3D & Ensiklopedia Antariksa 14 Bahasa",
+        rel25_1: "🪐 Mode eksplorasi 3D untuk Matahari, Bulan, dan seluruh planet.",
+        rel25_2: "📷 Tekstur foto resmi NASA untuk realisme luar biasa.",
+        rel25_3: "💍 Cincin 3D asli untuk Saturnus dan Uranus.",
+        rel25_4: "🌡️ HUD suhu permukaan dan fisika bintik matahari.",
+        rel25_5: "🌐 Ensiklopedia lengkap dalam 14 bahasa.",
+        rel20Title: "🔮 Radar Risiko Tabrakan Sampah & Starlink",
+        rel20_1: "🔮 Peringatan tabrakan sampah antariksa real-time (MOID).",
+        rel20_2: "🛰️ Konstelasi 2.000 satelit Starlink.",
+        rel20_3: "📡 Prakiraan lintasan di atas lokasi GPS.",
+        rel10Title: "🌍 Peluncuran Resmi SatViewer3D",
+        rel10_1: "Rilis perdana simulator orbit 3D real-time.",
         appSubtitle: "Visualisator Satelit 3D & Sampah Antariksa Real-Time",
         statCount: "Satelit Dilacak",
         statTime: "Waktu Simulasi",
@@ -1370,6 +1550,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "Pertanyaan: info@satviewer3d.com"
     },
     ar: {
+        btnRelease: "📜 ملاحظات الإصدار v2.5",
+        tabReleases: "📜 ملاحظات الإصدار",
+        releaseTitle: "📜 سجل التحديثات وملاحظات الإصدار لـ SatViewer3D",
+        rel25Title: "🪐 النظام الشمسي ثلاثي الأبعاد وموسوعة الفضاء بـ 14 لغة",
+        rel25_1: "🪐 استكشاف ثلاثي الأبعاد للشمس والقمر وجميع الكواكب بدوران حر 360 درجة.",
+        rel25_2: "📷 صور فوتوغرافية حقيقية عالية الدقة من وكالة ناسا.",
+        rel25_3: "💍 حلقات ثلاثية الأبعاد واقعية لزحل وأورانوس.",
+        rel25_4: "🌡️ مؤشرات درجات الحرارة وفيزياء البقع الشمسية.",
+        rel25_5: "🌐 موسوعة فلكية شاملة مترجمة لـ 14 لغة.",
+        rel20Title: "🔮 رادار مخاطر تصادم الحطام الفضائي وستارلينك",
+        rel20_1: "🔮 تحذير في الوقت الفعلي من اقتراب الحطام الفضائي (MOID).",
+        rel20_2: "🛰️ عرض كوكبة ستارلينك المكونة من 2000 قمر صناعي.",
+        rel20_3: "📡 توقعات مرور الأقمار فوق موقعك الفعلي.",
+        rel10Title: "🌍 الإطلاق الرسمي لـ SatViewer3D",
+        rel10_1: "الإصدار الأول لمحاكي المدارات الفضائية ثلاثي الأبعاد.",
         appSubtitle: "متتبع الأقمار الصناعية ومحاكي الحطام الفضائي ثلاثي الأبعاد في الوقت الفعلي",
         statCount: "الأقمار المتتبعة",
         statTime: "وقت المحاكاة",
@@ -1443,6 +1638,21 @@ const TRANSLATIONS = {
         aboutContactDesc: "للاستفسارات: info@satviewer3d.com"
     },
     hi: {
+        btnRelease: "📜 v2.5 रिलीज नोट्स",
+        tabReleases: "📜 रिलीज नोट्स",
+        releaseTitle: "📜 SatViewer3D रिलीज नोट्स एवं अद्यतन इतिहास",
+        rel25Title: "🪐 3D सौर मंडल एवं 14-भाषाई अंतरिक्ष ज्ञानकोश",
+        rel25_1: "🪐 सूर्य, चंद्रमा और सभी ग्रहों का 360° 3D अवलोकन।",
+        rel25_2: "📷 नासा के आधिकारिक वास्तविक फोटो टेक्सचर।",
+        rel25_3: "💍 शनि और अरुण के 3D छल्ले।",
+        rel25_4: "🌡️ सतह तापमान HUD और सौर कलंक भौतिकी।",
+        rel25_5: "🌐 14 भाषाओं में संपूर्ण ज्ञानकोश।",
+        rel20Title: "🔮 अंतरिक्ष मलबा टकराव रडार एवं स्टारलिंक",
+        rel20_1: "🔮 वास्तविक समय में मलबा टकराव चेतावनी (MOID)।",
+        rel20_2: "🛰️ 2,000 स्टारलिंक उपग्रहों का जाल।",
+        rel20_3: "📡 जीपीएस आधारित उपग्रह पास भविष्यवाणी।",
+        rel10Title: "🌍 SatViewer3D का आधिकारिक शुभारंभ",
+        rel10_1: "वास्तविक समय 3D उपग्रह सिमुलेटर का पहला संस्करण।",
         appSubtitle: "वास्तविक समय 3D उपग्रह और अंतरिक्ष मलबा विज़ुअलाइज़र",
         statCount: "ट्रैक किए गए उपग्रह",
         statTime: "सिमुलेशन समय",
@@ -1555,6 +1765,7 @@ function applyLanguage(lang) {
         'geoLocateBtn': 'btnGeo',
         'trackBtn': 'btnTrack',
         'untrackBtn': 'btnUntrack',
+        'openReleaseBtn': 'btnRelease',
         'openGuideBtn': 'btnGuide',
         'modalTitle': 'modalTitle'
     };
@@ -5341,7 +5552,25 @@ function setupEventListeners() {
     const guideModal = document.getElementById('guideModal');
 
     if (openGuideBtn && guideModal) {
-        openGuideBtn.addEventListener('click', () => {
+        
+    const openReleaseBtn = document.getElementById('openReleaseBtn');
+    if (openReleaseBtn) {
+        openReleaseBtn.addEventListener('click', () => {
+            const guideModal = document.getElementById('guideModal');
+            if (guideModal) {
+                guideModal.classList.remove('hidden');
+                document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                const relTabBtn = document.querySelector('.modal-tab[data-tab="tabReleases"]');
+                const relTabContent = document.getElementById('tabReleases');
+                if (relTabBtn) relTabBtn.classList.add('active');
+                if (relTabContent) relTabContent.classList.add('active');
+            }
+        });
+    }
+
+    openGuideBtn.addEventListener('click', () => {
             guideModal.classList.remove('hidden');
         });
     }
