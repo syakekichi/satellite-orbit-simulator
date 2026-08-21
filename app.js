@@ -720,6 +720,58 @@ function applyLanguage(lang) {
         updateDropdownOptions();
     }
 
+    // Update datetime-local / Flatpickr input language attribute & locale
+    const timePickerInput = document.getElementById('timePickerInput');
+    const timePlaceholders = {
+        ja: '📅 日時を指定して移動...',
+        en: '📅 Select Date & Time...',
+        de: '📅 Datum & Uhrzeit wählen...',
+        fr: '📅 Choisir date & heure...',
+        es: '📅 Seleccionar fecha y hora...',
+        pt: '📅 Selecionar data e hora...',
+        zh: '📅 选择日期与时间...',
+        ru: '📅 Выбрать дату и время...'
+    };
+    if (timePickerInput) {
+        const localeMap = { ja: 'ja', en: 'en', de: 'de', fr: 'fr', es: 'es', pt: 'pt', zh: 'zh', ru: 'ru' };
+        timePickerInput.setAttribute('lang', localeMap[lang] || 'en');
+        timePickerInput.placeholder = timePlaceholders[lang] || timePlaceholders['en'];
+    }
+
+    if (typeof flatpickr !== 'undefined' && fpInstance) {
+        const loc = (lang === 'en' ? 'default' : lang);
+        if (flatpickr.l10ns && flatpickr.l10ns[loc]) {
+            fpInstance.set('locale', flatpickr.l10ns[loc]);
+        } else if (flatpickr.l10ns && flatpickr.l10ns.default) {
+            fpInstance.set('locale', flatpickr.l10ns.default);
+        }
+    }
+
+    // Localize Cesium Animation & Timeline widget formats
+    if (typeof viewer !== 'undefined' && viewer) {
+        const localeCodeMap = { ja: 'ja-JP', en: 'en-US', de: 'de-DE', fr: 'fr-FR', es: 'es-ES', pt: 'pt-BR', zh: 'zh-CN', ru: 'ru-RU' };
+        const loc = localeCodeMap[lang] || 'en-US';
+
+        if (viewer.animation && viewer.animation.viewModel) {
+            viewer.animation.viewModel.dateFormatter = function(date, viewModel) {
+                const jsDate = Cesium.JulianDate.toDate(date);
+                return jsDate.toLocaleDateString(loc, { year: 'numeric', month: 'short', day: 'numeric' });
+            };
+            viewer.animation.viewModel.timeFormatter = function(date, viewModel) {
+                const jsDate = Cesium.JulianDate.toDate(date);
+                return jsDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+            };
+        }
+
+        if (viewer.timeline) {
+            viewer.timeline.makeLabel = function(time) {
+                const jsDate = Cesium.JulianDate.toDate(time);
+                return jsDate.toLocaleDateString(loc, { month: 'short', day: 'numeric' }) + ' ' + jsDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+            };
+            try { viewer.timeline.resize(); } catch(e) {}
+        }
+    }
+
     if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
         const satDescEl = document.getElementById('satDescription');
         if (satDescEl) {
@@ -1911,6 +1963,7 @@ let customSimTime = null; // null means live real-time
 let timeSpeedMultiplier = 1; // 0, 1, 10, 100, 1000
 let lastRealTime = Date.now();
 let lastOrbitDrawTime = 0;
+let fpInstance = null; // Flatpickr Multilingual Calendar Instance
 
 /**
  * Clock Tick Handler with Time Multiplier Speed & Dynamic Orbit Sync
@@ -2715,17 +2768,40 @@ function setupEventListeners() {
     const resetNowBtn = document.getElementById('resetNowBtn');
 
     if (timePickerInput) {
-        timePickerInput.addEventListener('change', (e) => {
-            if (e.target.value) {
-                customSimTime = new Date(e.target.value);
-            }
-        });
+        if (typeof flatpickr !== 'undefined') {
+            const loc = (currentLang === 'en' ? 'default' : (currentLang || 'ja'));
+            const l10nObj = (flatpickr.l10ns && flatpickr.l10ns[loc]) ? flatpickr.l10ns[loc] : (flatpickr.l10ns ? flatpickr.l10ns.default : {});
+            fpInstance = flatpickr(timePickerInput, {
+                enableTime: true,
+                enableSeconds: true,
+                time_24hr: true,
+                dateFormat: "Y-m-d H:i:S",
+                locale: l10nObj,
+                onChange: function(selectedDates) {
+                    if (selectedDates && selectedDates.length > 0) {
+                        customSimTime = selectedDates[0];
+                        lastRealTime = Date.now();
+                    }
+                }
+            });
+        } else {
+            timePickerInput.addEventListener('change', (e) => {
+                if (e.target.value) {
+                    customSimTime = new Date(e.target.value);
+                    lastRealTime = Date.now();
+                }
+            });
+        }
     }
 
     if (resetNowBtn) {
         resetNowBtn.addEventListener('click', () => {
             customSimTime = new Date();
-            if (timePickerInput) timePickerInput.value = '';
+            if (fpInstance) {
+                fpInstance.clear();
+            } else if (timePickerInput) {
+                timePickerInput.value = '';
+            }
             document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
             const oneXBtn = document.querySelector('.speed-btn[data-speed="1"]');
             if (oneXBtn) oneXBtn.classList.add('active');

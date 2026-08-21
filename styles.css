@@ -1244,3 +1244,72 @@ input:focus + .slider.purple-slider {
         font-size: 0.9rem !important;
     }
 }
+
+/* ==========================================================================
+   Flatpickr Multilingual Dark Neon Glass Calendar Theme
+   ========================================================================== */
+.flatpickr-calendar {
+    background: rgba(11, 19, 41, 0.96) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border: 1px solid rgba(56, 189, 248, 0.4) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(56, 189, 248, 0.25) !important;
+    border-radius: 14px !important;
+    font-family: var(--font-main) !important;
+    color: var(--text-primary) !important;
+    z-index: 999999 !important;
+}
+
+.flatpickr-calendar .flatpickr-months {
+    background: rgba(15, 23, 42, 0.7) !important;
+    border-top-left-radius: 14px !important;
+    border-top-right-radius: 14px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.flatpickr-calendar .flatpickr-current-month,
+.flatpickr-calendar .flatpickr-monthDropdown-months {
+    color: var(--text-primary) !important;
+    font-weight: 700 !important;
+}
+
+.flatpickr-calendar span.flatpickr-weekday {
+    color: var(--accent-cyan) !important;
+    font-weight: 700 !important;
+    font-size: 0.82rem !important;
+}
+
+.flatpickr-calendar .flatpickr-day {
+    color: var(--text-primary) !important;
+    border-radius: 8px !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.88rem !important;
+    transition: all 0.15s ease !important;
+}
+
+.flatpickr-calendar .flatpickr-day:hover {
+    background: rgba(56, 189, 248, 0.2) !important;
+    border-color: rgba(56, 189, 248, 0.5) !important;
+}
+
+.flatpickr-calendar .flatpickr-day.selected {
+    background: #0284c7 !important;
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+.flatpickr-calendar .flatpickr-time {
+    background: rgba(15, 23, 42, 0.8) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-bottom-left-radius: 14px !important;
+    border-bottom-right-radius: 14px !important;
+}
+
+.flatpickr-calendar .flatpickr-time input {
+    color: var(--accent-cyan) !important;
+    font-family: var(--font-mono) !important;
+    font-weight: 700 !important;
+}
+

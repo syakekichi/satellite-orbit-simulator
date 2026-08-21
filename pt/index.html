@@ -107,6 +107,18 @@
     <!-- satellite.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
     
+    <!-- Flatpickr Dark Theme Date-Time Picker for 100% Guaranteed Multilingual Calendar (EN, DE, FR, ES, PT, ZH, RU, JA) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/zh.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -233,7 +245,7 @@
                     <button class="speed-btn" data-speed="1000">🚀 1000x</button>
                 </div>
                 <div class="time-adjust-row">
-                    <input type="datetime-local" id="timePickerInput" class="custom-select" style="font-size: 0.8rem; padding: 6px;">
+                    <input type="text" id="timePickerInput" lang="pt" class="custom-select" style="font-size: 0.8rem; padding: 6px;" placeholder="📅 Select Date & Time...">
                     <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="Redefinir para a hora atual" data-i18n="resetNow">🔄 Agora</button>
                 </div>
             </div>
@@ -458,6 +470,6 @@
     </div>
 
     <!-- Application Script (Cache Busted v121) -->
-    <script src="app.js?v=20260821_122"></script>
+    <script src="app.js?v=20260821_124"></script>
 </body>
 </html>
