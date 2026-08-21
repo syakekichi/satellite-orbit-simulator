@@ -89,11 +89,10 @@ html, body {
     height: 100%;
     z-index: 10;
     pointer-events: none;
-    display: grid;
-    grid-template-columns: 340px 1fr 360px;
-    grid-template-rows: auto 1fr;
-    padding: 20px;
-    gap: 20px;
+    display: block;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
 }
 
 /* Glassmorphism Panel Component */
@@ -114,12 +113,15 @@ html, body {
 
 /* Top Split Floating Islands (Keeps Center View 100% Unobstructed!) */
 .hud-top-split {
-    grid-column: 1 / -1;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     pointer-events: none;
-    width: 100%;
+    z-index: 80;
 }
 
 .header-left-island {
@@ -216,30 +218,28 @@ html, body {
     font-family: var(--font-mono);
 }
 
-/* Sidebar (Guaranteed Bottom-Left Corner Floating Panel) */
+/* Sidebar Floating Panel (Default: Bottom-Left, Freely Draggable) */
 aside#sidebarPanel.hud-sidebar {
-    position: fixed !important;
-    bottom: 16px !important;
-    left: 16px !important;
-    top: auto !important;
-    right: auto !important;
-    width: 360px !important;
-    max-width: calc(100vw - 32px) !important;
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    width: 360px;
+    max-width: calc(100vw - 32px);
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 12px 14px 10px 14px;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: calc(100vh - 120px) !important;
+    height: auto;
+    min-height: 0;
+    max-height: calc(100vh - 120px);
     overflow-y: auto;
-    margin: 0 !important;
-    transform: none !important;
-    z-index: 999999 !important;
-    border-radius: 16px !important;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.75) !important;
-    background: rgba(11, 19, 41, 0.95) !important;
-    backdrop-filter: blur(16px) !important;
+    margin: 0;
+    z-index: 100;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.75);
+    background: rgba(11, 19, 41, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
 .sidebar-section {
@@ -487,24 +487,23 @@ aside#sidebarPanel.hud-sidebar {
     padding: 0 6px;
 }
 
-/* Detail Card Panel */
+/* Detail Card Panel (Default: Right Side, Freely Draggable) */
 .hud-card {
-    grid-column: 3;
-    grid-row: 2;
-    align-self: start;
-    width: 360px !important;
+    position: absolute;
+    top: 90px;
+    right: 16px;
+    width: 360px;
     min-width: 300px;
     max-width: 520px;
     max-height: calc(100vh - 160px);
     overflow-y: auto;
     resize: both;
     box-sizing: border-box;
-    margin-top: 45px;
-    padding: 20px 22px;
-    position: relative;
+    padding: 18px 20px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
+    z-index: 105;
     animation: fadeInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     scrollbar-width: thin;
     scrollbar-color: var(--accent-blue) rgba(0, 0, 0, 0.3);
@@ -1312,4 +1311,41 @@ input:focus + .slider.purple-slider {
     font-family: var(--font-mono) !important;
     font-weight: 700 !important;
 }
+
+/* ==========================================================================
+   RTL (Right-to-Left) Support for Arabic Language
+   ========================================================================== */
+html[dir="rtl"] {
+    text-align: right;
+}
+
+html[dir="rtl"] .hud-layer {
+    direction: ltr !important;
+}
+
+html[dir="rtl"] .hud-sidebar,
+html[dir="rtl"] .hud-card,
+html[dir="rtl"] .header-left-island,
+html[dir="rtl"] .header-right-island,
+html[dir="rtl"] .modal-content {
+    direction: rtl !important;
+    text-align: right;
+}
+
+html[dir="rtl"] .card-body.grid-2col {
+    direction: rtl !important;
+}
+
+html[dir="rtl"] .data-item {
+    text-align: right;
+}
+
+html[dir="rtl"] .modal-tabs {
+    direction: rtl !important;
+}
+
+html[dir="rtl"] .toggle-switch {
+    flex-direction: row-reverse;
+}
+
 

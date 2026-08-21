@@ -6,7 +6,7 @@
 function detectDefaultLanguage() {
     // 1. Prioritize HTML lang attribute from current landing page (for /en/, /de/, /fr/, /es/, /pt/, /zh/, /ru/, etc.)
     const htmlLang = document.documentElement.getAttribute('lang');
-    if (htmlLang && ['ja', 'en', 'de', 'fr', 'es', 'pt', 'it', 'ko', 'nl', 'id', 'hi', 'zh', 'ru'].includes(htmlLang)) {
+    if (htmlLang && ['ja', 'en', 'de', 'fr', 'es', 'pt', 'it', 'ko', 'nl', 'id', 'hi', 'ar', 'zh', 'ru'].includes(htmlLang)) {
         return htmlLang;
     }
 
@@ -24,6 +24,7 @@ function detectDefaultLanguage() {
     if (path.includes('/nl')) return 'nl';
     if (path.includes('/id')) return 'id';
     if (path.includes('/hi')) return 'hi';
+    if (path.includes('/ar')) return 'ar';
 
     const saved = localStorage.getItem('sat_lang');
     if (saved) return saved;
@@ -41,6 +42,7 @@ function detectDefaultLanguage() {
     if (navLang.startsWith('nl')) return 'nl';
     if (navLang.startsWith('id')) return 'id';
     if (navLang.startsWith('hi')) return 'hi';
+    if (navLang.startsWith('ar')) return 'ar';
     
     // Default for all international visitors worldwide is English
     return 'en';
@@ -956,6 +958,77 @@ const TRANSLATIONS = {
         aboutContactTitle: "Kontak:",
         aboutContactDesc: "Pertanyaan: info@satviewer3d.com"
     },
+    ar: {
+        appSubtitle: "متتبع الأقمار الصناعية ومحاكي الحطام الفضائي ثلاثي الأبعاد في الوقت الفعلي",
+        statCount: "الأقمار المتتبعة",
+        statTime: "وقت المحاكاة",
+        dragPanel: "⋮⋮ سحب اللوحة",
+        secSelect: "تحديد / بحث عن قمر صناعي",
+        selectPlaceholder: "-- اختر قمراً صناعياً أو حطاماً --",
+        searchPlaceholder: "البحث بالاسم أو رقم NORAD...",
+        secSource: "مصادر البيانات والإعدادات المسبقة",
+        loadMajor: "⭐ الأقمار الرئيسية (ISS، ستارلينك، الحطام)",
+        loadLocal: "🛰️ كوكبة ستارلينك (2,000)",
+        badgeMajor: "⭐ تم تحميل الأقمار الرئيسية",
+        secTime: "التحكم في الوقت والسرعة",
+        speedStop: "⏸️ إيقاف مؤقت",
+        speedReal: "▶️ 1x (الوقت الفعلي)",
+        resetNow: "🔄 الآن",
+        secDisplay: "إعدادات العرض",
+        toggleLabels: "تسميات الأقمار ثلاثية الأبعاد",
+        toggleOrbits: "إظهار المدار",
+        toggleMultiLap: "🌐 مسار أرضي متعدد الدورات",
+        toggleAtmosphere: "الغلاف الجوي وضوء الشمس",
+        toggle2D: "وضع الخريطة 2D",
+        toggleBorders: "🌐 الحدود والمدن",
+        toggleDebrisRisk: "🔮 تحليل مخاطر الحطام الفضائي",
+        dragDetail: "⋮⋮ سحب البطاقة",
+        dragCam: "⋮⋮ التحكم في الكاميرا",
+        labelAlt: "الارتفاع (Altitude)",
+        labelVel: "السرعة (Velocity)",
+        labelLat: "خط العرض (Latitude)",
+        labelLon: "خط الطول (Longitude)",
+        labelInc: "الميل المداري (Inclination)",
+        labelPeriod: "الفترة المدارية (Period)",
+        labelTimezone: "المنطقة الزمنية",
+        labelPass: "📡 العبور القادم في سماء منطقتك",
+        labelRisk: "🔮 اقتراب الحطام (MOID 24س)",
+        btnGeo: "📍تحديد الموقع",
+        btnTrack: "🎯 تتبع القمر الصناعي",
+        btnUntrack: "🔓 إلغاء قفل الكاميرا",
+        pointerHint: "خارج الشاشة (انقر للتركيز)",
+        btnGuide: "❓ الدليل والشروط",
+        modalTitle: "SatViewer3D الدليل والشروط القانونية",
+        tabControls: "🎮 التحكم",
+        tabDisclaimer: "⚠️ إخلاء المسؤولية",
+        tabPrivacy: "🔒 الخصوصية",
+        tabAbout: "ℹ️ حول الموقع",
+        guideTitleControls: "🖱️ دليل التنقل ثلاثي الأبعاد",
+        guideWheel: "عجلة الماوس / اللمس",
+        guideWheelDesc: "تكبير سلس وفائق الدقة بسرعة 1/10.",
+        guideDrag: "النقر الأيسر + السحب",
+        guideDragDesc: "تدوير الأرض بحرية 360 درجة.",
+        guideTilt: "النقر الأيمن / Ctrl + السحب",
+        guideTiltDesc: "ضبط زاوية رؤية وميل الكاميرا.",
+        guideClick: "النقر على قمر صناعي / بحث",
+        guideClickDesc: "عرض الارتفاع والسرعة ومخاطر الاصطدام في الوقت الفعلي.",
+        guideFocus: "🎯 التتبع التلقائي للكاميرا",
+        guideFocusDesc: "تتحرك الكاميرا تلقائياً مع القمر الصناعي.",
+        guideRadar: "🔮 رادار الحطام الفضائي",
+        guideRadarDesc: "حساب تقاطعات المدارات خلال 24 ساعة (MOID) في الوقت الفعلي.",
+        guideTitleDisclaimer: "⚠️ إخلاء المسؤولية",
+        discText1: "يتم حساب جميع البيانات المدارية والتنبؤات في الوقت الفعلي من بيانات TLE العامة لـ CelesTrak و Space-Track.",
+        discText2: "هذه البيانات للأغراض التعليمية والبحثية فقط.",
+        guideTitlePrivacy: "🔒 سياسة الخصوصية (Google AdSense)",
+        privText1Title: "الإعلانات:",
+        privText1Desc: "قد يستخدم هذا الموقع خدمات إعلانية لطرف ثالث (مثل Google AdSense) مع ملفات تعريف ارتباط مجهولة.",
+        privText2Title: "الإحصاءات:",
+        privText2Desc: "نجمع بيانات حركة مرور مجهولة لتحسين تجربة المستخدم.",
+        guideTitleAbout: "ℹ️ حول SatViewer3D",
+        aboutText1: "SatViewer3D هو محاكي ثلاثي الأبعاد في الوقت الفعلي لتتبع الأقمار الصناعية والحطام الفضائي.",
+        aboutContactTitle: "الاتصال:",
+        aboutContactDesc: "للاستفسارات: info@satviewer3d.com"
+    },
     hi: {
         appSubtitle: "वास्तविक समय 3D उपग्रह और अंतरिक्ष मलबा विज़ुअलाइज़र",
         statCount: "ट्रैक किए गए उपग्रह",
@@ -1045,6 +1118,12 @@ function applyLanguage(lang) {
         subEl.textContent = dict.appSubtitle;
     }
 
+    if (lang === 'ar') {
+        document.documentElement.setAttribute('dir', 'rtl');
+    } else {
+        document.documentElement.setAttribute('dir', 'ltr');
+    }
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict && dict[key]) {
@@ -1092,6 +1171,7 @@ function applyLanguage(lang) {
             nl: { JST: '🇯🇵 Japanse Tijd (JST)', UTC: '🌐 Universele Tijd (UTC)', NY: '🇺🇸 New York (EST/EDT)', CST: '🇨🇳 Chinese Tijd (CST)', CET: '🇳🇱 Midden-Europese Tijd (MET)', MSK: '🇷🇺 Moskou Tijd (MSK)', LOCAL: '💻 Lokale Browsertijd' },
             id: { JST: '🇯🇵 Waktu Standar Jepang (JST)', UTC: '🌐 Waktu Universal (UTC)', NY: '🇺🇸 New York (EST/EDT)', CST: '🇨🇳 Waktu China (CST)', CET: '🇪🇸 Waktu Eropa Tengah (CET)', MSK: '🇷🇺 Waktu Moskow (MSK)', LOCAL: '💻 Waktu Lokal Browser' },
             hi: { JST: '🇯🇵 जापान मानक समय (JST)', UTC: '🌐 सार्वभौमिक समय (UTC)', NY: '🇺🇸 न्यूयॉर्क (EST/EDT)', CST: '🇨🇳 चीन समय (CST)', CET: '🇪🇸 मध्य यूरोपीय समय (CET)', MSK: '🇷🇺 मास्को समय (MSK)', LOCAL: '💻 स्थानीय ब्राउज़र समय' },
+            ar: { JST: '🇯🇵 توقيت اليابان (JST)', UTC: '🌐 التوقيت العالمي (UTC)', NY: '🇺🇸 نيويورك (EST/EDT)', CST: '🇨🇳 توقيت الصين (CST)', CET: '🇪🇸 توقيت وسط أوروبا (CET)', MSK: '🇷🇺 توقيت موسكو (MSK)', LOCAL: '💻 التوقيت المحلي للمتصفح' },
             ru: { JST: '🇯🇵 Японское время (JST / UTC+9)', UTC: '🌐 Всемирное время (UTC)', NY: '🇺🇸 Нью-Йорк (EST/EDT)', CST: '🇨🇳 Китайское время (CST / UTC+8)', CET: '🇪🇸 Центральноевропейское (CET)', MSK: '🇷🇺 Московское время (MSK / UTC+3)', LOCAL: '💻 Местное время браузера' }
         };
         const currentTzMap = tzLabels[lang] || tzLabels['en'];
@@ -1120,6 +1200,7 @@ function applyLanguage(lang) {
         nl: '📅 Kies datum & tijd...',
         id: '📅 Pilih tanggal & waktu...',
         hi: '📅 दिनांक और समय चुनें...',
+        ar: '📅 اختر التاريخ والوقت...',
         zh: '📅 选择日期与时间...',
         ru: '📅 Выбрать дату и время...'
     };
@@ -1140,7 +1221,7 @@ function applyLanguage(lang) {
 
     // Localize Cesium Animation & Timeline widget formats
     if (typeof viewer !== 'undefined' && viewer) {
-        const localeCodeMap = { ja: 'ja-JP', en: 'en-US', de: 'de-DE', fr: 'fr-FR', es: 'es-ES', pt: 'pt-BR', it: 'it-IT', ko: 'ko-KR', nl: 'nl-NL', id: 'id-ID', hi: 'hi-IN', zh: 'zh-CN', ru: 'ru-RU' };
+        const localeCodeMap = { ja: 'ja-JP', en: 'en-US', de: 'de-DE', fr: 'fr-FR', es: 'es-ES', pt: 'pt-BR', it: 'it-IT', ko: 'ko-KR', nl: 'nl-NL', id: 'id-ID', hi: 'hi-IN', ar: 'ar-SA', zh: 'zh-CN', ru: 'ru-RU' };
         const loc = localeCodeMap[lang] || 'en-US';
 
         if (viewer.animation && viewer.animation.viewModel) {
@@ -1306,6 +1387,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: '정지궤도 기상위성 "히마와리 8호"(일본 기상청). 동경 140.7° 상공 35,786km 정지궤도에서 백업 관측 임무 수행.',
         nl: 'Geostationaire weersatelliet "Himawari-8" (JMA). Bevindt zich op 140,7°O op 35.786 km hoogte als backup.',
         id: 'Satelit Cuaca Geostasioner "Himawari-8" (JMA). Terletak di bujur 140,7°BT, 35.786 km di atas khatulistiwa.',
+        ar: 'قمر الأرصاد الجوية الثابت جغرافيًا "هيماواري-8" (JMA). متمركز على خط طول 140.7° شرقاً على ارتفاع 35,786 كم.',
         hi: 'भूस्थिर मौसम उपग्रह "हिमावारी-8" (JMA)। मौसम निगरानी बैकअप के लिए 140.7°E पर 35,786 किमी ऊपर स्थित।',
         zh: '气象卫星“葵花8号”(日本气象厅)。位于赤道上空约35,786公里的静止气象卫星，在东经140.7°作为9号机的备用观测星。',
         es: 'Satélite Meteorológico Geoestacionario "Himawari-8" (JMA). Situado a 35.786 km sobre el ecuador a 140,7°E para monitoreo del clima.',
@@ -1321,6 +1403,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: '정지궤도 기상위성 "히마와리 9호"(일본 기상청). 동경 140.7° 상공 35,786km에서 태풍과 집중호우를 실시간 감시.',
         nl: 'Geostationaire weersatelliet "Himawari-9" (JMA). Bewaakt tyfonen en zwaar weer in realtime (140,7°O).',
         id: 'Satelit Cuaca "Himawari-9" (JMA). Memantau topan dan cuaca ekstrem secara real-time di Asia Timur (140,7°BT).',
+        ar: 'قمر الأرصاد الجوية "هيماواري-9" (JMA). يرصد الأعاصير والطقس القاسي فوق شرق آسيا في الوقت الفعلي (140.7° شرقاً).',
         hi: 'मौसम उपग्रह "हिमावारी-9" (JMA)। पूर्वी एशिया के ऊपर वास्तविक समय में तूफानों की निगरानी करता है।',
         zh: '气象卫星“葵花9号”(日本气象厅)。静止于东经140.7°赤道上空，实时监控台风与暴雨等灾害性天气。',
         es: 'Satélite Meteorológico "Himawari-9". Monitorea en tiempo real tifones y clima severo sobre Asia Oriental a 140,7°E.',
@@ -1336,6 +1419,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: '일본 최신 준천정위성 "미치비키 6호기 (QZSS-6)". H3 로켓으로 발사되어 센티미터급 초정밀 GPS 보정 위치 측정 서비스를 제공.',
         nl: 'Nieuwste QZSS-6 (Michibiki nr. 6) satelliet, gelanceerd met de H3-raket voor uiterst nauwkeurige GPS-positionering.',
         id: 'Satelit terbaru QZSS-6 (Michibiki No. 6) diluncurkan dengan roket H3 untuk layanan penentuan posisi GPS presisi tinggi.',
+        ar: 'أحدث قمر صناعي QZSS-6 (ميشيبيكي رقم 6) تم إطلاقه بصاروخ H3 الياباني لتوفير خدمات تحديد المواقع عالية الدقة.',
         hi: 'जापान के H3 रॉकेट द्वारा लॉन्च किया गया नवीनतम QZSS-6 (मिचिबिकी नं. 6) उपग्रह, उच्च-सटीक GPS सेवाएं प्रदान करता है।',
         zh: '日本最新准天顶卫星“引路6号”(QZSS-6)。由H3火箭成功发射，实现高精度GPS定位增强服务。',
         es: 'Satélite de precisión GPS "Michibiki-6" (QZSS-6) lanzado por el cohete H3 de Japón.',
@@ -1351,6 +1435,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: '일본의 준천정위성 시스템 "미치비키"(QZSS). 도심 고층 빌딩 사각지대를 해소하고 센티미터급 정밀 GPS 보정을 제공.',
         nl: 'Quasi-Zenit Satellietsysteem "Michibiki" (QZSS). Verbetert de GPS-nauwkeurigheid in Japan en Azië-Pacific.',
         id: 'Sistem Satelit Quasi-Zenith "Michibiki" (QZSS). Meningkatkan akurasi GPS di Jepang dan kawasan Asia-Pasifik.',
+        ar: 'نظام الأقمار الصناعية شبه السمتية "ميشيبيكي" (QZSS). يعزز دقة نظام تحديد المواقع GPS في اليابان ومنطقة آسيا والمحيط الهادئ.',
         hi: 'क्वासी-जेनिथ उपग्रह प्रणाली "मिचिबिकी" (QZSS)। जापान और एशिया-प्रशांत क्षेत्र में GPS सटीकता को बढ़ाता है।',
         zh: '日本准天顶卫星系统“引路”(QZSS)。覆盖日本及亚太地区，提供厘米级GPS增强定位。',
         es: 'Sistema de Satélites Quasi-Cenital "Michibiki" (QZSS). Mejora la precisión del GPS en Japón y Asia-Pacífico.',
@@ -1366,6 +1451,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: '국제우주정거장 (ISS). 고도 약 400km의 지구 저궤도를 약 90분마다 1회전(시속 약 27,700km)하며 우주 과학 실험을 수행.',
         nl: 'Internationaal Ruimtestation (ISS). Draait elke 90 minuten rond de aarde op ~400 km hoogte voor wetenschappelijk onderzoek.',
         id: 'Stasiun Luar Angkasa Internasional (ISS). Mengorbit pada ketinggian ~400 km setiap 90 menit untuk penelitian gravitasi mikro.',
+        ar: 'محطة الفضاء الدولية (ISS). تدور حول الأرض على ارتفاع ~400 كم كل 90 دقيقة لإجراء الأبحاث العلمية.',
         hi: 'अंतर्राष्ट्रीय अंतरिक्ष स्टेशन (ISS)। ~400 किमी की ऊंचाई पर हर 90 मिनट में पृथ्वी की परिक्रमा करता है।',
         zh: '国际空间站 (ISS)。在约400公里的近地轨道运行，每90分钟环绕地球一周。',
         es: 'Estación Espacial Internacional (EEI). Órbita a ~400 km de altitud cada 90 minutos para investigación científica.',
@@ -1381,6 +1467,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: '중국 우주정거장 "톈궁"(Tiangong). 고도 약 380~450km 저궤도에서 우주인이 상주하는 독자 우주 실험실.',
         nl: 'Chinees Ruimtestation "Tiangong". Permanent bemand ruimtelaboratorium op ~380-450 km hoogte.',
         id: 'Stasiun Luar Angkasa China "Tiangong". Laboratorium antariksa berawak tetap di ketinggian ~380-450 km.',
+        ar: 'محطة الفضاء الصينية "تيانغونغ". مختبر فضائي مأهول بشكل دائم في مدار على ارتفاع ~380-450 كم.',
         hi: 'चीनी अंतरिक्ष स्टेशन "तियांगोंग"। ~380-450 किमी की ऊंचाई पर परिक्रमा करने वाली स्थायी अंतरिक्ष प्रयोगशाला।',
         zh: '中国“天宫”空间站。高度约380-450公里的近地轨道长期载人空间实验室。',
         es: 'Estación Espacial China "Tiangong". Laboratorio espacial tripulado a 380-450 km.',
@@ -1396,6 +1483,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: '중국 위성항법시스템 "베이더우 3호"(BeiDou-3). 전 지구를 커버하는 독자 항법 위성망.',
         nl: 'Chinees satellietnavigatiesysteem "BeiDou-3". Wereldwijd navigatienetwerk voor uiterst nauwkeurige plaatsbepaling.',
         id: 'Sistem Navigasi Satelit China "BeiDou-3". Konstelasi global yang menyediakan penentuan posisi presisi tinggi.',
+        ar: 'نظام الملاحة عبر الأقمار الصناعية الصيني "بيدو-3". كوكبة ملاحة عالمية توفر تحديد المواقع بدقة فائقة.',
         hi: 'चीनी उपग्रह नेविगेशन प्रणाली "BeiDou-3"। वैश्विक उच्च-सटीक नेविगेशन नक्षत्र।',
         zh: '中国“北斗三号”全球卫星导航系统。为全球提供高精度定位与短报文通信服务。',
         es: 'Sistema de Navegación por Satélite Chino "BeiDou-3". Red global de posicionamiento de alta precisión.',
@@ -1411,6 +1499,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: '허블 우주 망원경 (HST). 고도 약 540km 상공에서 심우주를 관측하며 수많은 천문학적 발견을 이끈 전설적인 우주 망원경.',
         nl: 'Hubble Ruimtetelescoop (HST). Draait op ~540 km hoogte voor baanbrekende astronomische ontdekkingen.',
         id: 'Teleskop Luar Angkasa Hubble (HST). Mengorbit pada ketinggian ~540 km untuk pengamatan astronomi luar angkasa.',
+        ar: 'تلسكوب هابل الفضائي (HST). يدور على ارتفاع ~540 كم لالتقاط الاكتشافات الفلكية في أعماق الفضاء.',
         hi: 'हबल स्पेस टेलीस्कोप (HST)। गहरी अंतरिक्ष खगोलीय खोजों के लिए ~540 किमी की ऊंचाई पर परिक्रमा करता है।',
         zh: '哈勃空间望远镜 (HST)。在约540公里轨道上运行，为人类探索深空宇宙做出巨大贡献。',
         es: 'Telescopio Espacial Hubble (HST). En órbita a ~540 km capturando descubrimientos astronómicos profundos.',
@@ -1426,6 +1515,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: '미국 GPS 항법 위성 (NAVSTAR). 고도 약 20,200km 중궤도(MEO)를 12시간 주기로 돌며 전 세계에 정밀 위치 신호를 제공.',
         nl: 'Amerikaanse GPS-navigatiesatelliet (NAVSTAR). Draait op ~20.200 km hoogte elke 12 uur voor wereldwijde positiebepaling.',
         id: 'Satelit Navigasi GPS AS (NAVSTAR). Mengorbit pada ketinggian ~20.200 km setiap 12 jam untuk sinyal posisi global.',
+        ar: 'قمر الملاحة الأمريكي GPS (NAVSTAR). يدور على ارتفاع ~20,200 كم كل 12 ساعة لتوفير إشارات تحديد المواقع عالمياً.',
         hi: 'अमेरिकी GPS नेविगेशन उपग्रह (NAVSTAR)। वैश्विक स्थिति संकेत प्रदान करने के लिए हर 12 घंटे में ~20,200 किमी पर परिक्रमा करता है।',
         zh: '美国GPS导航卫星 (NAVSTAR)。运行于高度约20,200公里的中地球轨道，每12小时绕地球一周。',
         es: 'Satélite de Navegación GPS de EE. UU. (NAVSTAR). Órbita a ~20.200 km cada 12 horas proveyendo posicionamiento global.',
@@ -1441,6 +1531,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: '임무를 마친 인공위성 또는 로켓 상단 파편 (우주 쓰레기). 초속 약 7.5km의 초고속으로 지구를 돌며 현역 위성에 치명적인 충돌 위험을 초래.',
         nl: 'Ruimtepuin (inactieve satelliet of rakettrap). Draait rond de aarde met ~7,5 km/s en vormt een botsingsrisico.',
         id: 'Sampah antariksa (satelit mati atau pecahan roket). Mengorbit Bumi dengan kecepatan ~7,5 km/detik dengan risiko tabrakan.',
+        ar: 'حطام فضائي (قمر صناعي معطل أو جزء من صاروخ). يدور حول الأرض بسرعة ~7.5 كم/ثانية مشكلاً خطراً على الأقمار النشطة.',
         hi: 'अंतरिक्ष मलबा (निष्क्रिय उपग्रह या रॉकेट का टुकड़ा)। ~7.5 किमी/सेकंड की गति से पृथ्वी की परिक्रमा करता है।',
         zh: '失效人造卫星或火箭残骸 (空间碎片/太空垃圾)。以约7.5公里/秒的超高速绕地飞行，对在轨航天器构成碰撞威胁。',
         es: 'Basura espacial (satélite fuera de servicio o fragmento de cohete). Orbita la Tierra a ~7,5 km/s con riesgo de colisión.',
@@ -1456,6 +1547,7 @@ const SATELLITE_DESCRIPTIONS = {
         ko: 'SpaceX사의 초소형 통신위성 군집 "스타링크(Starlink)". 고도 약 550km 저궤도에서 전 세계에 초고속 저지연 인터넷을 제공.',
         nl: 'SpaceX Starlink communicatiesatelliet. Biedt wereldwijd breedbandinternet vanuit een lage baan om de aarde (~550 km).',
         id: 'Satelit Mega-Konstelasi Starlink milik SpaceX. Menyediakan internet pita lebar global berkecepatan tinggi dari orbit rendah (~550 km).',
+        ar: 'قمر كوكبة ستارلينك التابعة لـ SpaceX. يدور في مدار منخفض (~550 كم) لتوفير إنترنت فائق السرعة عالمياً.',
         hi: 'SpaceX स्टारलिंक उपग्रह। वैश्विक उच्च गति इंटरनेट प्रदान करने के लिए LEO (~550 किमी) में परिक्रमा करता है।',
         zh: 'SpaceX“星链”(Starlink) 低轨互联网卫星。在约550公里近地轨道运行，为全球提供高速宽带接入。',
         es: 'Satélite Starlink de SpaceX. Órbita baja (~550 km) proveyendo internet satelital de banda ancha a nivel global.',
@@ -1890,6 +1982,7 @@ function updateDropdownOptions() {
         nl: '⭐ Belangrijke Satellieten (ISS, Himawari, enz.)',
         id: '⭐ Satelit Utama (ISS, Himawari, dll.)',
         hi: '⭐ प्रमुख उपग्रह (ISS, मौसम उपग्रह, आदि)',
+        ar: '⭐ الأقمار الصناعية الرئيسية (ISS، طقس، إلخ)',
         zh: '⭐ 主要/著名卫星 (国际空间站, 葵花, 天宫等)',
         ru: '⭐ Основные спутники (МКС, Himawari и др.)'
     };
@@ -1904,6 +1997,7 @@ function updateDropdownOptions() {
         nl: '🚨 Ruimtepuin & Fragmenten (COSMOS, enz.)',
         id: '🚨 Sampah Antariksa & Fragmen (COSMOS, dll.)',
         hi: '🚨 अंतरिक्ष मलबा और टुकड़े (COSMOS, आदि)',
+        ar: '🚨 الحطام الفضائي والشظايا (COSMOS، إلخ)',
         zh: '🚨 空间碎片与太空垃圾 (COSMOS, 风云1号等)',
         es: '🚨 Basura Espacial y Fragmentos (COSMOS, etc.)',
         ru: '🚨 Космический мусор (COSMOS, FENGYUN и др.)'
@@ -1919,6 +2013,7 @@ function updateDropdownOptions() {
         nl: '🛰️ Starlink Constellatie (Top 30)',
         id: '🛰️ Konstelasi Starlink (Pilihan 30)',
         hi: '🛰️ स्टारलिंक नक्षत्र (शीर्ष 30)',
+        ar: '🛰️ كوكبة ستارلينك (أهم 30 قمر)',
         zh: '🛰️ 星链 (Starlink) 卫星群 (精选30颗)',
         es: '🛰️ Constelación Starlink (Destacados 30)',
         ru: '🛰️ Группировка Starlink (Топ 30)'
@@ -2812,6 +2907,7 @@ function getUserGeoLocName(lang) {
         nl: 'Tokio',
         id: 'Tokyo',
         hi: 'टोक्यो',
+        ar: 'طوكيو',
         zh: '东京上空',
         ru: 'Токио'
     };
@@ -2848,7 +2944,8 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 ko: '정지궤도 위성 (상시 관측 가능)',
                 nl: 'Geostationair (Continu zichtbaar)',
                 id: 'Geostasioner (Selalu terlihat)',
-                hi: 'भूस्थिर (हमेशा दृश्यमान)'
+                hi: 'भूस्थिर (हमेशा दृश्यमान)',
+                ar: 'مدار جغرافي ثابت (مرئي دائماً)'
             };
             passCountdown.textContent = geoText[lang] || geoText['en'];
             if (passMetaInfo) {
@@ -2865,7 +2962,8 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                     ko: `${locName}에서 상시 관측 가능`,
                     nl: `Continu waarneembaar vanaf ${locName}`,
                     id: `Dapat diamati terus-menerus dari ${locName}`,
-                    hi: `${locName} से लगातार देखने योग्य`
+                    hi: `${locName} से लगातार देखने योग्य`,
+                    ar: `يمكن رصده باستمرار من ${locName}`
                 };
                 passMetaInfo.textContent = metaText[lang] || metaText['en'];
             }
@@ -2896,7 +2994,8 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 ko: `${hh}시간 ${mm}분 ${ss}초 후`,
                 nl: `Over ${hh}u ${mm}m ${ss}s`,
                 id: `Dalam ${hh}j ${mm}m ${ss}d`,
-                hi: `${hh}घंटे ${mm}मिनट ${ss}सेकंड में`
+                hi: `${hh}घंटे ${mm}मिनट ${ss}सेकंड में`,
+                ar: `خلال ${hh}س ${mm}د ${ss}ث`
             };
             passCountdown.textContent = countText[lang] || countText['en'];
             if (passMetaInfo) {
@@ -2914,7 +3013,8 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                     ko: `다음 상공 통과: 약 ${passTimeString} (${locName} / 최대 고도 ~45°)`,
                     nl: `Volgende overvlucht: ~${passTimeString} (${locName})`,
                     id: `Lintasan berikutnya: ~${passTimeString} (${locName})`,
-                    hi: `अगला पास: लगभग ${passTimeString} (${locName})`
+                    hi: `अगला पास: लगभग ${passTimeString} (${locName})`,
+                    ar: `العبور القادم: حوالي ${passTimeString} (${locName})`
                 };
                 passMetaInfo.textContent = metaText[lang] || metaText['en'];
             }
@@ -3006,7 +3106,8 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 ko: `🚨 비상 충돌 경보! (${futureClosestDebris || closestDebrisName} 와 약 ${futureMinHours}시간 후 ${formattedFutDist} km 까지 근접 예측)`,
                 nl: `🚨 KRITIEK BOTSINGSRISICO! (Ontmoeting met ${futureClosestDebris || closestDebrisName} over ~${futureMinHours}u op ${formattedFutDist} km)`,
                 id: `🚨 PERINGATAN TABRAKAN KRITIS! (Pertemuan dengan ${futureClosestDebris || closestDebrisName} dlm ~${futureMinHours}j pd ${formattedFutDist} km)`,
-                hi: `🚨 गंभीर टकराव चेतावनी! (${futureClosestDebris || closestDebrisName} के साथ लगभग ${futureMinHours}घंटे में ${formattedFutDist} किमी पर接近)`
+                hi: `🚨 गंभीर टकराव चेतावनी! (${futureClosestDebris || closestDebrisName} के साथ लगभग ${futureMinHours}घंटे में ${formattedFutDist} किमी पर接近)`,
+                ar: `🚨 تحذير حرج من تصادم! (اقتراب مع ${futureClosestDebris || closestDebrisName} خلال ~${futureMinHours}س على مسافة ${formattedFutDist} كم)`
             };
             debrisProximity.innerHTML = `<span class="hazard-alert-text" style="color:#f43f5e; font-weight:700;">${critText[lang] || critText['en']}</span>`;
         } else if (isFutValid && futureMinDist <= 2000) {
@@ -3023,7 +3124,8 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 ko: `⚠️ 근접 주의! (${futureClosestDebris || closestDebrisName} 와 약 ${futureMinHours}시간 후 ${formattedFutDist} km 최접근)`,
                 nl: `⚠️ WAARSCHUWING! (Puinpassage van ${futureClosestDebris || closestDebrisName} over ~${futureMinHours}u op ${formattedFutDist} km)`,
                 id: `⚠️ PERHATIAN! (Pelewatan puing ${futureClosestDebris || closestDebrisName} dlm ~${futureMinHours}j pd ${formattedFutDist} km)`,
-                hi: `⚠️ सावधानी! (${futureClosestDebris || closestDebrisName} का लगभग ${futureMinHours}घंटे में ${formattedFutDist} किमी पर पास)`
+                hi: `⚠️ सावधानी! (${futureClosestDebris || closestDebrisName} का लगभग ${futureMinHours}घंटे में ${formattedFutDist} किमी पर पास)`,
+                ar: `⚠️ تحذير اقتراب! (مرور متوقع لـ ${futureClosestDebris || closestDebrisName} خلال ~${futureMinHours}س على مسافة ${formattedFutDist} كم)`
             };
             debrisProximity.innerHTML = `<span style="color:#f59e0b; font-weight:600;">${cautText[lang] || cautText['en']}</span>`;
         } else {
@@ -3040,7 +3142,8 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 ko: `🟢 24시간 궤도 안전 (근접 우주 쓰레기 없음 / 안전 궤도 유지)`,
                 nl: `🟢 24u Vrije Baan (Geen ruimtepuin / Veilige baan)`,
                 id: `🟢 Orbit Bersih 24 Jam (Bebas sampah antariksa / Aman)`,
-                hi: `🟢 24 घंटे सुरक्षित कक्षा (कोई मलबा नहीं / सुरक्षित प्रक्षेपवक्र)`
+                hi: `🟢 24 घंटे सुरक्षित कक्षा (कोई मलबा नहीं / सुरक्षित प्रक्षेपवक्र)`,
+                ar: `🟢 مدار آمن لمدة 24 ساعة (لا يوجد حطام مقترب / مسار آمن)`
             };
             debrisProximity.innerHTML = `<span style="color:#10b981;">${safeText[lang] || safeText['en']}</span>`;
         }
