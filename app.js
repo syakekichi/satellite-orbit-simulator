@@ -5775,16 +5775,18 @@ function setupCameraDPadControls() {
             e.stopPropagation();
             if (!viewer) return;
 
-            // Remove temporary inspection sphere when returning to Earth
-            if (activePlanetSphereEntity) {
-                viewer.entities.remove(activePlanetSphereEntity);
-                activePlanetSphereEntity = null;
-            }
-            if (activePlanetRingEntity) {
-                viewer.entities.remove(activePlanetRingEntity);
-                activePlanetRingEntity = null;
-            }
+            // 1. Unlock camera lookAt transform back to Earth frame
+            viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
 
+            // 2. Clean up 3D inspection entities and reset selection
+            clearPlanetInspectionEntities();
+            selectedCelestialId = null;
+            selectedSatIndex = -1;
+
+            if (satSelect) satSelect.value = "";
+            if (detailCard) detailCard.classList.add('hidden');
+
+            // 3. Smoothly fly camera back to Earth View!
             viewer.camera.flyTo({
                 destination: Cesium.Cartesian3.fromDegrees(138.2, 36.2, 22000000),
                 orientation: {
