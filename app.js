@@ -2393,10 +2393,80 @@ const SATELLITE_IMAGES = {
         "caption": "Illustration: JMA / JAXA / Mitsubishi Electric",
         "alt": "Himawari Geostationary Meteorological Satellite"
     },
+    "MICHIBIKI-1R": {
+        "url": "assets/sat_images/michibiki_1r_v2.jpg",
+        "caption": "Illustration: Cabinet Office / JAXA (QZS-1R Replacement)",
+        "alt": "Michibiki QZS-1R Navigation Spacecraft"
+    },
+    "MICHIBIKI-6": {
+        "url": "assets/sat_images/michibiki_6_v2.jpg",
+        "caption": "Illustration: Cabinet Office / JAXA (QZS-6 7-Sat Constellation)",
+        "alt": "Michibiki QZS-6 Modern Navigation Spacecraft"
+    },
+    "MICHIBIKI-5": {
+        "url": "assets/sat_images/michibiki_5_v2.jpg",
+        "caption": "Illustration: Cabinet Office / Mitsubishi Electric (QZS-5 3D Model)",
+        "alt": "Michibiki QZS-5 Modern Navigation Spacecraft"
+    },
+    "MICHIBIKI-3": {
+        "url": "assets/sat_images/michibiki_3_v2.jpg",
+        "caption": "Illustration: Cabinet Office / JAXA (QZS-3 Geostationary GEO Spacecraft)",
+        "alt": "Michibiki QZS-3 Geostationary Spacecraft"
+    },
+    "MICHIBIKI-2": {
+        "url": "assets/sat_images/michibiki_2_v2.jpg",
+        "caption": "Illustration: Cabinet Office / JAXA (QZS-2 Quasi-Zenith Orbit)",
+        "alt": "Michibiki QZS-2 Navigation Spacecraft"
+    },
+    "MICHIBIKI-4": {
+        "url": "assets/sat_images/michibiki_4_v2.jpg",
+        "caption": "Illustration: Cabinet Office / JAXA (QZS-4 Quasi-Zenith Orbit)",
+        "alt": "Michibiki QZS-4 Navigation Spacecraft"
+    },
+    "MICHIBIKI-1": {
+        "url": "assets/sat_images/michibiki_1_v2.jpg",
+        "caption": "Illustration: JAXA / SatNavi (QZS-1 Quasi-Zenith Orbit)",
+        "alt": "Michibiki QZS-1 Quasi-Zenith Satellite"
+    },
     "MICHIBIKI": {
-        "url": "assets/sat_images/michibiki.jpg",
-        "caption": "Illustration: JAXA / Cabinet Office",
-        "alt": "Michibiki Quasi-Zenith Satellite QZSS"
+        "url": "assets/sat_images/michibiki_1_v2.jpg",
+        "caption": "Illustration: JAXA / SatNavi (QZS-1 Quasi-Zenith Orbit)",
+        "alt": "Michibiki QZS-1 Quasi-Zenith Satellite"
+    },
+    "QZS-1R": {
+        "url": "assets/sat_images/michibiki_1r_v2.jpg",
+        "caption": "Illustration: Cabinet Office / JAXA (QZS-1R Replacement)",
+        "alt": "Michibiki QZS-1R Navigation Spacecraft"
+    },
+    "QZS-6": {
+        "url": "assets/sat_images/michibiki_6_v2.jpg",
+        "caption": "Illustration: Cabinet Office / JAXA (QZS-6 7-Sat Constellation)",
+        "alt": "Michibiki QZS-6 Modern Navigation Spacecraft"
+    },
+    "QZS-5": {
+        "url": "assets/sat_images/michibiki_5_v2.jpg",
+        "caption": "Illustration: Cabinet Office / Mitsubishi Electric (QZS-5 3D Model)",
+        "alt": "Michibiki QZS-5 Modern Navigation Spacecraft"
+    },
+    "QZS-3": {
+        "url": "assets/sat_images/michibiki_3_v2.jpg",
+        "caption": "Illustration: Cabinet Office / JAXA (QZS-3 Geostationary GEO Spacecraft)",
+        "alt": "Michibiki QZS-3 Geostationary Spacecraft"
+    },
+    "QZS-2": {
+        "url": "assets/sat_images/michibiki_2_v2.jpg",
+        "caption": "Illustration: Cabinet Office / JAXA (QZS-2 Quasi-Zenith Orbit)",
+        "alt": "Michibiki QZS-2 Navigation Spacecraft"
+    },
+    "QZS-4": {
+        "url": "assets/sat_images/michibiki_4_v2.jpg",
+        "caption": "Illustration: Cabinet Office / JAXA (QZS-4 Quasi-Zenith Orbit)",
+        "alt": "Michibiki QZS-4 Navigation Spacecraft"
+    },
+    "QZS-1": {
+        "url": "assets/sat_images/michibiki_1_v2.jpg",
+        "caption": "Illustration: JAXA / SatNavi (QZS-1 Quasi-Zenith Orbit)",
+        "alt": "Michibiki QZS-1 Quasi-Zenith Satellite"
     },
     "XRISM": {
         "url": "assets/sat_images/xrism.jpg",
