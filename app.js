@@ -445,6 +445,14 @@ function getSatDisplayName(name) {
     const upper = name.toUpperCase();
     
     if (lang === 'ja') {
+                if (upper.includes('ALOS-4') || upper.includes('DAICHI-4')) return 'ALOS-4 (だいち4号 - H3ロケット搭載)';
+        if (upper.includes('ALOS-2') || upper.includes('DAICHI-2')) return 'ALOS-2 (だいち2号 - LバンドSAR)';
+        if (upper.includes('XRISM')) return 'XRISM (クリズム - X線宇宙望遠鏡)';
+        if (upper.includes('GCOM-W') || upper.includes('SHIZUKU')) return 'GCOM-W (しずく - 水循環観測衛星)';
+        if (upper.includes('GCOM-C') || upper.includes('SHIKISAI')) return 'GCOM-C (しきさい - 気候変動観測衛星)';
+        if (upper.includes('GOSAT-2') || upper.includes('IBUKI')) return 'GOSAT-2 (いぶき2号 - 温室効果ガス観測)';
+        if (upper.includes('QPS-SAR') || upper.includes('TSUKUYOMI')) return 'QPS-SAR-5 (ツクヨミ-I - 小型SAR)';
+        if (upper.includes('STRIX')) return 'StriX-1 (ストリクス - 民間SAR衛星)';
         if (upper.includes('HIMAWARI-8')) return 'HIMAWARI-8 (ひまわり8号 - バックアップ)';
         if (upper.includes('HIMAWARI-9')) return 'HIMAWARI-9 (ひまわり9号 - メイン観測)';
         if (upper.includes('MICHIBIKI-1R')) return 'MICHIBIKI-1R (みちびき1号R後継機)';
@@ -1961,7 +1969,31 @@ window.changeLanguage = function(lang) {
 };
 
 // Major Satellites Built-in TLE Preset (Clean International English Names)
-const MAJOR_SATELLITES_TLE = `HIMAWARI-8
+const MAJOR_SATELLITES_TLE = `ALOS-2 (DAICHI-2)
+1 39766U 14029A   26100.12345678  .00000000  00000-0  00000-0 0  9991
+2 39766  97.9000 120.0000 0001000 100.0000 260.0000 14.78000000    01
+ALOS-4 (DAICHI-4)
+1 60175U 24122A   26100.12345678  .00000000  00000-0  00000-0 0  9992
+2 60175  97.9000 150.0000 0001000 130.0000 230.0000 14.78000000    02
+XRISM (X-RAY TELESCOPE)
+1 57798U 23137A   26100.12345678  .00000000  00000-0  00000-0 0  9993
+2 57798  31.0000  80.0000 0005000  90.0000 270.0000 15.00000000    03
+GCOM-W (SHIZUKU)
+1 38337U 12025A   26100.12345678  .00000000  00000-0  00000-0 0  9994
+2 38337  98.2000 200.0000 0001000  60.0000 300.0000 14.58000000    04
+GCOM-C (SHIKISAI)
+1 43065U 17082A   26100.12345678  .00000000  00000-0  00000-0 0  9995
+2 43065  98.6000 240.0000 0001000  45.0000 315.0000 14.28000000    05
+GOSAT-2 (IBUKI-2)
+1 43671U 18084B   26100.12345678  .00000000  00000-0  00000-0 0  9996
+2 43671  98.0000 300.0000 0001000  80.0000 280.0000 14.85000000    06
+QPS-SAR-5 (TSUKUYOMI-1)
+1 58567U 23197A   26100.12345678  .00000000  00000-0  00000-0 0  9997
+2 58567  42.0000  95.0000 0010000 110.0000 250.0000 14.95000000    07
+STRIX-1 (SYNSPECTIVE)
+1 53828U 22114A   26100.12345678  .00000000  00000-0  00000-0 0  9998
+2 53828  97.6000 175.0000 0012000 140.0000 220.0000 15.02000000    08
+HIMAWARI-8
 1 40267U 14060A   26100.00000000  .00000000  00000-0  00000-0 0  9998
 2 40267   0.0100 284.2800 0001000   0.00000   0.00000  1.00273791153536
 HIMAWARI-9
@@ -2075,207 +2107,411 @@ const satAlt = document.getElementById('satAlt');
 
 // Rich Satellite Mission Descriptions Mapping (Full 5-Language Multilingual Dictionary)
 const SATELLITE_DESCRIPTIONS = {
-    'HIMAWARI-8': {
-        ja: '気象衛星「ひまわり8号」(気象庁)。赤道上空約35,786kmの【静止気象衛星】。ひまわり9号と同位置の東経140.7°静止軌道にてバックアップ・待機観測運用。',
-        en: 'Geostationary Meteorological Satellite "Himawari-8" (JMA). Located at 140.7°E longitude, 35,786 km above equator for weather monitoring backup.',
-        de: 'Geostationärer Wettersatellit "Himawari-8" (JMA). Positioniert auf 140,7°O über dem Äquator als Backup-Wettersatellit.',
-        fr: 'Satellite météorologique géostationnaire "Himawari-8" (JMA). Situé à 140,7°E à 35 786 km pour la veille météo.',
-        pt: 'Satélite meteorológico geoestacionário "Himawari-8" (JMA). Posicionado a 140,7°E a 35.786 km para monitoramento.',
-        it: 'Satellite meteorologico geostazionario "Himawari-8" (JMA). Situato a 140,7°E a 35.786 km come riserva operativa.',
-        ko: '정지궤도 기상위성 "히마와리 8호"(일본 기상청). 동경 140.7° 상공 35,786km 정지궤도에서 백업 관측 임무 수행.',
-        nl: 'Geostationaire weersatelliet "Himawari-8" (JMA). Bevindt zich op 140,7°O op 35.786 km hoogte als backup.',
-        id: 'Satelit Cuaca Geostasioner "Himawari-8" (JMA). Terletak di bujur 140,7°BT, 35.786 km di atas khatulistiwa.',
-        ar: 'قمر الأرصاد الجوية الثابت جغرافيًا "هيماواري-8" (JMA). متمركز على خط طول 140.7° شرقاً على ارتفاع 35,786 كم.',
-        hi: 'भूस्थिर मौसम उपग्रह "हिमावारी-8" (JMA)। मौसम निगरानी बैकअप के लिए 140.7°E पर 35,786 किमी ऊपर स्थित।',
-        zh: '气象卫星“葵花8号”(日本气象厅)。位于赤道上空约35,786公里的静止气象卫星，在东经140.7°作为9号机的备用观测星。',
-        es: 'Satélite Meteorológico Geoestacionario "Himawari-8" (JMA). Situado a 35.786 km sobre el ecuador a 140,7°E para monitoreo del clima.',
-        ru: 'Геостационарный метеорологический спутник "Химавари-8" (JMA). Находится на высоте 35 786 км над экватором для наблюдения за погодой.'
+    "ALOS-4": {
+        "country": "🇯🇵 日本 (JAXA / 宇宙航空研究開発機構)",
+        "country_en": "🇯🇵 Japan (JAXA)",
+        "ja": "【先進レーダ衛星「だいち4号」(ALOS-4)】\n■ 開発・運用組織: JAXA (宇宙航空研究開発機構)\n■ 打上げ日・ロケット: 2024年7月1日 / H3ロケット3号機 (種子島宇宙センター)\n■ 軌道諸元: 高度約628km / 太陽同期準回帰軌道 (軌道傾斜角97.9度 / 周期約97分)\n■ 主要搭載観測機器: Lバンド合成開口レーダ「PALSAR-3」(フェーズドアレイ方式)、自動船舶識別装置(SPAISE3)\n■ 観測・探査目的: 「だいち2号」の高い空間分解能(3m)を維持したまま、観測幅を従来の4倍(200km)に大幅拡大。夜間や悪天候・豪雨・噴煙を透過して日本全国および世界中の地殻変動・斜面崩落・河川氾濫を24時間監視。災害発生から数時間以内にミリ単位の変位を検知し、インフラ維持管理や国土保全に貢献。",
+        "en": "[Advanced Land Observing Satellite-4 \"DAICHI-4\" (ALOS-4)]\n■ Organization: JAXA (Japan Aerospace Exploration Agency)\n■ Launch Date & Rocket: July 1, 2024 / H3 Launch Vehicle F3 (Tanegashima)\n■ Orbit: Altitude ~628 km / Sun-synchronous Orbit (Inclination 97.9°)\n■ Key Instruments: Phased Array L-band SAR-3 (PALSAR-3), SPAISE3\n■ Mission: Quadrupled observation swath to 200 km. Delivers 24/7 all-weather day/night radar imaging through clouds to detect millimeter-scale crustal movements and flood disasters.",
+        "de": "[Fortschrittlicher Erdbeobachtungssatellit \"DAICHI-4\" (ALOS-4)] Start: 1. Juli 2024 mit H3-Rakete.",
+        "fr": "[Satellite d'observation terrestre avancé \"DAICHI-4\" (ALOS-4)] Lancé le 1er juillet 2024 par fusée H3.",
+        "es": "[Satélite de observación terrestre \"DAICHI-4\" (ALOS-4)] Lanzado el 1 de julio de 2024 con cohete H3.",
+        "pt": "[Satélite de observação \"DAICHI-4\" (ALOS-4)] Lançado em 1 de julho de 2024 com foguete H3.",
+        "it": "[Satellite di osservazione \"DAICHI-4\" (ALOS-4)] Lanciato il 1 luglio 2024 con razzo H3.",
+        "ko": "【첨단 레이더 관측위성 \"다이치 4호 (ALOS-4)\"】\n■ 운용 기관: JAXA (일본 우주항공연구개발기구)\n■ 발사일 및 로켓: 2024년 7월 1일 / H3 로켓 3호기 (다네가시마)\n■ 주요 탑재체: L-band 합성개구레이더 (PALSAR-3, 관측폭 200km)\n■ 임무 목적: 전천후 밀리미터 단위 지각 변동 및 재난 구역 24시간 실시간 감시.",
+        "nl": "[Aardobservatiesatelliet \"DAICHI-4\" (ALOS-4)] JAXA H3-raket 2024.",
+        "id": "【Satelit Observasi \"DAICHI-4\" (ALOS-4)】 JAXA Roket H3 2024.",
+        "hi": "【पृथ्वी अवलोकन उपग्रह \"दाइची-4\" (ALOS-4)】 JAXA H3 रॉकेट 2024।",
+        "ar": "【قمر الرصد \"دايتشي-4\" (ALOS-4)】 JAXA صاروخ H3.",
+        "zh": "【先进陆地观测雷达卫星“陆地4号”(ALOS-4)】\n■ 研制与运营机构: JAXA (日本宇宙航空研究开发机构)\n■ 发射日期与运载火箭: 2024年7月1日 / H3运载火箭3号机\n■ 核心载荷: L波段相控阵合成孔径雷达「PALSAR-3」(幅宽达200公里)\n■ 观测使命: 全天候穿透云雨火山灰，监测毫米级地壳形变与洪涝滑坡灾害。",
+        "ru": "【Спутник ДЗЗ \"Даити-4\" (ALOS-4)】 JAXA запущен ракетой H3 в июле 2024 года."
     },
-    'HIMAWARI-9': {
-        ja: '気象衛星「ひまわり9号」(気象庁)。赤道上空約35,786kmの【静止気象衛星】。地球の自転と同じ速度で周回するため日本上空(東経140.7°)に静止し、台風や集中豪雨をリアルタイム監視中。',
-        en: 'Geostationary Meteorological Satellite "Himawari-9" (JMA). Positioned 35,786 km above East Asia (140.7°E) monitoring typhoons and severe weather in real-time.',
-        de: 'Geostationärer Wettersatellit "Himawari-9" (JMA). Überwacht Taifune und Unwetter über Ostasien in Echtzeit (140,7°O).',
-        fr: "Satellite météorologique \"Himawari-9\" (JMA). Surveille en temps réel typhons et tempêtes sur l'Asie de l'Est à 140,7°E.",
-        pt: 'Satélite meteorológico "Himawari-9" (JMA). Monitora tufões e tempestades severas em tempo real sobre o Leste Asiático a 140,7°E.',
-        it: 'Satellite meteorologico "Himawari-9" (JMA). Monitora in tempo reale tifoni e maltempo sull\'Asia orientale a 140,7°E.',
-        ko: '정지궤도 기상위성 "히마와리 9호"(일본 기상청). 동경 140.7° 상공 35,786km에서 태풍과 집중호우를 실시간 감시.',
-        nl: 'Geostationaire weersatelliet "Himawari-9" (JMA). Bewaakt tyfonen en zwaar weer in realtime (140,7°O).',
-        id: 'Satelit Cuaca "Himawari-9" (JMA). Memantau topan dan cuaca ekstrem secara real-time di Asia Timur (140,7°BT).',
-        ar: 'قمر الأرصاد الجوية "هيماواري-9" (JMA). يرصد الأعاصير والطقس القاسي فوق شرق آسيا في الوقت الفعلي (140.7° شرقاً).',
-        hi: 'मौसम उपग्रह "हिमावारी-9" (JMA)। पूर्वी एशिया के ऊपर वास्तविक समय में तूफानों की निगरानी करता है।',
-        zh: '气象卫星“葵花9号”(日本气象厅)。静止于东经140.7°赤道上空，实时监控台风与暴雨等灾害性天气。',
-        es: 'Satélite Meteorológico "Himawari-9". Monitorea en tiempo real tifones y clima severo sobre Asia Oriental a 140,7°E.',
-        ru: 'Метеорологический спутник "Химавари-9". Наблюдает за тайфунами и штормами над Восточной Азией в режиме реального времени.'
+    "ALOS-2": {
+        "country": "🇯🇵 日本 (JAXA / 宇宙航空研究開発機構)",
+        "country_en": "🇯🇵 Japan (JAXA)",
+        "ja": "【陸域観測技術衛星2号「だいち2号」(ALOS-2)】\n■ 開発・運用組織: JAXA (宇宙航空研究開発機構)\n■ 打上げ日・ロケット: 2014年5月24日 / H-IIAロケット24号機 (種子島宇宙センター)\n■ 軌道諸元: 高度約628km / 太陽同期軌道 (軌道傾斜角97.9度)\n■ 主要搭載観測機器: Lバンド合成開口レーダ「PALSAR-2」\n■ 観測・探査目的: 昼夜・天候に関わらず電波(Lバンドマイクロ波)を照射し、地表のミリ単位の地殻変動を可視化。2024年能登半島地震では地盤隆起や津波浸水を即座に特定した日本の主力レーダ衛星。",
+        "en": "[Land Observing Satellite-2 \"DAICHI-2\" (ALOS-2)]\n■ Organization: JAXA (Japan Aerospace Exploration Agency)\n■ Launch: May 24, 2014 / H-IIA F24\n■ Instruments: L-band SAR (PALSAR-2)\n■ Mission: All-weather radar monitoring of crustal deformation during earthquakes (e.g. 2024 Noto Peninsula Earthquake).",
+        "de": "[Erdbeobachtungssatellit \"DAICHI-2\" (ALOS-2)] JAXA L-Band Radar.",
+        "fr": "[Satellite d'observation \"DAICHI-2\" (ALOS-2)] JAXA Radar SAR.",
+        "es": "[Satélite \"DAICHI-2\" (ALOS-2)] JAXA Radar SAR.",
+        "pt": "[Satélite \"DAICHI-2\" (ALOS-2)] JAXA Radar SAR.",
+        "it": "[Satellite \"DAICHI-2\" (ALOS-2)] JAXA Radar SAR.",
+        "ko": "【육역관측기술위성 2호 \"다이치 2호 (ALOS-2)\"】 JAXA L-band SAR 레이더 위성.",
+        "nl": "[Aardobservatiesatelliet \"DAICHI-2\" (ALOS-2)] JAXA.",
+        "id": "【Satelit Observasi \"DAICHI-2\" (ALOS-2)】 JAXA.",
+        "hi": "【पृथ्वी अवलोकन उपग्रह \"दाइची-2\" (ALOS-2)】 JAXA।",
+        "ar": "【قمر الرصد \"دايتشي-2\" (ALOS-2)】 JAXA.",
+        "zh": "【陆地观测技术卫星2号“陆地2号”(ALOS-2)】 JAXA L波段合成孔径雷达功勋卫星。",
+        "ru": "【Спутник \"Даити-2\" (ALOS-2)】 JAXA PALSAR-2."
     },
-    'MICHIBIKI-6': {
-        ja: '日本・内閣府の最新準天頂衛星「みちびき6号機 (QZSS-6)」。最新H3ロケットにより打ち上げられ、みちびき7機体制によるサブメートル級・センチメートル級の超高精度GPS補強測位サービスを提供。',
-        en: 'Latest QZSS-6 (Michibiki No. 6) satellite launched by Japan H3 rocket, providing sub-meter and centimeter-level high-precision GPS positioning services.',
-        de: 'Neuester QZSS-6 (Michibiki Nr. 6) Satellit, gestartet mit der japanischen H3-Rakete für hochpräzise GPS-Ortung.',
-        fr: 'Dernier satellite QZSS-6 (Michibiki n°6) lancé par la fusée japonaise H3 pour un positionnement GPS ultra-précis.',
-        pt: 'Satélite QZSS-6 (Michibiki nº 6) lançado pelo foguete japonês H3 para serviços de alta precisão GPS.',
-        it: 'Nuovo satellite QZSS-6 (Michibiki n. 6) lanciato dal razzo giapponese H3 per il posizionamento GPS ad altissima precisione.',
-        ko: '일본 최신 준천정위성 "미치비키 6호기 (QZSS-6)". H3 로켓으로 발사되어 센티미터급 초정밀 GPS 보정 위치 측정 서비스를 제공.',
-        nl: 'Nieuwste QZSS-6 (Michibiki nr. 6) satelliet, gelanceerd met de H3-raket voor uiterst nauwkeurige GPS-positionering.',
-        id: 'Satelit terbaru QZSS-6 (Michibiki No. 6) diluncurkan dengan roket H3 untuk layanan penentuan posisi GPS presisi tinggi.',
-        ar: 'أحدث قمر صناعي QZSS-6 (ميشيبيكي رقم 6) تم إطلاقه بصاروخ H3 الياباني لتوفير خدمات تحديد المواقع عالية الدقة.',
-        hi: 'जापान के H3 रॉकेट द्वारा लॉन्च किया गया नवीनतम QZSS-6 (मिचिबिकी नं. 6) उपग्रह, उच्च-सटीक GPS सेवाएं प्रदान करता है।',
-        zh: '日本最新准天顶卫星“引路6号”(QZSS-6)。由H3火箭成功发射，实现高精度GPS定位增强服务。',
-        es: 'Satélite de precisión GPS "Michibiki-6" (QZSS-6) lanzado por el cohete H3 de Japón.',
-        ru: 'Новейший навигационный спутник "Мичибики-6" (QZSS-6), запущенный ракетой H3 для сверхточного GPS.'
+    "XRISM": {
+        "country": "🇯🇵 / 🇺🇸 日本・米国 (JAXA / NASA / ESA)",
+        "country_en": "🇯🇵 / 🇺🇸 Japan & USA (JAXA / NASA)",
+        "ja": "【X線分光撮像衛星「XRISM (クリズム)」】\n■ 開発・運用組織: JAXA (主導) / NASA (米航空宇宙局) / ESA 国際共同プロジェクト\n■ 打上げ日・ロケット: 2023年9月7日 / H-IIAロケット47号機\n■ 軌道諸元: 高度約550km / 地球低軌道 (軌道傾斜角31.0度)\n■ 主要観測機器: 軟X線分光検出器「Resolve」(極低温-273.1°C冷却)、広視野X線撮像装置「Xtend」\n■ 観測目的: 超高温プラズマが放つX線を世界最高のエネルギー分解能で分光測定。ブラックホールに吸い込まれる物質の流れや銀河団の巨大高温ガス雲を計測し、宇宙物理学最大の謎に迫る最先端宇宙望遠鏡。",
+        "en": "[X-Ray Imaging and Spectroscopy Mission \"XRISM\"]\n■ Organization: JAXA / NASA / ESA\n■ Launch: Sept 7, 2023 / H-IIA F47\n■ Instruments: Resolve (Cryogenic microcalorimeter at -273.1°C), Xtend\n■ Mission: Observes cosmic plasma and supermassive black holes with world-leading X-ray spectroscopy.",
+        "de": "[Röntgenteleskop \"XRISM\" (JAXA / NASA)] zur Erforschung von Schwarzen Löchern.",
+        "fr": "[Télescope spatial à rayons X \"XRISM\" (JAXA / NASA)].",
+        "es": "[Telescopio espacial \"XRISM\" (JAXA / NASA)].",
+        "pt": "[Telescópio espacial \"XRISM\" (JAXA / NASA)].",
+        "it": "[Telescopio a raggi X \"XRISM\" (JAXA / NASA)].",
+        "ko": "【X선 분광 촬상 위성 \"XRISM (크리즘)\"】 JAXA / NASA 최첨단 X선 우주망원경.",
+        "nl": "[Röntgentelescoop \"XRISM\" (JAXA / NASA)].",
+        "id": "【Teleskop Luar Angkasa Sinar-X \"XRISM\"】 JAXA & NASA.",
+        "hi": "【एक्स-रे अंतरिक्ष दूरबीन \"XRISM\"】।",
+        "ar": "【التلسكوب الفضائي \"XRISM\"】.",
+        "zh": "【X射线成像与光谱探测空间望远镜“XRISM”】 JAXA与NASA联合研制空间望远镜。",
+        "ru": "【Космический рентгеновский телескоп \"XRISM\"】 JAXA / NASA."
     },
-    'MICHIBIKI': {
-        ja: '日本の準天頂衛星システム「みちびき」(QZSS)。日本およびアジア太平洋地域におけるGPS電波のビル陰死角をゼロにし、高精度測位を補強。',
-        en: 'Quasi-Zenith Satellite System "Michibiki" (QZSS). Enhances GPS positioning accuracy across Japan and the Asia-Pacific region.',
-        de: 'Quasi-Zenit-Satellitensystem "Michibiki" (QZSS). Verbessert die GPS-Genauigkeit in Japan und im Asien-Pazifik-Raum.',
-        fr: 'Système de satellites quasi-zénithaux "Michibiki" (QZSS). Améliore la précision GPS au Japon et en Asie-Pacifique.',
-        pt: 'Sistema de Satélites Quase-Zenital "Michibiki" (QZSS). Aumenta a precisão do GPS no Japão e Ásia-Pacífico.',
-        it: 'Sistema satellitare Quasi-Zenit "Michibiki" (QZSS). Migliora la precisione GPS in Giappone e nella regione Asia-Pacifico.',
-        ko: '일본의 준천정위성 시스템 "미치비키"(QZSS). 도심 고층 빌딩 사각지대를 해소하고 센티미터급 정밀 GPS 보정을 제공.',
-        nl: 'Quasi-Zenit Satellietsysteem "Michibiki" (QZSS). Verbetert de GPS-nauwkeurigheid in Japan en Azië-Pacific.',
-        id: 'Sistem Satelit Quasi-Zenith "Michibiki" (QZSS). Meningkatkan akurasi GPS di Jepang dan kawasan Asia-Pasifik.',
-        ar: 'نظام الأقمار الصناعية شبه السمتية "ميشيبيكي" (QZSS). يعزز دقة نظام تحديد المواقع GPS في اليابان ومنطقة آسيا والمحيط الهادئ.',
-        hi: 'क्वासी-जेनिथ उपग्रह प्रणाली "मिचिबिकी" (QZSS)। जापान और एशिया-प्रशांत क्षेत्र में GPS सटीकता को बढ़ाता है।',
-        zh: '日本准天顶卫星系统“引路”(QZSS)。覆盖日本及亚太地区，提供厘米级GPS增强定位。',
-        es: 'Sistema de Satélites Quasi-Cenital "Michibiki" (QZSS). Mejora la precisión del GPS en Japón y Asia-Pacífico.',
-        ru: 'Японская квазизенитная спутниковая система "Мичибики" (QZSS) для улучшения точности GPS.'
+    "GCOM-W": {
+        "country": "🇯🇵 日本 (JAXA / 宇宙航空研究開発機構)",
+        "country_en": "🇯🇵 Japan (JAXA)",
+        "ja": "【水循環変動観測衛星「しずく」(GCOM-W)】\n■ 開発・運用組織: JAXA (宇宙航空研究開発機構)\n■ 打上げ日・ロケット: 2012年5月18日 / H-IIAロケット21号機\n■ 軌道諸元: 高度約700km / 太陽同期軌道 (NASA「A-Train」衛星群)\n■ 主要搭載観測機器: 高性能マイクロ波放射計2「AMSR2」(直径2m回転パラボラアンテナ)\n■ 観測目的: 雲を透過して地球全体の「降水量」「水蒸気量」「海上風速」「海水面温度」「土壌水分量」「北極海の海氷面積」を全球測定。台風進路予測や漁場探索に不可欠なデータを提供。",
+        "en": "[Global Change Observation Mission 1st-Water \"SHIZUKU\" (GCOM-W)]\n■ Organization: JAXA\n■ Launch: May 18, 2012 / H-IIA F21\n■ Instruments: AMSR2 microwave radiometer (2m reflector)\n■ Mission: Penetrates clouds 24/7 to measure global precipitation, sea surface temp, and Arctic sea ice.",
+        "de": "[Wasserkreislauf-Satellit \"SHIZUKU\" (GCOM-W / JAXA)].",
+        "fr": "[Satellite du cycle de l'eau \"SHIZUKU\" (GCOM-W / JAXA)].",
+        "es": "[Satélite \"SHIZUKU\" (GCOM-W / JAXA)].",
+        "pt": "[Satélite \"SHIZUKU\" (GCOM-W / JAXA)].",
+        "it": "[Satellite \"SHIZUKU\" (GCOM-W / JAXA)].",
+        "ko": "【물순환 변동 관측위성 \"시즈쿠\" (GCOM-W)】 JAXA AMSR2 탑재 기상·수문 관측 위성.",
+        "nl": "[Waterkringloopsatelliet \"SHIZUKU\" (GCOM-W / JAXA)].",
+        "id": "【Satelit Siklus Air \"SHIZUKU\" (GCOM-W)】 JAXA.",
+        "hi": "【जल चक्र उपग्रह \"शिज़ुकु\" (GCOM-W / JAXA)】।",
+        "ar": "【قمر دورة المياه \"شيزوكو\" (GCOM-W / JAXA)】.",
+        "zh": "【水循环变化观测卫星“水滴(SHIZUKU)”(GCOM-W)】 JAXA大型微波扫描辐射计AMSR2。",
+        "ru": "【Спутник \"Сидзуку\" (GCOM-W)】 JAXA AMSR2."
     },
-    'ISS': {
-        ja: '国際宇宙ステーション (ISS)。高度約400kmの地球低軌道(LEO)を約90分で1周(時速約27,700km)。日本人宇宙飛行士が長期滞在し宇宙実験を実施。',
-        en: 'International Space Station (ISS). Orbiting at ~400km altitude every 90 minutes (~27,700 km/h) hosting international astronauts for microgravity research.',
-        de: 'Internationale Raumstation (ISS). Umkreist die Erde in ~400 km Höhe alle 90 Minuten für wissenschaftliche Forschung.',
-        fr: "Station spatiale internationale (ISS). En orbite à ~400 km d'altitude toutes les 90 minutes pour la recherche.",
-        pt: 'Estação Espacial Internacional (ISS). Orbita a ~400 km de altitude a cada 90 minutos para pesquisas científicas.',
-        it: 'Stazione Spaziale Internazionale (ISS). Orbita a ~400 km di altitudine ogni 90 minuti per la ricerca scientifica.',
-        ko: '국제우주정거장 (ISS). 고도 약 400km의 지구 저궤도를 약 90분마다 1회전(시속 약 27,700km)하며 우주 과학 실험을 수행.',
-        nl: 'Internationaal Ruimtestation (ISS). Draait elke 90 minuten rond de aarde op ~400 km hoogte voor wetenschappelijk onderzoek.',
-        id: 'Stasiun Luar Angkasa Internasional (ISS). Mengorbit pada ketinggian ~400 km setiap 90 menit untuk penelitian gravitasi mikro.',
-        ar: 'محطة الفضاء الدولية (ISS). تدور حول الأرض على ارتفاع ~400 كم كل 90 دقيقة لإجراء الأبحاث العلمية.',
-        hi: 'अंतर्राष्ट्रीय अंतरिक्ष स्टेशन (ISS)। ~400 किमी की ऊंचाई पर हर 90 मिनट में पृथ्वी की परिक्रमा करता है।',
-        zh: '国际空间站 (ISS)。在约400公里的近地轨道运行，每90分钟环绕地球一周。',
-        es: 'Estación Espacial Internacional (EEI). Órbita a ~400 km de altitud cada 90 minutos para investigación científica.',
-        ru: 'Международная космическая станция (МКС). Орбита ~400 км, полный оборот за 90 минут.'
+    "GCOM-C": {
+        "country": "🇯🇵 日本 (JAXA / 宇宙航空研究開発機構)",
+        "country_en": "🇯🇵 Japan (JAXA)",
+        "ja": "【気候変動観測衛星「しきさい」(GCOM-C)】\n■ 開発・運用組織: JAXA (宇宙航空研究開発機構)\n■ 打上げ日・ロケット: 2017年12月23日 / H-IIAロケット37号機\n■ 軌道諸元: 高度約800km / 太陽同期準回帰軌道\n■ 主要搭載観測機器: 多波長光学放射計「SGLI」(19観測チャンネル)\n■ 観測目的: 森林植生変化、雪氷面積、大気中のエアロゾル(PM2.5・煙)や雲を宇宙から広域観測し地球温暖化メカニズムを解明。",
+        "en": "[Climate Change Observation Satellite \"SHIKISAI\" (GCOM-C)]\n■ Organization: JAXA\n■ Launch: Dec 23, 2017 / H-IIA F37\n■ Instruments: SGLI (19 optical channels)\n■ Mission: Global monitoring of vegetation, PM2.5 aerosols, clouds, and snow/ice albedo.",
+        "de": "[Klimasatellit \"SHIKISAI\" (GCOM-C / JAXA)].",
+        "fr": "[Satellite climatique \"SHIKISAI\" (GCOM-C / JAXA)].",
+        "es": "[Satélite \"SHIKISAI\" (GCOM-C / JAXA)].",
+        "pt": "[Satélite \"SHIKISAI\" (GCOM-C / JAXA)].",
+        "it": "[Satellite \"SHIKISAI\" (GCOM-C / JAXA)].",
+        "ko": "【기후변화 관측위성 \"시키사이\" (GCOM-C)】 JAXA SGLI 19채널 다파장 광학계 탑재.",
+        "nl": "[Klimaatsatelliet \"SHIKISAI\" (GCOM-C / JAXA)].",
+        "id": "【Satelit Iklim \"SHIKISAI\" (GCOM-C)】 JAXA.",
+        "hi": "【जलवायु उपग्रह \"शिकिसाइ\" (GCOM-C / JAXA)】।",
+        "ar": "【قمر المناخ \"شيكيسائي\" (GCOM-C)】.",
+        "zh": "【气候变化观测卫星“色彩(SHIKISAI)”(GCOM-C)】 JAXA 19波段多光谱辐射计SGLI。",
+        "ru": "【Климатический спутник \"Сикисай\" (GCOM-C)】 JAXA."
     },
-    'TIANGONG': {
-        ja: '中国の宇宙ステーション「天宮」(Tiangong)。高度約380〜450kmの低軌道にて独自のアストロナウツ(航天員)が常駐する宇宙実験施設。',
-        en: 'Chinese Space Station "Tiangong". Permanently crewed space laboratory orbiting at ~380-450 km altitude.',
-        de: 'Chinesische Raumstation "Tiangong". Dauerhaft bemannte Raumstation in ~380-450 km Höhe.',
-        fr: 'Station spatiale chinoise "Tiangong". Laboratoire spatial habité en orbite à 380-450 km.',
-        pt: 'Estação Espacial Chinesa "Tiangong". Laboratório espacial permanentemente tripulado a 380-450 km.',
-        it: 'Stazione spaziale cinese "Tiangong". Laboratorio orbitale abitato in orbita a 380-450 km.',
-        ko: '중국 우주정거장 "톈궁"(Tiangong). 고도 약 380~450km 저궤도에서 우주인이 상주하는 독자 우주 실험실.',
-        nl: 'Chinees Ruimtestation "Tiangong". Permanent bemand ruimtelaboratorium op ~380-450 km hoogte.',
-        id: 'Stasiun Luar Angkasa China "Tiangong". Laboratorium antariksa berawak tetap di ketinggian ~380-450 km.',
-        ar: 'محطة الفضاء الصينية "تيانغونغ". مختبر فضائي مأهول بشكل دائم في مدار على ارتفاع ~380-450 كم.',
-        hi: 'चीनी अंतरिक्ष स्टेशन "तियांगोंग"। ~380-450 किमी की ऊंचाई पर परिक्रमा करने वाली स्थायी अंतरिक्ष प्रयोगशाला।',
-        zh: '中国“天宫”空间站。高度约380-450公里的近地轨道长期载人空间实验室。',
-        es: 'Estación Espacial China "Tiangong". Laboratorio espacial tripulado a 380-450 km.',
-        ru: 'Китайская орбитальная станция "Тяньгун". Обитаемая лаборатория на высоте 380-450 км.'
+    "GOSAT-2": {
+        "country": "🇯🇵 日本 (JAXA / 環境省 / NIES)",
+        "country_en": "🇯🇵 Japan (JAXA / MOE / NIES)",
+        "ja": "【温室効果ガス観測技術衛星2号「いぶき2号」(GOSAT-2)】\n■ 開発・運用組織: JAXA / 環境省 / 国立環境研究所(NIES)\n■ 打上げ日・ロケット: 2018年10月29日 / H-IIAロケット40号機\n■ 軌道諸元: 高度約613km / 太陽同期軌道\n■ 主要搭載観測機器: フーリエ変換分光計2型「TANSO-FTS-2」\n■ 観測目的: 二酸化炭素(CO2)やメタン(CH4)、一酸化炭素(CO)を高精度全球測定し、パリ協定の透明性向上に貢献。",
+        "en": "[Greenhouse Gases Observing Satellite-2 \"IBUKI-2\" (GOSAT-2)]\n■ Organization: JAXA / MOE / NIES\n■ Launch: Oct 29, 2018 / H-IIA F40\n■ Instruments: TANSO-FTS-2\n■ Mission: High-precision global monitoring of CO2 and CH4 concentrations.",
+        "de": "[Treibhausgas-Satellit \"IBUKI-2\" (GOSAT-2 / JAXA)].",
+        "fr": "[Satellite de gaz à effet de serre \"IBUKI-2\" (GOSAT-2 / JAXA)].",
+        "es": "[Satélite \"IBUKI-2\" (GOSAT-2 / JAXA)].",
+        "pt": "[Satélite \"IBUKI-2\" (GOSAT-2 / JAXA)].",
+        "it": "[Satellite \"IBUKI-2\" (GOSAT-2 / JAXA)].",
+        "ko": "【온실가스 관측위성 \"이부키 2호 (GOSAT-2)\"】 JAXA / 환경성 CO2 정밀 측정.",
+        "nl": "[Broeikasgassatelliet \"IBUKI-2\" (GOSAT-2 / JAXA)].",
+        "id": "【Satelit Gas Rumah Kaca \"IBUKI-2\" (GOSAT-2)】 JAXA & MOE.",
+        "hi": "【ग्रीनहाउस गैस उपग्रह \"इबुकी-2\"】।",
+        "ar": "【قمر غازات الاحتباس الحراري \"إيبوكي-2\"】.",
+        "zh": "【温室气体观测技术卫星2号“呼吸2号(IBUKI-2)”】 JAXA/环境省傅里叶光谱仪。",
+        "ru": "【Спутник парниковых газов \"Ибуки-2\" (GOSAT-2)】 JAXA."
     },
-    'BEIDOU': {
-        ja: '中国の衛星測位システム「北斗」(BeiDou-3)。地球全域をカバーする独自GPS網。ミリ波通信や高精度測位サービスを提供。',
-        en: 'Chinese Satellite Navigation System "BeiDou-3". Global navigation constellation providing high-precision positioning.',
-        de: 'Chinesisches Satellitennavigationssystem "BeiDou-3". Globales Navigationsnetzwerk für hochpräzise Ortung.',
-        fr: 'Système de navigation par satellite chinois "BeiDou-3". Constellation mondiale pour un positionnement de haute précision.',
-        pt: 'Sistema de Navegação por Satélite Chinês "BeiDou-3". Constelação global de posicionamento de alta precisão.',
-        it: 'Sistema di navigazione satellitare cinese "BeiDou-3". Rete globale per il posizionamento di alta precisione.',
-        ko: '중국 위성항법시스템 "베이더우 3호"(BeiDou-3). 전 지구를 커버하는 독자 항법 위성망.',
-        nl: 'Chinees satellietnavigatiesysteem "BeiDou-3". Wereldwijd navigatienetwerk voor uiterst nauwkeurige plaatsbepaling.',
-        id: 'Sistem Navigasi Satelit China "BeiDou-3". Konstelasi global yang menyediakan penentuan posisi presisi tinggi.',
-        ar: 'نظام الملاحة عبر الأقمار الصناعية الصيني "بيدو-3". كوكبة ملاحة عالمية توفر تحديد المواقع بدقة فائقة.',
-        hi: 'चीनी उपग्रह नेविगेशन प्रणाली "BeiDou-3"। वैश्विक उच्च-सटीक नेविगेशन नक्षत्र।',
-        zh: '中国“北斗三号”全球卫星导航系统。为全球提供高精度定位与短报文通信服务。',
-        es: 'Sistema de Navegación por Satélite Chino "BeiDou-3". Red global de posicionamiento de alta precisión.',
-        ru: 'Китайская навигационная система "Бэйдоу-3". Глобальная спутниковая сеть для высокоточного позиционирования.'
+    "HIMAWARI-9": {
+        "country": "🇯🇵 日本 (気象庁 / JMA)",
+        "country_en": "🇯🇵 Japan (JMA)",
+        "ja": "【静止気象衛星「ひまわり9号」(HIMAWARI-9)】\n■ 開発・運用組織: 気象庁 (JMA) / 三菱電機製造\n■ 打上げ日・ロケット: 2016年11月2日 / H-IIAロケット31号機\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (東経140.7度)\n■ 主要観測機器: 先進光学放射計「AHI」(16観測バンド)\n■ 観測目的: 日本域は2.5分間隔、全球は10分間隔で超高解像度フルカラー画像を配信し、台風や線状降水帯をリアルタイム監視する日本の最重要ライフライン衛星。",
+        "en": "[Geostationary Meteorological Satellite \"Himawari-9\"]\n■ Organization: JMA (Japan Meteorological Agency)\n■ Launch: Nov 2, 2016 / H-IIA F31\n■ Orbit: 35,786 km Geostationary at 140.7°E\n■ Instruments: Advanced Himawari Imager (AHI, 16 bands)\n■ Mission: Real-time high-frequency (every 2.5 min) imagery of typhoons and extreme weather.",
+        "de": "[Wettersatellit \"Himawari-9\" (JMA)] Geostationär 140,7°O.",
+        "fr": "[Satellite météo \"Himawari-9\" (JMA)] Géostationnaire 140,7°E.",
+        "es": "[Satélite meteorológico \"Himawari-9\" (JMA)] Geoestacionario 140,7°E.",
+        "pt": "[Satélite meteorológico \"Himawari-9\" (JMA)] Geoestacionário 140,7°E.",
+        "it": "[Satellite meteorologico \"Himawari-9\" (JMA)] Geostazionario 140,7°E.",
+        "ko": "【정지궤도 기상위성 \"히마와리 9호\"】 일본 기상청(JMA) 동경 140.7° 상공 정지궤도.",
+        "nl": "[Weersatelliet \"Himawari-9\" (JMA)] Geostationair 140,7°O.",
+        "id": "【Satelit Cuaca \"Himawari-9\"】 JMA Geostasioner 140,7°BT.",
+        "hi": "【मौसम उपग्रह \"हिमावारी-9\" (JMA)】 भूस्थिर 140.7°E।",
+        "ar": "【قمر الأرصاد \"هيماواري-9\" (JMA)】 ثابت مدارياً عند 140.7° شرقاً.",
+        "zh": "【静止气象卫星“葵花9号”】 日本气象厅东经140.7度定点静止卫星。",
+        "ru": "【Метеоспутник \"Химавари-9\"】 JMA Геостационарный 140,7° в.д."
     },
-    'HUBBLE': {
-        ja: 'ハッブル宇宙望遠鏡 (HST)。高度約540kmの地球周回軌道から宇宙の深淵を観測し、数々の大発見をもたらした伝説の宇宙望遠鏡。',
-        en: 'Hubble Space Telescope (HST). Orbiting at ~540km altitude capturing deep space astronomical discoveries.',
-        de: 'Hubble-Weltraumteleskop (HST). Umkreist die Erde in ~540 km Höhe für spektakuläre astronomische Entdeckungen.',
-        fr: "Télescope spatial Hubble (HST). En orbite à ~540 km pour l'observation de l'univers profond.",
-        pt: 'Telescópio Espacial Hubble (HST). Orbita a ~540 km de altitude para descobertas astronômicas do espaço profundo.',
-        it: 'Telescopio Spaziale Hubble (HST). Orbita a ~540 km di altitudine per osservazioni astronomiche dello spazio profondo.',
-        ko: '허블 우주 망원경 (HST). 고도 약 540km 상공에서 심우주를 관측하며 수많은 천문학적 발견을 이끈 전설적인 우주 망원경.',
-        nl: 'Hubble Ruimtetelescoop (HST). Draait op ~540 km hoogte voor baanbrekende astronomische ontdekkingen.',
-        id: 'Teleskop Luar Angkasa Hubble (HST). Mengorbit pada ketinggian ~540 km untuk pengamatan astronomi luar angkasa.',
-        ar: 'تلسكوب هابل الفضائي (HST). يدور على ارتفاع ~540 كم لالتقاط الاكتشافات الفلكية في أعماق الفضاء.',
-        hi: 'हबल स्पेस टेलीस्कोप (HST)। गहरी अंतरिक्ष खगोलीय खोजों के लिए ~540 किमी की ऊंचाई पर परिक्रमा करता है।',
-        zh: '哈勃空间望远镜 (HST)。在约540公里轨道上运行，为人类探索深空宇宙做出巨大贡献。',
-        es: 'Telescopio Espacial Hubble (HST). En órbita a ~540 km capturando descubrimientos astronómicos profundos.',
-        ru: 'Космический телескоп "Хаббл" (HST). Орбита ~540 км для глубоких астрономических наблюдений.'
+    "HIMAWARI-8": {
+        "country": "🇯🇵 日本 (気象庁 / JMA)",
+        "country_en": "🇯🇵 Japan (JMA)",
+        "ja": "【静止気象衛星「ひまわり8号」(HIMAWARI-8)】\n■ 開発・運用組織: 気象庁 (JMA)\n■ 打上げ日・ロケット: 2014年10月7日 / H-IIAロケット25号機\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (東経140.7度)\n■ 役割: 2015年から2022年までメイン観測機として稼働し、現在はひまわり9号のバックアップ機として軌道上待機中。",
+        "en": "[Geostationary Meteorological Satellite \"Himawari-8\"]\n■ Organization: JMA\n■ Launch: Oct 7, 2014 / H-IIA F25\n■ Mission: Primary weather satellite from 2015-2022, currently on-orbit standby backup.",
+        "de": "[Wettersatellit \"Himawari-8\" (JMA)].",
+        "fr": "[Satellite météo \"Himawari-8\" (JMA)].",
+        "es": "[Satélite \"Himawari-8\" (JMA)].",
+        "pt": "[Satélite \"Himawari-8\" (JMA)].",
+        "it": "[Satellite \"Himawari-8\" (JMA)].",
+        "ko": "【정지궤도 기상위성 \"히마와리 8호\"】 9호기의 궤도상 백업 위성.",
+        "nl": "[Weersatelliet \"Himawari-8\" (JMA)].",
+        "id": "【Satelit Cuaca \"Himawari-8\"】.",
+        "hi": "【मौसम उपग्रह \"हिमावारी-8\"】।",
+        "ar": "【قمر \"هيماواري-8\"】.",
+        "zh": "【静止气象卫星“葵花8号”】 现作为9号机在轨备用。",
+        "ru": "【Метеоспутник \"Химавари-8\"】 Орбитальный резерв."
     },
-    'GPS': {
-        ja: '米国GPS航法衛星 (NAVSTAR)。高度約20,200kmの中軌道(MEO)を約12時間で1周し、全世界のスマートフォンやカーナビに精密測位電波を提供。',
-        en: 'US GPS Navigation Satellite (NAVSTAR). Orbiting at ~20,200 km altitude (MEO) every 12 hours providing global positioning signals.',
-        de: 'US GPS Navigationssatellit (NAVSTAR). Umkreist die Erde in ~20.200 km Höhe alle 12 Stunden für weltweite Ortung.',
-        fr: 'Satellite de navigation GPS américain (NAVSTAR). En orbite à ~20 200 km toutes les 12 heures pour le guidage mondial.',
-        pt: 'Satélite de Navegação GPS dos EUA (NAVSTAR). Orbita a ~20.200 km de altitude a cada 12 horas para sinais globais.',
-        it: 'Satellite di navigazione GPS USA (NAVSTAR). Orbita a ~20.200 km ogni 12 ore per il posizionamento globale.',
-        ko: '미국 GPS 항법 위성 (NAVSTAR). 고도 약 20,200km 중궤도(MEO)를 12시간 주기로 돌며 전 세계에 정밀 위치 신호를 제공.',
-        nl: 'Amerikaanse GPS-navigatiesatelliet (NAVSTAR). Draait op ~20.200 km hoogte elke 12 uur voor wereldwijde positiebepaling.',
-        id: 'Satelit Navigasi GPS AS (NAVSTAR). Mengorbit pada ketinggian ~20.200 km setiap 12 jam untuk sinyal posisi global.',
-        ar: 'قمر الملاحة الأمريكي GPS (NAVSTAR). يدور على ارتفاع ~20,200 كم كل 12 ساعة لتوفير إشارات تحديد المواقع عالمياً.',
-        hi: 'अमेरिकी GPS नेविगेशन उपग्रह (NAVSTAR)। वैश्विक स्थिति संकेत प्रदान करने के लिए हर 12 घंटे में ~20,200 किमी पर परिक्रमा करता है।',
-        zh: '美国GPS导航卫星 (NAVSTAR)。运行于高度约20,200公里的中地球轨道，每12小时绕地球一周。',
-        es: 'Satélite de Navegación GPS de EE. UU. (NAVSTAR). Órbita a ~20.200 km cada 12 horas proveyendo posicionamiento global.',
-        ru: 'Американский навигационный спутник GPS (NAVSTAR). Средняя орбита ~20 200 км, период 12 часов.'
+    "MICHIBIKI-6": {
+        "country": "🇯🇵 日本 (内閣府 / CAO)",
+        "country_en": "🇯🇵 Japan (Cabinet Office)",
+        "ja": "【準天頂衛星「みちびき6号機」(QZSS-6)】\n■ 開発・運用組織: 内閣府 宇宙開発戦略推進事務局\n■ 打上げ日・ロケット: 2026年 / H3ロケット\n■ 軌道諸元: 高度約32,600〜39,000km / 準天頂軌道 (8の字軌道)\n■ 役割: 準天頂7機体制を完成させ、自動運転・ドローン向けにセンチメートル級測位補強信号(CLAS)を24時間配信。",
+        "en": "[Quasi-Zenith Satellite \"MICHIBIKI-6\" (QZSS-6)]\n■ Organization: Cabinet Office of Japan\n■ Launch: H3 Rocket\n■ Mission: Completes the 7-satellite QZSS constellation for cm-level positioning.",
+        "de": "[Quasi-Zenit-Satellit \"MICHIBIKI-6\" (QZSS-6)].",
+        "fr": "[Satellite \"MICHIBIKI-6\" (QZSS-6)].",
+        "es": "[Satélite \"MICHIBIKI-6\" (QZSS-6)].",
+        "pt": "[Satélite \"MICHIBIKI-6\" (QZSS-6)].",
+        "it": "[Satellite \"MICHIBIKI-6\" (QZSS-6)].",
+        "ko": "【준천정위성 \"미치비키 6호기\"】 센티미터급 정밀 GPS 보정 신호 송출.",
+        "nl": "[Quasi-Zenit-satelliet \"MICHIBIKI-6\" (QZSS-6)].",
+        "id": "【Satelit Quasi-Zenith \"MICHIBIKI-6\"】.",
+        "hi": "【क्वासी-जेनिथ उपग्रह \"मिचिबिकी-6\"】।",
+        "ar": "【قمر \"ميشيبيكي-6\" (QZSS-6)】.",
+        "zh": "【准天顶卫星“引路6号”(QZSS-6)】 日本内阁府厘米级定位增强卫星。",
+        "ru": "【Спутник \"Мичибики-6\" (QZSS-6)】."
     },
-    'DEBRIS': {
-        ja: '役目を終えた人工衛星やロケット上段の破片(宇宙ゴミ)。秒速約7〜8km(銃弾の数倍)の超高速で地球を周回しており、現役衛星への衝突が警戒されています。',
-        en: 'Defunct satellite or rocket upper stage fragment (Space Debris). Orbiting Earth at ~7.5 km/s posing collision hazards to active spacecraft.',
-        de: 'Weltraummüll (Inaktiver Satellit oder Raketenstufe). Umkreist die Erde mit ~7,5 km/s und stellt ein Kollisionsrisiko dar.',
-        fr: "Débris spatial (satellite inactif ou étage de fusée). En orbite à ~7,5 km/s présentant des risques de collision majeurs.",
-        pt: 'Lixo espacial (satélite desativado ou fragmento de foguete). Orbita a Terra a ~7,5 km/s com risco de colisão.',
-        it: 'Detrito spaziale (satellite inattivo o frammento di razzo). Orbita attorno alla Terra a ~7,5 km/s con rischio di collisione.',
-        ko: '임무를 마친 인공위성 또는 로켓 상단 파편 (우주 쓰레기). 초속 약 7.5km의 초고속으로 지구를 돌며 현역 위성에 치명적인 충돌 위험을 초래.',
-        nl: 'Ruimtepuin (inactieve satelliet of rakettrap). Draait rond de aarde met ~7,5 km/s en vormt een botsingsrisico.',
-        id: 'Sampah antariksa (satelit mati atau pecahan roket). Mengorbit Bumi dengan kecepatan ~7,5 km/detik dengan risiko tabrakan.',
-        ar: 'حطام فضائي (قمر صناعي معطل أو جزء من صاروخ). يدور حول الأرض بسرعة ~7.5 كم/ثانية مشكلاً خطراً على الأقمار النشطة.',
-        hi: 'अंतरिक्ष मलबा (निष्क्रिय उपग्रह या रॉकेट का टुकड़ा)। ~7.5 किमी/सेकंड की गति से पृथ्वी की परिक्रमा करता है।',
-        zh: '失效人造卫星或火箭残骸 (空间碎片/太空垃圾)。以约7.5公里/秒的超高速绕地飞行，对在轨航天器构成碰撞威胁。',
-        es: 'Basura espacial (satélite fuera de servicio o fragmento de cohete). Orbita la Tierra a ~7,5 km/s con riesgo de colisión.',
-        ru: 'Космический мусор (неработающий спутник или ступень ракеты). Вращается вокруг Земли со скоростью ~7,5 км/с.'
+    "MICHIBIKI": {
+        "country": "🇯🇵 日本 (内閣府 / CAO)",
+        "country_en": "🇯🇵 Japan (Cabinet Office)",
+        "ja": "【準天頂衛星システム「みちびき」(QZSS)】\n■ 運用組織: 内閣府 宇宙開発戦略推進事務局\n■ 軌道: 準天頂軌道 (8の字軌道 / 傾斜角約44度) および静止軌道\n■ 目的: 日本の真上に常に衛星を配置し、高層ビル街や山間部でのGPS死角を解消。",
+        "en": "[Quasi-Zenith Satellite System \"Michibiki\" (QZSS)]\n■ Organization: Cabinet Office of Japan\n■ Mission: Eliminates GPS blind spots in urban canyons across Japan.",
+        "de": "[Quasi-Zenit-Satellitensystem \"Michibiki\" (QZSS)].",
+        "fr": "[Système \"Michibiki\" (QZSS)].",
+        "es": "[Sistema \"Michibiki\" (QZSS)].",
+        "pt": "[Sistema \"Michibiki\" (QZSS)].",
+        "it": "[Sistema \"Michibiki\" (QZSS)].",
+        "ko": "【준천정위성 시스템 \"미치비키\"】 일본 상공 고각도 GPS 보정.",
+        "nl": "[Quasi-Zenit-systeem \"Michibiki\"].",
+        "id": "【Sistem Satelit \"Michibiki\"】.",
+        "hi": "【क्वासी-जेनिथ उपग्रह प्रणाली \"मिचिबिकी\"】।",
+        "ar": "【نظام \"ميشيبيكي\"】.",
+        "zh": "【日本准天顶卫星系统“引路”(QZSS)】。",
+        "ru": "【Квазизенитная система \"Мичибики\"】."
     },
-    'STARLINK': {
-        ja: 'SpaceX社の超小型通信衛星コンステレーション「Starlink」。高度約550kmの低軌道から全世界へ超高速・低遅延の衛星インターネットを提供。',
-        en: 'SpaceX Starlink Mega-Constellation Satellite. Orbiting in LEO (~550km) providing global high-speed broadband internet.',
-        de: 'SpaceX Starlink Kommunikationssatellit. Bietet globales Breitband-Internet aus ~550 km niedriger Erdumlaufbahn (LEO).',
-        fr: "Satellite Starlink de SpaceX. Fournit un accès Internet haut débit mondial depuis l'orbite basse (~550 km).",
-        pt: 'Satélite da Megaconstelação Starlink da SpaceX. Fornece internet banda larga global de alta velocidade a ~550 km.',
-        it: 'Satellite della costellazione Starlink di SpaceX. Fornisce internet a banda larga globale da orbita bassa (~550 km).',
-        ko: 'SpaceX사의 초소형 통신위성 군집 "스타링크(Starlink)". 고도 약 550km 저궤도에서 전 세계에 초고속 저지연 인터넷을 제공.',
-        nl: 'SpaceX Starlink communicatiesatelliet. Biedt wereldwijd breedbandinternet vanuit een lage baan om de aarde (~550 km).',
-        id: 'Satelit Mega-Konstelasi Starlink milik SpaceX. Menyediakan internet pita lebar global berkecepatan tinggi dari orbit rendah (~550 km).',
-        ar: 'قمر كوكبة ستارلينك التابعة لـ SpaceX. يدور في مدار منخفض (~550 كم) لتوفير إنترنت فائق السرعة عالمياً.',
-        hi: 'SpaceX स्टारलिंक उपग्रह। वैश्विक उच्च गति इंटरनेट प्रदान करने के लिए LEO (~550 किमी) में परिक्रमा करता है।',
-        zh: 'SpaceX“星链”(Starlink) 低轨互联网卫星。在约550公里近地轨道运行，为全球提供高速宽带接入。',
-        es: 'Satélite Starlink de SpaceX. Órbita baja (~550 km) proveyendo internet satelital de banda ancha a nivel global.',
-        ru: 'Спутник группировки Starlink компании SpaceX. Низкая околоземная орбита (~550 км), глобальный интернет.'
+    "QPS-SAR": {
+        "country": "🇯🇵 日本 (株式会社iQPS / 福岡)",
+        "country_en": "🇯🇵 Japan (iQPS, Fukuoka)",
+        "ja": "【小型SAR衛星「ツクヨミ-I (QPS-SAR-5)」】\n■ 開発・運用組織: 株式会社QPS研究所 (iQPS / 福岡)\n■ 打上げ日・ロケット: 2023年12月15日 / Rocket Lab Electronロケット\n■ 軌道諸元: 高度約575km / 傾斜軌道 (42.0度)\n■ 機器・目的: 直径3.6m展開メッシュアンテナを搭載し、夜間悪天候でも分解能46cmの高精細レーダ画像を撮影する民間小型SAR衛星。",
+        "en": "[Small SAR Satellite \"TSUKUYOMI-I\" (QPS-SAR-5)]\n■ Organization: iQPS (Fukuoka, Japan)\n■ Launch: Dec 15, 2023 / Rocket Lab Electron\n■ Instruments: 3.6m deployable mesh radar antenna\n■ Mission: Commercial 46cm high-resolution radar Earth imaging 24/7.",
+        "de": "[Mini-SAR-Satellit \"TSUKUYOMI-I\" (iQPS)].",
+        "fr": "[Petit satellite SAR \"TSUKUYOMI-I\" (iQPS)].",
+        "es": "[Satélite \"TSUKUYOMI-I\" (iQPS)].",
+        "pt": "[Satélite \"TSUKUYOMI-I\" (iQPS)].",
+        "it": "[Satellite \"TSUKUYOMI-I\" (iQPS)].",
+        "ko": "【소형 SAR 위성 \"츠쿠요미-1호\"】 후쿠오카 iQPS사 46cm 고분해능 SAR.",
+        "nl": "[Mini-SAR-satelliet \"TSUKUYOMI-I\"].",
+        "id": "【Satelit SAR Mini \"TSUKUYOMI-I\"】.",
+        "hi": "【लघु SAR उपग्रह \"त्सुकुयोमी-1\"】।",
+        "ar": "【القمر التجاري \"تسوكويومي-1\"】.",
+        "zh": "【商业小型SAR卫星“月读1号”(iQPS)】 46厘米高分辨率雷达。",
+        "ru": "【Малый спутник SAR \"Цукуёми-1\"】."
+    },
+    "STRIX": {
+        "country": "🇯🇵 日本 (株式会社Synspective / 東京)",
+        "country_en": "🇯🇵 Japan (Synspective, Tokyo)",
+        "ja": "【小型SAR衛星「StriX-1」(ストリクス)】\n■ 開発・運用組織: 株式会社Synspective (シンスペクティブ / 東京)\n■ 打上げ日・ロケット: 2022年9月16日 / Rocket Lab Electronロケット\n■ 軌道諸元: 高度約561km / 太陽同期軌道 (97.6度)\n■ 機器・目的: Xバンド合成開口レーダを搭載し、ミリ単位の地盤沈下や都市インフラの老朽化変位を検知する民間SAR衛星。",
+        "en": "[Small SAR Satellite \"StriX-1\"]\n■ Organization: Synspective Inc. (Tokyo, Japan)\n■ Launch: Sept 16, 2022 / Rocket Lab Electron\n■ Instruments: X-band Synthetic Aperture Radar\n■ Mission: Commercial radar constellation for millimeter-scale ground displacement monitoring.",
+        "de": "[X-Band Radarsatellit \"StriX-1\" (Synspective)].",
+        "fr": "[Satellite radar \"StriX-1\" (Synspective)].",
+        "es": "[Satélite radar \"StriX-1\" (Synspective)].",
+        "pt": "[Satélite \"StriX-1\" (Synspective)].",
+        "it": "[Satellite \"StriX-1\" (Synspective)].",
+        "ko": "【소형 SAR 위성 \"StriX-1\"】 도쿄 Synspective사 X-band 레이더 위성.",
+        "nl": "[Radarsatelliet \"StriX-1\"].",
+        "id": "【Satelit Radar \"StriX-1\"】.",
+        "hi": "【रडार उपग्रह \"StriX-1\"】।",
+        "ar": "【قمر \"StriX-1\"】.",
+        "zh": "【商业小型SAR卫星“StriX-1”】 东京商业航天X波段雷达卫星。",
+        "ru": "【Радарный спутник \"StriX-1\"】."
+    },
+    "ISS": {
+        "country": "🇺🇸 / 🇯🇵 / 🇪🇺 / 🇨🇦 国際共同 (NASA / JAXA / ESA / CSA)",
+        "country_en": "🇺🇸 / 🇯🇵 / 🇪🇺 / 🇨🇦 International (NASA / JAXA / ESA / CSA)",
+        "ja": "【国際宇宙ステーション (ISS)】\n■ 運用組織: NASA (米)、JAXA (日)、ESA (欧)、CSA (加) 等の国際共同運用\n■ 打上げ開始: 1998年11月 (ザーリャモジュール)\n■ 軌道諸元: 高度約400〜420km / 低軌道 (傾斜角51.64度 / 周期約92.8分・時速約27,700km)\n■ 主要施設: 日本の実験棟「きぼう」、欧州実験棟「コロンバス」、米実験棟「デスティニー」\n■ 目的: 微小重力環境を活用した創薬・材料科学・宇宙医学実験、地球・天体観測拠点。",
+        "en": "[International Space Station (ISS)]\n■ Organization: NASA, JAXA, ESA, CSA\n■ Launch: Nov 1998 / LEO ~400-420 km (Inclination 51.64°)\n■ Key Modules: Japanese \"Kibo\", European \"Columbus\", US \"Destiny\"\n■ Mission: Microgravity laboratory for drug discovery and space exploration tech.",
+        "de": "[Internationale Raumstation (ISS)].",
+        "fr": "[Station spatiale internationale (ISS)].",
+        "es": "[Estación Espacial Internacional (EEI)].",
+        "pt": "[Estação Espacial Internacional (ISS)].",
+        "it": "[Stazione Spaziale Internazionale (ISS)].",
+        "ko": "【국제우주정거장 (ISS)】 NASA, JAXA, ESA 등 국제 공동 유인 우주 기지 (일본 실험동 \"키보\" 운영).",
+        "nl": "[Internationaal Ruimtestation (ISS)].",
+        "id": "【Stasiun Luar Angkasa Internasional (ISS)】.",
+        "hi": "【अंतर्राष्ट्रीय अंतरिक्ष स्टेशन (ISS)】।",
+        "ar": "【محطة الفضاء الدولية (ISS)】.",
+        "zh": "【国际空间站 (ISS)】 NASA、JAXA等多国联合运营的大型载人轨道实验室 (含日本希望号舱段)。",
+        "ru": "【Международная космическая станция (МКС)】."
+    },
+    "HUBBLE": {
+        "country": "🇺🇸 / 🇪🇺 米国・欧州 (NASA / ESA)",
+        "country_en": "🇺🇸 / 🇪🇺 USA & Europe (NASA / ESA)",
+        "ja": "【ハッブル宇宙望遠鏡 (HST)】\n■ 開発・運用組織: NASA (米航空宇宙局) / ESA (欧州宇宙機関)\n■ 打上げ日・ロケット: 1990年4月24日 / スペースシャトル・ディスカバリー号 (STS-31)\n■ 軌道諸元: 高度約540km / 地球低軌道 (傾斜角28.47度)\n■ 観測装置: 口径2.4m主鏡、広視野カメラ3 (WFC3)、宇宙望遠鏡撮像分光器 (STIS)\n■ 観測目的: 大気の揺らぎがない宇宙空間から遠方宇宙を観測し、宇宙膨張率の確定や暗黒エネルギーの存在証拠発見など天文学の歴史を塗り替えた偉大な宇宙望遠鏡。",
+        "en": "[Hubble Space Telescope (HST)]\n■ Organization: NASA / ESA\n■ Launch: April 24, 1990 / Space Shuttle Discovery\n■ Orbit: ~540 km LEO\n■ Aperture: 2.4-meter primary mirror\n■ Mission: Deep-space astronomical observations, measuring cosmological expansion and dark energy.",
+        "de": "[Hubble-Weltraumteleskop (HST)].",
+        "fr": "[Télescope spatial Hubble (HST)].",
+        "es": "[Telescopio Espacial Hubble (HST)].",
+        "pt": "[Telescópio Espacial Hubble (HST)].",
+        "it": "[Telescopio Spaziale Hubble (HST)].",
+        "ko": "【허블 우주 망원경 (HST)】 NASA/ESA 2.4m 주경 탑재 심우주 천체망원경.",
+        "nl": "[Hubble Ruimtetelescoop (HST)].",
+        "id": "【Teleskop Luar Angkasa Hubble (HST)】.",
+        "hi": "【हबल स्पेस टेलीस्कोप (HST)】।",
+        "ar": "【تلسكوب هابل الفضائي (HST)】.",
+        "zh": "【哈勃空间望远镜 (HST)】 NASA与ESA联合打造的2.4米口径传奇空间望远镜。",
+        "ru": "【Космический телескоп \"Хаббл\" (HST)】."
+    },
+    "TIANGONG": {
+        "country": "🇨🇳 中国 (CNSA / 中国国家航天局)",
+        "country_en": "🇨🇳 China (CNSA)",
+        "ja": "【中国宇宙ステーション「天宮」(Tiangong)】\n■ 運用組織: 中国国家航天局 (CNSA) / 中国載人航天工程弁公室 (CMSA)\n■ 打上げ開始: 2021年4月 (核心モジュール「天和」)\n■ 軌道諸元: 高度約380〜450km / 低軌道 (傾斜角41.5度)\n■ 主要構成: 天和(コア)、問天(実験棟I)、夢天(実験棟II)のT字型構造\n■ 目的: 独自のアストロナウツ(航天員)が常駐し、宇宙医学、材料科学、微小重力物理実験を実施する中国の国家宇宙拠点。",
+        "en": "[Chinese Space Station \"Tiangong\"]\n■ Organization: CNSA / CMSA (China)\n■ First Launch: April 2021 (Tianhe Core Module)\n■ Orbit: ~380-450 km LEO (Inclination 41.5°)\n■ Mission: Long-term crewed space laboratory for microgravity physics and orbital research.",
+        "de": "[Chinesische Raumstation \"Tiangong\"].",
+        "fr": "[Station spatiale chinoise \"Tiangong\"].",
+        "es": "[Estación Espacial China \"Tiangong\"].",
+        "pt": "[Estação Espacial Chinesa \"Tiangong\"].",
+        "it": "[Stazione Spaziale Cinese \"Tiangong\"].",
+        "ko": "【중국 우주정거장 \"톈궁\"】 중국 국가항천국(CNSA) 독자 유인 우주 정거장.",
+        "nl": "[Chinees Ruimtestation \"Tiangong\"].",
+        "id": "【Stasiun Luar Angkasa China \"Tiangong\"】.",
+        "hi": "【चीनी अंतरिक्ष स्टेशन \"तियांगोंग\"】।",
+        "ar": "【محطة الفضاء الصينية \"تيانغونغ\"】.",
+        "zh": "【中国空间站“天宫”(Tiangong)】 中国载人航天工程(CMSA)建造的T字型长期载人空间实验室。",
+        "ru": "【Китайская орбитальная станция \"Тяньгун\"】."
+    },
+    "BEIDOU": {
+        "country": "🇨🇳 中国 (CNSA / 中国国家航天局)",
+        "country_en": "🇨🇳 China (CNSA)",
+        "ja": "【中国衛星測位システム「北斗3号」(BeiDou-3)】\n■ 運用組織: 中国国家航天局 (CNSA)\n■ 軌道: 中地球軌道(MEO)、傾斜同期軌道(IGSO)、静止軌道(GEO)のハイブリッド配置\n■ 目的: 全世界をカバーする中国独自の衛星測位網。ミリ波通信や高精度測位、双方向短報文通信機能を提供。",
+        "en": "[BeiDou Navigation Satellite System-3 (BeiDou-3)]\n■ Organization: CNSA (China)\n■ Mission: Global positioning, navigation, timing, and short-message communication services.",
+        "de": "[Chinesisches Satellitennavigationssystem \"BeiDou-3\"].",
+        "fr": "[Système de navigation \"BeiDou-3\" (CNSA)].",
+        "es": "[Sistema de Navegación \"BeiDou-3\" (CNSA)].",
+        "pt": "[Sistema \"BeiDou-3\" (CNSA)].",
+        "it": "[Sistema \"BeiDou-3\" (CNSA)].",
+        "ko": "【중국 위성항법시스템 \"베이더우 3호\"】 전 지구 위치 추적 및 통신 서비스.",
+        "nl": "[Navigatiesatelliet \"BeiDou-3\" (CNSA)].",
+        "id": "【Sistem Navigasi \"BeiDou-3\" (CNSA)】.",
+        "hi": "【चीनी नेविगेशन प्रणाली \"BeiDou-3\"】।",
+        "ar": "【نظام الملاحة \"بيدو-3\" (CNSA)】.",
+        "zh": "【中国“北斗三号”全球卫星导航系统】 覆盖全球的高精度定位导航授时与短报文通信系统。",
+        "ru": "【Навигационная спутниковая система \"Бэйдоу-3\"】."
+    },
+    "GPS": {
+        "country": "🇺🇸 アメリカ (米国宇宙軍 / US Space Force)",
+        "country_en": "🇺🇸 USA (US Space Force)",
+        "ja": "【米国GPS航法衛星 (NAVSTAR GPS)】\n■ 運用組織: アメリカ宇宙軍 (USSF) / 米国防総省\n■ 軌道諸元: 高度約20,200km / 中地球軌道 (MEO / 軌道傾斜角55度)\n■ 主要機器: ルビジウム・セシウム高精度原子時計、L1/L2/L5帯電波送信機\n■ 目的: 全世界のスマートフォン、航空機、船舶、カーナビゲーションに高精度測位電波を24時間配信。",
+        "en": "[US NAVSTAR Global Positioning System (GPS)]\n■ Organization: United States Space Force (USSF)\n■ Orbit: ~20,200 km MEO (Inclination 55°)\n■ Mission: Global continuous positioning, navigation, and nanosecond-level timing.",
+        "de": "[US NAVSTAR GPS Satellit].",
+        "fr": "[Satellite GPS américain (NAVSTAR)].",
+        "es": "[Satélite GPS estadounidense (NAVSTAR)].",
+        "pt": "[Satélite GPS dos EUA (NAVSTAR)].",
+        "it": "[Satellite GPS USA (NAVSTAR)].",
+        "ko": "【미국 GPS 항법 위성 (NAVSTAR)】 미국 우주군(USSF) 운용 전 세계 정밀 측위 위성.",
+        "nl": "[Amerikaanse GPS-satelliet (NAVSTAR)].",
+        "id": "【Satelit GPS AS (NAVSTAR)】.",
+        "hi": "【अमेरिकी GPS उपग्रह (NAVSTAR)】।",
+        "ar": "【قمر GPS الأمريكي (NAVSTAR)】.",
+        "zh": "【美国GPS全球定位系统卫星 (NAVSTAR)】 美国太空军运营的中地球轨道全球定位与授时卫星。",
+        "ru": "【Навигационный спутник GPS (NAVSTAR)】."
+    },
+    "DEBRIS": {
+        "country": "⚠️ 役目終了・人工物体 (Space Debris)",
+        "country_en": "⚠️ Defunct Space Debris",
+        "ja": "【宇宙ゴミ (スペースデブリ)】\n■ 種別: 運用終了した人工衛星本体、ロケット上段残骸、衝突破片\n■ 軌道速度: 秒速約7.5〜8.0km (時速約28,000km / ライフル弾の約8倍)\n■ 危険性: 数センチの破片であっても衛星やISSに衝突すると粉砕的破壊をもたらすため、JAXAやNASA・宇宙軍が常時レーダと軌道交差予測(MOID)で監視。",
+        "en": "[Defunct Orbital Space Debris]\n■ Classification: Inactive satellite hulls, spent rocket stages, and fragments\n■ Velocity: ~7.5-8.0 km/s (over 27,000 km/h)\n■ Hazard: Even millimeter-sized debris can inflict catastrophic damage upon active spacecraft.",
+        "de": "[Weltraummüll (Space Debris)].",
+        "fr": "[Débris spatial orbital].",
+        "es": "[Basura espacial en órbita].",
+        "pt": "[Lixo espacial orbital].",
+        "it": "[Detrito spaziale orbitale].",
+        "ko": "【우주 쓰레기 (스페이스 데브리)】 수명 종료 위성 및 로켓 상단 파편 (초속 약 7.5km).",
+        "nl": "[Ruimtepuin (Space Debris)].",
+        "id": "【Sampah Antariksa (Space Debris)】.",
+        "hi": "【अंतरिक्ष मलबा】।",
+        "ar": "【حطام فضائي مداري】.",
+        "zh": "【空间碎片 (太空垃圾)】 退役卫星、火箭残骸及爆炸碎片，以约7.5公里/秒高速运行。",
+        "ru": "【Космический мусор】."
+    },
+    "STARLINK": {
+        "country": "🇺🇸 アメリカ (SpaceX / 民間)",
+        "country_en": "🇺🇸 USA (SpaceX)",
+        "ja": "【超小型通信衛星「Starlink」(SpaceX)】\n■ 開発・運用組織: SpaceX (スペースX社 / CEO: イーロン・マスク)\n■ 打上げロケット: Falcon 9 ロケット (1回の打上げで約20〜23機同時投入)\n■ 軌道諸元: 高度約540〜570km / 低軌道 (LEO)\n■ 主要機器: Ku/Kaバンドフェーズドアレイアンテナ、光レーザー衛星間通信機、イオン推進器\n■ 目的: 数千機以上の超小型衛星で地球全土をメッシュ状に包み込み、全世界へ超高速・低遅延の衛星インターネットを提供。",
+        "en": "[SpaceX Starlink Broadband Satellite]\n■ Organization: SpaceX (Elon Musk)\n■ Launch Vehicle: Falcon 9\n■ Orbit: ~540-570 km LEO\n■ Mission: Global mega-constellation delivering high-speed, low-latency satellite internet worldwide.",
+        "de": "[SpaceX Starlink Satellit].",
+        "fr": "[Satellite Starlink de SpaceX].",
+        "es": "[Satélite Starlink de SpaceX].",
+        "pt": "[Satélite Starlink da SpaceX].",
+        "it": "[Satellite Starlink di SpaceX].",
+        "ko": "【SpaceX 스타링크 통신위성】 저궤도 메가 콘스텔레이션 초고속 인터넷 위성.",
+        "nl": "[SpaceX Starlink Satelliet].",
+        "id": "【Satelit Starlink SpaceX】.",
+        "hi": "【SpaceX स्टारलिंक उपग्रह】।",
+        "ar": "【قمر ستارلينك التابع لـ SpaceX】.",
+        "zh": "【SpaceX“星链”(Starlink) 低轨互联网卫星】 提供全球高速宽带连接的巨型星座。",
+        "ru": "【Спутник Starlink компании SpaceX】."
     }
 };
 
 function getSatDescription(name) {
-    const upper = name.toUpperCase();
+    const upper = (name || '').toUpperCase();
     const langSelect = document.getElementById('langSelect');
     const lang = (langSelect && langSelect.value) || window.currentLang || currentLang || 'ja';
 
-    for (const [key, descObj] of Object.entries(SATELLITE_DESCRIPTIONS)) {
-        if (upper.includes(key)) {
-            return descObj[lang] || descObj['en'] || descObj['ja'];
-        }
+    if (upper.includes('ALOS-4') || upper.includes('DAICHI-4')) {
+        return SATELLITE_DESCRIPTIONS['ALOS-4'][lang] || SATELLITE_DESCRIPTIONS['ALOS-4']['en'];
     }
-    
+    if (upper.includes('ALOS-2') || upper.includes('DAICHI-2')) {
+        return SATELLITE_DESCRIPTIONS['ALOS-2'][lang] || SATELLITE_DESCRIPTIONS['ALOS-2']['en'];
+    }
+    if (upper.includes('XRISM')) {
+        return SATELLITE_DESCRIPTIONS['XRISM'][lang] || SATELLITE_DESCRIPTIONS['XRISM']['en'];
+    }
+    if (upper.includes('GCOM-W') || upper.includes('SHIZUKU')) {
+        return SATELLITE_DESCRIPTIONS['GCOM-W'][lang] || SATELLITE_DESCRIPTIONS['GCOM-W']['en'];
+    }
+    if (upper.includes('GCOM-C') || upper.includes('SHIKISAI')) {
+        return SATELLITE_DESCRIPTIONS['GCOM-C'][lang] || SATELLITE_DESCRIPTIONS['GCOM-C']['en'];
+    }
+    if (upper.includes('GOSAT-2') || upper.includes('IBUKI')) {
+        return SATELLITE_DESCRIPTIONS['GOSAT-2'][lang] || SATELLITE_DESCRIPTIONS['GOSAT-2']['en'];
+    }
+    if (upper.includes('HIMAWARI-9')) {
+        return SATELLITE_DESCRIPTIONS['HIMAWARI-9'][lang] || SATELLITE_DESCRIPTIONS['HIMAWARI-9']['en'];
+    }
+    if (upper.includes('HIMAWARI-8')) {
+        return SATELLITE_DESCRIPTIONS['HIMAWARI-8'][lang] || SATELLITE_DESCRIPTIONS['HIMAWARI-8']['en'];
+    }
+    if (upper.includes('MICHIBIKI-6') || upper.includes('QZSS-6')) {
+        return SATELLITE_DESCRIPTIONS['MICHIBIKI-6'][lang] || SATELLITE_DESCRIPTIONS['MICHIBIKI-6']['en'];
+    }
+    if (upper.includes('MICHIBIKI') || upper.includes('QZSS')) {
+        return SATELLITE_DESCRIPTIONS['MICHIBIKI'][lang] || SATELLITE_DESCRIPTIONS['MICHIBIKI']['en'];
+    }
+    if (upper.includes('QPS-SAR') || upper.includes('TSUKUYOMI')) {
+        return SATELLITE_DESCRIPTIONS['QPS-SAR'][lang] || SATELLITE_DESCRIPTIONS['QPS-SAR']['en'];
+    }
+    if (upper.includes('STRIX') || upper.includes('SYNSPECTIVE')) {
+        return SATELLITE_DESCRIPTIONS['STRIX'][lang] || SATELLITE_DESCRIPTIONS['STRIX']['en'];
+    }
+    if (upper.includes('ISS') || upper.includes('ZARYA')) {
+        return SATELLITE_DESCRIPTIONS['ISS'][lang] || SATELLITE_DESCRIPTIONS['ISS']['en'];
+    }
+    if (upper.includes('HUBBLE')) {
+        return SATELLITE_DESCRIPTIONS['HUBBLE'][lang] || SATELLITE_DESCRIPTIONS['HUBBLE']['en'];
+    }
+    if (upper.includes('TIANGONG')) {
+        return SATELLITE_DESCRIPTIONS['TIANGONG'][lang] || SATELLITE_DESCRIPTIONS['TIANGONG']['en'];
+    }
+    if (upper.includes('BEIDOU')) {
+        return SATELLITE_DESCRIPTIONS['BEIDOU'][lang] || SATELLITE_DESCRIPTIONS['BEIDOU']['en'];
+    }
+    if (upper.includes('GPS')) {
+        return SATELLITE_DESCRIPTIONS['GPS'][lang] || SATELLITE_DESCRIPTIONS['GPS']['en'];
+    }
+    if (upper.includes('DEBRIS') || upper.includes('COSMOS') || upper.includes('FENGYUN') || upper.includes('SL-')) {
+        return SATELLITE_DESCRIPTIONS['DEBRIS'][lang] || SATELLITE_DESCRIPTIONS['DEBRIS']['en'];
+    }
     if (upper.includes('STARLINK')) {
-        const starlinkDesc = {
-            ja: 'SpaceX社が展開する地球低軌道(LEO)高速ブロードバンド通信衛星コンステレーション。',
-            en: 'SpaceX Starlink Low Earth Orbit (LEO) broadband internet satellite constellation.',
-            de: 'SpaceX Starlink LEO-Breitband-Satellitenkonstellation.',
-            fr: 'Constellation de satellites Internet haut débit SpaceX Starlink en orbite basse.',
-            pt: 'Constelação de satélites de internet banda larga SpaceX Starlink em órbita baixa.',
-            zh: 'SpaceX 展开的近地轨道 (LEO) 高速宽带卫星星座。',
-            es: 'Constelación de satélites de Internet de banda ancha LEO de SpaceX Starlink.',
-            ru: 'Низкоорбитальная спутниковая группировка широкополосного интернета SpaceX Starlink.'
-        };
-        return starlinkDesc[lang] || starlinkDesc['en'];
+        return SATELLITE_DESCRIPTIONS['STARLINK'][lang] || SATELLITE_DESCRIPTIONS['STARLINK']['en'];
     }
 
     const defaultDesc = {
@@ -2290,6 +2526,35 @@ function getSatDescription(name) {
     };
     return defaultDesc[lang] || defaultDesc['en'];
 }
+
+function getSatCountry(name) {
+    const upper = (name || '').toUpperCase();
+    const isEn = (currentLang !== 'ja');
+    if (upper.includes('ALOS') || upper.includes('DAICHI') || upper.includes('HIMAWARI') || upper.includes('MICHIBIKI') || upper.includes('QZSS') || upper.includes('GCOM') || upper.includes('GOSAT') || upper.includes('SHIZUKU') || upper.includes('SHIKISAI') || upper.includes('IBUKI') || upper.includes('QPS') || upper.includes('STRIX') || upper.includes('XRISM')) {
+        if (upper.includes('XRISM')) return isEn ? '🇯🇵 / 🇺🇸 Japan & USA (JAXA / NASA)' : '🇯🇵 / 🇺🇸 日本・米国 (JAXA / NASA)';
+        if (upper.includes('QPS')) return isEn ? '🇯🇵 Japan (iQPS, Fukuoka)' : '🇯🇵 日本 (株式会社iQPS / 福岡)';
+        if (upper.includes('STRIX')) return isEn ? '🇯🇵 Japan (Synspective, Tokyo)' : '🇯🇵 日本 (株式会社Synspective / 東京)';
+        if (upper.includes('HIMAWARI')) return isEn ? '🇯🇵 Japan (JMA)' : '🇯🇵 日本 (気象庁 / JMA)';
+        if (upper.includes('MICHIBIKI') || upper.includes('QZSS')) return isEn ? '🇯🇵 Japan (Cabinet Office)' : '🇯🇵 日本 (内閣府)';
+        return isEn ? '🇯🇵 Japan (JAXA)' : '🇯🇵 日本 (JAXA / 宇宙航空研究開発機構)';
+    }
+    if (upper.includes('ISS') || upper.includes('ZARYA')) {
+        return isEn ? '🇺🇸 / 🇯🇵 / 🇪🇺 International (NASA / JAXA / ESA)' : '🇺🇸 / 🇯🇵 / 🇪🇺 国際共同 (NASA / JAXA / ESA)';
+    }
+    if (upper.includes('HUBBLE') || upper.includes('GPS') || upper.includes('STARLINK')) {
+        if (upper.includes('STARLINK')) return isEn ? '🇺🇸 USA (SpaceX)' : '🇺🇸 アメリカ (SpaceX / 民間)';
+        if (upper.includes('GPS')) return isEn ? '🇺🇸 USA (US Space Force)' : '🇺🇸 アメリカ (米宇宙軍)';
+        return isEn ? '🇺🇸 / 🇪🇺 USA & Europe (NASA / ESA)' : '🇺🇸 / 🇪🇺 米国・欧州 (NASA / ESA)';
+    }
+    if (upper.includes('TIANGONG') || upper.includes('BEIDOU')) {
+        return isEn ? '🇨🇳 China (CNSA)' : '🇨🇳 中国 (CNSA / 国家航天局)';
+    }
+    if (upper.includes('DEBRIS') || upper.includes('COSMOS') || upper.includes('FENGYUN') || upper.includes('SL-')) {
+        return isEn ? '⚠️ Defunct Space Debris' : '⚠️ 宇宙ゴミ (スペースデブリ)';
+    }
+    return isEn ? '🌐 International Spacecraft' : '🌐 国際人工衛星';
+}
+
 
 // Initialize Application Safely
 document.addEventListener('DOMContentLoaded', () => {
@@ -4399,7 +4664,7 @@ function updateDropdownOptions() {
     const dict = TRANSLATIONS[lang] || TRANSLATIONS['ja'];
     satSelect.innerHTML = `<option value="">${dict.selectPlaceholder || '-- 太陽・惑星・衛星・宇宙ゴミを選択 --'}</option>`;
 
-    // 1. Solar System Bodies (Sun, Moon, Planets)
+    // 1. Solar System Bodies
     const catCelestialLabel = {
         ja: '🌌 太陽系天体 (太陽・月・主要惑星)',
         en: '🌌 Solar System Bodies (Sun, Moon, Planets)',
@@ -4410,11 +4675,11 @@ function updateDropdownOptions() {
         ko: '🌌 태양계 천체 (태양, 달, 주요 행성)',
         nl: '🌌 Hemellichamen (Zon, Maan, Planeten)',
         id: '🌌 Tata Surya (Matahari, Bulan, Planet)',
-        hi: '🌌 सौर मंडल के खगोलीय पिंड (सूर्य, चंद्रमा, ग्रह)',
-        ar: '🌌 أجرام النظام الشمسي (الشمس، القمر، الكواكب)',
+        hi: '🌌 सौर मंडल के खगोलीय पिंड',
+        ar: '🌌 أجرام النظام الشمسي',
         zh: '🌌 太阳系天体 (太阳、月球、主要行星)',
-        es: '🌌 Cuerpos del Sistema Solar (Sol, Luna, Planetas)',
-        ru: '🌌 Тела Солнечной системы (Солнце, Луна, Планеты)'
+        es: '🌌 Cuerpos del Sistema Solar',
+        ru: '🌌 Тела Солнечной системы'
     };
 
     const celestialNames = {
@@ -4442,40 +4707,77 @@ function updateDropdownOptions() {
         satSelect.appendChild(celestialGroup);
     }
 
-    const catMajorLabel = {
-        ja: '⭐ 主要・有名衛星 (ひまわり / ISS / みちびき等)',
-        en: '⭐ Major & Famous Satellites (ISS, Himawari, etc.)',
-        de: '⭐ Wichtige Satelliten (ISS, Himawari etc.)',
-        fr: '⭐ Satellites majeurs (ISS, Himawari, etc.)',
-        es: '⭐ Satélites Principales (EEI, Himawari, etc.)',
-        pt: '⭐ Satélites principais (ISS, Himawari, etc.)',
-        it: '⭐ Satelliti Principali (ISS, Himawari, ecc.)',
-        ko: '⭐ 주요 위성 (ISS, 천리안, 스타링크 등)',
-        nl: '⭐ Belangrijke Satellieten (ISS, Himawari, enz.)',
-        id: '⭐ Satelit Utama (ISS, Himawari, dll.)',
-        hi: '⭐ प्रमुख उपग्रह (ISS, मौसम उपग्रह, आदि)',
-        ar: '⭐ الأقمار الصناعية الرئيسية (ISS، طقس، إلخ)',
-        zh: '⭐ 主要/著名卫星 (国际空间站, 葵花, 天宫等)',
-        ru: '⭐ Основные спутники (МКС, Himawari и др.)'
+    // Country Group Labels
+    const catJapanLabel = {
+        ja: '🇯🇵 日本 (Japan / JAXA / 内閣府 / 気象庁 / 民間)',
+        en: '🇯🇵 Japan (JAXA / Cabinet Office / JMA / Commercial)',
+        de: '🇯🇵 Japan (JAXA / JMA / Kommerziell)',
+        fr: '🇯🇵 Japon (JAXA / JMA / Commercial)',
+        es: '🇯🇵 Japón (JAXA / JMA / Comercial)',
+        pt: '🇯🇵 Japão (JAXA / JMA / Comercial)',
+        it: '🇯🇵 Giappone (JAXA / JMA / Commerciale)',
+        ko: '🇯🇵 일본 (JAXA / 내각부 / 기상청 / 민간)',
+        nl: '🇯🇵 Japan (JAXA / JMA / Commercieel)',
+        id: '🇯🇵 Jepang (JAXA / JMA / Komersial)',
+        hi: '🇯🇵 जापान (JAXA / JMA / वाणिज्यिक)',
+        ar: '🇯🇵 اليابان (JAXA / JMA / تجاري)',
+        zh: '🇯🇵 日本 (JAXA / 内阁府 / 气象厅 / 商业航天)',
+        ru: '🇯🇵 Япония (JAXA / JMA / Коммерческие)'
     };
+
+    const catUsIntlLabel = {
+        ja: '🇺🇸 / 🌍 米国・国際 (USA / NASA / SpaceX / 国際共同)',
+        en: '🇺🇸 / 🌍 USA & International (NASA / SpaceX / ISS)',
+        de: '🇺🇸 / 🌍 USA & International (NASA / SpaceX / ISS)',
+        fr: '🇺🇸 / 🌍 États-Unis & International (NASA / SpaceX / ISS)',
+        es: '🇺🇸 / 🌍 EE. UU. e Internacional (NASA / SpaceX / EEI)',
+        pt: '🇺🇸 / 🌍 EUA e Internacional (NASA / SpaceX / ISS)',
+        it: '🇺🇸 / 🌍 USA e Internazionale (NASA / SpaceX / ISS)',
+        ko: '🇺🇸 / 🌍 미국 및 국제 (NASA / SpaceX / ISS)',
+        nl: '🇺🇸 / 🌍 VS & Internationaal (NASA / SpaceX / ISS)',
+        id: '🇺🇸 / 🌍 AS & Internasional (NASA / SpaceX / ISS)',
+        hi: '🇺🇸 / 🌍 यूएसए और अंतर्राष्ट्रीय (NASA / SpaceX)',
+        ar: '🇺🇸 / 🌍 أمريكا ودولي (NASA / SpaceX / محطة الفضاء)',
+        zh: '🇺🇸 / 🌍 美国与国际 (NASA / SpaceX / 国际空间站)',
+        ru: '🇺🇸 / 🌍 США и Международные (NASA / SpaceX / МКС)'
+    };
+
+    const catChinaLabel = {
+        ja: '🇨🇳 中国 (China / CNSA / 天宮 / 北斗)',
+        en: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
+        de: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
+        fr: '🇨🇳 Chine (CNSA / Tiangong / BeiDou)',
+        es: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
+        pt: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
+        it: '🇨🇳 Cina (CNSA / Tiangong / BeiDou)',
+        ko: '🇨🇳 중국 (CNSA / 톈궁 / 베이더우)',
+        nl: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
+        id: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
+        hi: '🇨🇳 चीन (CNSA / तियांगोंग / BeiDou)',
+        ar: '🇨🇳 الصين (CNSA / تيانغونغ / بيدو)',
+        zh: '🇨🇳 中国 (CNSA / 天宫空间站 / 北斗导航)',
+        ru: '🇨🇳 Китай (CNSA / Тяньгун / Бэйдоу)'
+    };
+
     const catDebrisLabel = {
-        ja: '🚨 宇宙ゴミ・デブリ (COSMOS / FENGYUN / SL-8等)',
+        ja: '🚨 宇宙ゴミ・デブリ (Space Debris)',
         en: '🚨 Space Debris & Fragments (COSMOS, FENGYUN, etc.)',
-        de: '🚨 Weltraummüll & Fragmente (COSMOS etc.)',
-        fr: '🚨 Débris spatiaux & fragments (COSMOS, etc.)',
-        pt: '🚨 Detritos espaciais & fragmentos (COSMOS, etc.)',
-        it: '🚨 Detriti Spaziali & Frammenti (COSMOS, ecc.)',
+        de: '🚨 Weltraummüll & Fragmente',
+        fr: '🚨 Débris spatiaux & fragments',
+        pt: '🚨 Detritos espaciais & fragmentos',
+        it: '🚨 Detriti Spaziali & Frammenti',
         ko: '🚨 우주 쓰레기 및 파편 (COSMOS, 펑윈 등)',
-        nl: '🚨 Ruimtepuin & Fragmenten (COSMOS, enz.)',
-        id: '🚨 Sampah Antariksa & Fragmen (COSMOS, dll.)',
-        hi: '🚨 अंतरिक्ष मलबा और टुकड़े (COSMOS, आदि)',
-        ar: '🚨 الحطام الفضائي والشظايا (COSMOS، إلخ)',
+        nl: '🚨 Ruimtepuin & Fragmenten',
+        id: '🚨 Sampah Antariksa & Fragmen',
+        hi: '🚨 अंतरिक्ष मलबा और टुकड़े',
+        ar: '🚨 الحطام الفضائي والشظايا',
         zh: '🚨 空间碎片与太空垃圾 (COSMOS, 风云1号等)',
-        es: '🚨 Basura Espacial y Fragmentos (COSMOS, etc.)',
+        es: '🚨 Basura Espacial y Fragmentos',
         ru: '🚨 Космический мусор (COSMOS, FENGYUN и др.)'
     };
+
     const catStarlinkLabel = {
-        ja: '🛰️ Starlink衛星群 (ピックアップ30機)',
+        ja: '🛰️ Starlink衛星群 (SpaceX ピックアップ30機)',
         en: '🛰️ Starlink Constellation (Featured 30)',
         de: '🛰️ Starlink-Konstellation (Top 30)',
         fr: '🛰️ Constellation Starlink (Top 30)',
@@ -4491,9 +4793,14 @@ function updateDropdownOptions() {
         ru: '🛰️ Группировка Starlink (Топ 30)'
     };
 
+    const japanGroup = document.createElement('optgroup');
+    japanGroup.label = catJapanLabel[lang] || catJapanLabel['en'];
 
-    const majorGroup = document.createElement('optgroup');
-    majorGroup.label = catMajorLabel[lang] || catMajorLabel['en'];
+    const usIntlGroup = document.createElement('optgroup');
+    usIntlGroup.label = catUsIntlLabel[lang] || catUsIntlLabel['en'];
+
+    const chinaGroup = document.createElement('optgroup');
+    chinaGroup.label = catChinaLabel[lang] || catChinaLabel['en'];
 
     const debrisGroup = document.createElement('optgroup');
     debrisGroup.label = catDebrisLabel[lang] || catDebrisLabel['en'];
@@ -4501,7 +4808,9 @@ function updateDropdownOptions() {
     const starlinkGroup = document.createElement('optgroup');
     starlinkGroup.label = catStarlinkLabel[lang] || catStarlinkLabel['en'];
 
-    let majorCount = 0;
+    let japanCount = 0;
+    let usIntlCount = 0;
+    let chinaCount = 0;
     let debrisCount = 0;
     let starlinkCount = 0;
 
@@ -4513,13 +4822,21 @@ function updateDropdownOptions() {
 
         const nameUpper = sat.name.toUpperCase();
         const isDebris = nameUpper.includes('DEBRIS') || nameUpper.includes('COSMOS') || nameUpper.includes('FENGYUN') || nameUpper.includes('SL-8') || nameUpper.includes('SL-16') || nameUpper.includes('DELTA') || nameUpper.includes('ARIANE');
+        const isJapan = nameUpper.includes('ALOS') || nameUpper.includes('DAICHI') || nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI') || nameUpper.includes('QZSS') || nameUpper.includes('GCOM') || nameUpper.includes('GOSAT') || nameUpper.includes('SHIZUKU') || nameUpper.includes('SHIKISAI') || nameUpper.includes('IBUKI') || nameUpper.includes('QPS') || nameUpper.includes('STRIX') || nameUpper.includes('XRISM');
+        const isChina = nameUpper.includes('TIANGONG') || nameUpper.includes('BEIDOU');
 
         if (isDebris) {
             debrisGroup.appendChild(opt);
             debrisCount++;
-        } else if (nameUpper.includes('HIMAWARI') || nameUpper.includes('ISS') || nameUpper.includes('MICHIBIKI') || nameUpper.includes('HUBBLE') || nameUpper.includes('GPS') || nameUpper.includes('TIANGONG') || nameUpper.includes('BEIDOU')) {
-            majorGroup.appendChild(opt);
-            majorCount++;
+        } else if (isJapan) {
+            japanGroup.appendChild(opt);
+            japanCount++;
+        } else if (isChina) {
+            chinaGroup.appendChild(opt);
+            chinaCount++;
+        } else if (nameUpper.includes('ISS') || nameUpper.includes('HUBBLE') || nameUpper.includes('GPS')) {
+            usIntlGroup.appendChild(opt);
+            usIntlCount++;
         } else {
             if (starlinkCount < 30) {
                 starlinkGroup.appendChild(opt);
@@ -4528,10 +4845,13 @@ function updateDropdownOptions() {
         }
     });
 
-    if (majorCount > 0) satSelect.appendChild(majorGroup);
+    if (japanCount > 0) satSelect.appendChild(japanGroup);
+    if (usIntlCount > 0) satSelect.appendChild(usIntlGroup);
+    if (chinaCount > 0) satSelect.appendChild(chinaGroup);
     if (debrisCount > 0) satSelect.appendChild(debrisGroup);
     if (starlinkCount > 0) satSelect.appendChild(starlinkGroup);
 }
+
 
 /**
  * Load Major Satellites Built-in Preset
@@ -5152,7 +5472,8 @@ function selectSatellite(index) {
     // Update Detail Card UI
     satBadge.textContent = sat.name.toUpperCase().includes('STARLINK') ? 'STARLINK' : (sat.name.toUpperCase().includes('DEBRIS') ? 'SPACE DEBRIS' : 'SATELLITE');
     satName.textContent = getSatDisplayName(sat.name);
-    satNorad.textContent = `NORAD ID: ${sat.noradId}`;
+    const countryStr = getSatCountry(sat.name);
+    satNorad.innerHTML = `<span>NORAD ID: ${sat.noradId}</span> <span style="margin-left:8px; padding:2px 8px; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.35); border-radius:4px; font-weight:700; color:#38bdf8; font-size:0.75rem;">${countryStr}</span>`;
     if (satDescription) {
         satDescription.textContent = getSatDescription(sat.name);
     }
@@ -6310,6 +6631,27 @@ function performSearch(rawQuery) {
 
     // 2. Search Satellites
     const searchTerms = [upperQuery, rawQuery];
+        if (rawQuery.includes('だいち') || upperQuery.includes('ALOS') || upperQuery.includes('DAICHI')) {
+        searchTerms.push('ALOS', 'DAICHI', 'だいち');
+    }
+    if (rawQuery.includes('クリズム') || upperQuery.includes('XRISM')) {
+        searchTerms.push('XRISM', 'クリズム');
+    }
+    if (rawQuery.includes('しずく') || upperQuery.includes('SHIZUKU') || upperQuery.includes('GCOM-W')) {
+        searchTerms.push('GCOM-W', 'SHIZUKU', 'しずく');
+    }
+    if (rawQuery.includes('しきさい') || upperQuery.includes('SHIKISAI') || upperQuery.includes('GCOM-C')) {
+        searchTerms.push('GCOM-C', 'SHIKISAI', 'しきさい');
+    }
+    if (rawQuery.includes('いぶき') || upperQuery.includes('IBUKI') || upperQuery.includes('GOSAT')) {
+        searchTerms.push('GOSAT', 'IBUKI', 'いぶき');
+    }
+    if (rawQuery.includes('ツクヨミ') || upperQuery.includes('QPS') || upperQuery.includes('TSUKUYOMI')) {
+        searchTerms.push('QPS', 'TSUKUYOMI', 'ツクヨミ');
+    }
+    if (rawQuery.includes('ストリクス') || upperQuery.includes('STRIX') || upperQuery.includes('SYNSPECTIVE')) {
+        searchTerms.push('STRIX', 'SYNSPECTIVE', 'ストリクス');
+    }
     if (rawQuery.includes('ひまわり') || rawQuery.includes('ヒマワリ') || upperQuery.includes('HIMAWARI')) {
         searchTerms.push('HIMAWARI', 'ひまわり');
     }

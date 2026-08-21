@@ -744,8 +744,9 @@ aside#sidebarPanel.hud-sidebar {
     border-radius: 4px;
     font-size: 0.82rem;
     color: var(--text-primary);
-    line-height: 1.45;
+    line-height: 1.55;
     letter-spacing: 0.2px;
+    white-space: pre-line;
 }
 
 /* Source Status Badge UI */
