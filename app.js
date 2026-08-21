@@ -4109,8 +4109,52 @@ const sourceStatusBadge = document.getElementById('sourceStatusBadge');
  */
 
 function updateDropdownOptions() {
-    const dict = TRANSLATIONS[currentLang] || TRANSLATIONS['ja'];
-    satSelect.innerHTML = `<option value="">${dict.selectPlaceholder || '-- 衛星を選択 --'}</option>`;
+    const lang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : 'ja';
+    const dict = TRANSLATIONS[lang] || TRANSLATIONS['ja'];
+    satSelect.innerHTML = `<option value="">${dict.selectPlaceholder || '-- 太陽・惑星・衛星・宇宙ゴミを選択 --'}</option>`;
+
+    // 1. Solar System Bodies (Sun, Moon, Planets)
+    const catCelestialLabel = {
+        ja: '🌌 太陽系天体 (太陽・月・主要惑星)',
+        en: '🌌 Solar System Bodies (Sun, Moon, Planets)',
+        de: '🌌 Himmelskörper (Sonne, Mond, Planeten)',
+        fr: '🌌 Corps du système solaire (Soleil, Lune, Planètes)',
+        pt: '🌌 Corpos do Sistema Solar (Sol, Lua, Planetas)',
+        it: '🌌 Corpi del Sistema Solare (Sole, Luna, Pianeti)',
+        ko: '🌌 태양계 천체 (태양, 달, 주요 행성)',
+        nl: '🌌 Hemellichamen (Zon, Maan, Planeten)',
+        id: '🌌 Tata Surya (Matahari, Bulan, Planet)',
+        hi: '🌌 सौर मंडल के खगोलीय पिंड (सूर्य, चंद्रमा, ग्रह)',
+        ar: '🌌 أجرام النظام الشمسي (الشمس، القمر، الكواكب)',
+        zh: '🌌 太阳系天体 (太阳、月球、主要行星)',
+        es: '🌌 Cuerpos del Sistema Solar (Sol, Luna, Planetas)',
+        ru: '🌌 Тела Солнечной системы (Солнце, Луна, Планеты)'
+    };
+
+    const celestialNames = {
+        SUN: { ja: '☀️ 太陽 (Sun)', en: '☀️ Sun', de: '☀️ Sonne', fr: '☀️ Soleil', es: '☀️ Sol', pt: '☀️ Sol', it: '☀️ Sole', ko: '☀️ 태양 (Sun)', nl: '☀️ Zon', id: '☀️ Matahari', hi: '☀️ सूर्य (Sun)', ar: '☀️ الشمس', zh: '☀️ 太阳 (Sun)', ru: '☀️ Солнце' },
+        MOON: { ja: '🌕 月 (Moon)', en: '🌕 Moon', de: '🌕 Mond', fr: '🌕 Lune', es: '🌕 Luna', pt: '🌕 Lua', it: '🌕 Luna', ko: '🌕 달 (Moon)', nl: '🌕 Maan', id: '🌕 Bulan', hi: '🌕 चंद्रमा (Moon)', ar: '🌕 القمر', zh: '🌕 月球 (Moon)', ru: '🌕 Луна' },
+        MARS: { ja: '🔴 火星 (Mars)', en: '🔴 Mars', de: '🔴 Mars', fr: '🔴 Mars', es: '🔴 Marte', pt: '🔴 Marte', it: '🔴 Marte', ko: '🔴 화성 (Mars)', nl: '🔴 Mars', id: '🔴 Mars', hi: '🔴 मंगल (Mars)', ar: '🔴 المريخ', zh: '🔴 火星 (Mars)', ru: '🔴 Марс' },
+        JUPITER: { ja: '🟠 木星 (Jupiter)', en: '🟠 Jupiter', de: '🟠 Jupiter', fr: '🟠 Jupiter', es: '🟠 Júpiter', pt: '🟠 Júpiter', it: '🟠 Giove', ko: '🟠 목성 (Jupiter)', nl: '🟠 Jupiter', id: '🟠 Yupiter', hi: '🟠 बृहस्पति (Jupiter)', ar: '🟠 المشتري', zh: '🟠 木星 (Jupiter)', ru: '🟠 Юпитер' },
+        SATURN: { ja: '🪐 土星 (Saturn)', en: '🪐 Saturn', de: '🪐 Saturn', fr: '🪐 Saturne', es: '🪐 Saturno', pt: '🪐 Saturno', it: '🪐 Saturno', ko: '🪐 토성 (Saturn)', nl: '🪐 Saturnus', id: '🪐 Saturnus', hi: '🪐 शनि (Saturn)', ar: '🪐 زحل', zh: '🪐 土星 (Saturn)', ru: '🪐 Сатурн' },
+        VENUS: { ja: '🟡 金星 (Venus)', en: '🟡 Venus', de: '🟡 Venus', fr: '🟡 Vénus', es: '🟡 Venus', pt: '🟡 Vênus', it: '🟡 Venere', ko: '🟡 금성 (Venus)', nl: '🟡 Venus', id: '🟡 Venus', hi: '🟡 शुक्र (Venus)', ar: '🟡 الزهرة', zh: '🟡 金星 (Venus)', ru: '🟡 Венера' },
+        MERCURY: { ja: '🔘 水星 (Mercury)', en: '🔘 Mercury', de: '🔘 Merkur', fr: '🔘 Mercure', es: '🔘 Mercurio', pt: '🔘 Mercúrio', it: '🔘 Mercurio', ko: '🔘 수성 (Mercury)', nl: '🔘 Mercurius', id: '🔘 Merkurius', hi: '🔘 बुध (Mercury)', ar: '🔘 عطارد', zh: '🔘 水星 (Mercury)', ru: '🔘 Меркурий' },
+        URANUS: { ja: '🌀 天王星 (Uranus)', en: '🌀 Uranus', de: '🌀 Uranus', fr: '🌀 Uranus', es: '🌀 Urano', pt: '🌀 Urano', it: '🌀 Urano', ko: '🌀 천왕성 (Uranus)', nl: '🌀 Uranus', id: '🌀 Uranus', hi: '🌀 अरुण (Uranus)', ar: '🌀 أورانوس', zh: '🌀 天王星 (Uranus)', ru: '🌀 Уран' }
+    };
+
+    const celestialGroup = document.createElement('optgroup');
+    celestialGroup.label = catCelestialLabel[lang] || catCelestialLabel['en'];
+
+    if (typeof CELESTIAL_BODIES !== 'undefined' && Array.isArray(CELESTIAL_BODIES)) {
+        CELESTIAL_BODIES.forEach(b => {
+            const opt = document.createElement('option');
+            opt.value = `celestial_${b.id}`;
+            const nameMap = celestialNames[b.id];
+            opt.textContent = (nameMap && (nameMap[lang] || nameMap['en'])) || `${b.symbol} ${b.name}`;
+            celestialGroup.appendChild(opt);
+        });
+        satSelect.appendChild(celestialGroup);
+    }
 
     const catMajorLabel = {
         ja: '⭐ 主要・有名衛星 (ひまわり / ISS / みちびき等)',
@@ -4161,7 +4205,7 @@ function updateDropdownOptions() {
         ru: '🛰️ Группировка Starlink (Топ 30)'
     };
 
-    const lang = currentLang || 'ja';
+
     const majorGroup = document.createElement('optgroup');
     majorGroup.label = catMajorLabel[lang] || catMajorLabel['en'];
 
