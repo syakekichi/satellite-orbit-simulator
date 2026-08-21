@@ -3793,17 +3793,36 @@ function initCesiumViewer() {
         console.warn("Borders overlay load skipped:", e);
     }
 
-    // Custom Precision Wheel Zoom Interceptor (Directly overrides Cesium's aggressive wheel zoom to 1/10th speed!)
+    // Custom Precision Wheel Zoom Interceptor (Ultra-smooth, delicate, notch-by-notch micro-zooming for both Earth and 3D Planets!)
     const canvas = viewer.canvas;
     canvas.addEventListener('wheel', (e) => {
         e.preventDefault();
         e.stopPropagation();
 
         const camera = viewer.camera;
-        const currentDist = Cesium.Cartesian3.magnitude(camera.positionWC);
-        
-        // Extremely gentle 0.00015 step factor (Ultra-smooth 1/10th scroll speed!)
         const delta = e.deltaY;
+        
+        // When inspecting a 3D Planet: Ultra-fine, delicate micro-zoom
+        if (activePlanetSphereEntity || selectedCelestialId) {
+            const body = CELESTIAL_BODIES.find(b => b.id === selectedCelestialId);
+            const planetRadius = (body && body.radiusKm ? body.radiusKm * 1000 : 6000000);
+            
+            // Ultra-fine proportional step (~2.5% to 3% per notch for delicate control)
+            const currentDist = Cesium.Cartesian3.magnitude(camera.position);
+            const zoomStep = Math.max(planetRadius * 0.03, currentDist * Math.abs(delta) * 0.00022);
+
+            if (delta > 0) {
+                camera.zoomOut(zoomStep);
+            } else {
+                if (currentDist - zoomStep >= planetRadius * 1.05) {
+                    camera.zoomIn(zoomStep);
+                }
+            }
+            return;
+        }
+
+        // Earth Orbit Mode: Ultra-smooth step factor
+        const currentDist = Cesium.Cartesian3.magnitude(camera.positionWC);
         const zoomStep = currentDist * (delta * 0.00015);
         
         if (delta > 0) {
