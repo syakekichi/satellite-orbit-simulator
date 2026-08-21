@@ -1,4 +1,50 @@
 
+const CELESTIAL_BADGE_TYPES = {
+    'SUN': { ja: '☀️ 恒星 (G型主系列星)', en: '☀️ G-Type Main-Sequence Star', de: '☀️ Hauptreihenstern (G-Klasse)', fr: '☀️ Étoile naine jaune', es: '☀️ Estrella enana amarilla', pt: '☀️ Estrela anã amarela', it: '☀️ Stella nana gialla', ko: '☀️ G형 주계열성 (항성)', nl: '☀️ Hoofdreeksster (G-type)', id: '☀️ Bintang Deret Utama', hi: '☀️ मुख्य-अनुक्रम तारा', ar: '☀️ نجم النسق الأساسي', zh: '☀️ G型主序星 (恒星)', ru: '☀️ Желтый карлик (Звезда)' },
+    'MOON': { ja: '🌕 地球の自然衛星', en: "🌕 Earth's Natural Satellite", de: '🌕 Natürlicher Satellit der Erde', fr: '🌕 Satellite naturel de la Terre', es: '🌕 Satélite natural de la Tierra', pt: '🌕 Satélite natural da Terra', it: '🌕 Satellite naturale della Terra', ko: '🌕 지구의 자연위성', nl: '🌕 Natuurlijke satelliet van de aarde', id: '🌕 Satelit Alami Bumi', hi: '🌕 पृथ्वी का प्राकृतिक उपग्रह', ar: '🌕 التابع الطبيعي للأرض', zh: '🌕 地球的天然卫星', ru: '🌕 Естественный спутник Земли' },
+    'MERCURY': { ja: '🔘 太陽系第1惑星 (岩石惑星)', en: '🔘 1st Terrestrial Planet', de: '🔘 1. Planet (Gesteinsplanet)', fr: '🔘 1re planète tellurique', es: '🔘 1.º planeta rocoso', pt: '🔘 1º planeta rochoso', it: '🔘 1º pianeta roccioso', ko: '🔘 제1행성 (지구형 암석 행성)', nl: '🔘 1e Rotsachtige planeet', id: '🔘 Planet Berbatu ke-1', hi: '🔘 प्रथम स्थलीय ग्रह', ar: '🔘 الكوكب الصخري الأول', zh: '🔘 太阳系第一行星 (岩质行星)', ru: '🔘 1-я планета (Каменистая)' },
+    'VENUS': { ja: '🟡 太陽系第2惑星 (岩石惑星)', en: '🟡 2nd Terrestrial Planet', de: '🟡 2. Planet (Gesteinsplanet)', fr: '🟡 2e planète tellurique', es: '🟡 2.º planeta rocoso', pt: '🟡 2º planeta rochoso', it: '🟡 2º pianeta roccioso', ko: '🟡 제2행성 (지구형 암석 행성)', nl: '🟡 2e Rotsachtige planeet', id: '🟡 Planet Berbatu ke-2', hi: '🟡 द्वितीय स्थलीय ग्रह', ar: '🟡 الكوكب الصخري الثاني', zh: '🟡 太阳系第二行星 (岩质行星)', ru: '🟡 2-я планета (Каменистая)' },
+    'MARS': { ja: '🔴 太陽系第4惑星 (岩石惑星)', en: '🔴 4th Terrestrial Planet', de: '🔴 4. Planet (Gesteinsplanet)', fr: '🔴 4e planète tellurique', es: '🔴 4.º planeta rocoso', pt: '🔴 4º planeta rochoso', it: '🔴 4º pianeta roccioso', ko: '🔴 제4행성 (지구형 암석 행성)', nl: '🔴 4e Rotsachtige planeet', id: '🔴 Planet Berbatu ke-4', hi: '🔴 चतुर्थ स्थलीय ग्रह', ar: '🔴 الكوكب الصخري الرابع', zh: '🔴 太阳系第四行星 (岩质行星)', ru: '🔴 4-я планета (Каменистая)' },
+    'JUPITER': { ja: '🟠 太陽系第5惑星 (巨大ガス惑星)', en: '🟠 5th Planet (Gas Giant)', de: '🟠 5. Planet (Gasriese)', fr: '🟠 5e planète (Géante gazeuse)', es: '🟠 5.º planeta (Gigante gaseoso)', pt: '🟠 5º planeta (Gigante gasoso)', it: '🟠 5º pianeta (Gigante gassoso)', ko: '🟠 제5행성 (거대 가스 행성)', nl: '🟠 5e planeet (Gasreus)', id: '🟠 Planet ke-5 (Raksasa Gas)', hi: '🟠 5वां ग्रह (विशाल गैस दानव)', ar: '🟠 الكوكب الخامس (عملاق غازي)', zh: '🟠 太阳系第五行星 (气态巨行星)', ru: '🟠 5-я планета (Газовый гигант)' },
+    'SATURN': { ja: '🪐 太陽系第6惑星 (巨大ガス惑星)', en: '🪐 6th Planet (Gas Giant)', de: '🪐 6. Planet (Gasriese)', fr: '🪐 6e planète (Géante gazeuse)', es: '🪐 6.º planeta (Gigante gaseoso)', pt: '🪐 6º planeta (Gigante gasoso)', it: '🪐 6º pianeta (Gigante gassoso)', ko: '🪐 제6행성 (거대 가스 행성)', nl: '🪐 6e planeet (Gasreus)', id: '🪐 Planet ke-6 (Raksasa Gas)', hi: '🪐 6वां ग्रह (विशाल गैस दानव)', ar: '🪐 الكوكب السادس (عملاق غازي)', zh: '🪐 太阳系第六行星 (气态巨行星)', ru: '🪐 6-я планета (Газовый гигант)' },
+    'URANUS': { ja: '🌀 太陽系第7惑星 (巨大氷惑星)', en: '🌀 7th Planet (Ice Giant)', de: '🌀 7. Planet (Eisriese)', fr: '🌀 7e planète (Géante de glace)', es: '🌀 7.º planeta (Gigante helado)', pt: '🌀 7º planeta (Gigante de gelo)', it: '🌀 7º pianeta (Gigante di ghiaccio)', ko: '🌀 제7행성 (거대 얼음 행성)', nl: '🌀 7e planeet (Ijsreus)', id: '🌀 Planet ke-7 (Raksasa Es)', hi: '🌀 7वां ग्रह (विशाल बर्फ दानव)', ar: '🌀 الكوكب السابع (عملاق جليدي)', zh: '🌀 太阳系第七行星 (冰巨行星)', ru: '🌀 7-я планета (Ледяной гигант)' }
+};
+
+const CELESTIAL_SUBTITLES = {
+    ja: '太陽系主要天体',
+    en: 'SOLAR SYSTEM CELESTIAL BODY',
+    de: 'HIMMELSKÖRPER DES SONNENSYSTEMS',
+    fr: 'CORPS CÉLESTE DU SYSTÈME SOLAIRE',
+    es: 'CUERPO CELESTE DEL SISTEMA SOLAR',
+    pt: 'CORPO CELESTE DO SISTEMA SOLAR',
+    it: 'CORPO CELESTE DEL SISTEMA SOLARE',
+    ko: '태양계 주요 천체',
+    nl: 'HEMELLICHAAM VAN HET ZONNESTELSEL',
+    id: 'BENDA LANGIT TATA SURYA',
+    hi: 'सौर मंडल प्रमुख खगोलीय पिंड',
+    ar: 'جرم سماوي في النظام الشمسي',
+    zh: '太阳系主要天体',
+    ru: 'НЕБЕСНОЕ ТЕЛО СОЛНЕЧНОЙ СИСТЕМЫ'
+};
+
+const CELESTIAL_EQUILIBRIUM_STATUS = {
+    ja: '🟢 重力平衡 (ケプラー安定軌道)',
+    en: '🟢 Gravitational Equilibrium (Stable Orbit)',
+    de: '🟢 Gravitatives Gleichgewicht (Stabile Bahn)',
+    fr: '🟢 Équilibre gravitationnel (Orbite stable)',
+    es: '🟢 Equilibrio gravitacional (Órbita estable)',
+    pt: '🟢 Equilíbrio gravitacional (Órbita estável)',
+    it: '🟢 Equilibrio gravitazionale (Orbita stabile)',
+    ko: '🟢 중력 평형 (안정된 케플러 궤도)',
+    nl: '🟢 Zwaartekrachtevenwicht (Stabiele baan)',
+    id: '🟢 Keseimbangan Gravitasi (Orbit Stabil)',
+    hi: '🟢 गुरुत्वाकर्षण संतुलन (स्थिर कक्षा)',
+    ar: '🟢 توازن جاذبي (مدار كبلري مستقر)',
+    zh: '🟢 引力平衡 (开普勒稳定轨道)',
+    ru: '🟢 Гравитационное равновесие (Стабильная орбита)'
+};
+
+
 const CELESTIAL_METRIC_LABELS = {
     'ja': { alt: '📏 距離 (Distance)', vel: '📐 直径 (Diameter)', lat: '⚖️ 質量 (Mass)', lon: '🔄 自転周期 (Rotation)', inc: '🌡️ 表面温度 (Temperature)', period: '🌌 公転周期 (Orbit)' },
     'en': { alt: '📏 Distance', vel: '📐 Diameter', lat: '⚖️ Mass', lon: '🔄 Rotation', inc: '🌡️ Surface Temp', period: '🌌 Orbit Period' },
@@ -435,9 +481,9 @@ const TRANSLATIONS = {
         statTime: "シミュレーション時刻",
         dragPanel: "⋮⋮ ドラッグでパネル移動",
         dragHeader: "⋮⋮ ドラッグで移動",
-        secSelect: "衛星を選択・検索",
-        selectPlaceholder: "-- 衛星または宇宙ゴミを選択してください --",
-        searchPlaceholder: "または衛星名・NORAD IDで検索...",
+        secSelect: "天体・衛星を選択・検索",
+        selectPlaceholder: "-- 太陽・惑星・衛星・宇宙ゴミを選択 --",
+        searchPlaceholder: "または太陽・惑星・衛星名・NORAD IDで検索...",
         secSource: "衛星データソース & プリセット",
         loadMajor: "⭐ 主要・有名衛星 (ひまわり, ISS, みちびき, デブリ)",
         loadLocal: "🛰️ Starlink 全衛星コンステレーション (2,000機)",
@@ -517,9 +563,9 @@ const TRANSLATIONS = {
         statTime: "Simulation Time",
         dragPanel: "⋮⋮ Drag to move panel",
         dragHeader: "⋮⋮ Drag to move",
-        secSelect: "Select / Search Satellite",
-        selectPlaceholder: "-- Select Satellite or Space Debris --",
-        searchPlaceholder: "Search by Name or NORAD ID...",
+        secSelect: "Select & Search Celestial / Satellites",
+        selectPlaceholder: "-- Select Planet, Satellite or Debris --",
+        searchPlaceholder: "Search by Planet, Satellite name or NORAD ID...",
         secSource: "Satellite Data Source & Presets",
         loadMajor: "⭐ Major Satellites (ISS, Himawari, Michibiki, Debris)",
         loadLocal: "🛰️ Full Starlink Constellation (2,000 Satellites)",
@@ -599,9 +645,9 @@ const TRANSLATIONS = {
         statTime: "模拟时间",
         dragPanel: "⋮⋮ 拖动移动面板",
         dragHeader: "⋮⋮ 拖动移动面板",
-        secSelect: "选择 / 搜索卫星",
-        selectPlaceholder: "-- 请选择卫星或空间碎片 --",
-        searchPlaceholder: "按名称或 NORAD ID 搜索...",
+        secSelect: "选择与搜索天体/卫星",
+        selectPlaceholder: "-- 选择太阳、行星、卫星或太空碎片 --",
+        searchPlaceholder: "或搜索天体、行星、卫星名称、NORAD ID...",
         secSource: "卫星数据源与预设",
         loadMajor: "⭐ 主要/著名卫星 (国际空间站, 葵花, 碎片等)",
         loadLocal: "🛰️ 星链 (Starlink) 完整星座 (2,000 颗)",
@@ -671,9 +717,9 @@ const TRANSLATIONS = {
         statTime: "Tiempo de Simulación",
         dragPanel: "⋮⋮ Arrastrar para mover panel",
         dragHeader: "⋮⋮ Arrastrar para mover",
-        secSelect: "Seleccionar / Buscar Satélite",
-        selectPlaceholder: "-- Seleccionar Satélite o Basura Espacial --",
-        searchPlaceholder: "Buscar por nombre o NORAD ID...",
+        secSelect: "Seleccionar y buscar astros/satélites",
+        selectPlaceholder: "-- Seleccionar planeta, satélite o basura espacial --",
+        searchPlaceholder: "Buscar por planeta, nombre de satélite o ID...",
         secSource: "Fuente de Datos y Presets",
         loadMajor: "⭐ Satélites Principales (EEI, Himawari, Basura)",
         loadLocal: "🛰️ Constelación Completa Starlink (2.000)",
@@ -744,9 +790,9 @@ const TRANSLATIONS = {
         statTime: "Время моделирования",
         dragPanel: "⋮⋮ Перетащите панель",
         dragHeader: "⋮⋮ Перетащить панель",
-        secSelect: "Выбрать / Найти спутник",
-        selectPlaceholder: "-- Выберите спутник или мусор --",
-        searchPlaceholder: "Поиск по имени или NORAD ID...",
+        secSelect: "Выбор и поиск планет и спутников",
+        selectPlaceholder: "-- Выберите планету, спутник или мусор --",
+        searchPlaceholder: "Поиск по названию планеты, спутника или ID...",
         secSource: "Источники данных и пресеты",
         loadMajor: "⭐ Основные спутники (МКС, Himawari, Мусор)",
         loadLocal: "🛰️ Полная группировка Starlink (2 000)",
@@ -817,9 +863,9 @@ const TRANSLATIONS = {
         statTime: "Simulationszeit",
         dragPanel: "⋮⋮ Panel verschieben",
         dragHeader: "⋮⋮ Ziehen zum Verschieben",
-        secSelect: "Satellit auswählen / suchen",
-        selectPlaceholder: "-- Satellit oder Weltraummüll auswählen --",
-        searchPlaceholder: "Nach Name oder NORAD-ID suchen...",
+        secSelect: "Planeten & Satelliten suchen",
+        selectPlaceholder: "-- Planet, Satellit oder Weltraummüll wählen --",
+        searchPlaceholder: "Nach Planet, Satellitenname oder ID suchen...",
         secSource: "Satelliten-Datenquellen",
         loadMajor: "⭐ Wichtige Satelliten (ISS, Starlink, Müll)",
         loadLocal: "🛰️ Starlink Gesamtkonstellation (2.000)",
@@ -890,9 +936,9 @@ const TRANSLATIONS = {
         statTime: "Temps Simulé",
         dragPanel: "⋮⋮ Déplacer le panneau",
         dragHeader: "⋮⋮ Glisser pour déplacer",
-        secSelect: "Sélectionner / Rechercher",
-        selectPlaceholder: "-- Choisir un satellite ou débris --",
-        searchPlaceholder: "Rechercher par nom ou NORAD ID...",
+        secSelect: "Sélectionner & chercher astres/satellites",
+        selectPlaceholder: "-- Sélectionner planète, satellite ou débris --",
+        searchPlaceholder: "Rechercher une planète, satellite ou ID...",
         secSource: "Sources de données",
         loadMajor: "⭐ Satellites majeurs (ISS, Starlink, débris)",
         loadLocal: "🛰️ Constellation Starlink (2 000)",
@@ -963,9 +1009,9 @@ const TRANSLATIONS = {
         statTime: "Hora da Simulação",
         dragPanel: "⋮⋮ Arrastar painel",
         dragHeader: "⋮⋮ Arrastar para mover",
-        secSelect: "Selecionar / Buscar satélite",
-        selectPlaceholder: "-- Selecione satélite ou lixo espacial --",
-        searchPlaceholder: "Buscar por nome ou ID NORAD...",
+        secSelect: "Selecionar e buscar corpos/satélites",
+        selectPlaceholder: "-- Selecionar planeta, satélite ou detrito --",
+        searchPlaceholder: "Buscar por planeta, nome de satélite ou ID...",
         secSource: "Fontes de Dados & Predefinições",
         loadMajor: "⭐ Satélites principais (ISS, Starlink, lixo)",
         loadLocal: "🛰️ Constelação Starlink (2.000)",
@@ -1036,9 +1082,9 @@ const TRANSLATIONS = {
         statTime: "Ora Simulazione",
         dragPanel: "⋮⋮ Trascina pannello",
         dragHeader: "⋮⋮ Trascina per spostare",
-        secSelect: "Seleziona / Cerca Satellite",
-        selectPlaceholder: "-- Seleziona satellite o detrito --",
-        searchPlaceholder: "Cerca per nome o ID NORAD...",
+        secSelect: "Seleziona e cerca corpi/satelliti",
+        selectPlaceholder: "-- Seleziona pianeta, satellite o detrito --",
+        searchPlaceholder: "Cerca per pianeta, satellite o ID NORAD...",
         secSource: "Fonti Dati & Preimpostazioni",
         loadMajor: "⭐ Satelliti Principali (ISS, Starlink, detriti)",
         loadLocal: "🛰️ Costellazione Starlink (2.000)",
@@ -1109,9 +1155,9 @@ const TRANSLATIONS = {
         statTime: "시뮬레이션 시간",
         dragPanel: "⋮⋮ 패널 이동",
         dragHeader: "⋮⋮ 드래그하여 패널 이동",
-        secSelect: "인공위성 선택 / 검색",
-        selectPlaceholder: "-- 인공위성 또는 우주 파편 선택 --",
-        searchPlaceholder: "이름 또는 NORAD ID로 검색...",
+        secSelect: "천체 및 인공위성 선택・검색",
+        selectPlaceholder: "-- 태양, 행성, 인공위성, 우주쓰레기 선택 --",
+        searchPlaceholder: "또는 행성・위성명・NORAD ID로 검색...",
         secSource: "데이터 소스 및 프리셋",
         loadMajor: "⭐ 주요 위성 (ISS, 스타링크, 파편)",
         loadLocal: "🛰️ 스타링크 군집위성 (2,000기)",
@@ -1182,9 +1228,9 @@ const TRANSLATIONS = {
         statTime: "Simulatietijd",
         dragPanel: "⋮⋮ Paneel slepen",
         dragHeader: "⋮⋮ Slepen om te verplaatsen",
-        secSelect: "Selecteer / Zoek Satelliet",
-        selectPlaceholder: "-- Selecteer satelliet of ruimtepuin --",
-        searchPlaceholder: "Zoek op naam of NORAD-ID...",
+        secSelect: "Planeten & Satellieten zoeken",
+        selectPlaceholder: "-- Selecteer planeet, satelliet of puin --",
+        searchPlaceholder: "Zoek op planeet, satellietnaam of ID...",
         secSource: "Gegevensbronnen & Voorinstellingen",
         loadMajor: "⭐ Belangrijke Satellieten (ISS, Starlink, puin)",
         loadLocal: "🛰️ Starlink Constellatie (2.000)",
@@ -1255,9 +1301,9 @@ const TRANSLATIONS = {
         statTime: "Waktu Simulasi",
         dragPanel: "⋮⋮ Geser panel",
         dragHeader: "⋮⋮ Geser untuk memindahkan",
-        secSelect: "Pilih / Cari Satelit",
-        selectPlaceholder: "-- Pilih satelit atau sampah antariksa --",
-        searchPlaceholder: "Cari berdasarkan nama atau NORAD ID...",
+        secSelect: "天体・衛星を選択・検索",
+        selectPlaceholder: "-- 太陽・惑星・衛星・宇宙ゴミを選択 --",
+        searchPlaceholder: "または太陽・惑星・衛星名・NORAD IDで検索...",
         secSource: "Sumber Data & Preset",
         loadMajor: "⭐ Satelit Utama (ISS, Starlink, puing)",
         loadLocal: "🛰️ Konstelasi Starlink (2.000)",
@@ -1328,9 +1374,9 @@ const TRANSLATIONS = {
         statTime: "وقت المحاكاة",
         dragPanel: "⋮⋮ سحب اللوحة",
         dragHeader: "⋮⋮ السحب للتحريك",
-        secSelect: "تحديد / بحث عن قمر صناعي",
-        selectPlaceholder: "-- اختر قمراً صناعياً أو حطاماً --",
-        searchPlaceholder: "البحث بالاسم أو رقم NORAD...",
+        secSelect: "اختيار وبحث الأجرام والأقمار",
+        selectPlaceholder: "-- اختر الكواكب أو الأقمار أو الحطام --",
+        searchPlaceholder: "ابحث عن كوكب، قمر صناعي أو معرف NORAD...",
         secSource: "مصادر البيانات والإعدادات المسبقة",
         loadMajor: "⭐ الأقمار الرئيسية (ISS، ستارلينك، الحطام)",
         loadLocal: "🛰️ كوكبة ستارلينك (2,000)",
@@ -1401,9 +1447,9 @@ const TRANSLATIONS = {
         statTime: "सिमुलेशन समय",
         dragPanel: "⋮⋮ पैनल खींचें",
         dragHeader: "⋮⋮ खींचकर स्थानांतरित करें",
-        secSelect: "उपग्रह चुनें / खोजें",
-        selectPlaceholder: "-- उपग्रह या मलबा चुनें --",
-        searchPlaceholder: "नाम या NORAD ID द्वारा खोजें...",
+        secSelect: "खगोलीय पिंड व उपग्रह खोजें",
+        selectPlaceholder: "-- ग्रह, उपग्रह या अंतरिक्ष मलबा चुनें --",
+        searchPlaceholder: "ग्रह, उपग्रह नाम या NORAD ID द्वारा खोजें...",
         secSource: "डेटा स्रोत और प्रीसेट",
         loadMajor: "⭐ प्रमुख उपग्रह (ISS, स्टारलिंक, मलबा)",
         loadLocal: "🛰️ स्टारलिंक समूह (2,000)",
@@ -3290,100 +3336,116 @@ const CELESTIAL_DESCRIPTIONS = {
         "ru": "Центральная звезда Солнечной системы. Температура поверхности ~5 500°C, ядра ~15 млн °C. Солнечные пятна холоднее [~3 500°C–4 000°C] из-за сильных магнитных полей."
     },
     "MOON": {
-        "ja": "地球唯一の自然衛星「月」。平均距離約384,400km、公転周期約27.3日。アポロ計画やアルテミス計画の探査対象。CesiumJSリアルタイム3D月齢連動。",
-        "en": "Earth's only natural satellite (~384,400 km away, orbital period 27.3 days). Target of Apollo and Artemis lunar missions. Synchronized with real-time 3D lunar phases.",
-        "de": "Der einzige natürliche Satellit der Erde (~384.400 km entfernt, Umlaufzeit 27,3 Tage).",
-        "fr": "L'unique satellite naturel de la Terre (distance ~384 400 km, période orbitale 27,3 jours).",
-        "es": "El único satélite natural de la Tierra (~384.400 km de distancia, período de 27,3 días).",
-        "pt": "O único satélite natural da Terra (~384.400 km de distância, período de 27,3 dias).",
-        "it": "L'unico satellite naturale della Terra (~384.400 km di distanza, periodo 27,3 giorni).",
-        "ko": "지구의 유일한 자연위성 \"달\"(평균 거리 약 384,400km, 공전주기 약 27.3일). 실시간 3D 월령 렌더링.",
-        "nl": "De enige natuurlijke satelliet van de aarde (~384.400 km afstand, omlooptijd 27,3 dagen).",
-        "id": "Satelit alami tunggal Bumi (~384.400 km, periode orbit 27,3 hari). Target misi Artemis.",
-        "hi": "पृथ्वी का एकमात्र प्राकृतिक उपग्रह \"चंद्रमा\" (~384,400 किमी दूर, परिक्रमण काल 27.3 दिन)।",
-        "ar": "القمر، التابع الطبيعي الوحيد للأرض (~384,400 كم، الدورة المدارية 27.3 يوماً). مرحلة ثلاثية الأبعاد متزامنة.",
-        "zh": "地球唯一的天然卫星“月球”，平均距离约38.44万公里，公转周期约27.3天。实时3D月相呈现。",
-        "ru": "Единственный естественный спутник Земли (~384 400 км, период обращения 27,3 дня)."
-    },
-    "MARS": {
-        "ja": "太陽系第4惑星「火星」(Red Planet)。酸化鉄に覆われた赤い地表と大気、極冠を持つ。NASAパーサヴィアランス探査車や有人探査計画の最前線。",
-        "en": "The 4th planet from the Sun (The Red Planet). Known for its iron-rich red soil, thin atmosphere, and polar ice caps. Target of NASA rover and crewed Mars missions.",
-        "de": "Der vierte Planet des Sonnensystems (Der Rote Planet). Ziel der Mars-Rover und bemannter Missionen.",
-        "fr": "La 4e planète du système solaire (La planète rouge). Cible des rovers et de futures missions habitées.",
-        "es": "El cuarto planeta del Sistema Solar (El Planeta Rojo). Objetivo de exploraciones y futuras misiones tripuladas.",
-        "pt": "O quarto planeta do Sistema Solar (O Planeta Vermelho). Alvo de rovers e futuras missões humanas.",
-        "it": "Il quarto pianeta del Sistema Solare (Il Pianeta Rosso). Obiettivo di rover ed esplorazioni umane.",
-        "ko": "태양계 제4행성 \"화성\"(붉은 행성). 산화철 토양과 얇은 대기, 미래 유인 탐사의 핵심 목표.",
-        "nl": "De vierde planeet van het zonnestelsel (De Rode Planeet). Doel van Mars-rovers en bemande missies.",
-        "id": "Planet ke-4 dari Matahari (Planet Merah). Target penjelajah NASA dan misi berawak masa depan.",
-        "hi": "सूर्य से चौथा ग्रह \"मंगल\" (लाल ग्रह)। भविष्य के मानव अंतरिक्ष अभियानों का मुख्य लक्ष्य।",
-        "ar": "الكوكب الرابع من الشمس (الكوكب الأحمر). يشتهر بتربته الغنية بالحديد وأهدافه الاستكشافية المأهولة.",
-        "zh": "太阳系第四行星“火星”(红星)，拥有富含铁的红色地表和稀薄大气，是人类深空探测的核心目标。",
-        "ru": "Четвертая планета от Солнца (Красная планета). Главная цель будущих пилотируемых миссий."
-    },
-    "VENUS": {
-        "ja": "太陽系第2惑星「金星」(Venus / 明けの明星)。厚い硫酸の雲と強烈な温室効果により地表温度は約460℃に達する、夜空で最も明るく輝く惑星。",
-        "en": "The 2nd planet from the Sun (Morning / Evening Star). Hottest planet in the solar system (~460°C) with dense runaway greenhouse atmosphere and bright night sky shine.",
-        "de": "Der 2. Planet des Sonnensystems (Morgen-/Abendstern). Heißester Planet mit dichter Atmosphäre (~460°C).",
-        "fr": "La 2e planète du système solaire (Étoile du Berger). La plus chaude (~460°C) sous un effet de serre extrême.",
-        "es": "El segundo planeta del Sistema Solar (El Lucero del Alba). El planeta más caliente (~460°C).",
-        "pt": "O segundo planeta do Sistema Solar (A Estrela D'Alva). O planeta mais quente (~460°C).",
-        "it": "Il secondo pianeta del Sistema Solare (Stella del Mattino/Sera). Pianeta più caldo (~460°C).",
-        "ko": "태양계 제2행성 \"금성\"(샛별). 두꺼운 이산화탄소 대기와 온실효과로 표면온도 약 460℃에 달하는 가장 밝은 행성.",
-        "nl": "De 2e planeet van het zonnestelsel (Morgen-/Avondster). Heetste planeet (~460°C).",
-        "id": "Planet ke-2 dari Matahari (Bintang Fajar/Kejora). Planet terpanas (~460°C) dengan atmosfer tebal.",
-        "hi": "सूर्य से दूसरा ग्रह \"शुक्र\" (भोर का तारा)। सौर मंडल का सबसे गर्म ग्रह (~460°C)।",
-        "ar": "الكوكب الثاني من الشمس (نجمة الصباح/المساء). أشد كواكب النظام الشمسي حرارة (~460 درجة مئوية).",
-        "zh": "太阳系第二行星“金星”(启明星/长庚星)。浓密温室大气使地表达460℃，是夜空中最亮行星。",
-        "ru": "Вторая планета от Солнца (Утренняя звезда). Самая горячая планета в системе (~460°C)."
-    },
-    "JUPITER": {
-        "ja": "太陽系第5惑星「木星」(Jupiter)。太陽系最大の巨大ガス惑星。地球の約1,300倍の体積、象徴的な大赤斑と強力な磁気圏、エウロパ等90以上の衛星を持つ。",
-        "en": "The 5th and largest planet in the Solar System (1,300x Earth volume). Giant gas planet famous for its Great Red Spot, intense magnetic field, and 90+ moons.",
-        "de": "Der größte Planet des Sonnensystems (Gasriese). Bekannt für den Großen Roten Fleck und über 90 Monde.",
-        "fr": "La plus grande planète du système solaire (Géante gazeuse avec la Grande Tache Rouge et 90+ lunes).",
-        "es": "El planeta más grande del Sistema Solar (Gigante gaseoso con la Gran Mancha Roja y más de 90 lunas).",
-        "pt": "O maior planeta do Sistema Solar (Gigante gasoso com a Grande Mancha Vermelha e mais de 90 luas).",
-        "it": "Il pianeta più grande del Sistema Solare (Gigante gassoso con la Grande Macchia Rossa).",
-        "ko": "태양계 제5행성이자 최대 행성 \"목성\"(가스 행성). 지구 부피의 1,300배, 거대한 대적점과 90개 이상의 위성 보유.",
-        "nl": "De grootste planeet van het zonnestelsel (Gasreus met de Grote Rode Vlek en 90+ manen).",
-        "id": "Planet terbesar di Tata Surya (Raksasa gas dengan Bintik Merah Raksasa dan 90+ bulan).",
-        "hi": "सौर मंडल का सबसे बड़ा ग्रह \"बृहस्पति\"। ग्रेट रेड स्पॉट और 90 से अधिक चंद्रमाओं वाला विशाल गैस ग्रह।",
-        "ar": "الكوكب الأكبر في النظام الشمسي (عملاق غازي يشتهر بالبقعة الحمراء العظيمة وأكثر من 90 قمراً).",
-        "zh": "太阳系第五行星兼最大行星“木星”(气态巨行星)。体积为地球1300倍，拥有大红斑与90多颗卫星。",
-        "ru": "Крупнейшая планета Солнечной системы (Газовый гигант с Большим красным пятном и 90+ спутниками)."
-    },
-    "SATURN": {
-        "ja": "太陽系第6惑星「土星」(Saturn)。氷と岩石でできた壮麗な環（リング）を持つ巨大ガス惑星。密度が水より軽く、タイタンやエンケラドス等魅力的な衛星を従える。",
-        "en": "The 6th planet from the Sun (Ringed Giant). Famous for its spectacular ice rings, low density (floats on water), and intriguing moons like Titan and Enceladus.",
-        "de": "Der Ringplanet des Sonnensystems. Berühmt für seine spektakulären Eisringe und den Mond Titan.",
-        "fr": "La planète aux anneaux spectaculaires constitués de glace et de roche, avec le satellite Titan.",
-        "es": "Famoso por sus espectaculares anillos de hielo y fascinantes lunas como Titán y Encélado.",
-        "pt": "Famoso por seus anéis espetaculares de gelo e luas fascinantes como Titã e Encélado.",
-        "it": "Famoso per i suoi spettacolari anelli di ghiaccio e lune affascinanti come Titano.",
-        "ko": "태양계 제6행성 \"토성\"(고리 행성). 얼음과 암석으로 이루어진 화려한 고리와 타이탄 위성을 보유.",
-        "nl": "Beroemd om zijn spectaculaire ijsringen en intrigerende manen zoals Titan en Enceladus.",
-        "id": "Planet ke-6 dari Matahari, terkenal dengan cincin esnya yang megah dan bulan Titan.",
-        "hi": "सूर्य से छठा ग्रह \"शनि\"। बर्फ के भव्य छल्लों और टाइटन जैसे उपग्रहों के लिए प्रसिद्ध।",
-        "ar": "الكوكب السادس من الشمس (عملاق الحلقات). يشتهر بحلقاته الجليدية الرائعة وأقماره مثل تيتان.",
-        "zh": "太阳系第六行星“土星”(环状巨行星)。拥有壮观的冰质光环与土卫六(泰坦)等众多卫星。",
-        "ru": "Шестая планета с великолепными ледяными кольцами и спутником Титан."
+        "ja": "地球唯一の自然衛星「月」。平均距離約384,400km、公転周期約27.3日。アポロ計画やアルテミス計画の探査対象。潮汐力により地球に常に同じ面を向けています。",
+        "en": "Earth's only natural satellite (~384,400 km away, orbital period 27.3 days). Tidally locked, showing the same face to Earth. Target of Apollo and Artemis missions.",
+        "de": "Der einzige natürliche Satellit der Erde (~384.400 km entfernt, Umlaufzeit 27,3 Tage). Gebundene Rotation, Ziel des Apollo- und Artemis-Programms.",
+        "fr": "L'unique satellite naturel de la Terre (~384 400 km, période orbitale 27,3 jours). En rotation synchrone, cible des missions Apollo et Artemis.",
+        "es": "El único satélite natural de la Tierra (~384.400 km de distancia, período de 27,3 días). Rotación síncrona, objetivo de las misiones Apolo y Artemisa.",
+        "pt": "O único satélite natural da Terra (~384.400 km de distância, período de 27,3 dias). Rotação síncrona, alvo das missões Apollo e Artemis.",
+        "it": "L'unico satellite naturale della Terra (~384.400 km di distanza, periodo 27,3 giorni). Rotazione sincrona, obiettivo delle missioni Apollo e Artemis.",
+        "ko": "지구의 유일한 자연위성 '달'(평균 거리 약 384,400km, 공전주기 약 27.3일). 조석 고정으로 항상 같은 면을 향함. 아폴로 및 아르테미스 탐사 대상.",
+        "nl": "De enige natuurlijke satelliet van de aarde (~384.400 km afstand, omlooptijd 27,3 dagen). Synchrone rotatie, doel van Apollo- en Artemis-missies.",
+        "id": "Satelit alami tunggal Bumi (~384.400 km, periode orbit 27,3 hari). Terkunci secara pasang surut, target misi Apollo dan Artemis.",
+        "hi": "पृथ्वी का एकमात्र प्राकृतिक उपग्रह 'चंद्रमा' (~384,400 किमी दूर, परिक्रमण 27.3 दिन)। ज्वारीय रूप से बद्ध, अपोलो और आर्टेमिस का लक्ष्य।",
+        "ar": "التابع الطبيعي الوحيد للأرض (~384,400 كم، الدورة المدارية 27.3 يوماً). مقيد مدياً نحو الأرض، هدف مهمات أبولو وأرتميس.",
+        "zh": "地球唯一的天然卫星“月球”，平均距离约38.44万公里，公转周期约27.3天。处于潮汐锁定状态，是阿波罗与阿尔忒弥斯计划探测目标。",
+        "ru": "Единственный естественный спутник Земли (~384 400 км, период обращения 27,3 дня). Приливно захвачен, цель программ Аполлон и Артемида."
     },
     "MERCURY": {
-        "ja": "太陽系第1惑星「水星」(Mercury)。太陽に最も近く、大気がほとんどないため昼は430℃、夜は-180℃という極端な温度差を持つクレーターに覆われた岩石惑星。",
-        "en": "The closest planet to the Sun. Small, rocky world with no atmosphere, causing extreme temperature swings from 430°C in daylight to -180°C at night.",
-        "de": "Der sonnennächste Planet. Extremste Temperaturunterschiede zwischen Tag (+430°C) und Nacht (-180°C).",
-        "fr": "La planète la plus proche du Soleil. Variations de température extrêmes de 430°C à -180°C.",
-        "es": "El planeta más cercano al Sol. Extremos de temperatura entre el día (430°C) y la noche (-180°C).",
-        "pt": "O planeta mais próximo do Sol. Extremos de temperatura entre o dia (430°C) e a noite (-180°C).",
-        "it": "Il pianeta più vicino al Sole. Forti escursioni termiche tra giorno (430°C) e notte (-180°C).",
-        "ko": "태양에 가장 가까운 제1행성 \"수성\". 대기가 없어 낮 430℃, 밤 -180℃의 극단적인 온도 변화.",
-        "nl": "De dichtstbijzijnde planeet bij de zon. Extreme temperaturen van 430°C overdag tot -180°C 's nachts.",
-        "id": "Planet terdekat dengan Matahari. Perubahan suhu ekstrem antara siang (430°C) dan malam (-180°C).",
-        "hi": "सूर्य के सबसे निकट का ग्रह \"बुध\"। दिन में 430°C और रात में -180°C का अत्यधिक तापमान अंतर।",
-        "ar": "أقرب الكواكب إلى الشمس. كوكب صخري صغير يشهد تبايناً حرارياً هائلاً بين النهار (+430°م) والليل (-180°م).",
-        "zh": "太阳系最内侧第一行星“水星”。昼夜温差达430℃至-180℃，布满陨石坑的岩石行星。",
-        "ru": "Ближайшая к Солнцу планета. Экстремальные перепады температуры от +430°C днем до -180°C ночью."
+        "ja": "太陽系第1惑星「水星」。太陽に最も近く、大気がほとんどないため昼夜の寒暖差が太陽系最大(約600℃差)。表面は月に酷似した無数のクレーターに覆われています。",
+        "en": "The closest planet to the Sun. With almost no atmosphere, it experiences the Solar System's extreme temperature swings (600°C range). Heavily cratered surface like our Moon.",
+        "de": "Sonnennächster Planet. Ohne Atmosphäre herrschen extreme Temperaturschwankungen (~600°C Unterschied). Stark verkratert wie der Mond.",
+        "fr": "Planète la plus proche du Soleil. Sans atmosphère, elle subit des écarts thermiques extrêmes (~600°C). Surface couverte de cratères similaire à la Lune.",
+        "es": "El planeta más cercano al Sol. Sin atmósfera, experimenta los cambios térmicos más extremos (~600°C). Superficie craterizada similar a la Luna.",
+        "pt": "O planeta mais próximo do Sol. Sem atmosfera, sofre variações térmicas extremas (~600°C). Superfície cheia de crateras como a Lua.",
+        "it": "Il pianeta più vicino al Sole. Privo di atmosfera, subisce escursioni termiche estreme (~600°C). Superficie craterizzata simile alla Luna.",
+        "ko": "태양계 제1행성 '수성'. 태양에 가장 가까우며 대기가 없어 극심한 일교차(약 600℃ 차이)를 겪습니다. 달과 매우 유사한 크레이터 지형입니다.",
+        "nl": "Dichtstbijzijnde planeet bij de zon. Zonder atmosfeer kent het extreme temperatuurverschillen (~600°C). Sterk bekraterd oppervlak.",
+        "id": "Planet terdekat dari Matahari. Tanpa atmosfer, mengalami fluktuasi suhu paling ekstrem (~600°C). Permukaan berkawah mirip Bulan.",
+        "hi": "सूर्य का सबसे निकटतम ग्रह। वायुमंडल न होने के कारण अत्यधिक तापांतर (~600°C)। सतह चंद्रमा की भांति क्रेटरों से भरी है।",
+        "ar": "أقرب كوكب إلى الشمس. بدون غلاف جوي، يشهد أكبر تفاوت حراري في النظام الشمسي (~600°م). سطح مليء بالفوهات يشبه القمر.",
+        "zh": "太阳系第一大行星“水星”。距离太阳最近，因几乎没有大气而拥有太阳系最大昼夜温差(差值超600℃)，表面布满类似月球的陨石坑。",
+        "ru": "Ближайшая к Солнцу планета. Почти без атмосферы, с экстремальным перепадом температур (~600°C). Поверхность усеяна кратерами как на Луне."
+    },
+    "VENUS": {
+        "ja": "太陽系第2惑星「金星」。地球とほぼ同サイズですが、濃密な二酸化炭素による暴走温室効果で表面温度は約462℃と太陽系最高温。自転が公転と逆向き(東から太陽が昇る)です。",
+        "en": "The 2nd planet from the Sun (Earth's twin). A runaway greenhouse effect under dense CO2 makes it the hottest planet (~462°C). Features unique retrograde (backward) rotation.",
+        "de": "Der 2. Planet (Zwillingsplanet der Erde). Durch den extremen Treibhauseffekt der heißeste Planet (~462°C) mit rückläufiger Eigenrotation.",
+        "fr": "La 2e planète (jumelle de la Terre). L'effet de serre extrême en fait la plus chaude (~462°C). Présente une rotation rétrograde unique.",
+        "es": "El 2º planeta (gemelo de la Tierra). El efecto invernadero extremo lo convierte en el más caliente (~462°C). Rotación retrógrada única.",
+        "pt": "O 2º planeta (gêmeo da Terra). O efeito estufa extremo o torna o mais quente (~462°C). Rotação retrógrada singular.",
+        "it": "Il 2º pianeta (gemello della Terra). L'effetto serra estremo lo rende il più caldo (~462°C). Rotazione retrograda peculiare.",
+        "ko": "태양계 제2행성 '금성'. 지구의 쌍둥이 행성이지만 농밀한 이산화탄소 온실효과로 태양계 최고온(약 462℃). 자전축이 거꾸로 되어 역방향 자전을 합니다.",
+        "nl": "De 2e planeet (tweeling van de aarde). Door het extreme broeikaseffect de heetste planeet (~462°C) met retrograde rotatie.",
+        "id": "Planet ke-2 (kembaran Bumi). Efek rumah kaca ekstrem menjadikannya planet terpanas (~462°C) dengan rotasi terbalik.",
+        "hi": "सूर्य से दूसरा ग्रह (पृथ्वी का जुड़वां)। घने CO2 ग्रीनहाउस प्रभाव से सबसे गर्म ग्रह (~462°C)। घूर्णन विपरीत दिशा में होता है।",
+        "ar": "الكوكب الثاني (توأم الأرض). احتباس حراري هائل لثاني أكسيد الكربون يجعله الأشد حرارة (~462°م). يتميز بدوران تراجعي عكسي.",
+        "zh": "太阳系第二大行星“金星”(地球姊妹星)。受浓密二氧化碳的失控温室效应影响，表面温度达约462℃(全太阳系最高)，自转方向与公转相反。",
+        "ru": "Вторая планета от Солнца (близнец Земли). Парниковый эффект делает её самой горячей (~462°C). Имеет уникальное обратное вращение."
+    },
+    "MARS": {
+        "ja": "太陽系第4惑星「火星」(Red Planet)。酸化鉄に覆われた赤い地表と希薄な大気、白い極冠を持つ。NASAパーサヴィアランス探査車や有人火星探査計画の最前線です。",
+        "en": "The 4th planet (The Red Planet). Known for its iron-rich red soil, thin atmosphere, and polar ice caps. Target of NASA rovers and future crewed missions.",
+        "de": "Der 4. Planet (Roter Planet). Bekannt für eisenoxidreichen roten Boden, dünne Atmosphäre und Polarkappen. Ziel moderner Mars-Rover.",
+        "fr": "La 4e planète (la planète rouge). Sol riche en oxyde de fer, atmosphère ténue et calottes polaires. Cible des rovers martiens.",
+        "es": "El 4º planeta (Planeta Rojo). Suelo rico en óxido de hierro, atmósfera tenue y casquetes polares. Frontera de la exploración humana.",
+        "pt": "O 4º planeta (Planeta Vermelho). Solo rico em óxido de ferro, atmosfera tênue e calotas polares. Alvo de rovers e futuras missões tripuladas.",
+        "it": "Il 4º pianeta (Pianeta Rosso). Suolo ricco di ossido di ferro, atmosfera sottile e calotte polari. Obiettivo dei rover marziani.",
+        "ko": "태양계 제4행성 '화성'(Red Planet). 산화철로 뒤덮인 붉은 대지와 희박한 대기, 극관의 얼음을 지님. NASA 탐사 로버와 인류 유인 탐사의 최전선입니다.",
+        "nl": "De 4e planeet (Rode Planeet). IJzerrijke rode bodem, dunne atmosfeer en poolkappen. Doelwit van Marsrovers en bemande missies.",
+        "id": "Planet ke-4 (Planet Merah). Tanah kaya besi oksida, atmosfer tipis, dan tudung es kutub. Garis depan eksplorasi manusia.",
+        "hi": "चौथा ग्रह (लाल ग्रह)। लौह ऑक्साइड युक्त लाल सतह, पतला वायुमंडल और ध्रुवीय बर्फ। नासा रोवर्स और मानव मिशनों का मुख्य लक्ष्य।",
+        "ar": "الكوكب الرابع (الكوكب الأحمر). تربة غنية بأكسيد الحديد، غلاف جوي رقيق، وقلنسوات جليدية قطبية. هدف مركبات الاستكشاف الحالية.",
+        "zh": "太阳系第四大行星“火星”(红色星球)。地表富含氧化铁呈现赤红色，拥有稀薄大气与两极白色极冠，是人类深空探测与登陆探索的最前沿。",
+        "ru": "Четвертая планета (Красная планета). Богатая оксидом железа поверхность, тонкая атмосфера и полярные шапки. Главная цель марсоходов."
+    },
+    "JUPITER": {
+        "ja": "太陽系第5惑星「木星」。全惑星合計の2.5倍の質量を持つ太陽系最大のガス巨大惑星。ダイナミックな大気バンド、巨大な大赤斑、4大ガリレオ衛星とダストリングを持ちます。",
+        "en": "The largest planet in the Solar System (2.5x mass of all other planets combined). Features iconic cloud bands, the Great Red Spot storm, 95 moons, and a faint dust ring.",
+        "de": "Größter Planet des Sonnensystems (2,5-fache Masse aller anderen Planeten). Berühmt für Wolkenbänder, den Großen Roten Fleck und 95 Monde.",
+        "fr": "La plus grande planète (2,5 fois la masse de toutes les autres réunies). Bandes nuageuses fascinantes, Grande Tache Rouge, 95 lunes et anneau de poussière.",
+        "es": "El planeta más grande (2,5 veces la masa del resto combinado). Famoso por sus bandas de nubes, la Gran Mancha Roja, 95 lunas y anillo de polvo.",
+        "pt": "O maior planeta (2,5 vezes a massa de todos os outros somados). Destaca-se pelas faixas de nuvens, a Grande Mancha Vermelha, 95 luas e anel de poeira.",
+        "it": "Il pianeta più grande (2,5 volte la massa di tutti gli altri uniti). Noto per le bande di nubi, la Grande Macchia Rossa, 95 lune e l'anello di polvere.",
+        "ko": "태양계 제5행성 '목성'. 다른 모든 행성을 합친 것의 2.5배 질량을 지닌 최대 가스 행성. 대기 줄무늬, 대적점 폭풍, 95개 위성과 미세 먼지 고리를 보유.",
+        "nl": "Grootste planeet (2,5x de massa van alle andere samen). Beroemd om wolkenbanden, de Grote Rode Vlek, 95 manen en een stofring.",
+        "id": "Planet terbesar (2,5x massa gabungan seluruh planet lainnya). Terkenal dengan pita awan, Badai Bintik Merah Raksasa, 95 bulan, dan cincin debu.",
+        "hi": "सौर मंडल का सबसे बड़ा ग्रह (अन्य सभी ग्रहों के संयुक्त द्रव्यमान का 2.5 गुना)। प्रसिद्ध वायुमंडलीय पट्टियाँ, विशाल लाल धब्बा और 95 चंद्रमा।",
+        "ar": "أضخم كواكب النظام الشمسي (2.5 ضعف كتلة بقية الكواكب مجتمعة). يتميز بأحزمته السحابية، البقعة الحمراء العظيمة، 95 قمراً، وحلقة غبارية.",
+        "zh": "太阳系第五大行星“木星”(太阳系行星之王)。质量是其他所有行星总和的2.5倍，拥有绚丽的云层条带、巨大风暴“大赤斑”、95颗卫星及暗淡尘埃环。",
+        "ru": "Крупнейшая планета (в 2,5 раза массивнее всех остальных вместе взятых). Известна облачными полосами, Большим красным пятном и 95 спутниками."
+    },
+    "SATURN": {
+        "ja": "太陽系第6惑星「土星」。太陽系で最も壮麗な氷と岩石の多重リングを持つ巨大ガス惑星。146個の衛星(タイタンやエンケラドゥス)を従え、平均密度は水よりも軽い特徴があります。",
+        "en": "The 6th planet, renowned for its majestic, extensive ice ring system. Accompanied by 146 moons (including Titan and Enceladus), it is less dense than water.",
+        "de": "Der 6. Planet mit dem prachtvollsten Eisringsystem. Besitzt 146 Monde (Titan, Enceladus) und eine geringere Dichte als Wasser.",
+        "fr": "La 6e planète, célèbre pour ses anneaux de glace spectaculaires. Accompagnée de 146 lunes (Titan, Encelade), sa densité moyenne est inférieure à celle de l'eau.",
+        "es": "El 6º planeta, célebre por su espectacular sistema de anillos de hielo. Con 146 lunas (Titán, Encélado), su densidad media es menor que la del agua.",
+        "pt": "O 6º planeta, famoso pelo seu espetacular sistema de anéis de gelo. Com 146 luas (Titã, Encélado), sua densidade média é menor que a da água.",
+        "it": "Il 6º pianeta, celebre per il suo maestoso sistema di anelli di ghiaccio. Con 146 lune (Titano, Encelado), ha una densità inferiore a quella dell'acqua.",
+        "ko": "태양계 제6행성 '토성'. 가장 웅장하고 아름다운 얼음 고리를 지닌 가스 거인. 146개의 위성(타이탄, 엔켈라두스 등)을 거느리며 평균 밀도가 물보다 낮습니다.",
+        "nl": "De 6e planeet met het mooiste ijsringsysteem. Heeft 146 manen (Titan, Enceladus) en een lagere dichtheid dan water.",
+        "id": "Planet ke-6 yang terkenal dengan sistem cincin es spektakuler. Dikelilingi 146 bulan (Titan, Enceladus) dan massa jenisnya lebih ringan dari air.",
+        "hi": "भव्य बर्फ के छल्लों के लिए प्रसिद्ध छठा ग्रह। 146 चंद्रमा (टाइटन, एन्सेलेडस) और इसका औसत घनत्व पानी से भी कम है।",
+        "ar": "الكوكب السادس الشهير بنظامه الحلقي الجليدي المهيب. يمتلك 146 قمراً (مثل تيتان وإنسيلادوس) وكثافته الإجمالية أقل من الماء.",
+        "zh": "太阳系第六大行星“土星”。以其壮丽恢弘的冰环系统闻名于世，拥有146颗卫星(包括泰坦与土卫二)，其平均密度甚至比水还要轻。",
+        "ru": "Шестая планета с величественной системой ледяных колец. Имеет 146 спутников (Титан, Энцелад), средняя плотность планеты меньше плотности воды."
+    },
+    "URANUS": {
+        "ja": "太陽系第7惑星「天王星」。自転軸が約98度横倒しになった特異な巨大氷惑星。澄んだ青緑色の大気を持ち、縦向きに架かる13本の環と28個の衛星を持っています。",
+        "en": "The 7th planet (Ice Giant). Orbits on its side with an extreme 97.8° axial tilt. Boasts a serene cyan atmosphere, 13 vertical rings, and 28 moons.",
+        "de": "Der 7. Planet (Eisriese). Rotiert mit 97,8° extremer Achsneigung seitlich. Besitzt eine türkisblaue Atmosphäre, 13 vertikale Ringe und 28 Monde.",
+        "fr": "La 7e planète (géante de glace). Inclinée à 97,8°, elle 'roule' sur son orbite. Atmosphère cyan, 13 anneaux verticaux et 28 lunes.",
+        "es": "El 7º planeta (gigante de hielo). Rota de lado con una inclinación de 97,8°. Atmósfera de color cian, 13 anillos verticales y 28 lunas.",
+        "pt": "O 7º planeta (gigante de gelo). Rota de lado com inclinação de 97,8°. Atmosfera ciano, 13 anéis verticais e 28 luas.",
+        "it": "Il 7º pianeta (gigante di ghiaccio). Ruota coricato sul fianco con inclinazione di 97,8°. Atmosfera ciano, 13 anelli verticali e 28 lune.",
+        "ko": "태양계 제7행성 '천왕성'. 자전축이 약 98도 누워 옆으로 구르듯 공전하는 거대 얼음 행성. 청록색 대기, 13개의 수직 고리와 28개의 위성을 지님.",
+        "nl": "De 7e planeet (ijsreus). Roteert op zijn kant met 97,8° ashelling. Cyaanblauwe atmosfeer, 13 verticale ringen en 28 manen.",
+        "id": "Planet ke-7 (raksasa es). Berotasi miring 97,8° di sisinya. Memiliki atmosfer sian yang tenang, 13 cincin vertikal, dan 28 bulan.",
+        "hi": "सातवां ग्रह (बर्फ दानव)। 97.8° अक्षीय झुकाव के कारण अपनी धुरी पर लुढ़कता है। स्यान वातावरण, 13 ऊर्ध्वाधर छल्ले और 28 चंद्रमा।",
+        "ar": "الكوكب السابع (عملاق جليدي). يدور على جنبه بميل محوري هائل (97.8 درجة). يتميز بغلاف جوي سماوي، 13 حلقة عمودية، و28 قمراً.",
+        "zh": "太阳系第七大行星“天王星”(冰巨行星)。自转轴倾角达97.8度呈现独特的“横躺公转”，拥有静谧的青蓝色大気、13道竖立垂直光环与28颗卫星。",
+        "ru": "Седьмая планета (ледяной гигант). Вращается 'на боку' с наклоном оси 97,8°. Обладает голубой атмосферой, 13 вертикальными кольцами и 28 спутниками."
     }
 };
 
@@ -3716,11 +3778,28 @@ function selectCelestialBody(bodyId) {
         return obj[lang] || obj['en'] || obj['ja'] || '';
     };
 
-    // Update Detail Card UI
-    satBadge.textContent = `🌌 ${body.type}`;
+    // Localized Celestial Names
+    const localizedNames = {
+        SUN: { ja: '太陽 (Sun)', en: 'Sun', de: 'Sonne', fr: 'Soleil', es: 'Sol', pt: 'Sol', it: 'Sole', ko: '태양 (Sun)', nl: 'Zon', id: 'Matahari', hi: 'सूर्य (Sun)', ar: 'الشمس', zh: '太阳 (Sun)', ru: 'Солнце' },
+        MOON: { ja: '月 (Moon)', en: 'Moon', de: 'Mond', fr: 'Lune', es: 'Luna', pt: 'Lua', it: 'Luna', ko: '달 (Moon)', nl: 'Maan', id: 'Bulan', hi: 'चंद्रमा (Moon)', ar: 'القمر', zh: '月球 (Moon)', ru: 'Луна' },
+        MARS: { ja: '火星 (Mars)', en: 'Mars', de: 'Mars', fr: 'Mars', es: 'Marte', pt: 'Marte', it: 'Marte', ko: '화성 (Mars)', nl: 'Mars', id: 'Mars', hi: 'मंगल (Mars)', ar: 'المريخ', zh: '火星 (Mars)', ru: 'Марс' },
+        JUPITER: { ja: '木星 (Jupiter)', en: 'Jupiter', de: 'Jupiter', fr: 'Jupiter', es: 'Júpiter', pt: 'Júpiter', it: 'Giove', ko: '목성 (Jupiter)', nl: 'Jupiter', id: 'Yupiter', hi: 'बृहस्पति (Jupiter)', ar: 'المشتري', zh: '木星 (Jupiter)', ru: 'Юпитер' },
+        SATURN: { ja: '土星 (Saturn)', en: 'Saturn', de: 'Saturn', fr: 'Saturne', es: 'Saturno', pt: 'Saturno', it: 'Saturno', ko: '토성 (Saturn)', nl: 'Saturnus', id: 'Saturnus', hi: 'शनि (Saturn)', ar: 'زحل', zh: '土星 (Saturn)', ru: 'Сатурн' },
+        VENUS: { ja: '金星 (Venus)', en: 'Venus', de: 'Venus', fr: 'Vénus', es: 'Venus', pt: 'Vênus', it: 'Venere', ko: '금성 (Venus)', nl: 'Venus', id: 'Venus', hi: 'शुक्र (Venus)', ar: 'الزهرة', zh: '金星 (Venus)', ru: 'Венера' },
+        MERCURY: { ja: '水星 (Mercury)', en: 'Mercury', de: 'Merkur', fr: 'Mercure', es: 'Mercurio', pt: 'Mercúrio', it: 'Mercurio', ko: '수성 (Mercury)', nl: 'Mercurius', id: 'Merkurius', hi: 'बुध (Mercury)', ar: 'عطارد', zh: '水星 (Mercury)', ru: 'Меркурий' },
+        URANUS: { ja: '天王星 (Uranus)', en: 'Uranus', de: 'Uranus', fr: 'Uranus', es: 'Urano', pt: 'Urano', it: 'Urano', ko: '천왕성 (Uranus)', nl: 'Uranus', id: 'Uranus', hi: 'अरुण (Uranus)', ar: 'أورانوس', zh: '天王星 (Uranus)', ru: 'Уран' }
+    };
+
+    // Update Detail Card Header with 14-Language Badges and Subtitles
+    const badgeTypeMap = CELESTIAL_BADGE_TYPES[body.id];
+    satBadge.textContent = (badgeTypeMap && (badgeTypeMap[lang] || badgeTypeMap['en'])) || `🌌 ${body.type}`;
     satBadge.style.background = 'linear-gradient(135deg, #f59e0b, #ef4444)';
-    satName.textContent = `${body.symbol} ${body.name.split(' ')[0]}`;
-    satNorad.textContent = `SOLAR SYSTEM BODY (${body.id})`;
+
+    const bodyNameStr = (localizedNames[body.id] && (localizedNames[body.id][lang] || localizedNames[body.id]['en'])) || body.name;
+    satName.textContent = `${body.symbol} ${bodyNameStr}`;
+
+    const subtitlePrefix = CELESTIAL_SUBTITLES[lang] || CELESTIAL_SUBTITLES['en'];
+    satNorad.textContent = `${subtitlePrefix} (${body.id})`;
 
     const descObj = CELESTIAL_DESCRIPTIONS[body.id];
     let baseDesc = (descObj && getL(descObj)) || '';
@@ -3778,7 +3857,7 @@ function selectCelestialBody(bodyId) {
     // Update detail card headers to Temperature, Mass, Diameter etc.
     updateDetailCardMetricLabels(true);
 
-    // Pass and Debris rows
+    // Pass and Debris rows (14-Language Localized)
     const passCountdown = document.getElementById('passCountdown');
     const passMetaInfo = document.getElementById('passMetaInfo');
     const debrisProximity = document.getElementById('debrisProximity');
@@ -3801,12 +3880,12 @@ function selectCelestialBody(bodyId) {
     };
 
     if (passCountdown) passCountdown.textContent = info ? `${moonLabels[lang] || moonLabels['en']}: ${getL(info.satellites)}` : '🌌 Deep Space Orbit';
-    if (passMetaInfo) passMetaInfo.textContent = info ? `${getL(info.rotation)} | ${getL(info.temperature)}` : `Solar System Body (${body.type})`;
-    if (debrisProximity) debrisProximity.textContent = '🟢 Gravitational Equilibrium';
+    if (passMetaInfo) passMetaInfo.textContent = info ? `${getL(info.rotation)} | ${getL(info.temperature)}` : `${bodyNameStr}`;
+    if (debrisProximity) debrisProximity.textContent = CELESTIAL_EQUILIBRIUM_STATUS[lang] || CELESTIAL_EQUILIBRIUM_STATUS['en'];
 
     detailCard.classList.remove('hidden');
 
-    // Inspect All Celestial Bodies (including Sun!) with 3D Textured Sphere
+    // Inspect All Celestial Bodies with 3D Textured Sphere
     const bodyDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
     inspectCelestialPlanet(body, pos, bodyDir);
 }
@@ -5315,12 +5394,17 @@ function setupEventListeners() {
         });
     });
 
-    satSelect.addEventListener('change', (e) => {
+        satSelect.addEventListener('change', (e) => {
         const val = e.target.value;
-        if (val !== "") {
-            selectSatellite(parseInt(val, 10));
-        } else {
+        if (!val || val === "") {
             deselectSatellite();
+            return;
+        }
+        if (typeof val === 'string' && val.startsWith('celestial_')) {
+            const bodyId = val.replace('celestial_', '');
+            selectCelestialBody(bodyId);
+        } else {
+            selectSatellite(parseInt(val, 10));
         }
     });
 
@@ -5853,8 +5937,29 @@ function setActivePresetBtn(activeBtn) {
  */
 function performSearch(rawQuery) {
     searchResults.innerHTML = '';
-    const upperQuery = rawQuery.toUpperCase();
+    const upperQuery = rawQuery.toUpperCase().trim();
+    if (!upperQuery) return;
 
+    const lang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : 'ja';
+
+    // 1. Search Celestial Bodies (Sun, Moon, Planets)
+    const celestialAliases = {
+        SUN: ['太陽', 'たいよう', 'タイヨウ', 'SUN', 'SOLAR', 'SOLEIL', 'SONNE', 'SOL', 'SOLE', '태양', 'ZON', 'MATAHARI', 'सूर्य', 'الشمس', 'СОЛНЦЕ'],
+        MOON: ['月', 'つき', 'ツキ', 'MOON', 'LUNA', 'LUNE', 'MOND', '달', 'MAAN', 'BULAN', 'चन्द्र', 'चंद्रमा', 'القمر', 'ЛУНА'],
+        MARS: ['火星', 'かせい', 'カセイ', 'MARS', 'MARTE', '화성', 'ROTE PLANET', 'RED PLANET', 'मंगल', 'المريخ', 'МАРС'],
+        JUPITER: ['木星', 'もくせい', 'モクセイ', 'JUPITER', 'GIOVE', '목성', 'YUPITER', 'बृहस्पति', 'المشتري', 'ЮПИТЕР', 'GREAT RED SPOT', '大赤斑'],
+        SATURN: ['土星', 'どせい', 'ドセイ', 'SATURN', 'SATURNO', 'SATURNUS', 'SATURNE', '토성', 'शनि', 'زحل', 'САТУРН', 'RINGS', '輪', 'リング'],
+        VENUS: ['金星', 'きんせい', 'キンセイ', 'VENUS', 'VÉNUS', 'VENERE', 'VÊNUS', '금성', 'शुक्र', 'الزهرة', 'ВЕНЕРА', '明星', '宵の明星', '明けの明星'],
+        MERCURY: ['水星', 'すいせい', 'スイセイ', 'MERCURY', 'MERCURE', 'MERCURIO', 'MERKURIUS', 'MERKUR', '수성', 'बुध', 'عطارد', 'МЕРКУРИЙ'],
+        URANUS: ['天王星', 'てんのうせい', 'テンノウセイ', 'URANUS', 'URANO', '천왕성', 'अरुण', 'أورانوس', 'УРАН']
+    };
+
+    const matchedBodies = CELESTIAL_BODIES.filter(b => {
+        const aliases = celestialAliases[b.id] || [b.id, b.name];
+        return aliases.some(a => a.toUpperCase().includes(upperQuery) || upperQuery.includes(a.toUpperCase()));
+    });
+
+    // 2. Search Satellites
     const searchTerms = [upperQuery, rawQuery];
     if (rawQuery.includes('ひまわり') || rawQuery.includes('ヒマワリ') || upperQuery.includes('HIMAWARI')) {
         searchTerms.push('HIMAWARI', 'ひまわり');
@@ -5881,39 +5986,71 @@ function performSearch(rawQuery) {
         searchTerms.push('STARLINK');
     }
 
-    const matches = satellitesData.filter(sat => {
+    const matchedSats = satellitesData.filter(sat => {
         const nameUpper = sat.name.toUpperCase();
         return searchTerms.some(term => 
             nameUpper.includes(term.toUpperCase()) || sat.noradId.includes(term)
         );
     });
 
-    satSelect.innerHTML = `<option value="">-- 検索結果 (${matches.length}機) --</option>`;
-    matches.forEach(sat => {
-        const index = satellitesData.indexOf(sat);
-        const opt = document.createElement('option');
-        opt.value = index;
-        opt.textContent = `${sat.name} (NORAD ${sat.noradId})`;
-        satSelect.appendChild(opt);
-    });
+    const totalMatches = matchedBodies.length + matchedSats.length;
 
-    if (matches.length === 0) {
-        if (searchTerms.some(t => ['HIMAWARI', 'ひまわり', 'ヒマワリ', 'ISS', 'MICHIBIKI', 'みちびき', 'HUBBLE', 'TIANGONG', '天宮', 'BEIDOU', '北斗', 'DEBRIS'].includes(t))) {
-            loadMajorBtn.click();
-            setTimeout(() => performSearch(rawQuery), 200);
-            return;
-        }
-        searchResults.innerHTML = `<div class="search-item" style="cursor:default; color:var(--accent-rose); font-size:0.8rem;">該当する衛星が見つかりません</div>`;
+    satSelect.innerHTML = `<option value="">-- 検索結果 (${totalMatches}件) --</option>`;
+
+    // Add matched celestial bodies to dropdown
+    if (matchedBodies.length > 0) {
+        const cGroup = document.createElement('optgroup');
+        cGroup.label = '🌌 太陽系天体 (Solar System)';
+        matchedBodies.forEach(b => {
+            const opt = document.createElement('option');
+            opt.value = `celestial_${b.id}`;
+            opt.textContent = `${b.symbol} ${b.name} (${b.type})`;
+            cGroup.appendChild(opt);
+        });
+        satSelect.appendChild(cGroup);
+    }
+
+    // Add matched satellites to dropdown
+    if (matchedSats.length > 0) {
+        const sGroup = document.createElement('optgroup');
+        sGroup.label = '🛰️ 人工衛星 (Satellites)';
+        matchedSats.forEach(sat => {
+            const index = satellitesData.indexOf(sat);
+            const opt = document.createElement('option');
+            opt.value = index;
+            opt.textContent = `${sat.name} (NORAD ${sat.noradId})`;
+            sGroup.appendChild(opt);
+        });
+        satSelect.appendChild(sGroup);
+    }
+
+    if (totalMatches === 0) {
+        searchResults.innerHTML = `<div class="search-item" style="cursor:default; color:var(--accent-rose); font-size:0.8rem;">該当する天体・衛星が見つかりません</div>`;
         return;
     }
 
-    matches.slice(0, 10).forEach(sat => {
+    // Populate Search Results Popup List
+    matchedBodies.forEach(b => {
+        const item = document.createElement('div');
+        item.className = 'search-item';
+        item.style.borderLeft = '3px solid #f59e0b';
+        item.innerHTML = `<span>${b.symbol} <strong>${b.name}</strong></span><span style="font-family:var(--font-mono); font-size:0.75rem; color:#f59e0b;">${b.type}</span>`;
+        item.addEventListener('click', () => {
+            selectCelestialBody(b.id);
+            satSelect.value = `celestial_${b.id}`;
+            searchResults.innerHTML = '';
+        });
+        searchResults.appendChild(item);
+    });
+
+    matchedSats.slice(0, 10).forEach(sat => {
         const item = document.createElement('div');
         item.className = 'search-item';
         item.innerHTML = `<span>${sat.name}</span><span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-cyan);">${sat.noradId}</span>`;
         item.addEventListener('click', () => {
             const index = satellitesData.indexOf(sat);
             selectSatellite(index);
+            satSelect.value = index;
             searchResults.innerHTML = '';
         });
         searchResults.appendChild(item);
