@@ -6720,6 +6720,65 @@ function setupEventListeners() {
         });
     }
 
+    // Image Lightbox Modal Event Listeners
+    const imageLightboxModal = document.getElementById('imageLightboxModal');
+    const imageLightboxBackdrop = document.getElementById('imageLightboxBackdrop');
+    const imageLightboxClose = document.getElementById('imageLightboxClose');
+    const imageLightboxCloseBtn = document.getElementById('imageLightboxCloseBtn');
+    const imageLightboxImg = document.getElementById('imageLightboxImg');
+    const imageLightboxTitle = document.getElementById('imageLightboxTitle');
+    const imageLightboxCaption = document.getElementById('imageLightboxCaption');
+
+    function openImageLightbox(e) {
+        if (e) {
+            e.stopPropagation();
+        }
+        if (!satImage || !satImage.src || (satImageWrapper && satImageWrapper.classList.contains('hidden'))) return;
+        if (imageLightboxImg) imageLightboxImg.src = satImage.src;
+        if (imageLightboxImg) imageLightboxImg.alt = satImage.alt || 'Satellite Image';
+        if (imageLightboxTitle) imageLightboxTitle.innerHTML = satName ? satName.textContent : '📸 外観イメージ';
+        if (imageLightboxCaption) imageLightboxCaption.innerHTML = satImageCaption ? satImageCaption.innerHTML : '';
+        if (imageLightboxModal) {
+            imageLightboxModal.style.display = 'flex';
+            imageLightboxModal.classList.remove('hidden');
+        }
+    }
+
+    function closeImageLightbox(e) {
+        if (e) {
+            e.stopPropagation();
+        }
+        if (!imageLightboxModal) return;
+
+        imageLightboxModal.classList.add('hidden');
+        imageLightboxModal.style.display = 'none';
+
+        if (document.activeElement && typeof document.activeElement.blur === 'function') {
+            document.activeElement.blur();
+        }
+    }
+
+    if (satImageWrapper) {
+        satImageWrapper.addEventListener('click', openImageLightbox);
+    }
+    
+    // Attach to all close triggers
+    if (imageLightboxClose) {
+        imageLightboxClose.onclick = closeImageLightbox;
+    }
+    if (imageLightboxCloseBtn) {
+        imageLightboxCloseBtn.onclick = closeImageLightbox;
+    }
+    if (imageLightboxBackdrop) {
+        imageLightboxBackdrop.onclick = closeImageLightbox;
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && imageLightboxModal && !imageLightboxModal.classList.contains('hidden')) {
+            closeImageLightbox(e);
+        }
+    });
+
     const modalTabs = document.querySelectorAll('.modal-tab');
     modalTabs.forEach(tab => {
         tab.addEventListener('click', () => {

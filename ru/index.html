@@ -547,6 +547,22 @@
     </div>
 
     <!-- Application Script (Cache Busted v120) -->
-    <script src="app.js?v=20260821_270"></script>
+    <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
+    <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
+        <div class="image-lightbox-backdrop" id="imageLightboxBackdrop" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); }"></div>
+        <div class="image-lightbox-content" onclick="event.stopPropagation();">
+            <button type="button" class="image-lightbox-close" id="imageLightboxClose" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); } event.stopPropagation();" title="閉じる (Esc)">&times;</button>
+            <img id="imageLightboxImg" src="" alt="" class="image-lightbox-img" />
+            <div class="image-lightbox-info">
+                <div id="imageLightboxTitle" class="image-lightbox-title"></div>
+                <div id="imageLightboxCaption" class="image-lightbox-caption"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="app.js?v=20260821_330"></script>
+    
+    </div>
 </body>
 </html>
