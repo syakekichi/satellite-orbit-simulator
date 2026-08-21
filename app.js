@@ -515,6 +515,7 @@ function getSatDisplayName(name) {
         if (upper.includes('STRIX')) return '🇯🇵 StriX-1 (ストリクス - 民間SAR衛星)';
         if (upper.includes('HIMAWARI-8')) return '🇯🇵 HIMAWARI-8 (ひまわり8号 - バックアップ)';
         if (upper.includes('HIMAWARI-9')) return '🇯🇵 HIMAWARI-9 (ひまわり9号 - メイン観測)';
+        if (upper.includes('MICHIBIKI-7') || upper.includes('QZS-7')) return '🇯🇵 MICHIBIKI-7 (みちびき7号機 - H3最新打上)';
         if (upper.includes('MICHIBIKI-1R')) return '🇯🇵 MICHIBIKI-1R (みちびき1号R後継機)';
         if (upper.includes('MICHIBIKI-6')) return '🇯🇵 MICHIBIKI-6 (みちびき6号機 - H3最新打上)';
         if (upper.includes('MICHIBIKI-5')) return '🇯🇵 MICHIBIKI-5 (みちびき5号機)';
@@ -531,6 +532,7 @@ function getSatDisplayName(name) {
         return name;
     } else {
         let clean = name.replace(/\(.*?[぀-ヿ㐀-䶿一-鿿].*?\)/g, '').trim();
+        if (upper.includes('MICHIBIKI-7') || upper.includes('QZS-7')) return '🇯🇵 QZS-7 / Michibiki-7 (Japan 7-Satellite Constellation)';
         if (upper.includes('IGS RADAR') || upper.includes('IGS-')) return '🇯🇵 IGS Radar-7 (Japan Cabinet Reconnaissance Satellite)';
         if (upper.includes('KIRAMEKI') || upper.includes('DSN-2')) return '🇯🇵 Kirameki-2 DSN-2 (Japan MoD Military X-Band Satcom)';
         if (upper.includes('SBIRS')) return '🇺🇸 SBIRS GEO-5 (USSF Ballistic Missile Early Warning)';
@@ -583,8 +585,8 @@ function getSatDisplayName(name) {
         if (upper.includes('STRIX')) return '🇯🇵 StriX-1 (Commercial SAR)';
         if (upper.includes('ISS')) return '🇺🇸 / 🇯🇵 / 🇪🇺 ISS (International Space Station)';
         if (upper.includes('HIMAWARI-8')) return '🇯🇵 Himawari-8 (Weather Satellite)';
-        if (upper.includes('HIMAWARI-9')) return '🇯🇵 Himawari-9 (Weather Satellite)';
-        if (upper.includes('MICHIBIKI-6')) return '🇯🇵 QZSS / MICHIBIKI-6 (Navigation Satellite)';
+        if (upper.includes('MICHIBIKI-7') || upper.includes('QZS-7')) return '🇯🇵 QZS-7 / Michibiki-7 (Japan 7-Satellite Constellation)';
+        if (upper.includes('MICHIBIKI-6')) return '🇯🇵 QZS-6 / Michibiki-6 (Navigation Satellite)';
         if (upper.includes('MICHIBIKI')) return '🇯🇵 ' + clean + ' (QZSS Navigation)';
         if (upper.includes('HUBBLE')) return '🇺🇸 / 🇪🇺 Hubble Space Telescope';
         if (upper.includes('GPS')) return '🇺🇸 ' + clean + ' (GPS Navigation)';
@@ -2247,6 +2249,9 @@ QZSS / MICHIBIKI-5
 QZSS / MICHIBIKI-6
 1 59000U 26001A   26100.12345678  .00000000  00000-0  00000-0 0  9997
 2 59000  44.0000 137.5000 0004000 150.0000 210.0000  1.00273791    06
+QZSS / MICHIBIKI-7
+1 66888U 26182A   26233.12345678  .00000000  00000-0  00000-0 0  9999
+2 66888  39.5000 190.0000 0750000 270.0000  90.0000  1.00273791    01
 QZSS / MICHIBIKI-1R
 1 49336U 21096A   26100.12345678  .00000000  00000-0  00000-0 0  9995
 2 49336  44.0000 135.0000 0004000 180.0000  90.0000  1.00270000    05
@@ -2397,6 +2402,17 @@ const SATELLITE_IMAGES = {
         "url": "assets/sat_images/himawari.jpg",
         "caption": "Illustration: JMA / JAXA / Mitsubishi Electric",
         "alt": "Himawari Geostationary Meteorological Satellite"
+    },
+
+    "MICHIBIKI-7": {
+        "url": "assets/sat_images/michibiki_7_official.jpg?v=20260822_570",
+        "caption": "Illustration: Cabinet Office / Mitsubishi Electric (QZS-7 3D Model)",
+        "alt": "Michibiki QZS-7 Modern Navigation Spacecraft"
+    },
+    "QZS-7": {
+        "url": "assets/sat_images/michibiki_7_official.jpg?v=20260822_570",
+        "caption": "Illustration: Cabinet Office / Mitsubishi Electric (QZS-7 3D Model)",
+        "alt": "Michibiki QZS-7 Modern Navigation Spacecraft"
     },
     "MICHIBIKI-1R": {
         "url": "assets/sat_images/michibiki_1r_v2.jpg",
@@ -2693,6 +2709,25 @@ function getSatImageInfo(name) {
 
 // Rich Satellite Mission Descriptions Mapping (Full 5-Language Multilingual Dictionary)
 const SATELLITE_DESCRIPTIONS = {
+    "MICHIBIKI-7": {
+        "country": "🇯🇵 日本 (内閣府 / JAXA / 三菱電機)",
+        "country_en": "🇯🇵 Japan (Cabinet Office / JAXA / MELCO)",
+        "ja": "【準天頂衛星「みちびき7号機」(QZS-7 / 7機体制完成)】\n■ 開発・運用組織: 内閣府 宇宙開発戦略推進事務局 / JAXA / 三菱電機\n■ 打上げ日・ロケット: 2026年8月11日 / H3ロケット9号機 (H3-22S / 種子島宇宙センター)\n■ 軌道諸元: 準天頂・準静止地球同期軌道 (高度約35,786km / 軌道傾斜角約39.5度 / 周期約23時間56分)\n■ 主要搭載機器: 高精度水素メーザー原子時計、ルビジウム原子時計、L1C/A・L1C・L2C・L5測位信号送信アンテナ、サブメータ級・センチメートル級測位補強サービス(CLAS)送信機、災害・危機管理通報サービス(Q-ANPI)、日米防衛協力 宇宙領域把握(SDA)光学センサ\n■ 歴史的意義・ミッション: 日本の準天頂衛星システム(QZSS)の最終目標である「7機体制」を完成させる最新鋭測位衛星。米国のGPS衛星に一切依存することなく、日本独自の高精度センチメートル級測位（自動運転、精密農業、ドローン運航、防災）を24時間365日持続可能にする日本の重要宇宙インフラ。さらに、同盟国との宇宙空間の安全保障を担うSDAセンサーを初搭載。",
+        "en": "[QZS-7 Michibiki-7 Navigation Spacecraft (7-Satellite Constellation)]\n■ Agency: Cabinet Office of Japan / JAXA / Mitsubishi Electric\n■ Launcher: H3 Rocket Flight 9 (H3-22S) from Tanegashima Space Center (Aug 11, 2026)\n■ Orbit: Quasi-Zenith Geosynchronous Orbit (~35,786 km, Inclination ~39.5°, 23h56m period)\n■ Payload: High-stability Hydrogen Maser & Rubidium atomic clocks, Multi-band positioning antennae (L1/L2/L5), Centimeter-Level Augmentation Service (CLAS), Crisis & Disaster Notification (Q-ANPI), US-Japan Space Domain Awareness (SDA) optical surveillance payload\n■ Mission: Completes Japan's sovereign 7-satellite QZSS constellation, ensuring continuous, autonomous centimeter-level precision navigation without reliance on US GPS, while enhancing space defense through joint SDA surveillance.",
+        "zh": "【准天顶卫星“引路7号”(QZS-7 / 7星体制完成)】\n■ 研发运营机构: 日本内阁府 / JAXA / 三菱电机\n■ 发射时间与火箭: 2026年8月11日 / H3火箭9号机 (种子岛宇宙中心)\n■ 轨道参数: 准天顶地球同步轨道 (高度约35,786公里 / 倾角约39.5度 / 周期约23小时56分)\n■ 核心载荷: 高精度氢脉泽与铷原子钟、多频段导航天线、厘米级定位增强系统 (CLAS)、防灾减灾应急通信 (Q-ANPI)、日美联合太空态势感知 (SDA) 光学载荷\n■ 历史意义: 完成日本准天顶系统(QZSS)“7星体制”的标志性卫星，实现脱离GPS依赖的24小时全天候自主厘米级高精度导航定位，并首次搭载军事太空监视载荷。",
+        "ko": "【준꼭대기 위성 「미치비키 7호기」(QZS-7 / 7기 체제 완성)】\n■ 개발 및 운용 기관: 일본 내각부 / JAXA / 미쓰비시 전기\n■ 발사일 및 발사체: 2026년 8월 11일 / H3 로켓 9호기 (다네가시마 우주센터)\n■ 궤도 제원: 준꼭대기 지구 동기 궤도 (고도 약 35,786km / 경사각 약 39.5도)\n■ 주요 탑재체: 수소 메이저 원자시계, 다대역 항법 안테나, 센티미터급 보강 서비스(CLAS), 재난 통보(Q-ANPI), 미·일 공동 우주영역인식(SDA) 광학 센서\n■ 역사적 의의: 일본 QZSS 7기 체제를 완성하여 GPS 독립적 센티미터급 정밀 측위를 24시간 확립하고 미·일 우주 안보 협력을 강화.",
+        "de": "[QZS-7 Michibiki-7 Navigationssatellit (Vollendung der 7-Satelliten-Konstellation)]\n■ Organisation: Japanisches Kabinettsbüro / JAXA / Mitsubishi Electric\n■ Trägerrakete: H3-Rakete Flug 9 (11. August 2026, Tanegashima)\n■ Umlaufbahn: Quasi-Zenit geosynchrone Umlaufbahn (~35.786 km, Neigung ~39,5°)\n■ Nutzlast: Wasserstoff-Maser-Atomuhren, Zentimeter-Level Augmentation Service (CLAS), Space Domain Awareness (SDA) Sensoren\n■ Mission: Vervollständigt Japans autonome 7-Satelliten-QZSS-Konstellation für kontinuierliche zentimetergenaue Navigation unabhängig von GPS.",
+        "fr": "[Satellite de navigation QZS-7 Michibiki-7 (Constellation complète à 7 satellites)]\n■ Organisation: Bureau du Cabinet du Japon / JAXA / Mitsubishi Electric\n■ Lanceur: Fusée H3 Vol 9 (11 août 2026, Tanegashima)\n■ Orbite: Orbite géosynchrone quasi-zénithale (~35 786 km, inclinaison ~39,5°)\n■ Charge utile: Horloges atomiques à maser à hydrogène, service d'augmentation centimétrique (CLAS), capteurs SDA de surveillance spatiale\n■ Mission: Achève la constellation souveraine japonaise de 7 satellites QZSS, garantissant un positionnement autonome de précision centimétrique.",
+        "es": "[Satélite de Navegación QZS-7 Michibiki-7 (Constelación Completa de 7 Satélites)]\n■ Agencia: Oficina del Gabinete de Japón / JAXA / Mitsubishi Electric\n■ Lanzador: Cohete H3 Vuelo 9 (11 de agosto de 2026, Tanegashima)\n■ Órbita: Órbita geosíncrona cuasi-cenital (~35.786 km, inclinación ~39,5°)\n■ Carga útil: Relojes atómicos de máser de hidrógeno, servicio de aumento centimétrico (CLAS), sensor óptico SDA espacial\n■ Misión: Completa la constelación soberana de 7 satélites QZSS de Japón, garantizando posicionamiento autónomo de alta precisión.",
+        "pt": "[Satélite de Navegação QZS-7 Michibiki-7 (Constelação de 7 Satélites)]\n■ Agência: Gabinete do Governo do Japão / JAXA / Mitsubishi Electric\n■ Lançador: Foguete H3 Voo 9 (11 de agosto de 2026, Tanegashima)\n■ Órbita: Órbita geossíncrona quase-zenital (~35.786 km, inclinação ~39,5°)\n■ Carga útil: Relógios atômicos de maser de hidrogênio, serviço de precisão centimétrica (CLAS), sensor SDA\n■ Missão: Conclui a constelação de 7 satélites QZSS do Japão, garantindo navegação de alta precisão independente de GPS.",
+        "it": "[Satellite di Navigazione QZS-7 Michibiki-7 (Costellazione Completa a 7 Satelliti)]\n■ Agenzia: Ufficio di Gabinetto del Giappone / JAXA / Mitsubishi Electric\n■ Vettore: Razzo H3 Volo 9 (11 agosto 2026, Tanegashima)\n■ Orbita: Orbita geosincrona quasi-zenitale (~35.786 km, inclinazione ~39,5°)\n■ Carico utile: Orologi atomici a maser di idrogeno, servizio di aumento centimetrico (CLAS), sensore ottico SDA per la difesa\n■ Missione: Completa la costellazione a 7 satelliti QZSS del Giappone per un posizionamento centimetricamente accurato e sovrano.",
+        "nl": "[QZS-7 Michibiki-7 Navigatiesatelliet (Voltooiing van de 7-Satellietconstellatie)]\n■ Organisatie: Kabinetsbureau van Japan / JAXA / Mitsubishi Electric\n■ Lanceervoertuig: H3-raket Vlucht 9 (11 augustus 2026, Tanegashima)\n■ Baan: Quasi-zenit geosynchrone baan (~35.786 km, inclinatie ~39,5°)\n■ Laadvermogen: Waterstofmaser-atoomklokken, centimeter-level augmentatie (CLAS), SDA ruimtedomeinbewakingssensor\n■ Missie: Voltooit de soevereine 7-satelliet QZSS-constellatie van Japan voor continue centimeternauwkeurige navigatie.",
+        "id": "【Satelit Navigasi QZS-7 Michibiki-7 (Penyelesaian Konstelasi 7 Satelit)】\n■ Organisasi: Kantor Kabinet Jepang / JAXA / Mitsubishi Electric\n■ Roket Peluncur: Roket H3 Penerbangan 9 (11 Agustus 2026, Tanegashima)\n■ Parameter Orbit: Orbit Geosinkron Quasi-Zenith (~35.786 km, inklinasi ~39,5°)\n■ Muatan Sensor: Jam atom maser hidrogen, layanan augmentasi tingkat sentimeter (CLAS), sensor pengawasan SDA pertahanan\n■ Misi: Melengkapi konstelasi 7 satelit QZSS kedaulatan Jepang untuk navigasi presisi sentimeter berkelanjutan tanpa bergantung pada GPS.",
+        "hi": "【QZS-7 मिचिबिकी-7 नेविगेशन उपग्रह (7-उपग्रह समूह की पूर्णता)】\n■ एजेंसी: जापान का कैबिनेट कार्यालय / JAXA / मित्सुबिशी इलेक्ट्रिक\n■ प्रक्षेपण यान: H3 रॉकेट उड़ान 9 (11 अगस्त 2026, तनेगाशिमा)\n■ कक्षीय विवरण: क्वासी-जेनिथ भू-समकालिक कक्षा (~35,786 किमी, झुकाव ~39.5°)\n■ पेलोड: हाइड्रोजन मेसर परमाणु घड़ियां, सेंटीमीटर-स्तरीय संवर्द्धन सेवा (CLAS), अंतरिक्ष डोमेन जागरूकता (SDA) सेंसर\n■ मिशन: जीपीएस पर निर्भरता के बिना स्वायत्त सेंटीमीटर-सटीक नेविगेशन सुनिश्चित करने के लिए जापान के 7-उपग्रह QZSS समूह को पूरा करता है।",
+        "ar": "【قمر الملاحة وتحديد المواقع ميتشيبيكي-7 (QZS-7 / اكتمال كوكبة الـ 7 أقمار)】\n■ الوكالة: مكتب مجلس الوزراء الياباني / JAXA / ميتسوبيشي إلكتريك\n■ صاروخ الإطلاق: صاروخ H3 الرحلة 9 (11 أغسطس 2026، تانيغاشيما)\n■ المدار: مدار شبه متزامن جغرافياً وشبه زوالي (~35,786 كم، الميل ~39.5 درجة)\n■ الحمولة: ساعات هيدروجين ميزر الذرية، خدمة التعزيز على مستوى السنتيمتر (CLAS)، مستشعر SDA لمراقبة المجال الفضائي\n■ المهمة: استكمال كوكبة QZSS السيادية المكونة من 7 أقمار لضمان تحديد المواقع بدقة السنتيمتر على مدار الساعة دون الاعتماد على GPS.",
+        "ru": "【Навигационный спутник «Мичибики-7» (QZS-7 / Завершение группировки из 7 спутников)】\n■ Организация: Кабинет министров Японии / JAXA / Mitsubishi Electric\n■ Ракета-носитель: H3 Flight 9 (11 августа 2026 года, космодром Танэгасима)\n■ Параметры орбиты: Квазизенитная геосинхронная орбита (~35 786 км, наклонение ~39,5°)\n■ Полезная нагрузка: Водородные мазерные атомные часы, сервис сантиметровой коррекции (CLAS), оптический датчик контроля космического пространства (SDA)\n■ Миссия: Завершение формирования японской национальной спутниковой группировки QZSS из 7 аппаратов для автономного сантиметрового позиционирования независимо от GPS."
+    },
+
     "IGS": {
         "country": "🇯🇵 日本 (内閣衛星情報センター / 安全保障偵察)",
         "country_en": "🇯🇵 Japan (Cabinet Satellite Intelligence Center)",
