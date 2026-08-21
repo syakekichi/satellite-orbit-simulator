@@ -114,6 +114,7 @@ const TRANSLATIONS = {
         toggle2D: "2D世界地図モード",
         toggleBorders: "🌐 国境線 & 地名ラベル",
         toggleDebrisRisk: "🔮 宇宙デブリ危険分析モード (パープル表示)",
+        toggleCelestial: "🌌 太陽・月・主要惑星 (火星/金星/木星/土星)",
         dragDetail: "⋮⋮ ドラッグで詳細カード移動",
         dragCam: "⋮⋮ カメラ視点移動",
         labelAlt: "高度 (Altitude)",
@@ -195,6 +196,7 @@ const TRANSLATIONS = {
         toggle2D: "2D Map View",
         toggleBorders: "🌐 Borders & Place Labels",
         toggleDebrisRisk: "🔮 Space Debris Risk Analysis (Purple Glow)",
+        toggleCelestial: "🌌 Sun, Moon & Planets (Mars/Venus/Jupiter/Saturn)",
         dragDetail: "⋮⋮ Drag to move Detail Card",
         dragCam: "⋮⋮ Camera Pan Controls",
         labelAlt: "Altitude",
@@ -276,6 +278,7 @@ const TRANSLATIONS = {
         toggle2D: "2D 地图模式",
         toggleBorders: "🌐 国界线与地名标签",
         toggleDebrisRisk: "🔮 空间碎片危险分析 (紫色发光)",
+        toggleCelestial: "🌌 太阳、月球与主要行星 (火星/金星/木星/土星)",
         dragDetail: "⋮⋮ 拖动移动详情卡片",
         dragCam: "⋮⋮ 平移视角控制",
         labelAlt: "高度",
@@ -347,6 +350,7 @@ const TRANSLATIONS = {
         toggle2D: "Modo Mapa 2D",
         toggleBorders: "🌐 Fronteras y Nombres",
         toggleDebrisRisk: "🔮 Análisis de Riesgo de Basura Espacial",
+        toggleCelestial: "🌌 Sol, Luna y Planetas (Marte/Venus/Júpiter/Saturno)",
         dragDetail: "⋮⋮ Arrastrar para mover detalle",
         dragCam: "⋮⋮ Control de Cámara",
         labelAlt: "Altitud",
@@ -419,6 +423,7 @@ const TRANSLATIONS = {
         toggle2D: "Режим 2D карты",
         toggleBorders: "🌐 Границы и названия",
         toggleDebrisRisk: "🔮 Анализ риска космического мусора",
+        toggleCelestial: "🌌 Солнце, Луна и планеты (Марс/Венера/Юпитер/Сатурн)",
         dragDetail: "⋮⋮ Перетащите карточку",
         dragCam: "⋮⋮ Управление камерой",
         labelAlt: "Высота",
@@ -491,6 +496,7 @@ const TRANSLATIONS = {
         toggle2D: "2D-Kartenmodus",
         toggleBorders: "🌐 Grenzen & Städtenamen",
         toggleDebrisRisk: "🔮 Weltraummüll-Risikoanalyse",
+        toggleCelestial: "🌌 Sonne, Mond & Planeten (Mars/Venus/Jupiter/Saturn)",
         dragDetail: "⋮⋮ Karte verschieben",
         dragCam: "⋮⋮ Kamera",
         labelAlt: "Höhe (Altitude)",
@@ -563,6 +569,7 @@ const TRANSLATIONS = {
         toggle2D: "Mode carte 2D",
         toggleBorders: "🌐 Frontières & Villes",
         toggleDebrisRisk: "🔮 Analyse du risque de débris",
+        toggleCelestial: "🌌 Soleil, Lune et Planètes (Mars/Vénus/Jupiter/Saturne)",
         dragDetail: "⋮⋮ Déplacer la carte",
         dragCam: "⋮⋮ Caméra",
         labelAlt: "Altitude",
@@ -635,6 +642,7 @@ const TRANSLATIONS = {
         toggle2D: "Modo mapa 2D",
         toggleBorders: "🌐 Fronteiras e Cidades",
         toggleDebrisRisk: "🔮 Análise de risco de detritos",
+        toggleCelestial: "🌌 Sol, Lua e Planetas (Marte/Vênus/Júpiter/Saturno)",
         dragDetail: "⋮⋮ Arrastar cartão",
         dragCam: "⋮⋮ Câmera",
         labelAlt: "Altitude",
@@ -707,6 +715,7 @@ const TRANSLATIONS = {
         toggle2D: "Modalità Mappa 2D",
         toggleBorders: "🌐 Confini & Città",
         toggleDebrisRisk: "🔮 Analisi Rischio Detriti",
+        toggleCelestial: "🌌 Sole, Luna e Pianeti (Marte/Venere/Giove/Saturno)",
         dragDetail: "⋮⋮ Trascina scheda",
         dragCam: "⋮⋮ Telecamera",
         labelAlt: "Altitudine",
@@ -779,6 +788,7 @@ const TRANSLATIONS = {
         toggle2D: "2D 지도 모드",
         toggleBorders: "🌐 국경 및 도시명",
         toggleDebrisRisk: "🔮 우주 쓰레기 충돌 위험 분석",
+        toggleCelestial: "🌌 태양, 달 및 주요 행성 (화성/금성/목성/토성)",
         dragDetail: "⋮⋮ 상세 카드 이동",
         dragCam: "⋮⋮ 카메라 제어",
         labelAlt: "고도",
@@ -851,6 +861,7 @@ const TRANSLATIONS = {
         toggle2D: "2D Kaartmodus",
         toggleBorders: "🌐 Grenzen & Steden",
         toggleDebrisRisk: "🔮 Analyse Ruimtepuinrisico",
+        toggleCelestial: "🌌 Zon, Maan & Planeten (Mars/Venus/Jupiter/Saturnus)",
         dragDetail: "⋮⋮ Kaart slepen",
         dragCam: "⋮⋮ Camera",
         labelAlt: "Hoogte",
@@ -923,6 +934,7 @@ const TRANSLATIONS = {
         toggle2D: "Mode Peta 2D",
         toggleBorders: "🌐 Batas Negara & Kota",
         toggleDebrisRisk: "🔮 Analisis Risiko Sampah Antariksa",
+        toggleCelestial: "🌌 Matahari, Bulan & Planet (Mars/Venus/Yupiter/Saturnus)",
         dragDetail: "⋮⋮ Geser kartu",
         dragCam: "⋮⋮ Kamera",
         labelAlt: "Ketinggian",
@@ -995,6 +1007,7 @@ const TRANSLATIONS = {
         toggle2D: "وضع الخريطة 2D",
         toggleBorders: "🌐 الحدود والمدن",
         toggleDebrisRisk: "🔮 تحليل مخاطر الحطام الفضائي",
+        toggleCelestial: "🌌 الشمس والقمر والكواكب (المريخ/الزهرة/المشتري/زحل)",
         dragDetail: "⋮⋮ سحب البطاقة",
         dragCam: "⋮⋮ التحكم في الكاميرا",
         labelAlt: "الارتفاع (Altitude)",
@@ -1067,6 +1080,7 @@ const TRANSLATIONS = {
         toggle2D: "2D मानचित्र मोड",
         toggleBorders: "🌐 सीमाएं और शहर",
         toggleDebrisRisk: "🔮 अंतरिक्ष मलबे के जोखिम का विश्लेषण",
+        toggleCelestial: "🌌 सूर्य, चंद्रमा और ग्रह (मंगल/शुक्र/बृहस्पति/शनि)",
         dragDetail: "⋮⋮ कार्ड खींचें",
         dragCam: "⋮⋮ कैमरा नियंत्रण",
         labelAlt: "ऊंचाई (Altitude)",
@@ -1782,6 +1796,396 @@ function createBulletproofEarthProvider() {
 /**
  * Initialize Cesium 3D Viewer with ultra-mild mouse scroll zoom
  */
+
+// ==========================================================================
+// Solar System Celestial Bodies Real-time Ephemeris & Visualization System
+// ==========================================================================
+const CELESTIAL_BODIES = [
+    {
+        id: 'SUN',
+        name: 'SUN (太陽)',
+        color: '#ffcc00',
+        radiusKm: 696340,
+        distKm: 149597870,
+        periodDays: '---',
+        type: 'STAR',
+        symbol: '☀️'
+    },
+    {
+        id: 'MOON',
+        name: 'MOON (月 / 地球の衛星)',
+        color: '#e2e8f0',
+        radiusKm: 1737.4,
+        distKm: 384400,
+        periodDays: 27.32,
+        type: 'MOON',
+        symbol: '🌕'
+    },
+    {
+        id: 'MARS',
+        name: 'MARS (火星 / 第4惑星)',
+        color: '#ef4444',
+        radiusKm: 3389.5,
+        distKm: 227900000,
+        periodDays: 686.98,
+        type: 'PLANET',
+        symbol: '🔴',
+        a: 1.524, e: 0.0934, I: 1.85, L: 355.45, M0: 19.37, n: 0.524039
+    },
+    {
+        id: 'VENUS',
+        name: 'VENUS (金星 / 第2惑星)',
+        color: '#fef08a',
+        radiusKm: 6051.8,
+        distKm: 108200000,
+        periodDays: 224.70,
+        type: 'PLANET',
+        symbol: '🟡',
+        a: 0.723, e: 0.0067, I: 3.39, L: 181.98, M0: 48.01, n: 1.602130
+    },
+    {
+        id: 'JUPITER',
+        name: 'JUPITER (木星 / 太陽系最大惑星)',
+        color: '#fb923c',
+        radiusKm: 69911,
+        distKm: 778500000,
+        periodDays: 4332.59,
+        type: 'PLANET',
+        symbol: '🟠',
+        a: 5.204, e: 0.0485, I: 1.30, L: 34.40, M0: 20.02, n: 0.083085
+    },
+    {
+        id: 'SATURN',
+        name: 'SATURN (土星 / 環を持つ巨大ガス惑星)',
+        color: '#fde047',
+        radiusKm: 58232,
+        distKm: 1433500000,
+        periodDays: 10759.22,
+        type: 'PLANET',
+        symbol: '🪐',
+        a: 9.582, e: 0.0555, I: 2.49, L: 49.94, M0: 317.02, n: 0.033444
+    },
+    {
+        id: 'MERCURY',
+        name: 'MERCURY (水星 / 第1惑星)',
+        color: '#94a3b8',
+        radiusKm: 2439.7,
+        distKm: 57900000,
+        periodDays: 87.97,
+        type: 'PLANET',
+        symbol: '🔘',
+        a: 0.387, e: 0.2056, I: 7.00, L: 252.25, M0: 174.79, n: 4.092334
+    }
+];
+
+const CELESTIAL_DESCRIPTIONS = {
+    "SUN": {
+        "ja": "太陽系の中心天体（恒星）。地球から約1億4,960万km (1 AU) の距離に位置し、地球の全生命と気象現象のエネルギー源。昼夜のライティング陰影をリアルタイム生成。",
+        "en": "The star at the center of the Solar System (~149.6M km / 1 AU from Earth). Provides 100% of light and solar energy driving Earth weather and day/night cycle.",
+        "de": "Das Zentralgestirn unseres Sonnensystems (~149,6 Mio. km von der Erde). Licht- und Energiequelle der Erde.",
+        "fr": "L'étoile au centre du système solaire (~149,6 millions de km). Source de toute lumière et énergie sur Terre.",
+        "es": "La estrella en el centro del Sistema Solar (~149,6 millones de km de la Tierra). Fuente de luz y energía.",
+        "pt": "A estrela no centro do Sistema Solar (~149,6 milhões de km da Terra). Fonte de luz e energia.",
+        "it": "La stella al centro del Sistema Solare (~149,6 milioni di km). Fonte di luce ed energia.",
+        "ko": "태양계의 중심 항성(지구로부터 약 1억 4,960만 km). 지구의 모든 생명과 기상, 주야간 조명의 근원.",
+        "nl": "De ster in het centrum van het zonnestelsel (~149,6 miljoen km). Bron van alle licht en energie.",
+        "id": "Bintang di pusat Tata Surya (~149,6 juta km). Sumber cahaya dan energi utama Bumi.",
+        "hi": "सौर मंडल के केंद्र में स्थित तारा (पृथ्वी से ~14.96 करोड़ किमी)। पृथ्वी के दिन/रात और ऊर्जा का स्रोत।",
+        "ar": "النجم في مركز النظام الشمسي (~149.6 مليون كم من الأرض). مصدر الضوء والطاقة ودورة الليل والنهار.",
+        "zh": "太阳系的中心天体(恒星)，距地球约1.496亿公里(1 AU)。主导地球昼夜交替与气候运行。",
+        "ru": "Центральная звезда Солнечной системы (~149,6 млн км от Земли). Источник света и тепла."
+    },
+    "MOON": {
+        "ja": "地球唯一の自然衛星「月」。平均距離約384,400km、公転周期約27.3日。アポロ計画やアルテミス計画の探査対象。CesiumJSリアルタイム3D月齢連動。",
+        "en": "Earth's only natural satellite (~384,400 km away, orbital period 27.3 days). Target of Apollo and Artemis lunar missions. Synchronized with real-time 3D lunar phases.",
+        "de": "Der einzige natürliche Satellit der Erde (~384.400 km entfernt, Umlaufzeit 27,3 Tage).",
+        "fr": "L'unique satellite naturel de la Terre (distance ~384 400 km, période orbitale 27,3 jours).",
+        "es": "El único satélite natural de la Tierra (~384.400 km de distancia, período de 27,3 días).",
+        "pt": "O único satélite natural da Terra (~384.400 km de distância, período de 27,3 dias).",
+        "it": "L'unico satellite naturale della Terra (~384.400 km di distanza, periodo 27,3 giorni).",
+        "ko": "지구의 유일한 자연위성 \"달\"(평균 거리 약 384,400km, 공전주기 약 27.3일). 실시간 3D 월령 렌더링.",
+        "nl": "De enige natuurlijke satelliet van de aarde (~384.400 km afstand, omlooptijd 27,3 dagen).",
+        "id": "Satelit alami tunggal Bumi (~384.400 km, periode orbit 27,3 hari). Target misi Artemis.",
+        "hi": "पृथ्वी का एकमात्र प्राकृतिक उपग्रह \"चंद्रमा\" (~384,400 किमी दूर, परिक्रमण काल 27.3 दिन)।",
+        "ar": "القمر، التابع الطبيعي الوحيد للأرض (~384,400 كم، الدورة المدارية 27.3 يوماً). مرحلة ثلاثية الأبعاد متزامنة.",
+        "zh": "地球唯一的天然卫星“月球”，平均距离约38.44万公里，公转周期约27.3天。实时3D月相呈现。",
+        "ru": "Единственный естественный спутник Земли (~384 400 км, период обращения 27,3 дня)."
+    },
+    "MARS": {
+        "ja": "太陽系第4惑星「火星」(Red Planet)。酸化鉄に覆われた赤い地表と大気、極冠を持つ。NASAパーサヴィアランス探査車や有人探査計画の最前線。",
+        "en": "The 4th planet from the Sun (The Red Planet). Known for its iron-rich red soil, thin atmosphere, and polar ice caps. Target of NASA rover and crewed Mars missions.",
+        "de": "Der vierte Planet des Sonnensystems (Der Rote Planet). Ziel der Mars-Rover und bemannter Missionen.",
+        "fr": "La 4e planète du système solaire (La planète rouge). Cible des rovers et de futures missions habitées.",
+        "es": "El cuarto planeta del Sistema Solar (El Planeta Rojo). Objetivo de exploraciones y futuras misiones tripuladas.",
+        "pt": "O quarto planeta do Sistema Solar (O Planeta Vermelho). Alvo de rovers e futuras missões humanas.",
+        "it": "Il quarto pianeta del Sistema Solare (Il Pianeta Rosso). Obiettivo di rover ed esplorazioni umane.",
+        "ko": "태양계 제4행성 \"화성\"(붉은 행성). 산화철 토양과 얇은 대기, 미래 유인 탐사의 핵심 목표.",
+        "nl": "De vierde planeet van het zonnestelsel (De Rode Planeet). Doel van Mars-rovers en bemande missies.",
+        "id": "Planet ke-4 dari Matahari (Planet Merah). Target penjelajah NASA dan misi berawak masa depan.",
+        "hi": "सूर्य से चौथा ग्रह \"मंगल\" (लाल ग्रह)। भविष्य के मानव अंतरिक्ष अभियानों का मुख्य लक्ष्य।",
+        "ar": "الكوكب الرابع من الشمس (الكوكب الأحمر). يشتهر بتربته الغنية بالحديد وأهدافه الاستكشافية المأهولة.",
+        "zh": "太阳系第四行星“火星”(红星)，拥有富含铁的红色地表和稀薄大气，是人类深空探测的核心目标。",
+        "ru": "Четвертая планета от Солнца (Красная планета). Главная цель будущих пилотируемых миссий."
+    },
+    "VENUS": {
+        "ja": "太陽系第2惑星「金星」(Venus / 明けの明星)。厚い硫酸の雲と強烈な温室効果により地表温度は約460℃に達する、夜空で最も明るく輝く惑星。",
+        "en": "The 2nd planet from the Sun (Morning / Evening Star). Hottest planet in the solar system (~460°C) with dense runaway greenhouse atmosphere and bright night sky shine.",
+        "de": "Der 2. Planet des Sonnensystems (Morgen-/Abendstern). Heißester Planet mit dichter Atmosphäre (~460°C).",
+        "fr": "La 2e planète du système solaire (Étoile du Berger). La plus chaude (~460°C) sous un effet de serre extrême.",
+        "es": "El segundo planeta del Sistema Solar (El Lucero del Alba). El planeta más caliente (~460°C).",
+        "pt": "O segundo planeta do Sistema Solar (A Estrela D'Alva). O planeta mais quente (~460°C).",
+        "it": "Il secondo pianeta del Sistema Solare (Stella del Mattino/Sera). Pianeta più caldo (~460°C).",
+        "ko": "태양계 제2행성 \"금성\"(샛별). 두꺼운 이산화탄소 대기와 온실효과로 표면온도 약 460℃에 달하는 가장 밝은 행성.",
+        "nl": "De 2e planeet van het zonnestelsel (Morgen-/Avondster). Heetste planeet (~460°C).",
+        "id": "Planet ke-2 dari Matahari (Bintang Fajar/Kejora). Planet terpanas (~460°C) dengan atmosfer tebal.",
+        "hi": "सूर्य से दूसरा ग्रह \"शुक्र\" (भोर का तारा)। सौर मंडल का सबसे गर्म ग्रह (~460°C)।",
+        "ar": "الكوكب الثاني من الشمس (نجمة الصباح/المساء). أشد كواكب النظام الشمسي حرارة (~460 درجة مئوية).",
+        "zh": "太阳系第二行星“金星”(启明星/长庚星)。浓密温室大气使地表达460℃，是夜空中最亮行星。",
+        "ru": "Вторая планета от Солнца (Утренняя звезда). Самая горячая планета в системе (~460°C)."
+    },
+    "JUPITER": {
+        "ja": "太陽系第5惑星「木星」(Jupiter)。太陽系最大の巨大ガス惑星。地球の約1,300倍の体積、象徴的な大赤斑と強力な磁気圏、エウロパ等90以上の衛星を持つ。",
+        "en": "The 5th and largest planet in the Solar System (1,300x Earth volume). Giant gas planet famous for its Great Red Spot, intense magnetic field, and 90+ moons.",
+        "de": "Der größte Planet des Sonnensystems (Gasriese). Bekannt für den Großen Roten Fleck und über 90 Monde.",
+        "fr": "La plus grande planète du système solaire (Géante gazeuse avec la Grande Tache Rouge et 90+ lunes).",
+        "es": "El planeta más grande del Sistema Solar (Gigante gaseoso con la Gran Mancha Roja y más de 90 lunas).",
+        "pt": "O maior planeta do Sistema Solar (Gigante gasoso com a Grande Mancha Vermelha e mais de 90 luas).",
+        "it": "Il pianeta più grande del Sistema Solare (Gigante gassoso con la Grande Macchia Rossa).",
+        "ko": "태양계 제5행성이자 최대 행성 \"목성\"(가스 행성). 지구 부피의 1,300배, 거대한 대적점과 90개 이상의 위성 보유.",
+        "nl": "De grootste planeet van het zonnestelsel (Gasreus met de Grote Rode Vlek en 90+ manen).",
+        "id": "Planet terbesar di Tata Surya (Raksasa gas dengan Bintik Merah Raksasa dan 90+ bulan).",
+        "hi": "सौर मंडल का सबसे बड़ा ग्रह \"बृहस्पति\"। ग्रेट रेड स्पॉट और 90 से अधिक चंद्रमाओं वाला विशाल गैस ग्रह।",
+        "ar": "الكوكب الأكبر في النظام الشمسي (عملاق غازي يشتهر بالبقعة الحمراء العظيمة وأكثر من 90 قمراً).",
+        "zh": "太阳系第五行星兼最大行星“木星”(气态巨行星)。体积为地球1300倍，拥有大红斑与90多颗卫星。",
+        "ru": "Крупнейшая планета Солнечной системы (Газовый гигант с Большим красным пятном и 90+ спутниками)."
+    },
+    "SATURN": {
+        "ja": "太陽系第6惑星「土星」(Saturn)。氷と岩石でできた壮麗な環（リング）を持つ巨大ガス惑星。密度が水より軽く、タイタンやエンケラドス等魅力的な衛星を従える。",
+        "en": "The 6th planet from the Sun (Ringed Giant). Famous for its spectacular ice rings, low density (floats on water), and intriguing moons like Titan and Enceladus.",
+        "de": "Der Ringplanet des Sonnensystems. Berühmt für seine spektakulären Eisringe und den Mond Titan.",
+        "fr": "La planète aux anneaux spectaculaires constitués de glace et de roche, avec le satellite Titan.",
+        "es": "Famoso por sus espectaculares anillos de hielo y fascinantes lunas como Titán y Encélado.",
+        "pt": "Famoso por seus anéis espetaculares de gelo e luas fascinantes como Titã e Encélado.",
+        "it": "Famoso per i suoi spettacolari anelli di ghiaccio e lune affascinanti come Titano.",
+        "ko": "태양계 제6행성 \"토성\"(고리 행성). 얼음과 암석으로 이루어진 화려한 고리와 타이탄 위성을 보유.",
+        "nl": "Beroemd om zijn spectaculaire ijsringen en intrigerende manen zoals Titan en Enceladus.",
+        "id": "Planet ke-6 dari Matahari, terkenal dengan cincin esnya yang megah dan bulan Titan.",
+        "hi": "सूर्य से छठा ग्रह \"शनि\"। बर्फ के भव्य छल्लों और टाइटन जैसे उपग्रहों के लिए प्रसिद्ध।",
+        "ar": "الكوكب السادس من الشمس (عملاق الحلقات). يشتهر بحلقاته الجليدية الرائعة وأقماره مثل تيتان.",
+        "zh": "太阳系第六行星“土星”(环状巨行星)。拥有壮观的冰质光环与土卫六(泰坦)等众多卫星。",
+        "ru": "Шестая планета с великолепными ледяными кольцами и спутником Титан."
+    },
+    "MERCURY": {
+        "ja": "太陽系第1惑星「水星」(Mercury)。太陽に最も近く、大気がほとんどないため昼は430℃、夜は-180℃という極端な温度差を持つクレーターに覆われた岩石惑星。",
+        "en": "The closest planet to the Sun. Small, rocky world with no atmosphere, causing extreme temperature swings from 430°C in daylight to -180°C at night.",
+        "de": "Der sonnennächste Planet. Extremste Temperaturunterschiede zwischen Tag (+430°C) und Nacht (-180°C).",
+        "fr": "La planète la plus proche du Soleil. Variations de température extrêmes de 430°C à -180°C.",
+        "es": "El planeta más cercano al Sol. Extremos de temperatura entre el día (430°C) y la noche (-180°C).",
+        "pt": "O planeta mais próximo do Sol. Extremos de temperatura entre o dia (430°C) e a noite (-180°C).",
+        "it": "Il pianeta più vicino al Sole. Forti escursioni termiche tra giorno (430°C) e notte (-180°C).",
+        "ko": "태양에 가장 가까운 제1행성 \"수성\". 대기가 없어 낮 430℃, 밤 -180℃의 극단적인 온도 변화.",
+        "nl": "De dichtstbijzijnde planeet bij de zon. Extreme temperaturen van 430°C overdag tot -180°C 's nachts.",
+        "id": "Planet terdekat dengan Matahari. Perubahan suhu ekstrem antara siang (430°C) dan malam (-180°C).",
+        "hi": "सूर्य के सबसे निकट का ग्रह \"बुध\"। दिन में 430°C और रात में -180°C का अत्यधिक तापमान अंतर।",
+        "ar": "أقرب الكواكب إلى الشمس. كوكب صخري صغير يشهد تبايناً حرارياً هائلاً بين النهار (+430°م) والليل (-180°م).",
+        "zh": "太阳系最内侧第一行星“水星”。昼夜温差达430℃至-180℃，布满陨石坑的岩石行星。",
+        "ru": "Ближайшая к Солнцу планета. Экстремальные перепады температуры от +430°C днем до -180°C ночью."
+    }
+};
+
+let celestialEntities = [];
+let selectedCelestialId = null;
+
+/**
+ * Initialize 3D Celestial Bodies (Sun, Moon, Mars, Venus, Jupiter, Saturn, Mercury)
+ */
+function initCelestialBodies() {
+    if (!viewer) return;
+    
+    // Enable Cesium Real Moon & Sun
+    try {
+        if (!viewer.scene.moon) {
+            viewer.scene.moon = new Cesium.Moon();
+        }
+        viewer.scene.moon.show = true;
+        if (!viewer.scene.sun) {
+            viewer.scene.sun = new Cesium.Sun();
+        }
+        viewer.scene.sun.show = true;
+    } catch(e) {
+        console.warn("Moon/Sun enable warning:", e);
+    }
+
+    createCelestialEntities();
+}
+
+function createCelestialEntities() {
+    if (!viewer) return;
+    celestialEntities.forEach(ent => viewer.entities.remove(ent));
+    celestialEntities = [];
+
+    const toggleCelestial = document.getElementById('toggleCelestial');
+    const isVisible = (!toggleCelestial || toggleCelestial.checked);
+
+    CELESTIAL_BODIES.forEach(body => {
+        const entity = viewer.entities.add({
+            id: `celestial_${body.id}`,
+            name: body.name,
+            position: new Cesium.CallbackProperty((time) => {
+                return computeCelestialPosition(body, time);
+            }, false),
+            point: {
+                pixelSize: body.id === 'MOON' ? 14 : (body.id === 'SUN' ? 16 : 10),
+                color: Cesium.Color.fromCssColorString(body.color),
+                outlineColor: Cesium.Color.WHITE,
+                outlineWidth: 2,
+                show: isVisible,
+                disableDepthTestDistance: Number.POSITIVE_INFINITY
+            },
+            label: {
+                text: `${body.symbol} ${body.name.split(' ')[0]}`,
+                font: 'bold 12px Inter, sans-serif',
+                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                fillColor: Cesium.Color.WHITE,
+                outlineColor: Cesium.Color.fromCssColorString('#020617'),
+                outlineWidth: 3,
+                verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                pixelOffset: new Cesium.Cartesian2(0, -12),
+                show: isVisible,
+                disableDepthTestDistance: Number.POSITIVE_INFINITY
+            }
+        });
+        entity.celestialData = body;
+        celestialEntities.push(entity);
+    });
+}
+
+function computeCelestialPosition(body, time) {
+    if (!viewer || !time) return Cesium.Cartesian3.ZERO;
+
+    const jsDate = Cesium.JulianDate.toDate(time);
+    const d = (jsDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0; // Days from J2000.0
+
+    if (body.id === 'SUN') {
+        const L = (280.460 + 0.9856474 * d) * (Math.PI / 180);
+        const g = (357.528 + 0.9856003 * d) * (Math.PI / 180);
+        const lambda = L + (1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) * (Math.PI / 180);
+        const eps = (23.439 - 0.0000004 * d) * (Math.PI / 180);
+        const r_sun = 149597870700; // 1 AU in meters
+        return new Cesium.Cartesian3(
+            r_sun * Math.cos(lambda),
+            r_sun * Math.sin(lambda) * Math.cos(eps),
+            r_sun * Math.sin(lambda) * Math.sin(eps)
+        );
+    }
+
+    if (body.id === 'MOON') {
+        const L_moon = (218.316 + 13.176396 * d) * (Math.PI / 180);
+        const M_moon = (134.963 + 13.064993 * d) * (Math.PI / 180);
+        const F_moon = (93.272 + 13.229350 * d) * (Math.PI / 180);
+        const lambda_moon = L_moon + (6.289 * Math.sin(M_moon)) * (Math.PI / 180);
+        const beta_moon = (5.128 * Math.sin(F_moon)) * (Math.PI / 180);
+        const r_moon = 384400000; // 384,400 km in meters
+        return new Cesium.Cartesian3(
+            r_moon * Math.cos(beta_moon) * Math.cos(lambda_moon),
+            r_moon * Math.cos(beta_moon) * Math.sin(lambda_moon),
+            r_moon * Math.sin(beta_moon)
+        );
+    }
+
+    // Earth orbital position
+    const earthM = (357.529 + 0.98560028 * d) * Math.PI / 180;
+    const earthL_corr = (280.466 + 0.98564736 * d + 1.915 * Math.sin(earthM) + 0.020 * Math.sin(2 * earthM)) * Math.PI / 180;
+    const xe = Math.cos(earthL_corr);
+    const ye = Math.sin(earthL_corr);
+
+    // Planet heliocentric coordinates
+    const M = (body.M0 + body.n * d) % 360;
+    const M_rad = M * Math.PI / 180;
+    const v = M_rad + (2 * body.e - Math.pow(body.e, 3)/4) * Math.sin(M_rad) + 1.25 * Math.pow(body.e, 2) * Math.sin(2 * M_rad);
+    const r = body.a * (1 - Math.pow(body.e, 2)) / (1 + body.e * Math.cos(v));
+    const I_rad = body.I * Math.PI / 180;
+    const lon_rad = (v + (body.L - body.M0) * Math.PI / 180);
+
+    const xp = r * Math.cos(lon_rad);
+    const yp = r * Math.sin(lon_rad) * Math.cos(I_rad);
+    const zp = r * Math.sin(lon_rad) * Math.sin(I_rad);
+
+    // Geocentric (Earth-centric) vector in AU
+    const gx = xp - xe;
+    const gy = yp - ye;
+    const gz = zp;
+
+    const AU_TO_METERS = 149597870700;
+    return new Cesium.Cartesian3(gx * AU_TO_METERS, gy * AU_TO_METERS, gz * AU_TO_METERS);
+}
+
+function selectCelestialBody(bodyId) {
+    const body = CELESTIAL_BODIES.find(b => b.id === bodyId);
+    if (!body || !viewer) return;
+
+    selectedSatIndex = -1;
+    selectedCelestialId = bodyId;
+
+    // Clear satellite orbit line if any
+    if (orbitPolylineEntity) {
+        viewer.entities.remove(orbitPolylineEntity);
+        orbitPolylineEntity = null;
+    }
+
+    const lang = currentLang || 'ja';
+    const dict = TRANSLATIONS[lang] || TRANSLATIONS['ja'];
+
+    // Update Detail Card UI
+    satBadge.textContent = `🌌 ${body.type}`;
+    satBadge.style.background = 'linear-gradient(135deg, #f59e0b, #ef4444)';
+    satName.textContent = `${body.symbol} ${body.name.split(' ')[0]}`;
+    satNorad.textContent = `SOLAR SYSTEM BODY (${body.id})`;
+
+    const descObj = CELESTIAL_DESCRIPTIONS[body.id];
+    if (satDescription && descObj) {
+        satDescription.textContent = descObj[lang] || descObj['en'] || descObj['ja'];
+    }
+
+    // Compute dynamic real-time distance
+    const time = viewer.clock.currentTime;
+    const pos = computeCelestialPosition(body, time);
+    const distMeters = Cesium.Cartesian3.magnitude(pos);
+    const distKm = (distMeters / 1000).toLocaleString(undefined, { maximumFractionDigits: 0 });
+
+    satAlt.textContent = `${distKm} km`;
+    satVel.textContent = `${body.radiusKm.toLocaleString()} km (Radius)`;
+    satLat.textContent = body.id === 'MOON' ? '27.3 days' : `${body.periodDays} days`;
+    satLon.textContent = body.symbol;
+    satInc.textContent = body.I ? `${body.I}°` : '---';
+    satPeriod.textContent = `${body.periodDays} d`;
+
+    // Pass and Debris rows
+    const passCountdown = document.getElementById('passCountdown');
+    const passMetaInfo = document.getElementById('passMetaInfo');
+    const debrisProximity = document.getElementById('debrisProximity');
+
+    if (passCountdown) passCountdown.textContent = '🌌 Deep Space Trajectory';
+    if (passMetaInfo) passMetaInfo.textContent = `Solar System Orbit (${body.type})`;
+    if (debrisProximity) debrisProximity.textContent = '🟢 Gravitational Equilibrium';
+
+    detailCard.classList.remove('hidden');
+
+    // Fly camera toward celestial body direction
+    const camera = viewer.camera;
+    const direction = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+    const targetLook = Cesium.Cartesian3.multiplyByScalar(direction, 30000000, new Cesium.Cartesian3());
+    
+    camera.flyTo({
+        destination: Cesium.Cartesian3.multiplyByScalar(direction, -25000000, new Cesium.Cartesian3()),
+        orientation: {
+            direction: direction,
+            up: Cesium.Cartesian3.UNIT_Z
+        },
+        duration: 1.5
+    });
+}
+
 function initCesiumViewer() {
     // Dummy access token to bypass Cesium 1.119.0 Ion token requirement exception
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkdW1teSJ9.dummy';
@@ -1908,6 +2312,7 @@ function initCesiumViewer() {
     });
 
     viewer.clock.onTick.addEventListener(onClockTick);
+    initCelestialBodies();
 
     const handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
     handler.setInputAction(onSceneClick, Cesium.ScreenSpaceEventType.LEFT_CLICK);
@@ -3486,6 +3891,17 @@ function setupEventListeners() {
         });
     }
 
+    const toggleCelestial = document.getElementById('toggleCelestial');
+    if (toggleCelestial) {
+        toggleCelestial.addEventListener('change', (e) => {
+            const show = e.target.checked;
+            celestialEntities.forEach(ent => {
+                if (ent.point) ent.point.show = show;
+                if (ent.label) ent.label.show = show;
+            });
+            if (viewer && viewer.scene.moon) viewer.scene.moon.show = show;
+        });
+    }
     setupDraggablePanels();
 }
 
