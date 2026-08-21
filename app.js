@@ -2034,23 +2034,16 @@ function createCelestialEntities() {
             position: new Cesium.CallbackProperty((time) => {
                 return computeCelestialPosition(body, time);
             }, false),
-            point: {
-                pixelSize: body.id === 'MOON' ? 14 : (body.id === 'SUN' ? 16 : 10),
-                color: Cesium.Color.fromCssColorString(body.color),
-                outlineColor: Cesium.Color.WHITE,
-                outlineWidth: 2,
-                show: isVisible,
-                disableDepthTestDistance: Number.POSITIVE_INFINITY
-            },
             label: {
                 text: `${body.symbol} ${body.name.split(' ')[0]}`,
-                font: 'bold 12px Inter, sans-serif',
+                font: body.id === 'SUN' ? 'bold 15px Inter, sans-serif' : 'bold 13px Inter, sans-serif',
                 style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                fillColor: Cesium.Color.WHITE,
+                fillColor: body.id === 'SUN' ? Cesium.Color.fromCssColorString('#fde047') : Cesium.Color.fromCssColorString(body.color || '#ffffff'),
                 outlineColor: Cesium.Color.fromCssColorString('#020617'),
-                outlineWidth: 3,
+                outlineWidth: 4,
                 verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-                pixelOffset: new Cesium.Cartesian2(0, -12),
+                horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+                pixelOffset: body.id === 'SUN' ? new Cesium.Cartesian2(0, -25) : new Cesium.Cartesian2(0, -12),
                 show: isVisible,
                 disableDepthTestDistance: Number.POSITIVE_INFINITY
             }
@@ -3896,10 +3889,12 @@ function setupEventListeners() {
         toggleCelestial.addEventListener('change', (e) => {
             const show = e.target.checked;
             celestialEntities.forEach(ent => {
-                if (ent.point) ent.point.show = show;
                 if (ent.label) ent.label.show = show;
             });
-            if (viewer && viewer.scene.moon) viewer.scene.moon.show = show;
+            if (viewer) {
+                if (viewer.scene.moon) viewer.scene.moon.show = show;
+                if (viewer.scene.sun) viewer.scene.sun.show = show;
+            }
         });
     }
     setupDraggablePanels();
