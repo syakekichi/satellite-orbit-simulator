@@ -445,6 +445,40 @@ function getSatDisplayName(name) {
     const upper = name.toUpperCase();
     
     if (lang === 'ja') {
+        // Europe (ESA / Copernicus / Galileo / EUMETSAT)
+        if (upper.includes('SENTINEL-2A')) return '🇪🇺 Sentinel-2A (センチネル2A - 欧州光学観測)';
+        if (upper.includes('SENTINEL-1A')) return '🇪🇺 Sentinel-1A (センチネル1A - 欧州CバンドSAR)';
+        if (upper.includes('GALILEO')) return '🇪🇺 Galileo-26 (欧州ガリレオ測位衛星)';
+        if (upper.includes('METEOSAT') || upper.includes('MTG')) return '🇪🇺 Meteosat-12 (欧州最新静止気象衛星)';
+        
+        // South Korea (KARI)
+        if (upper.includes('GEO-KOMPSAT-2A') || upper.includes('CHOLLIAN-2A')) return '🇰🇷 GEO-KOMPSAT-2A (千里眼2A号 - 韓国静止気象衛星)';
+        if (upper.includes('GEO-KOMPSAT-2B') || upper.includes('CHOLLIAN-2B')) return '🇰🇷 GEO-KOMPSAT-2B (千里眼2B号 - 世界初静止環境観測)';
+        if (upper.includes('KOMPSAT-5') || upper.includes('ARIRANG-5')) return '🇰🇷 KOMPSAT-5 (アリラン5号 - 韓国XバンドSAR)';
+        
+        // India (ISRO)
+        if (upper.includes('CARTOSAT-3')) return '🇮🇳 Cartosat-3 (カルトサット3号 - インド28cm超高分解能)';
+        if (upper.includes('INSAT-3DR')) return '🇮🇳 INSAT-3DR (インサット3DR - インド静止気象衛星)';
+        
+        // Russia (Roscosmos)
+        if (upper.includes('GLONASS')) return '🇷🇺 GLONASS-K (ロシア宇宙軍グロナス測位衛星)';
+        if (upper.includes('ELEKTRO-L')) return '🇷🇺 Elektro-L No.3 (ロシア静止気象衛星)';
+        
+        // China (CNSA)
+        if (upper.includes('FENGYUN-4B')) return '🇨🇳 Fengyun-4B (風雲4号B - 中国新世代静止気象衛星)';
+        if (upper.includes('GAOFEN-7')) return '🇨🇳 Gaofen-7 (高分7号 - 中国サブメートル3D立体測量)';
+        if (upper.includes('TIANGONG')) return '🇨🇳 TIANGONG (天宮宇宙ステーション)';
+        if (upper.includes('BEIDOU')) return '🇨🇳 BEIDOU-3 (北斗3号測位衛星)';
+        
+        // USA (NASA / NOAA / USSF)
+        if (upper.includes('LANDSAT-9')) return '🇺🇸 Landsat-9 (ランドサット9号 - 米国地球観測)';
+        if (upper.includes('TERRA')) return '🇺🇸 Terra (テラ - NASA地球科学フラッグシップ)';
+        if (upper.includes('GOES-18')) return '🇺🇸 GOES-18 (GOES-West - 米国静止気象衛星)';
+        if (upper.includes('HUBBLE')) return '🇺🇸 / 🇪🇺 HUBBLE (ハッブル宇宙望遠鏡)';
+        if (upper.includes('GPS')) return '🇺🇸 ' + name.replace(/\(.*\)/, '') + ' (GPSナビゲーション衛星)';
+        
+        // International / Japan
+        if (upper.includes('ISS')) return '🇺🇸 / 🇯🇵 / 🇪🇺 ISS (国際宇宙ステーション)';
         if (upper.includes('ALOS-4') || upper.includes('DAICHI-4')) return '🇯🇵 ALOS-4 (だいち4号 - H3ロケット搭載)';
         if (upper.includes('ALOS-2') || upper.includes('DAICHI-2')) return '🇯🇵 ALOS-2 (だいち2号 - LバンドSAR)';
         if (upper.includes('XRISM')) return '🇯🇵 / 🇺🇸 XRISM (クリズム - X線宇宙望遠鏡)';
@@ -462,16 +496,33 @@ function getSatDisplayName(name) {
         if (upper.includes('MICHIBIKI-2')) return '🇯🇵 MICHIBIKI-2 (みちびき2号機)';
         if (upper.includes('MICHIBIKI-3')) return '🇯🇵 MICHIBIKI-3 (みちびき3号機)';
         if (upper.includes('MICHIBIKI-4')) return '🇯🇵 MICHIBIKI-4 (みちびき4号機)';
-        if (upper.includes('ISS')) return '🇺🇸 / 🇯🇵 / 🇪🇺 ISS (国際宇宙ステーション)';
-        if (upper.includes('TIANGONG')) return '🇨🇳 TIANGONG (天宮宇宙ステーション)';
-        if (upper.includes('BEIDOU')) return '🇨🇳 BEIDOU-3 (北斗3号測位衛星)';
-        if (upper.includes('HUBBLE')) return '🇺🇸 / 🇪🇺 HUBBLE (ハッブル宇宙望遠鏡)';
-        if (upper.includes('GPS')) return '🇺🇸 ' + name.replace(/\(.*\)/, '') + ' (GPSナビゲーション衛星)';
+        
+        // Debris & Starlink
+        if (upper.includes('DEBRIS') || upper.includes('COSMOS 2251') || upper.includes('FENGYUN 1C') || upper.includes('SL-8') || upper.includes('SL-16')) {
+            return '⚠️ ' + name + ' (宇宙ゴミ)';
+        }
         if (upper.includes('STARLINK')) return '🛰️ ' + name;
-        if (upper.includes('DEBRIS') || upper.includes('COSMOS') || upper.includes('FENGYUN') || upper.includes('SL-')) return '⚠️ ' + name + ' (宇宙ゴミ)';
         return name;
     } else {
         let clean = name.replace(/\(.*?[぀-ヿ㐀-䶿一-鿿].*?\)/g, '').trim();
+        if (upper.includes('SENTINEL-2A')) return '🇪🇺 Sentinel-2A (Copernicus Optical)';
+        if (upper.includes('SENTINEL-1A')) return '🇪🇺 Sentinel-1A (Copernicus Radar SAR)';
+        if (upper.includes('GALILEO')) return '🇪🇺 Galileo-26 (EU GNSS)';
+        if (upper.includes('METEOSAT') || upper.includes('MTG')) return '🇪🇺 Meteosat-12 (MTG Weather)';
+        if (upper.includes('GEO-KOMPSAT-2A') || upper.includes('CHOLLIAN-2A')) return '🇰🇷 GEO-KOMPSAT-2A (Chollian-2A)';
+        if (upper.includes('GEO-KOMPSAT-2B') || upper.includes('CHOLLIAN-2B')) return '🇰🇷 GEO-KOMPSAT-2B (Chollian-2B)';
+        if (upper.includes('KOMPSAT-5') || upper.includes('ARIRANG-5')) return '🇰🇷 KOMPSAT-5 (Arirang-5 SAR)';
+        if (upper.includes('CARTOSAT-3')) return '🇮🇳 Cartosat-3 (High-Res 0.28m)';
+        if (upper.includes('INSAT-3DR')) return '🇮🇳 INSAT-3DR (GEO Weather)';
+        if (upper.includes('GLONASS')) return '🇷🇺 GLONASS-K (Russian GNSS)';
+        if (upper.includes('ELEKTRO-L')) return '🇷🇺 Elektro-L No.3 (GEO Weather)';
+        if (upper.includes('FENGYUN-4B')) return '🇨🇳 Fengyun-4B (FY-4B Weather)';
+        if (upper.includes('GAOFEN-7')) return '🇨🇳 Gaofen-7 (3D Mapping)';
+        if (upper.includes('TIANGONG')) return '🇨🇳 Tiangong Space Station';
+        if (upper.includes('BEIDOU')) return '🇨🇳 BeiDou-3 (Navigation Satellite)';
+        if (upper.includes('LANDSAT-9')) return '🇺🇸 Landsat-9 (NASA/USGS)';
+        if (upper.includes('TERRA')) return '🇺🇸 Terra (NASA EOS AM-1)';
+        if (upper.includes('GOES-18')) return '🇺🇸 GOES-18 (GOES-West)';
         if (upper.includes('ALOS-4') || upper.includes('DAICHI-4')) return '🇯🇵 ALOS-4 (DAICHI-4 Radar)';
         if (upper.includes('ALOS-2') || upper.includes('DAICHI-2')) return '🇯🇵 ALOS-2 (DAICHI-2 Radar)';
         if (upper.includes('XRISM')) return '🇯🇵 / 🇺🇸 XRISM (X-ray Telescope)';
@@ -481,12 +532,10 @@ function getSatDisplayName(name) {
         if (upper.includes('QPS-SAR')) return '🇯🇵 QPS-SAR-5 (TSUKUYOMI-I)';
         if (upper.includes('STRIX')) return '🇯🇵 StriX-1 (Commercial SAR)';
         if (upper.includes('ISS')) return '🇺🇸 / 🇯🇵 / 🇪🇺 ISS (International Space Station)';
-        if (upper.includes('TIANGONG')) return '🇨🇳 Tiangong Space Station';
         if (upper.includes('HIMAWARI-8')) return '🇯🇵 Himawari-8 (Weather Satellite)';
         if (upper.includes('HIMAWARI-9')) return '🇯🇵 Himawari-9 (Weather Satellite)';
         if (upper.includes('MICHIBIKI-6')) return '🇯🇵 QZSS / MICHIBIKI-6 (Navigation Satellite)';
         if (upper.includes('MICHIBIKI')) return '🇯🇵 ' + clean + ' (QZSS Navigation)';
-        if (upper.includes('BEIDOU')) return '🇨🇳 BeiDou-3 (Navigation Satellite)';
         if (upper.includes('HUBBLE')) return '🇺🇸 / 🇪🇺 Hubble Space Telescope';
         if (upper.includes('GPS')) return '🇺🇸 ' + clean + ' (GPS Navigation)';
         if (upper.includes('STARLINK')) return '🛰️ ' + name;
@@ -1958,11 +2007,13 @@ function applyLanguage(lang) {
             ru: { JST: '🇯🇵 Японское время (JST / UTC+9)', UTC: '🌐 Всемирное время (UTC)', NY: '🇺🇸 Нью-Йорк (EST/EDT)', CST: '🇨🇳 Китайское время (CST / UTC+8)', CET: '🇪🇸 Центральноевропейское (CET)', MSK: '🇷🇺 Московское время (MSK / UTC+3)', LOCAL: '💻 Местное время браузера' }
         };
         const currentTzMap = tzLabels[lang] || tzLabels['en'];
-        Array.from(tzSelect.options).forEach(opt => {
-            if (currentTzMap[opt.value]) {
-                opt.textContent = currentTzMap[opt.value];
-            }
-        });
+        if (tzSelect && tzSelect.options) {
+            Array.from(tzSelect.options).forEach(opt => {
+                if (currentTzMap[opt.value]) {
+                    opt.textContent = currentTzMap[opt.value];
+                }
+            });
+        }
     }
 
     if (typeof updateDropdownOptions === 'function') {
@@ -1981,7 +2032,55 @@ window.changeLanguage = function(lang) {
 };
 
 // Major Satellites Built-in TLE Preset (Clean International English Names)
-const MAJOR_SATELLITES_TLE = `ALOS-2 (DAICHI-2)
+const MAJOR_SATELLITES_TLE = `SENTINEL-2A (COPERNICUS)
+1 40697U 15028A   26100.12345678  .00000000  00000-0  00000-0 0  9999
+2 40697  98.6200  85.0000 0001200  70.0000 290.0000 14.30800000    01
+SENTINEL-1A (COPERNICUS SAR)
+1 39634U 14016A   26100.12345678  .00000000  00000-0  00000-0 0  9998
+2 39634  98.1800 110.0000 0001500  80.0000 280.0000 14.59200000    02
+GALILEO-26 (GSAT0224)
+1 49811U 21096B   26100.12345678  .00000000  00000-0  00000-0 0  9997
+2 49811  56.0000  40.0000 0003000 120.0000 240.0000  1.70470000    03
+METEOSAT-12 (MTG-I1)
+1 54747U 22170A   26100.12345678  .00000000  00000-0  00000-0 0  9996
+2 54747   0.0200   0.0000 0001000 180.0000  90.0000  1.00270000    04
+LANDSAT-9 (EARTH OBSERVATION)
+1 49260U 21088A   26100.12345678  .00000000  00000-0  00000-0 0  9995
+2 49260  98.2000 130.0000 0001100  60.0000 300.0000 14.57100000    05
+TERRA (EOS AM-1)
+1 25994U 99068A   26100.12345678  .00000000  00000-0  00000-0 0  9994
+2 25994  98.2000 140.0000 0001200  90.0000 270.0000 14.57100000    06
+GOES-18 (GOES-WEST)
+1 51850U 22021A   26100.12345678  .00000000  00000-0  00000-0 0  9993
+2 51850   0.0300 223.0000 0001000 180.0000  90.0000  1.00270000    07
+GEO-KOMPSAT-2A (CHOLLIAN-2A)
+1 43847U 18100A   26100.12345678  .00000000  00000-0  00000-0 0  9992
+2 43847   0.0200 128.2000 0001000 180.0000  90.0000  1.00270000    08
+GEO-KOMPSAT-2B (CHOLLIAN-2B)
+1 45244U 20013A   26100.12345678  .00000000  00000-0  00000-0 0  9991
+2 45244   0.0200 128.2000 0001000 180.0000  90.0000  1.00270000    09
+KOMPSAT-5 (ARIRANG-5)
+1 39227U 13042A   26100.12345678  .00000000  00000-0  00000-0 0  9990
+2 39227  97.6000 150.0000 0001400  50.0000 310.0000 15.14300000    10
+CARTOSAT-3 (ISRO HIGH-RES)
+1 44804U 19081A   26100.12345678  .00000000  00000-0  00000-0 0  9989
+2 44804  97.5000  60.0000 0001500  40.0000 320.0000 15.20000000    11
+INSAT-3DR (GEO WEATHER)
+1 41752U 16054A   26100.12345678  .00000000  00000-0  00000-0 0  9988
+2 41752   0.0300  74.0000 0001000 180.0000  90.0000  1.00270000    12
+GLONASS-K (COSMOS 2547)
+1 46805U 20075A   26100.12345678  .00000000  00000-0  00000-0 0  9987
+2 46805  64.8000  80.0000 0003000 150.0000 210.0000  2.13100000    13
+ELEKTRO-L NO.3 (RUSSIAN GEO)
+1 44903U 19095A   26100.12345678  .00000000  00000-0  00000-0 0  9986
+2 44903   0.0400 165.8000 0001000 180.0000  90.0000  1.00270000    14
+FENGYUN-4B (NEW-GEN GEO)
+1 48808U 21047A   26100.12345678  .00000000  00000-0  00000-0 0  9985
+2 48808   0.0200 105.0000 0001000 180.0000  90.0000  1.00270000    15
+GAOFEN-7 (3D MAPPING)
+1 44703U 19072A   26100.12345678  .00000000  00000-0  00000-0 0  9984
+2 44703  97.4000 160.0000 0001300  60.0000 300.0000 15.22000000    16
+ALOS-2 (DAICHI-2)
 1 39766U 14029A   26100.12345678  .00000000  00000-0  00000-0 0  9991
 2 39766  97.9000 120.0000 0001000 100.0000 260.0000 14.78000000    01
 ALOS-4 (DAICHI-4)
@@ -2108,7 +2207,7 @@ const edgePointer = document.getElementById('edgePointer');
 const pointerArrow = document.getElementById('pointerArrow');
 const pointerName = document.getElementById('pointerName');
 
-// Detail Card DOMs
+// Detail Card & Controls DOMs
 const detailCard = document.getElementById('detailCard');
 const closeDetail = document.getElementById('closeDetail');
 const satBadge = document.getElementById('satBadge');
@@ -2116,9 +2215,134 @@ const satName = document.getElementById('satName');
 const satNorad = document.getElementById('satNorad');
 const satDescription = document.getElementById('satDescription');
 const satAlt = document.getElementById('satAlt');
+const satVel = document.getElementById('satVel');
+const satLat = document.getElementById('satLat');
+const satLon = document.getElementById('satLon');
+const satInc = document.getElementById('satInc');
+const satPeriod = document.getElementById('satPeriod');
+const trackBtn = document.getElementById('trackBtn');
+const untrackBtn = document.getElementById('untrackBtn');
+const toggleDebrisRisk = document.getElementById('toggleDebrisRisk');
+const toggleLabels = document.getElementById('toggleLabels');
+const toggleOrbits = document.getElementById('toggleOrbits');
+const toggleMultiLap = document.getElementById('toggleMultiLap');
+const toggleAtmosphere = document.getElementById('toggleAtmosphere');
+const toggle2D = document.getElementById('toggle2D');
+const toggleBorders = document.getElementById('toggleBorders');
+const satSelect = document.getElementById('satSelect');
+const searchInput = document.getElementById('searchInput');
+const clearSearch = document.getElementById('clearSearch');
+const searchResults = document.getElementById('searchResults');
+const statCount = document.getElementById('statCount');
+const statTime = document.getElementById('statTime');
+const loadingOverlay = document.getElementById('loadingOverlay');
+const loadingText = document.getElementById('loadingText');
+const labelsContainer = document.getElementById('labelsContainer');
+const tzSelect = document.getElementById('tzSelect');
+const loadMajorBtn = document.getElementById('loadMajorBtn');
+const loadLocalBtn = document.getElementById('loadLocalBtn');
+const loadOnlineBtn = document.getElementById('loadOnlineBtn');
+const sourceStatusBadge = document.getElementById('sourceStatusBadge');
 
 // Rich Satellite Mission Descriptions Mapping (Full 5-Language Multilingual Dictionary)
 const SATELLITE_DESCRIPTIONS = {
+    "SENTINEL-2A": {
+        "country": "🇪🇺 欧州連合 (ESA / 欧州宇宙機関 / コペルニクス)",
+        "country_en": "🇪🇺 European Union (ESA / Copernicus)",
+        "ja": "【高分解能光学地球観測衛星「Sentinel-2A」(センチネル2A)】\n■ 開発・運用組織: ESA (欧州宇宙機関) / 欧州連合 (EU) コペルニクス計画\n■ 打上げ日・ロケット: 2015年6月23日 / ベガ (Vega) ロケット (仏領ギアナ・クールー)\n■ 軌道諸元: 高度約786km / 太陽同期軌道 (軌道傾斜角98.62度 / 周期約100分)\n■ 主要搭載観測機器: マルチスペクトル観測装置「MSI」(可視光から短波長赤外の13バンド / 最大空間分解能10m / 観測幅290km)\n■ 観測・探査目的: 世界中の陸地と沿岸海域を5日間隔で高解像度スキャン。森林伐採、農作物の生育状況、河川水質、氷河融解、自然災害の被災範囲を全球測定し、全世界へ完全オープン＆フリーでデータを提供。",
+        "en": "[Multispectral Earth Observation Satellite \"Sentinel-2A\"]\n■ Organization: ESA (European Space Agency) / EU Copernicus Programme\n■ Launch: June 23, 2015 / Vega Rocket (Kourou)\n■ Orbit: Altitude ~786 km / Sun-synchronous Orbit (Inclination 98.62°)\n■ Key Instruments: MultiSpectral Instrument (MSI with 13 spectral bands, up to 10m resolution, 290km swath)\n■ Mission: High-resolution systematic land and coastal monitoring for agriculture, forestry, disaster response, and climate change."
+},
+    "SENTINEL-1A": {
+        "country": "🇪🇺 欧州連合 (ESA / 欧州宇宙機関 / コペルニクス)",
+        "country_en": "🇪🇺 European Union (ESA / Copernicus)",
+        "ja": "【全天候型レーダ衛星「Sentinel-1A」(センチネル1A)】\n■ 開発・運用組織: ESA (欧州宇宙機関) / 欧州連合 (EU)\n■ 打上げ日・ロケット: 2014年4月3日 / ソユーズST-A ロケット\n■ 軌道諸元: 高度約693km / 太陽同期軌道 (軌道傾斜角98.18度)\n■ 主要観測機器: Cバンド合成開口レーダ「C-SAR」(空間分解能5m〜20m)\n■ 観測目的: 雲や夜間を透過して地表と海洋をレーダ観測。北極海の海氷ナビゲーション、海洋油流出検知、地震・火山による地盤変動のミリ波干渉解析(InSAR)を提供。",
+        "en": "[All-Weather Radar Satellite \"Sentinel-1A\"]\n■ Organization: ESA / EU Copernicus Programme\n■ Launch: April 3, 2014 / Soyuz ST-A\n■ Instruments: C-band Synthetic Aperture Radar (C-SAR)\n■ Mission: Day-and-night radar imaging for sea ice tracking, maritime surveillance, oil spills, and interferometric crustal movement analysis."
+},
+    "GALILEO": {
+        "country": "🇪🇺 欧州連合 (ESA / EUSPA / ガリレオ)",
+        "country_en": "🇪🇺 European Union (ESA / EUSPA)",
+        "ja": "【欧州衛星測位システム「ガリレオ」(GALILEO-26)】\n■ 開発・運用組織: 欧州連合宇宙計画庁 (EUSPA) / ESA\n■ 軌道諸元: 高度約23,222km / 中地球軌道 (MEO / 軌道傾斜角56度)\n■ 主要機器: パッシブ水素メーザー原子時計(最高精度の原子時計)、E1/E5/E6帯送信機\n■ 目的: 軍用に依存しない欧州独自の高精度民間測位システム。サブメートル級測位と遭難捜索救助(SAR)機能を提供。",
+        "en": "[European Satellite Navigation System \"Galileo\"]\n■ Organization: EUSPA / European Space Agency (ESA)\n■ Orbit: ~23,222 km MEO (Inclination 56°)\n■ Instruments: Passive Hydrogen Maser Atomic Clocks\n■ Mission: Civil-controlled sovereign global navigation providing high-precision positioning."
+},
+    "METEOSAT": {
+        "country": "🇪🇺 欧州気象衛星機構 (EUMETSAT / ESA)",
+        "country_en": "🇪🇺 Europe (EUMETSAT / ESA)",
+        "ja": "【第3世代静止気象衛星「Meteosat-12」(MTG-I1)】\n■ 開発・運用組織: EUMETSAT (欧州気象衛星機構) / ESA\n■ 打上げ日・ロケット: 2022年12月13日 / アリアン5 (Ariane 5) ロケット\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (本初子午線上空 0度定点)\n■ 主要観測機器: フレキシブル複合イメージャー(FCI)、欧州初となる宇宙からの「雷イメージャー(LI)」\n■ 観測目的: ヨーロッパおよびアフリカ大陸の気象・台風・雷雲の発生をリアルタイム高頻度観測。",
+        "en": "[Meteosat Third Generation Imager-1 \"Meteosat-12\" (MTG-I1)]\n■ Organization: EUMETSAT / ESA\n■ Launch: Dec 13, 2022 / Ariane 5\n■ Orbit: Geostationary at 0° longitude (35,786 km)\n■ Instruments: Flexible Combined Imager (FCI), Lightning Imager (LI)\n■ Mission: Next-gen weather monitoring for Europe and Africa, detecting lightning from space."
+},
+    "LANDSAT": {
+        "country": "🇺🇸 アメリカ (NASA / USGS / 地質調査所)",
+        "country_en": "🇺🇸 USA (NASA / USGS)",
+        "ja": "【地球観測衛星「Landsat-9」(ランドサット9号)】\n■ 開発・運用組織: NASA (米航空宇宙局) / USGS (米地質調査所)\n■ 打上げ日・ロケット: 2021年9月27日 / アトラスV (Atlas V) ロケット (ヴァンデンバーグ宇宙軍基地)\n■ 軌道諸元: 高度約705km / 太陽同期軌道 (軌道傾斜角98.2度)\n■ 主要観測機器: 陸域イメージャー2「OLI-2」(14ビット高輝度光学センサ)、熱赤外センサ2「TIRS-2」\n■ 観測目的: 1972年から続く世界最長の地球観測ランドサット計画の最新機。農業用水管理、山火事被害評価、都市拡大、熱帯雨林消失を50年以上の長期データと比較分析。",
+        "en": "[Land Remote Sensing Satellite \"Landsat-9\"]\n■ Organization: NASA / USGS\n■ Launch: Sept 27, 2021 / Atlas V 401\n■ Orbit: ~705 km Sun-synchronous Orbit\n■ Instruments: OLI-2, TIRS-2\n■ Mission: Continues the 50-year global land imaging legacy, monitoring deforestation, crop health, water resources, and urban sprawl."
+},
+    "TERRA": {
+        "country": "🇺🇸 アメリカ (NASA / ゴダード宇宙飛行センター)",
+        "country_en": "🇺🇸 USA (NASA)",
+        "ja": "【地球観測フラッグシップ衛星「Terra」(テラ / EOS AM-1)】\n■ 開発・運用組織: NASA (米航空宇宙局) / 国際パートナー(日本・カナダ等)\n■ 打上げ日・ロケット: 1999年12月18日 / アトラスIIAS ロケット\n■ 軌道諸元: 高度約705km / 太陽同期軌道 (軌道傾斜角98.2度)\n■ 主要観測機器: 中分解能光学放射計「MODIS」、日本の高性能光学センサ「ASTER」、MISR、MOPITT、CERES\n■ 観測目的: 地球の陸地・大気・海洋の相互作用を総合観測し、気候変動研究の基盤となった歴史的フラッグシップ衛星。",
+        "en": "[Earth Observing System Flagship \"Terra\" (EOS AM-1)]\n■ Organization: NASA\n■ Launch: Dec 18, 1999 / Atlas IIAS\n■ Instruments: MODIS, ASTER (Japan), MISR, CERES, MOPITT\n■ Mission: Landmark Earth science flagship observing global biosphere, carbon cycle, oceans, and atmosphere for over 25 years."
+},
+    "GOES": {
+        "country": "🇺🇸 アメリカ (NOAA / 米国海洋大気庁 / NASA)",
+        "country_en": "🇺🇸 USA (NOAA / NASA)",
+        "ja": "【静止気象衛星「GOES-18」(GOES-West)】\n■ 開発・運用組織: NOAA (米国海洋大気庁) / NASA\n■ 打上げ日・ロケット: 2022年3月1日 / アトラスV ロケット (ケープカナベラル)\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (西経137度・太平洋上空定点)\n■ 主要観測機器: 先進ベースラインイメージャー「ABI」(16バンド)、静止雷マッパー「GLM」\n■ 観測目的: 北米大陸西部、ハワイ、太平洋のハリケーン、森林火災、大気気象を24時間体制でリアルタイム監視。",
+        "en": "[Geostationary Operational Environmental Satellite \"GOES-18\" (GOES-West)]\n■ Organization: NOAA / NASA\n■ Launch: March 1, 2022 / Atlas V\n■ Orbit: Geostationary at 137.0°W (35,786 km)\n■ Instruments: Advanced Baseline Imager (ABI), Geostationary Lightning Mapper (GLM)\n■ Mission: Continuous real-time tracking of Pacific hurricanes, wildfires, and atmospheric rivers over North America."
+},
+    "CHOLLIAN-2A": {
+        "country": "🇰🇷 韓国 (KARI / 韓国航空宇宙研究院 / 気象庁)",
+        "country_en": "🇰🇷 South Korea (KARI / KMA)",
+        "ja": "【静止気象・宇宙天気衛星「千里眼2A号」(GEO-KOMPSAT-2A)】\n■ 開発・運用組織: KARI (韓国航空宇宙研究院) / 韓国気象庁 (KMA)\n■ 打上げ日・ロケット: 2018年12月4日 / アリアン5 (Ariane 5) ロケット (仏領ギアナ)\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (東経128.2度・朝鮮半島上空定点)\n■ 主要観測機器: 先進気象放射計「AMI」(16観測バンド)、宇宙天気センサ「KSEM」\n■ 観測目的: 朝鮮半島および東アジア域の台風、集中豪雨、黄砂、微小粒子状物質を24時間監視し、太陽フレア等の宇宙天気予報も提供する韓国の主力静止気象衛星。",
+        "en": "[Geostationary Meteorological Satellite \"GEO-KOMPSAT-2A\" (Chollian-2A)]\n■ Organization: KARI / KMA\n■ Launch: Dec 4, 2018 / Ariane 5\n■ Orbit: Geostationary at 128.2°E (35,786 km)\n■ Instruments: AMI (16 bands), KSEM (Space Weather)\n■ Mission: 24/7 real-time monitoring of severe typhoons, heavy rainfall, yellow dust, and space weather events across East Asia."
+},
+    "CHOLLIAN-2B": {
+        "country": "🇰🇷 韓国 (KARI / 韓国航空宇宙研究院 / 海洋・環境部)",
+        "country_en": "🇰🇷 South Korea (KARI / MOF / ME)",
+        "ja": "【静止環境・海洋観測衛星「千里眼2B号」(GEO-KOMPSAT-2B)】\n■ 開発・運用組織: KARI / 韓国海洋水産部 / 環境部\n■ 打上げ日・ロケット: 2020年2月18日 / アリアン5 (Ariane 5) ロケット\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (東経128.2度)\n■ 主要観測機器: 静止環境分光計「GEMS」、静止海洋観測装置「GOCI-II」\n■ 観測目的: 【世界初】となる静止軌道からの大気環境常時監視衛星。PM2.5、二酸化窒素(NO2)、オゾン、黄砂の越境飛来ルートを1時間ごとに追跡し、海洋赤潮や油流出を監視。",
+        "en": "[Geostationary Ocean & Environment Satellite \"GEO-KOMPSAT-2B\" (Chollian-2B)]\n■ Organization: KARI / MOF / ME\n■ Launch: Feb 18, 2020 / Ariane 5\n■ Orbit: Geostationary at 128.2°E (35,786 km)\n■ Instruments: GEMS (Air pollution spectrometer), GOCI-II (Ocean imager)\n■ Mission: World's FIRST geostationary satellite monitoring atmospheric pollutants (PM2.5, NO2) hourly and tracking ocean red tides."
+},
+    "KOMPSAT-5": {
+        "country": "🇰🇷 韓国 (KARI / 韓国航空宇宙研究院)",
+        "country_en": "🇰🇷 South Korea (KARI)",
+        "ja": "【高分解能レーダ地球観測衛星「アリラン5号」(KOMPSAT-5)】\n■ 開発・運用組織: KARI (韓国航空宇宙研究院)\n■ 打上げ日・ロケット: 2013年8月22日 / ドニエプル (Dnepr) ロケット (ロシア)\n■ 軌道諸元: 高度約550km / 太陽同期薄明軌道 (軌道傾斜角97.6度)\n■ 主要観測機器: Xバンド合成開口レーダ「COSI」(空間分解能最高1m)\n■ 観測目的: 朝鮮半島の地理情報システム(GIS)、海洋環境、災害被災状況を昼夜・天候に関係なくレーダ撮影。",
+        "en": "[High-Resolution Radar Earth Observing Satellite \"KOMPSAT-5\" (Arirang-5)]\n■ Organization: KARI (South Korea)\n■ Launch: Aug 22, 2013 / Dnepr Rocket\n■ Orbit: ~550 km Sun-synchronous Orbit\n■ Instruments: X-band Synthetic Aperture Radar (COSI, 1m resolution)\n■ Mission: All-weather radar Earth observation for geographic mapping, maritime monitoring, and disaster mitigation."
+},
+    "CARTOSAT-3": {
+        "country": "🇮🇳 インド (ISRO / インド宇宙研究機関)",
+        "country_en": "🇮🇳 India (ISRO)",
+        "ja": "【超高分解能地球観測衛星「Cartosat-3」(カルトサット3号)】\n■ 開発・運用組織: ISRO (インド宇宙研究機関)\n■ 打上げ日・ロケット: 2019年11月27日 / PSLV-XL (C47) ロケット (サティシュ・ダワン宇宙センター)\n■ 軌道諸元: 高度約505km / 太陽同期軌道 (軌道傾斜角97.5度)\n■ 主要観測機器: パンクロマチック・マルチスペクトル光学カメラ (パンクロマチック空間分解能0.28m / 世界最高水準)\n■ 観測目的: 都市計画、農村インフラ開発、海岸線侵食、地籍境界線の精密マッピング。地上の車の車種や建物の詳細構造まで鮮明に識別可能。",
+        "en": "[Advanced High-Resolution Earth Observation Satellite \"Cartosat-3\"]\n■ Organization: ISRO (Indian Space Research Organisation)\n■ Launch: Nov 27, 2019 / PSLV-C47\n■ Orbit: ~505 km Sun-synchronous Orbit\n■ Instruments: High-resolution optical imager (0.28m panchromatic ground resolution)\n■ Mission: Ultra-detailed 3D cartography, urban planning, infrastructure assessment, and coastal management."
+},
+    "INSAT-3DR": {
+        "country": "🇮🇳 インド (ISRO / インド宇宙研究機関 / 気象局)",
+        "country_en": "🇮🇳 India (ISRO / IMD)",
+        "ja": "【静止気象・救助中継衛星「INSAT-3DR」(インサット3DR)】\n■ 開発・運用組織: ISRO (インド宇宙研究機関) / インド気象局 (IMD)\n■ 打上げ日・ロケット: 2016年9月8日 / GSLV Mk II (F05) ロケット\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (東経74度・インド洋上空定点)\n■ 主要観測機器: 6チャンネル光学放射計、19チャンネル赤外大気サウンダー、遭難捜索救助トランスポンダ(SAS&R)\n■ 観測目的: インド洋のサイクロン、モンスーン降雨、海水面温度を連続観測し、遭難信号の中継も担う。",
+        "en": "[Geostationary Meteorological Satellite \"INSAT-3DR\"]\n■ Organization: ISRO / India Meteorological Department\n■ Launch: Sept 8, 2016 / GSLV Mk II F05\n■ Orbit: Geostationary at 74.0°E (35,786 km)\n■ Instruments: 6-channel Imager, 19-channel Sounder, Search & Rescue (SAS&R)\n■ Mission: Continuous tracking of Indian Ocean tropical cyclones, monsoon patterns, and relaying maritime distress signals."
+},
+    "GLONASS": {
+        "country": "🇷🇺 ロシア (Roscosmos / ロスコスモス / ロシア宇宙軍)",
+        "country_en": "🇷🇺 Russia (Roscosmos / Russian Space Forces)",
+        "ja": "【ロシア衛星測位システム「GLONASS-K」(グロナス)】\n■ 開発・運用組織: ロスコスモス (Roscosmos) / ロシア宇宙軍\n■ 打上げ日・ロケット: 2020年10月25日 / ソユーズ-2.1b ロケット (プレセツク宇宙基地)\n■ 軌道諸元: 高度約19,100km / 中地球軌道 (MEO / 軌道傾斜角64.8度 / 周期約11時間15分)\n■ 主要機器: ルビジウム・セシウム原子時計、CDMA/FDMA測位信号送信機\n■ 目的: GPSと並ぶロシア独自の全地球衛星測位システム。高緯度地域(北極海など)での測位精度に優れ、全世界のデュアルGNSS機器に利用。",
+        "en": "[Russian Global Navigation Satellite System \"GLONASS-K\"]\n■ Organization: Roscosmos / Russian Aerospace Forces\n■ Launch: Oct 25, 2020 / Soyuz-2.1b\n■ Orbit: ~19,100 km MEO (Inclination 64.8°)\n■ Instruments: CDMA/FDMA Navigation Transmitters, Ultra-stable Atomic Clocks\n■ Mission: Sovereign global satellite navigation grid with superior orbital coverage over high northern latitudes and the Arctic."
+},
+    "ELEKTRO": {
+        "country": "🇷🇺 ロシア (Roscosmos / ロスコスモス / ロシア水文気象局)",
+        "country_en": "🇷🇺 Russia (Roscosmos / Roshydromet)",
+        "ja": "【ロシア静止気象衛星「Elektro-L No.3」(エレクトロ-L 3号機)】\n■ 開発・運用組織: ロスコスモス (Roscosmos) / ロシア水文気象局 (Roshydromet)\n■ 打上げ日・ロケット: 2019年12月24日 / プロトン-M (Proton-M) ロケット (バイコヌール)\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (東経165.8度・太平洋上空定点)\n■ 主要観測機器: マルチスペクトル走査放射計「MSU-GS」(可視光3バンド、赤外7バンド)\n■ 観測目的: シベリア極東、太平洋、オホーツク海の気象、暴風雪、火山噴煙を30分間隔で監視。",
+        "en": "[Geostationary Meteorological Satellite \"Elektro-L No. 3\"]\n■ Organization: Roscosmos / Roshydromet\n■ Launch: Dec 24, 2019 / Proton-M\n■ Orbit: Geostationary at 165.8°E (35,786 km)\n■ Instruments: MSU-GS 10-band optical/infrared scanning radiometer\n■ Mission: Weather monitoring, blizzard tracking, and volcanic ash plume detection across the Russian Far East and Pacific."
+},
+    "FENGYUN-4B": {
+        "country": "🇨🇳 中国 (CMA / 中国気象局 / CNSA)",
+        "country_en": "🇨🇳 China (CMA / CNSA)",
+        "ja": "【新世代静止気象衛星「風雲4号B」(Fengyun-4B / FY-4B)】\n■ 開発・運用組織: 中国気象局 (CMA) / 中国航天科技集団 (CASC)\n■ 打上げ日・ロケット: 2021年6月3日 / 長征3号乙 (CZ-3B) ロケット (西昌衛星発射センター)\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (東経105度・中国本土上空定点)\n■ 主要観測機器: 先進静止放射計「AGRI」(分解能最高250m / 1分間隔高速撮影)、干渉型大気サウンダー「GIIRS」\n■ 観測目的: アジア・オセアニア地域の台風、集中豪雨、砂塵嵐、寒波を高頻度リアルタイム監視。",
+        "en": "[New-Generation Geostationary Meteorological Satellite \"Fengyun-4B\" (FY-4B)]\n■ Organization: China Meteorological Administration (CMA) / CNSA\n■ Launch: June 3, 2021 / Long March 3B\n■ Orbit: Geostationary at 105.0°E (35,786 km)\n■ Instruments: AGRI (250m resolution), GIIRS sounder\n■ Mission: High-frequency rapid-scan tracking of severe typhoons, rainstorms, and dust storms across Asia."
+},
+    "GAOFEN-7": {
+        "country": "🇨🇳 中国 (CNSA / 自然資源部 / 中国国家航天局)",
+        "country_en": "🇨🇳 China (CNSA / MNR)",
+        "ja": "【高分解能3D立体地図作成衛星「高分7号」(Gaofen-7)】\n■ 開発・運用組織: 中国国家航天局 (CNSA) / 自然資源部\n■ 打上げ日・ロケット: 2019年11月3日 / 長征4号乙 (CZ-4B) ロケット (太原衛星発射センター)\n■ 軌道諸元: 高度約500km / 太陽同期軌道 (軌道傾斜角97.4度)\n■ 主要観測機器: サブメートル級前後方2眼立体視カメラ(分解能0.65m)、レーザー高度計\n■ 観測目的: 1:10,000縮尺の超精密3D立体地形図を宇宙から作成。国土測量、都市計画、地質災害の標高変位解析に貢献。",
+        "en": "[High-Resolution 3D Mapping Satellite \"Gaofen-7\"]\n■ Organization: CNSA / Ministry of Natural Resources (China)\n■ Launch: Nov 3, 2019 / Long March 4B\n■ Orbit: ~500 km Sun-synchronous Orbit\n■ Instruments: Dual stereoscopic 3D cameras (0.65m resolution) + Laser Altimeter\n■ Mission: 1:10,000 scale 3D topographical mapping, geographic land survey, and digital elevation modeling."
+},
+
     "ALOS-4": {
         "country": "🇯🇵 日本 (JAXA / 宇宙航空研究開発機構)",
         "country_en": "🇯🇵 Japan (JAXA)",
@@ -2464,76 +2688,31 @@ const SATELLITE_DESCRIPTIONS = {
 };
 
 function getSatDescription(name) {
-    const upper = (name || '').toUpperCase();
-    const langSelect = document.getElementById('langSelect');
-    const lang = (langSelect && langSelect.value) || window.currentLang || currentLang || 'ja';
+    if (!name || typeof name !== 'string') return '';
+    const lang = window.currentLang || currentLang || 'ja';
+    const upper = name.toUpperCase();
 
-    if (upper.includes('ALOS-4') || upper.includes('DAICHI-4')) {
-        return SATELLITE_DESCRIPTIONS['ALOS-4'][lang] || SATELLITE_DESCRIPTIONS['ALOS-4']['en'];
+    for (const [key, descObj] of Object.entries(SATELLITE_DESCRIPTIONS)) {
+        const keyUpper = key.toUpperCase();
+        if (upper.includes(keyUpper) || (keyUpper === 'ALOS-4' && upper.includes('DAICHI-4')) || (keyUpper === 'ALOS-2' && upper.includes('DAICHI-2')) || (keyUpper === 'GCOM-W' && upper.includes('SHIZUKU')) || (keyUpper === 'GCOM-C' && upper.includes('SHIKISAI')) || (keyUpper === 'GOSAT-2' && upper.includes('IBUKI')) || (keyUpper === 'CHOLLIAN-2A' && upper.includes('GEO-KOMPSAT-2A')) || (keyUpper === 'CHOLLIAN-2B' && upper.includes('GEO-KOMPSAT-2B')) || (keyUpper === 'KOMPSAT-5' && upper.includes('ARIRANG-5')) || (keyUpper === 'METEOSAT' && upper.includes('MTG'))) {
+            if (typeof descObj === 'string') return descObj;
+            return descObj[lang] || descObj['en'] || descObj['ja'] || '';
+        }
     }
-    if (upper.includes('ALOS-2') || upper.includes('DAICHI-2')) {
-        return SATELLITE_DESCRIPTIONS['ALOS-2'][lang] || SATELLITE_DESCRIPTIONS['ALOS-2']['en'];
-    }
-    if (upper.includes('XRISM')) {
-        return SATELLITE_DESCRIPTIONS['XRISM'][lang] || SATELLITE_DESCRIPTIONS['XRISM']['en'];
-    }
-    if (upper.includes('GCOM-W') || upper.includes('SHIZUKU')) {
-        return SATELLITE_DESCRIPTIONS['GCOM-W'][lang] || SATELLITE_DESCRIPTIONS['GCOM-W']['en'];
-    }
-    if (upper.includes('GCOM-C') || upper.includes('SHIKISAI')) {
-        return SATELLITE_DESCRIPTIONS['GCOM-C'][lang] || SATELLITE_DESCRIPTIONS['GCOM-C']['en'];
-    }
-    if (upper.includes('GOSAT-2') || upper.includes('IBUKI')) {
-        return SATELLITE_DESCRIPTIONS['GOSAT-2'][lang] || SATELLITE_DESCRIPTIONS['GOSAT-2']['en'];
-    }
-    if (upper.includes('HIMAWARI-9')) {
-        return SATELLITE_DESCRIPTIONS['HIMAWARI-9'][lang] || SATELLITE_DESCRIPTIONS['HIMAWARI-9']['en'];
-    }
-    if (upper.includes('HIMAWARI-8')) {
-        return SATELLITE_DESCRIPTIONS['HIMAWARI-8'][lang] || SATELLITE_DESCRIPTIONS['HIMAWARI-8']['en'];
-    }
-    if (upper.includes('MICHIBIKI-6') || upper.includes('QZSS-6')) {
-        return SATELLITE_DESCRIPTIONS['MICHIBIKI-6'][lang] || SATELLITE_DESCRIPTIONS['MICHIBIKI-6']['en'];
-    }
-    if (upper.includes('MICHIBIKI') || upper.includes('QZSS')) {
-        return SATELLITE_DESCRIPTIONS['MICHIBIKI'][lang] || SATELLITE_DESCRIPTIONS['MICHIBIKI']['en'];
-    }
-    if (upper.includes('QPS-SAR') || upper.includes('TSUKUYOMI')) {
-        return SATELLITE_DESCRIPTIONS['QPS-SAR'][lang] || SATELLITE_DESCRIPTIONS['QPS-SAR']['en'];
-    }
-    if (upper.includes('STRIX') || upper.includes('SYNSPECTIVE')) {
-        return SATELLITE_DESCRIPTIONS['STRIX'][lang] || SATELLITE_DESCRIPTIONS['STRIX']['en'];
-    }
-    if (upper.includes('ISS') || upper.includes('ZARYA')) {
-        return SATELLITE_DESCRIPTIONS['ISS'][lang] || SATELLITE_DESCRIPTIONS['ISS']['en'];
-    }
-    if (upper.includes('HUBBLE')) {
-        return SATELLITE_DESCRIPTIONS['HUBBLE'][lang] || SATELLITE_DESCRIPTIONS['HUBBLE']['en'];
-    }
-    if (upper.includes('TIANGONG')) {
-        return SATELLITE_DESCRIPTIONS['TIANGONG'][lang] || SATELLITE_DESCRIPTIONS['TIANGONG']['en'];
-    }
-    if (upper.includes('BEIDOU')) {
-        return SATELLITE_DESCRIPTIONS['BEIDOU'][lang] || SATELLITE_DESCRIPTIONS['BEIDOU']['en'];
-    }
-    if (upper.includes('GPS')) {
-        return SATELLITE_DESCRIPTIONS['GPS'][lang] || SATELLITE_DESCRIPTIONS['GPS']['en'];
-    }
-    if (upper.includes('DEBRIS') || upper.includes('COSMOS') || upper.includes('FENGYUN') || upper.includes('SL-')) {
-        return SATELLITE_DESCRIPTIONS['DEBRIS'][lang] || SATELLITE_DESCRIPTIONS['DEBRIS']['en'];
-    }
-    if (upper.includes('STARLINK')) {
-        return SATELLITE_DESCRIPTIONS['STARLINK'][lang] || SATELLITE_DESCRIPTIONS['STARLINK']['en'];
-    }
-
     const defaultDesc = {
         ja: '地球周回軌道を周回する人工衛星。',
         en: 'Artificial satellite orbiting Earth.',
         de: 'Künstlicher Satellit im Erdorbit.',
         fr: 'Satellite artificiel en orbite terrestre.',
-        pt: 'Satélite artificial em órbita terrestre.',
-        zh: '环绕地球轨道的造人卫星。',
-        es: 'Satélite artificial orbitando la Tierra.',
+        es: 'Satélite artificial en órbita terrestre.',
+        pt: 'Satélite artificial em órbita da Terra.',
+        it: 'Satellite artificiale in orbita terrestre.',
+        ko: '지구 궤도를 운용 중인 인공위성.',
+        nl: 'Kunstmatige satelliet in een baan om de aarde.',
+        id: 'Satelit buatan yang beroperasi di orbit Bumi.',
+        hi: 'पृथ्वी की कक्षा में मानव निर्मित उपग्रह।',
+        ar: 'قمر صناعي يدور في مدار حول الأرض.',
+        zh: '在地球轨道上运行的人造卫星。',
         ru: 'Искусственный спутник на орбите Земли.'
     };
     return defaultDesc[lang] || defaultDesc['en'];
@@ -2542,6 +2721,14 @@ function getSatDescription(name) {
 function getSatCountry(name) {
     const upper = (name || '').toUpperCase();
     const isEn = (currentLang !== 'ja');
+    if (upper.includes('SENTINEL') || upper.includes('GALILEO')) return isEn ? '🇪🇺 European Union (ESA / Copernicus)' : '🇪🇺 欧州連合 (ESA / コペルニクス)';
+    if (upper.includes('METEOSAT') || upper.includes('MTG')) return isEn ? '🇪🇺 Europe (EUMETSAT / ESA)' : '🇪🇺 欧州気象衛星機構 (EUMETSAT / ESA)';
+    if (upper.includes('KOMPSAT') || upper.includes('CHOLLIAN') || upper.includes('GEO-KOMPSAT') || upper.includes('ARIRANG')) return isEn ? '🇰🇷 South Korea (KARI)' : '🇰🇷 韓国 (KARI / 航空宇宙研究院)';
+    if (upper.includes('CARTOSAT') || upper.includes('INSAT') || upper.includes('CHANDRAYAAN') || upper.includes('ADITYA')) return isEn ? '🇮🇳 India (ISRO)' : '🇮🇳 インド (ISRO / 宇宙研究機関)';
+    if (upper.includes('GLONASS') || upper.includes('ELEKTRO') || upper.includes('SOYUZ') || upper.includes('COSMOS 25')) return isEn ? '🇷🇺 Russia (Roscosmos)' : '🇷🇺 ロシア (Roscosmos / 宇宙軍)';
+    if (upper.includes('TIANGONG') || upper.includes('BEIDOU') || upper.includes('FENGYUN-4') || upper.includes('GAOFEN')) return isEn ? '🇨🇳 China (CNSA)' : '🇨🇳 中国 (CNSA / 国家航天局)';
+    if (upper.includes('LANDSAT') || upper.includes('TERRA') || upper.includes('GOES') || upper.includes('HUBBLE') || upper.includes('GPS')) return isEn ? '🇺🇸 USA (NASA / NOAA / USSF)' : '🇺🇸 アメリカ (NASA / NOAA / USSF)';
+    if (upper.includes('ISS') || upper.includes('ZARYA')) return isEn ? '🇺🇸 / 🇯🇵 / 🇪🇺 International (NASA / JAXA / ESA)' : '🇺🇸 / 🇯🇵 / 🇪🇺 国際共同 (NASA / JAXA / ESA)';
     if (upper.includes('ALOS') || upper.includes('DAICHI') || upper.includes('HIMAWARI') || upper.includes('MICHIBIKI') || upper.includes('QZSS') || upper.includes('GCOM') || upper.includes('GOSAT') || upper.includes('SHIZUKU') || upper.includes('SHIKISAI') || upper.includes('IBUKI') || upper.includes('QPS') || upper.includes('STRIX') || upper.includes('XRISM')) {
         if (upper.includes('XRISM')) return isEn ? '🇯🇵 / 🇺🇸 Japan & USA (JAXA / NASA)' : '🇯🇵 / 🇺🇸 日本・米国 (JAXA / NASA)';
         if (upper.includes('QPS')) return isEn ? '🇯🇵 Japan (iQPS, Fukuoka)' : '🇯🇵 日本 (株式会社iQPS / 福岡)';
@@ -2550,17 +2737,7 @@ function getSatCountry(name) {
         if (upper.includes('MICHIBIKI') || upper.includes('QZSS')) return isEn ? '🇯🇵 Japan (Cabinet Office)' : '🇯🇵 日本 (内閣府)';
         return isEn ? '🇯🇵 Japan (JAXA)' : '🇯🇵 日本 (JAXA / 宇宙航空研究開発機構)';
     }
-    if (upper.includes('ISS') || upper.includes('ZARYA')) {
-        return isEn ? '🇺🇸 / 🇯🇵 / 🇪🇺 International (NASA / JAXA / ESA)' : '🇺🇸 / 🇯🇵 / 🇪🇺 国際共同 (NASA / JAXA / ESA)';
-    }
-    if (upper.includes('HUBBLE') || upper.includes('GPS') || upper.includes('STARLINK')) {
-        if (upper.includes('STARLINK')) return isEn ? '🇺🇸 USA (SpaceX)' : '🇺🇸 アメリカ (SpaceX / 民間)';
-        if (upper.includes('GPS')) return isEn ? '🇺🇸 USA (US Space Force)' : '🇺🇸 アメリカ (米宇宙軍)';
-        return isEn ? '🇺🇸 / 🇪🇺 USA & Europe (NASA / ESA)' : '🇺🇸 / 🇪🇺 米国・欧州 (NASA / ESA)';
-    }
-    if (upper.includes('TIANGONG') || upper.includes('BEIDOU')) {
-        return isEn ? '🇨🇳 China (CNSA)' : '🇨🇳 中国 (CNSA / 国家航天局)';
-    }
+    if (upper.includes('STARLINK')) return isEn ? '🇺🇸 USA (SpaceX)' : '🇺🇸 アメリカ (SpaceX / 民間)';
     if (upper.includes('DEBRIS') || upper.includes('COSMOS') || upper.includes('FENGYUN') || upper.includes('SL-')) {
         return isEn ? '⚠️ Defunct Space Debris' : '⚠️ 宇宙ゴミ (スペースデブリ)';
     }
@@ -4645,27 +4822,7 @@ function parseTLE(tleText) {
     return results;
 }
 
-// DOM Elements
-const loadingOverlay = document.getElementById('loadingOverlay');
-const loadingText = document.getElementById('loadingText');
-const statCount = document.getElementById('statCount');
-const statTime = document.getElementById('statTime');
-const satSelect = document.getElementById('satSelect');
-const searchInput = document.getElementById('searchInput');
-const clearSearch = document.getElementById('clearSearch');
-const searchResults = document.getElementById('searchResults');
-const toggleLabels = document.getElementById('toggleLabels');
-const toggleOrbits = document.getElementById('toggleOrbits');
-const toggleMultiLap = document.getElementById('toggleMultiLap');
-const toggleAtmosphere = document.getElementById('toggleAtmosphere');
-const toggle2D = document.getElementById('toggle2D');
-const toggleBorders = document.getElementById('toggleBorders');
-const loadMajorBtn = document.getElementById('loadMajorBtn');
-const loadLocalBtn = document.getElementById('loadLocalBtn');
-const loadOnlineBtn = document.getElementById('loadOnlineBtn');
-const labelsContainer = document.getElementById('labelsContainer');
-const tzSelect = document.getElementById('tzSelect');
-const sourceStatusBadge = document.getElementById('sourceStatusBadge');
+// DOM element references initialized at top level
 
 /**
  * Clean & Categorized Dropdown Menu (Includes Space Debris Category)
@@ -4674,9 +4831,10 @@ const sourceStatusBadge = document.getElementById('sourceStatusBadge');
 function updateDropdownOptions() {
     const lang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : 'ja';
     const dict = TRANSLATIONS[lang] || TRANSLATIONS['ja'];
+    if (!satSelect) return;
     satSelect.innerHTML = `<option value="">${dict.selectPlaceholder || '-- 太陽・惑星・衛星・宇宙ゴミを選択 --'}</option>`;
 
-    // 1. Solar System Bodies
+    // 1. Solar System Bodies (Sun, Moon, Planets)
     const catCelestialLabel = {
         ja: '🌌 太陽系天体 (太陽・月・主要惑星)',
         en: '🌌 Solar System Bodies (Sun, Moon, Planets)',
@@ -4687,11 +4845,11 @@ function updateDropdownOptions() {
         ko: '🌌 태양계 천체 (태양, 달, 주요 행성)',
         nl: '🌌 Hemellichamen (Zon, Maan, Planeten)',
         id: '🌌 Tata Surya (Matahari, Bulan, Planet)',
-        hi: '🌌 सौर मंडल के खगोलीय पिंड',
-        ar: '🌌 أجرام النظام الشمسي',
+        hi: '🌌 सौर मंडल के खगोलीय पिंड (सूर्य, चंद्रमा, ग्रह)',
+        ar: '🌌 أجرام النظام الشمسي (الشمس، القمر، الكواكب)',
         zh: '🌌 太阳系天体 (太阳、月球、主要行星)',
-        es: '🌌 Cuerpos del Sistema Solar',
-        ru: '🌌 Тела Солнечной системы'
+        es: '🌌 Cuerpos del Sistema Solar (Sol, Luna, Planetas)',
+        ru: '🌌 Тела Солнечной системы (Солнце, Луна, Планеты)'
     };
 
     const celestialNames = {
@@ -4719,149 +4877,81 @@ function updateDropdownOptions() {
         satSelect.appendChild(celestialGroup);
     }
 
-    // Country Group Labels
-    const catJapanLabel = {
-        ja: '🇯🇵 日本 (Japan / JAXA / 内閣府 / 気象庁 / 民間)',
-        en: '🇯🇵 Japan (JAXA / Cabinet Office / JMA / Commercial)',
-        de: '🇯🇵 Japan (JAXA / JMA / Kommerziell)',
-        fr: '🇯🇵 Japon (JAXA / JMA / Commercial)',
-        es: '🇯🇵 Japón (JAXA / JMA / Comercial)',
-        pt: '🇯🇵 Japão (JAXA / JMA / Comercial)',
-        it: '🇯🇵 Giappone (JAXA / JMA / Commerciale)',
-        ko: '🇯🇵 일본 (JAXA / 내각부 / 기상청 / 민간)',
-        nl: '🇯🇵 Japan (JAXA / JMA / Commercieel)',
-        id: '🇯🇵 Jepang (JAXA / JMA / Komersial)',
-        hi: '🇯🇵 जापान (JAXA / JMA / वाणिज्यिक)',
-        ar: '🇯🇵 اليابان (JAXA / JMA / تجاري)',
-        zh: '🇯🇵 日本 (JAXA / 内阁府 / 气象厅 / 商业航天)',
-        ru: '🇯🇵 Япония (JAXA / JMA / Коммерческие)'
+    const groups = {
+        japan: document.createElement('optgroup'),
+        us: document.createElement('optgroup'),
+        eu: document.createElement('optgroup'),
+        kr: document.createElement('optgroup'),
+        cn: document.createElement('optgroup'),
+        in: document.createElement('optgroup'),
+        ru: document.createElement('optgroup'),
+        debris: document.createElement('optgroup'),
+        starlink: document.createElement('optgroup')
     };
 
-    const catUsIntlLabel = {
-        ja: '🇺🇸 / 🌍 米国・国際 (USA / NASA / SpaceX / 国際共同)',
-        en: '🇺🇸 / 🌍 USA & International (NASA / SpaceX / ISS)',
-        de: '🇺🇸 / 🌍 USA & International (NASA / SpaceX / ISS)',
-        fr: '🇺🇸 / 🌍 États-Unis & International (NASA / SpaceX / ISS)',
-        es: '🇺🇸 / 🌍 EE. UU. e Internacional (NASA / SpaceX / EEI)',
-        pt: '🇺🇸 / 🌍 EUA e Internacional (NASA / SpaceX / ISS)',
-        it: '🇺🇸 / 🌍 USA e Internazionale (NASA / SpaceX / ISS)',
-        ko: '🇺🇸 / 🌍 미국 및 국제 (NASA / SpaceX / ISS)',
-        nl: '🇺🇸 / 🌍 VS & Internationaal (NASA / SpaceX / ISS)',
-        id: '🇺🇸 / 🌍 AS & Internasional (NASA / SpaceX / ISS)',
-        hi: '🇺🇸 / 🌍 यूएसए और अंतर्राष्ट्रीय (NASA / SpaceX)',
-        ar: '🇺🇸 / 🌍 أمريكا ودولي (NASA / SpaceX / محطة الفضاء)',
-        zh: '🇺🇸 / 🌍 美国与国际 (NASA / SpaceX / 国际空间站)',
-        ru: '🇺🇸 / 🌍 США и Международные (NASA / SpaceX / МКС)'
-    };
+    groups.japan.label = lang === 'ja' ? '🇯🇵 日本 (JAXA / 気象庁 / 内閣府 / 民間)' : '🇯🇵 Japan (JAXA / JMA / CAO)';
+    groups.us.label = lang === 'ja' ? '🇺🇸 / 🌍 米国・国際 (NASA / NOAA / SpaceX / ISS)' : '🇺🇸 / 🌍 USA & International (NASA / NOAA / ISS)';
+    groups.eu.label = lang === 'ja' ? '🇪🇺 ヨーロッパ (ESA / コペルニクス / ガリレオ / EUMETSAT)' : '🇪🇺 Europe (ESA / Copernicus / Galileo)';
+    groups.kr.label = lang === 'ja' ? '🇰🇷 韓国 (KARI / 千里眼2A/2B / アリラン5号)' : '🇰🇷 South Korea (KARI / Chollian / Arirang)';
+    groups.cn.label = lang === 'ja' ? '🇨🇳 中国 (CNSA / 天宮 / 北斗3号 / 風雲4号B / 高分7号)' : '🇨🇳 China (CNSA / Tiangong / BeiDou / Fengyun)';
+    groups.in.label = lang === 'ja' ? '🇮🇳 インド (ISRO / カルトサット3号 / INSAT-3DR)' : '🇮🇳 India (ISRO / Cartosat / INSAT)';
+    groups.ru.label = lang === 'ja' ? '🇷🇺 ロシア (Roscosmos / グロナス / エレクトロ-L)' : '🇷🇺 Russia (Roscosmos / GLONASS / Elektro)';
+    groups.debris.label = lang === 'ja' ? '🚨 宇宙ゴミ・デブリ (Space Debris)' : '🚨 Space Debris & Fragments';
+    groups.starlink.label = lang === 'ja' ? '🛰️ Starlink衛星群 (SpaceX ピックアップ30機)' : '🛰️ Starlink Constellation (Top 30)';
 
-    const catChinaLabel = {
-        ja: '🇨🇳 中国 (China / CNSA / 天宮 / 北斗)',
-        en: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
-        de: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
-        fr: '🇨🇳 Chine (CNSA / Tiangong / BeiDou)',
-        es: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
-        pt: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
-        it: '🇨🇳 Cina (CNSA / Tiangong / BeiDou)',
-        ko: '🇨🇳 중국 (CNSA / 톈궁 / 베이더우)',
-        nl: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
-        id: '🇨🇳 China (CNSA / Tiangong / BeiDou)',
-        hi: '🇨🇳 चीन (CNSA / तियांगोंग / BeiDou)',
-        ar: '🇨🇳 الصين (CNSA / تيانغونغ / بيدو)',
-        zh: '🇨🇳 中国 (CNSA / 天宫空间站 / 北斗导航)',
-        ru: '🇨🇳 Китай (CNSA / Тяньгун / Бэйдоу)'
-    };
+    let counts = { japan: 0, us: 0, eu: 0, kr: 0, cn: 0, in: 0, ru: 0, debris: 0, starlink: 0 };
 
-    const catDebrisLabel = {
-        ja: '🚨 宇宙ゴミ・デブリ (Space Debris)',
-        en: '🚨 Space Debris & Fragments (COSMOS, FENGYUN, etc.)',
-        de: '🚨 Weltraummüll & Fragmente',
-        fr: '🚨 Débris spatiaux & fragments',
-        pt: '🚨 Detritos espaciais & fragmentos',
-        it: '🚨 Detriti Spaziali & Frammenti',
-        ko: '🚨 우주 쓰레기 및 파편 (COSMOS, 펑윈 등)',
-        nl: '🚨 Ruimtepuin & Fragmenten',
-        id: '🚨 Sampah Antariksa & Fragmen',
-        hi: '🚨 अंतरिक्ष मलबा और टुकड़े',
-        ar: '🚨 الحطام الفضائي والشظايا',
-        zh: '🚨 空间碎片与太空垃圾 (COSMOS, 风云1号等)',
-        es: '🚨 Basura Espacial y Fragmentos',
-        ru: '🚨 Космический мусор (COSMOS, FENGYUN и др.)'
-    };
+    if (Array.isArray(satellitesData)) {
+        satellitesData.forEach((sat, index) => {
+            const opt = document.createElement('option');
+            opt.value = index;
+            const displayName = getSatDisplayName(sat.name);
+            opt.textContent = `${displayName} (NORAD ${sat.noradId})`;
 
-    const catStarlinkLabel = {
-        ja: '🛰️ Starlink衛星群 (SpaceX ピックアップ30機)',
-        en: '🛰️ Starlink Constellation (Featured 30)',
-        de: '🛰️ Starlink-Konstellation (Top 30)',
-        fr: '🛰️ Constellation Starlink (Top 30)',
-        pt: '🛰️ Constelação Starlink (Destaques 30)',
-        it: '🛰️ Costellazione Starlink (Top 30)',
-        ko: '🛰️ 스타링크 군집위성 (주요 30기)',
-        nl: '🛰️ Starlink Constellatie (Top 30)',
-        id: '🛰️ Konstelasi Starlink (Pilihan 30)',
-        hi: '🛰️ स्टारलिंक नक्षत्र (शीर्ष 30)',
-        ar: '🛰️ كوكبة ستارلينك (أهم 30 قمر)',
-        zh: '🛰️ 星链 (Starlink) 卫星群 (精选30颗)',
-        es: '🛰️ Constelación Starlink (Destacados 30)',
-        ru: '🛰️ Группировка Starlink (Топ 30)'
-    };
+            const nameUpper = sat.name.toUpperCase();
 
-    const japanGroup = document.createElement('optgroup');
-    japanGroup.label = catJapanLabel[lang] || catJapanLabel['en'];
-
-    const usIntlGroup = document.createElement('optgroup');
-    usIntlGroup.label = catUsIntlLabel[lang] || catUsIntlLabel['en'];
-
-    const chinaGroup = document.createElement('optgroup');
-    chinaGroup.label = catChinaLabel[lang] || catChinaLabel['en'];
-
-    const debrisGroup = document.createElement('optgroup');
-    debrisGroup.label = catDebrisLabel[lang] || catDebrisLabel['en'];
-    
-    const starlinkGroup = document.createElement('optgroup');
-    starlinkGroup.label = catStarlinkLabel[lang] || catStarlinkLabel['en'];
-
-    let japanCount = 0;
-    let usIntlCount = 0;
-    let chinaCount = 0;
-    let debrisCount = 0;
-    let starlinkCount = 0;
-
-    satellitesData.forEach((sat, index) => {
-        const opt = document.createElement('option');
-        opt.value = index;
-        const displayName = getSatDisplayName(sat.name);
-        opt.textContent = `${displayName} (NORAD ${sat.noradId})`;
-
-        const nameUpper = sat.name.toUpperCase();
-        const isDebris = nameUpper.includes('DEBRIS') || nameUpper.includes('COSMOS') || nameUpper.includes('FENGYUN') || nameUpper.includes('SL-8') || nameUpper.includes('SL-16') || nameUpper.includes('DELTA') || nameUpper.includes('ARIANE');
-        const isJapan = nameUpper.includes('ALOS') || nameUpper.includes('DAICHI') || nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI') || nameUpper.includes('QZSS') || nameUpper.includes('GCOM') || nameUpper.includes('GOSAT') || nameUpper.includes('SHIZUKU') || nameUpper.includes('SHIKISAI') || nameUpper.includes('IBUKI') || nameUpper.includes('QPS') || nameUpper.includes('STRIX') || nameUpper.includes('XRISM');
-        const isChina = nameUpper.includes('TIANGONG') || nameUpper.includes('BEIDOU');
-
-        if (isDebris) {
-            debrisGroup.appendChild(opt);
-            debrisCount++;
-        } else if (isJapan) {
-            japanGroup.appendChild(opt);
-            japanCount++;
-        } else if (isChina) {
-            chinaGroup.appendChild(opt);
-            chinaCount++;
-        } else if (nameUpper.includes('ISS') || nameUpper.includes('HUBBLE') || nameUpper.includes('GPS')) {
-            usIntlGroup.appendChild(opt);
-            usIntlCount++;
-        } else {
-            if (starlinkCount < 30) {
-                starlinkGroup.appendChild(opt);
-                starlinkCount++;
+            if (nameUpper.includes('DEBRIS') || nameUpper.includes('COSMOS 2251') || nameUpper.includes('FENGYUN 1C') || nameUpper.includes('SL-8') || nameUpper.includes('SL-16')) {
+                groups.debris.appendChild(opt);
+                counts.debris++;
+            } else if (nameUpper.includes('ALOS') || nameUpper.includes('DAICHI') || nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI') || nameUpper.includes('QZSS') || nameUpper.includes('GCOM') || nameUpper.includes('GOSAT') || nameUpper.includes('SHIZUKU') || nameUpper.includes('SHIKISAI') || nameUpper.includes('IBUKI') || nameUpper.includes('QPS') || nameUpper.includes('STRIX')) {
+                groups.japan.appendChild(opt);
+                counts.japan++;
+            } else if (nameUpper.includes('SENTINEL') || nameUpper.includes('GALILEO') || nameUpper.includes('METEOSAT') || nameUpper.includes('MTG')) {
+                groups.eu.appendChild(opt);
+                counts.eu++;
+            } else if (nameUpper.includes('KOMPSAT') || nameUpper.includes('CHOLLIAN') || nameUpper.includes('GEO-KOMPSAT') || nameUpper.includes('ARIRANG')) {
+                groups.kr.appendChild(opt);
+                counts.kr++;
+            } else if (nameUpper.includes('TIANGONG') || nameUpper.includes('BEIDOU') || nameUpper.includes('FENGYUN-4') || nameUpper.includes('GAOFEN')) {
+                groups.cn.appendChild(opt);
+                counts.cn++;
+            } else if (nameUpper.includes('CARTOSAT') || nameUpper.includes('INSAT') || nameUpper.includes('CHANDRAYAAN') || nameUpper.includes('ADITYA')) {
+                groups.in.appendChild(opt);
+                counts.in++;
+            } else if (nameUpper.includes('GLONASS') || nameUpper.includes('ELEKTRO') || nameUpper.includes('SOYUZ')) {
+                groups.ru.appendChild(opt);
+                counts.ru++;
+            } else if (nameUpper.includes('ISS') || nameUpper.includes('HUBBLE') || nameUpper.includes('LANDSAT') || nameUpper.includes('TERRA') || nameUpper.includes('GOES') || nameUpper.includes('GPS') || nameUpper.includes('XRISM')) {
+                groups.us.appendChild(opt);
+                counts.us++;
+            } else {
+                if (counts.starlink < 30) {
+                    groups.starlink.appendChild(opt);
+                    counts.starlink++;
+                }
             }
-        }
-    });
+        });
+    }
 
-    if (japanCount > 0) satSelect.appendChild(japanGroup);
-    if (usIntlCount > 0) satSelect.appendChild(usIntlGroup);
-    if (chinaCount > 0) satSelect.appendChild(chinaGroup);
-    if (debrisCount > 0) satSelect.appendChild(debrisGroup);
-    if (starlinkCount > 0) satSelect.appendChild(starlinkGroup);
+    if (counts.japan > 0) satSelect.appendChild(groups.japan);
+    if (counts.us > 0) satSelect.appendChild(groups.us);
+    if (counts.eu > 0) satSelect.appendChild(groups.eu);
+    if (counts.kr > 0) satSelect.appendChild(groups.kr);
+    if (counts.cn > 0) satSelect.appendChild(groups.cn);
+    if (counts.in > 0) satSelect.appendChild(groups.in);
+    if (counts.ru > 0) satSelect.appendChild(groups.ru);
+    if (counts.debris > 0) satSelect.appendChild(groups.debris);
+    if (counts.starlink > 0) satSelect.appendChild(groups.starlink);
 }
 
 
@@ -6126,30 +6216,34 @@ function setupEventListeners() {
         deselectSatellite();
     });
 
-    trackBtn.addEventListener('click', () => {
-        if (selectedSatIndex < 0) return;
-        const sat = satellitesData[selectedSatIndex];
-        
-        if (currentTrackingEntity) {
-            viewer.entities.remove(currentTrackingEntity);
-        }
-
-        currentTrackingEntity = viewer.entities.add({
-            position: new Cesium.CallbackProperty(() => {
-                return sat.currentCartesian || Cesium.Cartesian3.ZERO;
-            }, false),
-            point: {
-                pixelSize: 18,
-                color: Cesium.Color.fromCssColorString('#ff0055'),
-                disableDepthTestDistance: Number.POSITIVE_INFINITY
+    if (trackBtn) {
+        trackBtn.addEventListener('click', () => {
+            if (selectedSatIndex < 0) return;
+            const sat = satellitesData[selectedSatIndex];
+            
+            if (currentTrackingEntity) {
+                viewer.entities.remove(currentTrackingEntity);
             }
-        });
-        viewer.trackedEntity = currentTrackingEntity;
-    });
 
-    untrackBtn.addEventListener('click', () => {
-        viewer.trackedEntity = undefined;
-    });
+            currentTrackingEntity = viewer.entities.add({
+                position: new Cesium.CallbackProperty(() => {
+                    return sat.currentCartesian || Cesium.Cartesian3.ZERO;
+                }, false),
+                point: {
+                    pixelSize: 18,
+                    color: Cesium.Color.fromCssColorString('#ff0055'),
+                    disableDepthTestDistance: Number.POSITIVE_INFINITY
+                }
+            });
+            viewer.trackedEntity = currentTrackingEntity;
+        });
+    }
+
+    if (untrackBtn) {
+        untrackBtn.addEventListener('click', () => {
+            viewer.trackedEntity = undefined;
+        });
+    }
 
     toggleLabels.addEventListener('change', (e) => {
         const isShow = e.target.checked;
@@ -6643,6 +6737,26 @@ function performSearch(rawQuery) {
 
     // 2. Search Satellites
     const searchTerms = [upperQuery, rawQuery];
+    if (rawQuery.includes('センチネル') || upperQuery.includes('SENTINEL')) searchTerms.push('SENTINEL', 'センチネル');
+    if (rawQuery.includes('ガリレオ') || upperQuery.includes('GALILEO')) searchTerms.push('GALILEO', 'ガリレオ');
+    if (rawQuery.includes('メテオサット') || upperQuery.includes('METEOSAT')) searchTerms.push('METEOSAT', 'メテオサット');
+    if (rawQuery.includes('ランドサット') || upperQuery.includes('LANDSAT')) searchTerms.push('LANDSAT', 'ランドサット');
+    if (rawQuery.includes('テラ') || upperQuery.includes('TERRA')) searchTerms.push('TERRA', 'テラ');
+    if (rawQuery.includes('千里眼') || upperQuery.includes('CHOLLIAN') || upperQuery.includes('GEO-KOMPSAT')) searchTerms.push('CHOLLIAN', 'GEO-KOMPSAT', '千里眼');
+    if (rawQuery.includes('アリラン') || upperQuery.includes('ARIRANG') || upperQuery.includes('KOMPSAT')) searchTerms.push('KOMPSAT', 'ARIRANG', 'アリラン');
+    if (rawQuery.includes('カルトサット') || upperQuery.includes('CARTOSAT')) searchTerms.push('CARTOSAT', 'カルトサット');
+    if (rawQuery.includes('インサット') || upperQuery.includes('INSAT')) searchTerms.push('INSAT', 'インサット');
+    if (rawQuery.includes('グロナス') || upperQuery.includes('GLONASS')) searchTerms.push('GLONASS', 'グロナス');
+    if (rawQuery.includes('エレクトロ') || upperQuery.includes('ELEKTRO')) searchTerms.push('ELEKTRO', 'エレクトロ');
+    if (rawQuery.includes('風雲') || upperQuery.includes('FENGYUN-4')) searchTerms.push('FENGYUN-4', '風雲');
+    if (rawQuery.includes('高分') || upperQuery.includes('GAOFEN')) searchTerms.push('GAOFEN', '高分');
+    if (rawQuery.includes('だいち') || upperQuery.includes('ALOS') || upperQuery.includes('DAICHI')) searchTerms.push('ALOS', 'DAICHI', 'だいち');
+    if (rawQuery.includes('クリズム') || upperQuery.includes('XRISM')) searchTerms.push('XRISM', 'クリズム');
+    if (rawQuery.includes('しずく') || upperQuery.includes('SHIZUKU') || upperQuery.includes('GCOM-W')) searchTerms.push('GCOM-W', 'SHIZUKU', 'しずく');
+    if (rawQuery.includes('しきさい') || upperQuery.includes('SHIKISAI') || upperQuery.includes('GCOM-C')) searchTerms.push('GCOM-C', 'SHIKISAI', 'しきさい');
+    if (rawQuery.includes('いぶき') || upperQuery.includes('IBUKI') || upperQuery.includes('GOSAT')) searchTerms.push('GOSAT', 'IBUKI', 'いぶき');
+    if (rawQuery.includes('ツクヨミ') || upperQuery.includes('QPS') || upperQuery.includes('TSUKUYOMI')) searchTerms.push('QPS', 'TSUKUYOMI', 'ツクヨミ');
+    if (rawQuery.includes('ストリクス') || upperQuery.includes('STRIX') || upperQuery.includes('SYNSPECTIVE')) searchTerms.push('STRIX', 'SYNSPECTIVE', 'ストリクス');
         if (rawQuery.includes('だいち') || upperQuery.includes('ALOS') || upperQuery.includes('DAICHI')) {
         searchTerms.push('ALOS', 'DAICHI', 'だいち');
     }
