@@ -2368,6 +2368,11 @@ const sourceStatusBadge = document.getElementById('sourceStatusBadge');
 
 // High Quality Royalty-Free & Public Domain Satellite Images (Local High-Speed Cache)
 const SATELLITE_IMAGES = {
+    "STARLINK": {
+        "url": "assets/sat_images/starlink_nasa.jpg?v=20260822_530",
+        "caption": "Illustration: NASA / Ames Research Center / SpaceX",
+        "alt": "SpaceX Starlink Satellite with Single Large Solar Panel"
+    },
     "ISS": {
         "url": "assets/sat_images/iss.jpg",
         "caption": "Photo: NASA (Public Domain)",
@@ -2623,11 +2628,7 @@ const SATELLITE_IMAGES = {
         "caption": "Illustration: US Air Force / Lockheed Martin (Public Domain)",
         "alt": "AEHF Protected Military Communications Satellite"
     },
-    "STARLINK": {
-        "url": "assets/sat_images/starlink.jpg",
-        "caption": "Photo: SpaceX (Creative Commons CC0 / Public Domain)",
-        "alt": "SpaceX Starlink Satellite in orbit"
-    },
+
     "GPS": {
         "url": "assets/sat_images/gps.jpg",
         "caption": "Illustration: US Air Force / Boeing (Public Domain)",
@@ -2649,7 +2650,7 @@ const SATELLITE_IMAGES = {
         "alt": "Meteor-M Polar Weather Satellite"
     },
     "YAOGAN": {
-        "url": "assets/sat_images/yaogan_v2.jpg?v=20260821_410",
+        "url": "assets/sat_images/yaogan_v2.jpg?v=20260822_530",
         "caption": "Illustration: CNSA / CASC",
         "alt": "Yaogan-35 Tri-Satellite Formation"
     },
@@ -2669,7 +2670,7 @@ const SATELLITE_IMAGES = {
         "alt": "Tundra-5 EKS Early Warning Satellite"
     },
     "SHIJIAN": {
-        "url": "assets/sat_images/shijian_21_v2.jpg?v=20260821_410",
+        "url": "assets/sat_images/shijian_21_v2.jpg?v=20260822_530",
         "caption": "Illustration: CNSA / CASC (Space Tug)",
         "alt": "Shijian-21 Robotic Satellite Tug"
     }
@@ -2681,7 +2682,7 @@ function getSatImageInfo(name) {
         if (upper.includes(key)) {
             const info = SATELLITE_IMAGES[key];
             return {
-                url: info.url.includes('?v=') ? info.url : info.url + '?v=20260821_410',
+                url: info.url.includes('?v=') ? info.url : info.url + '?v=20260822_530',
                 caption: info.caption,
                 alt: info.alt
             };
