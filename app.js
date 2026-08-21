@@ -445,6 +445,20 @@ function getSatDisplayName(name) {
     const upper = name.toUpperCase();
     
     if (lang === 'ja') {
+        // Super Interesting & Unique Flagship Satellites (USA / Russia / China / Japan)
+        if (upper.includes('X-37B') || upper.includes('OTV')) return '🇺🇸 X-37B (米宇宙軍極秘無人スペースプレーン)';
+        if (upper.includes('USA-245') || upper.includes('KEYHOLE') || upper.includes('KH-11')) return '🇺🇸 USA-245 KH-11 (米国家偵察局 口径2.4m極秘スパイ衛星)';
+        if (upper.includes('SWOT')) return '🇺🇸 / 🇫🇷 SWOT (地表水・海洋地形調査立体衛星)';
+        if (upper.includes('WORLDVIEW-3') || upper.includes('WORLDVIEW')) return '🇺🇸 WorldView-3 (Maxar 31cm超高精細民間写真衛星)';
+        if (upper.includes('OLYMP') || upper.includes('LUCH-5X')) return '🇷🇺 Olymp-K / Luch-5X (ロシア宇宙スパイ「宇宙のストーカー」)';
+        if (upper.includes('SPEKTR-RG') || upper.includes('SPEKTR')) return '🇷🇺 / 🇩🇪 Spektr-RG (ロシア・ドイツ共同 深宇宙X線全天探査)';
+        if (upper.includes('METEOR-M')) return '🇷🇺 Meteor-M No.2-4 (ロシア新世代極軌道気象・北極海氷衛星)';
+        if (upper.includes('MICIUS') || upper.includes('QUESS')) return '🇨🇳 墨子号 Micius (世界初・量子通信・量子もつれ実験衛星)';
+        if (upper.includes('DAMPE') || upper.includes('WUKONG')) return '🇨🇳 悟空号 DAMPE (暗黒物質・ダークマター粒子探査衛星)';
+        if (upper.includes('YAOGAN-35') || upper.includes('YAOGAN')) return '🇨🇳 遥感35号 Yaogan-35 (中国海軍3機編隊電波三点測量シギント)';
+        if (upper.includes('QUEQIAO')) return '🇨🇳 鵲橋 Queqiao (世界初・月の裏側探査用L2中継衛星)';
+        if (upper.includes('ADRAS-J') || upper.includes('ASTROSCALE')) return '🇯🇵 ADRAS-J (アストロスケール 世界初商業デブリ除去実証船)';
+
         // Europe (ESA / Copernicus / Galileo / EUMETSAT)
         if (upper.includes('SENTINEL-2A')) return '🇪🇺 Sentinel-2A (センチネル2A - 欧州光学観測)';
         if (upper.includes('SENTINEL-1A')) return '🇪🇺 Sentinel-1A (センチネル1A - 欧州CバンドSAR)';
@@ -505,6 +519,19 @@ function getSatDisplayName(name) {
         return name;
     } else {
         let clean = name.replace(/\(.*?[぀-ヿ㐀-䶿一-鿿].*?\)/g, '').trim();
+        if (upper.includes('X-37B') || upper.includes('OTV')) return '🇺🇸 X-37B (USSF Secret Spaceplane)';
+        if (upper.includes('USA-245') || upper.includes('KEYHOLE') || upper.includes('KH-11')) return '🇺🇸 USA-245 KH-11 (NRO Optical Spy Satellite)';
+        if (upper.includes('SWOT')) return '🇺🇸 / 🇫🇷 SWOT (Surface Water Ocean Topography)';
+        if (upper.includes('WORLDVIEW-3') || upper.includes('WORLDVIEW')) return '🇺🇸 WorldView-3 (Maxar 31cm Commercial Optical)';
+        if (upper.includes('OLYMP') || upper.includes('LUCH-5X')) return '🇷🇺 Olymp-K / Luch-5X (Russian Signals Intelligence)';
+        if (upper.includes('SPEKTR-RG') || upper.includes('SPEKTR')) return '🇷🇺 / 🇩🇪 Spektr-RG (Deep Space X-ray Observatory)';
+        if (upper.includes('METEOR-M')) return '🇷🇺 Meteor-M No.2-4 (Polar Weather & Arctic Sea Ice)';
+        if (upper.includes('MICIUS') || upper.includes('QUESS')) return '🇨🇳 Micius (World First Quantum Science Satellite)';
+        if (upper.includes('DAMPE') || upper.includes('WUKONG')) return '🇨🇳 DAMPE / Wukong (Dark Matter Explorer)';
+        if (upper.includes('YAOGAN-35') || upper.includes('YAOGAN')) return '🇨🇳 Yaogan-35 (Tri-Satellite Formation SIGINT)';
+        if (upper.includes('QUEQIAO')) return '🇨🇳 Queqiao (Lunar Far Side L2 Relay)';
+        if (upper.includes('ADRAS-J') || upper.includes('ASTROSCALE')) return '🇯🇵 ADRAS-J (Astroscale Commercial Debris Inspection)';
+
         if (upper.includes('SENTINEL-2A')) return '🇪🇺 Sentinel-2A (Copernicus Optical)';
         if (upper.includes('SENTINEL-1A')) return '🇪🇺 Sentinel-1A (Copernicus Radar SAR)';
         if (upper.includes('GALILEO')) return '🇪🇺 Galileo-26 (EU GNSS)';
@@ -2032,7 +2059,43 @@ window.changeLanguage = function(lang) {
 };
 
 // Major Satellites Built-in TLE Preset (Clean International English Names)
-const MAJOR_SATELLITES_TLE = `SENTINEL-2A (COPERNICUS)
+const MAJOR_SATELLITES_TLE = `X-37B (OTV-7 SPACEPLANE)
+1 58641U 23210A   26100.12345678  .00000000  00000-0  00000-0 0  9983
+2 58641  37.0000 180.0000 0010000 100.0000 260.0000 15.65000000    01
+USA-245 (KH-11 KEYHOLE)
+1 39232U 13043A   26100.12345678  .00000000  00000-0  00000-0 0  9982
+2 39232  97.9000 140.0000 0550000  80.0000 280.0000 15.35000000    02
+SWOT (WATER TOPOGRAPHY)
+1 54754U 22173A   26100.12345678  .00000000  00000-0  00000-0 0  9981
+2 54754  77.6000  95.0000 0001000 120.0000 240.0000 14.07000000    03
+WORLDVIEW-3 (MAXAR)
+1 40115U 14048A   26100.12345678  .00000000  00000-0  00000-0 0  9980
+2 40115  97.9000 210.0000 0012000  45.0000 315.0000 14.85000000    04
+OLYMP-K (LUCH-5X SPY)
+1 40258U 14058A   26100.12345678  .00000000  00000-0  00000-0 0  9979
+2 40258   0.0500  55.0000 0002000 180.0000  90.0000  1.00270000    05
+SPEKTR-RG (X-RAY ASTRO)
+1 44432U 19040A   26100.12345678  .00000000  00000-0  00000-0 0  9978
+2 44432  28.5000  70.0000 8000000 180.0000  90.0000  0.15000000    06
+METEOR-M NO.2-4
+1 59051U 24039A   26100.12345678  .00000000  00000-0  00000-0 0  9977
+2 59051  98.6000 115.0000 0002000  70.0000 290.0000 14.23000000    07
+MICIUS (QUESS QUANTUM)
+1 41744U 16051A   26100.12345678  .00000000  00000-0  00000-0 0  9976
+2 41744  97.4000 160.0000 0010000  50.0000 310.0000 15.22000000    08
+DAMPE (WUKONG DARK MATTER)
+1 41173U 15078A   26100.12345678  .00000000  00000-0  00000-0 0  9975
+2 41173  97.4000 190.0000 0008000  60.0000 300.0000 15.21000000    09
+YAOGAN-35A (TRI-FORMATION)
+1 49405U 21101A   26100.12345678  .00000000  00000-0  00000-0 0  9974
+2 49405  35.0000 230.0000 0005000 120.0000 240.0000 15.24000000    10
+QUEQIAO (MOON RELAY)
+1 43470U 18045A   26100.12345678  .00000000  00000-0  00000-0 0  9973
+2 43470  16.0000 300.0000 6500000 180.0000  90.0000  0.07000000    11
+ADRAS-J (ASTROSCALE)
+1 58988U 24034A   26100.12345678  .00000000  00000-0  00000-0 0  9972
+2 58988  98.0000 145.0000 0010000  80.0000 280.0000 14.90000000    12
+SENTINEL-2A (COPERNICUS)
 1 40697U 15028A   26100.12345678  .00000000  00000-0  00000-0 0  9999
 2 40697  98.6200  85.0000 0001200  70.0000 290.0000 14.30800000    01
 SENTINEL-1A (COPERNICUS SAR)
@@ -2246,6 +2309,79 @@ const sourceStatusBadge = document.getElementById('sourceStatusBadge');
 
 // Rich Satellite Mission Descriptions Mapping (Full 5-Language Multilingual Dictionary)
 const SATELLITE_DESCRIPTIONS = {
+    "X-37B": {
+        "country": "🇺🇸 アメリカ (米宇宙軍 / ボーイング)",
+        "country_en": "🇺🇸 USA (US Space Force / Boeing)",
+        "ja": "【米宇宙軍極秘無人スペースプレーン「X-37B」(OTV-7)】\n■ 開発・運用組織: アメリカ宇宙軍 (USSF) / ボーイング (Phantom Works)\n■ 打上げ日・ロケット: 2023年12月28日 / スペースX ファルコンヘビー (ケネディ宇宙センター)\n■ 軌道諸元: 高度約350〜38,000km (高度・傾斜角を自在に変更する機密高機動軌道)\n■ 機体構造: 全長約8.9m、翼幅約4.5mの再使用型無人往復宇宙船。荷物室(ペイロードベイ)に極秘機器を積載\n■ 極秘ミッション・探査目的: 宇宙空間に一度に数百日〜900日以上滞在し、次世代軍事センサや耐放射線技術の実証、軌道変更シミュレーションを実施。任務完了後は自動操縦で地球大気圏に再突入し滑走路へ着陸する、世界で最も謎に包まれた現役スペースプレーン。",
+        "en": "[USSF Orbital Test Vehicle \"X-37B\" (OTV-7)]\n■ Organization: United States Space Force (USSF) / Boeing\n■ Launch: Dec 28, 2023 / Falcon Heavy\n■ Orbit: Highly classified agile maneuvering orbit\n■ Structure: 8.9m long reusable unmanned mini-shuttle with cargo bay\n■ Mission: Ultra-long-duration classified space warfare experiments, orbital maneuvers, and automated runway landing after 900+ days in space."
+},
+    "USA-245": {
+        "country": "🇺🇸 アメリカ (NRO / 国家偵察局スパイ衛星)",
+        "country_en": "🇺🇸 USA (NRO / Optical Spy Satellite)",
+        "ja": "【光学偵察スパイ衛星「USA-245」(KH-11 KeyHole / 鍵穴)】\n■ 開発・運用組織: NRO (米国家偵察局) / CIA / 米宇宙軍\n■ 打上げ日・ロケット: 2013年8月28日 / デルタIVヘビー (ヴァンデンバーグ宇宙軍基地)\n■ 軌道諸元: 近地点約260km〜遠地点約1,000km / 楕円太陽同期軌道\n■ 主要観測機器: ハッブル宇宙望遠鏡と同等の口径2.4m主鏡、可視・赤外線超高解像度撮像センサ\n■ 偵察目的: 宇宙ではなく「地上」に巨大レンズを向け、地上の軍事施設、核開発拠点、紛争地帯を撮影。地上10cmの新聞見出しや車両のナンバープレートすら識別可能とされる米国の最高機密偵察衛星。",
+        "en": "[NRO Advanced KeyHole Optical Reconnaissance Satellite \"USA-245\" (KH-11)]\n■ Organization: National Reconnaissance Office (NRO) / CIA / USSF\n■ Launch: Aug 28, 2013 / Delta IV Heavy\n■ Orbit: ~260 x 1,000 km Elliptical Sun-synchronous Orbit\n■ Instruments: 2.4-meter primary mirror (Hubble-class aperture facing Earth)\n■ Mission: Top-secret military imaging capable of resolving ~10cm ground details (e.g., license plates, military bases)."
+},
+    "SWOT": {
+        "country": "🇺🇸 / 🇫🇷 米国・フランス (NASA / CNES)",
+        "country_en": "🇺🇸 / 🇫🇷 USA & France (NASA / CNES)",
+        "ja": "【地表水・海洋地形調査衛星「SWOT」(スウォット)】\n■ 開発・運用組織: NASA (米航空宇宙局) / CNES (フランス国立宇宙研究センター)\n■ 打上げ日・ロケット: 2022年12月16日 / スペースX ファルコン9\n■ 軌道諸元: 高度約891km / 非太陽同期軌道 (軌道傾斜角77.6度)\n■ 主要観測機器: Kaバンドレーダー干渉計「KaRIn」(左右120kmの観測幅でミリメートル精度の立体標高を測定)\n■ 観測目的: 世界中の95%以上の湖沼・河川・海洋の水位変動を史上初めてミリメートル精度で3D立体測定。地球温暖化による海面上昇や淡水資源の枯渇、洪水の早期警戒に画期的なデータを提供。",
+        "en": "[Surface Water and Ocean Topography Satellite \"SWOT\"]\n■ Organization: NASA / CNES (France)\n■ Launch: Dec 16, 2022 / Falcon 9\n■ Orbit: ~891 km (Inclination 77.6°)\n■ Instruments: Ka-band Radar Interferometer (KaRIn)\n■ Mission: World's first comprehensive 3D survey of Earth's surface water, measuring ocean currents, lakes, and rivers with millimeter precision."
+},
+    "WORLDVIEW": {
+        "country": "🇺🇸 アメリカ (Maxar Technologies / 民間最高峰)",
+        "country_en": "🇺🇸 USA (Maxar Technologies)",
+        "ja": "【超高分解能地球観測衛星「WorldView-3」(ワールドビュー3)】\n■ 開発・運用組織: Maxar Technologies (マクサー・テクノロジーズ / 米国)\n■ 打上げ日・ロケット: 2014年8月13日 / アトラスV 401\n■ 軌道諸元: 高度約617km / 太陽同期軌道 (軌道傾斜角97.9度)\n■ 主要観測機器: 口径1.1m光学望遠鏡 (パンクロマチック解像度31cm、短波長赤外8バンド、CAVISセンサ)\n■ 観測目的: 民間衛星として世界最高峰の31cm解像度を誇り、地上を歩く人物の影や車の車種を克明に描写。Google Earthの航空写真、国際紛争の衛星写真報道、災害救助マッピングの標準基盤。",
+        "en": "[Ultra-High-Resolution Commercial Imaging Satellite \"WorldView-3\"]\n■ Organization: Maxar Technologies (USA)\n■ Launch: Aug 13, 2014 / Atlas V\n■ Orbit: ~617 km Sun-synchronous Orbit\n■ Instruments: 1.1m Aperture Telescope (0.31m panchromatic resolution, 8-band SWIR)\n■ Mission: World-leading commercial satellite imagery powering Google Earth, global defense, and breaking news disaster reporting."
+},
+    "OLYMP": {
+        "country": "🇷🇺 ロシア (ロスコスモス / 連邦保安庁 / 宇宙軍)",
+        "country_en": "🇷🇺 Russia (Roscosmos / FSB / GRU)",
+        "ja": "【ロシア宇宙スパイ衛星「オリンプ」(Olymp-K / Luch-5X)】\n■ 開発・運用組織: ロシア宇宙軍 / ロシア連邦保安庁 (FSB) / ロスコスモス\n■ 打上げ日・ロケット: 2014年9月28日 / プロトン-M ロケット (バイコヌール)\n■ 軌道諸元: 高度約35,786km / 静止衛星軌道 (スロット間を自在に移動)\n■ 主要機器: 高感度シギント(電波傍受)アンテナ、長寿命キセノンイオン推進エンジン\n■ 任務・特徴: 他国の軍用通信衛星やインテルサット商業衛星のすぐ隣(数km)まで自力で軌道移動して接近し、通信データを傍受する「宇宙のストーカー」として国際外交問題を引き起こしたロシアの伝説的軍事衛星。",
+        "en": "[Russian Signals Intelligence Spacecraft \"Olymp-K\" (Luch-5X)]\n■ Organization: Russian Aerospace Forces / FSB\n■ Launch: Sept 28, 2014 / Proton-M\n■ Orbit: Geostationary (Actively relocates near other GEO satellites)\n■ Mission: Infamous \"space stalker\" that maneuvers within kilometers of Western communications and defense satellites to intercept signals."
+},
+    "SPEKTR": {
+        "country": "🇷🇺 / 🇩🇪 ロシア・ドイツ (IKI / DLR / ロスコスモス)",
+        "country_en": "🇷🇺 / 🇩🇪 Russia & Germany (IKI / DLR / Roscosmos)",
+        "ja": "【深宇宙X線天文台「Spektr-RG」(スペクトルRG)】\n■ 開発・運用組織: ロシア科学アカデミー宇宙研究所 (IKI) / ドイツ航空宇宙センター (DLR) / ロスコスモス\n■ 打上げ日・ロケット: 2019年7月13日 / プロトン-M ロケット\n■ 軌道諸元: 地球から約150万km離れた太陽-地球ラグランジュ点L2のハロー軌道\n■ 主要観測機器: ドイツ製軟X線望遠鏡「eROSITA」(7基のミラーモジュール)、ロシア製硬X線望遠鏡「ART-XC」\n■ 観測目的: 全宇宙に広がる10万個以上の銀河団や、数百万個の超大質量ブラックホールを史上最も精密なX線地図としてカタログ化。ダークエネルギーと宇宙の大規模構造の進化を解き明かす。",
+        "en": "[Deep-Space X-Ray Astrophysical Observatory \"Spektr-RG\"]\n■ Organization: Roscosmos / IKI (Russia) & DLR / MPE (Germany)\n■ Launch: July 13, 2019 / Proton-M\n■ Orbit: Sun-Earth Lagrange Point L2 (~1.5 million km from Earth)\n■ Instruments: eROSITA (Germany), ART-XC (Russia)\n■ Mission: Maps over 100,000 galaxy clusters and millions of supermassive black holes in the X-ray universe."
+},
+    "METEOR": {
+        "country": "🇷🇺 ロシア (ロシア水文気象局 / ロスコスモス)",
+        "country_en": "🇷🇺 Russia (Roshydromet / Roscosmos)",
+        "ja": "【新世代極軌道気象衛星「Meteor-M No.2-4」(メテオールM)】\n■ 開発・運用組織: ロシア水文気象局 (Roshydromet) / ロスコスモス\n■ 打上げ日・ロケット: 2024年2月29日 / ソユーズ-2.1b ロケット (ボストチヌイ宇宙基地)\n■ 軌道諸元: 高度約820km / 太陽同期軌道 (軌道傾斜角98.6度)\n■ 主要観測機器: マルチスペクトル走査放射計「KMSS」、サイドローキングレーダー、マイクロ波サウンダー「MTVZA-GY」\n■ 観測目的: 北極海航路(NSR)の海氷厚・氷山監視、シベリア極寒地帯のブリザード追跡、オゾン層と宇宙天気の観測。",
+        "en": "[Russian Polar Meteorological Satellite \"Meteor-M No. 2-4\"]\n■ Organization: Roshydromet / Roscosmos\n■ Launch: Feb 29, 2024 / Soyuz-2.1b (Vostochny)\n■ Orbit: ~820 km Sun-synchronous Orbit\n■ Instruments: KMSS multispectral imager, MTVZA-GY microwave radiometer, side-looking radar\n■ Mission: Arctic Sea Route ice navigation, Siberian blizzard monitoring, and global ozone tracking."
+},
+    "MICIUS": {
+        "country": "🇨🇳 中国 (中国科学院 / CAS / 中国科学技術大学)",
+        "country_en": "🇨🇳 China (CAS / USTC)",
+        "ja": "【量子科学実験衛星「墨子号」(Micius / QUESS)】\n■ 開発・運用組織: 中国科学院 (CAS) / 中国科学技術大学 (潘建偉教授チーム)\n■ 打上げ日・ロケット: 2016年8月16日 / 長征2号丁 (CZ-2D) ロケット (酒泉衛星発射センター)\n■ 軌道諸元: 高度約500km / 太陽同期軌道 (軌道傾斜角97.4度)\n■ 主要実験装置: 量子もつれ光子発生源、量子キートランスポンダ、高精度超短パルスレーザー送信機\n■ 科学的快挙: 【世界初】宇宙から1,200km離れた地上の2地点へ「量子もつれ」光子を送り、理論上絶対に盗聴不可能な「量子暗号鍵配送」と量子テレポーテーション実験に成功。量子インターネット時代の幕を開けた歴史的衛星。",
+        "en": "[Quantum Experiments at Space Scale \"Micius\" (QUESS / Mozi)]\n■ Organization: Chinese Academy of Sciences (CAS) / USTC\n■ Launch: Aug 16, 2016 / Long March 2D\n■ Orbit: ~500 km Sun-synchronous Orbit\n■ Instruments: Entangled-photon source, quantum key communicator, high-precision laser telescope\n■ Mission: World's FIRST quantum science satellite, achieving intercontinental quantum key distribution and satellite-to-ground quantum teleportation."
+},
+    "DAMPE": {
+        "country": "🇨🇳 中国 (中国科学院 / 国家空間科学中心)",
+        "country_en": "🇨🇳 China (CAS / NSSC)",
+        "ja": "【暗黒物質粒子探査衛星「悟空号」(DAMPE / ダーペン)】\n■ 開発・運用組織: 中国科学院 (CAS) / 紫金山天文台 / スイス・イタリア共同研究\n■ 打上げ日・ロケット: 2015年12月17日 / 長征2号丁 (CZ-2D) ロケット (酒泉)\n■ 軌道諸元: 高度約500km / 太陽同期軌道 (軌道傾斜角97.4度)\n■ 主要観測機器: プラスチックシンチレータ検出器、シリコン・タングステン飛跡検出器、BGO熱量計、中性子検出器\n■ 探査目的: 宇宙最大の謎である「暗黒物質(ダークマター)」の崩壊や対消滅に伴う超高エネルギー電子・陽電子およびガンマ線を世界最高のエネルギースペクトル分解能で観測。",
+        "en": "[Dark Matter Particle Explorer \"DAMPE\" (Wukong)]\n■ Organization: Chinese Academy of Sciences (CAS) / Purple Mountain Observatory\n■ Launch: Dec 17, 2015 / Long March 2D\n■ Orbit: ~500 km Sun-synchronous Orbit\n■ Instruments: BGO calorimeter, silicon tracker, neutron detector\n■ Mission: Searches for indirect signatures of Dark Matter annihilation/decay by measuring ultra-high-energy cosmic rays and gamma rays."
+},
+    "YAOGAN": {
+        "country": "🇨🇳 中国 (中国人民解放軍 / 戦略支援部隊)",
+        "country_en": "🇨🇳 China (PLA Strategic Support Force)",
+        "ja": "【軍事編隊シギント電波偵察衛星「遥感35号」(Yaogan-35 A/B/C)】\n■ 開発・運用組織: 中国人民解放軍 (PLA) / 中国航天科技集団 (CASC)\n■ 打上げ日・ロケット: 2021年11月6日 / 長征2号丁 ロケット (西昌)\n■ 軌道諸元: 高度約500km / 低軌道 (軌道傾斜角35度)\n■ 運用形態: 3機1組(A/B/C)が数キロの間隔を保ちながら正三角形の編隊(フォーメーション)で地球を周回\n■ 軍事目的: 3機の衛星が地上の電波発信源(レーダ基地や米空母打撃群の通信)を受信した「時間差(TDOA)」から、三点測量によって目標の位置と速度を瞬時に割り出す中国版海洋監視衛星網(NOSS)。",
+        "en": "[Tri-Satellite Formation SIGINT Reconnaissance \"Yaogan-35\"]\n■ Organization: People's Liberation Army (PLA) / CASC\n■ Launch: Nov 6, 2021 / Long March 2D\n■ Orbit: ~500 km LEO (Inclination 35°)\n■ Formation: Triplet flying in strict geometric triangular formation\n■ Mission: Electronic intelligence (ELINT/SIGINT) tracking naval carrier strike groups and radar emissions via Time Difference of Arrival (TDOA)."
+},
+    "QUEQIAO": {
+        "country": "🇨🇳 中国 (中国国家航天局 / 嫦娥月探査計画)",
+        "country_en": "🇨🇳 China (CNSA / CLEP)",
+        "ja": "【月裏側探査用通信中継衛星「鵲橋」(Queqiao / カササギの橋)】\n■ 開発・運用組織: 中国国家航天局 (CNSA) / 嫦娥探査プロジェクト\n■ 打上げ日・ロケット: 2018年5月21日 / 長征4号丙 (CZ-4C) ロケット (西昌)\n■ 軌道諸元: 地球-月ラグランジュ点L2のハロー軌道 (月裏側から約65,000km上空)\n■ 主要搭載機器: 直径4.2m大型アンブレラ型パラボラアンテナ、S/Xバンド通信トランスポンダ\n■ 歴史的役割: 人類史上初めて「月の裏側」に着陸した無人月面探査機「嫦娥4号」および探査車「玉兎2号」の電波を中継し、地球と常時リアルタイム交信を可能にした世界唯一の月裏側中継衛星。",
+        "en": "[Lunar Far Side Communication Relay Satellite \"Queqiao\" (Magpie Bridge)]\n■ Organization: China National Space Administration (CNSA)\n■ Launch: May 21, 2018 / Long March 4C\n■ Orbit: Earth-Moon L2 Halo Orbit (~65,000 km beyond the Moon)\n■ Antenna: 4.2m umbrella-style deployable parabolic reflector\n■ Mission: Historic relay enabling first-ever communication between Earth and landers on the far side of the Moon (Chang'e-4 and Yutu-2)."
+},
+    "ADRAS": {
+        "country": "🇯🇵 日本 (株式会社アストロスケール / JAXA CRD2)",
+        "country_en": "🇯🇵 Japan (Astroscale, Tokyo / JAXA CRD2)",
+        "ja": "【商業デブリ除去実証衛星「ADRAS-J」(アストラスジェイ)】\n■ 開発・運用組織: 株式会社アストロスケール (Astroscale / 東京・墨田区) / JAXA (商業デブリ除去実証)\n■ 打上げ日・ロケット: 2024年2月18日 / Rocket Lab Electronロケット (ニュージーランド・マヒア)\n■ 軌道諸元: 高度約600km / 太陽同期軌道 (軌道傾斜角98.0度)\n■ 主要機器: 近傍接近用可視・赤外線カメラ、レーザー測距計(LiDAR)、高精度推進スラスタ\n■ 世界的偉業: 2009年に打ち上げられ宇宙を高速回転しながら漂う「H-IIAロケット15号機第2段残骸(全長11m)」に数メートルまで自律ランデブー接近し、世界で初めて「制御不能な大型デブリの超至近距離定点撮影」に成功した歴史的デブリ除去衛星。",
+        "en": "[Active Debris Removal by Astroscale-Japan \"ADRAS-J\"]\n■ Organization: Astroscale Japan (Tokyo) / JAXA CRD2 Programme\n■ Launch: Feb 18, 2024 / Rocket Lab Electron\n■ Orbit: ~600 km Sun-synchronous Orbit\n■ Instruments: Rendezvous LiDAR, optical/IR cameras, precision cold-gas thrusters\n■ Historic Feat: World's FIRST commercial spacecraft to autonomously approach within meters of an uncooperative, tumbling space debris (H-IIA upper stage) and capture close-up imagery."
+},
+
     "SENTINEL-2A": {
         "country": "🇪🇺 欧州連合 (ESA / 欧州宇宙機関 / コペルニクス)",
         "country_en": "🇪🇺 European Union (ESA / Copernicus)",
@@ -2721,6 +2857,20 @@ function getSatDescription(name) {
 function getSatCountry(name) {
     const upper = (name || '').toUpperCase();
     const isEn = (currentLang !== 'ja');
+    // Unique Flagships
+    if (upper.includes('X-37B') || upper.includes('OTV')) return isEn ? '🇺🇸 USA (US Space Force / Boeing)' : '🇺🇸 アメリカ (米宇宙軍 / ボーイング)';
+    if (upper.includes('USA-245') || upper.includes('KEYHOLE') || upper.includes('KH-11')) return isEn ? '🇺🇸 USA (NRO / National Reconnaissance Office)' : '🇺🇸 アメリカ (NRO / 国家偵察局スパイ衛星)';
+    if (upper.includes('SWOT')) return isEn ? '🇺🇸 / 🇫🇷 USA & France (NASA / CNES)' : '🇺🇸 / 🇫🇷 米国・フランス (NASA / CNES)';
+    if (upper.includes('WORLDVIEW')) return isEn ? '🇺🇸 USA (Maxar Technologies)' : '🇺🇸 アメリカ (Maxar Technologies / 民間)';
+    if (upper.includes('OLYMP') || upper.includes('LUCH')) return isEn ? '🇷🇺 Russia (Roscosmos / FSB / GRU)' : '🇷🇺 ロシア (ロスコスモス / 連邦保安庁 / 宇宙軍)';
+    if (upper.includes('SPEKTR')) return isEn ? '🇷🇺 / 🇩🇪 Russia & Germany (IKI / DLR / Roscosmos)' : '🇷🇺 / 🇩🇪 ロシア・ドイツ (IKI / DLR / ロスコスモス)';
+    if (upper.includes('METEOR-M')) return isEn ? '🇷🇺 Russia (Roshydromet / Roscosmos)' : '🇷🇺 ロシア (ロシア水文気象局 / ロスコスモス)';
+    if (upper.includes('MICIUS') || upper.includes('QUESS')) return isEn ? '🇨🇳 China (CAS / Chinese Academy of Sciences)' : '🇨🇳 中国 (中国科学院 / CAS)';
+    if (upper.includes('DAMPE') || upper.includes('WUKONG')) return isEn ? '🇨🇳 China (CAS / National Space Science Center)' : '🇨🇳 中国 (中国科学院 / 国家空間科学中心)';
+    if (upper.includes('YAOGAN')) return isEn ? '🇨🇳 China (PLA Strategic Support Force)' : '🇨🇳 中国 (中国人民解放軍 / 軍事偵察)';
+    if (upper.includes('QUEQIAO')) return isEn ? '🇨🇳 China (CNSA / Lunar Exploration)' : '🇨🇳 中国 (中国国家航天局 / 月探査計画)';
+    if (upper.includes('ADRAS-J') || upper.includes('ASTROSCALE')) return isEn ? '🇯🇵 Japan (Astroscale, Tokyo / JAXA CRD2)' : '🇯🇵 日本 (株式会社アストロスケール / JAXA CRD2)';
+
     if (upper.includes('SENTINEL') || upper.includes('GALILEO')) return isEn ? '🇪🇺 European Union (ESA / Copernicus)' : '🇪🇺 欧州連合 (ESA / コペルニクス)';
     if (upper.includes('METEOSAT') || upper.includes('MTG')) return isEn ? '🇪🇺 Europe (EUMETSAT / ESA)' : '🇪🇺 欧州気象衛星機構 (EUMETSAT / ESA)';
     if (upper.includes('KOMPSAT') || upper.includes('CHOLLIAN') || upper.includes('GEO-KOMPSAT') || upper.includes('ARIRANG')) return isEn ? '🇰🇷 South Korea (KARI)' : '🇰🇷 韓国 (KARI / 航空宇宙研究院)';
@@ -4913,7 +5063,7 @@ function updateDropdownOptions() {
             if (nameUpper.includes('DEBRIS') || nameUpper.includes('COSMOS 2251') || nameUpper.includes('FENGYUN 1C') || nameUpper.includes('SL-8') || nameUpper.includes('SL-16')) {
                 groups.debris.appendChild(opt);
                 counts.debris++;
-            } else if (nameUpper.includes('ALOS') || nameUpper.includes('DAICHI') || nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI') || nameUpper.includes('QZSS') || nameUpper.includes('GCOM') || nameUpper.includes('GOSAT') || nameUpper.includes('SHIZUKU') || nameUpper.includes('SHIKISAI') || nameUpper.includes('IBUKI') || nameUpper.includes('QPS') || nameUpper.includes('STRIX')) {
+            } else if (nameUpper.includes('ALOS') || nameUpper.includes('DAICHI') || nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI') || nameUpper.includes('QZSS') || nameUpper.includes('GCOM') || nameUpper.includes('GOSAT') || nameUpper.includes('SHIZUKU') || nameUpper.includes('SHIKISAI') || nameUpper.includes('IBUKI') || nameUpper.includes('QPS') || nameUpper.includes('STRIX') || nameUpper.includes('ADRAS')) {
                 groups.japan.appendChild(opt);
                 counts.japan++;
             } else if (nameUpper.includes('SENTINEL') || nameUpper.includes('GALILEO') || nameUpper.includes('METEOSAT') || nameUpper.includes('MTG')) {
@@ -4922,16 +5072,16 @@ function updateDropdownOptions() {
             } else if (nameUpper.includes('KOMPSAT') || nameUpper.includes('CHOLLIAN') || nameUpper.includes('GEO-KOMPSAT') || nameUpper.includes('ARIRANG')) {
                 groups.kr.appendChild(opt);
                 counts.kr++;
-            } else if (nameUpper.includes('TIANGONG') || nameUpper.includes('BEIDOU') || nameUpper.includes('FENGYUN-4') || nameUpper.includes('GAOFEN')) {
+            } else if (nameUpper.includes('TIANGONG') || nameUpper.includes('BEIDOU') || nameUpper.includes('FENGYUN-4') || nameUpper.includes('GAOFEN') || nameUpper.includes('MICIUS') || nameUpper.includes('QUESS') || nameUpper.includes('DAMPE') || nameUpper.includes('WUKONG') || nameUpper.includes('YAOGAN') || nameUpper.includes('QUEQIAO')) {
                 groups.cn.appendChild(opt);
                 counts.cn++;
             } else if (nameUpper.includes('CARTOSAT') || nameUpper.includes('INSAT') || nameUpper.includes('CHANDRAYAAN') || nameUpper.includes('ADITYA')) {
                 groups.in.appendChild(opt);
                 counts.in++;
-            } else if (nameUpper.includes('GLONASS') || nameUpper.includes('ELEKTRO') || nameUpper.includes('SOYUZ')) {
+            } else if (nameUpper.includes('GLONASS') || nameUpper.includes('ELEKTRO') || nameUpper.includes('SOYUZ') || nameUpper.includes('OLYMP') || nameUpper.includes('LUCH') || nameUpper.includes('SPEKTR') || nameUpper.includes('METEOR')) {
                 groups.ru.appendChild(opt);
                 counts.ru++;
-            } else if (nameUpper.includes('ISS') || nameUpper.includes('HUBBLE') || nameUpper.includes('LANDSAT') || nameUpper.includes('TERRA') || nameUpper.includes('GOES') || nameUpper.includes('GPS') || nameUpper.includes('XRISM')) {
+            } else if (nameUpper.includes('ISS') || nameUpper.includes('HUBBLE') || nameUpper.includes('LANDSAT') || nameUpper.includes('TERRA') || nameUpper.includes('GOES') || nameUpper.includes('GPS') || nameUpper.includes('XRISM') || nameUpper.includes('X-37B') || nameUpper.includes('USA-245') || nameUpper.includes('KEYHOLE') || nameUpper.includes('SWOT') || nameUpper.includes('WORLDVIEW')) {
                 groups.us.appendChild(opt);
                 counts.us++;
             } else {
@@ -6737,6 +6887,19 @@ function performSearch(rawQuery) {
 
     // 2. Search Satellites
     const searchTerms = [upperQuery, rawQuery];
+    if (rawQuery.includes('スペースプレーン') || upperQuery.includes('X-37B') || upperQuery.includes('OTV')) searchTerms.push('X-37B', 'OTV');
+    if (rawQuery.includes('スパイ') || upperQuery.includes('KEYHOLE') || upperQuery.includes('KH-11') || upperQuery.includes('USA-245')) searchTerms.push('USA-245', 'KH-11', 'KEYHOLE');
+    if (rawQuery.includes('スウォット') || upperQuery.includes('SWOT')) searchTerms.push('SWOT', 'スウォット');
+    if (rawQuery.includes('ワールドビュー') || upperQuery.includes('WORLDVIEW')) searchTerms.push('WORLDVIEW', 'ワールドビュー');
+    if (rawQuery.includes('オリンプ') || upperQuery.includes('OLYMP') || upperQuery.includes('LUCH')) searchTerms.push('OLYMP', 'LUCH', 'オリンプ');
+    if (rawQuery.includes('スペクトル') || upperQuery.includes('SPEKTR')) searchTerms.push('SPEKTR', 'スペクトル');
+    if (rawQuery.includes('メテオール') || upperQuery.includes('METEOR')) searchTerms.push('METEOR', 'メテオール');
+    if (rawQuery.includes('量子') || upperQuery.includes('MICIUS') || upperQuery.includes('QUESS') || rawQuery.includes('墨子')) searchTerms.push('MICIUS', 'QUESS', '墨子');
+    if (rawQuery.includes('ダークマター') || upperQuery.includes('DAMPE') || upperQuery.includes('WUKONG') || rawQuery.includes('悟空')) searchTerms.push('DAMPE', 'WUKONG', '悟空');
+    if (rawQuery.includes('遥感') || upperQuery.includes('YAOGAN')) searchTerms.push('YAOGAN', '遥感');
+    if (rawQuery.includes('鵲橋') || upperQuery.includes('QUEQIAO') || rawQuery.includes('カササギ')) searchTerms.push('QUEQIAO', '鵲橋');
+    if (rawQuery.includes('アストロスケール') || upperQuery.includes('ADRAS') || upperQuery.includes('ASTROSCALE')) searchTerms.push('ADRAS', 'ASTROSCALE', 'アストロスケール');
+
     if (rawQuery.includes('センチネル') || upperQuery.includes('SENTINEL')) searchTerms.push('SENTINEL', 'センチネル');
     if (rawQuery.includes('ガリレオ') || upperQuery.includes('GALILEO')) searchTerms.push('GALILEO', 'ガリレオ');
     if (rawQuery.includes('メテオサット') || upperQuery.includes('METEOSAT')) searchTerms.push('METEOSAT', 'メテオサット');
