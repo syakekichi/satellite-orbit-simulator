@@ -438,47 +438,59 @@ function detectDefaultLanguage() {
 window.currentLang = detectDefaultLanguage();
 var currentLang = window.currentLang;
 
-// Bulletproof Guaranteed getSatDisplayName Function
+// Bulletproof Guaranteed getSatDisplayName Function with Country Flags
 function getSatDisplayName(name) {
     if (!name || typeof name !== 'string') return 'Satellite';
     const lang = window.currentLang || currentLang || 'ja';
     const upper = name.toUpperCase();
     
     if (lang === 'ja') {
-                if (upper.includes('ALOS-4') || upper.includes('DAICHI-4')) return 'ALOS-4 (だいち4号 - H3ロケット搭載)';
-        if (upper.includes('ALOS-2') || upper.includes('DAICHI-2')) return 'ALOS-2 (だいち2号 - LバンドSAR)';
-        if (upper.includes('XRISM')) return 'XRISM (クリズム - X線宇宙望遠鏡)';
-        if (upper.includes('GCOM-W') || upper.includes('SHIZUKU')) return 'GCOM-W (しずく - 水循環観測衛星)';
-        if (upper.includes('GCOM-C') || upper.includes('SHIKISAI')) return 'GCOM-C (しきさい - 気候変動観測衛星)';
-        if (upper.includes('GOSAT-2') || upper.includes('IBUKI')) return 'GOSAT-2 (いぶき2号 - 温室効果ガス観測)';
-        if (upper.includes('QPS-SAR') || upper.includes('TSUKUYOMI')) return 'QPS-SAR-5 (ツクヨミ-I - 小型SAR)';
-        if (upper.includes('STRIX')) return 'StriX-1 (ストリクス - 民間SAR衛星)';
-        if (upper.includes('HIMAWARI-8')) return 'HIMAWARI-8 (ひまわり8号 - バックアップ)';
-        if (upper.includes('HIMAWARI-9')) return 'HIMAWARI-9 (ひまわり9号 - メイン観測)';
-        if (upper.includes('MICHIBIKI-1R')) return 'MICHIBIKI-1R (みちびき1号R後継機)';
-        if (upper.includes('MICHIBIKI-6')) return 'MICHIBIKI-6 (みちびき6号機 - H3最新打上)';
-        if (upper.includes('MICHIBIKI-5')) return 'MICHIBIKI-5 (みちびき5号機)';
-        if (upper.includes('MICHIBIKI-1')) return 'MICHIBIKI-1 (みちびき1号初号機)';
-        if (upper.includes('MICHIBIKI-2')) return 'MICHIBIKI-2 (みちびき2号機)';
-        if (upper.includes('MICHIBIKI-3')) return 'MICHIBIKI-3 (みちびき3号機)';
-        if (upper.includes('MICHIBIKI-4')) return 'MICHIBIKI-4 (みちびき4号機)';
-        if (upper.includes('ISS')) return 'ISS (国際宇宙ステーション)';
-        if (upper.includes('TIANGONG')) return 'TIANGONG (天宮宇宙ステーション)';
-        if (upper.includes('BEIDOU')) return 'BEIDOU-3 (北斗3号測位衛星)';
-        if (upper.includes('HUBBLE')) return 'HUBBLE SPACE TELESCOPE (ハッブル宇宙望遠鏡)';
-        if (upper.includes('GPS')) return name.replace(/\(.*\)/, '') + ' (GPSナビゲーション衛星)';
+        if (upper.includes('ALOS-4') || upper.includes('DAICHI-4')) return '🇯🇵 ALOS-4 (だいち4号 - H3ロケット搭載)';
+        if (upper.includes('ALOS-2') || upper.includes('DAICHI-2')) return '🇯🇵 ALOS-2 (だいち2号 - LバンドSAR)';
+        if (upper.includes('XRISM')) return '🇯🇵 / 🇺🇸 XRISM (クリズム - X線宇宙望遠鏡)';
+        if (upper.includes('GCOM-W') || upper.includes('SHIZUKU')) return '🇯🇵 GCOM-W (しずく - 水循環観測衛星)';
+        if (upper.includes('GCOM-C') || upper.includes('SHIKISAI')) return '🇯🇵 GCOM-C (しきさい - 気候変動観測衛星)';
+        if (upper.includes('GOSAT-2') || upper.includes('IBUKI')) return '🇯🇵 GOSAT-2 (いぶき2号 - 温室効果ガス観測)';
+        if (upper.includes('QPS-SAR') || upper.includes('TSUKUYOMI')) return '🇯🇵 QPS-SAR-5 (ツクヨミ-I - 小型SAR)';
+        if (upper.includes('STRIX')) return '🇯🇵 StriX-1 (ストリクス - 民間SAR衛星)';
+        if (upper.includes('HIMAWARI-8')) return '🇯🇵 HIMAWARI-8 (ひまわり8号 - バックアップ)';
+        if (upper.includes('HIMAWARI-9')) return '🇯🇵 HIMAWARI-9 (ひまわり9号 - メイン観測)';
+        if (upper.includes('MICHIBIKI-1R')) return '🇯🇵 MICHIBIKI-1R (みちびき1号R後継機)';
+        if (upper.includes('MICHIBIKI-6')) return '🇯🇵 MICHIBIKI-6 (みちびき6号機 - H3最新打上)';
+        if (upper.includes('MICHIBIKI-5')) return '🇯🇵 MICHIBIKI-5 (みちびき5号機)';
+        if (upper.includes('MICHIBIKI-1')) return '🇯🇵 MICHIBIKI-1 (みちびき1号初号機)';
+        if (upper.includes('MICHIBIKI-2')) return '🇯🇵 MICHIBIKI-2 (みちびき2号機)';
+        if (upper.includes('MICHIBIKI-3')) return '🇯🇵 MICHIBIKI-3 (みちびき3号機)';
+        if (upper.includes('MICHIBIKI-4')) return '🇯🇵 MICHIBIKI-4 (みちびき4号機)';
+        if (upper.includes('ISS')) return '🇺🇸 / 🇯🇵 / 🇪🇺 ISS (国際宇宙ステーション)';
+        if (upper.includes('TIANGONG')) return '🇨🇳 TIANGONG (天宮宇宙ステーション)';
+        if (upper.includes('BEIDOU')) return '🇨🇳 BEIDOU-3 (北斗3号測位衛星)';
+        if (upper.includes('HUBBLE')) return '🇺🇸 / 🇪🇺 HUBBLE (ハッブル宇宙望遠鏡)';
+        if (upper.includes('GPS')) return '🇺🇸 ' + name.replace(/\(.*\)/, '') + ' (GPSナビゲーション衛星)';
+        if (upper.includes('STARLINK')) return '🛰️ ' + name;
+        if (upper.includes('DEBRIS') || upper.includes('COSMOS') || upper.includes('FENGYUN') || upper.includes('SL-')) return '⚠️ ' + name + ' (宇宙ゴミ)';
         return name;
     } else {
         let clean = name.replace(/\(.*?[぀-ヿ㐀-䶿一-鿿].*?\)/g, '').trim();
-        if (upper.includes('ISS')) return 'ISS (International Space Station)';
-        if (upper.includes('TIANGONG')) return 'Tiangong Space Station';
-        if (upper.includes('HIMAWARI-8')) return 'Himawari-8 (Weather Satellite)';
-        if (upper.includes('HIMAWARI-9')) return 'Himawari-9 (Weather Satellite)';
-        if (upper.includes('MICHIBIKI-6')) return 'QZSS / MICHIBIKI-6 (Navigation Satellite)';
-        if (upper.includes('MICHIBIKI')) return clean + ' (QZSS Navigation)';
-        if (upper.includes('BEIDOU')) return 'BeiDou-3 (Navigation Satellite)';
-        if (upper.includes('HUBBLE')) return 'Hubble Space Telescope';
-        if (upper.includes('GPS')) return clean + ' (GPS Navigation)';
+        if (upper.includes('ALOS-4') || upper.includes('DAICHI-4')) return '🇯🇵 ALOS-4 (DAICHI-4 Radar)';
+        if (upper.includes('ALOS-2') || upper.includes('DAICHI-2')) return '🇯🇵 ALOS-2 (DAICHI-2 Radar)';
+        if (upper.includes('XRISM')) return '🇯🇵 / 🇺🇸 XRISM (X-ray Telescope)';
+        if (upper.includes('GCOM-W') || upper.includes('SHIZUKU')) return '🇯🇵 GCOM-W (SHIZUKU Water Cycle)';
+        if (upper.includes('GCOM-C') || upper.includes('SHIKISAI')) return '🇯🇵 GCOM-C (SHIKISAI Climate)';
+        if (upper.includes('GOSAT-2') || upper.includes('IBUKI')) return '🇯🇵 GOSAT-2 (IBUKI-2 GHG)';
+        if (upper.includes('QPS-SAR')) return '🇯🇵 QPS-SAR-5 (TSUKUYOMI-I)';
+        if (upper.includes('STRIX')) return '🇯🇵 StriX-1 (Commercial SAR)';
+        if (upper.includes('ISS')) return '🇺🇸 / 🇯🇵 / 🇪🇺 ISS (International Space Station)';
+        if (upper.includes('TIANGONG')) return '🇨🇳 Tiangong Space Station';
+        if (upper.includes('HIMAWARI-8')) return '🇯🇵 Himawari-8 (Weather Satellite)';
+        if (upper.includes('HIMAWARI-9')) return '🇯🇵 Himawari-9 (Weather Satellite)';
+        if (upper.includes('MICHIBIKI-6')) return '🇯🇵 QZSS / MICHIBIKI-6 (Navigation Satellite)';
+        if (upper.includes('MICHIBIKI')) return '🇯🇵 ' + clean + ' (QZSS Navigation)';
+        if (upper.includes('BEIDOU')) return '🇨🇳 BeiDou-3 (Navigation Satellite)';
+        if (upper.includes('HUBBLE')) return '🇺🇸 / 🇪🇺 Hubble Space Telescope';
+        if (upper.includes('GPS')) return '🇺🇸 ' + clean + ' (GPS Navigation)';
+        if (upper.includes('STARLINK')) return '🛰️ ' + name;
+        if (upper.includes('DEBRIS') || upper.includes('COSMOS') || upper.includes('FENGYUN') || upper.includes('SL-')) return '⚠️ ' + name;
         return clean;
     }
 }
