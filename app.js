@@ -1,4 +1,7 @@
 
+
+
+
 // ==========================================================================
 // Official NASA Ultra High-Resolution Photorealistic Texture Maps (Public Domain)
 // ==========================================================================
@@ -12,20 +15,127 @@ const NASA_PLANET_TEXTURES = {
     'MOON': 'moon_texture.jpg?v=20260821_170'
 };
 
-// Active 3D Planet Inspection Sphere
-let activePlanetSphereEntity = null;
-let activePlanetRingEntity = null;
 
-function inspectCelestialPlanet(body, bodyPos, bodyDir) {
-    // Remove previous inspection sphere if any
+// Active 3D Planet Inspection Sphere & Rings
+let activePlanetSphereEntity = null;
+let activePlanetRingEntities = [];
+
+function clearPlanetInspectionEntities() {
     if (activePlanetSphereEntity) {
         viewer.entities.remove(activePlanetSphereEntity);
         activePlanetSphereEntity = null;
     }
-    if (activePlanetRingEntity) {
-        viewer.entities.remove(activePlanetRingEntity);
-        activePlanetRingEntity = null;
+    if (activePlanetRingEntities && activePlanetRingEntities.length > 0) {
+        activePlanetRingEntities.forEach(ent => viewer.entities.remove(ent));
+        activePlanetRingEntities = [];
     }
+}
+
+// Generate pure 3D Ring Loop Positions tilted by planet axial inclination
+function generate3DRingPositions(center, radiusMeters, tiltAngleRad, segments = 64) {
+    // Rotation axis (tilt around X/Y to match axial tilt)
+    const cosT = Math.cos(tiltAngleRad);
+    const sinT = Math.sin(tiltAngleRad);
+
+    const positions = [];
+    for (let i = 0; i <= segments; i++) {
+        const theta = (i / segments) * Math.PI * 2;
+        const lx = radiusMeters * Math.cos(theta);
+        const ly = radiusMeters * Math.sin(theta) * cosT;
+        const lz = radiusMeters * Math.sin(theta) * sinT;
+
+        const p = Cesium.Cartesian3.add(
+            center,
+            new Cesium.Cartesian3(lx, ly, lz),
+            new Cesium.Cartesian3()
+        );
+        positions.push(p);
+    }
+    return positions;
+}
+
+function create3DPlanetaryRings(body, bodyPos, planetRadius) {
+    if (body.id === 'SATURN') {
+        // Saturn: Iconic Majestic Multi-layered Gold/Ice Rings (Tilt: 26.73 deg)
+        const tilt = 26.73 * (Math.PI / 180);
+
+        // Multiple dense concentric rings representing C-Ring, B-Ring (brightest), A-Ring, and F-Ring with Cassini Gap
+        const ringBands = [
+            // C Ring (Faint inner)
+            { r: planetRadius * 1.30, w: 4, col: 'rgba(217, 180, 110, 0.45)' },
+            { r: planetRadius * 1.45, w: 5, col: 'rgba(235, 200, 130, 0.60)' },
+            // B Ring (Vibrant Dense Ice - Brightest)
+            { r: planetRadius * 1.60, w: 8, col: 'rgba(254, 240, 170, 0.95)' },
+            { r: planetRadius * 1.75, w: 10, col: 'rgba(255, 250, 200, 0.98)' },
+            { r: planetRadius * 1.90, w: 8, col: 'rgba(254, 240, 170, 0.90)' },
+            // (Cassini Division Gap at 1.95 - 2.05)
+            // A Ring (Outer ring)
+            { r: planetRadius * 2.08, w: 7, col: 'rgba(235, 200, 130, 0.85)' },
+            { r: planetRadius * 2.22, w: 6, col: 'rgba(220, 180, 115, 0.75)' },
+            // F Ring (Shepherd moon thin outer ring)
+            { r: planetRadius * 2.38, w: 3, col: 'rgba(200, 160, 95, 0.55)' }
+        ];
+
+        ringBands.forEach((band, idx) => {
+            const pos = generate3DRingPositions(bodyPos, band.r, tilt, 72);
+            const ent = viewer.entities.add({
+                id: `inspect_ring_SATURN_${idx}`,
+                polyline: {
+                    positions: pos,
+                    width: band.w,
+                    material: Cesium.Color.fromCssColorString(band.col)
+                }
+            });
+            activePlanetRingEntities.push(ent);
+        });
+    } else if (body.id === 'JUPITER') {
+        // Jupiter: Delicate Amber Dust Ring (Tilt: 3.13 deg)
+        const tilt = 3.13 * (Math.PI / 180);
+        const ringBands = [
+            { r: planetRadius * 1.40, w: 3, col: 'rgba(251, 146, 60, 0.45)' },
+            { r: planetRadius * 1.65, w: 5, col: 'rgba(249, 115, 22, 0.65)' },
+            { r: planetRadius * 1.90, w: 3, col: 'rgba(234, 88, 12, 0.35)' }
+        ];
+
+        ringBands.forEach((band, idx) => {
+            const pos = generate3DRingPositions(bodyPos, band.r, tilt, 72);
+            const ent = viewer.entities.add({
+                id: `inspect_ring_JUPITER_${idx}`,
+                polyline: {
+                    positions: pos,
+                    width: band.w,
+                    material: Cesium.Color.fromCssColorString(band.col)
+                }
+            });
+            activePlanetRingEntities.push(ent);
+        });
+    } else if (body.id === 'URANUS') {
+        // Uranus: Ethereal Vertical Cyan Ring System (Tilt: 97.77 deg - Vertical!)
+        const tilt = 97.77 * (Math.PI / 180);
+        const ringBands = [
+            { r: planetRadius * 1.50, w: 3, col: 'rgba(56, 189, 248, 0.55)' },
+            { r: planetRadius * 1.80, w: 6, col: 'rgba(56, 189, 248, 0.85)' }, // Epsilon ring
+            { r: planetRadius * 2.10, w: 4, col: 'rgba(125, 211, 252, 0.65)' }
+        ];
+
+        ringBands.forEach((band, idx) => {
+            const pos = generate3DRingPositions(bodyPos, band.r, tilt, 72);
+            const ent = viewer.entities.add({
+                id: `inspect_ring_URANUS_${idx}`,
+                polyline: {
+                    positions: pos,
+                    width: band.w,
+                    material: Cesium.Color.fromCssColorString(band.col)
+                }
+            });
+            activePlanetRingEntities.push(ent);
+        });
+    }
+}
+
+function inspectCelestialPlanet(body, bodyPos, bodyDir) {
+    // Remove previous inspection sphere and rings
+    clearPlanetInspectionEntities();
 
     const planetRadius = (body.radiusKm || 6000) * 1000;
     const texImage = NASA_PLANET_TEXTURES[body.id] || getPlanetTextureDataUrl(body.id);
@@ -44,26 +154,12 @@ function inspectCelestialPlanet(body, bodyPos, bodyDir) {
         }
     });
 
-    // Add 3D Ring for Saturn with authentic texture pattern
-    if (body.id === 'SATURN') {
-        activePlanetRingEntity = viewer.entities.add({
-            id: `inspect_ring_SATURN`,
-            position: bodyPos,
-            ellipse: {
-                semiMajorAxis: planetRadius * 2.35,
-                semiMinorAxis: planetRadius * 2.35,
-                material: new Cesium.ImageMaterialProperty({
-                    image: 'saturn_ring.png?v=20260821_170',
-                    transparent: true
-                })
-            }
-        });
-    }
+    // Create Genuine 3D Planetary Rings in Space
+    create3DPlanetaryRings(body, bodyPos, planetRadius);
 
     // Lock camera target transform to the planet center!
-    // This unlocks full Mouse Wheel Zoom In / Out and Mouse Drag (D&D) 360° Orbit rotation around the planet!
-    const targetRange = planetRadius * 2.8;
-    const hpr = new Cesium.HeadingPitchRange(0.0, Cesium.Math.toRadians(-15.0), targetRange);
+    const targetRange = planetRadius * ((body.id === 'SATURN' || body.id === 'JUPITER' || body.id === 'URANUS') ? 3.4 : 2.8);
+    const hpr = new Cesium.HeadingPitchRange(0.0, Cesium.Math.toRadians(-22.0), targetRange);
 
     viewer.camera.flyTo({
         destination: Cesium.Cartesian3.add(
@@ -82,6 +178,7 @@ function inspectCelestialPlanet(body, bodyPos, bodyDir) {
         }
     });
 }
+
 
 
 // ==========================================================================
@@ -4559,14 +4656,7 @@ function selectSatellite(index) {
     }
 
     // Reset planet inspection sphere and unlock camera transform
-    if (activePlanetSphereEntity) {
-        viewer.entities.remove(activePlanetSphereEntity);
-        activePlanetSphereEntity = null;
-    }
-    if (activePlanetRingEntity) {
-        viewer.entities.remove(activePlanetRingEntity);
-        activePlanetRingEntity = null;
-    }
+    clearPlanetInspectionEntities();
     if (viewer) {
         viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
     }
@@ -4689,14 +4779,7 @@ function deselectSatellite() {
         targetHighlightEntity = null;
     }
 
-    if (activePlanetSphereEntity) {
-        viewer.entities.remove(activePlanetSphereEntity);
-        activePlanetSphereEntity = null;
-    }
-    if (activePlanetRingEntity) {
-        viewer.entities.remove(activePlanetRingEntity);
-        activePlanetRingEntity = null;
-    }
+    clearPlanetInspectionEntities();
     if (viewer) {
         viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
     }
