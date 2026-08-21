@@ -2002,21 +2002,145 @@ let selectedCelestialId = null;
 function initCelestialBodies() {
     if (!viewer) return;
     
-    // Enable Cesium Real Moon & Sun
+    // Maintain Cesium's Pristine Real Sun & Moon Graphics
     try {
-        if (!viewer.scene.moon) {
-            viewer.scene.moon = new Cesium.Moon();
-        }
-        viewer.scene.moon.show = true;
-        if (!viewer.scene.sun) {
-            viewer.scene.sun = new Cesium.Sun();
-        }
-        viewer.scene.sun.show = true;
+        if (viewer.scene.moon) viewer.scene.moon.show = true;
+        if (viewer.scene.sun) viewer.scene.sun.show = true;
     } catch(e) {
         console.warn("Moon/Sun enable warning:", e);
     }
 
     createCelestialEntities();
+}
+
+function createCelestialBillboard(body) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 160;
+    canvas.height = 80;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, 160, 80);
+
+    if (body.id === 'SUN') {
+        // SUN: Crystal clear luminous text close to corona
+        ctx.font = 'bold 22px "Inter", -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(253, 224, 71, 0.95)';
+        ctx.shadowBlur = 12;
+        ctx.fillStyle = '#fef08a';
+        ctx.fillText('SUN', 80, 40);
+        ctx.fillText('SUN', 80, 40);
+        return canvas;
+    }
+
+    const orbX = 80;
+    const orbY = 24;
+    const orbRadius = 8;
+
+    // 1. Soft Outer Neon Glow
+    const glowGrad = ctx.createRadialGradient(orbX, orbY, 1, orbX, orbY, orbRadius * 2.8);
+    glowGrad.addColorStop(0, body.color || '#ffffff');
+    glowGrad.addColorStop(0.35, body.color || '#ffffff');
+    glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = glowGrad;
+    ctx.beginPath();
+    ctx.arc(orbX, orbY, orbRadius * 2.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 2. Specialized Realistic Planetary Visuals
+    if (body.id === 'SATURN') {
+        // Saturn Ice Rings (Back Layer)
+        ctx.save();
+        ctx.translate(orbX, orbY);
+        ctx.rotate(-0.35);
+        ctx.strokeStyle = 'rgba(253, 224, 71, 0.85)';
+        ctx.lineWidth = 3.5;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, orbRadius * 2.2, orbRadius * 0.7, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(254, 240, 138, 0.9)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, orbRadius * 2.0, orbRadius * 0.6, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+
+        // Saturn Sphere
+        ctx.fillStyle = '#fde047';
+        ctx.beginPath();
+        ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Saturn Bands
+        ctx.fillStyle = 'rgba(202, 138, 4, 0.4)';
+        ctx.fillRect(orbX - orbRadius, orbY - 2, orbRadius * 2, 4);
+    } else if (body.id === 'MOON') {
+        // Moon Base
+        ctx.fillStyle = '#e2e8f0';
+        ctx.beginPath();
+        ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Realistic Lunar Mare (Dark Basalt Plains & Craters)
+        ctx.fillStyle = '#94a3b8';
+        ctx.beginPath();
+        ctx.arc(orbX - 2.5, orbY - 2, 2.5, 0, Math.PI * 2);
+        ctx.arc(orbX + 2, orbY - 1, 2.2, 0, Math.PI * 2);
+        ctx.arc(orbX - 1, orbY + 3, 2.8, 0, Math.PI * 2);
+        ctx.arc(orbX + 3.5, orbY + 2.5, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+    } else if (body.id === 'JUPITER') {
+        // Jupiter Sphere
+        ctx.fillStyle = '#fb923c';
+        ctx.beginPath();
+        ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Cloud Stripes & Great Red Spot
+        ctx.fillStyle = 'rgba(154, 52, 18, 0.6)';
+        ctx.fillRect(orbX - orbRadius, orbY - 3, orbRadius * 2, 2.5);
+        ctx.fillRect(orbX - orbRadius, orbY + 1.5, orbRadius * 2, 2.5);
+        // Great Red Spot
+        ctx.fillStyle = '#dc2626';
+        ctx.beginPath();
+        ctx.arc(orbX + 2.5, orbY + 2.5, 1.6, 0, Math.PI * 2);
+        ctx.fill();
+    } else if (body.id === 'MARS') {
+        // Mars Sphere
+        ctx.fillStyle = '#ef4444';
+        ctx.beginPath();
+        ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // White Polar Ice Cap
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(orbX, orbY - orbRadius + 1.5, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+    } else {
+        // Standard Solid Planet Core
+        ctx.fillStyle = body.color || '#ffffff';
+        ctx.beginPath();
+        ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // White Specular Highlight
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+    ctx.beginPath();
+    ctx.arc(orbX - 2.5, orbY - 2.5, orbRadius * 0.35, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 3. Clear Crisp Name Label below Orb
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+    ctx.shadowBlur = 5;
+    ctx.font = 'bold 15px "Inter", -apple-system, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(body.id, 80, 40);
+
+    return canvas;
 }
 
 function createCelestialEntities() {
@@ -2028,22 +2152,20 @@ function createCelestialEntities() {
     const isVisible = (!toggleCelestial || toggleCelestial.checked);
 
     CELESTIAL_BODIES.forEach(body => {
+        const billboardCanvas = createCelestialBillboard(body);
         const entity = viewer.entities.add({
             id: `celestial_${body.id}`,
             name: body.name,
             position: new Cesium.CallbackProperty((time) => {
                 return computeCelestialPosition(body, time);
             }, false),
-            label: {
-                text: `${body.symbol} ${body.name.split(' ')[0]}`,
-                font: body.id === 'SUN' ? 'bold 15px Inter, sans-serif' : 'bold 13px Inter, sans-serif',
-                style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-                fillColor: body.id === 'SUN' ? Cesium.Color.fromCssColorString('#fde047') : Cesium.Color.fromCssColorString(body.color || '#ffffff'),
-                outlineColor: Cesium.Color.fromCssColorString('#020617'),
-                outlineWidth: 4,
+            billboard: {
+                image: billboardCanvas,
+                width: 80,
+                height: 40,
                 verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
                 horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
-                pixelOffset: body.id === 'SUN' ? new Cesium.Cartesian2(0, -25) : new Cesium.Cartesian2(0, -12),
+                pixelOffset: body.id === 'SUN' ? new Cesium.Cartesian2(0, -8) : new Cesium.Cartesian2(0, 0),
                 show: isVisible,
                 disableDepthTestDistance: Number.POSITIVE_INFINITY
             }
@@ -2058,41 +2180,57 @@ function computeCelestialPosition(body, time) {
 
     const jsDate = Cesium.JulianDate.toDate(time);
     const d = (jsDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0; // Days from J2000.0
+    // Deep space celestial sphere radius (150,000 km, well beyond geostationary satellites)
+    const VISUAL_SKY_RADIUS = 150000000; 
 
+    // 1. Exact Alignment with Cesium's Real Sun Position
     if (body.id === 'SUN') {
+        try {
+            const sunInertial = Cesium.Simon1994PlanetaryPositions.computeSunPositionInInertial(time);
+            const icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);
+            if (sunInertial && icrfToFixed) {
+                const sunFixed = Cesium.Matrix3.multiplyByVector(icrfToFixed, sunInertial, new Cesium.Cartesian3());
+                const direction = Cesium.Cartesian3.normalize(sunFixed, new Cesium.Cartesian3());
+                return Cesium.Cartesian3.multiplyByScalar(direction, VISUAL_SKY_RADIUS, new Cesium.Cartesian3());
+            }
+        } catch(e) {}
+
         const L = (280.460 + 0.9856474 * d) * (Math.PI / 180);
         const g = (357.528 + 0.9856003 * d) * (Math.PI / 180);
         const lambda = L + (1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) * (Math.PI / 180);
         const eps = (23.439 - 0.0000004 * d) * (Math.PI / 180);
-        const r_sun = 149597870700; // 1 AU in meters
-        return new Cesium.Cartesian3(
-            r_sun * Math.cos(lambda),
-            r_sun * Math.sin(lambda) * Math.cos(eps),
-            r_sun * Math.sin(lambda) * Math.sin(eps)
-        );
+        const gmst = (typeof satellite !== 'undefined' && satellite.gstime) ? satellite.gstime(jsDate) : 0;
+        const sunLon = lambda - gmst;
+        const sunLat = Math.asin(Math.sin(eps) * Math.sin(lambda));
+        return Cesium.Cartesian3.fromRadians(sunLon, sunLat, VISUAL_SKY_RADIUS);
     }
 
+    // 2. Exact Alignment with Cesium's Real 3D Moon
     if (body.id === 'MOON') {
+        try {
+            const moonInertial = Cesium.Simon1994PlanetaryPositions.computeMoonPositionInInertial(time);
+            const icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);
+            if (moonInertial && icrfToFixed) {
+                const moonFixed = Cesium.Matrix3.multiplyByVector(icrfToFixed, moonInertial, new Cesium.Cartesian3());
+                return moonFixed;
+            }
+        } catch(e) {}
+
+        const gmst = (typeof satellite !== 'undefined' && satellite.gstime) ? satellite.gstime(jsDate) : 0;
         const L_moon = (218.316 + 13.176396 * d) * (Math.PI / 180);
         const M_moon = (134.963 + 13.064993 * d) * (Math.PI / 180);
         const F_moon = (93.272 + 13.229350 * d) * (Math.PI / 180);
         const lambda_moon = L_moon + (6.289 * Math.sin(M_moon)) * (Math.PI / 180);
         const beta_moon = (5.128 * Math.sin(F_moon)) * (Math.PI / 180);
-        const r_moon = 384400000; // 384,400 km in meters
-        return new Cesium.Cartesian3(
-            r_moon * Math.cos(beta_moon) * Math.cos(lambda_moon),
-            r_moon * Math.cos(beta_moon) * Math.sin(lambda_moon),
-            r_moon * Math.sin(beta_moon)
-        );
+        return Cesium.Cartesian3.fromRadians(lambda_moon - gmst, beta_moon, 384400000);
     }
 
-    // Earth orbital position
+    // 3. Planets Deep Space Positioning in Earth-Fixed frame
     const earthM = (357.529 + 0.98560028 * d) * Math.PI / 180;
     const earthL_corr = (280.466 + 0.98564736 * d + 1.915 * Math.sin(earthM) + 0.020 * Math.sin(2 * earthM)) * Math.PI / 180;
     const xe = Math.cos(earthL_corr);
     const ye = Math.sin(earthL_corr);
 
-    // Planet heliocentric coordinates
     const M = (body.M0 + body.n * d) % 360;
     const M_rad = M * Math.PI / 180;
     const v = M_rad + (2 * body.e - Math.pow(body.e, 3)/4) * Math.sin(M_rad) + 1.25 * Math.pow(body.e, 2) * Math.sin(2 * M_rad);
@@ -2104,13 +2242,26 @@ function computeCelestialPosition(body, time) {
     const yp = r * Math.sin(lon_rad) * Math.cos(I_rad);
     const zp = r * Math.sin(lon_rad) * Math.sin(I_rad);
 
-    // Geocentric (Earth-centric) vector in AU
     const gx = xp - xe;
     const gy = yp - ye;
     const gz = zp;
+    const planetInertial = new Cesium.Cartesian3(gx, gy, gz);
 
-    const AU_TO_METERS = 149597870700;
-    return new Cesium.Cartesian3(gx * AU_TO_METERS, gy * AU_TO_METERS, gz * AU_TO_METERS);
+    try {
+        const icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);
+        if (icrfToFixed) {
+            const planetFixed = Cesium.Matrix3.multiplyByVector(icrfToFixed, planetInertial, new Cesium.Cartesian3());
+            const direction = Cesium.Cartesian3.normalize(planetFixed, new Cesium.Cartesian3());
+            return Cesium.Cartesian3.multiplyByScalar(direction, VISUAL_SKY_RADIUS, new Cesium.Cartesian3());
+        }
+    } catch(e) {}
+
+    const gLen = Math.sqrt(gx*gx + gy*gy + gz*gz) || 1;
+    return new Cesium.Cartesian3(
+        (gx / gLen) * VISUAL_SKY_RADIUS,
+        (gy / gLen) * VISUAL_SKY_RADIUS,
+        (gz / gLen) * VISUAL_SKY_RADIUS
+    );
 }
 
 function selectCelestialBody(bodyId) {
@@ -2164,19 +2315,32 @@ function selectCelestialBody(bodyId) {
 
     detailCard.classList.remove('hidden');
 
-    // Fly camera toward celestial body direction
+    // Camera Flight Navigation
     const camera = viewer.camera;
-    const direction = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
-    const targetLook = Cesium.Cartesian3.multiplyByScalar(direction, 30000000, new Cesium.Cartesian3());
-    
-    camera.flyTo({
-        destination: Cesium.Cartesian3.multiplyByScalar(direction, -25000000, new Cesium.Cartesian3()),
-        orientation: {
-            direction: direction,
-            up: Cesium.Cartesian3.UNIT_Z
-        },
-        duration: 1.5
-    });
+    if (body.id === 'MOON') {
+        // Dramatic Close-up 3D Lunar Surface View!
+        const moonPos = pos;
+        const moonDir = Cesium.Cartesian3.normalize(moonPos, new Cesium.Cartesian3());
+        const moonCamPos = Cesium.Cartesian3.add(moonPos, Cesium.Cartesian3.multiplyByScalar(moonDir, -6500000, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+        camera.flyTo({
+            destination: moonCamPos,
+            orientation: {
+                direction: moonDir,
+                up: Cesium.Cartesian3.UNIT_Z
+            },
+            duration: 2.0
+        });
+    } else {
+        const direction = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+        camera.flyTo({
+            destination: Cesium.Cartesian3.multiplyByScalar(direction, -25000000, new Cesium.Cartesian3()),
+            orientation: {
+                direction: direction,
+                up: Cesium.Cartesian3.UNIT_Z
+            },
+            duration: 1.8
+        });
+    }
 }
 
 function initCesiumViewer() {
