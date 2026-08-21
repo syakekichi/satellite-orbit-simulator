@@ -517,7 +517,7 @@ function getSatDisplayName(name) {
         if (upper.includes('HIMAWARI-9')) return '🇯🇵 HIMAWARI-9 (ひまわり9号 - メイン観測)';
         if (upper.includes('MICHIBIKI-7') || upper.includes('QZS-7')) return '🇯🇵 MICHIBIKI-7 (みちびき7号機 - H3最新打上)';
         if (upper.includes('MICHIBIKI-1R')) return '🇯🇵 MICHIBIKI-1R (みちびき1号R後継機)';
-        if (upper.includes('MICHIBIKI-6')) return '🇯🇵 MICHIBIKI-6 (みちびき6号機 - H3最新打上)';
+        if (upper.includes('MICHIBIKI-6')) return '🇯🇵 MICHIBIKI-6 (みちびき6号機 - 準天頂衛星)';
         if (upper.includes('MICHIBIKI-5')) return '🇯🇵 MICHIBIKI-5 (みちびき5号機)';
         if (upper.includes('MICHIBIKI-1')) return '🇯🇵 MICHIBIKI-1 (みちびき1号初号機)';
         if (upper.includes('MICHIBIKI-2')) return '🇯🇵 MICHIBIKI-2 (みちびき2号機)';
@@ -802,7 +802,7 @@ const TRANSLATIONS = {
         "feat4": "🌐 14-Language Space Encyclopedia & Incremental Search: Comprehensive historical missions (Apollo, Voyager, Cassini, JAXA) and discovery records in 14 languages.",
         "feat5": "🔮 24-Hour Orbital Debris Collision Radar (MOID): Space Situational Awareness (SSA) algorithm detecting close orbital crossings in real time.",
         "feat6": "🛰️ Starlink 2,000-Satellite Mega-Constellation: Full global orbital mesh rendered smoothly in 3D right inside your browser.",
-        "feat7": "🚀 Ultra-Fast Real-Time Spacecraft Integration: Instant inclusion of latest missions like H3-launched QZSS-6 (Michibiki-6) and newly cataloged space debris.",
+        "feat7": "🚀 Ultra-Fast Real-Time Spacecraft Integration: Instant inclusion of latest missions like H3-launched QZSS-7 (Michibiki-7) and newly cataloged space debris.",
         "feat8": "🎬 Silky 1/10 Speed Micro-Zoom Camera Controls: Specialized physics-based scroll interception for cinematic orbit navigation.",
         "feat9": "💎 Unobstructed Floating Island HUD: Fully transparent center view allowing zero-obstruction observation of Earth and polar orbits.",
         "feat10": "🌊 Earth Rotation Wave Ground Tracks (Multi-Lap): Visualization of orbital plane precession and sine-wave ground tracks in 3D space.",
@@ -1650,7 +1650,7 @@ const TRANSLATIONS = {
         "feat4": "🌐 Ensiklopedia Antariksa dan pencarian benda langit dalam 14 bahasa.",
         "feat5": "🔮 Radar Peringatan Tabrakan Sampah Antariksa 24 Jam (MOID) Real-Time.",
         "feat6": "🛰️ Mega-Konstelasi 2.000 Satelit Starlink dalam visual 3D mulus.",
-        "feat7": "🚀 Integrasi Tercepat Misi Satelit Terbaru (termasuk Michibiki-6).",
+        "feat7": "🚀 Integrasi Tercepat Misi Satelit Terbaru (termasuk Michibiki-7).",
         "feat8": "🎬 Kontrol Zoom Mikro 1/10 Kecepatan yang Sangat Halus.",
         "feat9": "💎 HUD Melayang Transparan yang Memberikan Pandangan Penuh ke Bumi.",
         "feat10": "🌊 Visualisasi Jejak Gelombang 3D Akibat Rotasi Bumi (Multi-Lap).",
@@ -3475,8 +3475,8 @@ const SATELLITE_DESCRIPTIONS = {
     "MICHIBIKI-6": {
         "country": "🇯🇵 日本 (内閣府 / CAO)",
         "country_en": "🇯🇵 Japan (Cabinet Office)",
-        "ja": "【準天頂衛星「みちびき6号機」(QZSS-6)】\n■ 開発・運用組織: 内閣府 宇宙開発戦略推進事務局\n■ 打上げ日・ロケット: 2026年 / H3ロケット\n■ 軌道諸元: 高度約32,600〜39,000km / 準天頂軌道 (8の字軌道)\n■ 役割: 準天頂7機体制を完成させ、自動運転・ドローン向けにセンチメートル級測位補強信号(CLAS)を24時間配信。",
-        "en": "[Quasi-Zenith Satellite \"MICHIBIKI-6\" (QZSS-6)]\n■ Organization: Cabinet Office of Japan\n■ Launch: H3 Rocket\n■ Mission: Completes the 7-satellite QZSS constellation for cm-level positioning.",
+        "ja": "【準天頂衛星「みちびき6号機」(QZSS-6)】\n■ 開発・運用組織: 内閣府 宇宙開発戦略推進事務局\n■ 打上げ日・ロケット: 2025年 / H3ロケット\n■ 軌道諸元: 高度約32,600〜39,000km / 準天頂軌道 (8の字軌道)\n■ 役割: 準天頂7機体制を担う主力測位衛星。自動運転・ドローン向けにセンチメートル級測位補強信号(CLAS)を24時間配信。",
+        "en": "[Quasi-Zenith Satellite \"MICHIBIKI-6\" (QZSS-6)]\n■ Organization: Cabinet Office of Japan\n■ Launch: H3 Rocket\n■ Mission: Key positioning satellite of the 7-satellite QZSS constellation for cm-level positioning.",
         "de": "[Quasi-Zenit-Satellit \"MICHIBIKI-6\" (QZSS-6)].",
         "fr": "[Satellite \"MICHIBIKI-6\" (QZSS-6)].",
         "es": "[Satélite \"MICHIBIKI-6\" (QZSS-6)].",
