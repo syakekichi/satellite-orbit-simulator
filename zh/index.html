@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SatViewer3D | リアルタイム3D人工衛星・宇宙デブリシミュレーター</title>
+    <base href="/">
+    <title>SatViewer3D | 实时3D人造卫星与空间碎片轨道模拟器</title>
     
-    <!-- SEO & Multilingual Search Optimization Meta Tags -->
-    <meta name="description" content="SatViewer3Dは、地球周回軌道上の人工衛星（ISS、Starlink、ひまわり、みちびき）や宇宙デブリをリアルタイムに3D表示・追跡・軌道計算するWebシミュレーターです。衝突予測・上空通過予報対応。 / Real-time 3D Satellite & Space Debris Tracker. Live 3D orbital simulation of ISS, Starlink, weather satellites, and debris with collision risk analysis.">
-    <meta name="keywords" content="SatViewer3D, 人工衛星, 宇宙デブリ, 軌道シミュレーター, ISS, Starlink, ひまわり, みちびき, リアルタイム, Satellite Tracker, Orbit Visualizer, Space Debris, 3D, Satellite Pass">
+    <!-- SEO & Search Optimization Meta Tags -->
+    <meta name="description" content="SatViewer3D 是一款免费的实时 3D 轨道跟踪模拟器。实时追踪国际空间站 (ISS)、星链 (Starlink)、北斗、气象卫星及太空垃圾，具备碰撞风险预测与过境预报功能。">
+    <meta name="keywords" content="SatViewer3D, 人造卫星追踪, 3D轨道模拟器, 空间碎片, 太空垃圾, 国际空间站追踪, 星链追踪, 实时卫星地图, 北斗卫星">
     <meta name="author" content="SatViewer3D">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://satviewer3d.com/">
+    <link rel="canonical" href="https://satviewer3d.com/zh/">
     
-    <!-- Multilingual Alternate Links (hreflang) for Global Google Search Engines -->
+    <!-- Multilingual Alternate Links (hreflang) -->
     <link rel="alternate" hreflang="ja" href="https://satviewer3d.com/">
     <link rel="alternate" hreflang="en" href="https://satviewer3d.com/en/">
     <link rel="alternate" hreflang="es" href="https://satviewer3d.com/es/">
@@ -20,23 +21,23 @@
     <link rel="alternate" hreflang="ru" href="https://satviewer3d.com/ru/">
     <link rel="alternate" hreflang="x-default" href="https://satviewer3d.com/en/">
 
-    <!-- OGP (Open Graph Protocol) for Social & Search Previews -->
+    <!-- OGP (Open Graph Protocol) -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="SatViewer3D | リアルタイム3D人工衛星・宇宙デブリシミュレーター">
-    <meta property="og:description" content="地球周回軌道上の人工衛星や宇宙デブリをリアルタイムに3D可視化・追跡。ISS・Starlink・みちびきの軌道計算や衝突予測に対応。">
-    <meta property="og:url" content="https://satviewer3d.com/">
+    <meta property="og:title" content="SatViewer3D | 实时3D人造卫星与空间碎片轨道模拟器">
+    <meta property="og:description" content="实时3D可视化追踪国际空间站 (ISS)、星链、北斗导航卫星及太空碎片，提供轨道计算与碰撞预警。">
+    <meta property="og:url" content="https://satviewer3d.com/zh/">
     <meta property="og:site_name" content="SatViewer3D">
     <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
-    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale" content="zh_CN">
     <meta property="og:locale:alternate" content="en_US">
-    <meta property="og:locale:alternate" content="zh_CN">
+    <meta property="og:locale:alternate" content="ja_JP">
     <meta property="og:locale:alternate" content="es_ES">
     <meta property="og:locale:alternate" content="ru_RU">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SatViewer3D | Real-time 3D Satellite & Space Debris Visualizer">
-    <meta name="twitter:description" content="Track thousands of satellites and space debris in real-time 3D. Explore ISS, Starlink constellations, weather satellites, and collision predictions.">
+    <meta name="twitter:title" content="SatViewer3D | 实时3D人造卫星与空间碎片轨道模拟器">
+    <meta name="twitter:description" content="在实时 3D 空间中探索数千颗人造卫星与空间碎片。">
     <meta name="twitter:image" content="https://satviewer3d.com/feature_graphic.png">
 
     <!-- JSON-LD Structured Data for Google Rich Snippets -->
@@ -45,25 +46,25 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "SatViewer3D",
-      "alternateName": ["SatViewer 3D", "リアルタイム3D人工衛星シミュレーター", "Real-time 3D Satellite Visualizer"],
-      "url": "https://satviewer3d.com/",
+      "alternateName": ["SatViewer 3D", "实时3D人造卫星模拟器"],
+      "url": "https://satviewer3d.com/zh/",
       "image": "https://satviewer3d.com/feature_graphic.png",
-      "description": "SatViewer3D is a real-time 3D satellite and space debris orbit tracking visualizer. リアルタイム3D人工衛星・宇宙デブリ軌道シミュレーター。",
+      "description": "SatViewer3D 是一款免费的实时 3D 卫星与太空碎片轨道追踪模拟器。",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "All",
       "browserRequirements": "Requires WebGL support",
-      "inLanguage": ["ja", "en", "zh", "es", "ru"],
+      "inLanguage": ["zh", "en", "ja", "es", "ru"],
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
       },
       "featureList": [
-        "Real-time 3D Orbit Visualization",
-        "ISS & Starlink Satellite Tracking",
-        "24h Space Debris Collision Risk Analysis",
-        "Pass Prediction & Ground Track",
-        "5 Multi-language Support (JA, EN, ZH, ES, RU)"
+        "实时 3D 轨道可视化",
+        "ISS 与 Starlink 卫星跟踪",
+        "24小时太空碎片碰撞风险分析",
+        "过境预报与地面轨迹",
+        "支持 5 种主流语言 (中文, 英文, 日文, 西文, 俄文)"
       ]
     }
     </script>
@@ -127,7 +128,7 @@
                     </div>
                     <div>
                         <h1 class="app-title">SatViewer3D</h1>
-                        <p class="app-subtitle">Real-time Satellite & Space Debris 3D Visualizer</p>
+                        <p class="app-subtitle">实时人造卫星与空间碎片 3D 可视化</p>
                     </div>
                 </div>
             </div>
@@ -135,17 +136,17 @@
             <!-- Right Island: Quick Stats & Language Selector -->
             <div id="headerRightIsland" class="header-right-island glass-panel">
                 <div class="panel-drag-bar drag-handle" style="margin-bottom:4px; padding:2px 4px; font-size:0.65rem; display:flex; justify-content:space-between; align-items:center;">
-                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">ドラッグで移動</span></div>
-                    <button id="toggleHeaderMinBtn" class="panel-min-btn" title="最小化 / 展開">➖</button>
+                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">拖拽移动</span></div>
+                    <button id="toggleHeaderMinBtn" class="panel-min-btn" title="最小化 / 展开">➖</button>
                 </div>
                 <div id="headerIslandContent" class="card-collapsible-content">
                     <div class="stats-pills">
                     <div class="stat-pill">
-                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">追跡衛星数</span>
+                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">追踪卫星数</span>
                         <span class="stat-value" id="statCount">0</span>
                     </div>
                     <div class="stat-pill">
-                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">シミュレーション時刻</span>
+                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">模拟时间</span>
                         <span class="stat-value mono-text" id="statTime">--:--:--</span>
                     </div>
                     <div class="stat-pill" style="padding: 4px 10px; display: flex; align-items: center; gap: 6px; border-color: rgba(56,189,248,0.5); background: rgba(56, 189, 248, 0.08);">
@@ -155,15 +156,15 @@
                             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                         </svg>
                         <select id="langSelect" class="custom-select" style="padding: 2px 4px; font-size: 0.78rem; font-weight:700; border: none; background: transparent; color: #38bdf8; cursor: pointer;" onchange="window.changeLanguage(this.value)">
-                            <option value="ja" selected style="background:#0b1329; color:#fff;">🇯🇵 日本語</option>
+                            <option value="ja" style="background:#0b1329; color:#fff;">🇯🇵 日本語</option>
                             <option value="en" style="background:#0b1329; color:#fff;">🇺🇸 English</option>
-                            <option value="zh" style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
+                            <option value="zh" selected style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
                             <option value="es" style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
                             <option value="ru" style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
                         </select>
                     </div>
                     <button id="openGuideBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer;" data-i18n="btnGuide">
-                        ❓ ガイド & 規約
+                        ❓ 指南与条款
                     </button>
                 </div>
                 </div>
@@ -173,26 +174,26 @@
         <!-- Sidebar Navigation & Control -->
         <aside id="sidebarPanel" class="hud-sidebar glass-panel">
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">ドラッグでパネル移動</span></div>
-                <button id="toggleSidebarMinBtn" class="panel-min-btn" title="最小化 / 展開">➖</button>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ 拖拽面板</span></div>
+                <button id="toggleSidebarMinBtn" class="panel-min-btn" title="最小化 / 展开">➖</button>
             </div>
             <div id="sidebarContent" class="sidebar-collapsible-content">
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <span data-i18n="secSelect">衛星を選択・検索</span>
+                    <span data-i18n="secSelect">选择 / 搜索卫星</span>
                 </h2>
                 
                 <!-- Dropdown Selector -->
                 <div class="select-box">
                     <select id="satSelect" class="custom-select">
-                        <option value="" data-i18n="selectPlaceholder">-- 衛星を一覧から選択 --</option>
+                        <option value="" data-i18n="selectPlaceholder">-- 请选择卫星或太空垃圾 --</option>
                     </select>
                 </div>
 
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="または衛星名・NORAD IDで検索..." autocomplete="off">
-                    <button id="clearSearch" class="btn-icon hidden" title="クリア">&times;</button>
+                    <input type="text" id="searchInput" placeholder="或输入卫星名称、NORAD ID 搜索..." autocomplete="off">
+                    <button id="clearSearch" class="btn-icon hidden" title="清除">&times;</button>
                 </div>
                 <div id="searchResults" class="search-results-list"></div>
             </div>
@@ -200,85 +201,85 @@
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                    <span data-i18n="secSource">衛星データソース & プリセット</span>
+                    <span data-i18n="secSource">卫星数据源与预设</span>
                 </h2>
                 <div class="source-buttons">
-                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ 主要・有名衛星 (ひまわり, ISS, みちびき, デブリ)</button>
-                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Starlink 全衛星コンステレーション (2,000機)</button>
+                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ 主要卫星 (空间站, 星链, 气象, 碎片)</button>
+                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Starlink 星链完整星座 (2,000颗)</button>
                 </div>
-                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ 主要・有名衛星プリセット読込済</div>
+                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ 已加载主要卫星预设</div>
             </div>
 
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span data-i18n="secTime">時間コントロール & 倍速設定</span>
+                    <span data-i18n="secTime">时间控制与倍速</span>
                 </h2>
                 <div class="speed-buttons">
-                    <button class="speed-btn" data-speed="0" data-i18n="speedStop">⏸️ 停止</button>
-                    <button class="speed-btn active" data-speed="1" data-i18n="speedReal">▶️ 1x (リアル)</button>
+                    <button class="speed-btn" data-speed="0" data-i18n="speedStop">⏸️ 暂停</button>
+                    <button class="speed-btn active" data-speed="1" data-i18n="speedReal">▶️ 1x (实时)</button>
                     <button class="speed-btn" data-speed="10">⏩ 10x</button>
                     <button class="speed-btn" data-speed="100">⏩ 100x</button>
                     <button class="speed-btn" data-speed="1000">🚀 1000x</button>
                 </div>
                 <div class="time-adjust-row">
                     <input type="datetime-local" id="timePickerInput" class="custom-select" style="font-size: 0.8rem; padding: 6px;">
-                    <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="現在時刻へ復帰" data-i18n="resetNow">🔄 現在時刻</button>
+                    <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="重置为当前时间" data-i18n="resetNow">🔄 当前时间</button>
                 </div>
             </div>
 
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    <span data-i18n="secDisplay">表示設定</span>
+                    <span data-i18n="secDisplay">显示设置</span>
                 </h2>
                 <div class="control-group">
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleLabels" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleLabels">3D空間に衛星名ラベルを表示</span>
+                        <span class="toggle-label" data-i18n="toggleLabels">显示 3D 空间卫星标签</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleOrbits" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleOrbits">選択衛星の軌道を表示</span>
+                        <span class="toggle-label" data-i18n="toggleOrbits">显示所选卫星轨道</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleMultiLap" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 複数周回軌跡を表示 (地球自転の波状パターン)</span>
+                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 显示多圈轨迹 (地球自转波浪模式)</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleAtmosphere" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleAtmosphere">大気圏 & ライティング</span>
+                        <span class="toggle-label" data-i18n="toggleAtmosphere">大气层与太阳光照</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggle2D">
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggle2D">2D世界地図モード</span>
+                        <span class="toggle-label" data-i18n="toggle2D">2D 世界地图模式</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleBorders" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleBorders">🌐 国境線 & 地名ラベル</span>
+                        <span class="toggle-label" data-i18n="toggleBorders">🌐 国界线与城市地名</span>
                     </label>
-                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="3D空間に漂うすべてのデブリをパープル色に発光点灯させ、空間上のデブリ群の分布を一目で視覚化します">
+                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="碎片分析">
                         <input type="checkbox" id="toggleDebrisRisk">
                         <span class="slider purple-slider"></span>
-                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 3Dデブリ危険ビジュアル分析 (全デブリをパープル発光)</span>
+                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 空间碎片危险分析</span>
                     </label>
 
                     <div class="control-group" style="margin-top: 12px; display: flex; flex-direction: column; gap: 4px;">
-                        <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="labelTimezone">時刻表示タイムゾーン</span>
+                        <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="labelTimezone">时间显示时区</span>
                         <select id="tzSelect" class="custom-select" style="padding: 6px 10px; font-size: 0.8rem;">
-                            <option value="JST" selected>🇯🇵 日本標準時 (JST / UTC+9)</option>
-                            <option value="UTC">🌐 協定世界時 (UTC)</option>
-                            <option value="NY">🇺🇸 ニューヨーク時間 (EST/EDT)</option>
-                            <option value="CST">🇨🇳 中国標準時 (CST / UTC+8)</option>
-                            <option value="CET">🇪🇸 中央欧州時間 (CET / UTC+1)</option>
-                            <option value="MSK">🇷🇺 モスクワ時間 (MSK / UTC+3)</option>
-                            <option value="LOCAL">💻 ローカル時間 (ブラウザ依存)</option>
+                            <option value="CST" selected>🇨🇳 中国标准时间 (CST / UTC+8)</option>
+                            <option value="UTC">🌐 协调世界时 (UTC)</option>
+                            <option value="NY">🇺🇸 纽约时间 (EST/EDT)</option>
+                            <option value="CET">🇪🇸 中欧时间 (CET)</option>
+                            <option value="JST">🇯🇵 日本标准时间 (JST)</option>
+                            <option value="MSK">🇷🇺 莫斯科时间 (MSK)</option>
+                            <option value="LOCAL">💻 本地浏览器时间</option>
                         </select>
                     </div>
                 </div>
@@ -293,28 +294,28 @@
         <!-- 3D Camera Direction Control D-Pad HUD -->
         <div id="cameraDPad" class="camera-dpad-hud glass-panel">
             <div class="panel-drag-bar drag-handle" style="margin-bottom:6px; padding:4px 8px; font-size:0.68rem; display:flex; justify-content:space-between; align-items:center; width:100%;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">カメラ視点移動</span></div>
-                <button id="toggleCamMinBtn" class="panel-min-btn" title="最小化 / 展開">➖</button>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">相机控制</span></div>
+                <button id="toggleCamMinBtn" class="panel-min-btn" title="最小化 / 展开">➖</button>
             </div>
             <div id="dpadContent" class="card-collapsible-content">
                 <div class="dpad-grid">
                 <div></div>
-                <button class="dpad-btn dpad-up" id="btnCamUp" title="上へ視点移動 (▲)">▲</button>
+                <button class="dpad-btn dpad-up" id="btnCamUp" title="向上 (▲)">▲</button>
                 <div></div>
-                <button class="dpad-btn dpad-left" id="btnCamLeft" title="左へ視点移動 (◀)">◀</button>
-                <button class="dpad-btn dpad-reset" id="btnCamReset" title="視点リセット (🏠)">🏠</button>
-                <button class="dpad-btn dpad-right" id="btnCamRight" title="右へ視点移動 (▶)">▶</button>
+                <button class="dpad-btn dpad-left" id="btnCamLeft" title="向左 (◀)">◀</button>
+                <button class="dpad-btn dpad-reset" id="btnCamReset" title="重置 (🏠)">🏠</button>
+                <button class="dpad-btn dpad-right" id="btnCamRight" title="向右 (▶)">▶</button>
                 <div></div>
-                <button class="dpad-btn dpad-down" id="btnCamDown" title="下へ視点移動 (▼)">▼</button>
+                <button class="dpad-btn dpad-down" id="btnCamDown" title="向下 (▼)">▼</button>
                 <div></div>
             </div>
             </div>
         </div>
         <div id="detailCard" class="hud-card glass-panel hidden">
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">ドラッグで詳細カード移動</span></div>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">拖拽卡片</span></div>
                 <div style="display:flex; gap:6px; align-items:center;">
-                    <button id="toggleDetailMinBtn" class="panel-min-btn" title="最小化 / 展開">➖</button>
+                    <button id="toggleDetailMinBtn" class="panel-min-btn" title="最小化 / 展开">➖</button>
                     <button id="closeDetail" class="btn-close" style="position:static;">&times;</button>
                 </div>
             </div>
@@ -323,7 +324,7 @@
                 <span class="badge badge-accent" id="satBadge">STARLINK</span>
                 <h3 id="satName" class="card-title">STARLINK-XXXX</h3>
                 <p id="satNorad" class="card-subtitle">NORAD ID: ------</p>
-                <div id="satDescription" class="sat-description-text">衛星の説明テキスト</div>
+                <div id="satDescription" class="sat-description-text">卫星描述信息</div>
             </div>
             <div class="card-body grid-2col">
                 <div class="data-item">
@@ -335,40 +336,40 @@
                     <span class="data-value" id="satVel">--- km/s</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelLat">緯度 (Latitude)</span>
+                    <span class="data-label" data-i18n="labelLat">纬度 (Latitude)</span>
                     <span class="data-value" id="satLat">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelLon">経度 (Longitude)</span>
+                    <span class="data-label" data-i18n="labelLon">经度 (Longitude)</span>
                     <span class="data-value" id="satLon">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelInc">軌道傾斜角 (Inclination)</span>
+                    <span class="data-label" data-i18n="labelInc">轨道倾角 (Inclination)</span>
                     <span class="data-value" id="satInc">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelPeriod">周期 (Period)</span>
+                    <span class="data-label" data-i18n="labelPeriod">运行周期 (Period)</span>
                     <span class="data-value" id="satPeriod">--- min</span>
                 </div>
                 <div class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.25);">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 上空通過予報 (現在地: 東京上空)</span>
-                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPSで現在地更新" data-i18n="btnGeo">📍現在地</button>
+                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 下次过境预报</span>
+                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPS定位" data-i18n="btnGeo">📍当前位置</button>
                     </div>
-                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">次回計算中...</span>
-                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">通過見込み: 算出中</span>
+                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">正在计算...</span>
+                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">过境时间计算中</span>
                 </div>
                 <div id="debrisRiskRow" class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.4);">
-                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 宇宙デブリ最接近 (衝突予測)</span>
-                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 SAFE</span>
+                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 空间碎片最接近 (MOID 碰撞预警)</span>
+                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 安全 (SAFE)</span>
                 </div>
             </div>
             <div class="card-actions">
                 <button class="btn btn-primary" id="trackBtn">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
-                    <span data-i18n="btnTrack">🎯 追跡カメラフォーカス</span>
+                    <span data-i18n="btnTrack">🎯 锁定追踪</span>
                 </button>
-                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 追跡解除</button>
+                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 解除锁定</button>
             </div>
             </div>
         </div>
@@ -378,7 +379,7 @@
             <span class="pointer-arrow" id="pointerArrow">👈</span>
             <div class="pointer-content">
                 <span class="pointer-name" id="pointerName">SATELLITE</span>
-                <span class="pointer-hint" data-i18n="pointerHint">画面外にあります (クリックでカメラ移動)</span>
+                <span class="pointer-hint" data-i18n="pointerHint">在视野外 (点击移动相机)</span>
             </div>
         </div>
 
@@ -386,65 +387,51 @@
         <div id="guideModal" class="modal-overlay hidden">
             <div class="modal-content glass-panel">
                 <div class="modal-header">
-                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D 操作ガイド & 利用規約</h2>
+                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D 操作指南与条款</h2>
                     <button id="closeGuideBtn" class="btn-close">&times;</button>
                 </div>
                 <div class="modal-tabs">
-                    <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 操作方法</button>
-                    <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ 免責事項</button>
-                    <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 プライバシーポリシー</button>
-                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ サイト情報</button>
+                    <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 操作指南</button>
+                    <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ 免责声明</button>
+                    <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 隐私政策</button>
+                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ 关于网站</button>
                 </div>
                 <div class="modal-body">
                     <!-- Tab 1: Controls -->
                     <div id="tabControls" class="tab-content active">
-                        <h3 data-i18n="guideTitleControls">🖱️ 3D 空間の操作ガイド</h3>
+                        <h3 data-i18n="guideTitleControls">🖱️ 3D 空间导航指南</h3>
                         <ul class="guide-list">
-                            <li><strong data-i18n="guideWheel">マウスホイール / タッチ操作</strong>: <span data-i18n="guideWheelDesc">絹のように滑らかな 1/10 速度でズームイン / ズームアウト。</span></li>
-                            <li><strong data-i18n="guideDrag">左ドラッグ</strong>: <span data-i18n="guideDragDesc">地球を全方向（360度）自由回転。</span></li>
-                            <li><strong data-i18n="guideTilt">右ドラッグ / Ctrl + ドラッグ</strong>: <span data-i18n="guideTiltDesc">カメラの角度（チルト・俯瞰視点）を変更。</span></li>
-                            <li><strong data-i18n="guideClick">衛星をクリック / 検索</strong>: <span data-i18n="guideClickDesc">衛生を選択し、リアルタイム軌道・高度・速度・衝突危険度を表示。</span></li>
-                            <li><strong data-i18n="guideFocus">🎯 追跡カメラフォーカス</strong>: <span data-i18n="guideFocusDesc">選択した衛星をカメラが自動追跡。</span></li>
-                            <li><strong data-i18n="guideRadar">🔮 宇宙デブリ危険分析</strong>: <span data-i18n="guideRadarDesc">今後24時間の軌道交差予測 (MOID) をリアルタイム表示。</span></li>
+                            <li><strong data-i18n="guideWheel">滚轮 / 触摸手势</strong>: <span data-i18n="guideWheelDesc">1/10 微速丝滑平稳缩放。</span></li>
+                            <li><strong data-i18n="guideDrag">左键拖拽</strong>: <span data-i18n="guideDragDesc">全向 360 度自由旋转地球。</span></li>
+                            <li><strong data-i18n="guideTilt">右键拖拽 / Ctrl + 拖拽</strong>: <span data-i18n="guideTiltDesc">调整俯仰视角。</span></li>
+                            <li><strong data-i18n="guideClick">点击 / 搜索卫星</strong>: <span data-i18n="guideClickDesc">查看实时高度、速度及碎片接近预警。</span></li>
+                            <li><strong data-i18n="guideFocus">🎯 锁定追踪</strong>: <span data-i18n="guideFocusDesc">相机自动锁定跟随运行中的卫星。</span></li>
+                            <li><strong data-i18n="guideRadar">🔮 碎片碰撞预警</strong>: <span data-i18n="guideRadarDesc">实时计算未来 24 小时轨道交会 (MOID)。</span></li>
                         </ul>
                     </div>
 
                     <!-- Tab 2: Disclaimer -->
                     <div id="tabDisclaimer" class="tab-content">
-                        <h3 data-i18n="guideTitleDisclaimer">⚠️ 免責事項 (Disclaimer)</h3>
-                        <p data-i18n="discText1">SatViewer3D（以下、「本シミュレーター」）が提供する軌道データ、衛星位置、上空通過予報、および宇宙デブリ最接近危険度の予測計算は、CelesTrak および Space-Track の公開 TLE データに基づき教育・観測補助・科学的探求を目的としてリアルタイム計算されています。</p>
-                        <p data-i18n="discText2">本シミュレーターのデータは、実際の宇宙船や人工衛星の運用、衝突回避操作等の安全保証を目的としたものではありません。本情報の利用により発生したいかなる損害についても、運営者は一切の責任を負いかねます。</p>
+                        <h3 data-i18n="guideTitleDisclaimer">⚠️ 免责声明 (Disclaimer)</h3>
+                        <p data-i18n="discText1">SatViewer3D 提供的所有轨道位置与预警均基于 CelesTrak 和 Space-Track 公开 TLE 数据实时计算，仅供科普、天文观测与研究使用。</p>
+                        <p data-i18n="discText2">本站数据不用于真实航天器变轨或避撞导航，开发者不对任何使用后果承担责任。</p>
                     </div>
 
                     <!-- Tab 3: Privacy Policy -->
                     <div id="tabPrivacy" class="tab-content">
-                        <h3 data-i18n="guideTitlePrivacy">🔒 プライバシーポリシー (Google AdSense 準拠)</h3>
-                        <p><strong data-i18n="privText1Title">広告の配信について:</strong><br><span data-i18n="privText1Desc">本サイトでは、第三者配信事業者（Google AdSense 等）による広告サービスを利用する場合があります。広告事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、本サイトや他サイトへのアクセスに関する情報 Cookie（氏名、住所、メール アドレス、電話番号は含まれません）を使用することがあります。</span></p>
-                        <p><strong data-i18n="privText2Title">アクセス解析ツールについて:</strong><br><span data-i18n="privText2Desc">本サイトでは、アクセス解析ツールを利用してトラフィックデータを収集する場合があります。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。</span></p>
+                        <h3 data-i18n="guideTitlePrivacy">🔒 隐私政策 (Google AdSense 准则)</h3>
+                        <p><strong data-i18n="privText1Title">关于广告服务:</strong><br><span data-i18n="privText1Desc">本网站可能使用第三方广告服务（如 Google AdSense），可能会使用匿名 Cookie 来展示相关广告。</span></p>
+                        <p><strong data-i18n="privText2Title">关于访问统计:</strong><br><span data-i18n="privText2Desc">我们使用分析工具收集匿名的流量数据。</span></p>
                     </div>
 
                     <!-- Tab 4: About & Contact -->
                     <div id="tabAbout" class="tab-content">
-                        <h3 data-i18n="guideTitleAbout">ℹ️ SatViewer3D について</h3>
-                        <p data-i18n="aboutText1">SatViewer3D は、地球周回軌道上の人工衛星（ひまわり、みちびき、ISS、Starlink等）および宇宙デブリ（スペースデブリ）のリアルタイム 3D 可視化シミュレーターです。</p>
+                        <h3 data-i18n="guideTitleAbout">ℹ️ 关于 SatViewer3D</h3>
+                        <p data-i18n="aboutText1">SatViewer3D 是一款针对人造卫星（空间站、星链、北斗等）与空间碎片的实时 3D 可视化模拟器。</p>
                         
-                        <div class="about-highlights" style="margin: 14px 0; padding: 14px 16px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 8px;">
-                            <h4 style="margin:0 0 10px 0; color:#38bdf8; font-size:0.95rem; font-weight:700;" data-i18n="aboutFeaturesTitle">🌟 NASA公開ツールを超越する『SatViewer3D』の 8 大世界最高峰機能</h4>
-                            <ul style="margin:0; padding-left:18px; font-size:0.83rem; color:#e2e8f0; line-height:1.7;">
-                                <li data-i18n="feat1">🚀 <strong>世界最速級 最新衛星組み込み</strong>: H3ロケット打ち上げ「みちびき6号機 (QZSS-6)」含む最新衛星・デブリ群をどこよりも早く組み込み。</li>
-                                <li data-i18n="feat2">🔮 <strong>NASA/JAXA管制室レベル 24hデブリ衝突予測</strong>: 宇宙状況把握 (SSA) アルゴリズムによる今後24時間の全デブリ最接近 (MOID) リアルタイム探知。</li>
-                                <li data-i18n="feat3">🎬 <strong>映画のように滑らかな 1/10 速度カメラ操作</strong>: 特有の物理スクロールインターセプトによる絹のように吸い付く超微細ズーム。</li>
-                                <li data-i18n="feat4">🌐 <strong>スマート自動言語判定 ＆ 5大言語対応</strong>: 海外アクセス自動英語化 ＆ 5大言語 (日英中西露) 0秒一括全切り替え。</li>
-                                <li data-i18n="feat5">💎 <strong>地球視界を 100% 遮らない 浮遊アイランドHUD</strong>: 画面中央を完全透過開放し、地球と極軌道を障害物ゼロで観測。</li>
-                                <li data-i18n="feat6">🌊 <strong>地球自転の波状パターン可視化 (Multi-Lap)</strong>: 地球の自転に伴う軌道面歳差のサインカーブ波状軌跡を 3D 空間で表現。</li>
-                                <li data-i18n="feat7">☀️ <strong>リアルタイム太陽光陰影 ＆ 大気圏描画</strong>: 太陽の角度に応じた昼夜グラデーション (Lighting) ＆ 青い大気ベール。</li>
-                                <li data-i18n="feat8">👁️ <strong>超高コントラスト 国境線・都市名ラベル</strong>: 宇宙空間の暗闇でも全地球の都市と境界線がくっきり浮き出る高輝度表示。</li>
-                            </ul>
-                        </div>
-
-                        <p><strong>Data & Orbit Sources:</strong> NORAD / Space-Track (Public TLE Data), JAXA & NASA (Mission Specs)</p>
+                        <p><strong>Data & Orbit Sources:</strong> NORAD / Space-Track (公开 TLE 数据), JAXA & NASA</p>
                         <p><strong>Domain:</strong> satviewer3d.com</p>
-                        <p><strong data-i18n="aboutContactTitle">お問い合わせ:</strong> <span data-i18n="aboutContactDesc">ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。</span></p>
+                        <p><strong data-i18n="aboutContactTitle">联系我们:</strong> <span data-i18n="aboutContactDesc">如有问题或建议，请联系 info@satviewer3d.com</span></p>
                         <p style="margin-top: 18px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.78rem; color: var(--text-muted);">&copy; <span class="copyrightYearRef">2026</span> SatViewer3D. All Rights Reserved.</p>
                     </div>
                 </div>
@@ -455,7 +442,7 @@
         <div id="loadingOverlay" class="loading-overlay hidden" style="display:none;">
             <div class="spinner-container">
                 <div class="spinner"></div>
-                <p id="loadingText" class="loading-text">衛星データを計算・ロード中...</p>
+                <p id="loadingText" class="loading-text">正在计算并加载卫星轨道数据...</p>
             </div>
         </div>
     </div>

@@ -4,6 +4,19 @@
 
 // Smart Auto Language Detection (Defaults to English for International Visitors)
 function detectDefaultLanguage() {
+    // 1. Prioritize HTML lang attribute from current landing page (for /en/, /es/, /zh/, /ru/, etc.)
+    const htmlLang = document.documentElement.getAttribute('lang');
+    if (htmlLang && ['ja', 'en', 'zh', 'es', 'ru'].includes(htmlLang)) {
+        return htmlLang;
+    }
+
+    // 2. Check URL pathname
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('/en')) return 'en';
+    if (path.includes('/es')) return 'es';
+    if (path.includes('/zh')) return 'zh';
+    if (path.includes('/ru')) return 'ru';
+
     const saved = localStorage.getItem('sat_lang');
     if (saved) return saved;
 
@@ -1495,47 +1508,53 @@ function calculateCartesianPosition(sat, jsDate, gmst) {
  * Update Satellite positions & Sync HTML DOM Labels to Screen Coordinates
  */
 function updateSatellitePositions(jsDate) {
-    if (!satellitesData.length) return;
+    if (!satellitesData || !satellitesData.length) return;
 
-    const gmst = satellite.gstime(jsDate);
-    const showLabels = toggleLabels ? toggleLabels.checked : true;
-    const canvasWidth = viewer.canvas.clientWidth;
-    const canvasHeight = viewer.canvas.clientHeight;
+    try {
+        const gmst = satellite.gstime(jsDate);
+        const showLabels = toggleLabels ? toggleLabels.checked : true;
+        const canvasWidth = viewer && viewer.canvas ? viewer.canvas.clientWidth : window.innerWidth;
+        const canvasHeight = viewer && viewer.canvas ? viewer.canvas.clientHeight : window.innerHeight;
 
-    satellitesData.forEach((sat, index) => {
-        const result = calculateCartesianPosition(sat, jsDate, gmst);
+        satellitesData.forEach((sat, index) => {
+            if (!sat || !sat.primitive) return;
 
-        if (result && result.cartesian) {
-            sat.primitive.position = result.cartesian;
-            sat.primitive.show = true;
-            sat.currentCartesian = result.cartesian;
-            sat.currentVelocity = result.velocity;
-            sat.currentEci = result.eci;
-            sat.geodeticFallback = result.geodeticFallback;
+            const result = calculateCartesianPosition(sat, jsDate, gmst);
 
-            if (sat.domLabel) {
-                if (showLabels || index === selectedSatIndex) {
-                    const screenPos = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, result.cartesian);
-                    if (screenPos && screenPos.x >= -100 && screenPos.x <= canvasWidth + 100 && screenPos.y >= -100 && screenPos.y <= canvasHeight + 100) {
-                        sat.domLabel.style.display = 'block';
-                        sat.domLabel.style.left = `${screenPos.x}px`;
-                        sat.domLabel.style.top = `${screenPos.y}px`;
+            if (result && result.cartesian) {
+                sat.primitive.position = result.cartesian;
+                sat.primitive.show = true;
+                sat.currentCartesian = result.cartesian;
+                sat.currentVelocity = result.velocity;
+                sat.currentEci = result.eci;
+                sat.geodeticFallback = result.geodeticFallback;
+
+                if (sat.domLabel) {
+                    if (showLabels || index === selectedSatIndex) {
+                        const screenPos = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, result.cartesian);
+                        if (screenPos && screenPos.x >= -100 && screenPos.x <= canvasWidth + 100 && screenPos.y >= -100 && screenPos.y <= canvasHeight + 100) {
+                            sat.domLabel.style.display = 'block';
+                            sat.domLabel.style.left = `${screenPos.x}px`;
+                            sat.domLabel.style.top = `${screenPos.y}px`;
+                        } else {
+                            sat.domLabel.style.display = 'none';
+                        }
                     } else {
                         sat.domLabel.style.display = 'none';
                     }
-                } else {
-                    sat.domLabel.style.display = 'none';
                 }
+            } else {
+                if (sat.primitive) sat.primitive.show = false;
+                if (sat.domLabel) sat.domLabel.style.display = 'none';
             }
-        } else {
-            sat.primitive.show = false;
-            if (sat.domLabel) sat.domLabel.style.display = 'none';
-        }
-    });
+        });
 
-    if (selectedSatIndex >= 0 && selectedSatIndex < satellitesData.length) {
-        updateSelectedSatDetails(jsDate, gmst);
-        updateOffScreenPointer();
+        if (selectedSatIndex >= 0 && selectedSatIndex < satellitesData.length) {
+            updateSelectedSatDetails(jsDate, gmst);
+            updateOffScreenPointer();
+        }
+    } catch (e) {
+        console.warn("updateSatellitePositions warning:", e);
     }
 }
 
@@ -1687,8 +1706,10 @@ function selectSatellite(index) {
     if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
         const prevSat = satellitesData[selectedSatIndex];
         const isPrevDebris = prevSat.name.toUpperCase().includes('DEBRIS') || prevSat.name.toUpperCase().includes('COSMOS') || prevSat.name.toUpperCase().includes('FENGYUN') || prevSat.name.toUpperCase().includes('SL-8');
-        prevSat.primitive.color = isPrevDebris ? Cesium.Color.fromCssColorString('#a855f7') : Cesium.Color.fromCssColorString('#00f3ff');
-        prevSat.primitive.pixelSize = 12;
+        if (prevSat.primitive) {
+            prevSat.primitive.color = isPrevDebris ? Cesium.Color.fromCssColorString('#a855f7') : Cesium.Color.fromCssColorString('#00f3ff');
+            prevSat.primitive.pixelSize = 12;
+        }
         if (prevSat.domLabel) {
             prevSat.domLabel.classList.remove('selected');
         }
@@ -1696,6 +1717,7 @@ function selectSatellite(index) {
 
     selectedSatIndex = index;
     const sat = satellitesData[index];
+    if (!sat) return;
     const isDebris = sat.name.toUpperCase().includes('DEBRIS') || sat.name.toUpperCase().includes('COSMOS') || sat.name.toUpperCase().includes('FENGYUN') || sat.name.toUpperCase().includes('SL-8');
 
     // Ensure DOM label exists for selected satellite even in large constellations
@@ -1704,8 +1726,10 @@ function selectSatellite(index) {
     }
 
     // Highlight selected satellite (Use vibrant neon purple #c084fc for debris)
-    sat.primitive.color = isDebris ? Cesium.Color.fromCssColorString('#c084fc') : Cesium.Color.fromCssColorString('#ff0055');
-    sat.primitive.pixelSize = 18;
+    if (sat.primitive) {
+        sat.primitive.color = isDebris ? Cesium.Color.fromCssColorString('#c084fc') : Cesium.Color.fromCssColorString('#ff0055');
+        sat.primitive.pixelSize = 18;
+    }
     if (sat.domLabel) {
         sat.domLabel.classList.add('selected');
         sat.domLabel.style.display = 'block';

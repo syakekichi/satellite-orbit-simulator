@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <title>SatViewer3D | 3D-трекер искусственных спутников и космического мусора в реальном времени</title>
+    
+    <!-- SEO & Search Optimization Meta Tags -->
+    <meta name="description" content="SatViewer3D — бесплатный веб-симулятор для 3D-отслеживания спутников (МКС, Starlink, метеоспутники) и космического мусора на околоземной орбите в реальном времени с прогнозом сближений.">
+    <meta name="keywords" content="SatViewer3D, трекер спутников, орбитальный симулятор 3D, космический мусор, МКС онлайн, Starlink трекер, отслеживание спутников в реальном времени">
+    <meta name="author" content="SatViewer3D">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/ru/">
+    
+    <!-- Multilingual Alternate Links (hreflang) -->
+    <link rel="alternate" hreflang="ja" href="https://satviewer3d.com/">
+    <link rel="alternate" hreflang="en" href="https://satviewer3d.com/en/">
+    <link rel="alternate" hreflang="es" href="https://satviewer3d.com/es/">
+    <link rel="alternate" hreflang="zh" href="https://satviewer3d.com/zh/">
+    <link rel="alternate" hreflang="ru" href="https://satviewer3d.com/ru/">
+    <link rel="alternate" hreflang="x-default" href="https://satviewer3d.com/en/">
+
+    <!-- OGP (Open Graph Protocol) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SatViewer3D | 3D-трекер спутников и космического мусора в реальном времени">
+    <meta property="og:description" content="3D-моделирование орбит МКС, Starlink и космического мусора в реальном времени.">
+    <meta property="og:url" content="https://satviewer3d.com/ru/">
+    <meta property="og:site_name" content="SatViewer3D">
+    <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="ja_JP">
+    <meta property="og:locale:alternate" content="zh_CN">
+    <meta property="og:locale:alternate" content="es_ES">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SatViewer3D | 3D-трекер спутников и космического мусора">
+    <meta name="twitter:description" content="Отслеживайте тысячи спутников и космический мусор в 3D в реальном времени.">
+    <meta name="twitter:image" content="https://satviewer3d.com/feature_graphic.png">
+
+    <!-- JSON-LD Structured Data for Google Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SatViewer3D",
+      "alternateName": ["SatViewer 3D", "3D-трекер спутников"],
+      "url": "https://satviewer3d.com/ru/",
+      "image": "https://satviewer3d.com/feature_graphic.png",
+      "description": "SatViewer3D — бесплатный симулятор 3D-отслеживания спутников и космического мусора в реальном времени.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires WebGL support",
+      "inLanguage": ["ru", "en", "ja", "zh", "es"],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "3D-визуализация орбит в реальном времени",
+        "Отслеживание спутников МКС и Starlink",
+        "Анализ риска столкновений с мусором (24ч MOID)",
+        "Прогноз пролетов над горизонтом",
+        "Поддержка 5 языков (Русский, Английский, Японский, Китайский, Испанский)"
+      ]
+    }
+    </script>
+
+    <!-- Web App Manifest for PWA & Android TWA -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon (High-Res Neon Orbit Satellite Icon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><ellipse cx='32' cy='32' rx='25' ry='8' fill='none' stroke='%23ff0055' stroke-width='2' transform='rotate(-30 32 32)' stroke-dasharray='4 2'/><circle cx='48' cy='22' r='4' fill='%23c084fc'/><circle cx='48' cy='22' r='7' fill='none' stroke='%2338bdf8' stroke-width='1.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google Analytics (gtag.js) GA4 Tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TM540MSBGM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-TM540MSBGM');
+    </script>
+
+    <!-- Google AdSense Auto-Ads & Verification Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CesiumJS CSS & JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.119.0/Cesium.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cesium/1.119.0/Widgets/widgets.min.css" rel="stylesheet">
+    
+    <!-- satellite.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="cesiumContainer"></div>
+    <!-- HTML DOM Overlay Container for Crisp 100% Sharp Satellite Labels -->
+    <div id="labelsContainer" class="labels-container"></div>
+    
+    <!-- UI Overlay HUD -->
+    <div class="hud-layer">
+        <!-- Top Split HUD Floating Islands (Separated to keep Earth Center View 100% Unobstructed!) -->
+        <div class="hud-top-split">
+            <!-- Left Island: Brand Logo -->
+            <div id="headerLeftIsland" class="header-left-island glass-panel">
+                <div class="panel-drag-bar drag-handle" style="margin-bottom:4px; padding:2px 4px; font-size:0.65rem;">
+                    <span class="drag-dots">⋮⋮</span>
+                </div>
+                <div class="logo-group">
+                    <div class="pulse-icon">
+                        <span class="pulse-ring"></span>
+                        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <ellipse cx="12" cy="12" rx="9" ry="3" transform="rotate(-30 12 12)"></ellipse>
+                            <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="app-title">SatViewer3D</h1>
+                        <p class="app-subtitle">3D-визуализация спутников и мусора</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Island: Quick Stats & Language Selector -->
+            <div id="headerRightIsland" class="header-right-island glass-panel">
+                <div class="panel-drag-bar drag-handle" style="margin-bottom:4px; padding:2px 4px; font-size:0.65rem; display:flex; justify-content:space-between; align-items:center;">
+                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">Перетащить</span></div>
+                    <button id="toggleHeaderMinBtn" class="panel-min-btn" title="Свернуть / Развернуть">➖</button>
+                </div>
+                <div id="headerIslandContent" class="card-collapsible-content">
+                    <div class="stats-pills">
+                    <div class="stat-pill">
+                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">Отслеживается</span>
+                        <span class="stat-value" id="statCount">0</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">Время симуляции</span>
+                        <span class="stat-value mono-text" id="statTime">--:--:--</span>
+                    </div>
+                    <div class="stat-pill" style="padding: 4px 10px; display: flex; align-items: center; gap: 6px; border-color: rgba(56,189,248,0.5); background: rgba(56, 189, 248, 0.08);">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="#38bdf8" stroke-width="2.2" fill="none" style="filter: drop-shadow(0 0 4px rgba(56,189,248,0.6)); flex-shrink: 0;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <select id="langSelect" class="custom-select" style="padding: 2px 4px; font-size: 0.78rem; font-weight:700; border: none; background: transparent; color: #38bdf8; cursor: pointer;" onchange="window.changeLanguage(this.value)">
+                            <option value="ja" style="background:#0b1329; color:#fff;">🇯🇵 日本語</option>
+                            <option value="en" style="background:#0b1329; color:#fff;">🇺🇸 English</option>
+                            <option value="zh" style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
+                            <option value="es" style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
+                            <option value="ru" selected style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
+                        </select>
+                    </div>
+                    <button id="openGuideBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer;" data-i18n="btnGuide">
+                        ❓ Руководство
+                    </button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Navigation & Control -->
+        <aside id="sidebarPanel" class="hud-sidebar glass-panel">
+            <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ Перетащить</span></div>
+                <button id="toggleSidebarMinBtn" class="panel-min-btn" title="Свернуть / Развернуть">➖</button>
+            </div>
+            <div id="sidebarContent" class="sidebar-collapsible-content">
+            <div class="sidebar-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span data-i18n="secSelect">Выбрать / Найти спутник</span>
+                </h2>
+                
+                <!-- Dropdown Selector -->
+                <div class="select-box">
+                    <select id="satSelect" class="custom-select">
+                        <option value="" data-i18n="selectPlaceholder">-- Выберите спутник или мусор --</option>
+                    </select>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Или поиск по названию/NORAD ID..." autocomplete="off">
+                    <button id="clearSearch" class="btn-icon hidden" title="Очистить">&times;</button>
+                </div>
+                <div id="searchResults" class="search-results-list"></div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <span data-i18n="secSource">Источники данных и пресеты</span>
+                </h2>
+                <div class="source-buttons">
+                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ Основные спутники (МКС, Starlink, мусор)</button>
+                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Полная группировка Starlink (2000 спутников)</button>
+                </div>
+                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ Пресет основных спутников загружен</div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span data-i18n="secTime">Управление временем и скоростью</span>
+                </h2>
+                <div class="speed-buttons">
+                    <button class="speed-btn" data-speed="0" data-i18n="speedStop">⏸️ Пауза</button>
+                    <button class="speed-btn active" data-speed="1" data-i18n="speedReal">▶️ 1x (Реально)</button>
+                    <button class="speed-btn" data-speed="10">⏩ 10x</button>
+                    <button class="speed-btn" data-speed="100">⏩ 100x</button>
+                    <button class="speed-btn" data-speed="1000">🚀 1000x</button>
+                </div>
+                <div class="time-adjust-row">
+                    <input type="datetime-local" id="timePickerInput" class="custom-select" style="font-size: 0.8rem; padding: 6px;">
+                    <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="Сбросить на текущее время" data-i18n="resetNow">🔄 Сейчас</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <span data-i18n="secDisplay">Настройки отображения</span>
+                </h2>
+                <div class="control-group">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleLabels" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label" data-i18n="toggleLabels">Метки спутников в 3D</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleOrbits" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label" data-i18n="toggleOrbits">Отображать орбиту</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleMultiLap" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 Трасса нескольких витков</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleAtmosphere" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label" data-i18n="toggleAtmosphere">Атмосфера и освещение</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggle2D">
+                        <span class="slider"></span>
+                        <span class="toggle-label" data-i18n="toggle2D">Режим 2D-карты</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleBorders" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label" data-i18n="toggleBorders">🌐 Границы и города</span>
+                    </label>
+                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="Оценка мусора">
+                        <input type="checkbox" id="toggleDebrisRisk">
+                        <span class="slider purple-slider"></span>
+                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 Оценка сближения с мусором</span>
+                    </label>
+
+                    <div class="control-group" style="margin-top: 12px; display: flex; flex-direction: column; gap: 4px;">
+                        <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="labelTimezone">Часовой пояс</span>
+                        <select id="tzSelect" class="custom-select" style="padding: 6px 10px; font-size: 0.8rem;">
+                            <option value="MSK" selected>🇷🇺 Московское время (MSK / UTC+3)</option>
+                            <option value="UTC">🌐 Всемирное время (UTC)</option>
+                            <option value="CET">🇪🇸 Центральноевропейское (CET)</option>
+                            <option value="NY">🇺🇸 Нью-Йорк (EST/EDT)</option>
+                            <option value="JST">🇯🇵 Японское время (JST)</option>
+                            <option value="CST">🇨🇳 Китайское время (CST)</option>
+                            <option value="LOCAL">💻 Местное время браузера</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="sidebar-copyright" style="margin-top: 10px; margin-bottom: 0; padding-top: 8px; padding-bottom: 0; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.3px;">
+                    &copy; <span id="copyrightYear">2026</span> SatViewer3D. All Rights Reserved.
+                </div>
+            </div>
+            </div>
+        </aside>
+
+        <!-- Selected Satellite Detail Card -->
+        <!-- 3D Camera Direction Control D-Pad HUD -->
+        <div id="cameraDPad" class="camera-dpad-hud glass-panel">
+            <div class="panel-drag-bar drag-handle" style="margin-bottom:6px; padding:4px 8px; font-size:0.68rem; display:flex; justify-content:space-between; align-items:center; width:100%;">
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">Камера</span></div>
+                <button id="toggleCamMinBtn" class="panel-min-btn" title="Свернуть / Развернуть">➖</button>
+            </div>
+            <div id="dpadContent" class="card-collapsible-content">
+                <div class="dpad-grid">
+                <div></div>
+                <button class="dpad-btn dpad-up" id="btnCamUp" title="Вверх (▲)">▲</button>
+                <div></div>
+                <button class="dpad-btn dpad-left" id="btnCamLeft" title="Влево (◀)">◀</button>
+                <button class="dpad-btn dpad-reset" id="btnCamReset" title="Сброс (🏠)">🏠</button>
+                <button class="dpad-btn dpad-right" id="btnCamRight" title="Вправо (▶)">▶</button>
+                <div></div>
+                <button class="dpad-btn dpad-down" id="btnCamDown" title="Вниз (▼)">▼</button>
+                <div></div>
+            </div>
+            </div>
+        </div>
+        <div id="detailCard" class="hud-card glass-panel hidden">
+            <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">Перетащить</span></div>
+                <div style="display:flex; gap:6px; align-items:center;">
+                    <button id="toggleDetailMinBtn" class="panel-min-btn" title="Свернуть / Развернуть">➖</button>
+                    <button id="closeDetail" class="btn-close" style="position:static;">&times;</button>
+                </div>
+            </div>
+            <div id="detailCardContent" class="card-collapsible-content">
+            <div class="card-header">
+                <span class="badge badge-accent" id="satBadge">STARLINK</span>
+                <h3 id="satName" class="card-title">STARLINK-XXXX</h3>
+                <p id="satNorad" class="card-subtitle">NORAD ID: ------</p>
+                <div id="satDescription" class="sat-description-text">Описание спутника</div>
+            </div>
+            <div class="card-body grid-2col">
+                <div class="data-item">
+                    <span class="data-label" data-i18n="labelAlt">Высота (Altitude)</span>
+                    <span class="data-value" id="satAlt">--- km</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label" data-i18n="labelVel">Скорость (Velocity)</span>
+                    <span class="data-value" id="satVel">--- km/s</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label" data-i18n="labelLat">Широта (Latitude)</span>
+                    <span class="data-value" id="satLat">---°</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label" data-i18n="labelLon">Долгота (Longitude)</span>
+                    <span class="data-value" id="satLon">---°</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label" data-i18n="labelInc">Наклонение (Inclination)</span>
+                    <span class="data-value" id="satInc">---°</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label" data-i18n="labelPeriod">Период (Period)</span>
+                    <span class="data-value" id="satPeriod">--- min</span>
+                </div>
+                <div class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.25);">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 Прогноз пролета</span>
+                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPS" data-i18n="btnGeo">📍Мое место</button>
+                    </div>
+                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">Вычисление...</span>
+                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">Прогноз: Вычисление</span>
+                </div>
+                <div id="debrisRiskRow" class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.4);">
+                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 Оценка сближения с мусором (MOID)</span>
+                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 Безопасно</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <button class="btn btn-primary" id="trackBtn">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+                    <span data-i18n="btnTrack">🎯 Следить</span>
+                </button>
+                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 Отпустить</button>
+            </div>
+            </div>
+        </div>
+
+        <!-- Off-Screen Edge Pointer HUD (Directs user to selected satellite outside viewport) -->
+        <div id="edgePointer" class="edge-pointer-hud hidden">
+            <span class="pointer-arrow" id="pointerArrow">👈</span>
+            <div class="pointer-content">
+                <span class="pointer-name" id="pointerName">СПУТНИК</span>
+                <span class="pointer-hint" data-i18n="pointerHint">За экраном (Нажмите для перехода)</span>
+            </div>
+        </div>
+
+        <!-- Help, Guide, Terms & Privacy Policy Modal for Google AdSense Approval -->
+        <div id="guideModal" class="modal-overlay hidden">
+            <div class="modal-content glass-panel">
+                <div class="modal-header">
+                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D Руководство и условия</h2>
+                    <button id="closeGuideBtn" class="btn-close">&times;</button>
+                </div>
+                <div class="modal-tabs">
+                    <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 Управление</button>
+                    <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ Отказ от ответственности</button>
+                    <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 Конфиденциальность</button>
+                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ О сервисе</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Tab 1: Controls -->
+                    <div id="tabControls" class="tab-content active">
+                        <h3 data-i18n="guideTitleControls">🖱️ Навигация в 3D-пространстве</h3>
+                        <ul class="guide-list">
+                            <li><strong data-i18n="guideWheel">Колесо мыши / Тач</strong>: <span data-i18n="guideWheelDesc">Плавное масштабирование.</span></li>
+                            <li><strong data-i18n="guideDrag">Левая кнопка + Перетаскивание</strong>: <span data-i18n="guideDragDesc">Вращение Земли на 360 градусов.</span></li>
+                            <li><strong data-i18n="guideTilt">Правая кнопка / Ctrl + Перетаскивание</strong>: <span data-i18n="guideTiltDesc">Наклон и угол обзора.</span></li>
+                            <li><strong data-i18n="guideClick">Клик / Поиск спутника</strong>: <span data-i18n="guideClickDesc">Просмотр параметров высоты, скорости и сближений.</span></li>
+                            <li><strong data-i18n="guideFocus">🎯 Следить</strong>: <span data-i18n="guideFocusDesc">Автоматическое слежение камерой за спутником.</span></li>
+                            <li><strong data-i18n="guideRadar">🔮 Анализ сближений</strong>: <span data-i18n="guideRadarDesc">Расчет пересечения орбит за 24 часа.</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab 2: Disclaimer -->
+                    <div id="tabDisclaimer" class="tab-content">
+                        <h3 data-i18n="guideTitleDisclaimer">⚠️ Отказ от ответственности (Disclaimer)</h3>
+                        <p data-i18n="discText1">Все орбитальные данные и прогнозы в SatViewer3D рассчитываются в реальном времени на основе открытых данных TLE от CelesTrak и Space-Track в образовательных и исследовательских целях.</p>
+                    </div>
+
+                    <!-- Tab 3: Privacy Policy -->
+                    <div id="tabPrivacy" class="tab-content">
+                        <h3 data-i18n="guideTitlePrivacy">🔒 Конфиденциальность (Google AdSense)</h3>
+                        <p><strong data-i18n="privText1Title">Реклама:</strong><br><span data-i18n="privText1Desc">Сайт может использовать сторонние рекламные сервисы (Google AdSense), применяющие анонимные Cookie.</span></p>
+                        <p><strong data-i18n="privText2Title">Аналитика:</strong><br><span data-i18n="privText2Desc">Мы используем аналитические инструменты для сбора анонимных данных о трафике.</span></p>
+                    </div>
+
+                    <!-- Tab 4: About & Contact -->
+                    <div id="tabAbout" class="tab-content">
+                        <h3 data-i18n="guideTitleAbout">ℹ️ О проекте SatViewer3D</h3>
+                        <p data-i18n="aboutText1">SatViewer3D — это симулятор для 3D-визуализации искусственных спутников Земли и космического мусора в реальном времени.</p>
+                        
+                        <p><strong>Data & Orbit Sources:</strong> NORAD / Space-Track (Public TLE Data), JAXA & NASA</p>
+                        <p><strong>Domain:</strong> satviewer3d.com</p>
+                        <p><strong data-i18n="aboutContactTitle">Контакты:</strong> <span data-i18n="aboutContactDesc">По вопросам и предложениям: info@satviewer3d.com</span></p>
+                        <p style="margin-top: 18px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.78rem; color: var(--text-muted);">&copy; <span class="copyrightYearRef">2026</span> SatViewer3D. Все права защищены.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner overlay (Hidden by default) -->
+        <div id="loadingOverlay" class="loading-overlay hidden" style="display:none;">
+            <div class="spinner-container">
+                <div class="spinner"></div>
+                <p id="loadingText" class="loading-text">Вычисление и загрузка орбит спутников...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script (Cache Busted v120) -->
+    <script src="app.js?v=20260821_120"></script>
+</body>
+</html>
