@@ -1,4 +1,17 @@
 
+// ==========================================================================
+// Official NASA Ultra High-Resolution Photorealistic Texture Maps (Public Domain)
+// ==========================================================================
+const NASA_PLANET_TEXTURES = {
+    'MARS': 'mars_texture.jpg?v=20260821_170',
+    'VENUS': 'venus_texture.jpg?v=20260821_170',
+    'MERCURY': 'mercury_texture.jpg?v=20260821_170',
+    'JUPITER': 'jupiter_texture.jpg?v=20260821_170',
+    'SATURN': 'saturn_texture.jpg?v=20260821_170',
+    'URANUS': 'uranus_texture.jpg?v=20260821_170',
+    'MOON': 'moon_texture.jpg?v=20260821_170'
+};
+
 // Active 3D Planet Inspection Sphere
 let activePlanetSphereEntity = null;
 let activePlanetRingEntity = null;
@@ -15,9 +28,9 @@ function inspectCelestialPlanet(body, bodyPos, bodyDir) {
     }
 
     const planetRadius = (body.radiusKm || 6000) * 1000;
-    const texDataUrl = getPlanetTextureDataUrl(body.id);
+    const texImage = NASA_PLANET_TEXTURES[body.id] || getPlanetTextureDataUrl(body.id);
 
-    // Place high-detail 3D sphere directly at body target coordinates
+    // Place ultra-photorealistic NASA 3D sphere directly at body target coordinates
     activePlanetSphereEntity = viewer.entities.add({
         id: `inspect_planet_${body.id}`,
         name: body.name,
@@ -25,43 +38,48 @@ function inspectCelestialPlanet(body, bodyPos, bodyDir) {
         ellipsoid: {
             radii: new Cesium.Cartesian3(planetRadius, planetRadius, planetRadius),
             material: new Cesium.ImageMaterialProperty({
-                image: texDataUrl,
+                image: texImage,
                 transparent: false
             })
         }
     });
 
-    // Add 3D Ring for Saturn
+    // Add 3D Ring for Saturn with authentic texture pattern
     if (body.id === 'SATURN') {
         activePlanetRingEntity = viewer.entities.add({
             id: `inspect_ring_SATURN`,
             position: bodyPos,
             ellipse: {
-                semiMajorAxis: planetRadius * 2.3,
-                semiMinorAxis: planetRadius * 2.3,
-                material: new Cesium.ColorMaterialProperty(Cesium.Color.fromCssColorString('rgba(253, 224, 71, 0.75)')),
-                outline: true,
-                outlineColor: Cesium.Color.fromCssColorString('#fef08a'),
-                outlineWidth: 3
+                semiMajorAxis: planetRadius * 2.35,
+                semiMinorAxis: planetRadius * 2.35,
+                material: new Cesium.ImageMaterialProperty({
+                    image: 'saturn_ring.png?v=20260821_170',
+                    transparent: true
+                })
             }
         });
     }
 
-    // Fly camera directly in front of the 3D Planet Sphere (Distance: 2.8x planet radius)
-    const viewDist = planetRadius * 2.8;
-    const cameraDest = Cesium.Cartesian3.add(
-        bodyPos,
-        Cesium.Cartesian3.multiplyByScalar(bodyDir, -viewDist, new Cesium.Cartesian3()),
-        new Cesium.Cartesian3()
-    );
+    // Lock camera target transform to the planet center!
+    // This unlocks full Mouse Wheel Zoom In / Out and Mouse Drag (D&D) 360° Orbit rotation around the planet!
+    const targetRange = planetRadius * 2.8;
+    const hpr = new Cesium.HeadingPitchRange(0.0, Cesium.Math.toRadians(-15.0), targetRange);
 
     viewer.camera.flyTo({
-        destination: cameraDest,
+        destination: Cesium.Cartesian3.add(
+            bodyPos,
+            Cesium.Cartesian3.multiplyByScalar(bodyDir, -targetRange, new Cesium.Cartesian3()),
+            new Cesium.Cartesian3()
+        ),
         orientation: {
             direction: bodyDir,
             up: Cesium.Cartesian3.UNIT_Z
         },
-        duration: 2.2
+        duration: 2.0,
+        complete: () => {
+            // Lock rotation and wheel zoom pivot onto the planet center!
+            viewer.camera.lookAt(bodyPos, hpr);
+        }
     });
 }
 
@@ -4521,6 +4539,19 @@ function selectSatellite(index) {
         }
     }
 
+    // Reset planet inspection sphere and unlock camera transform
+    if (activePlanetSphereEntity) {
+        viewer.entities.remove(activePlanetSphereEntity);
+        activePlanetSphereEntity = null;
+    }
+    if (activePlanetRingEntity) {
+        viewer.entities.remove(activePlanetRingEntity);
+        activePlanetRingEntity = null;
+    }
+    if (viewer) {
+        viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+    }
+
     selectedSatIndex = index;
     const sat = satellitesData[index];
     if (!sat) return;
@@ -4637,6 +4668,18 @@ function deselectSatellite() {
     if (targetHighlightEntity) {
         viewer.entities.remove(targetHighlightEntity);
         targetHighlightEntity = null;
+    }
+
+    if (activePlanetSphereEntity) {
+        viewer.entities.remove(activePlanetSphereEntity);
+        activePlanetSphereEntity = null;
+    }
+    if (activePlanetRingEntity) {
+        viewer.entities.remove(activePlanetRingEntity);
+        activePlanetRingEntity = null;
+    }
+    if (viewer) {
+        viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
     }
     viewer.trackedEntity = undefined;
 }
