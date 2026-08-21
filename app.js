@@ -2579,7 +2579,7 @@ const SATELLITE_IMAGES = {
         "alt": "Meteor-M Polar Weather Satellite"
     },
     "YAOGAN": {
-        "url": "assets/sat_images/yaogan.jpg",
+        "url": "assets/sat_images/yaogan_v2.jpg?v=20260821_410",
         "caption": "Illustration: CNSA / CASC",
         "alt": "Yaogan-35 Tri-Satellite Formation"
     },
@@ -2599,7 +2599,7 @@ const SATELLITE_IMAGES = {
         "alt": "Tundra-5 EKS Early Warning Satellite"
     },
     "SHIJIAN": {
-        "url": "assets/sat_images/shijian_21.jpg",
+        "url": "assets/sat_images/shijian_21_v2.jpg?v=20260821_410",
         "caption": "Illustration: CNSA / CASC (Space Tug)",
         "alt": "Shijian-21 Robotic Satellite Tug"
     }
@@ -2609,7 +2609,12 @@ function getSatImageInfo(name) {
     const upper = (name || '').toUpperCase();
     for (const key of Object.keys(SATELLITE_IMAGES)) {
         if (upper.includes(key)) {
-            return SATELLITE_IMAGES[key];
+            const info = SATELLITE_IMAGES[key];
+            return {
+                url: info.url.includes('?v=') ? info.url : info.url + '?v=20260821_410',
+                caption: info.caption,
+                alt: info.alt
+            };
         }
     }
     return null;
