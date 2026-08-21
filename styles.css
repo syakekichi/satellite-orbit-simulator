@@ -930,7 +930,7 @@ input:focus + .slider.purple-slider {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(7, 9, 14, 0.75);
+    background: rgba(7, 9, 14, 0.8);
     backdrop-filter: blur(8px);
     z-index: 9999;
     display: flex;
@@ -941,23 +941,28 @@ input:focus + .slider.purple-slider {
 }
 
 .modal-content {
+    position: relative;
     width: 100%;
-    max-width: 680px;
-    max-height: 85vh;
+    max-width: 720px;
+    height: 85vh;
+    max-height: 720px;
     display: flex;
     flex-direction: column;
-    background: rgba(11, 19, 41, 0.92);
+    background: rgba(11, 19, 41, 0.96);
     border: 1px solid rgba(168, 85, 247, 0.4);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(168, 85, 247, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(168, 85, 247, 0.25);
     overflow: hidden;
 }
 
 .modal-header {
+    flex-shrink: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 16px 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(15, 23, 42, 0.6);
 }
 
 .modal-title {
@@ -968,38 +973,46 @@ input:focus + .slider.purple-slider {
 }
 
 .modal-tabs {
+    flex-shrink: 0;
     display: flex;
-    background: rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     overflow-x: auto;
+    scrollbar-width: none;
+}
+.modal-tabs::-webkit-scrollbar {
+    display: none;
 }
 
 .modal-tab {
-    flex: 1;
+    flex: 1 0 auto;
     padding: 12px 16px;
     background: transparent;
     border: none;
     border-bottom: 2px solid transparent;
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.2s ease;
+    text-align: center;
 }
 
 .modal-tab:hover {
     color: #e9d5ff;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .modal-tab.active {
     color: #c084fc;
     border-bottom-color: #c084fc;
-    background: rgba(168, 85, 247, 0.12);
+    background: rgba(168, 85, 247, 0.15);
 }
 
 .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
     padding: 24px;
     overflow-y: auto;
     font-size: 0.9rem;
@@ -1009,6 +1022,12 @@ input:focus + .slider.purple-slider {
 
 .tab-content {
     display: none;
+    animation: fadeInTab 0.2s ease;
+}
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .tab-content.active {
@@ -1017,9 +1036,11 @@ input:focus + .slider.purple-slider {
 
 .tab-content h3 {
     margin-top: 0;
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     color: #38bdf8;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
+    display: block;
+    line-height: 1.4;
 }
 
 .guide-list {

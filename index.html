@@ -435,7 +435,7 @@
                 </div>
                 <div class="modal-tabs">
                     <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 操作方法</button>
-                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 更新履歴 (Release Notes)</button>
+                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 更新履歴</button>
                     <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ 免責事項</button>
                     <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 プライバシーポリシー</button>
                     <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ サイト情報</button>
@@ -525,25 +525,21 @@
                         <p data-i18n="aboutText1">SatViewer3D は、地球周回軌道上の人工衛星（ひまわり、みちびき、ISS、Starlink等）および宇宙デブリ（スペースデブリ）のリアルタイム 3D 可視化シミュレーターです。</p>
                         
                         <div class="about-highlights" style="margin: 14px 0; padding: 14px 16px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 8px;">
-                            <h4 style="margin:0 0 10px 0; color:#38bdf8; font-size:0.95rem; font-weight:700;" data-i18n="aboutFeaturesTitle">🌟 NASA公開ツールを超越する『SatViewer3D』の 8 大世界最高峰機能</h4>
+                            <h4 style="margin:0 0 10px 0; color:#38bdf8; font-size:0.95rem; font-weight:700;" data-i18n="aboutFeaturesTitle">🌟 NASA公開ツールを超越する『SatViewer3D』の 10 大世界最高峰機能</h4>
                             <ul style="margin:0; padding-left:18px; font-size:0.83rem; color:#e2e8f0; line-height:1.7;">
-                                <li data-i18n="feat1">🚀 <strong>世界最速級 最新衛星組み込み</strong>: H3ロケット打ち上げ「みちびき6号機 (QZSS-6)」含む最新衛星・デブリ群をどこよりも早く組み込み。</li>
-                                <li data-i18n="feat2">🔮 <strong>NASA/JAXA管制室レベル 24hデブリ衝突予測</strong>: 宇宙状況把握 (SSA) アルゴリズムによる今後24時間の全デブリ最接近 (MOID) リアルタイム探知。</li>
-                                <li data-i18n="feat3">🎬 <strong>映画のように滑らかな 1/10 速度カメラ操作</strong>: 特有の物理スクロールインターセプトによる絹のように吸い付く超微細ズーム。</li>
-                                <li data-i18n="feat4">🌐 <strong>スマート自動言語判定 ＆ 5大言語対応</strong>: 海外アクセス自動英語化 ＆ 5大言語 (日英中西露) 0秒一括全切り替え。</li>
-                                <li data-i18n="feat5">💎 <strong>地球視界を 100% 遮らない 浮遊アイランドHUD</strong>: 画面中央を完全透過開放し、地球と極軌道を障害物ゼロで観測。</li>
-                                <li data-i18n="feat6">🌊 <strong>地球自転の波状パターン可視化 (Multi-Lap)</strong>: 地球の自転に伴う軌道面歳差のサインカーブ波状軌跡を 3D 空間で表現。</li>
-                                <li data-i18n="feat7">☀️ <strong>リアルタイム太陽光陰影 ＆ 大気圏描画</strong>: 太陽の角度に応じた昼夜グラデーション (Lighting) ＆ 青い大気ベール。</li>
-                                <li data-i18n="feat8">👁️ <strong>超高コントラスト 国境線・都市名ラベル</strong>: 宇宙空間の暗闇でも全地球の都市と境界線がくっきり浮き出る高輝度表示。</li>
+                                <li data-i18n="feat1">🪐 <strong>太陽系主要惑星＆太陽・月のリアルタイム3D探査</strong>: 太陽、月、火星、木星、土星、天王星、金星、水星への急接近・360度自由回転・NASA実写テクスチャ描画。</li>
+                                <li data-i18n="feat2">💍 <strong>天文学的物理パラメータ完全準拠 3D直交惑星リング</strong>: 土星の氷の多重環(カッシーニ間隙・傾斜角26.7度)と天王星の縦向き垂直リング(傾斜角97.8度)を完全再現。</li>
+                                <li data-i18n="feat3">🌡️ <strong>表面温度HUD ＆ 太陽黒点熱力学メカニズム</strong>: 各惑星の極限温度や、磁場が熱対流を抑える太陽黒点の温度(~4,000℃)を専用HUDでリアルタイム表示。</li>
+                                <li data-i18n="feat4">🌐 <strong>世界14言語完全対応の深空百科事典 ＆ 天体検索</strong>: 各国の探査機ミッション(アポロ、ボイジャー、カッシーニ、JAXA等)や発見史を14言語で完全ローカライズ。</li>
+                                <li data-i18n="feat5">🔮 <strong>NASA/JAXA管制室レベル 24hデブリ衝突予測 (MOID)</strong>: 宇宙状況把握 (SSA) アルゴリズムによる今後24時間の全宇宙ゴミ最接近危険度をリアルタイム探知。</li>
+                                <li data-i18n="feat6">🛰️ <strong>Starlink 2,000機メガコンステレーション完全描画</strong>: SpaceXのグローバル通信衛星メッシュをブラウザ上で遅延なく完全3D描画。</li>
+                                <li data-i18n="feat7">🚀 <strong>世界最速級 最新衛星・ロケットデータ組み込み</strong>: H3ロケット打ち上げ「みちびき6号機 (QZSS-6)」含む最新衛星・デブリ群を即座にシミュレート。</li>
+                                <li data-i18n="feat8">🎬 <strong>映画のように滑らかな 1/10 速度カメラ操作</strong>: 特有の物理スクロールインターセプトによる絹のように吸い付く超微細ズーム。</li>
+                                <li data-i18n="feat9">💎 <strong>地球視界を 100% 遮らない 浮遊アイランドHUD</strong>: 画面中央を完全透過開放し、地球と極軌道を障害物ゼロで観測。</li>
+                                <li data-i18n="feat10">🌊 <strong>地球自転の波状パターン可視化 (Multi-Lap)</strong>: 地球の自転に伴う軌道面歳差のサインカーブ波状軌跡を 3D 空間で表現。</li>
                             </ul>
                         </div>
-
-                        <p><strong>Data & Orbit Sources:</strong> NORAD / Space-Track (Public TLE Data), JAXA & NASA (Mission Specs)</p>
-                        <p><strong>Domain:</strong> satviewer3d.com</p>
-                        <p><strong data-i18n="aboutContactTitle">お問い合わせ:</strong> <span data-i18n="aboutContactDesc">ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。</span></p>
-                        <p style="margin-top: 18px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.78rem; color: var(--text-muted);">&copy; <span class="copyrightYearRef">2026</span> SatViewer3D. All Rights Reserved.</p>
                     </div>
-                </div>
             </div>
         </div>
 
@@ -557,6 +553,6 @@
     </div>
 
     <!-- Application Script (Cache Busted v120) -->
-    <script src="app.js?v=20260821_190"></script>
+    <script src="app.js?v=20260821_194"></script>
 </body>
 </html>
