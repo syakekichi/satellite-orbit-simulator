@@ -598,6 +598,7 @@ function getSatDisplayName(name) {
 
 const TRANSLATIONS = {
     "ja": {
+
         "appSubtitle": "リアルタイム3D人工衛星・宇宙デブリ軌道シミュレーター",
         "statCount": "追跡衛星数",
         "statTime": "シミュレーション時刻",
@@ -638,7 +639,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 追跡カメラフォーカス",
         "btnUntrack": "🔓 追跡解除",
         "pointerHint": "画面外にあります (クリックでカメラ移動)",
-        "btnRelease": "📜 v2.5 更新履歴",
+        "btnRelease": "📜 v2.6 更新履歴",
         "btnGuide": "❓ ガイド & 規約",
         "modalTitle": "SatViewer3D 操作ガイド & 利用規約",
         "tabControls": "🎮 操作方法",
@@ -647,7 +648,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 プライバシーポリシー",
         "tabAbout": "ℹ️ サイト情報",
         "releaseTitle": "📜 SatViewer3D 更新履歴・リリースノート",
-        "rel25Title": "🪐 3D太陽系・惑星探査 & 世界14言語宇宙百科事典 メジャーアップデート",
+                "rel26Title": "🛰️ みちびき7機体制完成 & 米国・主要衛星の公式ビジュアル全面刷新",
+        "rel26_1": "🇯🇵 みちびき7号機（QZS-7）新規追加: 2026年8月11日にH3ロケット9号機で打ち上げられた最新鋭測位衛星の軌道諸元（TLE）と内閣府公式フルHD 3D画像を実装。",
+        "rel26_2": "🛰️ みちびき全8機（1号〜7号機・1R）の完全個別画像化: JAXAおよび内閣府7機体制特設サイト公式CGより、各号機固有の1080p機体画像を完全個別バインド。",
+        "rel26_3": "🇺🇸 米国・世界主要衛星の公式機体写真刷新: NASA Ames公式4K Starlink衛星（長大ソーラーパネル展開）、USA-245（KH-11 Keyhole光学偵察望遠鏡）、SBIRS早期警戒、X-37B軌道上写真へ全面差し替え。",
+        "rel26_4": "🌐 全14言語での新衛星詳細解説カード完全同期: 7機体制の意義や宇宙領域把握（SDA）光学センサー初搭載の解説を14言語に完全ローカライズ。",
+        "rel26_5": "📑 衛星リスト番号順ソート最適化: サイドバーの衛星リストでみちびき1〜7号機を自然な番号順に整列。",
+"rel25Title": "🪐 3D太陽系・惑星探査 & 世界14言語宇宙百科事典 メジャーアップデート",
         "rel25_1": "🪐 太陽・月・主要惑星のリアルタイム3D探査モード: 太陽、月、火星、木星、土星、天王星、金星、水星への急接近・360度自由回転・超精密マイクロズームを実装。",
         "rel25_2": "📷 NASA公式実写フォトテクスチャ: 探査機の実写高解像度テクスチャを全天体に適用し、圧倒的リアリズムを実現。",
         "rel25_3": "💍 本物の3D直交惑星リング: 土星の多重氷リング(カッシーニ間隙・傾斜角26.7度)と天王星の縦向き垂直リング(傾斜角97.8度)を完全再現。",
@@ -697,6 +704,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。"
     },
     "en": {
+
         "appSubtitle": "Real-time 3D Satellite & Space Debris Orbit Simulator",
         "statCount": "Tracked Satellites",
         "statTime": "Simulation Time",
@@ -737,7 +745,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 Focus & Track",
         "btnUntrack": "🔓 Unlock Camera",
         "pointerHint": "Target is off-screen (Click to view)",
-        "btnRelease": "📜 v2.5 Release Notes",
+        "btnRelease": "📜 v2.6 Release Notes",
         "btnGuide": "❓ Guide & Terms",
         "modalTitle": "SatViewer3D User Guide & Terms of Service",
         "tabControls": "🎮 Controls",
@@ -746,7 +754,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 Privacy Policy",
         "tabAbout": "ℹ️ About",
         "releaseTitle": "📜 SatViewer3D Release Notes & Changelog",
-        "rel25Title": "🪐 3D Solar System, Planetary Exploration & 14-Language Space Encyclopedia",
+                "rel26Title": "🛰️ Michibiki 7-Sat Constellation Completion & Official Spacecraft Visuals Upgrade",
+        "rel26_1": "🇯🇵 QZS-7 (Michibiki-7) Launch Addition: Implemented orbital elements (TLE) and official 1080p 3D imagery for the newest satellite launched on H3 Rocket Flight 9 (Aug 11, 2026).",
+        "rel26_2": "🛰️ 100% Unique Imagery for All 8 Michibiki Satellites: Individual official 1080p CG models assigned across QZS-1 through QZS-7 and QZS-1R from JAXA and Cabinet Office portals.",
+        "rel26_3": "🇺🇸 US & Flagship Satellites Visual Upgrade: Upgraded to authentic NASA Ames 4K Starlink with single solar array, USA-245 (KH-11 Keyhole reconnaissance telescope), SBIRS, and X-37B.",
+        "rel26_4": "🌐 14-Language Comprehensive Mission Cards: Full multilingual synchronization covering the sovereign 7-satellite constellation and joint US-Japan Space Domain Awareness (SDA) payloads.",
+        "rel26_5": "📑 Numerical Ordering Refinement: Optimized satellite list sorting to align Michibiki 1 through 7 in clean numerical succession.",
+"rel25Title": "🪐 3D Solar System, Planetary Exploration & 14-Language Space Encyclopedia",
         "rel25_1": "🪐 3D Celestial Body Inspection Mode: Smooth camera fly-to, 360° D&D orbit rotation, and precision micro-zoom for Sun, Moon, Mars, Jupiter, Saturn, Uranus, Venus, and Mercury.",
         "rel25_2": "📷 Authentic NASA Photo Textures: Real spacecraft imagery applied to all planetary bodies for breathtaking realism.",
         "rel25_3": "💍 True 3D Cartesian Rings: Multi-layered gold/ice rings for Saturn (with Cassini division at 26.7° tilt) and vertical rings for Uranus (97.8° tilt).",
@@ -796,6 +810,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "For inquiries and feedback, contact info@satviewer3d.com"
     },
     "de": {
+
         "appSubtitle": "Echtzeit-3D-Satelliten- und Weltraummüll-Orbitalsimulator",
         "statCount": "Verfolgte Satelliten",
         "statTime": "Simulationszeit",
@@ -836,7 +851,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 Ziel verfolgen",
         "btnUntrack": "🔓 Kamera lösen",
         "pointerHint": "Ziel außerhalb des Bildschirms",
-        "btnRelease": "📜 v2.5 Versionshinweise",
+        "btnRelease": "📜 v2.6 Versionshinweise",
         "btnGuide": "❓ Anleitung & Bedingungen",
         "modalTitle": "SatViewer3D Benutzerhandbuch & Bedingungen",
         "tabControls": "🎮 Steuerung",
@@ -845,7 +860,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 Datenschutz",
         "tabAbout": "ℹ️ Über uns",
         "releaseTitle": "📜 SatViewer3D Versionshinweise & Verlauf",
-        "rel25Title": "🪐 3D-Sonnensystem & 14-Sprachen-Weltraumenzyklopädie",
+                "rel26Title": "🛰️ Vollendung der Michibiki 7-Satelliten-Konstellation & Offizielle Raumfahrzeug-Grafik-Upgrades",
+        "rel26_1": "🇯🇵 QZS-7 (Michibiki-7) Start-Ergänzung: Bahnelemente (TLE) und offizielle 1080p 3D-Bilder für den neuesten Satelliten vom 11. August 2026 implementiert.",
+        "rel26_2": "🛰️ 100% Einzigartige Bilder für alle 8 Michibiki-Satelliten: Individuelle offizielle 1080p CG-Modelle für QZS-1 bis 7 und 1R von JAXA und Kabinettsbüro zugewiesen.",
+        "rel26_3": "🇺🇸 Offizielle visuelle Aktualisierung der US- und Flaggschiff-Satelliten: Aufwertung mit NASA Ames 4K Starlink, USA-245 (KH-11 Keyhole Spionagesatellit), SBIRS und X-37B.",
+        "rel26_4": "🌐 Vollständige Synchronisation in 14 Sprachen: Ausführliche Missionsbeschreibungen zur 7-Satelliten-Konstellation und SDA-Sensoren lokalisiert.",
+        "rel26_5": "📑 Numerische Sortieroptimierung: Michibiki 1 bis 7 in sauberer Reihenfolge ausgerichtet.",
+"rel25Title": "🪐 3D-Sonnensystem & 14-Sprachen-Weltraumenzyklopädie",
         "rel25_1": "🪐 3D-Himmelskörper-Inspektion mit 360°-Orbit-Rotation für Sonne, Mond und alle Planeten.",
         "rel25_2": "📷 Echte NASA-Fototexturen für maximalen Realismus.",
         "rel25_3": "💍 Echtes 3D-Ringsystem für Saturn und vertikale Ringe für Uranus.",
@@ -895,6 +916,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Für Anfragen: info@satviewer3d.com"
     },
     "fr": {
+
         "appSubtitle": "Simulateur d'orbite de satellites et débris spatiaux 3D en temps réel",
         "statCount": "Satellites suivis",
         "statTime": "Temps de simulation",
@@ -935,7 +957,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 Suivre la cible",
         "btnUntrack": "🔓 Libérer la caméra",
         "pointerHint": "Cible hors champ (Cliquer pour voir)",
-        "btnRelease": "📜 Notes de version v2.5",
+        "btnRelease": "📜 Notes de version v2.6",
         "btnGuide": "❓ Guide et conditions",
         "modalTitle": "Guide de l'utilisateur SatViewer3D et conditions",
         "tabControls": "🎮 Commandes",
@@ -944,7 +966,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 Confidentialité",
         "tabAbout": "ℹ️ À propos",
         "releaseTitle": "📜 Notes de version & Historique SatViewer3D",
-        "rel25Title": "🪐 Système solaire 3D & Encyclopédie spatiale en 14 langues",
+                "rel26Title": "🛰️ Constellation Michibiki à 7 Satellites et Mise à niveau des Visuels Officiels",
+        "rel26_1": "🇯🇵 Ajout de QZS-7 (Michibiki-7): Intégration des données orbitales (TLE) et de l'imagerie 3D 1080p officielle du nouveau satellite lancé le 11 août 2026.",
+        "rel26_2": "🛰️ Visuels 100% uniques pour les 8 satellites Michibiki: Modèles 3D 1080p officiels dédiés de QZS-1 à QZS-7 et QZS-1R.",
+        "rel26_3": "🇺🇸 Mise à niveau visuelle des satellites américains: Starlink 4K NASA Ames, USA-245 (télescope de reconnaissance KH-11), SBIRS et X-37B.",
+        "rel26_4": "🌐 Cartes de mission synchronisées en 14 langues: Traduction intégrale couvrant la constellation souveraine et les charges utiles SDA.",
+        "rel26_5": "📑 Optimisation du tri numérique: Alignement ordonné de Michibiki 1 à 7 dans la barre latérale.",
+"rel25Title": "🪐 Système solaire 3D & Encyclopédie spatiale en 14 langues",
         "rel25_1": "🪐 Mode exploration 3D pour le Soleil, la Lune et toutes les planètes.",
         "rel25_2": "📷 Textures photo officielles de la NASA en haute résolution.",
         "rel25_3": "💍 Anneaux planétaires 3D authentiques (Saturne et Uranus).",
@@ -994,6 +1022,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Pour toute demande : info@satviewer3d.com"
     },
     "es": {
+
         "appSubtitle": "Simulador de Órbitas 3D en Tiempo Real de Satélites y Basura Espacial",
         "statCount": "Satélites Rastreados",
         "statTime": "Tiempo de Simulación",
@@ -1034,7 +1063,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 Enfocar y Seguir",
         "btnUntrack": "🔓 Desbloquear Cámara",
         "pointerHint": "Objetivo fuera de pantalla (Clic para ver)",
-        "btnRelease": "📜 Notas de versión v2.5",
+        "btnRelease": "📜 Notas de versión v2.6",
         "btnGuide": "❓ Guía y Términos",
         "modalTitle": "Guía de Usuario y Términos de SatViewer3D",
         "tabControls": "🎮 Controles",
@@ -1043,7 +1072,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 Privacidad",
         "tabAbout": "ℹ️ Acerca de",
         "releaseTitle": "📜 Notas de versión e historial de SatViewer3D",
-        "rel25Title": "🪐 Sistema Solar 3D y Enciclopedia Espacial en 14 idiomas",
+                "rel26Title": "🛰️ Constelación Michibiki de 7 Satélites y Actualización Visual Oficial",
+        "rel26_1": "🇯🇵 Adición de QZS-7 (Michibiki-7): Implementación de TLE e imágenes 3D 1080p oficiales del nuevo satélite lanzado el 11 de agosto de 2026.",
+        "rel26_2": "🛰️ Imágenes 100% únicas para los 8 satélites Michibiki: Modelos CG 1080p independientes para QZS-1 hasta QZS-7 y QZS-1R.",
+        "rel26_3": "🇺🇸 Renovación de imágenes satelitales de EE. UU.: Starlink 4K NASA Ames, USA-245 (satélite espía KH-11 Keyhole), SBIRS y X-37B.",
+        "rel26_4": "🌐 Sincronización completa en 14 idiomas: Explicaciones detalladas de la constelación de 7 satélites y sensores SDA.",
+        "rel26_5": "📑 Orden numérico optimizado: Clasificación precisa de Michibiki 1 al 7.",
+"rel25Title": "🪐 Sistema Solar 3D y Enciclopedia Espacial en 14 idiomas",
         "rel25_1": "🪐 Exploración 3D del Sol, Luna y todos los planetas con rotación libre de 360°.",
         "rel25_2": "📷 Texturas fotográficas reales de la NASA.",
         "rel25_3": "💍 Sistema de anillos 3D para Saturno y Urano.",
@@ -1093,6 +1128,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para consultas: info@satviewer3d.com"
     },
     "pt": {
+
         "appSubtitle": "Simulador de Órbitas 3D em Tempo Real de Satélites e Lixo Espacial",
         "statCount": "Satélites Rastreados",
         "statTime": "Tempo de Simulação",
@@ -1142,7 +1178,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 Privacidade",
         "tabAbout": "ℹ️ Sobre",
         "releaseTitle": "📜 Notas de versão e histórico do SatViewer3D",
-        "rel25Title": "🪐 Sistema Solar 3D e Enciclopédia Espacial em 14 idiomas",
+                "rel26Title": "🛰️ Conclusão da Constelação Michibiki de 7 Satélites e Atualização Visual Oficial",
+        "rel26_1": "🇯🇵 Adição do QZS-7 (Michibiki-7): Elementos orbitais (TLE) e imagens 3D 1080p oficiais do satélite lançado em 11 de agosto de 2026.",
+        "rel26_2": "🛰️ Imagens 100% exclusivas para todos os 8 satélites Michibiki: Modelos 1080p oficiais dedicados de QZS-1 a QZS-7 e QZS-1R.",
+        "rel26_3": "🇺🇸 Atualização visual dos satélites dos EUA: Starlink 4K NASA Ames, USA-245 (satélite espião KH-11), SBIRS e X-37B.",
+        "rel26_4": "🌐 Sincronização em 14 idiomas: Cartões de missão detalhados sobre a constelação de 7 satélites e sensores SDA.",
+        "rel26_5": "📑 Otimização de ordenação: Michibiki 1 a 7 alinhados em ordem numérica limpa.",
+"rel25Title": "🪐 Sistema Solar 3D e Enciclopédia Espacial em 14 idiomas",
         "rel25_1": "🪐 Modo de inspeção 3D para o Sol, Lua e todos os planetas com rotação livre.",
         "rel25_2": "📷 Texturas fotográficas reais da NASA.",
         "rel25_3": "💍 Anéis planetários 3D para Saturno e Urano.",
@@ -1192,6 +1234,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para dúvidas: info@satviewer3d.com"
     },
     "it": {
+
         "appSubtitle": "Simulatore di Orbite 3D in Tempo Reale di Satelliti e Detriti Spaziali",
         "statCount": "Satelliti Tracciati",
         "statTime": "Tempo di Simulazione",
@@ -1232,7 +1275,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 Insegui Bersaglio",
         "btnUntrack": "🔓 Sblocca Telecamera",
         "pointerHint": "Bersaglio fuori schermo (Clicca per vedere)",
-        "btnRelease": "📜 Note di rilascio v2.5",
+        "btnRelease": "📜 Note di rilascio v2.6",
         "btnGuide": "❓ Guida e Termini",
         "modalTitle": "Guida Utente e Termini di SatViewer3D",
         "tabControls": "🎮 Controlli",
@@ -1241,7 +1284,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 Privacy",
         "tabAbout": "ℹ️ Info",
         "releaseTitle": "📜 Note di rilascio e cronologia SatViewer3D",
-        "rel25Title": "🪐 Sistema Solare 3D ed Enciclopedia Spaziale in 14 lingue",
+                "rel26Title": "🛰️ Completamento della Costellazione Michibiki a 7 Satelliti e Nuova Grafica Ufficiale",
+        "rel26_1": "🇯🇵 Aggiunta di QZS-7 (Michibiki-7): Dati orbitali (TLE) e immagini 3D 1080p ufficiali per il satellite lanciato l'11 agosto 2026.",
+        "rel26_2": "🛰️ Immagini uniche al 100% per tutti gli 8 satelliti Michibiki: Modelli 1080p ufficiali individuali per QZS-1 fino a QZS-7 e QZS-1R.",
+        "rel26_3": "🇺🇸 Aggiornamento visivo dei satelliti USA: Starlink 4K NASA Ames, USA-245 (satellite spia ottico KH-11), SBIRS e X-37B.",
+        "rel26_4": "🌐 Sincronizzazione in 14 lingue: Schede informative complete sulla costellazione a 7 satelliti e sensori SDA.",
+        "rel26_5": "📑 Ordinamento numerico ottimizzato: Michibiki da 1 a 7 allineati in successione.",
+"rel25Title": "🪐 Sistema Solare 3D ed Enciclopedia Spaziale in 14 lingue",
         "rel25_1": "🪐 Esplorazione 3D di Sole, Luna e pianeti con rotazione libera a 360°.",
         "rel25_2": "📷 Texture fotografiche autentiche della NASA.",
         "rel25_3": "💍 Anelli planetari 3D per Saturno e Urano.",
@@ -1291,6 +1340,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Per richieste: info@satviewer3d.com"
     },
     "ko": {
+
         "appSubtitle": "실시간 3D 인공위성 및 우주 쓰레기 궤도 시뮬레이터",
         "statCount": "추적 위성 수",
         "statTime": "시뮬레이션 시각",
@@ -1331,7 +1381,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 카메라 추적",
         "btnUntrack": "🔓 추적 해제",
         "pointerHint": "화면 밖에 있습니다 (클릭하여 시점 이동)",
-        "btnRelease": "📜 v2.5 업데이트 내역",
+        "btnRelease": "📜 v2.6 업데이트 내역",
         "btnGuide": "❓ 가이드 및 약관",
         "modalTitle": "SatViewer3D 이용 가이드 및 약관",
         "tabControls": "🎮 조작 방법",
@@ -1340,7 +1390,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 개인정보처리방침",
         "tabAbout": "ℹ️ 소개",
         "releaseTitle": "📜 SatViewer3D 릴리즈 노트 및 업데이트 내역",
-        "rel25Title": "🪐 3D 태양계・행성 탐사 및 14개 언어 우주 백과사전 메이저 업데이트",
+                "rel26Title": "🛰️ 미치비키 7기 체제 완성 및 미국·주요 위성 공식 비주얼 전면 개편",
+        "rel26_1": "🇯🇵 미치비키 7호기 (QZS-7) 신규 추가: 2026년 8월 11일 H3 로켓 9호기로 발사된 최신예 항법 위성의 궤도 제원(TLE) 및 내각부 공식 1080p 3D 이미지 구현.",
+        "rel26_2": "🛰️ 미치비키 전 8기 독립 고화질 이미지화: 1호기부터 7호기 및 1R호기까지 JAXA 및 내각부 공식 포털 1080p 고유 CG를 개별 바인딩.",
+        "rel26_3": "🇺🇸 미국 및 주력 위성 실제 기체 사진 개편: NASA Ames 공식 4K 스타링크(대형 태양전지판), USA-245(키홀 KH-11 광학 정찰망원경), SBIRS, X-37B 궤도 사진 적용.",
+        "rel26_4": "🌐 14개 언어 상세 미션 카드 완전 동기화: 7기 체제의 완성 및 미·일 공동 우주영역인식(SDA) 광학 센서 탑재 해설을 14개 언어로 제공.",
+        "rel26_5": "📑 위성 목록 번호순 정렬 최적화: 사이드바 위성 목록에서 미치비키 1~7호기가 자연스러운 번호순으로 표시되도록 개선.",
+"rel25Title": "🪐 3D 태양계・행성 탐사 및 14개 언어 우주 백과사전 메이저 업데이트",
         "rel25_1": "🪐 태양, 달, 주요 행성의 실시간 3D 탐사 모드: 360도 자유 회전 및 초정밀 마이크로 줌 구현.",
         "rel25_2": "📷 NASA 공식 실사 포토 텍스처 적용으로 압도적인 사실감 선사.",
         "rel25_3": "💍 토성의 얼음 고리와 천왕성의 수직 고리 3D 완전 구현.",
@@ -1390,6 +1446,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다."
     },
     "nl": {
+
         "appSubtitle": "Realtime 3D Satelliet- en Ruimtepuin-orbitsimulator",
         "statCount": "Gevolgde Satellieten",
         "statTime": "Simulatietijd",
@@ -1430,7 +1487,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 Volgen & Focussen",
         "btnUntrack": "🔓 Camera Ontgrendelen",
         "pointerHint": "Doel buiten beeld (Klik om te bekijken)",
-        "btnRelease": "📜 v2.5 Versienotities",
+        "btnRelease": "📜 v2.6 Versienotities",
         "btnGuide": "❓ Gids & Voorwaarden",
         "modalTitle": "SatViewer3D Gebruikershandleiding & Voorwaarden",
         "tabControls": "🎮 Besturing",
@@ -1439,7 +1496,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 Privacybeleid",
         "tabAbout": "ℹ️ Over",
         "releaseTitle": "📜 SatViewer3D Versienotities & Geschiedenis",
-        "rel25Title": "🪐 3D Zonnestelsel & 14-Talige Ruimte-encyclopedie",
+                "rel26Title": "🛰️ Voltooiing Michibiki 7-Satellietconstellatie & Officiële Visuele Upgrade",
+        "rel26_1": "🇯🇵 Toevoeging QZS-7 (Michibiki-7): Baangegevens (TLE) en officiële 1080p 3D-beelden voor de nieuwste satelliet gelanceerd op 11 augustus 2026.",
+        "rel26_2": "🛰️ 100% Unieke beelden voor alle 8 Michibiki-satellieten: Individuele officiële 1080p modellen voor QZS-1 tot en met QZS-7 en QZS-1R.",
+        "rel26_3": "🇺🇸 Visuele upgrade voor VS- en vlaggenschipsatellieten: Starlink 4K NASA Ames, USA-245 (KH-11 Keyhole spionagesatelliet), SBIRS en X-37B.",
+        "rel26_4": "🌐 Volledige synchronisatie in 14 talen: Uitgebreide missiekaarten over de soevereine 7-satellietconstellatie en SDA-sensoren.",
+        "rel26_5": "📑 Numerieke sortering geoptimaliseerd: Michibiki 1 tot en met 7 netjes geordend.",
+"rel25Title": "🪐 3D Zonnestelsel & 14-Talige Ruimte-encyclopedie",
         "rel25_1": "🪐 3D-inspectiemodus voor Zon, Maan en alle planeten met 360° rotatie.",
         "rel25_2": "📷 Officiële NASA-fototexturen voor adembenemend realisme.",
         "rel25_3": "💍 Authentieke 3D-ringen voor Saturnus en Uranus.",
@@ -1489,6 +1552,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Voor vragen: info@satviewer3d.com"
     },
     "id": {
+
         "appSubtitle": "Simulator Orbit Satelit & Sampah Antariksa 3D Real-Time",
         "statCount": "Satelit Terlacak",
         "statTime": "Waktu Simulasi",
@@ -1529,7 +1593,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 Fokus & Lacak",
         "btnUntrack": "🔓 Lepas Kamera",
         "pointerHint": "Target di luar layar (Klik untuk melihat)",
-        "btnRelease": "📜 Catatan Rilis v2.5",
+        "btnRelease": "📜 Catatan Rilis v2.6",
         "btnGuide": "❓ Panduan & Syarat",
         "modalTitle": "Panduan Pengguna & Syarat SatViewer3D",
         "tabControls": "🎮 Kontrol",
@@ -1538,7 +1602,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 Kebijakan Privasi",
         "tabAbout": "ℹ️ Tentang",
         "releaseTitle": "📜 Catatan Rilis & Riwayat SatViewer3D",
-        "rel25Title": "🪐 Tata Surya 3D & Ensiklopedia Antariksa 14 Bahasa",
+                "rel26Title": "🛰️ Penyelesaian Konstelasi 7 Satelit Michibiki & Pembaruan Visual Resmi",
+        "rel26_1": "🇯🇵 Penambahan Peluncuran QZS-7 (Michibiki-7): Mengintegrasikan elemen orbit (TLE) dan citra 3D 1080p resmi satelit baru yang diluncurkan pada 11 Agustus 2026.",
+        "rel26_2": "🛰️ Citra 100% Unik untuk Seluruh 8 Satelit Michibiki: Model CG 1080p resmi khusus untuk QZS-1 hingga QZS-7 dan QZS-1R.",
+        "rel26_3": "🇺🇸 Pembaruan Visual Satelit AS & Unggulan: Starlink 4K NASA Ames, USA-245 (satelit mata-mata KH-11), SBIRS, dan X-37B.",
+        "rel26_4": "🌐 Sinkronisasi Lengkap 14 Bahasa: Kartu misi mendalam mencakup konstelasi 7 satelit dan muatan SDA pertahanan.",
+        "rel26_5": "📑 Penyempurnaan Urutan Numerik: Michibiki 1 hingga 7 tersusun rapi secara berurutan.",
+"rel25Title": "🪐 Tata Surya 3D & Ensiklopedia Antariksa 14 Bahasa",
         "rel25_1": "🪐 Mode eksplorasi 3D untuk Matahari, Bulan, dan seluruh planet.",
         "rel25_2": "📷 Tekstur foto resmi NASA untuk realisme luar biasa.",
         "rel25_3": "💍 Cincin 3D asli untuk Saturnus dan Uranus.",
@@ -1588,6 +1658,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com"
     },
     "hi": {
+
         "appSubtitle": "वास्तविक समय 3D कृत्रिम उपग्रह एवं अंतरिक्ष मलबा कक्षा सिम्युलेटर",
         "statCount": "ट्रैक किए गए उपग्रह",
         "statTime": "सिमुलेशन समय",
@@ -1628,7 +1699,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 ट्रैक करें",
         "btnUntrack": "🔓 कैमरा अनलॉक करें",
         "pointerHint": "लक्ष्य स्क्रीन से बाहर है",
-        "btnRelease": "📜 v2.5 रिलीज नोट्स",
+        "btnRelease": "📜 v2.6 रिलीज नोट्स",
         "btnGuide": "❓ गाइड और नियम",
         "modalTitle": "SatViewer3D उपयोगकर्ता गाइड और शर्तें",
         "tabControls": "🎮 नियंत्रण",
@@ -1637,7 +1708,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 गोपनीयता नीति",
         "tabAbout": "ℹ️ के बारे में",
         "releaseTitle": "📜 SatViewer3D रिलीज नोट्स एवं अद्यतन इतिहास",
-        "rel25Title": "🪐 3D सौर मंडल एवं 14-भाषाई अंतरिक्ष ज्ञानकोश",
+                "rel26Title": "🛰️ मिचिबिकी 7-उपग्रह समूह की पूर्णता एवं आधिकारिक अंतरिक्ष यान दृश्यों का उन्नयन",
+        "rel26_1": "🇯🇵 QZS-7 (मिचिबिकी-7) का समावेश: 11 अगस्त 2026 को प्रक्षेपित नवीनतम उपग्रह के लिए कक्षीय तत्व (TLE) और आधिकारिक 1080p 3D छवियां लागू।",
+        "rel26_2": "🛰️ सभी 8 मिचिबिकी उपग्रहों के लिए 100% अद्वितीय छवियां: QZS-1 से QZS-7 और QZS-1R तक व्यक्तिगत आधिकारिक 1080p CG मॉडल सौंपे गए।",
+        "rel26_3": "🇺🇸 अमेरिकी एवं प्रमुख उपग्रहों का दृश्य उन्नयन: NASA Ames 4K स्टारलिंक, USA-245 (KH-11 कीहोल जासूसी दूरबीन), SBIRS और X-37B का नवीनीकरण।",
+        "rel26_4": "🌐 14 भाषाओं में संपूर्ण मिशन विवरण: 7-उपग्रह समूह और संयुक्त SDA पेलोड का बहुभाषी विवरण।",
+        "rel26_5": "📑 संख्यात्मक क्रम अनुकूलन: मिचिबिकी 1 से 7 को सटीक संख्यात्मक क्रम में व्यवस्थित किया गया।",
+"rel25Title": "🪐 3D सौर मंडल एवं 14-भाषाई अंतरिक्ष ज्ञानकोश",
         "rel25_1": "🪐 सूर्य, चंद्रमा और सभी ग्रहों का 360° 3D अवलोकन।",
         "rel25_2": "📷 नासा के आधिकारिक वास्तविक फोटो टेक्सचर।",
         "rel25_3": "💍 शनि और अरुण के 3D छल्ले।",
@@ -1687,6 +1764,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com"
     },
     "ar": {
+
         "appSubtitle": "محاكي مدارات الأقمار الصناعية والحطام الفضائي ثلاثي الأبعاد بالوقت الفعلي",
         "statCount": "الأقمار المتتبعة",
         "statTime": "وقت المحاكاة",
@@ -1727,7 +1805,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 تتبع الهدف",
         "btnUntrack": "🔓 تحرير الكاميرا",
         "pointerHint": "الهدف خارج الشاشة",
-        "btnRelease": "📜 ملاحظات الإصدار v2.5",
+        "btnRelease": "📜 ملاحظات الإصدار v2.6",
         "btnGuide": "❓ الدليل والشروط",
         "modalTitle": "دليل مستخدم SatViewer3D والشروط",
         "tabControls": "🎮 التحكم",
@@ -1736,7 +1814,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 الخصوصية",
         "tabAbout": "ℹ️ حول",
         "releaseTitle": "📜 سجل التحديثات وملاحظات الإصدار لـ SatViewer3D",
-        "rel25Title": "🪐 النظام الشمسي ثلاثي الأبعاد وموسوعة الفضاء بـ 14 لغة",
+                "rel26Title": "🛰️ اكتمال كوكبة ميتشيبيكي المكونة من 7 أقمار وتحديث المرئيات الرسمية للمركبات الفضائية",
+        "rel26_1": "🇯🇵 إضافة إطلاق QZS-7 (ميتشيبيكي-7): تنفيذ العناصر المدارية (TLE) والصور ثلاثية الأبعاد بدقة 1080p للقمر الأحدث المطلق في 11 أغسطس 2026.",
+        "rel26_2": "🛰️ صور فريدة بنسبة 100% لجميع أقمار ميتشيبيكي الـ 8: نماذج رسمية مخصصة من QZS-1 إلى QZS-7 و QZS-1R.",
+        "rel26_3": "🇺🇸 ترقية مرئيات الأقمار الأمريكية الرئيسية: ستارلينك بدقة 4K من وكالة ناسا، USA-245 (تلسكوب التجسس KH-11)، SBIRS و X-37B.",
+        "rel26_4": "🌐 مزامنة بطاقات المهام بـ 14 لغة: تغطية شاملة لكوكبة الأقمار السبعة وأجهزة استشعار SDA للدفاع الفضائي.",
+        "rel26_5": "📑 تحسين الترتيب الرقمي: محاذاة ميتشيبيكي من 1 إلى 7 بتسلسل رقمي دقيق.",
+"rel25Title": "🪐 النظام الشمسي ثلاثي الأبعاد وموسوعة الفضاء بـ 14 لغة",
         "rel25_1": "🪐 استكشاف ثلاثي الأبعاد للشمس والقمر وجميع الكواكب بدوران حر 360 درجة.",
         "rel25_2": "📷 صور فوتوغرافية حقيقية عالية الدقة من وكالة ناسا.",
         "rel25_3": "💍 حلقات ثلاثية الأبعاد واقعية لزحل وأورانوس.",
@@ -1786,6 +1870,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "للاستفسارات: info@satviewer3d.com"
     },
     "zh": {
+
         "appSubtitle": "实时3D人造卫星与空间碎片轨道模拟器",
         "statCount": "追踪卫星总数",
         "statTime": "模拟推演时间",
@@ -1826,7 +1911,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 视角锁定追踪",
         "btnUntrack": "🔓 解锁相机视角",
         "pointerHint": "目标在屏幕视界外 (点击定位)",
-        "btnRelease": "📜 v2.5 更新日志",
+        "btnRelease": "📜 v2.6 更新日志",
         "btnGuide": "❓ 使用指南与协议",
         "modalTitle": "SatViewer3D 用户指南与服务条款",
         "tabControls": "🎮 操作指南",
@@ -1835,7 +1920,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 隐私政策",
         "tabAbout": "ℹ️ 关于项目",
         "releaseTitle": "📜 SatViewer3D 更新日志与版本历史",
-        "rel25Title": "🪐 3D太阳系行星探索与14语言深空百科重磅更新",
+                "rel26Title": "🛰️ 引路7星体制圆满完成 & 美国及全球主力卫星官方视觉全面升级",
+        "rel26_1": "🇯🇵 新增引路7号 (QZS-7): 完整加入2026年8月11日由H3火箭9号机发射的最新导航卫星轨道数据(TLE)与内阁府官方1080p 3D机体图。",
+        "rel26_2": "🛰️ 引路全8星独立高清视觉: 严格区分1号至7号机及1R号机，全面采用JAXA与内阁府特设官网独家1080p机体CG。",
+        "rel26_3": "🇺🇸 美军及主力卫星真实机体更新: 全面换装NASA Ames官方4K星链(长太阳翼展开)、USA-245(锁眼KH-11光学侦察望远镜)、SBIRS与X-37B太空图。",
+        "rel26_4": "🌐 14种语言任务卡片全量同步: 完整翻译7星体制自主高精度定位及日美联合太空态势感知(SDA)光学载荷详情。",
+        "rel26_5": "📑 侧边栏列表序号精细化排序: 优化卫星列表顺序，确保引路1号至7号机按数字自然顺序规范排列。",
+"rel25Title": "🪐 3D太阳系行星探索与14语言深空百科重磅更新",
         "rel25_1": "🪐 太阳、月球及全各大行星3D探索模式：支持360度自由旋转与超高精微调缩放。",
         "rel25_2": "📷 NASA官方实拍高分辨率纹理，呈现极致太空视觉质感。",
         "rel25_3": "💍 真实3D空间行星光环：完全重现土星多层冰环与天王星垂直光环。",
@@ -1885,6 +1976,11 @@ const TRANSLATIONS = {
         "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com"
     },
     "ru": {
+
+
+
+
+
         "appSubtitle": "3D-симулятор орбит спутников и космического мусора в реальном времени",
         "statCount": "Отслеживаемые спутники",
         "statTime": "Время симуляции",
@@ -1925,7 +2021,7 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 Следить за целью",
         "btnUntrack": "🔓 Освободить камеру",
         "pointerHint": "Цель вне экрана",
-        "btnRelease": "📜 Примечания к выпуску v2.5",
+        "btnRelease": "📜 Примечания к выпуску v2.6",
         "btnGuide": "❓ Руководство и условия",
         "modalTitle": "Руководство пользователя SatViewer3D и условия",
         "tabControls": "🎮 Управление",
@@ -1934,7 +2030,13 @@ const TRANSLATIONS = {
         "tabPrivacy": "🔒 Конфиденциальность",
         "tabAbout": "ℹ️ О проекте",
         "releaseTitle": "📜 История обновлений и примечания к выпуску SatViewer3D",
-        "rel25Title": "🪐 3D Солнечная система и космическая энциклопедия на 14 языках",
+                "rel26Title": "🛰️ Завершение группировки «Мичибики» из 7 спутников и обновление официальных визуальных материалов",
+        "rel26_1": "🇯🇵 Добавление QZS-7 («Мичибики-7»): Интеграция параметров орбиты (TLE) и официальных 3D-изображений 1080p для аппарата, запущенного 11 августа 2026 года.",
+        "rel26_2": "🛰️ 100% Уникальные изображения для всех 8 спутников «Мичибики»: Индивидуальные официальные модели 1080p от QZS-1 до QZS-7 и QZS-1R.",
+        "rel26_3": "🇺🇸 Обновление визуализации спутников США: Starlink 4K NASA Ames, USA-245 (разведывательный телескоп KH-11 Keyhole), SBIRS и X-37B.",
+        "rel26_4": "🌐 Полная синхронизация описаний на 14 языках: Карточки миссий с описанием группировки из 7 спутников и полезной нагрузки SDA.",
+        "rel26_5": "📑 Оптимизация числового порядка: «Мичибики» от 1 до 7 выстроены в строгой последовательности.",
+"rel25Title": "🪐 3D Солнечная система и космическая энциклопедия на 14 языках",
         "rel25_1": "🪐 3D-режим исследования Солнца, Луны и всех планет с вращением на 360°.",
         "rel25_2": "📷 Официальные фототекстуры NASA ультравысокого разрешения.",
         "rel25_3": "💍 Настоящие 3D-кольца Сатурна и вертикальные кольца Урана.",
