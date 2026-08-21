@@ -1800,6 +1800,1049 @@ function createBulletproofEarthProvider() {
 // ==========================================================================
 // Solar System Celestial Bodies Real-time Ephemeris & Visualization System
 // ==========================================================================
+const CELESTIAL_ENCYCLOPEDIA = {
+    "SUN": {
+        "mass": {
+            "ja": "1.989 × 10^30 kg (地球の約33万倍)",
+            "en": "1.989 × 10^30 kg (333,000x Earth)",
+            "de": "1,989 × 10^30 kg (333.000-fache Erdmasse)",
+            "fr": "1,989 × 10^30 kg (333 000 fois la Terre)",
+            "es": "1,989 × 10^30 kg (333.000 veces la Tierra)",
+            "pt": "1,989 × 10^30 kg (333.000 vezes a Terra)",
+            "it": "1,989 × 10^30 kg (333.000 volte la Terra)",
+            "ko": "1.989 × 10^30 kg (지구의 약 33만 배)",
+            "nl": "1,989 × 10^30 kg (333.000x de aarde)",
+            "id": "1,989 × 10^30 kg (333.000x Bumi)",
+            "hi": "1.989 × 10^30 किग्रा (पृथ्वी का 333,000 गुना)",
+            "ar": "1.989 × 10^30 كجم (333 ألف ضعف كتلة الأرض)",
+            "zh": "1.989 × 10^30 千克 (地球的33.3万倍)",
+            "ru": "1,989 × 10^30 кг (в 333 000 раз больше Земли)"
+        },
+        "diameter": {
+            "ja": "1,392,700 km (地球の109倍)",
+            "en": "1,392,700 km (109x Earth)",
+            "de": "1.392.700 km (109-facher Erddurchmesser)",
+            "fr": "1 392 700 km (109 fois la Terre)",
+            "es": "1.392.700 km (109 veces la Tierra)",
+            "pt": "1.392.700 km (109 vezes a Terra)",
+            "it": "1.392.700 km (109 volte la Terra)",
+            "ko": "1,392,700 km (지구의 109배)",
+            "nl": "1.392.700 km (109x de aarde)",
+            "id": "1.392.700 km (109x Bumi)",
+            "hi": "1,392,700 किमी (पृथ्वी का 109 गुना)",
+            "ar": "1,392,700 كم (109 أضعاف قطر الأرض)",
+            "zh": "1,392,700 公里 (地球的109倍)",
+            "ru": "1 392 700 км (в 109 раз больше Земли)"
+        },
+        "rotation": {
+            "ja": "25.05日 (赤道部) / 34.4日 (極部)",
+            "en": "25.05 days (Equator) / 34.4 days (Poles)",
+            "de": "25,05 Tage (Äquator) / 34,4 Tage (Pole)",
+            "fr": "25,05 jours (équateur) / 34,4 jours (pôles)",
+            "es": "25,05 días (ecuador) / 34,4 días (polos)",
+            "pt": "25,05 dias (equador) / 34,4 dias (polos)",
+            "it": "25,05 giorni (equatore) / 34,4 giorni (poli)",
+            "ko": "25.05일 (적도) / 34.4일 (극지)",
+            "nl": "25,05 dagen (evenaar) / 34,4 dagen (polen)",
+            "id": "25,05 hari (khatulistiwa) / 34,4 hari (kutub)",
+            "hi": "25.05 दिन (भूमध्य रेखा) / 34.4 दिन (ध्रुव)",
+            "ar": "25.05 يوماً (عند خط الاستواء) / 34.4 يوماً (القطبين)",
+            "zh": "25.05天 (赤道) / 34.4天 (两极)",
+            "ru": "25,05 дня (экватор) / 34,4 дня (полюса)"
+        },
+        "orbit": {
+            "ja": "銀河系中心を約2億3000万年で1周 (銀河年)",
+            "en": "Orbits Milky Way core in ~230 Million years (Galactic Year)",
+            "de": "Umläuft das Milchstraßenzentrum in ~230 Mio. Jahren",
+            "fr": "Orbite autour du centre galactique en ~230 millions d'années",
+            "es": "Orbita el centro galáctico en ~230 millones de años",
+            "pt": "Orbita o centro galáctico em ~230 milhões de anos",
+            "it": "Orbita attorno al centro galattico in ~230 milioni di anni",
+            "ko": "은하 중심을 약 2억 3000만 년에 1회 공전 (은하년)",
+            "nl": "Draait om het melkwegcentrum in ~230 miljoen jaar",
+            "id": "Mengorbit pusat Bima Sakti dalam ~230 juta tahun",
+            "hi": "आकाशगंगा केंद्र की परिक्रमा ~23 करोड़ वर्षों में",
+            "ar": "يدور حول مركز درب التبانة كل 230 مليون سنة (سنة مجرية)",
+            "zh": "绕银河系中心公转一周约需2.3亿年 (银河年)",
+            "ru": "Оборот вокруг центра Галактики за ~230 млн лет (галактический год)"
+        },
+        "temperature": {
+            "ja": "表面 5,500℃ / 核 1,500万℃",
+            "en": "Surface 5,500°C / Core 15,000,000°C",
+            "de": "Oberfläche 5.500°C / Kern 15 Mio.°C",
+            "fr": "Surface 5 500°C / Cœur 15 millions °C",
+            "es": "Superficie 5.500°C / Núcleo 15 millones °C",
+            "pt": "Superfície 5.500°C / Núcleo 15 milhões °C",
+            "it": "Superficie 5.500°C / Nucleo 15 milioni °C",
+            "ko": "표면 5,500℃ / 중심핵 1,500만℃",
+            "nl": "Oppervlak 5.500°C / Kern 15 miljoen °C",
+            "id": "Permukaan 5.500°C / Inti 15 juta °C",
+            "hi": "सतह 5,500°C / कोर 1.5 करोड़ °C",
+            "ar": "السطح 5,500°م / النواة 15 مليون °م",
+            "zh": "表面约 5,500℃ / 核心约 1,500万℃",
+            "ru": "Поверхность 5 500°C / Ядро 15 млн °C"
+        },
+        "satellites": {
+            "ja": "8惑星・5準惑星・数百万の小天体",
+            "en": "8 Planets, 5 Dwarf Planets, Millions of small bodies",
+            "de": "8 Planeten, 5 Zwergplaneten, Millionen Kleinkörper",
+            "fr": "8 planètes, 5 planètes naines, millions de corps mineurs",
+            "es": "8 planetas, 5 planetas enanos, millones de cuerpos menores",
+            "pt": "8 planetas, 5 planetas anões, milhões de corpos celestes",
+            "it": "8 pianeti, 5 pianeti nani, milioni di corpi minori",
+            "ko": "8개 행성, 5개 왜소행성, 수백만 개의 소천체",
+            "nl": "8 planeten, 5 dwergplaneten, miljoenen kleine lichamen",
+            "id": "8 planet, 5 planet kerdil, jutaan benda kecil",
+            "hi": "8 ग्रह, 5 बौने ग्रह, लाखों छोटे खगोलीय पिंड",
+            "ar": "8 كواكب، 5 كواكب قزمة، وملايين الأجرام الصغيرة",
+            "zh": "8大行星、5颗矮行星及数百万小天体",
+            "ru": "8 планет, 5 карликовых планет, миллионы малых тел"
+        },
+        "discovery": {
+            "ja": "先史時代より全人類に崇拝・観測。1610年ガリレオが黒点を望遠鏡観測。",
+            "en": "Observed since prehistoric times. Galileo first observed sunspots with a telescope in 1610.",
+            "de": "Seit der Urzeit verehrt. 1610 beobachtete Galileo Galilei Sonnenflecken mit dem Teleskop.",
+            "fr": "Observé depuis la préhistoire. Galilée a observé les taches solaires au télescope en 1610.",
+            "es": "Observado desde la prehistoria. Galileo observó las manchas solares con telescopio en 1610.",
+            "pt": "Observado desde a pré-história. Galileu observou manchas solares com telescópio em 1610.",
+            "it": "Osservato fin dalla preistoria. Nel 1610 Galileo osservò le macchie solari al telescopio.",
+            "ko": "선사시대부터 인류가 관측 및 숭배. 1610년 갈릴레오가 망원경으로 흑점을 최초 관측.",
+            "nl": "Waargenomen sinds de prehistorie. Galileo observeerde in 1610 zonnevlekken met een telescoop.",
+            "id": "Diamati sejak zaman prasejarah. Galileo pertama kali mengamati bintik matahari dengan teleskop pada 1610.",
+            "hi": "प्रागैतिहासिक काल से पूजित एवं प्रेक्षित। 1610 में गैलीलियो ने टेलीस्कोप से सौर कलंकों का अवलोकन किया।",
+            "ar": "تم رصده منذ عصور ما قبل التاريخ. رصد غاليليو البقع الشمسية بالتلسكوب لأول مرة عام 1610.",
+            "zh": "自史前时代起便被人类观测。1610年伽利略首次使用望远镜记录太阳黑子。",
+            "ru": "Наблюдается с доисторических времен. В 1610 году Галилей впервые наблюдал солнечные пятна в телескоп."
+        },
+        "missions": {
+            "ja": "NASAパーカー・ソーラー・プローブ (2018〜史上最接近)、ESA/NASAソーラー・オービター、日米「ひので (Hinode)」、SOHO、SDO等。",
+            "en": "NASA Parker Solar Probe (2018-present closest approach), ESA Solar Orbiter, JAXA/NASA Hinode, SOHO, SDO.",
+            "de": "NASA Parker Solar Probe (historische Annäherung), ESA Solar Orbiter, JAXA/NASA Hinode, SOHO, SDO.",
+            "fr": "Sonde Parker (record de proximité NASA), Solar Orbiter ESA, Hinode JAXA/NASA, SOHO, SDO.",
+            "es": "Sonda Solar Parker de NASA, Solar Orbiter de ESA, Hinode (JAXA/NASA), SOHO, SDO.",
+            "pt": "Sonda Parker Solar da NASA, Solar Orbiter da ESA, Hinode (JAXA/NASA), SOHO, SDO.",
+            "it": "Sonda Solare Parker della NASA, Solar Orbiter dell'ESA, Hinode (JAXA/NASA), SOHO, SDO.",
+            "ko": "NASA 파커 솔라 프로브 (2018~ 역사상 최접근), ESA 솔라 오비터, JAXA/NASA 히노데(Hinode), SOHO, SDO 등.",
+            "nl": "NASA Parker Solar Probe, ESA Solar Orbiter, JAXA/NASA Hinode, SOHO, SDO.",
+            "id": "NASA Parker Solar Probe, ESA Solar Orbiter, JAXA/NASA Hinode, SOHO, SDO.",
+            "hi": "नासा पार्कर सोलर प्रोब (इतिहास का निकटतम संपर्क), ईएसए सोलर ऑर्बिटर, जाक्सा/नासा हिनोडे, सोहो, एसडीओ।",
+            "ar": "مسبار باركر الشمسي التابع لناسا، وسولار أوربيتر التابع لوكالة الفضاء الأوروبية، وهينودي (JAXA/NASA)، وسوهو.",
+            "zh": "NASA帕克太阳探测器(史上最接近太阳)、ESA太阳轨道飞行器、JAXA/NASA日出号(Hinode)、SOHO、SDO等。",
+            "ru": "Зонд Parker Solar Probe (NASA), Solar Orbiter (ESA), Hinode (JAXA/NASA), SOHO, SDO."
+        }
+    },
+    "MOON": {
+        "mass": {
+            "ja": "7.342 × 10^22 kg (地球の1/81)",
+            "en": "7.342 × 10^22 kg (1/81 of Earth)",
+            "de": "7,342 × 10^22 kg (1/81 der Erdmasse)",
+            "fr": "7,342 × 10^22 kg (1/81 de la Terre)",
+            "es": "7,342 × 10^22 kg (1/81 de la Tierra)",
+            "pt": "7,342 × 10^22 kg (1/81 da Terra)",
+            "it": "7,342 × 10^22 kg (1/81 della Terra)",
+            "ko": "7.342 × 10^22 kg (지구의 1/81)",
+            "nl": "7,342 × 10^22 kg (1/81 van de aarde)",
+            "id": "7,342 × 10^22 kg (1/81 massa Bumi)",
+            "hi": "7.342 × 10^22 किग्रा (पृथ्वी का 1/81)",
+            "ar": "7.342 × 10^22 كجم (1/81 من كتلة الأرض)",
+            "zh": "7.342 × 10^22 千克 (地球的1/81)",
+            "ru": "7,342 × 10^22 кг (1/81 массы Земли)"
+        },
+        "diameter": {
+            "ja": "3,474.8 km (地球の約0.27倍)",
+            "en": "3,474.8 km (0.27x Earth)",
+            "de": "3.474,8 km (0,27-fache Erdgröße)",
+            "fr": "3 474,8 km (0,27 fois la Terre)",
+            "es": "3.474,8 km (0,27 veces la Tierra)",
+            "pt": "3.474,8 km (0,27 vezes a Terra)",
+            "it": "3.474,8 km (0,27 volte la Terra)",
+            "ko": "3,474.8 km (지구의 약 0.27배)",
+            "nl": "3.474,8 km (0,27x de aarde)",
+            "id": "3.474,8 km (0,27x Bumi)",
+            "hi": "3,474.8 किमी (पृथ्वी का 0.27 गुना)",
+            "ar": "3,474.8 كم (0.27 من قطر الأرض)",
+            "zh": "3,474.8 公里 (地球的0.27倍)",
+            "ru": "3 474,8 км (0,27 диаметра Земли)"
+        },
+        "rotation": {
+            "ja": "27.32日 (自転と公転が同期)",
+            "en": "27.32 days (Tidally locked)",
+            "de": "27,32 Tage (gebundene Rotation)",
+            "fr": "27,32 jours (rotation synchrone)",
+            "es": "27,32 días (rotación síncrona)",
+            "pt": "27,32 dias (rotação síncrona)",
+            "it": "27,32 giorni (rotazione sincrona)",
+            "ko": "27.32일 (조석 고정으로 동주기 자전)",
+            "nl": "27,32 dagen (synchrone rotatie)",
+            "id": "27,32 hari (rotasi sinkron)",
+            "hi": "27.32 दिन (ज्वारीय रूप से बद्ध)",
+            "ar": "27.32 يوماً (دوران متزامن مقيد مدياً)",
+            "zh": "27.32天 (潮汐锁定同步自转)",
+            "ru": "27,32 дня (приливный захват, синхронное вращение)"
+        },
+        "orbit": {
+            "ja": "27.32日 (地球周回)",
+            "en": "27.32 days (Orbiting Earth)",
+            "de": "27,32 Tage (Erdumlauf)",
+            "fr": "27,32 jours (orbite terrestre)",
+            "es": "27,32 días (órbita terrestre)",
+            "pt": "27,32 dias (órbita terrestre)",
+            "it": "27,32 giorni (orbita terrestre)",
+            "ko": "27.32일 (지구 공전)",
+            "nl": "27,32 dagen (omloop om aarde)",
+            "id": "27,32 hari (mengelilingi Bumi)",
+            "hi": "27.32 दिन (पृथ्वी की परिक्रमा)",
+            "ar": "27.32 يوماً (مدار حول الأرض)",
+            "zh": "27.32天 (绕地球公转)",
+            "ru": "27,32 дня (обращение вокруг Земли)"
+        },
+        "temperature": {
+            "ja": "昼 120℃ / 夜 -130℃",
+            "en": "Day 120°C / Night -130°C",
+            "de": "Tag 120°C / Nacht -130°C",
+            "fr": "Jour 120°C / Nuit -130°C",
+            "es": "Día 120°C / Noche -130°C",
+            "pt": "Dia 120°C / Noite -130°C",
+            "it": "Giorno 120°C / Notte -130°C",
+            "ko": "낮 120℃ / 밤 -130℃",
+            "nl": "Dag 120°C / Nacht -130°C",
+            "id": "Siang 120°C / Malam -130°C",
+            "hi": "दिन 120°C / रात -130°C",
+            "ar": "نهاراً 120°م / ليلاً -130°م",
+            "zh": "白昼 120℃ / 夜间 -130℃",
+            "ru": "День 120°C / Ночь -130°C"
+        },
+        "satellites": {
+            "ja": "なし (地球の衛星)",
+            "en": "None (Earth's natural satellite)",
+            "de": "Keine (Satellit der Erde)",
+            "fr": "Aucun (satellite de la Terre)",
+            "es": "Ninguno (satélite de la Tierra)",
+            "pt": "Nenhum (satélite da Terra)",
+            "it": "Nessuno (satellite della Terra)",
+            "ko": "없음 (지구의 자연위성)",
+            "nl": "Geen (satelliet van de aarde)",
+            "id": "Tidak ada (satelit alami Bumi)",
+            "hi": "कोई नहीं (पृथ्वी का प्राकृतिक उपग्रह)",
+            "ar": "لا يوجد (تابع للأرض)",
+            "zh": "无 (地球的天然卫星)",
+            "ru": "Нет (спутник Земли)"
+        },
+        "discovery": {
+            "ja": "先史時代より観測。1609年ガリレオが望遠鏡でクレーターと山脈をスケッチ。",
+            "en": "Observed since antiquity. Galileo sketched craters and mountains in 1609.",
+            "de": "Seit der Antike beobachtet. 1609 zeichnete Galileo Krater und Gebirge.",
+            "fr": "Observé depuis l'Antiquité. Galilée a dessiné les cratères et monts en 1609.",
+            "es": "Observado desde la antigüedad. Galileo dibujó cráteres y montes en 1609.",
+            "pt": "Observado desde a antiguidade. Galileu desenhou crateras e montanhas em 1609.",
+            "it": "Osservato fin dall'antichità. Nel 1609 Galileo disegnò crateri e catene montuose.",
+            "ko": "고대부터 관측. 1609년 갈릴레오가 망원경으로 달의 크레이터와 산맥을 정밀 스케치.",
+            "nl": "Sinds de oudheid waargenomen. Galileo schetste in 1609 kraters en bergen.",
+            "id": "Diamati sejak zaman kuno. Galileo membuat sketsa kawah dan pegunungan pada 1609.",
+            "hi": "प्राचीन काल से प्रेक्षित। 1609 में गैलीलियो ने क्रेटर और पहाड़ों का रेखाचित्र बनाया।",
+            "ar": "لوحظ منذ العصور القديمة. رسم غاليليو الفوهات والجبال القمرية لأول مرة عام 1609.",
+            "zh": "自古便被观测。1609年伽利略通过望远镜绘制了月球环形山与山脉素描。",
+            "ru": "Наблюдается с древности. В 1609 году Галилей зарисовал лунные кратеры и горы."
+        },
+        "missions": {
+            "ja": "米アポロ計画 (1969年人類初着陸)、JAXAかぐや(SELENE)・SLIM (2024ピンポイント着陸)、中嫦娥、印チャンドラヤーン、米アルテミス計画等。",
+            "en": "Apollo 11 (1969 first landing), JAXA Kaguya & SLIM (2024 precision landing), Chang'e, Chandrayaan, Artemis program.",
+            "de": "Apollo 11 (1969), JAXA Kaguya & SLIM (2024), Chang'e, Chandrayaan, Artemis-Programm.",
+            "fr": "Apollo 11 (1969), JAXA Kaguya & SLIM (2024), Chang'e, Chandrayaan, programme Artemis.",
+            "es": "Apolo 11 (1969), JAXA Kaguya y SLIM (2024), Chang'e, Chandrayaan, programa Artemisa.",
+            "pt": "Apollo 11 (1969), JAXA Kaguya e SLIM (2024), Chang'e, Chandrayaan, programa Artemis.",
+            "it": "Apollo 11 (1969), JAXA Kaguya e SLIM (2024), Chang'e, Chandrayaan, programma Artemis.",
+            "ko": "미국 아폴로 계획 (1969 인류 최초 착륙), JAXA 카구야 & SLIM (2024 정밀착륙), 중국 창어, 인도 찬드라얀, 아르테미스 계획 등.",
+            "nl": "Apollo 11 (1969), JAXA Kaguya & SLIM (2024), Chang'e, Chandrayaan, Artemis-programma.",
+            "id": "Apollo 11 (1969), JAXA Kaguya & SLIM (2024), Chang'e, Chandrayaan, program Artemis.",
+            "hi": "अपोलो 11 (1969 प्रथम मानव लैंडिंग), जाक्सा कागुया व स्लिम (2024), चांग'ई, चंद्रयान, आर्टेमिस।",
+            "ar": "أبولو 11 (1969 أول هبوط بشري)، وكاغويا وسليم (JAXA 2024)، وتشانغ آه، وتشاندرраян، وأرتميس.",
+            "zh": "阿波罗11号(1969人类首次登月)、JAXA辉夜姬号与SLIM(2024精准着陆)、嫦娥工程、月船号、阿尔忒弥斯计划等。",
+            "ru": "Аполлон-11 (1969), JAXA Кагуя и SLIM (2024), Чанъэ, Чандраян, программа Артемида."
+        }
+    },
+    "MARS": {
+        "mass": {
+            "ja": "6.417 × 10^23 kg (地球の約0.107倍)",
+            "en": "6.417 × 10^23 kg (0.107x Earth)",
+            "de": "6,417 × 10^23 kg (0,107-fache Erdmasse)",
+            "fr": "6,417 × 10^23 kg (0,107 fois la Terre)",
+            "es": "6,417 × 10^23 kg (0,107 veces la Tierra)",
+            "pt": "6,417 × 10^23 kg (0,107 vezes a Terra)",
+            "it": "6,417 × 10^23 kg (0,107 volte la Terra)",
+            "ko": "6.417 × 10^23 kg (지구의 약 0.107배)",
+            "nl": "6,417 × 10^23 kg (0,107x de aarde)",
+            "id": "6,417 × 10^23 kg (0,107x Bumi)",
+            "hi": "6.417 × 10^23 किग्रा (पृथ्वी का 0.107 गुना)",
+            "ar": "6.417 × 10^23 كجم (0.107 من كتلة الأرض)",
+            "zh": "6.417 × 10^23 千克 (地球的0.107倍)",
+            "ru": "6,417 × 10^23 кг (0,107 массы Земли)"
+        },
+        "diameter": {
+            "ja": "6,779 km (地球の約0.53倍)",
+            "en": "6,779 km (0.53x Earth)",
+            "de": "6.779 km (0,53-fache Erdgröße)",
+            "fr": "6 779 km (0,53 fois la Terre)",
+            "es": "6.779 km (0,53 veces la Tierra)",
+            "pt": "6.779 km (0,53 vezes a Terra)",
+            "it": "6.779 km (0,53 volte la Terra)",
+            "ko": "6,779 km (지구의 약 0.53배)",
+            "nl": "6.779 km (0,53x de aarde)",
+            "id": "6.779 km (0,53x Bumi)",
+            "hi": "6,779 किमी (पृथ्वी का 0.53 गुना)",
+            "ar": "6,779 كم (0.53 من قطر الأرض)",
+            "zh": "6,779 公里 (地球的0.53倍)",
+            "ru": "6 779 км (0,53 диаметра Земли)"
+        },
+        "rotation": {
+            "ja": "24時間37分 (地球とほぼ同等)",
+            "en": "24h 37m (Very close to Earth)",
+            "de": "24 Std. 37 Min.",
+            "fr": "24h 37m",
+            "es": "24h 37m",
+            "pt": "24h 37m",
+            "it": "24h 37m",
+            "ko": "24시간 37분 (지구와 거의 동일)",
+            "nl": "24u 37m",
+            "id": "24j 37m",
+            "hi": "24 घंटे 37 मिनट",
+            "ar": "24 ساعة و37 دقيقة",
+            "zh": "24小时37分 (与地球极其相近)",
+            "ru": "24 ч 37 мин (близко к Земле)"
+        },
+        "orbit": {
+            "ja": "686.98日 (約1.88年)",
+            "en": "686.98 days (~1.88 years)",
+            "de": "686,98 Tage (~1,88 Jahre)",
+            "fr": "686,98 jours (~1,88 an)",
+            "es": "686,98 días (~1,88 años)",
+            "pt": "686,98 dias (~1,88 anos)",
+            "it": "686,98 giorni (~1,88 anni)",
+            "ko": "686.98일 (약 1.88년)",
+            "nl": "686,98 dagen (~1,88 jaar)",
+            "id": "686,98 hari (~1,88 tahun)",
+            "hi": "686.98 दिन (~1.88 वर्ष)",
+            "ar": "686.98 يوماً (حوالي 1.88 سنة)",
+            "zh": "686.98天 (约1.88年)",
+            "ru": "686,98 дня (~1,88 года)"
+        },
+        "temperature": {
+            "ja": "平均 -63℃ (最高20℃ / 最低-140℃)",
+            "en": "Average -63°C (Max 20°C / Min -140°C)",
+            "de": "Mittel -63°C (Max 20°C / Min -140°C)",
+            "fr": "Moyenne -63°C (Max 20°C / Min -140°C)",
+            "es": "Media -63°C (Máx 20°C / Mín -140°C)",
+            "pt": "Média -63°C (Máx 20°C / Mín -140°C)",
+            "it": "Media -63°C (Max 20°C / Min -140°C)",
+            "ko": "평균 -63℃ (최고 20℃ / 최저 -140℃)",
+            "nl": "Gemiddeld -63°C (Max 20°C / Min -140°C)",
+            "id": "Rata-rata -63°C (Maks 20°C / Min -140°C)",
+            "hi": "औसत -63°C (अधिकतम 20°C / न्यूनतम -140°C)",
+            "ar": "المتوسط -63°م (الأعلى 20°م / الأدنى -140°م)",
+            "zh": "平均 -63℃ (最高20℃ / 最低-140℃)",
+            "ru": "Средняя -63°C (макс 20°C / мин -140°C)"
+        },
+        "satellites": {
+            "ja": "2個 (フォボス、ダイモス)",
+            "en": "2 (Phobos, Deimos)",
+            "de": "2 (Phobos, Deimos)",
+            "fr": "2 (Phobos, Déimos)",
+            "es": "2 (Fobos, Deimos)",
+            "pt": "2 (Fobos, Deimos)",
+            "it": "2 (Fobos, Deimos)",
+            "ko": "2개 (포보스, 데이모스)",
+            "nl": "2 (Phobos, Deimos)",
+            "id": "2 (Phobos, Deimos)",
+            "hi": "2 (फ़ोबोस, डेमोस)",
+            "ar": "2 (فوبوس وديموس)",
+            "zh": "2颗 (火卫一福波斯、火卫二德摩斯)",
+            "ru": "2 (Фобос, Деймос)"
+        },
+        "discovery": {
+            "ja": "古代エジプトやバビロニア記録。1659年ホイヘンスが大シルティスを観測。",
+            "en": "Recorded by ancient Egyptians. Huygens observed Syrtis Major and rotation in 1659.",
+            "de": "Von den alten Ägyptern aufgezeichnet. Huygens beobachtete 1659 Syrtis Major.",
+            "fr": "Enregistré par les Égyptiens. Huygens observa Syrtis Major en 1659.",
+            "es": "Registrado por egipcios antiguos. Huygens observó Syrtis Major en 1659.",
+            "pt": "Registrado pelos antigos egípcios. Huygens observou Syrtis Major em 1659.",
+            "it": "Registrato dagli antichi Egizi. Huygens osservò Syrtis Major nel 1659.",
+            "ko": "고대 이집트 및 바빌로니아 기록. 1659년 호이헌스가 대시르티스를 관측하여 자전주기 산출.",
+            "nl": "Geregistreerd door oude Egyptenaren. Huygens observeerde Syrtis Major in 1659.",
+            "id": "Dicatat oleh bangsa Mesir kuno. Huygens mengamati Syrtis Major pada 1659.",
+            "hi": "प्राचीन मिस्रियों द्वारा दर्ज। 1659 में हाइगेंस ने सतह का अध्ययन किया।",
+            "ar": "سجله قدماء المصريين. رصد هويغنز معالم السطح وفترة الدوران عام 1659.",
+            "zh": "古埃及与巴比伦文明已有记载。1659年惠更斯观测大瑟提斯高原并测出自转周期。",
+            "ru": "Известен с древности. В 1659 году Гюйгенс наблюдал Большой Сирт и определил период вращения."
+        },
+        "missions": {
+            "ja": "バイキング1/2号(1976初着陸)、スピリット/オポチュニティ/キュリオシティ/パーサヴィアランス探査車、UAEホープ、中天問1号、JAXA MMX等。",
+            "en": "Viking 1/2 (1976), Spirit/Opportunity/Curiosity/Perseverance rovers, UAE Hope, Tianwen-1, JAXA MMX.",
+            "de": "Viking 1/2, Rover Spirit/Opportunity/Curiosity/Perseverance, UAE Hope, Tianwen-1, JAXA MMX.",
+            "fr": "Viking 1/2, rovers Spirit/Opportunity/Curiosity/Perseverance, UAE Hope, Tianwen-1, JAXA MMX.",
+            "es": "Viking 1/2, rovers Spirit/Opportunity/Curiosity/Perseverance, UAE Hope, Tianwen-1, JAXA MMX.",
+            "pt": "Viking 1/2, rovers Spirit/Opportunity/Curiosity/Perseverance, UAE Hope, Tianwen-1, JAXA MMX.",
+            "it": "Viking 1/2, rover Spirit/Opportunity/Curiosity/Perseverance, UAE Hope, Tianwen-1, JAXA MMX.",
+            "ko": "바이킹 1/2호(1976 최초착륙), 스피릿/오퍼튜니티/큐리오시티/퍼서비어런스 로버, UAE 호프, 중국 톈원 1호, JAXA MMX 등.",
+            "nl": "Viking 1/2, rovers Spirit/Opportunity/Curiosity/Perseverance, UAE Hope, Tianwen-1, JAXA MMX.",
+            "id": "Viking 1/2, penjelajah Spirit/Opportunity/Curiosity/Perseverance, UAE Hope, Tianwen-1, JAXA MMX.",
+            "hi": "वाइकिंग 1/2, स्पिरिट/अपॉर्चुनिटी/क्यूरियोसिटी/पर्सिवियरेंस रोवर्स, यूएई होप, तियानवेन-1, जाक्सा एमएमएक्स।",
+            "ar": "فايكنغ 1 و2، مركبات سبيريت وأبورتيونيتي وكيريوسيتي وبيرسيفيرانس، مسبار الأمل، تيانوين-1، ومهمة MMX.",
+            "zh": "海盗1/2号(1976)、勇气/机遇/好奇/毅力号火星车、阿联酋希望号、天问一号、祝融号、JAXA MMX火星卫星探测等。",
+            "ru": "Викинг-1/2, марсоходы Спирит/Оппортьюнити/Кьюриосити/Персеверанс, Аль-Амаль, Тяньвэнь-1, JAXA MMX."
+        }
+    },
+    "SATURN": {
+        "mass": {
+            "ja": "5.683 × 10^26 kg (地球の95.2倍)",
+            "en": "5.683 × 10^26 kg (95.2x Earth)",
+            "de": "5,683 × 10^26 kg (95,2-fache Erdmasse)",
+            "fr": "5,683 × 10^26 kg (95,2 fois la Terre)",
+            "es": "5,683 × 10^26 kg (95,2 veces la Tierra)",
+            "pt": "5,683 × 10^26 kg (95,2 vezes a Terra)",
+            "it": "5,683 × 10^26 kg (95,2 volte la Terra)",
+            "ko": "5.683 × 10^26 kg (지구의 95.2배)",
+            "nl": "5,683 × 10^26 kg (95,2x de aarde)",
+            "id": "5,683 × 10^26 kg (95,2x Bumi)",
+            "hi": "5.683 × 10^26 किग्रा (पृथ्वी का 95.2 गुना)",
+            "ar": "5.683 × 10^26 كجم (95.2 ضعف كتلة الأرض)",
+            "zh": "5.683 × 10^26 千克 (地球的95.2倍)",
+            "ru": "5,683 × 10^26 кг (в 95,2 раза больше Земли)"
+        },
+        "diameter": {
+            "ja": "116,460 km (地球の9.1倍 / 環幅28万km)",
+            "en": "116,460 km (9.1x Earth / Ring width ~280,000 km)",
+            "de": "116.460 km (9,1-fache Erdgröße)",
+            "fr": "116 460 km (9,1 fois la Terre)",
+            "es": "116.460 km (9,1 veces la Tierra)",
+            "pt": "116.460 km (9,1 vezes a Terra)",
+            "it": "116.460 km (9,1 volte la Terra)",
+            "ko": "116,460 km (지구의 9.1배 / 고리 폭 약 28만km)",
+            "nl": "116.460 km (9,1x de aarde)",
+            "id": "116.460 km (9,1x Bumi)",
+            "hi": "116,460 किमी (पृथ्वी का 9.1 गुना)",
+            "ar": "116,460 كم (9.1 أضعاف قطر الأرض)",
+            "zh": "116,460 公里 (地球的9.1倍 / 光环宽度约28万公里)",
+            "ru": "116 460 км (в 9,1 раза больше Земли / кольца 280 000 км)"
+        },
+        "rotation": {
+            "ja": "10時間33分",
+            "en": "10h 33m",
+            "de": "10 Std. 33 Min.",
+            "fr": "10h 33m",
+            "es": "10h 33m",
+            "pt": "10h 33m",
+            "it": "10h 33m",
+            "ko": "10시간 33분",
+            "nl": "10u 33m",
+            "id": "10j 33m",
+            "hi": "10 घंटे 33 मिनट",
+            "ar": "10 ساعات و33 دقيقة",
+            "zh": "10小时33分",
+            "ru": "10 ч 33 мин"
+        },
+        "orbit": {
+            "ja": "10,759.2日 (約29.46年)",
+            "en": "10,759.2 days (~29.46 years)",
+            "de": "10.759,2 Tage (~29,46 Jahre)",
+            "fr": "10 759,2 jours (~29,46 ans)",
+            "es": "10.759,2 días (~29,46 años)",
+            "pt": "10.759,2 dias (~29,46 anos)",
+            "it": "10.759,2 giorni (~29,46 anni)",
+            "ko": "10,759.2일 (약 29.46년)",
+            "nl": "10.759,2 dagen (~29,46 jaar)",
+            "id": "10.759,2 hari (~29,46 tahun)",
+            "hi": "10,759.2 दिन (~29.46 वर्ष)",
+            "ar": "10,759.2 يوماً (حوالي 29.46 سنة)",
+            "zh": "10,759.2天 (约29.46年)",
+            "ru": "10 759,2 дня (~29,46 года)"
+        },
+        "temperature": {
+            "ja": "雲頂 約-140℃",
+            "en": "Cloud tops -140°C",
+            "de": "Wolkendecke -140°C",
+            "fr": "Sommet des nuages -140°C",
+            "es": "Nubes -140°C",
+            "pt": "Topo das nuvens -140°C",
+            "it": "Sommità nubi -140°C",
+            "ko": "구름 상층 약 -140℃",
+            "nl": "Wolkentop -140°C",
+            "id": "Puncak awan -140°C",
+            "hi": "बादलों का शीर्ष -140°C",
+            "ar": "قمم السحب -140°م",
+            "zh": "云层顶端约 -140℃",
+            "ru": "Верхний слой облаков -140°C"
+        },
+        "satellites": {
+            "ja": "146個 (太陽系最多 / タイタン等) ＋ 壮麗な氷の環",
+            "en": "146 Moons (Most in solar system, Titan etc.) + Majestic ice rings",
+            "de": "146 Monde (Rekord im Sonnensystem) + Eiskoloss-Ringe",
+            "fr": "146 lunes (record du système solaire) + anneaux de glace",
+            "es": "146 lunas (récord del sistema solar) + anillos de hielo",
+            "pt": "146 luas (recorde do sistema solar) + anéis de gelo",
+            "it": "146 lune (record del sistema solare) + anelli di ghiaccio",
+            "ko": "146개 (태양계 최다 / 타이탄, 엔켈라두스 등) + 거대한 얼음 고리",
+            "nl": "146 manen (meeste in zonnestelsel) + ijsringen",
+            "id": "146 bulan (terbanyak di tata surya) + cincin es megah",
+            "hi": "146 चंद्रमा (सौर मंडल में सर्वाधिक) + विशाल बर्फ के छल्ले",
+            "ar": "146 قمراً (الأكثر في النظام الشمسي) + حلقات جليدية مهيبة",
+            "zh": "146颗卫星 (太阳系之最 / 泰坦土卫六等) + 壮丽冰环",
+            "ru": "146 спутников (больше всех в системе, Титан и др.) + кольца льда"
+        },
+        "discovery": {
+            "ja": "古代より観測。1610年ガリレオが環の存在を認識、1655年ホイヘンスが環の構造を解明。",
+            "en": "Known since antiquity. Galileo saw rings in 1610; Huygens resolved rings and discovered Titan in 1655.",
+            "de": "Seit der Antike bekannt. 1610 sah Galileo die Ringe; 1655 entdeckte Huygens Titan.",
+            "fr": "Connu depuis l'Antiquité. Galilée observa les anneaux en 1610; Huygens découvrit Titan en 1655.",
+            "es": "Conocido desde la antigüedad. Galileo vio anillos en 1610; Huygens descubrió Titán en 1655.",
+            "pt": "Conhecido desde a antiguidade. Galileu viu anéis em 1610; Huygens descobriu Titã em 1655.",
+            "it": "Noto fin dall'antichità. Nel 1610 Galileo vide gli anelli; nel 1655 Huygens scoprì Titano.",
+            "ko": "고대부터 관측. 1610년 갈릴레오가 고리를 최초 관측, 1655년 호이헌스가 고리 구조 규명 및 타이탄 발견.",
+            "nl": "Sinds de oudheid bekend. Galileo zag ringen in 1610; Huygens ontdekte Titan in 1655.",
+            "id": "Dikenal sejak zaman kuno. Galileo melihat cincin pada 1610; Huygens menemukan Titan pada 1655.",
+            "hi": "प्राचीन काल से ज्ञात। 1610 में गैलीलियो ने छल्ले देखे; 1655 में हाइगेंस ने टाइटन की खोज की।",
+            "ar": "معروف منذ القدم. لاحظ غاليليو الحلقات عام 1610، واكتشف هويغنز تيتان والحلقات عام 1655.",
+            "zh": "自古便被记录。1610年伽利略发现其光环，1655年惠更斯确认光环本质并发现土卫六(泰坦)。",
+            "ru": "Известен с древности. В 1610 году Галилей увидел кольца, в 1655 году Гюйгенс открыл Титан."
+        },
+        "missions": {
+            "ja": "パイオニア11号(1979)、ボイジャー1/2号(1980/81)、NASA/ESA/ASIカッシーニ・ホイヘンス(2004-2017/タイタン着陸)。",
+            "en": "Pioneer 11 (1979), Voyager 1/2 (1980/81), NASA/ESA Cassini-Huygens (2004-2017 landed on Titan).",
+            "de": "Pioneer 11, Voyager 1/2, NASA/ESA Cassini-Huygens (2004-2017 mit Titan-Landung).",
+            "fr": "Pioneer 11, Voyager 1/2, NASA/ESA Cassini-Huygens (2004-2017 avec atterrissage sur Titan).",
+            "es": "Pioneer 11, Voyager 1/2, NASA/ESA Cassini-Huygens (2004-2017 con aterrizaje en Titán).",
+            "pt": "Pioneer 11, Voyager 1/2, NASA/ESA Cassini-Huygens (2004-2017 com pouso em Titã).",
+            "it": "Pioneer 11, Voyager 1/2, NASA/ESA Cassini-Huygens (2004-2017, atterraggio su Titano).",
+            "ko": "파이오니어 11호(1979), 보이저 1/2호(1980/81), NASA/ESA 카시니-하위헌스(2004-2017 타이탄 착륙선 투하).",
+            "nl": "Pioneer 11, Voyager 1/2, NASA/ESA Cassini-Huygens (2004-2017 met Titan-landing).",
+            "id": "Pioneer 11, Voyager 1/2, NASA/ESA Cassini-Huygens (2004-2017 mendarat di Titan).",
+            "hi": "पायनियर 11, वॉयेजर 1/2, नासा/ईएसए कैसिनी-ह्यूजेंस (2004-2017 टाइटन पर लैंडिंग)।",
+            "ar": "بايونير 11، وفوياجر 1 و2، وكاسيني-هويغنز (NASA/ESA 2004-2017 مع هبوط تاريخي على تيتان).",
+            "zh": "先驱者11号(1979)、旅行者1/2号(1980/81)、卡西尼-惠更斯号(NASA/ESA/ASI 2004-2017成功着陆泰坦)。",
+            "ru": "Пионер-11, Вояджер-1/2, Кассини-Гюйгенс (NASA/ESA 2004-2017, посадка зонда на Титан)."
+        }
+    },
+    "JUPITER": {
+        "mass": {
+            "ja": "1.898 × 10^27 kg (地球の317.8倍 / 全惑星合計の2.5倍)",
+            "en": "1.898 × 10^27 kg (317.8x Earth / 2.5x all other planets combined)",
+            "de": "1,898 × 10^27 kg (317,8-fache Erdmasse)",
+            "fr": "1,898 × 10^27 kg (317,8 fois la Terre)",
+            "es": "1,898 × 10^27 kg (317,8 veces la Tierra)",
+            "pt": "1,898 × 10^27 kg (317,8 vezes a Terra)",
+            "it": "1,898 × 10^27 kg (317,8 volte la Terra)",
+            "ko": "1.898 × 10^27 kg (지구의 317.8배 / 타 행성 총합의 2.5배)",
+            "nl": "1,898 × 10^27 kg (317,8x de aarde)",
+            "id": "1,898 × 10^27 kg (317,8x Bumi)",
+            "hi": "1.898 × 10^27 किग्रा (पृथ्वी का 317.8 गुना)",
+            "ar": "1.898 × 10^27 كجم (317.8 ضعف كتلة الأرض)",
+            "zh": "1.898 × 10^27 千克 (地球的317.8倍 / 其他行星总和的2.5倍)",
+            "ru": "1,898 × 10^27 кг (в 317,8 раза больше Земли)"
+        },
+        "diameter": {
+            "ja": "139,820 km (地球の11倍 / 太陽系最大)",
+            "en": "139,820 km (11x Earth / Largest in Solar System)",
+            "de": "139.820 km (11-fache Erdgröße)",
+            "fr": "139 820 km (11 fois la Terre)",
+            "es": "139.820 km (11 veces la Tierra)",
+            "pt": "139.820 km (11 vezes a Terra)",
+            "it": "139.820 km (11 volte la Terra)",
+            "ko": "139,820 km (지구의 11배 / 태양계 최대)",
+            "nl": "139.820 km (11x de aarde)",
+            "id": "139.820 km (11x Bumi)",
+            "hi": "139,820 किमी (पृथ्वी का 11 गुना)",
+            "ar": "139,820 كم (11 ضعف قطر الأرض)",
+            "zh": "139,820 公里 (地球的11倍 / 太阳系最大行星)",
+            "ru": "139 820 км (в 11 раз больше Земли)"
+        },
+        "rotation": {
+            "ja": "9時間55分 (太陽系惑星で最速自転)",
+            "en": "9h 55m (Fastest rotation in Solar System)",
+            "de": "9 Std. 55 Min. (schnellste Rotation)",
+            "fr": "9h 55m (rotation la plus rapide)",
+            "es": "9h 55m (rotación más rápida)",
+            "pt": "9h 55m (rotação mais rápida)",
+            "it": "9h 55m (rotazione più rapida)",
+            "ko": "9시간 55분 (태양계 행성 중 가장 빠른 자전)",
+            "nl": "9u 55m (snelste rotatie)",
+            "id": "9j 55m (rotasi tercepat)",
+            "hi": "9 घंटे 55 मिनट (सौर मंडल में सबसे तेज घूर्णन)",
+            "ar": "9 ساعات و55 دقيقة (أسرع دوران في النظام الشمسي)",
+            "zh": "9小时55分 (太阳系行星中最快自转)",
+            "ru": "9 ч 55 мин (самое быстрое вращение в системе)"
+        },
+        "orbit": {
+            "ja": "4,332.6日 (約11.86年)",
+            "en": "4,332.6 days (~11.86 years)",
+            "de": "4.332,6 Tage (~11,86 Jahre)",
+            "fr": "4 332,6 jours (~11,86 ans)",
+            "es": "4.332,6 días (~11,86 años)",
+            "pt": "4.332,6 dias (~11,86 anos)",
+            "it": "4.332,6 giorni (~11,86 anni)",
+            "ko": "4,332.6일 (약 11.86년)",
+            "nl": "4.332,6 dagen (~11,86 jaar)",
+            "id": "4.332,6 hari (~11,86 tahun)",
+            "hi": "4,332.6 दिन (~11.86 वर्ष)",
+            "ar": "4,332.6 يوماً (حوالي 11.86 سنة)",
+            "zh": "4,332.6天 (约11.86年)",
+            "ru": "4 332,6 дня (~11,86 года)"
+        },
+        "temperature": {
+            "ja": "雲頂 約-110℃",
+            "en": "Cloud tops -110°C",
+            "de": "Wolkendecke -110°C",
+            "fr": "Sommet des nuages -110°C",
+            "es": "Nubes -110°C",
+            "pt": "Topo das nuvens -110°C",
+            "it": "Sommità nubi -110°C",
+            "ko": "구름 상층 약 -110℃",
+            "nl": "Wolkentop -110°C",
+            "id": "Puncak awan -110°C",
+            "hi": "बादलों का शीर्ष -110°C",
+            "ar": "قمم السحب -110°م",
+            "zh": "云层顶端约 -110℃",
+            "ru": "Верхний слой облаков -110°C"
+        },
+        "satellites": {
+            "ja": "95個 (ガリレオ衛星: イオ、エウロパ等) ＋ 微小リング",
+            "en": "95 Moons (Io, Europa, Ganymede, Callisto) + Dust ring",
+            "de": "95 Monde (Io, Europa, Ganymed, Kallisto) + Staubring",
+            "fr": "95 lunes (Io, Europe, Ganymède, Callisto) + anneau",
+            "es": "95 lunas (Ío, Europa, Ganímedes, Calisto) + anillo",
+            "pt": "95 luas (Io, Europa, Ganimedes, Calisto) + anel",
+            "it": "95 lune (Io, Europa, Ganimede, Callisto) + anello",
+            "ko": "95개 (이오, 유로파, 가니메데, 칼리스토 등) + 미세 먼지 고리",
+            "nl": "95 manen (Io, Europa, Ganymedes, Callisto) + stofring",
+            "id": "95 bulan (Io, Europa, Ganymede, Callisto) + cincin debu",
+            "hi": "95 चंद्रमा (इओ, यूरोपा, गेनीमेड, कैलिस्टो) + धूल का छल्ला",
+            "ar": "95 قمراً (أقمار غاليليو: آيو، أوروبا، غانيميد، كاليستو) + حلقة غبارية",
+            "zh": "95颗 (伽利略卫星: 木卫一、木卫二欧罗巴、木卫三、木卫四) + 细尘环",
+            "ru": "95 спутников (Ио, Европа, Ганимед, Каллисто) + пылевое кольцо"
+        },
+        "discovery": {
+            "ja": "古代より観測。1610年ガリレオが4大衛星を発見し地動説の証拠となる。",
+            "en": "Known since antiquity. Galileo discovered the 4 Galilean moons in 1610.",
+            "de": "Seit der Antike bekannt. Galileo entdeckte 1610 die 4 Monde.",
+            "fr": "Connu depuis l'Antiquité. Galilée découvrit les 4 lunes en 1610.",
+            "es": "Conocido desde la antigüedad. Galileo descubrió las 4 lunas en 1610.",
+            "pt": "Conhecido desde a antiguidade. Galileu descobriu as 4 luas em 1610.",
+            "it": "Noto fin dall'antichità. Nel 1610 Galileo scoprì le 4 lune.",
+            "ko": "고대부터 관측. 1610년 갈릴레오가 4대 위성을 발견하여 지동설의 결정적 증거 제시.",
+            "nl": "Sinds de oudheid bekend. Galileo ontdekte in 1610 de 4 manen.",
+            "id": "Dikenal sejak zaman kuno. Galileo menemukan 4 bulan pada 1610.",
+            "hi": "प्राचीन काल से ज्ञात। 1610 में गैलीलियो ने 4 चंद्रमाओं की खोज की।",
+            "ar": "معروف منذ القدم. اكتشف غاليليو أقماره الأربعة عام 1610 مما أثبت مركزية الشمس.",
+            "zh": "自古便被观测。1610年伽利略发现四大伽利略卫星，成为日心说的决定性证据。",
+            "ru": "Известен с древности. В 1610 году Галилей открыл 4 спутника, подтвердив гелиоцентризм."
+        },
+        "missions": {
+            "ja": "ボイジャー1/2号(1979)、ガリレオ探査機(1995-2003周回)、NASAジュノー(2016〜周回中)、ESA JUICE(2031年到着予定)。",
+            "en": "Voyager 1/2 (1979), Galileo (1995-2003), NASA Juno (2016-present), ESA JUICE.",
+            "de": "Voyager 1/2, Galileo-Sonde, NASA Juno, ESA JUICE.",
+            "fr": "Voyager 1/2, sonde Galileo, NASA Juno, ESA JUICE.",
+            "es": "Voyager 1/2, sonda Galileo, NASA Juno, ESA JUICE.",
+            "pt": "Voyager 1/2, sonda Galileo, NASA Juno, ESA JUICE.",
+            "it": "Voyager 1/2, sonda Galileo, NASA Juno, ESA JUICE.",
+            "ko": "보이저 1/2호, 갈릴레오 탐사선(1995-2003), NASA 주노(2016~), ESA JUICE(2031 도착 예정).",
+            "nl": "Voyager 1/2, Galileo, NASA Juno, ESA JUICE.",
+            "id": "Voyager 1/2, Galileo, NASA Juno, ESA JUICE.",
+            "hi": "वॉयेजर 1/2, गैलीलियो, नासा जूनो (2016-वर्तमान), ईएसए ज्यूस।",
+            "ar": "فوياجر 1 و2، ومسبار غاليليو، وجونو التابع لناسا، وجوس التابع لوكالة الفضاء الأوروبية.",
+            "zh": "旅行者1/2号、伽利略号探测器(1995-2003)、NASA朱诺号(2016至今)、ESA木星冰月探测器JUICE等。",
+            "ru": "Вояджер-1/2, Галилео (1995-2003), Юнона (2016-наст.вр.), ESA JUICE."
+        }
+    },
+    "VENUS": {
+        "mass": {
+            "ja": "4.867 × 10^24 kg (地球の約0.815倍)",
+            "en": "4.867 × 10^24 kg (0.815x Earth)",
+            "de": "4,867 × 10^24 kg (0,815-fache Erdmasse)",
+            "fr": "4,867 × 10^24 kg (0,815 fois la Terre)",
+            "es": "4,867 × 10^24 kg (0,815 veces la Tierra)",
+            "pt": "4,867 × 10^24 kg (0,815 vezes a Terra)",
+            "it": "4,867 × 10^24 kg (0,815 volte la Terra)",
+            "ko": "4.867 × 10^24 kg (지구의 약 0.815배)",
+            "nl": "4,867 × 10^24 kg (0,815x de aarde)",
+            "id": "4,867 × 10^24 kg (0,815x Bumi)",
+            "hi": "4.867 × 10^24 किग्रा (पृथ्वी का 0.815 गुना)",
+            "ar": "4.867 × 10^24 كجم (0.815 من كتلة الأرض)",
+            "zh": "4.867 × 10^24 千克 (地球的0.815倍)",
+            "ru": "4,867 × 10^24 кг (0,815 массы Земли)"
+        },
+        "diameter": {
+            "ja": "12,104 km (地球の約0.95倍 / 双子星)",
+            "en": "12,104 km (0.95x Earth / Twin planet)",
+            "de": "12.104 km (0,95-fache Erdgröße)",
+            "fr": "12 104 km (0,95 fois la Terre)",
+            "es": "12.104 km (0,95 veces la Tierra)",
+            "pt": "12.104 km (0,95 vezes a Terra)",
+            "it": "12.104 km (0,95 volte la Terra)",
+            "ko": "12,104 km (지구의 약 0.95배 / 쌍둥이 행성)",
+            "nl": "12.104 km (0,95x de aarde)",
+            "id": "12.104 km (0,95x Bumi)",
+            "hi": "12,104 किमी (पृथ्वी का 0.95 गुना)",
+            "ar": "12,104 كم (0.95 من قطر الأرض)",
+            "zh": "12,104 公里 (地球的0.95倍 / 孪生姐妹星)",
+            "ru": "12 104 км (0,95 диаметра Земли / сестра-близнец)"
+        },
+        "rotation": {
+            "ja": "243.02日 (逆行自転)",
+            "en": "243.02 days (Retrograde rotation)",
+            "de": "243,02 Tage (rückläufig)",
+            "fr": "243,02 jours (rétrograde)",
+            "es": "243,02 días (retrógrada)",
+            "pt": "243,02 dias (retrógrada)",
+            "it": "243,02 giorni (retrograda)",
+            "ko": "243.02일 (역방향 자전)",
+            "nl": "243,02 dagen (retrograde)",
+            "id": "243,02 hari (rotasi terbalik)",
+            "hi": "243.02 दिन (विपरीत दिशा में घूर्णन)",
+            "ar": "243.02 يوماً (دوران تراجعي عكسي)",
+            "zh": "243.02天 (逆向自转)",
+            "ru": "243,02 дня (обратное вращение)"
+        },
+        "orbit": {
+            "ja": "224.70日",
+            "en": "224.70 days",
+            "de": "224,70 Tage",
+            "fr": "224,70 jours",
+            "es": "224,70 días",
+            "pt": "224,70 dias",
+            "it": "224,70 giorni",
+            "ko": "224.70일",
+            "nl": "224,70 dagen",
+            "id": "224,70 hari",
+            "hi": "224.70 दिन",
+            "ar": "224.70 يوماً",
+            "zh": "224.70天",
+            "ru": "224,70 дня"
+        },
+        "temperature": {
+            "ja": "約462℃ (暴走温室効果で太陽系最高温)",
+            "en": "462°C (Hottest planet via runaway greenhouse)",
+            "de": "462°C (Treibhauseffekt, heißester Planet)",
+            "fr": "462°C (effet de serre extrême)",
+            "es": "462°C (planeta más caliente)",
+            "pt": "462°C (planeta mais quente)",
+            "it": "462°C (pianeta più caldo)",
+            "ko": "약 462℃ (온실효과로 태양계 최고온)",
+            "nl": "462°C (heetste planeet)",
+            "id": "462°C (planet terpanas)",
+            "hi": "462°C (सौर मंडल का सबसे गर्म ग्रह)",
+            "ar": "462°م (أشد الكواكب حرارة بفعل الاحتباس الحراري)",
+            "zh": "约 462℃ (失控温室效应使之成为太阳系最热行星)",
+            "ru": "462°C (самая горячая планета из-за парникового эффекта)"
+        },
+        "satellites": {
+            "ja": "0個 (衛星なし)",
+            "en": "0 (No moons)",
+            "de": "0 (Keine Monde)",
+            "fr": "0 (Aucune lune)",
+            "es": "0 (Sin lunas)",
+            "pt": "0 (Sem luas)",
+            "it": "0 (Nessuna luna)",
+            "ko": "0개 (위성 없음)",
+            "nl": "0 (Geen manen)",
+            "id": "0 (Tanpa bulan)",
+            "hi": "0 (कोई चंद्रमा नहीं)",
+            "ar": "0 (لا توجد أقمار)",
+            "zh": "0 (无卫星)",
+            "ru": "0 (нет спутников)"
+        },
+        "discovery": {
+            "ja": "古代より「明けの明星/宵の明星」。1610年ガリレオが金星の満ち欠けを発見。",
+            "en": "Known since antiquity. Galileo discovered its phases in 1610 confirming heliocentrism.",
+            "de": "Seit der Antike bekannt. Galileo entdeckte 1610 die Venusphasen.",
+            "fr": "Connu depuis l'Antiquité. Galilée découvrit ses phases en 1610.",
+            "es": "Conocido desde la antigüedad. Galileo descubrió sus fases en 1610.",
+            "pt": "Conhecido desde a antiguidade. Galileu descobriu suas fases em 1610.",
+            "it": "Noto fin dall'antichità. Galileo ne scoprì le fasi nel 1610.",
+            "ko": "고대부터 샛별/개밥바라기로 관측. 1610년 갈릴레오가 금성의 위상 변화(차고 기움) 발견.",
+            "nl": "Sinds de oudheid bekend. Galileo ontdekte in 1610 de schijngestalten.",
+            "id": "Dikenal sejak zaman kuno. Galileo menemukan fasenya pada 1610.",
+            "hi": "प्राचीन काल से ज्ञात। 1610 में गैलीलियो ने शुक्र की कलाओं की खोज की।",
+            "ar": "معروف منذ القدم (نجمة الصباح/المساء). اكتشف غاليليو أطواره عام 1610.",
+            "zh": "自古便称“启明星/长庚星”。1610年伽利略发现金星相位盈亏变化。",
+            "ru": "Известна с древности. В 1610 году Галилей открыл фазы Венеры."
+        },
+        "missions": {
+            "ja": "ソ連ベネラ計画(1970年初着陸)、NASAマゼラン(1990-94レーダー地表地図)、JAXAあかつき(2015〜気象観測)。",
+            "en": "Venera 7 (1970 first landing), NASA Magellan (radar map), JAXA Akatsuki (2015-present climate orbiter).",
+            "de": "Venera 7 (1970), NASA Magellan, JAXA Akatsuki (2015-heute).",
+            "fr": "Venera 7 (1970), NASA Magellan, JAXA Akatsuki (2015-présent).",
+            "es": "Venera 7 (1970), NASA Magellan, JAXA Akatsuki (2015-presente).",
+            "pt": "Venera 7 (1970), NASA Magellan, JAXA Akatsuki (2015-presente).",
+            "it": "Venera 7 (1970), NASA Magellan, JAXA Akatsuki (2015-presente).",
+            "ko": "소련 베네라 7호(1970 인류 최초 지표 착륙), NASA 마젤란 레이더 지도, JAXA 아카츠키(2015~ 기상관측) 등.",
+            "nl": "Venera 7 (1970), NASA Magellan, JAXA Akatsuki (2015-heden).",
+            "id": "Venera 7 (1970), NASA Magellan, JAXA Akatsuki (2015-sekarang).",
+            "hi": "वेनेरा 7 (1970 प्रथम लैंडिंग), नासा मैगलन, जाक्सा अकात्सुकी (2015-वर्तमान)।",
+            "ar": "فينيرا 7 (1970 أول هبوط)، وماجلان (NASA)، وأكاتسوكي (JAXA 2015-الآن).",
+            "zh": "苏联金星7号(1970人类首次地表着陆)、NASA麦哲伦号雷达测绘、JAXA破晓号(Akatsuki 2015至今气象观测)等。",
+            "ru": "Венера-7 (1970 первая посадка), Magellan (NASA), Akatsuki (JAXA 2015-наст.вр.)."
+        }
+    },
+    "MERCURY": {
+        "mass": {
+            "ja": "3.301 × 10^23 kg (地球の約0.055倍)",
+            "en": "3.301 × 10^23 kg (0.055x Earth)",
+            "de": "3,301 × 10^23 kg (0,055-fache Erdmasse)",
+            "fr": "3,301 × 10^23 kg (0,055 fois la Terre)",
+            "es": "3,301 × 10^23 kg (0,055 veces la Tierra)",
+            "pt": "3,301 × 10^23 kg (0,055 vezes a Terra)",
+            "it": "3,301 × 10^23 kg (0,055 volte la Terra)",
+            "ko": "3.301 × 10^23 kg (지구의 약 0.055배)",
+            "nl": "3,301 × 10^23 kg (0,055x de aarde)",
+            "id": "3,301 × 10^23 kg (0,055x Bumi)",
+            "hi": "3.301 × 10^23 किग्रा (पृथ्वी का 0.055 गुना)",
+            "ar": "3.301 × 10^23 كجم (0.055 من كتلة الأرض)",
+            "zh": "3.301 × 10^23 千克 (地球的0.055倍)",
+            "ru": "3,301 × 10^23 кг (0,055 массы Земли)"
+        },
+        "diameter": {
+            "ja": "4,879.4 km (地球の約0.38倍)",
+            "en": "4,879.4 km (0.38x Earth)",
+            "de": "4.879,4 km (0,38-fache Erdgröße)",
+            "fr": "4 879,4 km (0,38 fois la Terre)",
+            "es": "4.879,4 km (0,38 veces la Tierra)",
+            "pt": "4.879,4 km (0,38 vezes a Terra)",
+            "it": "4.879,4 km (0,38 volte la Terra)",
+            "ko": "4,879.4 km (지구의 약 0.38배)",
+            "nl": "4.879,4 km (0,38x de aarde)",
+            "id": "4.879,4 km (0,38x Bumi)",
+            "hi": "4,879.4 किमी (पृथ्वी का 0.38 गुना)",
+            "ar": "4,879.4 كم (0.38 من قطر الأرض)",
+            "zh": "4,879.4 公里 (地球的0.38倍)",
+            "ru": "4 879,4 км (0,38 диаметра Земли)"
+        },
+        "rotation": {
+            "ja": "58.65日 (3:2スピン軌道共鳴)",
+            "en": "58.65 days (3:2 spin-orbit resonance)",
+            "de": "58,65 Tage (3:2-Resonanz)",
+            "fr": "58,65 jours (résonance 3:2)",
+            "es": "58,65 días (resonancia 3:2)",
+            "pt": "58,65 dias (ressonância 3:2)",
+            "it": "58,65 giorni (risonanza 3:2)",
+            "ko": "58.65일 (3:2 궤도 공명)",
+            "nl": "58,65 dagen (3:2-resonantie)",
+            "id": "58,65 hari (resonansi 3:2)",
+            "hi": "58.65 दिन (3:2 स्पिन-ऑर्बिट प्रतिध्वनि)",
+            "ar": "58.65 يوماً (رنين مداري 3:2)",
+            "zh": "58.65天 (3:2自转公转轨道共振)",
+            "ru": "58,65 дня (резонанс 3:2)"
+        },
+        "orbit": {
+            "ja": "87.97日",
+            "en": "87.97 days",
+            "de": "87,97 Tage",
+            "fr": "87,97 jours",
+            "es": "87,97 días",
+            "pt": "87,97 dias",
+            "it": "87,97 giorni",
+            "ko": "87.97일",
+            "nl": "87,97 dagen",
+            "id": "87,97 hari",
+            "hi": "87.97 दिन",
+            "ar": "87.97 يوماً",
+            "zh": "87.97天",
+            "ru": "87,97 дня"
+        },
+        "temperature": {
+            "ja": "昼 430℃ / 夜 -180℃ (太陽系最大の寒暖差)",
+            "en": "Day 430°C / Night -180°C (Extreme range)",
+            "de": "Tag 430°C / Nacht -180°C (Extremer Bereich)",
+            "fr": "Jour 430°C / Nuit -180°C (écart extrême)",
+            "es": "Día 430°C / Noche -180°C (extremo)",
+            "pt": "Dia 430°C / Noite -180°C (extremo)",
+            "it": "Giorno 430°C / Notte -180°C (estremo)",
+            "ko": "낮 430℃ / 밤 -180℃ (태양계 최대 일교차)",
+            "nl": "Dag 430°C / Nacht -180°C",
+            "id": "Siang 430°C / Malam -180°C",
+            "hi": "दिन 430°C / रात -180°C (अत्यधिक भिन्नता)",
+            "ar": "نهاراً 430°م / ليلاً -180°م (أكبر تفاوت حراري)",
+            "zh": "白昼 430℃ / 夜间 -180℃ (太阳系最大昼夜温差)",
+            "ru": "День 430°C / Ночь -180°C (экстремальный перепад)"
+        },
+        "satellites": {
+            "ja": "0個 (衛星なし)",
+            "en": "0 (No moons)",
+            "de": "0 (Keine Monde)",
+            "fr": "0 (Aucune lune)",
+            "es": "0 (Sin lunas)",
+            "pt": "0 (Sem luas)",
+            "it": "0 (Nessuna luna)",
+            "ko": "0개 (위성 없음)",
+            "nl": "0 (Geen manen)",
+            "id": "0 (Tanpa bulan)",
+            "hi": "0 (कोई चंद्रमा नहीं)",
+            "ar": "0 (لا توجد أقمار)",
+            "zh": "0 (无卫星)",
+            "ru": "0 (нет спутников)"
+        },
+        "discovery": {
+            "ja": "紀元前14世紀バビロニア記録。1631年ガッサンディが太陽面通過を初観測。",
+            "en": "Recorded in 14th century BC Babylonian tablets. Gassendi observed transit in 1631.",
+            "de": "Seit babylonischen Zeiten bekannt. Gassendi beobachtete 1631 den Transit.",
+            "fr": "Connu depuis les Babyloniens. Gassendi a observé le transit en 1631.",
+            "es": "Conocido desde los babilonios. Gassendi observó el tránsito en 1631.",
+            "pt": "Conhecido desde os babilônios. Gassendi observou o trânsito em 1631.",
+            "it": "Noto fin dai Babilonesi. Gassendi ne osservò il transito nel 1631.",
+            "ko": "기원전 14세기 바빌로니아 기록. 1631년 가상디가 태양면 통과를 망원경으로 최초 관측.",
+            "nl": "Sinds de Babyloniërs bekend. Gassendi observeerde in 1631 de overgang.",
+            "id": "Dicatat sejak bangsa Babilonia. Gassendi mengamati transit pada 1631.",
+            "hi": "14वीं शताब्दी ईसा पूर्व बेबीलोन में दर्ज। 1631 में पारगमन देखा गया।",
+            "ar": "مسجل منذ الألواح البابلية في القرن 14 ق.م. رصد غاسندي عبوره عام 1631.",
+            "zh": "公元前14世纪巴比伦已有泥板记录。1631年加桑迪首次观测水星凌日。",
+            "ru": "Известен с вавилонских времен. В 1631 году Гассенди наблюдал прохождение по диску Солнца."
+        },
+        "missions": {
+            "ja": "マリナー10号(1974-75)、NASAメッセンジャー(2011-15初周回)、日欧共同ベピコロンボ(BepiColombo / 2025-26周回予定)。",
+            "en": "Mariner 10 (1974-75), NASA MESSENGER (2011-15), ESA/JAXA BepiColombo (2025-26 arrival).",
+            "de": "Mariner 10, NASA MESSENGER, ESA/JAXA BepiColombo.",
+            "fr": "Mariner 10, NASA MESSENGER, ESA/JAXA BepiColombo.",
+            "es": "Mariner 10, NASA MESSENGER, ESA/JAXA BepiColombo.",
+            "pt": "Mariner 10, NASA MESSENGER, ESA/JAXA BepiColombo.",
+            "it": "Mariner 10, NASA MESSENGER, ESA/JAXA BepiColombo.",
+            "ko": "매리너 10호, NASA 메신저(2011-15 최초 궤도탐사), 일본-유럽 공동 베피콜롬보(BepiColombo) 탐사선.",
+            "nl": "Mariner 10, NASA MESSENGER, ESA/JAXA BepiColombo.",
+            "id": "Mariner 10, NASA MESSENGER, ESA/JAXA BepiColombo.",
+            "hi": "मैरिनर 10, नासा मैसेंजर (2011-15), ईएसए/जाक्सा बेपीकोलंबो।",
+            "ar": "مارينر 10، وماسنجر (NASA 2011-15)، ومهمة بيبيكولومبو المشتركة بين ESA وJAXA.",
+            "zh": "水手10号(1974-75)、NASA信使号(2011-15首颗环绕探测器)、日欧联合贝皮可伦坡号(BepiColombo)。",
+            "ru": "Маринер-10, MESSENGER (NASA 2011-15), совместная миссия ESA/JAXA БепиКоломбо."
+        }
+    },
+    "URANUS": {
+        "mass": {
+            "ja": "8.681 × 10^25 kg (地球の14.5倍)",
+            "en": "8.681 × 10^25 kg (14.5x Earth)",
+            "de": "8,681 × 10^25 kg (14,5-fache Erdmasse)",
+            "fr": "8,681 × 10^25 kg (14,5 fois la Terre)",
+            "es": "8,681 × 10^25 kg (14,5 veces la Tierra)",
+            "pt": "8,681 × 10^25 kg (14,5 vezes a Terra)",
+            "it": "8,681 × 10^25 kg (14,5 volte la Terra)",
+            "ko": "8.681 × 10^25 kg (지구의 14.5배)",
+            "nl": "8,681 × 10^25 kg (14,5x de aarde)",
+            "id": "8,681 × 10^25 kg (14,5x Bumi)",
+            "hi": "8.681 × 10^25 किग्रा (पृथ्वी का 14.5 गुना)",
+            "ar": "8.681 × 10^25 كجم (14.5 ضعف كتلة الأرض)",
+            "zh": "8.681 × 10^25 千克 (地球的14.5倍)",
+            "ru": "8,681 × 10^25 кг (в 14,5 раза больше Земли)"
+        },
+        "diameter": {
+            "ja": "50,724 km (地球の約4.0倍 / 巨大氷惑星)",
+            "en": "50,724 km (4.0x Earth / Ice Giant)",
+            "de": "50.724 km (4,0-fache Erdgröße)",
+            "fr": "50 724 km (4,0 fois la Terre)",
+            "es": "50.724 km (4,0 veces la Tierra)",
+            "pt": "50.724 km (4,0 vezes a Terra)",
+            "it": "50.724 km (4,0 volte la Terra)",
+            "ko": "50,724 km (지구의 약 4.0배 / 거대 얼음 행성)",
+            "nl": "50.724 km (4,0x de aarde)",
+            "id": "50.724 km (4,0x Bumi)",
+            "hi": "50,724 किमी (पृथ्वी का 4.0 गुना)",
+            "ar": "50,724 كم (4 أضعاف قطر الأرض)",
+            "zh": "50,724 公里 (地球的4.0倍 / 冰巨行星)",
+            "ru": "50 724 км (в 4 раза больше Земли)"
+        },
+        "rotation": {
+            "ja": "17時間14分 (自転軸97.77度横倒し)",
+            "en": "17h 14m (Extreme 97.77° axial tilt)",
+            "de": "17 Std. 14 Min. (97,77° Neigung)",
+            "fr": "17h 14m (axe incliné à 97,77°)",
+            "es": "17h 14m (inclinación 97,77°)",
+            "pt": "17h 14m (inclinação 97,77°)",
+            "it": "17h 14m (inclinazione 97,77°)",
+            "ko": "17시간 14분 (자전축 97.77도 누움)",
+            "nl": "17u 14m (97,77° ashelling)",
+            "id": "17j 14m (kemiringan 97,77°)",
+            "hi": "17 घंटे 14 मिनट (97.77° झुकाव)",
+            "ar": "17 ساعة و14 دقيقة (ميل محوري 97.77 درجة)",
+            "zh": "17小时14分 (自转轴倾角达97.77度“横躺自转”)",
+            "ru": "17 ч 14 мин (наклон оси 97,77°)"
+        },
+        "orbit": {
+            "ja": "30,685.4日 (約84.02年)",
+            "en": "30,685.4 days (~84.02 years)",
+            "de": "30.685,4 Tage (~84,02 Jahre)",
+            "fr": "30 685,4 jours (~84,02 ans)",
+            "es": "30.685,4 días (~84,02 años)",
+            "pt": "30.685,4 dias (~84,02 anos)",
+            "it": "30.685,4 giorni (~84,02 anni)",
+            "ko": "30,685.4일 (약 84.02년)",
+            "nl": "30.685,4 dagen (~84,02 jaar)",
+            "id": "30.685,4 hari (~84,02 tahun)",
+            "hi": "30,685.4 दिन (~84.02 वर्ष)",
+            "ar": "30,685.4 يوماً (حوالي 84.02 سنة)",
+            "zh": "30,685.4天 (约84.02年)",
+            "ru": "30 685,4 дня (~84,02 года)"
+        },
+        "temperature": {
+            "ja": "約-224℃ (太陽系惑星で最低温大気)",
+            "en": "-224°C (Coldest planetary atmosphere)",
+            "de": "-224°C (Kälteste Atmosphäre)",
+            "fr": "-224°C (Atmosphère la plus froide)",
+            "es": "-224°C (Atmósfera más fría)",
+            "pt": "-224°C (Atmosfera mais fria)",
+            "it": "-224°C (Atmosfera più fredda)",
+            "ko": "약 -224℃ (태양계 행성 중 가장 차가운 대기)",
+            "nl": "-224°C (Koudste atmosfeer)",
+            "id": "-224°C (Atmosfer terdingin)",
+            "hi": "-224°C (सौर मंडल का सबसे ठंडा वातावरण)",
+            "ar": "-224°م (أبرد غلاف جوي كوكبي في النظام الشمسي)",
+            "zh": "约 -224℃ (太阳系行星中最冷的大气层)",
+            "ru": "-224°C (самая холодная атмосфера в системе)"
+        },
+        "satellites": {
+            "ja": "28個 (チタニア、オベロン等) ＋ 13本の縦向きの環",
+            "en": "28 Moons (Titania, Oberon etc.) + 13 vertical rings",
+            "de": "28 Monde (Titania, Oberon) + 13 vertikale Ringe",
+            "fr": "28 lunes (Titania, Obéron) + 13 anneaux verticaux",
+            "es": "28 lunas (Titania, Oberón) + 13 anillos verticales",
+            "pt": "28 luas (Titânia, Oberon) + 13 anéis verticais",
+            "it": "28 lune (Titania, Oberon) + 13 anelli verticali",
+            "ko": "28개 (티타니아, 오베론, 미란다 등) + 13개의 수직 고리",
+            "nl": "28 manen (Titania, Oberon) + 13 verticale ringen",
+            "id": "28 bulan (Titania, Oberon) + 13 cincin vertikal",
+            "hi": "28 चंद्रमा (टिटानिया, ओबेरॉन) + 13 ऊर्ध्वाधर छल्ले",
+            "ar": "28 قمراً (تيتانيا، أوبيرون) + 13 حلقة عمودية",
+            "zh": "28颗 (天卫三泰坦妮亚、天卫四奥伯龙等) + 13道竖立垂直光环",
+            "ru": "28 спутников (Титания, Оберон) + 13 вертикальных колец"
+        },
+        "discovery": {
+            "ja": "1781年3月13日、英ウィリアム・ハーシェルが望遠鏡で近世以降初発見。",
+            "en": "Discovered March 13, 1781 by William Herschel in England via telescope.",
+            "de": "Am 13. März 1781 von William Herschel per Teleskop entdeckt.",
+            "fr": "Découvert le 13 mars 1781 par William Herschel au télescope.",
+            "es": "Descubierto el 13 de marzo de 1781 por William Herschel con telescopio.",
+            "pt": "Descoberto em 13 de março de 1781 por William Herschel.",
+            "it": "Scoperto il 13 marzo 1781 da William Herschel al telescopio.",
+            "ko": "1781년 3월 13일, 영국의 윌리엄 허셜이 자작 망원경으로 인류 역사상 최초로 망원경을 통해 발견한 행성.",
+            "nl": "Ontdekt op 13 maart 1781 door William Herschel.",
+            "id": "Ditemukan pada 13 Maret 1781 oleh William Herschel.",
+            "hi": "13 मार्च 1781 को विलियम हर्शल द्वारा खोजा गया।",
+            "ar": "اكتشفه ويليام هيرشل في 13 مارس 1781 باستخدام التلسكوب.",
+            "zh": "1781年3月13日由英国天文学家威廉·赫歇尔使用自制望远镜发现，是近现代人类通过望远镜发现的第一颗新行星。",
+            "ru": "Открыт 13 марта 1781 года Уильямом Гершелем с помощью телескопа."
+        },
+        "missions": {
+            "ja": "NASAボイジャー2号 (1986年1月24日最接近、10個の新衛星と2本のリング発見)。",
+            "en": "NASA Voyager 2 (only close flyby in Jan 1986, discovering 10 moons & 2 rings).",
+            "de": "NASA Voyager 2 (historischer Vorbeiflug im Jan 1986).",
+            "fr": "NASA Voyager 2 (seul survol rapproché en janvier 1986).",
+            "es": "NASA Voyager 2 (único sobrevuelo en enero de 1986).",
+            "pt": "NASA Voyager 2 (único sobrevoo em janeiro de 1986).",
+            "it": "NASA Voyager 2 (unico sorvolo ravvicinato nel gennaio 1986).",
+            "ko": "NASA 보이저 2호 (1986년 1월 24일 유일한 최접근 탐사, 10개 신위성 및 2개 고리 발견).",
+            "nl": "NASA Voyager 2 (enige scheervlucht in jan 1986).",
+            "id": "NASA Voyager 2 (satu-satunya lintas terbang dekat pada Januari 1986).",
+            "hi": "नासा वॉयेजर 2 (जनवरी 1986 में एकमात्र निकटतम उड़ान)।",
+            "ar": "فوياجر 2 التابع لناسا (التحليق القريب الوحيد في يناير 1986 مكتشفاً 10 أقمار وحلقتين).",
+            "zh": "NASA旅行者2号(1986年1月24日人类唯一一次近距离飞越探测，发现10颗新卫星与2道新光环)。",
+            "ru": "Вояджер-2 (NASA, единственный пролет в январе 1986 г., открыл 10 спутников и 2 кольца)."
+        }
+    }
+};
+
 const CELESTIAL_BODIES = [
     {
         id: 'SUN',
@@ -2026,65 +3069,111 @@ function initCelestialBodies() {
 
 function createCelestialBillboard(body) {
     const canvas = document.createElement('canvas');
-    canvas.width = 160;
-    canvas.height = 80;
+    // High-DPI 4x supersampling (320x160) for crystal clear sharp rendering without any blur
+    canvas.width = 320;
+    canvas.height = 160;
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, 160, 80);
+    ctx.clearRect(0, 0, 320, 160);
 
     if (body.id === 'SUN') {
-        // SUN: Crystal clear luminous text close to corona
-        ctx.font = 'bold 22px "Inter", -apple-system, sans-serif';
+        // SUN: Ultra-crisp luminous gold text directly attached to solar core
+        ctx.font = 'bold 38px "Inter", "Segoe UI", sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.shadowColor = 'rgba(253, 224, 71, 0.95)';
-        ctx.shadowBlur = 12;
+        ctx.strokeStyle = '#78350f';
+        ctx.lineWidth = 6;
+        ctx.strokeText('SUN', 160, 80);
         ctx.fillStyle = '#fef08a';
-        ctx.fillText('SUN', 80, 40);
-        ctx.fillText('SUN', 80, 40);
+        ctx.fillText('SUN', 160, 80);
         return canvas;
     }
 
-    const orbX = 80;
-    const orbY = 24;
-    const orbRadius = 8;
+    const orbX = 160;
+    const orbY = 50;
+    const orbRadius = 16;
 
-    // 1. Soft Outer Neon Glow
-    const glowGrad = ctx.createRadialGradient(orbX, orbY, 1, orbX, orbY, orbRadius * 2.8);
+    // 1. Crisp Outer Glow
+    const glowGrad = ctx.createRadialGradient(orbX, orbY, 2, orbX, orbY, orbRadius * 2.5);
     glowGrad.addColorStop(0, body.color || '#ffffff');
-    glowGrad.addColorStop(0.35, body.color || '#ffffff');
+    glowGrad.addColorStop(0.4, body.color || '#ffffff');
     glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
     ctx.fillStyle = glowGrad;
     ctx.beginPath();
-    ctx.arc(orbX, orbY, orbRadius * 2.8, 0, Math.PI * 2);
+    ctx.arc(orbX, orbY, orbRadius * 2.5, 0, Math.PI * 2);
     ctx.fill();
 
-    // 2. Specialized Realistic Planetary Visuals
+    // 2. Specialized Planet Graphic
     if (body.id === 'SATURN') {
-        // Saturn Ice Rings (Back Layer)
+        // Saturn Rings (Tilted)
         ctx.save();
         ctx.translate(orbX, orbY);
         ctx.rotate(-0.35);
-        ctx.strokeStyle = 'rgba(253, 224, 71, 0.85)';
-        ctx.lineWidth = 3.5;
+        ctx.strokeStyle = '#fde047';
+        ctx.lineWidth = 7;
         ctx.beginPath();
-        ctx.ellipse(0, 0, orbRadius * 2.2, orbRadius * 0.7, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, orbRadius * 2.3, orbRadius * 0.75, 0, 0, Math.PI * 2);
         ctx.stroke();
-        ctx.strokeStyle = 'rgba(254, 240, 138, 0.9)';
-        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = '#fef08a';
+        ctx.lineWidth = 3;
         ctx.beginPath();
-        ctx.ellipse(0, 0, orbRadius * 2.0, orbRadius * 0.6, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, orbRadius * 2.1, orbRadius * 0.65, 0, 0, Math.PI * 2);
         ctx.stroke();
         ctx.restore();
 
-        // Saturn Sphere
+        // Sphere
         ctx.fillStyle = '#fde047';
         ctx.beginPath();
         ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Saturn Bands
-        ctx.fillStyle = 'rgba(202, 138, 4, 0.4)';
-        ctx.fillRect(orbX - orbRadius, orbY - 2, orbRadius * 2, 4);
+        ctx.fillStyle = 'rgba(202, 138, 4, 0.5)';
+        ctx.fillRect(orbX - orbRadius, orbY - 4, orbRadius * 2, 8);
+    } else if (body.id === 'URANUS') {
+        // Uranus Vertical Rings (Tilted ~83 deg)
+        ctx.save();
+        ctx.translate(orbX, orbY);
+        ctx.rotate(1.45);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 4.5;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, orbRadius * 2.1, orbRadius * 0.5, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+
+        // Sphere
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath();
+        ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.fillRect(orbX - orbRadius, orbY - 3, orbRadius * 2, 6);
+    } else if (body.id === 'JUPITER') {
+        // Jupiter Dust Ring
+        ctx.save();
+        ctx.translate(orbX, orbY);
+        ctx.rotate(-0.15);
+        ctx.strokeStyle = 'rgba(251, 146, 60, 0.7)';
+        ctx.lineWidth = 3.5;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, orbRadius * 1.9, orbRadius * 0.55, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+
+        // Sphere
+        ctx.fillStyle = '#fb923c';
+        ctx.beginPath();
+        ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Stripes & Spot
+        ctx.fillStyle = 'rgba(154, 52, 18, 0.7)';
+        ctx.fillRect(orbX - orbRadius, orbY - 6, orbRadius * 2, 5);
+        ctx.fillRect(orbX - orbRadius, orbY + 3, orbRadius * 2, 5);
+        ctx.fillStyle = '#dc2626';
+        ctx.beginPath();
+        ctx.arc(orbX + 5, orbY + 5, 3.2, 0, Math.PI * 2);
+        ctx.fill();
     } else if (body.id === 'MOON') {
         // Moon Base
         ctx.fillStyle = '#e2e8f0';
@@ -2092,62 +3181,14 @@ function createCelestialBillboard(body) {
         ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Realistic Lunar Mare (Dark Basalt Plains & Craters)
+        // Craters & Mare
         ctx.fillStyle = '#94a3b8';
         ctx.beginPath();
-        ctx.arc(orbX - 2.5, orbY - 2, 2.5, 0, Math.PI * 2);
-        ctx.arc(orbX + 2, orbY - 1, 2.2, 0, Math.PI * 2);
-        ctx.arc(orbX - 1, orbY + 3, 2.8, 0, Math.PI * 2);
-        ctx.arc(orbX + 3.5, orbY + 2.5, 1.8, 0, Math.PI * 2);
+        ctx.arc(orbX - 5, orbY - 4, 5, 0, Math.PI * 2);
+        ctx.arc(orbX + 4, orbY - 2, 4.4, 0, Math.PI * 2);
+        ctx.arc(orbX - 2, orbY + 6, 5.6, 0, Math.PI * 2);
+        ctx.arc(orbX + 7, orbY + 5, 3.6, 0, Math.PI * 2);
         ctx.fill();
-    } else if (body.id === 'JUPITER') {
-        // Jupiter Subtle Dust Rings (Fine Sharp Ring)
-        ctx.save();
-        ctx.translate(orbX, orbY);
-        ctx.rotate(-0.15);
-        ctx.strokeStyle = 'rgba(251, 146, 60, 0.6)';
-        ctx.lineWidth = 1.8;
-        ctx.beginPath();
-        ctx.ellipse(0, 0, orbRadius * 1.8, orbRadius * 0.5, 0, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.restore();
-
-        // Jupiter Sphere
-        ctx.fillStyle = '#fb923c';
-        ctx.beginPath();
-        ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Cloud Stripes & Great Red Spot
-        ctx.fillStyle = 'rgba(154, 52, 18, 0.6)';
-        ctx.fillRect(orbX - orbRadius, orbY - 3, orbRadius * 2, 2.5);
-        ctx.fillRect(orbX - orbRadius, orbY + 1.5, orbRadius * 2, 2.5);
-        // Great Red Spot
-        ctx.fillStyle = '#dc2626';
-        ctx.beginPath();
-        ctx.arc(orbX + 2.5, orbY + 2.5, 1.6, 0, Math.PI * 2);
-        ctx.fill();
-    } else if (body.id === 'URANUS') {
-        // Uranus Vertical Ice Rings (Tilted ~83 degrees)
-        ctx.save();
-        ctx.translate(orbX, orbY);
-        ctx.rotate(1.45);
-        ctx.strokeStyle = 'rgba(56, 189, 248, 0.75)';
-        ctx.lineWidth = 2.0;
-        ctx.beginPath();
-        ctx.ellipse(0, 0, orbRadius * 2.0, orbRadius * 0.45, 0, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.restore();
-
-        // Uranus Ice Giant Sphere (Cyan)
-        ctx.fillStyle = '#38bdf8';
-        ctx.beginPath();
-        ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Soft Atmosphere band
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
-        ctx.fillRect(orbX - orbRadius, orbY - 1.5, orbRadius * 2, 3);
     } else if (body.id === 'MARS') {
         // Mars Sphere
         ctx.fillStyle = '#ef4444';
@@ -2155,33 +3196,34 @@ function createCelestialBillboard(body) {
         ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        // White Polar Ice Cap
+        // Polar Ice Cap
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
-        ctx.arc(orbX, orbY - orbRadius + 1.5, 2.2, 0, Math.PI * 2);
+        ctx.arc(orbX, orbY - orbRadius + 3, 4.4, 0, Math.PI * 2);
         ctx.fill();
     } else {
-        // Standard Solid Planet Core
+        // Solid Core
         ctx.fillStyle = body.color || '#ffffff';
         ctx.beginPath();
         ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
         ctx.fill();
     }
 
-    // White Specular Highlight
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+    // Specular highlight
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
     ctx.beginPath();
-    ctx.arc(orbX - 2.5, orbY - 2.5, orbRadius * 0.35, 0, Math.PI * 2);
+    ctx.arc(orbX - 5, orbY - 5, orbRadius * 0.35, 0, Math.PI * 2);
     ctx.fill();
 
-    // 3. Clear Crisp Name Label below Orb
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-    ctx.shadowBlur = 5;
-    ctx.font = 'bold 15px "Inter", -apple-system, sans-serif';
+    // 3. Ultra-Crisp Sharp Text Label without any shadowBlur haze
+    ctx.font = 'bold 30px "Inter", "Segoe UI", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
+    ctx.strokeStyle = '#020617';
+    ctx.lineWidth = 5;
+    ctx.strokeText(body.id, orbX, 86);
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(body.id, 80, 40);
+    ctx.fillText(body.id, orbX, 86);
 
     return canvas;
 }
@@ -2224,10 +3266,11 @@ function computeCelestialPosition(body, time) {
 
     const jsDate = Cesium.JulianDate.toDate(time);
     const d = (jsDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0; // Days from J2000.0
-    // Deep space celestial sphere radius (150,000 km, well beyond geostationary satellites)
-    const VISUAL_SKY_RADIUS = 150000000; 
+    // Deep space celestial sphere radius to eliminate parallax with real Sun & stars
+    const SUN_SKY_RADIUS = 10000000000; // 10 Million km (Glued to distant real Sun)
+    const PLANET_SKY_RADIUS = 2000000000; // 2 Million km (Deep background)
 
-    // 1. Exact Alignment with Cesium's Real Sun Position
+    // 1. Exact Alignment with Cesium's Real Sun Position at Infinite Depth
     if (body.id === 'SUN') {
         try {
             const sunInertial = Cesium.Simon1994PlanetaryPositions.computeSunPositionInInertial(time);
@@ -2235,7 +3278,7 @@ function computeCelestialPosition(body, time) {
             if (sunInertial && icrfToFixed) {
                 const sunFixed = Cesium.Matrix3.multiplyByVector(icrfToFixed, sunInertial, new Cesium.Cartesian3());
                 const direction = Cesium.Cartesian3.normalize(sunFixed, new Cesium.Cartesian3());
-                return Cesium.Cartesian3.multiplyByScalar(direction, VISUAL_SKY_RADIUS, new Cesium.Cartesian3());
+                return Cesium.Cartesian3.multiplyByScalar(direction, SUN_SKY_RADIUS, new Cesium.Cartesian3());
             }
         } catch(e) {}
 
@@ -2246,7 +3289,7 @@ function computeCelestialPosition(body, time) {
         const gmst = (typeof satellite !== 'undefined' && satellite.gstime) ? satellite.gstime(jsDate) : 0;
         const sunLon = lambda - gmst;
         const sunLat = Math.asin(Math.sin(eps) * Math.sin(lambda));
-        return Cesium.Cartesian3.fromRadians(sunLon, sunLat, VISUAL_SKY_RADIUS);
+        return Cesium.Cartesian3.fromRadians(sunLon, sunLat, SUN_SKY_RADIUS);
     }
 
     // 2. Exact Alignment with Cesium's Real 3D Moon
@@ -2296,15 +3339,15 @@ function computeCelestialPosition(body, time) {
         if (icrfToFixed) {
             const planetFixed = Cesium.Matrix3.multiplyByVector(icrfToFixed, planetInertial, new Cesium.Cartesian3());
             const direction = Cesium.Cartesian3.normalize(planetFixed, new Cesium.Cartesian3());
-            return Cesium.Cartesian3.multiplyByScalar(direction, VISUAL_SKY_RADIUS, new Cesium.Cartesian3());
+            return Cesium.Cartesian3.multiplyByScalar(direction, PLANET_SKY_RADIUS, new Cesium.Cartesian3());
         }
     } catch(e) {}
 
     const gLen = Math.sqrt(gx*gx + gy*gy + gz*gz) || 1;
     return new Cesium.Cartesian3(
-        (gx / gLen) * VISUAL_SKY_RADIUS,
-        (gy / gLen) * VISUAL_SKY_RADIUS,
-        (gz / gLen) * VISUAL_SKY_RADIUS
+        (gx / gLen) * PLANET_SKY_RADIUS,
+        (gy / gLen) * PLANET_SKY_RADIUS,
+        (gz / gLen) * PLANET_SKY_RADIUS
     );
 }
 
@@ -2323,6 +3366,14 @@ function selectCelestialBody(bodyId) {
 
     const lang = currentLang || 'ja';
     const dict = TRANSLATIONS[lang] || TRANSLATIONS['ja'];
+    const info = (typeof CELESTIAL_ENCYCLOPEDIA !== 'undefined') ? CELESTIAL_ENCYCLOPEDIA[body.id] : null;
+
+    // Helper for localized lookup
+    const getL = (obj) => {
+        if (!obj) return '';
+        if (typeof obj === 'string') return obj;
+        return obj[lang] || obj['en'] || obj['ja'] || '';
+    };
 
     // Update Detail Card UI
     satBadge.textContent = `🌌 ${body.type}`;
@@ -2331,30 +3382,82 @@ function selectCelestialBody(bodyId) {
     satNorad.textContent = `SOLAR SYSTEM BODY (${body.id})`;
 
     const descObj = CELESTIAL_DESCRIPTIONS[body.id];
-    if (satDescription && descObj) {
-        satDescription.textContent = descObj[lang] || descObj['en'] || descObj['ja'];
+    let baseDesc = (descObj && getL(descObj)) || '';
+
+    // Rich Encyclopedia HTML format
+    if (info) {
+        const discText = getL(info.discovery);
+        const missText = getL(info.missions);
+
+        const titles = {
+            "ja": ["🔭 発見の歴史・観測記録", "🚀 人類の主な宇宙探査ミッション"],
+            "en": ["🔭 Discovery & Astronomical History", "🚀 Key Space Exploration Missions"],
+            "de": ["🔭 Entdeckung & Beobachtungsgeschichte", "🚀 Wichtige Raumfahrtmissionen"],
+            "fr": ["🔭 Découverte et histoire astronomique", "🚀 Principales missions d'exploration"],
+            "es": ["🔭 Descubrimiento e historia astronómica", "🚀 Principales misiones de exploración"],
+            "pt": ["🔭 Descoberta e história astronômica", "🚀 Principais missões de exploração"],
+            "it": ["🔭 Scoperta e storia astronomica", "🚀 Principali missioni di esplorazione"],
+            "ko": ["🔭 발견의 역사 및 천문 관측 기록", "🚀 인류의 주요 우주 탐사 미션"],
+            "nl": ["🔭 Ontdekking en astronomische geschiedenis", "🚀 Belangrijkste verkenningsmissies"],
+            "id": ["🔭 Sejarah Penemuan & Astronomi", "🚀 Misi Eksplorasi Luar Angkasa Utama"],
+            "hi": ["🔭 खोज का इतिहास और खगोलीय रिकॉर्ड", "🚀 प्रमुख अंतरिक्ष अन्वेषण अभियान"],
+            "ar": ["🔭 تاريخ الاكتشاف والرصد الفلكي", "🚀 أهم مهمات استكشاف الفضاء"],
+            "zh": ["🔭 发现历史与天文观测记录", "🚀 人类主要深空探测任务"],
+            "ru": ["🔭 История открытия и наблюдений", "🚀 Главные исследовательские миссии"]
+        };
+
+        const t = titles[lang] || titles['en'] || titles['ja'];
+
+        satDescription.innerHTML = `
+            <p style="margin-bottom: 8px; line-height: 1.5;">${baseDesc}</p>
+            <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 10px; margin-top: 8px; font-size: 0.78rem;">
+                <div style="color: #38bdf8; font-weight: 700; margin-bottom: 3px;">${t[0]}</div>
+                <div style="color: #cbd5e1; margin-bottom: 8px; line-height: 1.45;">${discText}</div>
+                <div style="color: #f59e0b; font-weight: 700; margin-bottom: 3px;">${t[1]}</div>
+                <div style="color: #cbd5e1; line-height: 1.45;">${missText}</div>
+            </div>
+        `;
+    } else {
+        satDescription.textContent = baseDesc;
     }
 
-    // Compute dynamic real-time distance
+    // Dynamic real-time distance
     const time = viewer.clock.currentTime;
     const pos = computeCelestialPosition(body, time);
     const distMeters = Cesium.Cartesian3.magnitude(pos);
     const distKm = (distMeters / 1000).toLocaleString(undefined, { maximumFractionDigits: 0 });
 
     satAlt.textContent = `${distKm} km`;
-    satVel.textContent = `${body.radiusKm.toLocaleString()} km (Radius)`;
-    satLat.textContent = body.id === 'MOON' ? '27.3 days' : `${body.periodDays} days`;
-    satLon.textContent = body.symbol;
-    satInc.textContent = body.I ? `${body.I}°` : '---';
-    satPeriod.textContent = `${body.periodDays} d`;
+    satVel.textContent = info ? getL(info.diameter) : `${(body.radiusKm * 2).toLocaleString()} km`;
+    satLat.textContent = info ? getL(info.mass) : '---';
+    satLon.textContent = info ? getL(info.rotation) : '---';
+    satInc.textContent = info ? getL(info.temperature) : '---';
+    satPeriod.textContent = info ? getL(info.orbit) : `${body.periodDays} d`;
 
     // Pass and Debris rows
     const passCountdown = document.getElementById('passCountdown');
     const passMetaInfo = document.getElementById('passMetaInfo');
     const debrisProximity = document.getElementById('debrisProximity');
 
-    if (passCountdown) passCountdown.textContent = '🌌 Deep Space Trajectory';
-    if (passMetaInfo) passMetaInfo.textContent = `Solar System Orbit (${body.type})`;
+    const moonLabels = {
+        'ja': '🌕 衛星/環',
+        'en': '🌕 Moons/Rings',
+        'de': '🌕 Monde/Ringe',
+        'fr': '🌕 Lunes/Anneaux',
+        'es': '🌕 Lunas/Anillos',
+        'pt': '🌕 Luas/Anéis',
+        'it': '🌕 Lune/Anelli',
+        'ko': '🌕 위성/고리',
+        'nl': '🌕 Manen/Ringen',
+        'id': '🌕 Bulan/Cincin',
+        'hi': '🌕 चंद्रमा/छल्ले',
+        'ar': '🌕 الأقمار/الحلقات',
+        'zh': '🌕 卫星/光环',
+        'ru': '🌕 Спутники/Кольца'
+    };
+
+    if (passCountdown) passCountdown.textContent = info ? `${moonLabels[lang] || moonLabels['en']}: ${getL(info.satellites)}` : '🌌 Deep Space Orbit';
+    if (passMetaInfo) passMetaInfo.textContent = info ? `${getL(info.rotation)} | ${getL(info.temperature)}` : `Solar System Body (${body.type})`;
     if (debrisProximity) debrisProximity.textContent = '🟢 Gravitational Equilibrium';
 
     detailCard.classList.remove('hidden');
@@ -2362,7 +3465,6 @@ function selectCelestialBody(bodyId) {
     // Camera Flight Navigation
     const camera = viewer.camera;
     if (body.id === 'MOON') {
-        // Dramatic Close-up 3D Lunar Surface View!
         const moonPos = pos;
         const moonDir = Cesium.Cartesian3.normalize(moonPos, new Cesium.Cartesian3());
         const moonCamPos = Cesium.Cartesian3.add(moonPos, Cesium.Cartesian3.multiplyByScalar(moonDir, -6500000, new Cesium.Cartesian3()), new Cesium.Cartesian3());
@@ -3180,13 +4282,33 @@ function onClockTick(clock) {
 function onSceneClick(clickEvent) {
     const pickedObject = viewer.scene.pick(clickEvent.position);
 
-    if (Cesium.defined(pickedObject) && typeof pickedObject.id === 'number') {
-        const satIndex = pickedObject.id;
-        selectSatellite(satIndex);
-    } else {
-        if (!viewer.trackedEntity) {
-            deselectSatellite();
+    if (Cesium.defined(pickedObject)) {
+        // 1. Check if Celestial Body / Planet was clicked
+        if (pickedObject.id && typeof pickedObject.id === 'object') {
+            const entity = pickedObject.id;
+            if (entity.celestialData && entity.celestialData.id) {
+                selectCelestialBody(entity.celestialData.id);
+                return;
+            }
+            if (typeof entity.id === 'string' && entity.id.startsWith('celestial_')) {
+                const bodyId = entity.id.replace('celestial_', '');
+                selectCelestialBody(bodyId);
+                return;
+            }
         }
+
+        // 2. Check if Satellite PointPrimitive was clicked
+        if (typeof pickedObject.id === 'number') {
+            const satIndex = pickedObject.id;
+            selectSatellite(satIndex);
+            return;
+        }
+    }
+
+    // Deselect if background space clicked without tracked entity
+    if (!viewer.trackedEntity) {
+        deselectSatellite();
+        selectedCelestialId = null;
     }
 }
 
