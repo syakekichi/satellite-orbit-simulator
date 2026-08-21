@@ -1,3 +1,120 @@
+
+// ==========================================================================
+// NASA Public Domain High-Resolution Procedural Planet Texture Generator
+// ==========================================================================
+const PLANET_TEXTURE_CACHE = {};
+
+function getPlanetTexture(bodyId) {
+    if (PLANET_TEXTURE_CACHE[bodyId]) return PLANET_TEXTURE_CACHE[bodyId];
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 1024;
+    canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+
+    if (bodyId === 'MARS') {
+        // Mars: Red rust soil, Valles Marineris canyon, craters and polar caps
+        const grad = ctx.createLinearGradient(0, 0, 0, 512);
+        grad.addColorStop(0, '#ffffff'); // North Pole
+        grad.addColorStop(0.12, '#c1440e');
+        grad.addColorStop(0.5, '#9a3412');
+        grad.addColorStop(0.88, '#c1440e');
+        grad.addColorStop(1, '#ffffff'); // South Pole
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1024, 512);
+
+        // Dark Basalt Plains & Canyon features
+        ctx.fillStyle = 'rgba(67, 20, 7, 0.45)';
+        for (let i = 0; i < 40; i++) {
+            const x = (i * 73) % 1024;
+            const y = 120 + ((i * 47) % 270);
+            const w = 40 + ((i * 31) % 120);
+            const h = 20 + ((i * 19) % 60);
+            ctx.beginPath();
+            ctx.ellipse(x, y, w, h, (i * 0.3), 0, Math.PI * 2);
+            ctx.fill();
+        }
+    } else if (bodyId === 'JUPITER') {
+        // Jupiter: Beautiful multi-layered cloud bands & Great Red Spot
+        const colors = ['#fed7aa', '#f97316', '#fdba74', '#c2410c', '#ffedd5', '#ea580c', '#fed7aa', '#9a3412'];
+        const bandH = 512 / colors.length;
+        colors.forEach((col, idx) => {
+            ctx.fillStyle = col;
+            ctx.fillRect(0, idx * bandH, 1024, bandH + 2);
+        });
+
+        // Turbulent atmospheric swirls
+        for (let y = 40; y < 470; y += 30) {
+            ctx.strokeStyle = 'rgba(124, 45, 18, 0.35)';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            for (let x = 0; x < 1024; x += 50) {
+                ctx.quadraticCurveTo(x + 25, y + Math.sin(x * 0.05) * 12, x + 50, y);
+            }
+            ctx.stroke();
+        }
+
+        // Great Red Spot
+        ctx.fillStyle = '#b91c1c';
+        ctx.beginPath();
+        ctx.ellipse(650, 320, 55, 35, -0.1, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#f87171';
+        ctx.beginPath();
+        ctx.ellipse(650, 320, 35, 20, -0.1, 0, Math.PI * 2);
+        ctx.fill();
+    } else if (bodyId === 'SATURN') {
+        // Saturn: Elegant golden-cream ammonia cloud bands
+        const grad = ctx.createLinearGradient(0, 0, 0, 512);
+        grad.addColorStop(0, '#ca8a04');
+        grad.addColorStop(0.2, '#fde047');
+        grad.addColorStop(0.4, '#fef08a');
+        grad.addColorStop(0.6, '#fef9c3');
+        grad.addColorStop(0.8, '#fde047');
+        grad.addColorStop(1, '#a16207');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1024, 512);
+    } else if (bodyId === 'VENUS') {
+        // Venus: Swirling dense yellowish-white sulfuric acid atmosphere
+        const grad = ctx.createLinearGradient(0, 0, 1024, 512);
+        grad.addColorStop(0, '#fef08a');
+        grad.addColorStop(0.5, '#fde047');
+        grad.addColorStop(1, '#eab308');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1024, 512);
+    } else if (bodyId === 'MERCURY') {
+        // Mercury: Lunar-like cratered rocky gray terrain
+        ctx.fillStyle = '#64748b';
+        ctx.fillRect(0, 0, 1024, 512);
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.4)';
+        for (let i = 0; i < 80; i++) {
+            const x = (i * 89) % 1024;
+            const y = (i * 53) % 512;
+            const r = 10 + ((i * 17) % 35);
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    } else if (bodyId === 'URANUS') {
+        // Uranus: Pure cyan aquamarine ice giant atmosphere
+        const grad = ctx.createLinearGradient(0, 0, 0, 512);
+        grad.addColorStop(0, '#0284c7');
+        grad.addColorStop(0.3, '#38bdf8');
+        grad.addColorStop(0.5, '#7dd3fc');
+        grad.addColorStop(0.7, '#38bdf8');
+        grad.addColorStop(1, '#0284c7');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1024, 512);
+    } else {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, 1024, 512);
+    }
+
+    PLANET_TEXTURE_CACHE[bodyId] = canvas;
+    return canvas;
+}
+
 /**
  * SatViewer3D Engine: CesiumJS + satellite.js
  */
@@ -3239,7 +3356,10 @@ function createCelestialEntities() {
     CELESTIAL_BODIES.forEach(body => {
         const billboardCanvas = createCelestialBillboard(body);
         const isSun = (body.id === 'SUN');
-        const entity = viewer.entities.add({
+        const isMoon = (body.id === 'MOON');
+
+        // 3D Celestial Body Entity
+        const entityOptions = {
             id: `celestial_${body.id}`,
             name: body.name,
             position: new Cesium.CallbackProperty((time) => {
@@ -3255,7 +3375,23 @@ function createCelestialEntities() {
                 show: isVisible,
                 disableDepthTestDistance: Number.POSITIVE_INFINITY
             }
-        });
+        };
+
+        // Add Realistic 3D Textured Sphere (Ellipsoid) for Planets
+        if (!isSun && !isMoon) {
+            const planetRadius = (body.radiusKm || 6000) * 1000;
+            const texCanvas = getPlanetTexture(body.id);
+            entityOptions.ellipsoid = {
+                radii: new Cesium.Cartesian3(planetRadius, planetRadius, planetRadius),
+                material: new Cesium.ImageMaterialProperty({
+                    image: texCanvas,
+                    transparent: false
+                }),
+                show: isVisible
+            };
+        }
+
+        const entity = viewer.entities.add(entityOptions);
         entity.celestialData = body;
         celestialEntities.push(entity);
     });
@@ -3462,29 +3598,48 @@ function selectCelestialBody(bodyId) {
 
     detailCard.classList.remove('hidden');
 
-    // Camera Flight Navigation
+    // Breathtaking Close-Up Camera Flight to the Planet!
     const camera = viewer.camera;
-    if (body.id === 'MOON') {
-        const moonPos = pos;
-        const moonDir = Cesium.Cartesian3.normalize(moonPos, new Cesium.Cartesian3());
-        const moonCamPos = Cesium.Cartesian3.add(moonPos, Cesium.Cartesian3.multiplyByScalar(moonDir, -6500000, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+    const planetRadiusMeters = (body.radiusKm || 6000) * 1000;
+    const bodyDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+
+    if (body.id === 'SUN') {
+        // View Sun from space
+        camera.flyTo({
+            destination: Cesium.Cartesian3.multiplyByScalar(bodyDir, -25000000, new Cesium.Cartesian3()),
+            orientation: {
+                direction: bodyDir,
+                up: Cesium.Cartesian3.UNIT_Z
+            },
+            duration: 2.0
+        });
+    } else if (body.id === 'MOON') {
+        // Dramatic Close-up 3D Lunar Surface View!
+        const moonCamPos = Cesium.Cartesian3.add(pos, Cesium.Cartesian3.multiplyByScalar(bodyDir, -6500000, new Cesium.Cartesian3()), new Cesium.Cartesian3());
         camera.flyTo({
             destination: moonCamPos,
             orientation: {
-                direction: moonDir,
+                direction: bodyDir,
                 up: Cesium.Cartesian3.UNIT_Z
             },
             duration: 2.0
         });
     } else {
-        const direction = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+        // Fly directly in front of the Planet (distance: 3.2x planet radius)
+        const closeDist = planetRadiusMeters * 3.5;
+        const planetCamPos = Cesium.Cartesian3.add(
+            pos,
+            Cesium.Cartesian3.multiplyByScalar(bodyDir, -closeDist, new Cesium.Cartesian3()),
+            new Cesium.Cartesian3()
+        );
+
         camera.flyTo({
-            destination: Cesium.Cartesian3.multiplyByScalar(direction, -25000000, new Cesium.Cartesian3()),
+            destination: planetCamPos,
             orientation: {
-                direction: direction,
+                direction: bodyDir,
                 up: Cesium.Cartesian3.UNIT_Z
             },
-            duration: 1.8
+            duration: 2.5
         });
     }
 }
