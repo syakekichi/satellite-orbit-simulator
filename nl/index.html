@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
-    <title>SatViewer3D | Suivi 3D des satellites et simulateur de débris spatiaux en temps réel</title>
+    <title>SatViewer3D | Realtime 3D Satelliet Tracker & Ruimtepuin Simulator</title>
     
     <!-- SEO & Search Optimization Meta Tags -->
-    <meta name="description" content="SatViewer3D est un simulateur 3D gratuit en temps réel pour observer l'ISS, la constellation Starlink, les satellites météo et les débris spatiaux avec calcul des risques de collision et prévision des passages.">
-    <meta name="keywords" content="SatViewer3D, suivi satellite, simulateur orbite 3D, débris spatiaux, ISS en direct, Starlink tracker, prévision passage satellite, simulateur orbital temps réel">
+    <meta name="description" content="SatViewer3D is a free real-time 3D orbit tracking simulator. Live 3D visualization of ISS, Starlink constellation, weather satellites, and space debris with collision risk predictions and pass times.">
+    <meta name="keywords" content="SatViewer3D, satellite tracker, 3D orbit visualizer, space debris tracker, ISS live tracker, Starlink tracker online, satellite pass prediction, real-time orbit simulator">
     <meta name="author" content="SatViewer3D">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://satviewer3d.com/fr/">
+    <link rel="canonical" href="https://satviewer3d.com/nl/">
     
             <!-- Multilingual Alternate Links (hreflang) -->
     <link rel="alternate" hreflang="ja" href="https://satviewer3d.com/">
@@ -31,24 +31,21 @@
 
     <!-- OGP (Open Graph Protocol) -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="SatViewer3D | Suivi 3D des satellites et simulateur de débris spatiaux">
-    <meta property="og:description" content="Visualisation orbitale 3D en direct de l'ISS, de Starlink et des débris spatiaux avec analyse des risques de collision.">
-    <meta property="og:url" content="https://satviewer3d.com/fr/">
+    <meta property="og:title" content="SatViewer3D | Real-time 3D Satellite Tracker & Space Debris Simulator">
+    <meta property="og:description" content="Live 3D orbital simulation of ISS, Starlink constellations, weather satellites, and space debris with real-time collision risk analysis.">
+    <meta property="og:url" content="https://satviewer3d.com/nl/">
     <meta property="og:site_name" content="SatViewer3D">
     <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
-    <meta property="og:locale" content="fr_FR">
-    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
-    <meta property="og:locale:alternate" content="de_DE">
-    <meta property="og:locale:alternate" content="es_ES">
-    <meta property="og:locale:alternate" content="pt_PT">
     <meta property="og:locale:alternate" content="zh_CN">
+    <meta property="og:locale:alternate" content="es_ES">
     <meta property="og:locale:alternate" content="ru_RU">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SatViewer3D | Suivi 3D des satellites et débris spatiaux">
-    <meta name="twitter:description" content="Explorez des milliers de satellites et débris orbitaux en 3D temps réel.">
+    <meta name="twitter:title" content="SatViewer3D | Real-time 3D Satellite & Space Debris Visualizer">
+    <meta name="twitter:description" content="Track thousands of satellites and space debris in real-time 3D. Explore ISS, Starlink constellations, weather satellites, and collision predictions.">
     <meta name="twitter:image" content="https://satviewer3d.com/feature_graphic.png">
 
     <!-- JSON-LD Structured Data for Google Rich Snippets -->
@@ -57,10 +54,10 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "SatViewer3D",
-      "alternateName": ["SatViewer 3D", "Simulateur 3D de Satellites", "Suivi Débris Spatiaux"],
-      "url": "https://satviewer3d.com/fr/",
+      "alternateName": ["SatViewer 3D", "Real-time 3D Satellite Visualizer", "Space Debris Simulator"],
+      "url": "https://satviewer3d.com/en/",
       "image": "https://satviewer3d.com/feature_graphic.png",
-      "description": "SatViewer3D est un simulateur 3D gratuit en temps réel pour visualiser les satellites et débris orbitaux.",
+      "description": "SatViewer3D is a free real-time 3D satellite and space debris orbit tracking visualizer.",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "All",
       "browserRequirements": "Requires WebGL support",
@@ -71,11 +68,11 @@
         "priceCurrency": "USD"
       },
       "featureList": [
-        "Visualisation 3D des orbites en temps réel",
-        "Suivi des satellites ISS & Starlink",
-        "Analyse du risque de collision avec les débris spatiaux",
-        "Prévision des passages et trace au sol",
-        "Support de 8 langues"
+        "Real-time 3D Orbit Visualization",
+        "ISS & Starlink Satellite Tracking",
+        "24h Space Debris Collision Risk Analysis",
+        "Pass Prediction & Ground Track",
+        "5 Multi-language Support (EN, JA, ZH, ES, RU)"
       ]
     }
     </script>
@@ -138,7 +135,7 @@
     
     <!-- UI Overlay HUD -->
     <div class="hud-layer">
-        <!-- Top Split HUD Floating Islands -->
+        <!-- Top Split HUD Floating Islands (Separated to keep Earth Center View 100% Unobstructed!) -->
         <div class="hud-top-split">
             <!-- Left Island: Brand Logo -->
             <div id="headerLeftIsland" class="header-left-island glass-panel">
@@ -156,7 +153,7 @@
                     </div>
                     <div>
                         <h1 class="app-title">SatViewer3D</h1>
-                        <p class="app-subtitle">Visualisateur 3D de Satellites et Débris Spatiaux</p>
+                        <p class="app-subtitle">Real-time Satellite & Space Debris 3D Visualizer</p>
                     </div>
                 </div>
             </div>
@@ -164,17 +161,17 @@
             <!-- Right Island: Quick Stats & Language Selector -->
             <div id="headerRightIsland" class="header-right-island glass-panel">
                 <div class="panel-drag-bar drag-handle" style="margin-bottom:4px; padding:2px 4px; font-size:0.65rem; display:flex; justify-content:space-between; align-items:center;">
-                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">Déplacer</span></div>
-                    <button id="toggleHeaderMinBtn" class="panel-min-btn" title="Réduire / Agrandir">➖</button>
+                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">Drag to Move</span></div>
+                    <button id="toggleHeaderMinBtn" class="panel-min-btn" title="Minimize / Expand">➖</button>
                 </div>
                 <div id="headerIslandContent" class="card-collapsible-content">
                     <div class="stats-pills">
                     <div class="stat-pill">
-                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">Satellites Suivis</span>
+                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">Tracked Satellites</span>
                         <span class="stat-value" id="statCount">0</span>
                     </div>
                     <div class="stat-pill">
-                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">Temps Simulé</span>
+                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">Sim Time</span>
                         <span class="stat-value mono-text" id="statTime">--:--:--</span>
                     </div>
                     <div class="stat-pill" style="padding: 4px 10px; display: flex; align-items: center; gap: 6px; border-color: rgba(56,189,248,0.5); background: rgba(56, 189, 248, 0.08);">
@@ -187,12 +184,12 @@
                             <option value="ja"  style="background:#0b1329; color:#fff;">🇯🇵 日本語</option>
                             <option value="en"  style="background:#0b1329; color:#fff;">🇺🇸 English</option>
                             <option value="de"  style="background:#0b1329; color:#fff;">🇩🇪 Deutsch</option>
-                            <option value="fr" selected style="background:#0b1329; color:#fff;">🇫🇷 Français</option>
+                            <option value="fr"  style="background:#0b1329; color:#fff;">🇫🇷 Français</option>
                             <option value="es"  style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
                             <option value="pt"  style="background:#0b1329; color:#fff;">🇵🇹 Português</option>
                             <option value="it"  style="background:#0b1329; color:#fff;">🇮🇹 Italiano</option>
                             <option value="ko"  style="background:#0b1329; color:#fff;">🇰🇷 한국어</option>
-                            <option value="nl"  style="background:#0b1329; color:#fff;">🇳🇱 Nederlands</option>
+                            <option value="nl" selected style="background:#0b1329; color:#fff;">🇳🇱 Nederlands</option>
                             <option value="id"  style="background:#0b1329; color:#fff;">🇮🇩 Bahasa Indonesia</option>
                             <option value="hi"  style="background:#0b1329; color:#fff;">🇮🇳 हिन्दी</option>
                             <option value="zh"  style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
@@ -200,7 +197,7 @@
                         </select>
                     </div>
                     <button id="openGuideBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer;" data-i18n="btnGuide">
-                        ❓ Guide & Mentions
+                        ❓ Guide & Terms
                     </button>
                 </div>
                 </div>
@@ -210,26 +207,26 @@
         <!-- Sidebar Navigation & Control -->
         <aside id="sidebarPanel" class="hud-sidebar glass-panel">
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ Déplacer le panneau</span></div>
-                <button id="toggleSidebarMinBtn" class="panel-min-btn" title="Réduire / Agrandir">➖</button>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ Drag Panel</span></div>
+                <button id="toggleSidebarMinBtn" class="panel-min-btn" title="Minimize / Expand">➖</button>
             </div>
             <div id="sidebarContent" class="sidebar-collapsible-content">
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <span data-i18n="secSelect">Sélectionner / Rechercher</span>
+                    <span data-i18n="secSelect">Select / Search Satellite</span>
                 </h2>
                 
                 <!-- Dropdown Selector -->
                 <div class="select-box">
                     <select id="satSelect" class="custom-select">
-                        <option value="" data-i18n="selectPlaceholder">-- Choisir un satellite ou débris --</option>
+                        <option value="" data-i18n="selectPlaceholder">-- Select Satellite / Debris --</option>
                     </select>
                 </div>
 
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Rechercher par nom ou NORAD ID..." autocomplete="off">
-                    <button id="clearSearch" class="btn-icon hidden" title="Effacer">&times;</button>
+                    <input type="text" id="searchInput" placeholder="Search by name or NORAD ID..." autocomplete="off">
+                    <button id="clearSearch" class="btn-icon hidden" title="Clear">&times;</button>
                 </div>
                 <div id="searchResults" class="search-results-list"></div>
             </div>
@@ -237,85 +234,85 @@
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                    <span data-i18n="secSource">Sources de données</span>
+                    <span data-i18n="secSource">Satellite Data Source & Presets</span>
                 </h2>
                 <div class="source-buttons">
-                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ Satellites majeurs (ISS, Starlink, débris)</button>
-                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Constellation Starlink (2 000)</button>
+                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ Major Satellites (ISS, Starlink, Debris)</button>
+                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Starlink Full Constellation (2,000 sats)</button>
                 </div>
-                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ Satellites majeurs chargés</div>
+                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ Major Satellites Loaded</div>
             </div>
 
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span data-i18n="secTime">Contrôle du temps & Vitesse</span>
+                    <span data-i18n="secTime">Time Controls & Simulation Speed</span>
                 </h2>
                 <div class="speed-buttons">
                     <button class="speed-btn" data-speed="0" data-i18n="speedStop">⏸️ Pause</button>
-                    <button class="speed-btn active" data-speed="1" data-i18n="speedReal">▶️ 1x (Temps réel)</button>
+                    <button class="speed-btn active" data-speed="1" data-i18n="speedReal">▶️ 1x (Real)</button>
                     <button class="speed-btn" data-speed="10">⏩ 10x</button>
                     <button class="speed-btn" data-speed="100">⏩ 100x</button>
                     <button class="speed-btn" data-speed="1000">🚀 1000x</button>
                 </div>
                 <div class="time-adjust-row">
-                    <input type="text" id="timePickerInput" lang="fr" class="custom-select" style="font-size: 0.8rem; padding: 6px;" placeholder="📅 Select Date & Time...">
-                    <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="Réinitialiser à l'heure actuelle" data-i18n="resetNow">🔄 Maintenant</button>
+                    <input type="text" id="timePickerInput" lang="nl" class="custom-select" style="font-size: 0.8rem; padding: 6px;" placeholder="📅 Select Date & Time...">
+                    <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="Reset to Current Time" data-i18n="resetNow">🔄 Now</button>
                 </div>
             </div>
 
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    <span data-i18n="secDisplay">Paramètres d'affichage</span>
+                    <span data-i18n="secDisplay">Display Settings</span>
                 </h2>
                 <div class="control-group">
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleLabels" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleLabels">Noms des satellites en 3D</span>
+                        <span class="toggle-label" data-i18n="toggleLabels">Show 3D Satellite Labels</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleOrbits" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleOrbits">Afficher l'orbite</span>
+                        <span class="toggle-label" data-i18n="toggleOrbits">Show Orbit Path</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleMultiLap" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 Trace au sol multi-tours</span>
+                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 Multi-Lap Ground Track</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleAtmosphere" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleAtmosphere">Atmosphère & Éclairage solaire</span>
+                        <span class="toggle-label" data-i18n="toggleAtmosphere">Atmosphere & Sunlight</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggle2D">
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggle2D">Mode carte 2D</span>
+                        <span class="toggle-label" data-i18n="toggle2D">2D Map Mode</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleBorders" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleBorders">🌐 Frontières & Villes</span>
+                        <span class="toggle-label" data-i18n="toggleBorders">🌐 Borders & Place Labels</span>
                     </label>
-                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="Analyse débris">
+                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="Debris Risk Analysis">
                         <input type="checkbox" id="toggleDebrisRisk">
                         <span class="slider purple-slider"></span>
-                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 Analyse du risque de débris</span>
+                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 Space Debris Risk Analysis</span>
                     </label>
 
                     <div class="control-group" style="margin-top: 12px; display: flex; flex-direction: column; gap: 4px;">
-                        <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="labelTimezone">Fuseau horaire</span>
+                        <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="labelTimezone">Timezone Display</span>
                         <select id="tzSelect" class="custom-select" style="padding: 6px 10px; font-size: 0.8rem;">
-                            <option value="CET" selected>🇫🇷 Heure d'Europe Centrale (CET / UTC+1)</option>
-                            <option value="UTC">🌐 Temps Universel (UTC)</option>
+                            <option value="LOCAL" selected>💻 Local Browser Time</option>
+                            <option value="UTC">🌐 Universal Time (UTC)</option>
                             <option value="NY">🇺🇸 New York (EST/EDT)</option>
+                            <option value="CET">🇪🇸 Central European (CET)</option>
                             <option value="JST">🇯🇵 Japan Std Time (JST)</option>
-                            <option value="CST">🇨🇳 Heure de Chine (CST)</option>
-                            <option value="MSK">🇷🇺 Moscou (MSK)</option>
-                            <option value="LOCAL">💻 Heure Locale Navigateur</option>
+                            <option value="CST">🇨🇳 China Std Time (CST)</option>
+                            <option value="MSK">🇷🇺 Moscow Time (MSK)</option>
                         </select>
                     </div>
                 </div>
@@ -330,28 +327,28 @@
         <!-- 3D Camera Direction Control D-Pad HUD -->
         <div id="cameraDPad" class="camera-dpad-hud glass-panel">
             <div class="panel-drag-bar drag-handle" style="margin-bottom:6px; padding:4px 8px; font-size:0.68rem; display:flex; justify-content:space-between; align-items:center; width:100%;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">Caméra</span></div>
-                <button id="toggleCamMinBtn" class="panel-min-btn" title="Réduire / Agrandir">➖</button>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">Camera</span></div>
+                <button id="toggleCamMinBtn" class="panel-min-btn" title="Minimize / Expand">➖</button>
             </div>
             <div id="dpadContent" class="card-collapsible-content">
                 <div class="dpad-grid">
                 <div></div>
-                <button class="dpad-btn dpad-up" id="btnCamUp" title="Haut (▲)">▲</button>
+                <button class="dpad-btn dpad-up" id="btnCamUp" title="Up (▲)">▲</button>
                 <div></div>
-                <button class="dpad-btn dpad-left" id="btnCamLeft" title="Gauche (◀)">◀</button>
+                <button class="dpad-btn dpad-left" id="btnCamLeft" title="Left (◀)">◀</button>
                 <button class="dpad-btn dpad-reset" id="btnCamReset" title="Reset (🏠)">🏠</button>
-                <button class="dpad-btn dpad-right" id="btnCamRight" title="Droite (▶)">▶</button>
+                <button class="dpad-btn dpad-right" id="btnCamRight" title="Right (▶)">▶</button>
                 <div></div>
-                <button class="dpad-btn dpad-down" id="btnCamDown" title="Bas (▼)">▼</button>
+                <button class="dpad-btn dpad-down" id="btnCamDown" title="Down (▼)">▼</button>
                 <div></div>
             </div>
             </div>
         </div>
         <div id="detailCard" class="hud-card glass-panel hidden">
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">Déplacer la carte</span></div>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">Drag Card</span></div>
                 <div style="display:flex; gap:6px; align-items:center;">
-                    <button id="toggleDetailMinBtn" class="panel-min-btn" title="Réduire / Agrandir">➖</button>
+                    <button id="toggleDetailMinBtn" class="panel-min-btn" title="Minimize / Expand">➖</button>
                     <button id="closeDetail" class="btn-close" style="position:static;">&times;</button>
                 </div>
             </div>
@@ -360,7 +357,7 @@
                 <span class="badge badge-accent" id="satBadge">STARLINK</span>
                 <h3 id="satName" class="card-title">STARLINK-XXXX</h3>
                 <p id="satNorad" class="card-subtitle">NORAD ID: ------</p>
-                <div id="satDescription" class="sat-description-text">Description du satellite</div>
+                <div id="satDescription" class="sat-description-text">Satellite Description</div>
             </div>
             <div class="card-body grid-2col">
                 <div class="data-item">
@@ -368,7 +365,7 @@
                     <span class="data-value" id="satAlt">--- km</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelVel">Vitesse</span>
+                    <span class="data-label" data-i18n="labelVel">Velocity</span>
                     <span class="data-value" id="satVel">--- km/s</span>
                 </div>
                 <div class="data-item">
@@ -380,42 +377,42 @@
                     <span class="data-value" id="satLon">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelInc">Inclinaison</span>
+                    <span class="data-label" data-i18n="labelInc">Inclination</span>
                     <span class="data-value" id="satInc">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelPeriod">Période</span>
+                    <span class="data-label" data-i18n="labelPeriod">Period</span>
                     <span class="data-value" id="satPeriod">--- min</span>
                 </div>
                 <div class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.25);">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 Prochain passage</span>
-                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPS" data-i18n="btnGeo">📍Position</button>
+                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 Next Overhead Pass</span>
+                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPS" data-i18n="btnGeo">📍Current Location</button>
                     </div>
-                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">Calcul en cours...</span>
-                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">Heure de passage: Calcul</span>
+                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">Calculating...</span>
+                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">Pass Time: Calculating</span>
                 </div>
                 <div id="debrisRiskRow" class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.4);">
-                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 Rapprochement de débris (MOID)</span>
-                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 SÛR (SAFE)</span>
+                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 Space Debris Closest Approach (MOID)</span>
+                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 SAFE</span>
                 </div>
             </div>
             <div class="card-actions">
                 <button class="btn btn-primary" id="trackBtn">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
-                    <span data-i18n="btnTrack">🎯 Suivre le satellite</span>
+                    <span data-i18n="btnTrack">🎯 Track Camera Focus</span>
                 </button>
-                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 Libérer</button>
+                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 Untrack</button>
             </div>
             </div>
         </div>
 
-        <!-- Off-Screen Edge Pointer HUD -->
+        <!-- Off-Screen Edge Pointer HUD (Directs user to selected satellite outside viewport) -->
         <div id="edgePointer" class="edge-pointer-hud hidden">
             <span class="pointer-arrow" id="pointerArrow">👈</span>
             <div class="pointer-content">
                 <span class="pointer-name" id="pointerName">SATELLITE</span>
-                <span class="pointer-hint" data-i18n="pointerHint">Hors champ (Cliquez pour centrer)</span>
+                <span class="pointer-hint" data-i18n="pointerHint">Off-screen (Click to move camera)</span>
             </div>
         </div>
 
@@ -423,51 +420,51 @@
         <div id="guideModal" class="modal-overlay hidden">
             <div class="modal-content glass-panel">
                 <div class="modal-header">
-                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D Guide & Conditions</h2>
+                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D User Guide & Legal Terms</h2>
                     <button id="closeGuideBtn" class="btn-close">&times;</button>
                 </div>
                 <div class="modal-tabs">
-                    <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 Commandes</button>
-                    <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ Mentions</button>
-                    <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 Confidentialité</button>
-                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ À propos</button>
+                    <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 Controls</button>
+                    <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ Disclaimer</button>
+                    <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 Privacy Policy</button>
+                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ About</button>
                 </div>
                 <div class="modal-body">
                     <!-- Tab 1: Controls -->
                     <div id="tabControls" class="tab-content active">
-                        <h3 data-i18n="guideTitleControls">🖱️ Guide de navigation 3D</h3>
+                        <h3 data-i18n="guideTitleControls">🖱️ 3D Navigation Guide</h3>
                         <ul class="guide-list">
-                            <li><strong data-i18n="guideWheel">Molette / Tactile</strong>: <span data-i18n="guideWheelDesc">Zoom fluide et précis à 1/10 de vitesse.</span></li>
-                            <li><strong data-i18n="guideDrag">Clic gauche + Glisser</strong>: <span data-i18n="guideDragDesc">Rotation libre de la Terre à 360 degrés.</span></li>
-                            <li><strong data-i18n="guideTilt">Clic droit / Ctrl + Glisser</strong>: <span data-i18n="guideTiltDesc">Inclinaison et angle de vue de la caméra.</span></li>
-                            <li><strong data-i18n="guideClick">Cliquer sur un satellite / Recherche</strong>: <span data-i18n="guideClickDesc">Afficher l'altitude, la vitesse et le risque de collision.</span></li>
-                            <li><strong data-i18n="guideFocus">🎯 Suivi caméra</strong>: <span data-i18n="guideFocusDesc">Verrouillage automatique sur le satellite.</span></li>
-                            <li><strong data-i18n="guideRadar">🔮 Radar de débris</strong>: <span data-i18n="guideRadarDesc">Calcul en temps réel des croisements d'orbite à 24h (MOID).</span></li>
+                            <li><strong data-i18n="guideWheel">Mouse Wheel / Touch</strong>: <span data-i18n="guideWheelDesc">Silky smooth ultra-fine zoom in/out.</span></li>
+                            <li><strong data-i18n="guideDrag">Left Drag</strong>: <span data-i18n="guideDragDesc">Rotate Earth in full 360-degree freedom.</span></li>
+                            <li><strong data-i18n="guideTilt">Right Drag / Ctrl + Drag</strong>: <span data-i18n="guideTiltDesc">Tilt camera and change pitch angle.</span></li>
+                            <li><strong data-i18n="guideClick">Click / Search Satellite</strong>: <span data-i18n="guideClickDesc">Select satellite to view live altitude, speed, and collision risks.</span></li>
+                            <li><strong data-i18n="guideFocus">🎯 Track Camera</strong>: <span data-i18n="guideFocusDesc">Auto-lock camera on moving satellite.</span></li>
+                            <li><strong data-i18n="guideRadar">🔮 Space Debris Risk</strong>: <span data-i18n="guideRadarDesc">Real-time 24h orbital crossing analysis (MOID).</span></li>
                         </ul>
                     </div>
 
                     <!-- Tab 2: Disclaimer -->
                     <div id="tabDisclaimer" class="tab-content">
-                        <h3 data-i18n="guideTitleDisclaimer">⚠️ Clause de non-responsabilité</h3>
-                        <p data-i18n="discText1">Toutes les données orbitales et prévisions sont calculées en temps réel d'après les TLE publiques de CelesTrak et Space-Track.</p>
-                        <p data-i18n="discText2">Ces données sont destinées à des fins éducatives et ne doivent pas être utilisées pour des manœuvres de vol réel.</p>
+                        <h3 data-i18n="guideTitleDisclaimer">⚠️ Disclaimer</h3>
+                        <p data-i18n="discText1">All orbital data, positions, pass predictions, and collision risk computations provided by SatViewer3D are calculated in real-time based on public TLE data from CelesTrak and Space-Track for educational, research, and observational purposes.</p>
+                        <p data-i18n="discText2">Data is not intended for operational spacecraft maneuvers or collision avoidance navigation. The operator assumes no liability for damages resulting from the use of this service.</p>
                     </div>
 
                     <!-- Tab 3: Privacy Policy -->
                     <div id="tabPrivacy" class="tab-content">
-                        <h3 data-i18n="guideTitlePrivacy">🔒 Politique de confidentialité (Google AdSense)</h3>
-                        <p><strong data-i18n="privText1Title">Publicité :</strong><br><span data-i18n="privText1Desc">Ce site utilise des services publicitaires tiers (ex. Google AdSense) utilisant des cookies anonymes.</span></p>
-                        <p><strong data-i18n="privText2Title">Statistiques :</strong><br><span data-i18n="privText2Desc">Nous collectons des données de trafic anonymes.</span></p>
+                        <h3 data-i18n="guideTitlePrivacy">🔒 Privacy Policy (Google AdSense Compliant)</h3>
+                        <p><strong data-i18n="privText1Title">Advertising:</strong><br><span data-i18n="privText1Desc">This website may use third-party advertising services (e.g., Google AdSense). Advertisers may use cookies to show relevant ads based on visits.</span></p>
+                        <p><strong data-i18n="privText2Title">Analytics:</strong><br><span data-i18n="privText2Desc">This website uses analytics tools to collect anonymous traffic data.</span></p>
                     </div>
 
                     <!-- Tab 4: About & Contact -->
                     <div id="tabAbout" class="tab-content">
-                        <h3 data-i18n="guideTitleAbout">ℹ️ À propos de SatViewer3D</h3>
-                        <p data-i18n="aboutText1">SatViewer3D est un simulateur 3D temps réel pour observer les satellites artificiels et les débris spatiaux.</p>
+                        <h3 data-i18n="guideTitleAbout">ℹ️ About SatViewer3D</h3>
+                        <p data-i18n="aboutText1">SatViewer3D is a real-time 3D visualization simulator for Earth-orbiting artificial satellites (ISS, Starlink, weather satellites) and space debris.</p>
                         
-                        <p><strong>Sources de données :</strong> NORAD / Space-Track (Public TLE Data), JAXA & NASA</p>
-                        <p><strong>Domaine :</strong> satviewer3d.com</p>
-                        <p><strong data-i18n="aboutContactTitle">Contact :</strong> <span data-i18n="aboutContactDesc">Pour toute question : info@satviewer3d.com</span></p>
+                        <p><strong>Data & Orbit Sources:</strong> NORAD / Space-Track (Public TLE Data), JAXA & NASA</p>
+                        <p><strong>Domain:</strong> satviewer3d.com</p>
+                        <p><strong data-i18n="aboutContactTitle">Contact:</strong> <span data-i18n="aboutContactDesc">For inquiries and suggestions, please contact info@satviewer3d.com</span></p>
                         <p style="margin-top: 18px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.78rem; color: var(--text-muted);">&copy; <span class="copyrightYearRef">2026</span> SatViewer3D. All Rights Reserved.</p>
                     </div>
                 </div>
@@ -478,12 +475,12 @@
         <div id="loadingOverlay" class="loading-overlay hidden" style="display:none;">
             <div class="spinner-container">
                 <div class="spinner"></div>
-                <p id="loadingText" class="loading-text">Calcul et chargement des orbites des satellites...</p>
+                <p id="loadingText" class="loading-text">Computing & loading satellite orbits...</p>
             </div>
         </div>
     </div>
 
-    <!-- Application Script (Cache Busted v121) -->
+    <!-- Application Script (Cache Busted v120) -->
     <script src="app.js?v=20260821_132"></script>
 </body>
 </html>

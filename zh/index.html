@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
-    <title>SatViewer3D | 实时3D人造卫星与空间碎片轨道模拟器</title>
+    <title>SatViewer3D | 实时3D人造卫星与太空碎片轨道追踪模拟器</title>
     
     <!-- SEO & Search Optimization Meta Tags -->
     <meta name="description" content="SatViewer3D 是一款免费的实时 3D 轨道跟踪模拟器。实时追踪国际空间站 (ISS)、星链 (Starlink)、北斗、气象卫星及太空垃圾，具备碰撞风险预测与过境预报功能。">
@@ -13,13 +13,18 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://satviewer3d.com/zh/">
     
-        <!-- Multilingual Alternate Links (hreflang) -->
+            <!-- Multilingual Alternate Links (hreflang) -->
     <link rel="alternate" hreflang="ja" href="https://satviewer3d.com/">
     <link rel="alternate" hreflang="en" href="https://satviewer3d.com/en/">
     <link rel="alternate" hreflang="de" href="https://satviewer3d.com/de/">
     <link rel="alternate" hreflang="fr" href="https://satviewer3d.com/fr/">
     <link rel="alternate" hreflang="es" href="https://satviewer3d.com/es/">
     <link rel="alternate" hreflang="pt" href="https://satviewer3d.com/pt/">
+    <link rel="alternate" hreflang="it" href="https://satviewer3d.com/it/">
+    <link rel="alternate" hreflang="ko" href="https://satviewer3d.com/ko/">
+    <link rel="alternate" hreflang="nl" href="https://satviewer3d.com/nl/">
+    <link rel="alternate" hreflang="id" href="https://satviewer3d.com/id/">
+    <link rel="alternate" hreflang="hi" href="https://satviewer3d.com/hi/">
     <link rel="alternate" hreflang="zh" href="https://satviewer3d.com/zh/">
     <link rel="alternate" hreflang="ru" href="https://satviewer3d.com/ru/">
     <link rel="alternate" hreflang="x-default" href="https://satviewer3d.com/en/">
@@ -56,7 +61,7 @@
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "All",
       "browserRequirements": "Requires WebGL support",
-      "inLanguage": ["ja", "en", "de", "fr", "es", "pt", "zh", "ru"],
+      "inLanguage": ["ja", "en", "de", "fr", "es", "pt", "it", "ko", "nl", "id", "hi", "zh", "ru"],
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -103,7 +108,7 @@
     <!-- satellite.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
     
-    <!-- Flatpickr Dark Theme Date-Time Picker for 100% Guaranteed Multilingual Calendar (EN, DE, FR, ES, PT, ZH, RU, JA) -->
+        <!-- Flatpickr Dark Theme Date-Time Picker for 100% Guaranteed Multilingual Calendar (13 Languages) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -111,6 +116,11 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/it.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/nl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/hi.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/zh.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
@@ -177,6 +187,11 @@
                             <option value="fr"  style="background:#0b1329; color:#fff;">🇫🇷 Français</option>
                             <option value="es"  style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
                             <option value="pt"  style="background:#0b1329; color:#fff;">🇵🇹 Português</option>
+                            <option value="it"  style="background:#0b1329; color:#fff;">🇮🇹 Italiano</option>
+                            <option value="ko"  style="background:#0b1329; color:#fff;">🇰🇷 한국어</option>
+                            <option value="nl"  style="background:#0b1329; color:#fff;">🇳🇱 Nederlands</option>
+                            <option value="id"  style="background:#0b1329; color:#fff;">🇮🇩 Bahasa Indonesia</option>
+                            <option value="hi"  style="background:#0b1329; color:#fff;">🇮🇳 हिन्दी</option>
                             <option value="zh" selected style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
                             <option value="ru"  style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
                         </select>
@@ -466,6 +481,6 @@
     </div>
 
     <!-- Application Script (Cache Busted v120) -->
-    <script src="app.js?v=20260821_124"></script>
+    <script src="app.js?v=20260821_132"></script>
 </body>
 </html>

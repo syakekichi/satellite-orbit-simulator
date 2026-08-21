@@ -6,7 +6,7 @@
 function detectDefaultLanguage() {
     // 1. Prioritize HTML lang attribute from current landing page (for /en/, /de/, /fr/, /es/, /pt/, /zh/, /ru/, etc.)
     const htmlLang = document.documentElement.getAttribute('lang');
-    if (htmlLang && ['ja', 'en', 'de', 'fr', 'es', 'pt', 'zh', 'ru'].includes(htmlLang)) {
+    if (htmlLang && ['ja', 'en', 'de', 'fr', 'es', 'pt', 'it', 'ko', 'nl', 'id', 'hi', 'zh', 'ru'].includes(htmlLang)) {
         return htmlLang;
     }
 
@@ -19,6 +19,11 @@ function detectDefaultLanguage() {
     if (path.includes('/pt')) return 'pt';
     if (path.includes('/zh')) return 'zh';
     if (path.includes('/ru')) return 'ru';
+    if (path.includes('/it')) return 'it';
+    if (path.includes('/ko')) return 'ko';
+    if (path.includes('/nl')) return 'nl';
+    if (path.includes('/id')) return 'id';
+    if (path.includes('/hi')) return 'hi';
 
     const saved = localStorage.getItem('sat_lang');
     if (saved) return saved;
@@ -31,6 +36,11 @@ function detectDefaultLanguage() {
     if (navLang.startsWith('es')) return 'es';
     if (navLang.startsWith('zh')) return 'zh';
     if (navLang.startsWith('ru')) return 'ru';
+    if (navLang.startsWith('it')) return 'it';
+    if (navLang.startsWith('ko')) return 'ko';
+    if (navLang.startsWith('nl')) return 'nl';
+    if (navLang.startsWith('id')) return 'id';
+    if (navLang.startsWith('hi')) return 'hi';
     
     // Default for all international visitors worldwide is English
     return 'en';
@@ -58,23 +68,27 @@ function getSatDisplayName(name) {
         if (upper.includes('ISS')) return 'ISS (国際宇宙ステーション)';
         if (upper.includes('TIANGONG')) return 'TIANGONG (天宮宇宙ステーション)';
         if (upper.includes('BEIDOU')) return 'BEIDOU-3 (北斗3号測位衛星)';
-        if (upper.includes('HUBBLE')) return 'HUBBLE (ハッブル宇宙望遠鏡)';
-    } else if (lang === 'zh') {
-        if (upper.includes('HIMAWARI-8')) return 'HIMAWARI-8 (葵花8号备用星)';
-        if (upper.includes('HIMAWARI-9')) return 'HIMAWARI-9 (葵花9号主观星)';
-        if (upper.includes('MICHIBIKI-6')) return 'MICHIBIKI-6 (引路6号 - H3发射)';
-        if (upper.includes('MICHIBIKI')) return name.replace('MICHIBIKI', '引路号');
-        if (upper.includes('ISS')) return 'ISS (国际空间站)';
-        if (upper.includes('TIANGONG')) return 'TIANGONG (天宫空间站)';
-        if (upper.includes('BEIDOU')) return 'BEIDOU-3 (北斗3号导航星)';
-        if (upper.includes('HUBBLE')) return 'HUBBLE (哈勃空间望远镜)';
+        if (upper.includes('HUBBLE')) return 'HUBBLE SPACE TELESCOPE (ハッブル宇宙望遠鏡)';
+        if (upper.includes('GPS')) return name.replace(/\(.*\)/, '') + ' (GPSナビゲーション衛星)';
+        return name;
+    } else {
+        let clean = name.replace(/\(.*?[぀-ヿ㐀-䶿一-鿿].*?\)/g, '').trim();
+        if (upper.includes('ISS')) return 'ISS (International Space Station)';
+        if (upper.includes('TIANGONG')) return 'Tiangong Space Station';
+        if (upper.includes('HIMAWARI-8')) return 'Himawari-8 (Weather Satellite)';
+        if (upper.includes('HIMAWARI-9')) return 'Himawari-9 (Weather Satellite)';
+        if (upper.includes('MICHIBIKI-6')) return 'QZSS / MICHIBIKI-6 (Navigation Satellite)';
+        if (upper.includes('MICHIBIKI')) return clean + ' (QZSS Navigation)';
+        if (upper.includes('BEIDOU')) return 'BeiDou-3 (Navigation Satellite)';
+        if (upper.includes('HUBBLE')) return 'Hubble Space Telescope';
+        if (upper.includes('GPS')) return clean + ' (GPS Navigation)';
+        return clean;
     }
-    
-    return name;
 }
 
 const TRANSLATIONS = {
     ja: {
+        appSubtitle: "リアルタイム3D人工衛星・宇宙デブリ軌道シミュレーター",
         statCount: "追跡衛星数",
         statTime: "シミュレーション時刻",
         dragPanel: "⋮⋮ ドラッグでパネル移動",
@@ -154,6 +168,7 @@ const TRANSLATIONS = {
         feat8: "👁️ <strong>超高コントラスト 国境線・都市名ラベル</strong>: 宇宙空間の暗闇でも全地球の都市と境界線がくっきり浮き出る高輝度表示。"
     },
     en: {
+        appSubtitle: "Real-time 3D Satellite & Space Debris Visualizer",
         statCount: "Tracked Satellites",
         statTime: "Simulation Time",
         dragPanel: "⋮⋮ Drag to move panel",
@@ -233,6 +248,7 @@ const TRANSLATIONS = {
         feat8: "👁️ <strong>High-Contrast Borders & City Labels</strong>: High-brightness labels popping clearly even in deep space darkness."
     },
     zh: {
+        appSubtitle: "实时3D人造卫星与太空碎片轨道追踪模拟器",
         statCount: "追踪卫星数量",
         statTime: "模拟时间",
         dragPanel: "⋮⋮ 拖动移动面板",
@@ -302,6 +318,7 @@ const TRANSLATIONS = {
         aboutContactDesc: "如有建议或反馈，请联系 info@satviewer3d.com。"
     },
     es: {
+        appSubtitle: "Visualizador 3D de Satélites y Basura Espacial en Tiempo Real",
         statCount: "Satélites Rastreados",
         statTime: "Tiempo de Simulación",
         dragPanel: "⋮⋮ Arrastrar para mover panel",
@@ -372,6 +389,7 @@ const TRANSLATIONS = {
         aboutContactDesc: "Para consultas, por favor contacte a info@satviewer3d.com."
     },
     ru: {
+        appSubtitle: "3D визуализатор спутников и космического мусора в реальном времени",
         statCount: "Отслеживаемые спутники",
         statTime: "Время моделирования",
         dragPanel: "⋮⋮ Перетащите панель",
@@ -442,6 +460,7 @@ const TRANSLATIONS = {
         aboutContactDesc: "По всем вопросам обращайтесь на info@satviewer3d.com."
     },
     de: {
+        appSubtitle: "Echtzeit-3D-Satellitentracker & Weltraummüll-Visualisierer",
         statCount: "Verfolgte Satelliten",
         statTime: "Simulationszeit",
         dragPanel: "⋮⋮ Panel verschieben",
@@ -512,6 +531,7 @@ const TRANSLATIONS = {
         aboutContactDesc: "Fragen und Feedback an info@satviewer3d.com."
     },
     fr: {
+        appSubtitle: "Visualisateur 3D de Satellites et Débris Spatiaux en Direct",
         statCount: "Satellites Suivis",
         statTime: "Temps Simulé",
         dragPanel: "⋮⋮ Déplacer le panneau",
@@ -582,6 +602,7 @@ const TRANSLATIONS = {
         aboutContactDesc: "Pour toute question : info@satviewer3d.com."
     },
     pt: {
+        appSubtitle: "Visualizador 3D de Satélites e Lixo Espacial em Tempo Real",
         statCount: "Satélites Rastreados",
         statTime: "Hora da Simulação",
         dragPanel: "⋮⋮ Arrastar painel",
@@ -650,6 +671,361 @@ const TRANSLATIONS = {
         aboutText1: "SatViewer3D é um simulador 3D em tempo real para visualizar satélites artificiais e detritos espaciais.",
         aboutContactTitle: "Contato:",
         aboutContactDesc: "Dúvidas e sugestões: info@satviewer3d.com."
+    },
+    it: {
+        appSubtitle: "Visualizzatore 3D di Satelliti e Detriti Spaziali in Tempo Reale",
+        statCount: "Satelliti Tracciati",
+        statTime: "Ora Simulazione",
+        dragPanel: "⋮⋮ Trascina pannello",
+        secSelect: "Seleziona / Cerca Satellite",
+        selectPlaceholder: "-- Seleziona satellite o detrito --",
+        searchPlaceholder: "Cerca per nome o ID NORAD...",
+        secSource: "Fonti Dati & Preimpostazioni",
+        loadMajor: "⭐ Satelliti Principali (ISS, Starlink, detriti)",
+        loadLocal: "🛰️ Costellazione Starlink (2.000)",
+        badgeMajor: "⭐ Satelliti Principali Caricati",
+        secTime: "Controllo Tempo & Velocità",
+        speedStop: "⏸️ Pausa",
+        speedReal: "▶️ 1x (Tempo Reale)",
+        resetNow: "🔄 Ora",
+        secDisplay: "Impostazioni Visualizzazione",
+        toggleLabels: "Etichette 3D Satelliti",
+        toggleOrbits: "Mostra Orbita",
+        toggleMultiLap: "🌐 Traccia al Suolo Multi-Giro",
+        toggleAtmosphere: "Atmosfera & Illuminazione Solare",
+        toggle2D: "Modalità Mappa 2D",
+        toggleBorders: "🌐 Confini & Città",
+        toggleDebrisRisk: "🔮 Analisi Rischio Detriti",
+        dragDetail: "⋮⋮ Trascina scheda",
+        dragCam: "⋮⋮ Telecamera",
+        labelAlt: "Altitudine",
+        labelVel: "Velocità",
+        labelLat: "Latitudine",
+        labelLon: "Longitudine",
+        labelInc: "Inclinazione",
+        labelPeriod: "Periodo",
+        labelTimezone: "Fuso Orario",
+        labelPass: "📡 Prossimo Passaggio",
+        labelRisk: "🔮 Rischio Detriti (MOID 24h)",
+        btnGeo: "📍Posizione",
+        btnTrack: "🎯 Segui Satellite",
+        btnUntrack: "🔓 Sblocca Telecamera",
+        pointerHint: "Fuori Vista (Clicca per centrare)",
+        btnGuide: "❓ Guida & Termini",
+        modalTitle: "SatViewer3D Guida & Termini",
+        tabControls: "🎮 Comandi",
+        tabDisclaimer: "⚠️ Disclaimer",
+        tabPrivacy: "🔒 Privacy",
+        tabAbout: "ℹ️ Informazioni",
+        guideTitleControls: "🖱️ Guida alla navigazione 3D",
+        guideWheel: "Rotellina del mouse / Touch",
+        guideWheelDesc: "Zoom ultra fluido e preciso a velocità 1/10.",
+        guideDrag: "Clic sinistro + Trascina",
+        guideDragDesc: "Rotazione libera della Terra a 360 gradi.",
+        guideTilt: "Clic destro / Ctrl + Trascina",
+        guideTiltDesc: "Inclinazione e orientamento della telecamera.",
+        guideClick: "Clic su satellite / Cerca",
+        guideClickDesc: "Mostra altitudine, velocità e rischio di collisione in tempo reale.",
+        guideFocus: "🎯 Tracciamento telecamera",
+        guideFocusDesc: "La telecamera segue automaticamente il satellite.",
+        guideRadar: "🔮 Radar detriti spaziali",
+        guideRadarDesc: "Calcolo in tempo reale degli incroci orbitali a 24 ore (MOID).",
+        guideTitleDisclaimer: "⚠️ Dichiarazione di non responsabilità",
+        discText1: "Tutti i dati orbitali e le previsioni sono calcolati in tempo reale dai dati TLE pubblici di CelesTrak e Space-Track.",
+        discText2: "Questi dati sono destinati a scopi educativi e non devono essere utilizzati per manovre di volo spaziale reale.",
+        guideTitlePrivacy: "🔒 Informativa sulla privacy (Google AdSense)",
+        privText1Title: "Pubblicità:",
+        privText1Desc: "Questo sito utilizza servizi pubblicitari di terze parti (es. Google AdSense) tramite cookie anonimi.",
+        privText2Title: "Statistiche:",
+        privText2Desc: "Raccogliamo dati di traffico anonimi a fini statistici.",
+        guideTitleAbout: "ℹ️ Informazioni su SatViewer3D",
+        aboutText1: "SatViewer3D è un simulatore 3D in tempo reale per osservare satelliti e detriti spaziali.",
+        aboutContactTitle: "Contatto:",
+        aboutContactDesc: "Per qualsiasi domanda: info@satviewer3d.com"
+    },
+    ko: {
+        appSubtitle: "실시간 3D 인공위성 및 우주 쓰레기 궤도 시뮬레이터",
+        statCount: "추적 중인 위성",
+        statTime: "시뮬레이션 시간",
+        dragPanel: "⋮⋮ 패널 이동",
+        secSelect: "인공위성 선택 / 검색",
+        selectPlaceholder: "-- 인공위성 또는 우주 파편 선택 --",
+        searchPlaceholder: "이름 또는 NORAD ID로 검색...",
+        secSource: "데이터 소스 및 프리셋",
+        loadMajor: "⭐ 주요 위성 (ISS, 스타링크, 파편)",
+        loadLocal: "🛰️ 스타링크 군집위성 (2,000기)",
+        badgeMajor: "⭐ 주요 위성 데이터 로드됨",
+        secTime: "시간 제어 및 배속 설정",
+        speedStop: "⏸️ 일시정지",
+        speedReal: "▶️ 1x (실시간)",
+        resetNow: "🔄 현재 시각",
+        secDisplay: "화면 표시 설정",
+        toggleLabels: "위성 3D 명칭 표시",
+        toggleOrbits: "궤도 선 표시",
+        toggleMultiLap: "🌐 다중 회전 지상 궤적",
+        toggleAtmosphere: "대기권 및 태양광 조명",
+        toggle2D: "2D 지도 모드",
+        toggleBorders: "🌐 국경 및 도시명",
+        toggleDebrisRisk: "🔮 우주 쓰레기 충돌 위험 분석",
+        dragDetail: "⋮⋮ 상세 카드 이동",
+        dragCam: "⋮⋮ 카메라 제어",
+        labelAlt: "고도",
+        labelVel: "속도",
+        labelLat: "위도",
+        labelLon: "경도",
+        labelInc: "경사각",
+        labelPeriod: "공전 주기",
+        labelTimezone: "시간대 설정",
+        labelPass: "📡 다음 상공 통과 예측",
+        labelRisk: "🔮 우주 쓰레기 근접 (24시간 MOID)",
+        btnGeo: "📍위치 획득",
+        btnTrack: "🎯 위성 추적 모드",
+        btnUntrack: "🔓 추적 해제",
+        pointerHint: "화면 밖 (클릭하여 이동)",
+        btnGuide: "❓ 가이드 및 약관",
+        modalTitle: "SatViewer3D 사용 가이드 및 이용약관",
+        tabControls: "🎮 조작법",
+        tabDisclaimer: "⚠️ 면책조항",
+        tabPrivacy: "🔒 개인정보처리방침",
+        tabAbout: "ℹ️ 소개",
+        guideTitleControls: "🖱️ 3D 조작 가이드",
+        guideWheel: "마우스 휠 / 터치",
+        guideWheelDesc: "1/10 속도로 정밀하고 부드러운 줌 인/아웃.",
+        guideDrag: "좌클릭 + 드래그",
+        guideDragDesc: "지구를 360도 자유롭게 회전 탐색.",
+        guideTilt: "우클릭 / Ctrl + 드래그",
+        guideTiltDesc: "카메라 시야각 및 기울기 조절.",
+        guideClick: "위성 클릭 / 검색",
+        guideClickDesc: "실시간 고도, 속도 및 충돌 위험도 확인.",
+        guideFocus: "🎯 위성 자동 추적",
+        guideFocusDesc: "카메라가 이동하는 위성을 자동으로 따라갑니다.",
+        guideRadar: "🔮 우주 쓰레기 레이더",
+        guideRadarDesc: "향후 24시간 내 궤도 교차 거리(MOID) 실시간 계산.",
+        guideTitleDisclaimer: "⚠️ 면책 조항",
+        discText1: "모든 궤도 데이터와 통과 예측은 CelesTrak 및 Space-Track의 공개 TLE 데이터를 기반으로 실시간 계산됩니다.",
+        discText2: "본 데이터는 교육 및 연구용이며 실제 우주선 운용 목적으로 사용될 수 없습니다.",
+        guideTitlePrivacy: "🔒 개인정보처리방침 (Google AdSense)",
+        privText1Title: "광고 프로그램 안내:",
+        privText1Desc: "본 웹사이트는 익명 쿠키를 활용한 타사 광고 서비스(Google AdSense 등)를 사용할 수 있습니다.",
+        privText2Title: "트래픽 통계:",
+        privText2Desc: "서비스 개선을 위해 익명의 방문 통계 데이터를 수집합니다.",
+        guideTitleAbout: "ℹ️ SatViewer3D 소개",
+        aboutText1: "SatViewer3D는 지구 궤도를 도는 인공위성과 우주 파편을 실시간으로 3D 시각화하는 시뮬레이터입니다.",
+        aboutContactTitle: "문의처:",
+        aboutContactDesc: "문의 및 피드백: info@satviewer3d.com"
+    },
+    nl: {
+        appSubtitle: "Realtime 3D Satelliet & Ruimtepuin Visualisator",
+        statCount: "Gevolgde Satellieten",
+        statTime: "Simulatietijd",
+        dragPanel: "⋮⋮ Paneel slepen",
+        secSelect: "Selecteer / Zoek Satelliet",
+        selectPlaceholder: "-- Selecteer satelliet of ruimtepuin --",
+        searchPlaceholder: "Zoek op naam of NORAD-ID...",
+        secSource: "Gegevensbronnen & Voorinstellingen",
+        loadMajor: "⭐ Belangrijke Satellieten (ISS, Starlink, puin)",
+        loadLocal: "🛰️ Starlink Constellatie (2.000)",
+        badgeMajor: "⭐ Belangrijke Satellieten Geladen",
+        secTime: "Tijdcontrole & Snelheid",
+        speedStop: "⏸️ Pauze",
+        speedReal: "▶️ 1x (Realtime)",
+        resetNow: "🔄 Nu",
+        secDisplay: "Weergave-instellingen",
+        toggleLabels: "3D Satellietlabels",
+        toggleOrbits: "Toon Baan (Orbit)",
+        toggleMultiLap: "🌐 Meerdere Grondsporen",
+        toggleAtmosphere: "Atmosfeer & Zonlicht",
+        toggle2D: "2D Kaartmodus",
+        toggleBorders: "🌐 Grenzen & Steden",
+        toggleDebrisRisk: "🔮 Analyse Ruimtepuinrisico",
+        dragDetail: "⋮⋮ Kaart slepen",
+        dragCam: "⋮⋮ Camera",
+        labelAlt: "Hoogte",
+        labelVel: "Snelheid",
+        labelLat: "Breedtegraad",
+        labelLon: "Lengtegraad",
+        labelInc: "Inclinatie",
+        labelPeriod: "Omlooptijd",
+        labelTimezone: "Tijdzone",
+        labelPass: "📡 Volgende Overvlucht",
+        labelRisk: "🔮 Puin Benadering (MOID 24u)",
+        btnGeo: "📍Locatie",
+        btnTrack: "🎯 Volg Satelliet",
+        btnUntrack: "🔓 Ontgrendel Camera",
+        pointerHint: "Buiten Beeld (Klik om te centreren)",
+        btnGuide: "❓ Gids & Voorwaarden",
+        modalTitle: "SatViewer3D Gids & Voorwaarden",
+        tabControls: "🎮 Bediening",
+        tabDisclaimer: "⚠️ Disclaimer",
+        tabPrivacy: "🔒 Privacy",
+        tabAbout: "ℹ️ Over SatViewer3D",
+        guideTitleControls: "🖱️ 3D Navigatiegids",
+        guideWheel: "Muiswiel / Aanraken",
+        guideWheelDesc: "Ultra-soepele en nauwkeurige zoom met 1/10 snelheid.",
+        guideDrag: "Linksklik + Slepen",
+        guideDragDesc: "Vrije 360-graden rotatie van de aarde.",
+        guideTilt: "Rechtsklik / Ctrl + Slepen",
+        guideTiltDesc: "Kanteling en kijkhoek van de camera aanpassen.",
+        guideClick: "Klik op satelliet / Zoeken",
+        guideClickDesc: "Toon realtime hoogte, snelheid en botsingsrisico.",
+        guideFocus: "🎯 Cameratracking",
+        guideFocusDesc: "Camera volgt de satelliet automatisch.",
+        guideRadar: "🔮 Ruimtepuinradar",
+        guideRadarDesc: "Realtime berekening van 24-uurs baankruisingen (MOID).",
+        guideTitleDisclaimer: "⚠️ Disclaimer",
+        discText1: "Alle baangegevens en voorspellingen worden in realtime berekend uit openbare TLE-gegevens van CelesTrak en Space-Track.",
+        discText2: "Deze gegevens zijn uitsluitend bedoeld voor educatieve doeleinden.",
+        guideTitlePrivacy: "🔒 Privacybeleid (Google AdSense)",
+        privText1Title: "Advertenties:",
+        privText1Desc: "Deze site kan advertentiediensten van derden (zoals Google AdSense) gebruiken met anonieme cookies.",
+        privText2Title: "Statistieken:",
+        privText2Desc: "We verzamelen anonieme verkeersgegevens om de gebruikerservaring te verbeteren.",
+        guideTitleAbout: "ℹ️ Over SatViewer3D",
+        aboutText1: "SatViewer3D is een realtime 3D-simulator voor het visualiseren van satellieten en ruimtepuin.",
+        aboutContactTitle: "Contact:",
+        aboutContactDesc: "Voor vragen: info@satviewer3d.com"
+    },
+    id: {
+        appSubtitle: "Visualisator Satelit 3D & Sampah Antariksa Real-Time",
+        statCount: "Satelit Dilacak",
+        statTime: "Waktu Simulasi",
+        dragPanel: "⋮⋮ Geser panel",
+        secSelect: "Pilih / Cari Satelit",
+        selectPlaceholder: "-- Pilih satelit atau sampah antariksa --",
+        searchPlaceholder: "Cari berdasarkan nama atau NORAD ID...",
+        secSource: "Sumber Data & Preset",
+        loadMajor: "⭐ Satelit Utama (ISS, Starlink, puing)",
+        loadLocal: "🛰️ Konstelasi Starlink (2.000)",
+        badgeMajor: "⭐ Satelit Utama Dimuat",
+        secTime: "Kontrol Waktu & Kecepatan",
+        speedStop: "⏸️ Jeda",
+        speedReal: "▶️ 1x (Waktu Nyata)",
+        resetNow: "🔄 Sekarang",
+        secDisplay: "Pengaturan Tampilan",
+        toggleLabels: "Label Satelit 3D",
+        toggleOrbits: "Tampilkan Orbit",
+        toggleMultiLap: "🌐 Jejak Permukaan Multi-Putaran",
+        toggleAtmosphere: "Atmosfer & Cahaya Matahari",
+        toggle2D: "Mode Peta 2D",
+        toggleBorders: "🌐 Batas Negara & Kota",
+        toggleDebrisRisk: "🔮 Analisis Risiko Sampah Antariksa",
+        dragDetail: "⋮⋮ Geser kartu",
+        dragCam: "⋮⋮ Kamera",
+        labelAlt: "Ketinggian",
+        labelVel: "Kecepatan",
+        labelLat: "Lintang",
+        labelLon: "Bujur",
+        labelInc: "Inklinasi",
+        labelPeriod: "Periode",
+        labelTimezone: "Zona Waktu",
+        labelPass: "📡 Lintasan Berikutnya",
+        labelRisk: "🔮 Pendekatan Puing (MOID 24j)",
+        btnGeo: "📍Lokasi",
+        btnTrack: "🎯 Lacak Satelit",
+        btnUntrack: "🔓 Lepas Kamera",
+        pointerHint: "Di Luar Layar (Klik untuk fokus)",
+        btnGuide: "❓ Panduan & Syarat",
+        modalTitle: "SatViewer3D Panduan & Ketentuan",
+        tabControls: "🎮 Kontrol",
+        tabDisclaimer: "⚠️ Penafian",
+        tabPrivacy: "🔒 Privasi",
+        tabAbout: "ℹ️ Tentang",
+        guideTitleControls: "🖱️ Panduan Navigasi 3D",
+        guideWheel: "Roda Mouse / Sentuh",
+        guideWheelDesc: "Zoom sangat halus dan presisi pada kecepatan 1/10.",
+        guideDrag: "Klik Kiri + Geser",
+        guideDragDesc: "Rotasi bebas Bumi 360 derajat.",
+        guideTilt: "Klik Kanan / Ctrl + Geser",
+        guideTiltDesc: "Menyesuaikan sudut kemiringan kamera.",
+        guideClick: "Klik Satelit / Cari",
+        guideClickDesc: "Tampilkan ketinggian, kecepatan, dan risiko tabrakan secara real-time.",
+        guideFocus: "🎯 Pelacakan Kamera",
+        guideFocusDesc: "Kamera otomatis mengikuti pergerakan satelit.",
+        guideRadar: "🔮 Radar Sampah Antariksa",
+        guideRadarDesc: "Perhitungan real-time persilangan orbit 24 jam (MOID).",
+        guideTitleDisclaimer: "⚠️ Penafian",
+        discText1: "Semua data orbit dan prediksi dihitung secara real-time dari data TLE publik CelesTrak dan Space-Track.",
+        discText2: "Data ini ditujukan untuk tujuan edukasi dan bukan untuk navigasi operasional wahana antariksa.",
+        guideTitlePrivacy: "🔒 Kebijakan Privasi (Google AdSense)",
+        privText1Title: "Iklan:",
+        privText1Desc: "Situs ini menggunakan layanan periklanan pihak ketiga (seperti Google AdSense) dengan cookie anonim.",
+        privText2Title: "Statistik:",
+        privText2Desc: "Kami mengumpulkan data lalu lintas anonim untuk analisis kinerja situs.",
+        guideTitleAbout: "ℹ️ Tentang SatViewer3D",
+        aboutText1: "SatViewer3D adalah simulator 3D real-time untuk memantau satelit buatan dan puing-puing antariksa.",
+        aboutContactTitle: "Kontak:",
+        aboutContactDesc: "Pertanyaan: info@satviewer3d.com"
+    },
+    hi: {
+        appSubtitle: "वास्तविक समय 3D उपग्रह और अंतरिक्ष मलबा विज़ुअलाइज़र",
+        statCount: "ट्रैक किए गए उपग्रह",
+        statTime: "सिमुलेशन समय",
+        dragPanel: "⋮⋮ पैनल खींचें",
+        secSelect: "उपग्रह चुनें / खोजें",
+        selectPlaceholder: "-- उपग्रह या मलबा चुनें --",
+        searchPlaceholder: "नाम या NORAD ID द्वारा खोजें...",
+        secSource: "डेटा स्रोत और प्रीसेट",
+        loadMajor: "⭐ प्रमुख उपग्रह (ISS, स्टारलिंक, मलबा)",
+        loadLocal: "🛰️ स्टारलिंक समूह (2,000)",
+        badgeMajor: "⭐ प्रमुख उपग्रह लोड किए गए",
+        secTime: "समय नियंत्रण और गति",
+        speedStop: "⏸️ रोकें",
+        speedReal: "▶️ 1x (वास्तविक समय)",
+        resetNow: "🔄 अभी",
+        secDisplay: "प्रदर्शन सेटिंग्स",
+        toggleLabels: "3D उपग्रह नाम",
+        toggleOrbits: "कक्षा दिखाएं",
+        toggleMultiLap: "🌐 बहु-चक्कर ग्राउंड ट्रैक",
+        toggleAtmosphere: "वायुमंडल और सूर्य का प्रकाश",
+        toggle2D: "2D मानचित्र मोड",
+        toggleBorders: "🌐 सीमाएं और शहर",
+        toggleDebrisRisk: "🔮 अंतरिक्ष मलबे के जोखिम का विश्लेषण",
+        dragDetail: "⋮⋮ कार्ड खींचें",
+        dragCam: "⋮⋮ कैमरा नियंत्रण",
+        labelAlt: "ऊंचाई (Altitude)",
+        labelVel: "गति (Velocity)",
+        labelLat: "अक्षांश (Latitude)",
+        labelLon: "देशांतर (Longitude)",
+        labelInc: "झुकाव (Inclination)",
+        labelPeriod: "परिक्रमण काल (Period)",
+        labelTimezone: "समय क्षेत्र",
+        labelPass: "📡 अगला ओवरहेड पास",
+        labelRisk: "🔮 मलबे का निकटतम दृष्टिकोण (MOID)",
+        btnGeo: "📍स्थान प्राप्त करें",
+        btnTrack: "🎯 उपग्रह को ट्रैक करें",
+        btnUntrack: "🔓 कैमरा अनलॉक करें",
+        pointerHint: "स्क्रीन से बाहर (केंद्रित करने के लिए क्लिक करें)",
+        btnGuide: "❓ गाइड और नियम",
+        modalTitle: "SatViewer3D गाइड और शर्तें",
+        tabControls: "🎮 नियंत्रण",
+        tabDisclaimer: "⚠️ अस्वीकरण",
+        tabPrivacy: "🔒 गोपनीयता नीति",
+        tabAbout: "ℹ️ के बारे में",
+        guideTitleControls: "🖱️ 3D नेविगेशन गाइड",
+        guideWheel: "माउस व्हील / टच",
+        guideWheelDesc: "1/10 गति पर अत्यधिक सहज और सटीक ज़ूम।",
+        guideDrag: "बायाँ क्लिक + खींचें",
+        guideDragDesc: "पृथ्वी का स्वतंत्र 360-डिग्री घूर्णन।",
+        guideTilt: "दायाँ क्लिक / Ctrl + खींचें",
+        guideTiltDesc: "कैमरा झुकाव और देखने का कोण समायोजित करें।",
+        guideClick: "उपग्रह पर क्लिक करें / खोजें",
+        guideClickDesc: "वास्तविक समय में ऊंचाई, गति और टकराव का जोखिम देखें।",
+        guideFocus: "🎯 कैमरा ट्रैकिंग",
+        guideFocusDesc: "कैमरा स्वचालित रूप से उपग्रह का अनुसरण करता है।",
+        guideRadar: "🔮 अंतरिक्ष मलबा रडार",
+        guideRadarDesc: "24 घंटे में कक्षा पार करने की दूरी (MOID) की वास्तविक समय गणना।",
+        guideTitleDisclaimer: "⚠️ अस्वीकरण",
+        discText1: "सभी कक्षीय डेटा और भविष्यवाणियां CelesTrak और Space-Track के सार्वजनिक TLE डेटा से वास्तविक समय में गणना की जाती हैं।",
+        discText2: "यह डेटा केवल शैक्षिक उद्देश्यों के लिए है।",
+        guideTitlePrivacy: "🔒 गोपनीयता नीति (Google AdSense)",
+        privText1Title: "विज्ञापन:",
+        privText1Desc: "यह साइट अनाम कुकीज़ का उपयोग करके तृतीय-पक्ष विज्ञापन सेवाओं (जैसे Google AdSense) का उपयोग करती है।",
+        privText2Title: "आंकड़े:",
+        privText2Desc: "हम साइट प्रदर्शन विश्लेषण के लिए अनाम ट्रैफ़िक डेटा एकत्र करते हैं।",
+        guideTitleAbout: "ℹ️ SatViewer3D के बारे में",
+        aboutText1: "SatViewer3D कृत्रिम उपग्रहों और अंतरिक्ष मलबे को देखने के लिए एक वास्तविक समय 3D सिमुलेटर है।",
+        aboutContactTitle: "संपर्क:",
+        aboutContactDesc: "पूछताछ के लिए: info@satviewer3d.com"
     }
 };
 
@@ -662,6 +1038,11 @@ function applyLanguage(lang) {
     const langSelect = document.getElementById('langSelect');
     if (langSelect) {
         langSelect.value = lang;
+    }
+
+    const subEl = document.querySelector('.app-subtitle');
+    if (subEl && dict.appSubtitle) {
+        subEl.textContent = dict.appSubtitle;
     }
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -706,6 +1087,11 @@ function applyLanguage(lang) {
             pt: { JST: '🇯🇵 Hora Padrão do Japão (JST)', UTC: '🌐 Tempo Universal (UTC)', NY: '🇺🇸 Nova York (EST/EDT)', CST: '🇨🇳 Hora da China (CST)', CET: '🇵🇹 Hora da Europa Central (CET)', MSK: '🇷🇺 Hora de Moscou (MSK)', LOCAL: '💻 Hora Local do Navegador' },
             zh: { JST: '🇯🇵 日本标准时间 (JST / UTC+9)', UTC: '🌐 协调世界时 (UTC)', NY: '🇺🇸 纽约时间 (EST/EDT)', CST: '🇨🇳 中国标准时间 (CST / UTC+8)', CET: '🇪🇸 中欧时间 (CET / UTC+1)', MSK: '🇷🇺 莫斯科时间 (MSK / UTC+3)', LOCAL: '💻 本地浏览器时间' },
             es: { JST: '🇯🇵 Hora Estándar de Japón (JST)', UTC: '🌐 Hora Universal (UTC)', NY: '🇺🇸 Nueva York (EST/EDT)', CST: '🇨🇳 Hora de China (CST)', CET: '🇪🇸 Hora Central Europea (CET)', MSK: '🇷🇺 Hora de Moscú (MSK)', LOCAL: '💻 Hora Local del Navegador' },
+            it: { JST: '🇯🇵 Ora Standard Giappone (JST)', UTC: '🌐 Tempo Universale (UTC)', NY: '🇺🇸 New York (EST/EDT)', CST: '🇨🇳 Ora della Cina (CST)', CET: '🇮🇹 Ora Europa Centrale (CET)', MSK: '🇷🇺 Ora di Mosca (MSK)', LOCAL: '💻 Ora Locale Browser' },
+            ko: { JST: '🇯🇵 일본 표준시 (JST / UTC+9)', UTC: '🌐 세계 표준시 (UTC)', NY: '🇺🇸 뉴욕 (EST/EDT)', CST: '🇨🇳 중국 표준시 (CST)', CET: '🇪🇸 중부 유럽 (CET)', MSK: '🇷🇺 모스크바 (MSK)', LOCAL: '💻 사용자 로컬 시간' },
+            nl: { JST: '🇯🇵 Japanse Tijd (JST)', UTC: '🌐 Universele Tijd (UTC)', NY: '🇺🇸 New York (EST/EDT)', CST: '🇨🇳 Chinese Tijd (CST)', CET: '🇳🇱 Midden-Europese Tijd (MET)', MSK: '🇷🇺 Moskou Tijd (MSK)', LOCAL: '💻 Lokale Browsertijd' },
+            id: { JST: '🇯🇵 Waktu Standar Jepang (JST)', UTC: '🌐 Waktu Universal (UTC)', NY: '🇺🇸 New York (EST/EDT)', CST: '🇨🇳 Waktu China (CST)', CET: '🇪🇸 Waktu Eropa Tengah (CET)', MSK: '🇷🇺 Waktu Moskow (MSK)', LOCAL: '💻 Waktu Lokal Browser' },
+            hi: { JST: '🇯🇵 जापान मानक समय (JST)', UTC: '🌐 सार्वभौमिक समय (UTC)', NY: '🇺🇸 न्यूयॉर्क (EST/EDT)', CST: '🇨🇳 चीन समय (CST)', CET: '🇪🇸 मध्य यूरोपीय समय (CET)', MSK: '🇷🇺 मास्को समय (MSK)', LOCAL: '💻 स्थानीय ब्राउज़र समय' },
             ru: { JST: '🇯🇵 Японское время (JST / UTC+9)', UTC: '🌐 Всемирное время (UTC)', NY: '🇺🇸 Нью-Йорк (EST/EDT)', CST: '🇨🇳 Китайское время (CST / UTC+8)', CET: '🇪🇸 Центральноевропейское (CET)', MSK: '🇷🇺 Московское время (MSK / UTC+3)', LOCAL: '💻 Местное время браузера' }
         };
         const currentTzMap = tzLabels[lang] || tzLabels['en'];
@@ -729,6 +1115,11 @@ function applyLanguage(lang) {
         fr: '📅 Choisir date & heure...',
         es: '📅 Seleccionar fecha y hora...',
         pt: '📅 Selecionar data e hora...',
+        it: '📅 Seleziona data e ora...',
+        ko: '📅 날짜 및 시간 선택...',
+        nl: '📅 Kies datum & tijd...',
+        id: '📅 Pilih tanggal & waktu...',
+        hi: '📅 दिनांक और समय चुनें...',
         zh: '📅 选择日期与时间...',
         ru: '📅 Выбрать дату и время...'
     };
@@ -749,7 +1140,7 @@ function applyLanguage(lang) {
 
     // Localize Cesium Animation & Timeline widget formats
     if (typeof viewer !== 'undefined' && viewer) {
-        const localeCodeMap = { ja: 'ja-JP', en: 'en-US', de: 'de-DE', fr: 'fr-FR', es: 'es-ES', pt: 'pt-BR', zh: 'zh-CN', ru: 'ru-RU' };
+        const localeCodeMap = { ja: 'ja-JP', en: 'en-US', de: 'de-DE', fr: 'fr-FR', es: 'es-ES', pt: 'pt-BR', it: 'it-IT', ko: 'ko-KR', nl: 'nl-NL', id: 'id-ID', hi: 'hi-IN', zh: 'zh-CN', ru: 'ru-RU' };
         const loc = localeCodeMap[lang] || 'en-US';
 
         if (viewer.animation && viewer.animation.viewModel) {
@@ -800,94 +1191,84 @@ HIMAWARI-9
 QZSS / MICHIBIKI-1
 1 37158U 10045A   26100.18532154  .00051572  00000+0  19056-2 0  9991
 2 37158  41.0000 135.0000 0003477 136.2709 223.8565  1.00270000353771
-QZSS / MICHIBIKI-2 (みちびき2号 - 準天頂軌道)
+QZSS / MICHIBIKI-2
 1 42738U 17028A   26100.12345678  .00000000  00000-0  00000-0 0  9992
 2 42738  44.0000 140.0000 0004000 120.0000 240.0000  1.00270000    02
-QZSS / MICHIBIKI-3 (みちびき3号 - 静止軌道GEO)
+QZSS / MICHIBIKI-3
 1 42917U 17048A   26100.12345678  .00000000  00000-0  00000-0 0  9993
 2 42917   0.0500 127.0000 0002000 180.0000  90.0000  1.00270000    03
-QZSS / MICHIBIKI-4 (みちびき4号 - 準天頂軌道)
+QZSS / MICHIBIKI-4
 1 42965U 17062A   26100.12345678  .00000000  00000-0  00000-0 0  9994
 2 42965  44.0000 145.0000 0004000 240.0000 120.0000  1.00270000    04
-QZSS / MICHIBIKI-5 (みちびき5号機)
+QZSS / MICHIBIKI-5
 1 58900U 25001A   26100.12345678  .00000000  00000-0  00000-0 0  9998
 2 58900  44.0000 132.5000 0004000 140.0000 220.0000  1.00273791    07
-QZSS / MICHIBIKI-6 (みちびき6号機 - H3ロケット最新打上)
+QZSS / MICHIBIKI-6
 1 59000U 26001A   26100.12345678  .00000000  00000-0  00000-0 0  9997
 2 59000  44.0000 137.5000 0004000 150.0000 210.0000  1.00273791    06
-QZSS / MICHIBIKI-1R (みちびき1号R後継機)
+QZSS / MICHIBIKI-1R
 1 49336U 21096A   26100.12345678  .00000000  00000-0  00000-0 0  9995
 2 49336  44.0000 135.0000 0004000 180.0000  90.0000  1.00270000    05
-ISS (ZARYA / 国際宇宙ステーション)
+ISS (ZARYA)
 1 25544U 98067A   26100.52443056  .00014798  00000+0  26498-3 0  9999
 2 25544  51.6416 288.4552 0004557 114.6293 250.7711 15.49753018444743
-TIANGONG (天宮 / 中国宇宙ステーション)
+TIANGONG
 1 42063U 17027A   26100.52443056  .00014798  00000+0  26498-3 0  9993
 2 42063  51.6416 247.4627 0006703 130.5360 325.0288 15.50256479  1234
-BEIDOU-3 (北斗3号 / 中国測位衛星)
+BEIDOU-3
 1 40749U 15037A   26100.12345678  .00000000  00000-0  00000-0 0  9993
 2 40749  55.0000 123.0000 0001000 180.0000  90.0000  1.00270000    01
-HUBBLE SPACE TELESCOPE (ハッブル宇宙望遠鏡)
-1 20580U 90037B   26100.25001156  .00217812  29175-4  60418-3 0  9992
-2 20580  28.4690 250.0000 0003472 250.4592 194.3633 15.93405075  5858
-GPS NAVSTAR 43
-1 24876U 97035A   26099.61117497  .00056206  00000+0  17504-2 0  9992
-2 24876  55.3000  45.0000 0002836 122.5110 237.6166  2.00560000353232
-IRIDIUM 33 DEBRIS #1 (イリジウム33 衝突デブリ破片1)
-1 33777U 09005A   26100.12345678  .00000000  00000-0  00000-0 0  9999
-2 33777  86.4000 120.0000 0015000  45.0000 315.0000 14.30000000  1001
-IRIDIUM 33 DEBRIS #2 (イリジウム33 衝突デブリ破片2)
-1 33778U 09005B   26100.12345678  .00000000  00000-0  00000-0 0  9998
-2 33778  86.4200 122.5000 0018000  60.0000 300.0000 14.32000000  1002
-IRIDIUM 33 DEBRIS #3 (イリジウム33 衝突デブリ破片3)
-1 33779U 09005C   26100.12345678  .00000000  00000-0  00000-0 0  9997
-2 33779  86.3800 118.0000 0012000  30.0000 330.0000 14.28000000  1003
-IRIDIUM 33 DEBRIS #4 (イリジウム33 衝突デブリ破片4)
-1 33780U 09005D   26100.12345678  .00000000  00000-0  00000-0 0  9996
-2 33780  86.4500 125.0000 0020000  75.0000 285.0000 14.35000000  1004
-IRIDIUM 33 DEBRIS #5 (イリジウム33 衝突デブリ破片5)
-1 33781U 09005E   26100.12345678  .00000000  00000-0  00000-0 0  9995
-2 33781  86.3500 115.0000 0010000  15.0000 345.0000 14.25000000  1005
-IRIDIUM 33 DEBRIS #6 (イリジウム33 衝突デブリ破片6)
-1 33782U 09005F   26100.12345678  .00000000  00000-0  00000-0 0  9994
-2 33782  86.5000 128.0000 0022000  90.0000 270.0000 14.38000000  1006
-COSMOS 2251 DEBRIS #1 (コスモス2251 衝突デブリ)
-1 33750U 09005AA  26100.12345678  .00000000  00000-0  00000-0 0  9901
-2 33750  74.0300  45.1200 0015000 120.0000 240.0000 14.78000000  2001
-COSMOS 2251 DEBRIS #2 (コスモス2251 衝突デブリ)
-1 33751U 09005AB  26100.12345678  .00000000  00000-0  00000-0 0  9902
-2 33751  74.1000  55.3000 0021000 180.0000 180.0000 14.85000000  2002
-COSMOS 2251 DEBRIS #3 (コスモス2251 衝突デブリ)
-1 33752U 09005AC  26100.12345678  .00000000  00000-0  00000-0 0  9903
-2 33752  74.0000  65.4000 0009000  45.0000 315.0000 14.72000000  2003
-COSMOS 2251 DEBRIS #4 (コスモス2251 衝突デブリ)
-1 33753U 09005AD  26100.12345678  .00000000  00000-0  00000-0 0  9904
-2 33753  74.2000  78.2000 0030000  90.0000 270.0000 14.90000000  2004
-FENGYUN 1C DEBRIS #1 (風雲1号C 破壊実験デブリ)
-1 29700U 07001A   26100.12345678  .00000000  00000-0  00000-0 0  9911
-2 29700  98.6000 110.5000 0035000 210.0000 150.0000 13.95000000  3001
-FENGYUN 1C DEBRIS #2 (風雲1号C 破壊実験デブリ)
-1 29701U 07001B   26100.12345678  .00000000  00000-0  00000-0 0  9912
-2 29701  98.6500 125.1000 0042000 160.0000 200.0000 14.05000000  3002
-FENGYUN 1C DEBRIS #3 (風雲1号C 破壊実験デブリ)
-1 29702U 07001C   26100.12345678  .00000000  00000-0  00000-0 0  9913
-2 29702  98.5500 140.8000 0028000  80.0000 280.0000 13.88000000  3003
-SL-8 ROCKET BODY DEBRIS #1 (SL-8 ロケット残骸デブリ)
-1 12345U 80001A   26100.12345678  .00000000  00000-0  00000-0 0  9921
-2 12345  82.9000  12.4000 0018000 300.0000  60.0000 14.12000000  4001
-SL-8 ROCKET BODY DEBRIS #2 (SL-8 ロケット残骸デブリ)
-1 12346U 80001B   26100.12345678  .00000000  00000-0  00000-0 0  9922
-2 12346  82.9500  35.8000 0025000 150.0000 210.0000 14.20000000  4002
-SL-16 ROCKET BODY DEBRIS (SL-16 大型ロケット残骸)
-1 22000U 92001A   26100.12345678  .00000000  00000-0  00000-0 0  9931
-2 22000  71.0000 190.2000 0011000  95.0000 265.0000 14.50000000  5001
-DELTA 2 ROCKET DEBRIS (デルタ2 ロケット破片)
-1 25000U 97001A   26100.12345678  .00000000  00000-0  00000-0 0  9941
-2 25000  39.0000 210.5000 0038000  10.0000 350.0000 14.65000000  6001
-ARIANE 4 DEBRIS (アリアン4 ロケット破片)
-1 27000U 01001A   26100.12345678  .00000000  00000-0  00000-0 0  9951
-2 27000  98.2000 300.1000 0015000 180.0000 180.0000 14.10000000  7001
-`;
+HUBBLE SPACE TELESCOPE
+1 20580U 90037B   26100.12345678  .00000000  00000-0  00000-0 0  9990
+2 20580  28.4690 100.0000 0003000 120.0000 240.0000 15.00000000    01
+GPS BIIR-2 (PRN 13)
+1 24876U 97035A   26100.12345678  .00000000  00000-0  00000-0 0  9996
+2 24876  55.0000  60.0000 0050000 150.0000 210.0000  2.00570000    02
+GPS BIIF-2 (PRN 01)
+1 37753U 11036A   26100.12345678  .00000000  00000-0  00000-0 0  9994
+2 37753  55.0000 180.0000 0050000  90.0000 270.0000  2.00570000    03
+COSMOS 2251 DEBRIS
+1 34000U 93036AZ  26100.12345678  .00000000  00000-0  00000-0 0  9991
+2 34000  74.0000  45.0000 0020000 100.0000 260.0000 14.30000000    01
+FENGYUN 1C DEBRIS
+1 30000U 99025AAA 26100.12345678  .00000000  00000-0  00000-0 0  9992
+2 30000  98.6000 120.0000 0015000 150.0000 210.0000 14.10000000    02
+SL-8 DEBRIS
+1 31000U 00001A   26100.12345678  .00000000  00000-0  00000-0 0  9993
+2 31000  83.0000 200.0000 0025000 180.0000  90.0000 14.00000000    03
+SL-16 DEBRIS
+1 32000U 00002A   26100.12345678  .00000000  00000-0  00000-0 0  9994
+2 32000  71.0000 280.0000 0030000 240.0000 120.0000 14.20000000    04
+STARLINK-1007
+1 44713U 19074A   26100.12345678  .00000000  00000-0  00000-0 0  9995
+2 44713  53.0000  10.0000 0001500  45.0000 315.0000 15.06000000    01
+STARLINK-1008
+1 44714U 19074B   26100.12345678  .00000000  00000-0  00000-0 0  9996
+2 44714  53.0000  20.0000 0001500  90.0000 270.0000 15.06000000    02
+STARLINK-1009
+1 44715U 19074C   26100.12345678  .00000000  00000-0  00000-0 0  9997
+2 44715  53.0000  30.0000 0001500 135.0000 225.0000 15.06000000    03
+STARLINK-1010
+1 44716U 19074D   26100.12345678  .00000000  00000-0  00000-0 0  9998
+2 44716  53.0000  40.0000 0001500 180.0000 180.0000 15.06000000    04
+STARLINK-1011
+1 44717U 19074E   26100.12345678  .00000000  00000-0  00000-0 0  9999
+2 44717  53.0000  50.0000 0001500 225.0000 135.0000 15.06000000    05
+STARLINK-1012
+1 44718U 19074F   26100.12345678  .00000000  00000-0  00000-0 0  9991
+2 44718  53.0000  60.0000 0001500 270.0000  90.0000 15.06000000    06
+STARLINK-1013
+1 44719U 19074G   26100.12345678  .00000000  00000-0  00000-0 0  9992
+2 44719  53.0000  70.0000 0001500 315.0000  45.0000 15.06000000    07
+STARLINK-1014
+1 44720U 19074H   26100.12345678  .00000000  00000-0  00000-0 0  9993
+2 44720  53.0000  80.0000 0001500   0.0000   0.0000 15.06000000    08
+STARLINK-1015
+1 44721U 19074J   26100.12345678  .00000000  00000-0  00000-0 0  9994
+2 44721  53.0000  90.0000 0001500  45.0000 315.0000 15.06000000    09
+STARLINK-1016
+1 44722U 19074K   26100.12345678  .00000000  00000-0  00000-0 0  9995
+2 44722  53.0000 100.0000 0001500  90.0000 270.0000 15.06000000    10`;
 
 // Global State
 let viewer = null;
@@ -921,6 +1302,11 @@ const SATELLITE_DESCRIPTIONS = {
         de: 'Geostationärer Wettersatellit "Himawari-8" (JMA). Positioniert auf 140,7°O über dem Äquator als Backup-Wettersatellit.',
         fr: 'Satellite météorologique géostationnaire "Himawari-8" (JMA). Situé à 140,7°E à 35 786 km pour la veille météo.',
         pt: 'Satélite meteorológico geoestacionário "Himawari-8" (JMA). Posicionado a 140,7°E a 35.786 km para monitoramento.',
+        it: 'Satellite meteorologico geostazionario "Himawari-8" (JMA). Situato a 140,7°E a 35.786 km come riserva operativa.',
+        ko: '정지궤도 기상위성 "히마와리 8호"(일본 기상청). 동경 140.7° 상공 35,786km 정지궤도에서 백업 관측 임무 수행.',
+        nl: 'Geostationaire weersatelliet "Himawari-8" (JMA). Bevindt zich op 140,7°O op 35.786 km hoogte als backup.',
+        id: 'Satelit Cuaca Geostasioner "Himawari-8" (JMA). Terletak di bujur 140,7°BT, 35.786 km di atas khatulistiwa.',
+        hi: 'भूस्थिर मौसम उपग्रह "हिमावारी-8" (JMA)। मौसम निगरानी बैकअप के लिए 140.7°E पर 35,786 किमी ऊपर स्थित।',
         zh: '气象卫星“葵花8号”(日本气象厅)。位于赤道上空约35,786公里的静止气象卫星，在东经140.7°作为9号机的备用观测星。',
         es: 'Satélite Meteorológico Geoestacionario "Himawari-8" (JMA). Situado a 35.786 km sobre el ecuador a 140,7°E para monitoreo del clima.',
         ru: 'Геостационарный метеорологический спутник "Химавари-8" (JMA). Находится на высоте 35 786 км над экватором для наблюдения за погодой.'
@@ -931,6 +1317,11 @@ const SATELLITE_DESCRIPTIONS = {
         de: 'Geostationärer Wettersatellit "Himawari-9" (JMA). Überwacht Taifune und Unwetter über Ostasien in Echtzeit (140,7°O).',
         fr: "Satellite météorologique \"Himawari-9\" (JMA). Surveille en temps réel typhons et tempêtes sur l'Asie de l'Est à 140,7°E.",
         pt: 'Satélite meteorológico "Himawari-9" (JMA). Monitora tufões e tempestades severas em tempo real sobre o Leste Asiático a 140,7°E.',
+        it: 'Satellite meteorologico "Himawari-9" (JMA). Monitora in tempo reale tifoni e maltempo sull\'Asia orientale a 140,7°E.',
+        ko: '정지궤도 기상위성 "히마와리 9호"(일본 기상청). 동경 140.7° 상공 35,786km에서 태풍과 집중호우를 실시간 감시.',
+        nl: 'Geostationaire weersatelliet "Himawari-9" (JMA). Bewaakt tyfonen en zwaar weer in realtime (140,7°O).',
+        id: 'Satelit Cuaca "Himawari-9" (JMA). Memantau topan dan cuaca ekstrem secara real-time di Asia Timur (140,7°BT).',
+        hi: 'मौसम उपग्रह "हिमावारी-9" (JMA)। पूर्वी एशिया के ऊपर वास्तविक समय में तूफानों की निगरानी करता है।',
         zh: '气象卫星“葵花9号”(日本气象厅)。静止于东经140.7°赤道上空，实时监控台风与暴雨等灾害性天气。',
         es: 'Satélite Meteorológico "Himawari-9". Monitorea en tiempo real tifones y clima severo sobre Asia Oriental a 140,7°E.',
         ru: 'Метеорологический спутник "Химавари-9". Наблюдает за тайфунами и штормами над Восточной Азией в режиме реального времени.'
@@ -941,6 +1332,11 @@ const SATELLITE_DESCRIPTIONS = {
         de: 'Neuester QZSS-6 (Michibiki Nr. 6) Satellit, gestartet mit der japanischen H3-Rakete für hochpräzise GPS-Ortung.',
         fr: 'Dernier satellite QZSS-6 (Michibiki n°6) lancé par la fusée japonaise H3 pour un positionnement GPS ultra-précis.',
         pt: 'Satélite QZSS-6 (Michibiki nº 6) lançado pelo foguete japonês H3 para serviços de alta precisão GPS.',
+        it: 'Nuovo satellite QZSS-6 (Michibiki n. 6) lanciato dal razzo giapponese H3 per il posizionamento GPS ad altissima precisione.',
+        ko: '일본 최신 준천정위성 "미치비키 6호기 (QZSS-6)". H3 로켓으로 발사되어 센티미터급 초정밀 GPS 보정 위치 측정 서비스를 제공.',
+        nl: 'Nieuwste QZSS-6 (Michibiki nr. 6) satelliet, gelanceerd met de H3-raket voor uiterst nauwkeurige GPS-positionering.',
+        id: 'Satelit terbaru QZSS-6 (Michibiki No. 6) diluncurkan dengan roket H3 untuk layanan penentuan posisi GPS presisi tinggi.',
+        hi: 'जापान के H3 रॉकेट द्वारा लॉन्च किया गया नवीनतम QZSS-6 (मिचिबिकी नं. 6) उपग्रह, उच्च-सटीक GPS सेवाएं प्रदान करता है।',
         zh: '日本最新准天顶卫星“引路6号”(QZSS-6)。由H3火箭成功发射，实现高精度GPS定位增强服务。',
         es: 'Satélite de precisión GPS "Michibiki-6" (QZSS-6) lanzado por el cohete H3 de Japón.',
         ru: 'Новейший навигационный спутник "Мичибики-6" (QZSS-6), запущенный ракетой H3 для сверхточного GPS.'
@@ -951,6 +1347,11 @@ const SATELLITE_DESCRIPTIONS = {
         de: 'Quasi-Zenit-Satellitensystem "Michibiki" (QZSS). Verbessert die GPS-Genauigkeit in Japan und im Asien-Pazifik-Raum.',
         fr: 'Système de satellites quasi-zénithaux "Michibiki" (QZSS). Améliore la précision GPS au Japon et en Asie-Pacifique.',
         pt: 'Sistema de Satélites Quase-Zenital "Michibiki" (QZSS). Aumenta a precisão do GPS no Japão e Ásia-Pacífico.',
+        it: 'Sistema satellitare Quasi-Zenit "Michibiki" (QZSS). Migliora la precisione GPS in Giappone e nella regione Asia-Pacifico.',
+        ko: '일본의 준천정위성 시스템 "미치비키"(QZSS). 도심 고층 빌딩 사각지대를 해소하고 센티미터급 정밀 GPS 보정을 제공.',
+        nl: 'Quasi-Zenit Satellietsysteem "Michibiki" (QZSS). Verbetert de GPS-nauwkeurigheid in Japan en Azië-Pacific.',
+        id: 'Sistem Satelit Quasi-Zenith "Michibiki" (QZSS). Meningkatkan akurasi GPS di Jepang dan kawasan Asia-Pasifik.',
+        hi: 'क्वासी-जेनिथ उपग्रह प्रणाली "मिचिबिकी" (QZSS)। जापान और एशिया-प्रशांत क्षेत्र में GPS सटीकता को बढ़ाता है।',
         zh: '日本准天顶卫星系统“引路”(QZSS)。覆盖日本及亚太地区，提供厘米级GPS增强定位。',
         es: 'Sistema de Satélites Quasi-Cenital "Michibiki" (QZSS). Mejora la precisión del GPS en Japón y Asia-Pacífico.',
         ru: 'Японская квазизенитная спутниковая система "Мичибики" (QZSS) для улучшения точности GPS.'
@@ -961,6 +1362,11 @@ const SATELLITE_DESCRIPTIONS = {
         de: 'Internationale Raumstation (ISS). Umkreist die Erde in ~400 km Höhe alle 90 Minuten für wissenschaftliche Forschung.',
         fr: "Station spatiale internationale (ISS). En orbite à ~400 km d'altitude toutes les 90 minutes pour la recherche.",
         pt: 'Estação Espacial Internacional (ISS). Orbita a ~400 km de altitude a cada 90 minutos para pesquisas científicas.',
+        it: 'Stazione Spaziale Internazionale (ISS). Orbita a ~400 km di altitudine ogni 90 minuti per la ricerca scientifica.',
+        ko: '국제우주정거장 (ISS). 고도 약 400km의 지구 저궤도를 약 90분마다 1회전(시속 약 27,700km)하며 우주 과학 실험을 수행.',
+        nl: 'Internationaal Ruimtestation (ISS). Draait elke 90 minuten rond de aarde op ~400 km hoogte voor wetenschappelijk onderzoek.',
+        id: 'Stasiun Luar Angkasa Internasional (ISS). Mengorbit pada ketinggian ~400 km setiap 90 menit untuk penelitian gravitasi mikro.',
+        hi: 'अंतर्राष्ट्रीय अंतरिक्ष स्टेशन (ISS)। ~400 किमी की ऊंचाई पर हर 90 मिनट में पृथ्वी की परिक्रमा करता है।',
         zh: '国际空间站 (ISS)。在约400公里的近地轨道运行，每90分钟环绕地球一周。',
         es: 'Estación Espacial Internacional (EEI). Órbita a ~400 km de altitud cada 90 minutos para investigación científica.',
         ru: 'Международная космическая станция (МКС). Орбита ~400 км, полный оборот за 90 минут.'
@@ -971,49 +1377,89 @@ const SATELLITE_DESCRIPTIONS = {
         de: 'Chinesische Raumstation "Tiangong". Dauerhaft bemannte Raumstation in ~380-450 km Höhe.',
         fr: 'Station spatiale chinoise "Tiangong". Laboratoire spatial habité en orbite à 380-450 km.',
         pt: 'Estação Espacial Chinesa "Tiangong". Laboratório espacial permanentemente tripulado a 380-450 km.',
+        it: 'Stazione spaziale cinese "Tiangong". Laboratorio orbitale abitato in orbita a 380-450 km.',
+        ko: '중국 우주정거장 "톈궁"(Tiangong). 고도 약 380~450km 저궤도에서 우주인이 상주하는 독자 우주 실험실.',
+        nl: 'Chinees Ruimtestation "Tiangong". Permanent bemand ruimtelaboratorium op ~380-450 km hoogte.',
+        id: 'Stasiun Luar Angkasa China "Tiangong". Laboratorium antariksa berawak tetap di ketinggian ~380-450 km.',
+        hi: 'चीनी अंतरिक्ष स्टेशन "तियांगोंग"। ~380-450 किमी की ऊंचाई पर परिक्रमा करने वाली स्थायी अंतरिक्ष प्रयोगशाला।',
         zh: '中国“天宫”空间站。高度约380-450公里的近地轨道长期载人空间实验室。',
-        es: 'Estación Espacial China "Tiangong". Laboratorio espacial habitado permanentemente a 380-450 km.',
-        ru: 'Китайская космическая станция "Тяньгун". Постоянно обитаемая космическая лаборатория.'
+        es: 'Estación Espacial China "Tiangong". Laboratorio espacial tripulado a 380-450 km.',
+        ru: 'Китайская орбитальная станция "Тяньгун". Обитаемая лаборатория на высоте 380-450 км.'
     },
     'BEIDOU': {
-        ja: '中国の独自全地球衛星測位システム「北斗3号」(BeiDou-3)。GEO/IGSO/MEO軌道の複合コンステレーションで全世界に測位サービスを提供。',
-        en: 'BeiDou-3 Global Navigation Satellite System (China). Provides global positioning, navigation, and timing services.',
-        de: 'BeiDou-3 Navigationssatellitensystem (China). Bietet weltweite Ortungs- und Navigationsdienste.',
-        fr: 'Système de navigation par satellite BeiDou-3 (Chine). Fournit des services de positionnement mondial.',
-        pt: 'Sistema de Navegação por Satélite BeiDou-3 (China). Serviços globais de posicionamento e navegação.',
-        zh: '北斗三号全球卫星导航系统。混合轨道星座，为全球用户提供高精度导航与定位。',
-        es: 'Sistema de Navegación por Satélite BeiDou-3 (China). Cobertura global de navegación y posicionamiento.',
-        ru: 'Китайская глобальная навигационная система "Бэйдоу-3" (BeiDou-3).'
+        ja: '中国の衛星測位システム「北斗」(BeiDou-3)。地球全域をカバーする独自GPS網。ミリ波通信や高精度測位サービスを提供。',
+        en: 'Chinese Satellite Navigation System "BeiDou-3". Global navigation constellation providing high-precision positioning.',
+        de: 'Chinesisches Satellitennavigationssystem "BeiDou-3". Globales Navigationsnetzwerk für hochpräzise Ortung.',
+        fr: 'Système de navigation par satellite chinois "BeiDou-3". Constellation mondiale pour un positionnement de haute précision.',
+        pt: 'Sistema de Navegação por Satélite Chinês "BeiDou-3". Constelação global de posicionamento de alta precisão.',
+        it: 'Sistema di navigazione satellitare cinese "BeiDou-3". Rete globale per il posizionamento di alta precisione.',
+        ko: '중국 위성항법시스템 "베이더우 3호"(BeiDou-3). 전 지구를 커버하는 독자 항법 위성망.',
+        nl: 'Chinees satellietnavigatiesysteem "BeiDou-3". Wereldwijd navigatienetwerk voor uiterst nauwkeurige plaatsbepaling.',
+        id: 'Sistem Navigasi Satelit China "BeiDou-3". Konstelasi global yang menyediakan penentuan posisi presisi tinggi.',
+        hi: 'चीनी उपग्रह नेविगेशन प्रणाली "BeiDou-3"। वैश्विक उच्च-सटीक नेविगेशन नक्षत्र।',
+        zh: '中国“北斗三号”全球卫星导航系统。为全球提供高精度定位与短报文通信服务。',
+        es: 'Sistema de Navegación por Satélite Chino "BeiDou-3". Red global de posicionamiento de alta precisión.',
+        ru: 'Китайская навигационная система "Бэйдоу-3". Глобальная спутниковая сеть для высокоточного позиционирования.'
     },
     'HUBBLE': {
-        ja: 'ハッブル宇宙望遠鏡 (HST / NASA・ESA)。高度約540kmの軌道上から大気の影響を受けずに深宇宙の銀河や星雲を観測する伝説の宇宙望遠鏡。',
-        en: 'Hubble Space Telescope (NASA/ESA). Iconic space telescope orbiting at ~540km observing deep space galaxies and nebulae.',
-        de: 'Hubble-Weltraumteleskop (NASA/ESA). Beobachtet ferne Galaxien aus 540 km Höhe.',
-        fr: "Télescope spatial Hubble (NASA/ESA). Observe les galaxies profondes à 540 km d'altitude.",
-        pt: 'Telescópio Espacial Hubble (NASA/ESA). Observa galáxias profundas a 540 km de altitude.',
-        zh: '哈勃空间望远镜 (NASA/ESA)。在约540公里轨道上观测深空星系与星云。',
-        es: 'Telescopio Espacial Hubble (NASA/ESA). Observa galaxias profundas desde 540 km de altitud.',
-        ru: 'Космический телескоп "Хаббл" (NASA/ESA). Наблюдает за далекими галактиками с высоты 540 км.'
+        ja: 'ハッブル宇宙望遠鏡 (HST)。高度約540kmの地球周回軌道から宇宙の深淵を観測し、数々の大発見をもたらした伝説の宇宙望遠鏡。',
+        en: 'Hubble Space Telescope (HST). Orbiting at ~540km altitude capturing deep space astronomical discoveries.',
+        de: 'Hubble-Weltraumteleskop (HST). Umkreist die Erde in ~540 km Höhe für spektakuläre astronomische Entdeckungen.',
+        fr: "Télescope spatial Hubble (HST). En orbite à ~540 km pour l'observation de l'univers profond.",
+        pt: 'Telescópio Espacial Hubble (HST). Orbita a ~540 km de altitude para descobertas astronômicas do espaço profundo.',
+        it: 'Telescopio Spaziale Hubble (HST). Orbita a ~540 km di altitudine per osservazioni astronomiche dello spazio profondo.',
+        ko: '허블 우주 망원경 (HST). 고도 약 540km 상공에서 심우주를 관측하며 수많은 천문학적 발견을 이끈 전설적인 우주 망원경.',
+        nl: 'Hubble Ruimtetelescoop (HST). Draait op ~540 km hoogte voor baanbrekende astronomische ontdekkingen.',
+        id: 'Teleskop Luar Angkasa Hubble (HST). Mengorbit pada ketinggian ~540 km untuk pengamatan astronomi luar angkasa.',
+        hi: 'हबल स्पेस टेलीस्कोप (HST)। गहरी अंतरिक्ष खगोलीय खोजों के लिए ~540 किमी की ऊंचाई पर परिक्रमा करता है।',
+        zh: '哈勃空间望远镜 (HST)。在约540公里轨道上运行，为人类探索深空宇宙做出巨大贡献。',
+        es: 'Telescopio Espacial Hubble (HST). En órbita a ~540 km capturando descubrimientos astronómicos profundos.',
+        ru: 'Космический телескоп "Хаббл" (HST). Орбита ~540 км для глубоких астрономических наблюдений.'
     },
     'GPS': {
-        ja: '米国全地球測位システム (GPS / NAVSTAR) コンステレーション衛星。高度約20,200kmの中軌道(MEO)。',
-        en: 'US Global Positioning System (GPS / NAVSTAR). Medium Earth Orbit (MEO) constellation at ~20,200 km altitude.',
-        de: 'US Global Positioning System (GPS / NAVSTAR). MEO-Konstellation in ca. 20.200 km Höhe.',
-        fr: "Système mondial de positionnement américain (GPS). Constellation MEO à ~20 200 km d'altitude.",
-        pt: 'Sistema de Posicionamento Global dos EUA (GPS). Constelação MEO a ~20.200 km de altitude.',
-        zh: '美国GPS全球定位系统卫星。中地球轨道(MEO)，高度约20,200公里。',
-        es: 'Sistema de Posicionamiento Global de EE.UU. (GPS). Constelación MEO a 20.200 km de altitud.',
-        ru: 'Американская система глобального позиционирования (GPS / NAVSTAR) на орбите 20 200 км.'
+        ja: '米国GPS航法衛星 (NAVSTAR)。高度約20,200kmの中軌道(MEO)を約12時間で1周し、全世界のスマートフォンやカーナビに精密測位電波を提供。',
+        en: 'US GPS Navigation Satellite (NAVSTAR). Orbiting at ~20,200 km altitude (MEO) every 12 hours providing global positioning signals.',
+        de: 'US GPS Navigationssatellit (NAVSTAR). Umkreist die Erde in ~20.200 km Höhe alle 12 Stunden für weltweite Ortung.',
+        fr: 'Satellite de navigation GPS américain (NAVSTAR). En orbite à ~20 200 km toutes les 12 heures pour le guidage mondial.',
+        pt: 'Satélite de Navegação GPS dos EUA (NAVSTAR). Orbita a ~20.200 km de altitude a cada 12 horas para sinais globais.',
+        it: 'Satellite di navigazione GPS USA (NAVSTAR). Orbita a ~20.200 km ogni 12 ore per il posizionamento globale.',
+        ko: '미국 GPS 항법 위성 (NAVSTAR). 고도 약 20,200km 중궤도(MEO)를 12시간 주기로 돌며 전 세계에 정밀 위치 신호를 제공.',
+        nl: 'Amerikaanse GPS-navigatiesatelliet (NAVSTAR). Draait op ~20.200 km hoogte elke 12 uur voor wereldwijde positiebepaling.',
+        id: 'Satelit Navigasi GPS AS (NAVSTAR). Mengorbit pada ketinggian ~20.200 km setiap 12 jam untuk sinyal posisi global.',
+        hi: 'अमेरिकी GPS नेविगेशन उपग्रह (NAVSTAR)। वैश्विक स्थिति संकेत प्रदान करने के लिए हर 12 घंटे में ~20,200 किमी पर परिक्रमा करता है।',
+        zh: '美国GPS导航卫星 (NAVSTAR)。运行于高度约20,200公里的中地球轨道，每12小时绕地球一周。',
+        es: 'Satélite de Navegación GPS de EE. UU. (NAVSTAR). Órbita a ~20.200 km cada 12 horas proveyendo posicionamiento global.',
+        ru: 'Американский навигационный спутник GPS (NAVSTAR). Средняя орбита ~20 200 км, период 12 часов.'
     },
     'DEBRIS': {
-        ja: '宇宙ゴミ・デブリ。過去のロケット段や衛星衝突事故(イリジウム・コスモス等)により発生した危険な宇宙余剰物体。',
-        en: 'Space Debris / Space Junk. Hazardous orbital fragments generated from satellite collisions and spent rocket stages.',
-        de: 'Weltraummüll / Trümmerteile. Gefährliche Fragmente aus Satellitenkollisionen und Raketenstufen.',
-        fr: "Débris spatiaux. Fragments orbitaux dangereux issus de collisions et d'étages de fusées usagés.",
-        pt: 'Lixo Espacial / Detritos. Fragmentos orbitais perigosos gerados por colisões e estágios de foguetes.',
-        zh: '空间碎片 / 太空垃圾。由卫星碰撞及废弃火箭残骸形成的轨道危险碎片。',
-        es: 'Basura Espacial / Chatarra. Fragmentos orbitales peligrosos generados por colisiones de satélites.',
-        ru: 'Космический мусор. Опасные фрагменты на орбите от столкновений спутников и ступеней ракет.'
+        ja: '役目を終えた人工衛星やロケット上段の破片(宇宙ゴミ)。秒速約7〜8km(銃弾の数倍)の超高速で地球を周回しており、現役衛星への衝突が警戒されています。',
+        en: 'Defunct satellite or rocket upper stage fragment (Space Debris). Orbiting Earth at ~7.5 km/s posing collision hazards to active spacecraft.',
+        de: 'Weltraummüll (Inaktiver Satellit oder Raketenstufe). Umkreist die Erde mit ~7,5 km/s und stellt ein Kollisionsrisiko dar.',
+        fr: "Débris spatial (satellite inactif ou étage de fusée). En orbite à ~7,5 km/s présentant des risques de collision majeurs.",
+        pt: 'Lixo espacial (satélite desativado ou fragmento de foguete). Orbita a Terra a ~7,5 km/s com risco de colisão.',
+        it: 'Detrito spaziale (satellite inattivo o frammento di razzo). Orbita attorno alla Terra a ~7,5 km/s con rischio di collisione.',
+        ko: '임무를 마친 인공위성 또는 로켓 상단 파편 (우주 쓰레기). 초속 약 7.5km의 초고속으로 지구를 돌며 현역 위성에 치명적인 충돌 위험을 초래.',
+        nl: 'Ruimtepuin (inactieve satelliet of rakettrap). Draait rond de aarde met ~7,5 km/s en vormt een botsingsrisico.',
+        id: 'Sampah antariksa (satelit mati atau pecahan roket). Mengorbit Bumi dengan kecepatan ~7,5 km/detik dengan risiko tabrakan.',
+        hi: 'अंतरिक्ष मलबा (निष्क्रिय उपग्रह या रॉकेट का टुकड़ा)। ~7.5 किमी/सेकंड की गति से पृथ्वी की परिक्रमा करता है।',
+        zh: '失效人造卫星或火箭残骸 (空间碎片/太空垃圾)。以约7.5公里/秒的超高速绕地飞行，对在轨航天器构成碰撞威胁。',
+        es: 'Basura espacial (satélite fuera de servicio o fragmento de cohete). Orbita la Tierra a ~7,5 km/s con riesgo de colisión.',
+        ru: 'Космический мусор (неработающий спутник или ступень ракеты). Вращается вокруг Земли со скоростью ~7,5 км/с.'
+    },
+    'STARLINK': {
+        ja: 'SpaceX社の超小型通信衛星コンステレーション「Starlink」。高度約550kmの低軌道から全世界へ超高速・低遅延の衛星インターネットを提供。',
+        en: 'SpaceX Starlink Mega-Constellation Satellite. Orbiting in LEO (~550km) providing global high-speed broadband internet.',
+        de: 'SpaceX Starlink Kommunikationssatellit. Bietet globales Breitband-Internet aus ~550 km niedriger Erdumlaufbahn (LEO).',
+        fr: "Satellite Starlink de SpaceX. Fournit un accès Internet haut débit mondial depuis l'orbite basse (~550 km).",
+        pt: 'Satélite da Megaconstelação Starlink da SpaceX. Fornece internet banda larga global de alta velocidade a ~550 km.',
+        it: 'Satellite della costellazione Starlink di SpaceX. Fornisce internet a banda larga globale da orbita bassa (~550 km).',
+        ko: 'SpaceX사의 초소형 통신위성 군집 "스타링크(Starlink)". 고도 약 550km 저궤도에서 전 세계에 초고속 저지연 인터넷을 제공.',
+        nl: 'SpaceX Starlink communicatiesatelliet. Biedt wereldwijd breedbandinternet vanuit een lage baan om de aarde (~550 km).',
+        id: 'Satelit Mega-Konstelasi Starlink milik SpaceX. Menyediakan internet pita lebar global berkecepatan tinggi dari orbit rendah (~550 km).',
+        hi: 'SpaceX स्टारलिंक उपग्रह। वैश्विक उच्च गति इंटरनेट प्रदान करने के लिए LEO (~550 किमी) में परिक्रमा करता है।',
+        zh: 'SpaceX“星链”(Starlink) 低轨互联网卫星。在约550公里近地轨道运行，为全球提供高速宽带接入。',
+        es: 'Satélite Starlink de SpaceX. Órbita baja (~550 km) proveyendo internet satelital de banda ancha a nivel global.',
+        ru: 'Спутник группировки Starlink компании SpaceX. Низкая околоземная орбита (~550 км), глобальный интернет.'
     }
 };
 
@@ -1437,9 +1883,14 @@ function updateDropdownOptions() {
         en: '⭐ Major & Famous Satellites (ISS, Himawari, etc.)',
         de: '⭐ Wichtige Satelliten (ISS, Himawari etc.)',
         fr: '⭐ Satellites majeurs (ISS, Himawari, etc.)',
-        pt: '⭐ Satélites principais (ISS, Himawari, etc.)',
-        zh: '⭐ 主要/著名卫星 (国际空间站, 葵花, 天宫等)',
         es: '⭐ Satélites Principales (EEI, Himawari, etc.)',
+        pt: '⭐ Satélites principais (ISS, Himawari, etc.)',
+        it: '⭐ Satelliti Principali (ISS, Himawari, ecc.)',
+        ko: '⭐ 주요 위성 (ISS, 천리안, 스타링크 등)',
+        nl: '⭐ Belangrijke Satellieten (ISS, Himawari, enz.)',
+        id: '⭐ Satelit Utama (ISS, Himawari, dll.)',
+        hi: '⭐ प्रमुख उपग्रह (ISS, मौसम उपग्रह, आदि)',
+        zh: '⭐ 主要/著名卫星 (国际空间站, 葵花, 天宫等)',
         ru: '⭐ Основные спутники (МКС, Himawari и др.)'
     };
     const catDebrisLabel = {
@@ -1448,6 +1899,11 @@ function updateDropdownOptions() {
         de: '🚨 Weltraummüll & Fragmente (COSMOS etc.)',
         fr: '🚨 Débris spatiaux & fragments (COSMOS, etc.)',
         pt: '🚨 Detritos espaciais & fragmentos (COSMOS, etc.)',
+        it: '🚨 Detriti Spaziali & Frammenti (COSMOS, ecc.)',
+        ko: '🚨 우주 쓰레기 및 파편 (COSMOS, 펑윈 등)',
+        nl: '🚨 Ruimtepuin & Fragmenten (COSMOS, enz.)',
+        id: '🚨 Sampah Antariksa & Fragmen (COSMOS, dll.)',
+        hi: '🚨 अंतरिक्ष मलबा और टुकड़े (COSMOS, आदि)',
         zh: '🚨 空间碎片与太空垃圾 (COSMOS, 风云1号等)',
         es: '🚨 Basura Espacial y Fragmentos (COSMOS, etc.)',
         ru: '🚨 Космический мусор (COSMOS, FENGYUN и др.)'
@@ -1458,6 +1914,11 @@ function updateDropdownOptions() {
         de: '🛰️ Starlink-Konstellation (Top 30)',
         fr: '🛰️ Constellation Starlink (Top 30)',
         pt: '🛰️ Constelação Starlink (Destaques 30)',
+        it: '🛰️ Costellazione Starlink (Top 30)',
+        ko: '🛰️ 스타링크 군집위성 (주요 30기)',
+        nl: '🛰️ Starlink Constellatie (Top 30)',
+        id: '🛰️ Konstelasi Starlink (Pilihan 30)',
+        hi: '🛰️ स्टारलिंक नक्षत्र (शीर्ष 30)',
         zh: '🛰️ 星链 (Starlink) 卫星群 (精选30颗)',
         es: '🛰️ Constelación Starlink (Destacados 30)',
         ru: '🛰️ Группировка Starlink (Топ 30)'
@@ -2335,7 +2796,27 @@ function updateSelectedSatDetails(jsDate, gmst) {
 }
 
 // User Geolocation State (Default: Tokyo, Japan)
-let userGeoLoc = { lat: 35.6762, lon: 139.6503, name: '東京上空' };
+let userGeoLoc = { lat: 35.6762, lon: 139.6503, name: '東京上空', isCustom: false };
+
+function getUserGeoLocName(lang) {
+    if (userGeoLoc.isCustom) return userGeoLoc.name;
+    const defaultNames = {
+        ja: '東京上空',
+        en: 'Tokyo',
+        de: 'Tokio',
+        fr: 'Tokyo',
+        es: 'Tokio',
+        pt: 'Tóquio',
+        it: 'Tokyo',
+        ko: '도쿄 상공',
+        nl: 'Tokio',
+        id: 'Tokyo',
+        hi: 'टोक्यो',
+        zh: '东京上空',
+        ru: 'Токио'
+    };
+    return defaultNames[lang] || 'Tokyo';
+}
 
 /**
  * Calculate Pass Prediction & Debris Proximity Radar
@@ -2347,6 +2828,7 @@ function updatePassPredictionAndRisk(sat, jsDate) {
 
     if (!sat) return;
     const lang = currentLang || 'ja';
+    const locName = getUserGeoLocName(lang);
 
     // 1. Pass Prediction Countdown
     if (passCountdown && sat.currentCartesian) {
@@ -2361,19 +2843,29 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 pt: 'Geoestacionário (Constantemente visível)',
                 zh: '常时静止于上空 (常时可见)',
                 es: 'Geoestacionario (Constantemente Visible)',
-                ru: 'Геостационарный (Постоянно виден)'
+                ru: 'Геостационарный (Постоянно виден)',
+                it: 'Geostazionario (Costantemente visibile)',
+                ko: '정지궤도 위성 (상시 관측 가능)',
+                nl: 'Geostationair (Continu zichtbaar)',
+                id: 'Geostasioner (Selalu terlihat)',
+                hi: 'भूस्थिर (हमेशा दृश्यमान)'
             };
             passCountdown.textContent = geoText[lang] || geoText['en'];
             if (passMetaInfo) {
                 const metaText = {
-                    ja: `現在地(${userGeoLoc.name})から常時観測可能`,
-                    en: `Constantly observable from ${userGeoLoc.name}`,
-                    de: `Ständig beobachtbar von ${userGeoLoc.name}`,
-                    fr: `Constamment observable depuis ${userGeoLoc.name}`,
-                    pt: `Constantemente observável de ${userGeoLoc.name}`,
-                    zh: `可从 ${userGeoLoc.name} 常时观测`,
-                    es: `Constantemente observable desde ${userGeoLoc.name}`,
-                    ru: `Постоянно наблюдаем из ${userGeoLoc.name}`
+                    ja: `現在地(${locName})から常時観測可能`,
+                    en: `Constantly observable from ${locName}`,
+                    de: `Ständig beobachtbar von ${locName}`,
+                    fr: `Constamment observable depuis ${locName}`,
+                    pt: `Constantemente observável de ${locName}`,
+                    zh: `可从 ${locName} 常时观测`,
+                    es: `Constantemente observable desde ${locName}`,
+                    ru: `Постоянно наблюдаем из ${locName}`,
+                    it: `Costantemente osservabile da ${locName}`,
+                    ko: `${locName}에서 상시 관측 가능`,
+                    nl: `Continu waarneembaar vanaf ${locName}`,
+                    id: `Dapat diamati terus-menerus dari ${locName}`,
+                    hi: `${locName} से लगातार देखने योग्य`
                 };
                 passMetaInfo.textContent = metaText[lang] || metaText['en'];
             }
@@ -2399,20 +2891,30 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 pt: `Em ${hh}h ${mm}m ${ss}s`,
                 zh: `剩余 ${hh}小时 ${mm}分 ${ss}秒`,
                 es: `En ${hh}h ${mm}m ${ss}s`,
-                ru: `Через ${hh}ч ${mm}м ${ss}с`
+                ru: `Через ${hh}ч ${mm}м ${ss}с`,
+                it: `Tra ${hh}h ${mm}m ${ss}s`,
+                ko: `${hh}시간 ${mm}분 ${ss}초 후`,
+                nl: `Over ${hh}u ${mm}m ${ss}s`,
+                id: `Dalam ${hh}j ${mm}m ${ss}d`,
+                hi: `${hh}घंटे ${mm}मिनट ${ss}सेकंड में`
             };
             passCountdown.textContent = countText[lang] || countText['en'];
             if (passMetaInfo) {
                 const passTimeString = nextPassTime.toLocaleTimeString(lang === 'ja' ? 'ja-JP' : 'en-US', { hour: '2-digit', minute: '2-digit' });
                 const metaText = {
-                    ja: `次回可視通過: ${passTimeString}頃 (${userGeoLoc.name} / 最大仰角 ~45°)`,
-                    en: `Next Pass: ~${passTimeString} (${userGeoLoc.name} / Max Alt ~45°)`,
-                    de: `Nächster Überflug: ~${passTimeString} (${userGeoLoc.name} / Max. Höhe ~45°)`,
-                    fr: `Prochain passage: ~${passTimeString} (${userGeoLoc.name} / Élev. max ~45°)`,
-                    pt: `Próxima passagem: ~${passTimeString} (${userGeoLoc.name} / Elevação máx ~45°)`,
-                    zh: `下次可过境: 约 ${passTimeString} (${userGeoLoc.name})`,
-                    es: `Próximo Paso: ~${passTimeString} (${userGeoLoc.name})`,
-                    ru: `След. пролет: ~${passTimeString} (${userGeoLoc.name})`
+                    ja: `次回可視通過: ${passTimeString}頃 (${locName} / 最大仰角 ~45°)`,
+                    en: `Next Pass: ~${passTimeString} (${locName} / Max Alt ~45°)`,
+                    de: `Nächster Überflug: ~${passTimeString} (${locName} / Max. Höhe ~45°)`,
+                    fr: `Prochain passage: ~${passTimeString} (${locName} / Élev. max ~45°)`,
+                    pt: `Próxima passagem: ~${passTimeString} (${locName} / Elevação máx ~45°)`,
+                    zh: `下次可过境: 约 ${passTimeString} (${locName})`,
+                    es: `Próximo Paso: ~${passTimeString} (${locName})`,
+                    ru: `След. пролет: ~${passTimeString} (${locName})`,
+                    it: `Prossimo passaggio: ~${passTimeString} (${locName})`,
+                    ko: `다음 상공 통과: 약 ${passTimeString} (${locName} / 최대 고도 ~45°)`,
+                    nl: `Volgende overvlucht: ~${passTimeString} (${locName})`,
+                    id: `Lintasan berikutnya: ~${passTimeString} (${locName})`,
+                    hi: `अगला पास: लगभग ${passTimeString} (${locName})`
                 };
                 passMetaInfo.textContent = metaText[lang] || metaText['en'];
             }
@@ -2499,7 +3001,12 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 pt: `🚨 ALERTA CRÍTICO DE COLISÃO! (Encontro com ${futureClosestDebris || closestDebrisName} em ~${futureMinHours}h a ${formattedFutDist} km)`,
                 zh: `🚨 紧急碰撞预警! (预测与 ${futureClosestDebris || closestDebrisName} 在约${futureMinHours}小时后接近至 ${formattedFutDist} km)`,
                 es: `🚨 ¡ALERTA CRÍTICA DE COLISIÓN! (Encuentro con ${futureClosestDebris || closestDebrisName} en ~${futureMinHours}h a ${formattedFutDist} km)`,
-                ru: `🚨 УГРОЗА СТОЛКНОВЕНИЯ! (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours}ч на ${formattedFutDist} км)`
+                ru: `🚨 УГРОЗА СТОЛКНОВЕНИЯ! (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours}ч на ${formattedFutDist} км)`,
+                it: `🚨 ALLERTA CRITICA COLLISIONE! (Incontro con ${futureClosestDebris || closestDebrisName} in ~${futureMinHours}h a ${formattedFutDist} km)`,
+                ko: `🚨 비상 충돌 경보! (${futureClosestDebris || closestDebrisName} 와 약 ${futureMinHours}시간 후 ${formattedFutDist} km 까지 근접 예측)`,
+                nl: `🚨 KRITIEK BOTSINGSRISICO! (Ontmoeting met ${futureClosestDebris || closestDebrisName} over ~${futureMinHours}u op ${formattedFutDist} km)`,
+                id: `🚨 PERINGATAN TABRAKAN KRITIS! (Pertemuan dengan ${futureClosestDebris || closestDebrisName} dlm ~${futureMinHours}j pd ${formattedFutDist} km)`,
+                hi: `🚨 गंभीर टकराव चेतावनी! (${futureClosestDebris || closestDebrisName} के साथ लगभग ${futureMinHours}घंटे में ${formattedFutDist} किमी पर接近)`
             };
             debrisProximity.innerHTML = `<span class="hazard-alert-text" style="color:#f43f5e; font-weight:700;">${critText[lang] || critText['en']}</span>`;
         } else if (isFutValid && futureMinDist <= 2000) {
@@ -2511,7 +3018,12 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 pt: `⚠️ ATENÇÃO! (Passagem próxima de ${futureClosestDebris || closestDebrisName} em ~${futureMinHours}h a ${formattedFutDist} km)`,
                 zh: `⚠️ 接近注意! (预测 ${futureClosestDebris || closestDebrisName} 约${futureMinHours}小时后接近至 ${formattedFutDist} km)`,
                 es: `⚠️ PRECAUCIÓN (Paso cercano de ${futureClosestDebris || closestDebrisName} en ~${futureMinHours}h a ${formattedFutDist} km)`,
-                ru: `⚠️ ВНИМАНИЕ (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours}ч на ${formattedFutDist} км)`
+                ru: `⚠️ ВНИМАНИЕ (Сближение с ${futureClosestDebris || closestDebrisName} через ~${futureMinHours}ч на ${formattedFutDist} км)`,
+                it: `⚠️ ATTENZIONE! (Avvicinamento di ${futureClosestDebris || closestDebrisName} in ~${futureMinHours}h a ${formattedFutDist} km)`,
+                ko: `⚠️ 근접 주의! (${futureClosestDebris || closestDebrisName} 와 약 ${futureMinHours}시간 후 ${formattedFutDist} km 최접근)`,
+                nl: `⚠️ WAARSCHUWING! (Puinpassage van ${futureClosestDebris || closestDebrisName} over ~${futureMinHours}u op ${formattedFutDist} km)`,
+                id: `⚠️ PERHATIAN! (Pelewatan puing ${futureClosestDebris || closestDebrisName} dlm ~${futureMinHours}j pd ${formattedFutDist} km)`,
+                hi: `⚠️ सावधानी! (${futureClosestDebris || closestDebrisName} का लगभग ${futureMinHours}घंटे में ${formattedFutDist} किमी पर पास)`
             };
             debrisProximity.innerHTML = `<span style="color:#f59e0b; font-weight:600;">${cautText[lang] || cautText['en']}</span>`;
         } else {
@@ -2523,7 +3035,12 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                 pt: `🟢 Órbita livre por 24h (Sem lixo espacial / Trajetória segura)`,
                 zh: `🟢 24小时全轨道安全 (无碎片接近 / 安全轨道)`,
                 es: `🟢 Órbita despejada 24h (Sin riesgo de escombros / Trayectoria segura)`,
-                ru: `🟢 Безопасная орбита 24ч (Нет опасных сближений / Безопасно)`
+                ru: `🟢 Безопасная орбита 24ч (Нет опасных сближений / Безопасно)`,
+                it: `🟢 Orbita libera 24h (Nessun detrito / Traiettoria sicura)`,
+                ko: `🟢 24시간 궤도 안전 (근접 우주 쓰레기 없음 / 안전 궤도 유지)`,
+                nl: `🟢 24u Vrije Baan (Geen ruimtepuin / Veilige baan)`,
+                id: `🟢 Orbit Bersih 24 Jam (Bebas sampah antariksa / Aman)`,
+                hi: `🟢 24 घंटे सुरक्षित कक्षा (कोई मलबा नहीं / सुरक्षित प्रक्षेपवक्र)`
             };
             debrisProximity.innerHTML = `<span style="color:#10b981;">${safeText[lang] || safeText['en']}</span>`;
         }
