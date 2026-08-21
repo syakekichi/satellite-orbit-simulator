@@ -2142,7 +2142,7 @@ function createBulletproofEarthProvider() {
 // ==========================================================================
 const CELESTIAL_ENCYCLOPEDIA = {
     "SUN": {
-        "mass": {
+                "mass": {
             "ja": "1.989 × 10^30 kg (地球の約33万倍)",
             "en": "1.989 × 10^30 kg (333,000x Earth)",
             "de": "1,989 × 10^30 kg (333.000-fache Erdmasse)",
@@ -2207,20 +2207,20 @@ const CELESTIAL_ENCYCLOPEDIA = {
             "ru": "Оборот вокруг центра Галактики за ~230 млн лет (галактический год)"
         },
         "temperature": {
-            "ja": "表面 5,500℃ / 核 1,500万℃",
-            "en": "Surface 5,500°C / Core 15,000,000°C",
-            "de": "Oberfläche 5.500°C / Kern 15 Mio.°C",
-            "fr": "Surface 5 500°C / Cœur 15 millions °C",
-            "es": "Superficie 5.500°C / Núcleo 15 millones °C",
-            "pt": "Superfície 5.500°C / Núcleo 15 milhões °C",
-            "it": "Superficie 5.500°C / Nucleo 15 milioni °C",
-            "ko": "표면 5,500℃ / 중심핵 1,500만℃",
-            "nl": "Oppervlak 5.500°C / Kern 15 miljoen °C",
-            "id": "Permukaan 5.500°C / Inti 15 juta °C",
-            "hi": "सतह 5,500°C / कोर 1.5 करोड़ °C",
-            "ar": "السطح 5,500°م / النواة 15 مليون °م",
-            "zh": "表面约 5,500℃ / 核心约 1,500万℃",
-            "ru": "Поверхность 5 500°C / Ядро 15 млн °C"
+            "ja": "表面 5,500℃ / 黒点 ~4,000℃ / 核 1,500万℃",
+            "en": "Surface 5,500°C / Sunspots ~4,000°C / Core 15,000,000°C",
+            "de": "Oberfläche 5.500°C / Flecken ~4.000°C / Kern 15 Mio.°C",
+            "fr": "Surface 5 500°C / Taches ~4 000°C / Cœur 15 millions °C",
+            "es": "Superficie 5.500°C / Manchas ~4.000°C / Núcleo 15 millones °C",
+            "pt": "Superfície 5.500°C / Manchas ~4.000°C / Núcleo 15 milhões °C",
+            "it": "Superficie 5.500°C / Macchie ~4.000°C / Nucleo 15 milioni °C",
+            "ko": "표면 5,500℃ / 흑점 ~4,000℃ / 중심핵 1,500만℃",
+            "nl": "Oppervlak 5.500°C / Vlekken ~4.000°C / Kern 15 miljoen °C",
+            "id": "Permukaan 5.500°C / Bintik ~4.000°C / Inti 15 juta °C",
+            "hi": "सतह 5,500°C / सौर कलंक ~4,000°C / कोर 1.5 करोड़ °C",
+            "ar": "السطح 5,500°م / البقع ~4,000°م / النواة 15 مليون °م",
+            "zh": "表面约 5,500℃ / 黑子约 4,000℃ / 核心 1,500万℃",
+            "ru": "Поверхность 5 500°C / Пятна ~4 000°C / Ядро 15 млн °C"
         },
         "satellites": {
             "ja": "8惑星・5準惑星・数百万の小天体",
@@ -3274,20 +3274,20 @@ const CELESTIAL_BODIES = [
 
 const CELESTIAL_DESCRIPTIONS = {
     "SUN": {
-        "ja": "太陽系の中心天体（恒星）。地球から約1億4,960万km (1 AU) の距離に位置し、地球の全生命と気象現象のエネルギー源。昼夜のライティング陰影をリアルタイム生成。",
-        "en": "The star at the center of the Solar System (~149.6M km / 1 AU from Earth). Provides 100% of light and solar energy driving Earth weather and day/night cycle.",
-        "de": "Das Zentralgestirn unseres Sonnensystems (~149,6 Mio. km von der Erde). Licht- und Energiequelle der Erde.",
-        "fr": "L'étoile au centre du système solaire (~149,6 millions de km). Source de toute lumière et énergie sur Terre.",
-        "es": "La estrella en el centro del Sistema Solar (~149,6 millones de km de la Tierra). Fuente de luz y energía.",
-        "pt": "A estrela no centro do Sistema Solar (~149,6 milhões de km da Terra). Fonte de luz e energia.",
-        "it": "La stella al centro del Sistema Solare (~149,6 milioni di km). Fonte di luce ed energia.",
-        "ko": "태양계의 중심 항성(지구로부터 약 1억 4,960만 km). 지구의 모든 생명과 기상, 주야간 조명의 근원.",
-        "nl": "De ster in het centrum van het zonnestelsel (~149,6 miljoen km). Bron van alle licht en energie.",
-        "id": "Bintang di pusat Tata Surya (~149,6 juta km). Sumber cahaya dan energi utama Bumi.",
-        "hi": "सौर मंडल के केंद्र में स्थित तारा (पृथ्वी से ~14.96 करोड़ किमी)। पृथ्वी के दिन/रात और ऊर्जा का स्रोत।",
-        "ar": "النجم في مركز النظام الشمسي (~149.6 مليون كم من الأرض). مصدر الضوء والطاقة ودورة الليل والنهار.",
-        "zh": "太阳系的中心天体(恒星)，距地球约1.496亿公里(1 AU)。主导地球昼夜交替与气候运行。",
-        "ru": "Центральная звезда Солнечной системы (~149,6 млн км от Земли). Источник света и тепла."
+        "ja": "太陽系の中心に輝く恒星。表面温度は約5,500℃、中心核は約1,500万℃に達します。表面の「太陽黒点」は強力な磁場が熱対流を抑えるため、周囲より約1,500℃低い【約3,500℃〜4,000℃】となっており、相対的に黒く見えます。",
+        "en": "The yellow dwarf star at the center of our Solar System. Surface temperature is ~5,500°C and core is ~15,000,000°C. Dark sunspots are cooler regions at [~3,500°C to 4,000°C] where intense magnetic fields inhibit heat convection.",
+        "de": "Zentralgestirn des Sonnensystems. Oberfläche ~5.500°C, Kern ~15 Mio.°C. Sonnenflecken sind mit [ca. 3.500°C bis 4.000°C] kühler, da starke Magnetfelder die Konvektion hemmen.",
+        "fr": "Étoile naine jaune au centre du système. Surface ~5 500°C, cœur ~15 millions °C. Les taches solaires sont des zones plus froides à [~3 500°C à 4 000°C] dues aux champs magnétiques.",
+        "es": "Estrella central del Sistema Solar. Superficie ~5.500°C, núcleo ~15 millones °C. Las manchas solares son zonas más frías a [~3.500°C a 4.000°C] por fuertes campos magnéticos.",
+        "pt": "Estrela central do Sistema Solar. Superfície ~5.500°C, núcleo ~15 milhões °C. As manchas solares são áreas mais frias a [~3.500°C a 4.000°C] devido a campos magnéticos.",
+        "it": "Stella al centro del Sistema Solare. Superficie ~5.500°C, nucleo ~15 milioni °C. Le macchie solari sono aree più fredde a [~3.500°C - 4.000°C] a causa dei campi magnetici.",
+        "ko": "태양계 중심의 항성. 표면 온도는 약 5,500℃, 핵은 약 1,500만℃입니다. '태양 흑점'은 강력한 자기장으로 인해 대류가 억제되어 주변보다 낮은 【약 3,500℃~4,000℃】로 어둡게 보입니다.",
+        "nl": "Centrale ster van het zonnestelsel. Oppervlak ~5.500°C, kern ~15 miljoen °C. Zonnevlekken zijn koeler [~3.500°C tot 4.000°C] doordat magnetische velden warmtetransport remmen.",
+        "id": "Bintang pusat tata surya. Suhu permukaan ~5.500°C, inti ~15 juta °C. Bintik matahari bersuhu lebih dingin [~3.500°C - 4.000°C] akibat medan magnet kuat.",
+        "hi": "सौर मंडल का केंद्रीय तारा। सतह का तापमान ~5,500°C, कोर ~1.5 करोड़ °C। सौर कलंक तीव्र चुंबकीय क्षेत्रों के कारण [~3,500°C से 4,000°C] पर ठंडे होते हैं।",
+        "ar": "نجم مركز النظام الشمسي. حرارة السطح ~5,500°م والنواة ~15 مليون °م. البقع الشمسية مناطق أبرد بحدود [~3,500°م إلى 4,000°م] بسبب المجالات المغناطيسية.",
+        "zh": "太阳系中心的恒星。表面温度约5,500℃，核心约1,500万℃。表面“太阳黑子”因强磁场抑制热对流，温度降至【约3,500℃〜4,000℃】，因而呈现暗斑。",
+        "ru": "Центральная звезда Солнечной системы. Температура поверхности ~5 500°C, ядра ~15 млн °C. Солнечные пятна холоднее [~3 500°C–4 000°C] из-за сильных магнитных полей."
     },
     "MOON": {
         "ja": "地球唯一の自然衛星「月」。平均距離約384,400km、公転周期約27.3日。アポロ計画やアルテミス計画の探査対象。CesiumJSリアルタイム3D月齢連動。",
@@ -4643,6 +4643,30 @@ function onSceneClick(clickEvent) {
             const satIndex = pickedObject.id;
             selectSatellite(satIndex);
             return;
+        }
+    }
+
+    // 3. Screen-Space Proximity Detection for Sun Glow Disc & Planets
+    const clickPos = clickEvent.position;
+    const time = viewer.clock.currentTime;
+
+    for (let i = 0; i < CELESTIAL_BODIES.length; i++) {
+        const body = CELESTIAL_BODIES[i];
+        const worldPos = computeCelestialPosition(body, time);
+        if (worldPos) {
+            const screenPos = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, worldPos);
+            if (screenPos) {
+                const dx = screenPos.x - clickPos.x;
+                const dy = screenPos.y - clickPos.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                // Generous hit radius: 55px for Sun corona/disc, 38px for planets
+                const hitRadius = (body.id === 'SUN') ? 55 : 38;
+                if (dist <= hitRadius) {
+                    selectCelestialBody(body.id);
+                    return;
+                }
+            }
         }
     }
 
