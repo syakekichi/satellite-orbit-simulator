@@ -1,4 +1,42 @@
 
+const CELESTIAL_METRIC_LABELS = {
+    'ja': { alt: '📏 距離 (Distance)', vel: '📐 直径 (Diameter)', lat: '⚖️ 質量 (Mass)', lon: '🔄 自転周期 (Rotation)', inc: '🌡️ 表面温度 (Temperature)', period: '🌌 公転周期 (Orbit)' },
+    'en': { alt: '📏 Distance', vel: '📐 Diameter', lat: '⚖️ Mass', lon: '🔄 Rotation', inc: '🌡️ Surface Temp', period: '🌌 Orbit Period' },
+    'de': { alt: '📏 Entfernung', vel: '📐 Durchmesser', lat: '⚖️ Masse', lon: '🔄 Rotation', inc: '🌡️ Oberflächentemp.', period: '🌌 Umlaufzeit' },
+    'fr': { alt: '📏 Distance', vel: '📐 Diamètre', lat: '⚖️ Masse', lon: '🔄 Rotation', inc: '🌡️ Température', period: '🌌 Période orbitale' },
+    'es': { alt: '📏 Distancia', vel: '📐 Diámetro', lat: '⚖️ Masa', lon: '🔄 Rotación', inc: '🌡️ Temperatura', period: '🌌 Período orbital' },
+    'pt': { alt: '📏 Distância', vel: '📐 Diâmetro', lat: '⚖️ Massa', lon: '🔄 Rotação', inc: '🌡️ Temperatura', period: '🌌 Período orbital' },
+    'it': { alt: '📏 Distanza', vel: '📐 Diametro', lat: '⚖️ Massa', lon: '🔄 Rotazione', inc: '🌡️ Temperatura', period: '🌌 Periodo orbitale' },
+    'ko': { alt: '📏 거리 (Distance)', vel: '📐 직경 (Diameter)', lat: '⚖️ 질량 (Mass)', lon: '🔄 자전 주기 (Rotation)', inc: '🌡️ 표면 온도 (Temp)', period: '🌌 공전 주기 (Orbit)' },
+    'nl': { alt: '📏 Afstand', vel: '📐 Diameter', lat: '⚖️ Massa', lon: '🔄 Rotatie', inc: '🌡️ Oppervlaktetemp.', period: '🌌 Omlooptijd' },
+    'id': { alt: '📏 Jarak', vel: '📐 Diameter', lat: '⚖️ Massa', lon: '🔄 Rotasi', inc: '🌡️ Suhu Permukaan', period: '🌌 Periode Orbit' },
+    'hi': { alt: '📏 दूरी (Distance)', vel: '📐 व्यास (Diameter)', lat: '⚖️ द्रव्यमान (Mass)', lon: '🔄 घूर्णन (Rotation)', inc: '🌡️ सतह तापमान (Temp)', period: '🌌 परिक्रमा (Orbit)' },
+    'ar': { alt: '📏 المسافة', vel: '📐 القطر', lat: '⚖️ الكتلة', lon: '🔄 فترة الدوران', inc: '🌡️ درجة الحرارة', period: '🌌 فترة المدار' },
+    'zh': { alt: '📏 距地距离', vel: '📐 直径 (大小)', lat: '⚖️ 质量 (Mass)', lon: '🔄 自转周期', inc: '🌡️ 表面温度 (Temp)', period: '🌌 公转周期' },
+    'ru': { alt: '📏 Расстояние', vel: '📐 Диаметр', lat: '⚖️ Масса', lon: '🔄 Вращение', inc: '🌡️ Температура', period: '🌌 Период обращения' }
+};
+
+function updateDetailCardMetricLabels(isCelestial) {
+    const lang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : 'ja';
+    const dict = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[lang]) ? TRANSLATIONS[lang] : {};
+    const cLabels = CELESTIAL_METRIC_LABELS[lang] || CELESTIAL_METRIC_LABELS['ja'];
+
+    const elAlt = document.getElementById('satAlt');
+    const elVel = document.getElementById('satVel');
+    const elLat = document.getElementById('satLat');
+    const elLon = document.getElementById('satLon');
+    const elInc = document.getElementById('satInc');
+    const elPeriod = document.getElementById('satPeriod');
+
+    if (elAlt && elAlt.previousElementSibling) elAlt.previousElementSibling.textContent = isCelestial ? cLabels.alt : (dict.labelAlt || '高度 (Altitude)');
+    if (elVel && elVel.previousElementSibling) elVel.previousElementSibling.textContent = isCelestial ? cLabels.vel : (dict.labelVel || '速度 (Velocity)');
+    if (elLat && elLat.previousElementSibling) elLat.previousElementSibling.textContent = isCelestial ? cLabels.lat : (dict.labelLat || '緯度 (Latitude)');
+    if (elLon && elLon.previousElementSibling) elLon.previousElementSibling.textContent = isCelestial ? cLabels.lon : (dict.labelLon || '経度 (Longitude)');
+    if (elInc && elInc.previousElementSibling) elInc.previousElementSibling.textContent = isCelestial ? cLabels.inc : (dict.labelInc || '軌道傾斜角 (Inclination)');
+    if (elPeriod && elPeriod.previousElementSibling) elPeriod.previousElementSibling.textContent = isCelestial ? cLabels.period : (dict.labelPeriod || '周期 (Period)');
+}
+
+
 
 
 
@@ -12,7 +50,8 @@ const NASA_PLANET_TEXTURES = {
     'JUPITER': 'jupiter_texture.jpg?v=20260821_170',
     'SATURN': 'saturn_texture.jpg?v=20260821_170',
     'URANUS': 'uranus_texture.jpg?v=20260821_170',
-    'MOON': 'moon_texture.jpg?v=20260821_170'
+    'MOON': 'moon_texture.jpg?v=20260821_170',
+    'SUN': 'sun_texture.jpg?v=20260821_179'
 };
 
 
@@ -3736,6 +3775,9 @@ function selectCelestialBody(bodyId) {
     satInc.textContent = info ? getL(info.temperature) : '---';
     satPeriod.textContent = info ? getL(info.orbit) : `${body.periodDays} d`;
 
+    // Update detail card headers to Temperature, Mass, Diameter etc.
+    updateDetailCardMetricLabels(true);
+
     // Pass and Debris rows
     const passCountdown = document.getElementById('passCountdown');
     const passMetaInfo = document.getElementById('passMetaInfo');
@@ -3764,35 +3806,9 @@ function selectCelestialBody(bodyId) {
 
     detailCard.classList.remove('hidden');
 
-    // 100% Guaranteed Close-up Inspection Flight!
+    // Inspect All Celestial Bodies (including Sun!) with 3D Textured Sphere
     const bodyDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
-
-    if (body.id === 'SUN') {
-        // Dramatic Solar Observation View: High Orbit Look Directly at the Sun
-        const sunCamPos = Cesium.Cartesian3.multiplyByScalar(bodyDir, -20000000, new Cesium.Cartesian3());
-        viewer.camera.flyTo({
-            destination: sunCamPos,
-            orientation: {
-                direction: bodyDir,
-                up: Cesium.Cartesian3.UNIT_Z
-            },
-            duration: 2.0
-        });
-    } else if (body.id === 'MOON') {
-        // Dramatic Close-up 3D Lunar Surface View!
-        const moonCamPos = Cesium.Cartesian3.add(pos, Cesium.Cartesian3.multiplyByScalar(bodyDir, -6500000, new Cesium.Cartesian3()), new Cesium.Cartesian3());
-        viewer.camera.flyTo({
-            destination: moonCamPos,
-            orientation: {
-                direction: bodyDir,
-                up: Cesium.Cartesian3.UNIT_Z
-            },
-            duration: 2.0
-        });
-    } else {
-        // Inspect Planet with Dedicated 3D Textured Sphere!
-        inspectCelestialPlanet(body, pos, bodyDir);
-    }
+    inspectCelestialPlanet(body, pos, bodyDir);
 }
 
 function initCesiumViewer() {
@@ -4641,6 +4657,7 @@ function onSceneClick(clickEvent) {
  * Select Satellite by Index
  */
 function selectSatellite(index) {
+    updateDetailCardMetricLabels(false);
     if (index < 0 || index >= satellitesData.length) return;
 
     if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
