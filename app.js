@@ -1875,6 +1875,17 @@ const CELESTIAL_BODIES = [
         type: 'PLANET',
         symbol: '🔘',
         a: 0.387, e: 0.2056, I: 7.00, L: 252.25, M0: 174.79, n: 4.092334
+    },
+    {
+        id: 'URANUS',
+        name: 'URANUS (天王星 / 環を持つ巨大氷惑星)',
+        color: '#38bdf8',
+        radiusKm: 25362,
+        distKm: 2871000000,
+        periodDays: 30685.4,
+        type: 'PLANET',
+        symbol: '🌀',
+        a: 19.218, e: 0.0463, I: 0.77, L: 314.05, M0: 142.24, n: 0.01173
     }
 ];
 
@@ -2090,6 +2101,17 @@ function createCelestialBillboard(body) {
         ctx.arc(orbX + 3.5, orbY + 2.5, 1.8, 0, Math.PI * 2);
         ctx.fill();
     } else if (body.id === 'JUPITER') {
+        // Jupiter Subtle Dust Rings (Fine Sharp Ring)
+        ctx.save();
+        ctx.translate(orbX, orbY);
+        ctx.rotate(-0.15);
+        ctx.strokeStyle = 'rgba(251, 146, 60, 0.6)';
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, orbRadius * 1.8, orbRadius * 0.5, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+
         // Jupiter Sphere
         ctx.fillStyle = '#fb923c';
         ctx.beginPath();
@@ -2105,6 +2127,27 @@ function createCelestialBillboard(body) {
         ctx.beginPath();
         ctx.arc(orbX + 2.5, orbY + 2.5, 1.6, 0, Math.PI * 2);
         ctx.fill();
+    } else if (body.id === 'URANUS') {
+        // Uranus Vertical Ice Rings (Tilted ~83 degrees)
+        ctx.save();
+        ctx.translate(orbX, orbY);
+        ctx.rotate(1.45);
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.75)';
+        ctx.lineWidth = 2.0;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, orbRadius * 2.0, orbRadius * 0.45, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+
+        // Uranus Ice Giant Sphere (Cyan)
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath();
+        ctx.arc(orbX, orbY, orbRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Soft Atmosphere band
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+        ctx.fillRect(orbX - orbRadius, orbY - 1.5, orbRadius * 2, 3);
     } else if (body.id === 'MARS') {
         // Mars Sphere
         ctx.fillStyle = '#ef4444';
@@ -2153,6 +2196,7 @@ function createCelestialEntities() {
 
     CELESTIAL_BODIES.forEach(body => {
         const billboardCanvas = createCelestialBillboard(body);
+        const isSun = (body.id === 'SUN');
         const entity = viewer.entities.add({
             id: `celestial_${body.id}`,
             name: body.name,
@@ -2161,11 +2205,11 @@ function createCelestialEntities() {
             }, false),
             billboard: {
                 image: billboardCanvas,
-                width: 80,
-                height: 40,
-                verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                width: isSun ? 60 : 80,
+                height: isSun ? 30 : 40,
+                verticalOrigin: isSun ? Cesium.VerticalOrigin.CENTER : Cesium.VerticalOrigin.BOTTOM,
                 horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
-                pixelOffset: body.id === 'SUN' ? new Cesium.Cartesian2(0, -8) : new Cesium.Cartesian2(0, 0),
+                pixelOffset: Cesium.Cartesian2.ZERO,
                 show: isVisible,
                 disableDepthTestDistance: Number.POSITIVE_INFINITY
             }
