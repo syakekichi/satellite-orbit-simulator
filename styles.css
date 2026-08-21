@@ -735,6 +735,51 @@ aside#sidebarPanel.hud-sidebar {
     letter-spacing: 0.5px;
 }
 
+/* Satellite Visual Image Frame in Detail Card */
+.sat-image-wrapper {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 0 12px rgba(56, 189, 248, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.sat-image-wrapper:hover {
+    border-color: rgba(56, 189, 248, 0.7);
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
+}
+
+.sat-image {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+    background: #090d16;
+}
+
+.sat-image:hover {
+    transform: scale(1.04);
+}
+
+.sat-image-caption {
+    padding: 4px 8px;
+    font-size: 0.68rem;
+    color: #94a3b8;
+    background: rgba(10, 15, 30, 0.85);
+    backdrop-filter: blur(4px);
+    text-align: right;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* Satellite Description Banner in Detail Card */
 .sat-description-text {
     margin-top: 8px;

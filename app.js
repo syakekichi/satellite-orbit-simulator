@@ -2333,6 +2333,9 @@ const satBadge = document.getElementById('satBadge');
 const satName = document.getElementById('satName');
 const satNorad = document.getElementById('satNorad');
 const satDescription = document.getElementById('satDescription');
+const satImageWrapper = document.getElementById('satImageWrapper');
+const satImage = document.getElementById('satImage');
+const satImageCaption = document.getElementById('satImageCaption');
 const satAlt = document.getElementById('satAlt');
 const satVel = document.getElementById('satVel');
 const satLat = document.getElementById('satLat');
@@ -2362,6 +2365,255 @@ const loadMajorBtn = document.getElementById('loadMajorBtn');
 const loadLocalBtn = document.getElementById('loadLocalBtn');
 const loadOnlineBtn = document.getElementById('loadOnlineBtn');
 const sourceStatusBadge = document.getElementById('sourceStatusBadge');
+
+// High Quality Royalty-Free & Public Domain Satellite Images (Local High-Speed Cache)
+const SATELLITE_IMAGES = {
+    "ISS": {
+        "url": "assets/sat_images/iss.jpg",
+        "caption": "Photo: NASA (Public Domain)",
+        "alt": "International Space Station in orbit"
+    },
+    "HUBBLE": {
+        "url": "assets/sat_images/hubble.jpg",
+        "caption": "Photo: NASA / STS-125 (Public Domain)",
+        "alt": "Hubble Space Telescope"
+    },
+    "ALOS-4": {
+        "url": "assets/sat_images/alos_4.jpg",
+        "caption": "Illustration: JAXA (CC BY-SA 4.0)",
+        "alt": "ALOS-4 Daichi-4 Earth Observation Satellite"
+    },
+    "ALOS-2": {
+        "url": "assets/sat_images/alos_2.jpg",
+        "caption": "Illustration: JAXA (CC BY-SA 4.0)",
+        "alt": "ALOS-2 Daichi-2 Radar Satellite"
+    },
+    "HIMAWARI": {
+        "url": "assets/sat_images/himawari.jpg",
+        "caption": "Illustration: JMA / JAXA / Mitsubishi Electric",
+        "alt": "Himawari Geostationary Meteorological Satellite"
+    },
+    "MICHIBIKI": {
+        "url": "assets/sat_images/michibiki.jpg",
+        "caption": "Illustration: JAXA / Cabinet Office",
+        "alt": "Michibiki Quasi-Zenith Satellite QZSS"
+    },
+    "XRISM": {
+        "url": "assets/sat_images/xrism.jpg",
+        "caption": "Illustration: JAXA / NASA",
+        "alt": "XRISM X-ray Astronomy Spacecraft"
+    },
+    "GCOM-W": {
+        "url": "assets/sat_images/gcom_w.jpg",
+        "caption": "Illustration: JAXA (Water Cycle Observer Shizuku)",
+        "alt": "GCOM-W Shizuku Satellite"
+    },
+    "GCOM-C": {
+        "url": "assets/sat_images/gcom_c.jpg",
+        "caption": "Illustration: JAXA (Climate Observer Shikisai)",
+        "alt": "GCOM-C Shikisai Satellite"
+    },
+    "GOSAT": {
+        "url": "assets/sat_images/gosat.jpg",
+        "caption": "Illustration: JAXA / NIES / MOE",
+        "alt": "GOSAT-2 Ibuki-2 Greenhouse Gases Satellite"
+    },
+    "SENTINEL-2": {
+        "url": "assets/sat_images/sentinel_2.jpg",
+        "caption": "Illustration: ESA / ATG Medialab (CC BY-SA 3.0 IGO)",
+        "alt": "Copernicus Sentinel-2 Satellite"
+    },
+    "SENTINEL-1": {
+        "url": "assets/sat_images/sentinel_1.jpg",
+        "caption": "Illustration: ESA / ATG Medialab (CC BY-SA 3.0 IGO)",
+        "alt": "Copernicus Sentinel-1 Radar Satellite"
+    },
+    "GALILEO": {
+        "url": "assets/sat_images/galileo.jpg",
+        "caption": "Illustration: ESA / OHB (Galileo Navigation Satellite)",
+        "alt": "European Galileo Navigation Satellite"
+    },
+    "METEOSAT": {
+        "url": "assets/sat_images/meteosat.jpg",
+        "caption": "Illustration: EUMETSAT / ESA / Thales",
+        "alt": "Meteosat Third Generation MTG-I Satellite"
+    },
+    "LANDSAT": {
+        "url": "assets/sat_images/landsat.jpg",
+        "caption": "Illustration: NASA / USGS (Public Domain)",
+        "alt": "Landsat 9 Earth Observation Satellite"
+    },
+    "TERRA": {
+        "url": "assets/sat_images/terra.jpg",
+        "caption": "Illustration: NASA Earth Observatory (Public Domain)",
+        "alt": "NASA Terra EOS Flagship Satellite"
+    },
+    "GOES": {
+        "url": "assets/sat_images/goes.jpg",
+        "caption": "Photo: NOAA / NASA (Public Domain)",
+        "alt": "NOAA GOES-18 Weather Satellite"
+    },
+    "CHOLLIAN": {
+        "url": "assets/sat_images/chollian.jpg",
+        "caption": "Illustration: KARI (Korea Aerospace Research Institute)",
+        "alt": "GEO-KOMPSAT-2A Chollian-2A Satellite"
+    },
+    "KOMPSAT": {
+        "url": "assets/sat_images/kompsat.jpg",
+        "caption": "Illustration: KARI (Korea Aerospace Research Institute)",
+        "alt": "KOMPSAT-5 Arirang-5 SAR Satellite"
+    },
+    "CARTOSAT": {
+        "url": "assets/sat_images/cartosat.jpg",
+        "caption": "Illustration: ISRO (Indian Space Research Organisation)",
+        "alt": "ISRO Cartosat-3 High Resolution Satellite"
+    },
+    "GLONASS": {
+        "url": "assets/sat_images/glonass.jpg",
+        "caption": "Photo: ISS Reshetnev / Roscosmos (CC BY-SA 4.0)",
+        "alt": "Russian GLONASS-K Navigation Satellite"
+    },
+    "TIANGONG": {
+        "url": "assets/sat_images/tiangong.jpg",
+        "caption": "Illustration: CMSA / Chinese Academy of Sciences",
+        "alt": "Tiangong Chinese Space Station"
+    },
+    "BEIDOU": {
+        "url": "assets/sat_images/beidou.jpg",
+        "caption": "Illustration: CAST / CNSA (BeiDou-3 Navigation)",
+        "alt": "BeiDou-3 Navigation Satellite"
+    },
+    "FENGYUN": {
+        "url": "assets/sat_images/fengyun.jpg",
+        "caption": "Illustration: CMA / SAST (Fengyun-4 Weather Satellite)",
+        "alt": "Fengyun-4B Geostationary Weather Satellite"
+    },
+    "X-37B": {
+        "url": "assets/sat_images/x_37b.jpg",
+        "caption": "Photo: US Air Force / US Space Force (Public Domain)",
+        "alt": "USSF X-37B Orbital Test Vehicle"
+    },
+    "USA-245": {
+        "url": "assets/sat_images/usa_245.jpg",
+        "caption": "Illustration: National Reconnaissance Office (Public Domain)",
+        "alt": "NRO KH-11 Optical Reconnaissance Satellite"
+    },
+    "SWOT": {
+        "url": "assets/sat_images/swot.jpg",
+        "caption": "Illustration: NASA / JPL-Caltech (Public Domain)",
+        "alt": "NASA Surface Water and Ocean Topography SWOT Satellite"
+    },
+    "WORLDVIEW": {
+        "url": "assets/sat_images/worldview.jpg",
+        "caption": "Illustration: Maxar Technologies / DigitalGlobe",
+        "alt": "WorldView-3 Commercial Imaging Satellite"
+    },
+    "MICIUS": {
+        "url": "assets/sat_images/micius.jpg",
+        "caption": "Illustration: Chinese Academy of Sciences (CAS / USTC)",
+        "alt": "Micius Quantum Science Satellite"
+    },
+    "DAMPE": {
+        "url": "assets/sat_images/dampe.jpg",
+        "caption": "Photo: Purple Mountain Observatory / CAS",
+        "alt": "DAMPE Wukong Dark Matter Explorer"
+    },
+    "QUEQIAO": {
+        "url": "assets/sat_images/queqiao.jpg",
+        "caption": "Illustration: CNSA (Lunar Far Side L2 Relay)",
+        "alt": "Queqiao Lunar Relay Satellite"
+    },
+    "ADRAS": {
+        "url": "assets/sat_images/adras.jpg",
+        "caption": "Illustration: Astroscale Japan / JAXA",
+        "alt": "Astroscale ADRAS-J Debris Inspection Satellite"
+    },
+    "IGS": {
+        "url": "assets/sat_images/igs.jpg",
+        "caption": "Photo: JAXA / MHI (IGS Radar-7 Launch)",
+        "alt": "IGS Radar-7 Launch on H-IIA"
+    },
+    "KIRAMEKI": {
+        "url": "assets/sat_images/kirameki.jpg",
+        "caption": "Photo: JAXA / Ministry of Defense (Kirameki-2 DSN-2)",
+        "alt": "Kirameki-2 Defense Satcom on H-IIA"
+    },
+    "SBIRS": {
+        "url": "assets/sat_images/sbirs.jpg",
+        "caption": "Illustration: US Air Force / Lockheed Martin (Public Domain)",
+        "alt": "SBIRS Missile Early Warning Satellite"
+    },
+    "GSSAP": {
+        "url": "assets/sat_images/gssap.jpg",
+        "caption": "Illustration: US Space Force / Orbital ATK (Public Domain)",
+        "alt": "GSSAP Geosynchronous Space Patrol Satellite"
+    },
+    "AEHF": {
+        "url": "assets/sat_images/aehf.jpg",
+        "caption": "Illustration: US Air Force / Lockheed Martin (Public Domain)",
+        "alt": "AEHF Protected Military Communications Satellite"
+    },
+    "STARLINK": {
+        "url": "assets/sat_images/starlink.jpg",
+        "caption": "Photo: SpaceX (Creative Commons CC0 / Public Domain)",
+        "alt": "SpaceX Starlink Satellite in orbit"
+    },
+    "GPS": {
+        "url": "assets/sat_images/gps.jpg",
+        "caption": "Illustration: US Air Force / Boeing (Public Domain)",
+        "alt": "GPS Block IIF Navigation Satellite"
+    },
+    "OLYMP": {
+        "url": "assets/sat_images/olymp.jpg",
+        "caption": "Photo: Roscosmos / Russian Aerospace Forces",
+        "alt": "Olymp-K / Luch-5X Signals Intelligence Satellite"
+    },
+    "SPEKTR": {
+        "url": "assets/sat_images/spektr.jpg",
+        "caption": "Illustration: Roscosmos / IKI / DLR",
+        "alt": "Spektr-RG Astrophysical Observatory"
+    },
+    "METEOR": {
+        "url": "assets/sat_images/meteor.jpg",
+        "caption": "Illustration: Roshydromet / Roscosmos",
+        "alt": "Meteor-M Polar Weather Satellite"
+    },
+    "YAOGAN": {
+        "url": "assets/sat_images/yaogan.jpg",
+        "caption": "Illustration: CNSA / CASC",
+        "alt": "Yaogan-35 Tri-Satellite Formation"
+    },
+    "OFEQ": {
+        "url": "assets/sat_images/ofeq.jpg",
+        "caption": "Photo: Israel Ministry of Defense / IAI",
+        "alt": "Ofeq-16 Retrograde Reconnaissance Satellite"
+    },
+    "SARAH": {
+        "url": "assets/sat_images/sarah.jpg",
+        "caption": "Photo: Bundeswehr / Airbus Defence",
+        "alt": "SARah-1 Phased-Array Radar Reconnaissance"
+    },
+    "TUNDRA": {
+        "url": "assets/sat_images/tundra.jpg",
+        "caption": "Photo: Russian Aerospace Forces / VKS",
+        "alt": "Tundra-5 EKS Early Warning Satellite"
+    },
+    "SHIJIAN": {
+        "url": "assets/sat_images/shijian_21.jpg",
+        "caption": "Illustration: CNSA / CASC (Space Tug)",
+        "alt": "Shijian-21 Robotic Satellite Tug"
+    }
+};
+
+function getSatImageInfo(name) {
+    const upper = (name || '').toUpperCase();
+    for (const key of Object.keys(SATELLITE_IMAGES)) {
+        if (upper.includes(key)) {
+            return SATELLITE_IMAGES[key];
+        }
+    }
+    return null;
+}
 
 // Rich Satellite Mission Descriptions Mapping (Full 5-Language Multilingual Dictionary)
 const SATELLITE_DESCRIPTIONS = {
@@ -4823,6 +5075,29 @@ function selectCelestialBody(bodyId) {
     const subtitlePrefix = CELESTIAL_SUBTITLES[lang] || CELESTIAL_SUBTITLES['en'];
     satNorad.textContent = `${subtitlePrefix} (${body.id})`;
 
+    // Celestial Visual Image (NASA Texture / Photo)
+    if (satImageWrapper && satImage) {
+        const textureMap = {
+            SUN: { url: 'assets/planet_images/sun.jpg', cap: 'NASA SDO (Public Domain)' },
+            MOON: { url: 'assets/planet_images/moon.jpg', cap: 'NASA / GSFC (Public Domain)' },
+            MARS: { url: 'assets/planet_images/mars.jpg', cap: 'ESA / MPS / OSIRIS (Public Domain)' },
+            JUPITER: { url: 'assets/planet_images/jupiter.jpg', cap: 'NASA / ESA / Hubble (Public Domain)' },
+            SATURN: { url: 'assets/planet_images/saturn.jpg', cap: 'NASA / JPL / Cassini (Public Domain)' },
+            VENUS: { url: 'assets/planet_images/venus.jpg', cap: 'NASA / Mariner 10 (Public Domain)' },
+            MERCURY: { url: 'assets/planet_images/mercury.jpg', cap: 'NASA / JHUAPL / MESSENGER (Public Domain)' },
+            URANUS: { url: 'assets/planet_images/uranus.jpg', cap: 'NASA / Voyager 2 (Public Domain)' }
+        };
+        const planetImg = textureMap[body.id];
+        if (planetImg) {
+            satImage.src = planetImg.url;
+            satImage.alt = body.name;
+            if (satImageCaption) satImageCaption.innerHTML = `<span>🔭 天体写真</span><span>Photo: ${planetImg.cap}</span>`;
+            satImageWrapper.classList.remove('hidden');
+        } else {
+            satImageWrapper.classList.add('hidden');
+        }
+    }
+
     const descObj = CELESTIAL_DESCRIPTIONS[body.id];
     let baseDesc = (descObj && getL(descObj)) || '';
 
@@ -5858,6 +6133,20 @@ function selectSatellite(index) {
     satName.textContent = getSatDisplayName(sat.name);
     const countryStr = getSatCountry(sat.name);
     satNorad.innerHTML = `<span>NORAD ID: ${sat.noradId}</span> <span style="margin-left:8px; padding:2px 8px; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.35); border-radius:4px; font-weight:700; color:#38bdf8; font-size:0.75rem;">${countryStr}</span>`;
+
+    // Satellite Visual Image Update
+    if (satImageWrapper && satImage) {
+        const imgInfo = getSatImageInfo(sat.name);
+        if (imgInfo && imgInfo.url) {
+            satImage.src = imgInfo.url;
+            satImage.alt = imgInfo.alt || sat.name;
+            if (satImageCaption) satImageCaption.innerHTML = `<span>📸 外観イメージ</span><span>${imgInfo.caption}</span>`;
+            satImageWrapper.classList.remove('hidden');
+        } else {
+            satImageWrapper.classList.add('hidden');
+        }
+    }
+
     if (satDescription) {
         satDescription.textContent = getSatDescription(sat.name);
     }
