@@ -642,6 +642,8 @@ const TRANSLATIONS = {
         "secSource": "衛星データソース & プリセット",
         "loadMajor": "⭐ 主要・有名衛星 (ひまわり, ISS, みちびき, デブリ)",
         "loadLocal": "🛰️ Starlink 全衛星コンステレーション (2,000機)",
+        "loadDebris": "💥 宇宙デブリ・メガクラウド (2,200+ 破片)",
+        "badgeDebris": "💥 宇宙デブリ・メガクラウド読込済 (2,200破片)",
         "badgeMajor": "⭐ 主要・有名衛星プリセット読込済",
         "secTime": "時間コントロール & 倍速設定",
         "speedStop": "⏸️ 停止",
@@ -748,6 +750,8 @@ const TRANSLATIONS = {
         "secSource": "Satellite Data Sources & Presets",
         "loadMajor": "⭐ Major Satellites (ISS, Hubble, Weather, Debris)",
         "loadLocal": "🛰️ Starlink Mega-Constellation (2,000 Satellites)",
+        "loadDebris": "💥 Space Debris Mega-Cloud (2,200+ Fragments)",
+        "badgeDebris": "💥 Space Debris Mega-Cloud Loaded (2,200 Fragments)",
         "badgeMajor": "⭐ Major Preset Loaded",
         "secTime": "Time Control & Warp Speed",
         "speedStop": "⏸️ Pause",
@@ -854,6 +858,8 @@ const TRANSLATIONS = {
         "secSource": "Satellitendatenquellen & Voreinstellungen",
         "loadMajor": "⭐ Wichtige Satelliten (ISS, Himawari, Hubble, Müll)",
         "loadLocal": "🛰️ Starlink-Megakonstellation (2.000 Satelliten)",
+        "loadDebris": "💥 Weltraummüll-Megawolke (2.200+ Trümmer)",
+        "badgeDebris": "💥 Weltraummüll-Megawolke geladen (2.200 Trümmer)",
         "badgeMajor": "⭐ Hauptvoreinstellung geladen",
         "secTime": "Zeitsteuerung & Geschwindigkeitsraffer",
         "speedStop": "⏸️ Pause",
@@ -960,6 +966,8 @@ const TRANSLATIONS = {
         "secSource": "Sources de données satellites et préréglages",
         "loadMajor": "⭐ Satellites majeurs (ISS, Hubble, Météo, Débris)",
         "loadLocal": "🛰️ Mégaconstellation Starlink (2 000 satellites)",
+        "loadDebris": "💥 Méganuage de débris spatiaux (2 200+ fragments)",
+        "badgeDebris": "💥 Méganuage de débris spatiaux chargé (2 200 fragments)",
         "badgeMajor": "⭐ Préréglage majeur chargé",
         "secTime": "Contrôle du temps et vitesse accélérée",
         "speedStop": "⏸️ Pause",
@@ -1066,6 +1074,8 @@ const TRANSLATIONS = {
         "secSource": "Fuentes de Datos y Ajustes",
         "loadMajor": "⭐ Satélites Principales (ISS, Hubble, Meteorología, Basura)",
         "loadLocal": "🛰️ Constelación Starlink (2.000 Satélites)",
+        "loadDebris": "💥 Meganube de Basura Espacial (2.200+ fragmentos)",
+        "badgeDebris": "💥 Meganube de Basura Espacial Cargada (2.200 fragmentos)",
         "badgeMajor": "⭐ Ajuste Principal Cargado",
         "secTime": "Control de Tiempo y Velocidad",
         "speedStop": "⏸️ Pausa",
@@ -1172,6 +1182,8 @@ const TRANSLATIONS = {
         "secSource": "Fontes de Dados e Predefinições",
         "loadMajor": "⭐ Satélites Principais (ISS, Hubble, Meteorologia, Lixo)",
         "loadLocal": "🛰️ Constelação Starlink (2.000 Satélites)",
+        "loadDebris": "💥 Meganuvens de Lixo Espacial (2.200+ fragmentos)",
+        "badgeDebris": "💥 Meganuvens de Lixo Espacial Carregada (2.200 fragmentos)",
         "badgeMajor": "⭐ Predefinição Principal Carregada",
         "secTime": "Controle de Tempo e Velocidade",
         "speedStop": "⏸️ Pausa",
@@ -1278,6 +1290,8 @@ const TRANSLATIONS = {
         "secSource": "Sorgenti Dati e Preimpostazioni",
         "loadMajor": "⭐ Satelliti Principali (ISS, Hubble, Meteo, Detriti)",
         "loadLocal": "🛰️ Costellazione Starlink (2.000 Satelliti)",
+        "loadDebris": "💥 Nuvola Gigante di Detriti Spaziali (2.200+ frammenti)",
+        "badgeDebris": "💥 Nuvola di Detriti Spaziali Caricata (2.200 frammenti)",
         "badgeMajor": "⭐ Preimpostazione Principale Caricata",
         "secTime": "Controllo Tempo e Velocità",
         "speedStop": "⏸️ Pausa",
@@ -1384,6 +1398,8 @@ const TRANSLATIONS = {
         "secSource": "위성 데이터 소스 및 프리셋",
         "loadMajor": "⭐ 주요 위성 (ISS, 허블, 기상위성, 데브리)",
         "loadLocal": "🛰️ 스타링크 메가 콘스텔레이션 (2,000기)",
+        "loadDebris": "💥 우주 쓰레기 메가 클라우드 (2,200+ 파편)",
+        "badgeDebris": "💥 우주 쓰레기 메가 클라우드 로드 완료 (2,200파편)",
         "badgeMajor": "⭐ 주요 위성 프리셋 로드 완료",
         "secTime": "시간 제어 및 배속 설정",
         "speedStop": "⏸️ 정지",
@@ -1490,6 +1506,8 @@ const TRANSLATIONS = {
         "secSource": "Satellietgegevensbronnen & Presets",
         "loadMajor": "⭐ Belangrijke Satellieten (ISS, Hubble, Weer, Puin)",
         "loadLocal": "🛰️ Starlink-Megaconstellatie (2.000 Satellieten)",
+        "loadDebris": "💥 Ruimtepuin Megawolk (2.200+ fragmenten)",
+        "badgeDebris": "💥 Ruimtepuin Megawolk Geladen (2.200 fragmenten)",
         "badgeMajor": "⭐ Belangrijkste Preset Geladen",
         "secTime": "Tijdregeling & Simulatiesnelheid",
         "speedStop": "⏸️ Pauze",
@@ -1596,6 +1614,8 @@ const TRANSLATIONS = {
         "secSource": "Sumber Data Satelit & Preset",
         "loadMajor": "⭐ Satelit Utama (ISS, Himawari, Michibiki, Sampah)",
         "loadLocal": "🛰️ Konstelasi Starlink (2.000 Satelit)",
+        "loadDebris": "💥 Awan Mega Sampah Antariksa (2.200+ Fragmen)",
+        "badgeDebris": "💥 Awan Mega Sampah Antariksa Dimuat (2.200 Fragmen)",
         "badgeMajor": "⭐ Preset Utama Dimuat",
         "secTime": "Kontrol Waktu & Kecepatan",
         "speedStop": "⏸️ Jeda",
@@ -1702,6 +1722,8 @@ const TRANSLATIONS = {
         "secSource": "उपग्रह डेटा स्रोत और प्रीसेट",
         "loadMajor": "⭐ प्रमुख उपग्रह (ISS, हबल, मौसम, मलबा)",
         "loadLocal": "🛰️ स्टारलिंक मेगा-तारामंडल (2,000 उपग्रह)",
+        "loadDebris": "💥 अंतरिक्ष मलबे का विशाल बादल (2,200+ टुकड़े)",
+        "badgeDebris": "💥 अंतरिक्ष मलबे का बादल लोड किया गया (2,200 टुकड़े)",
         "badgeMajor": "⭐ प्रमुख प्रीसेट लोड हो गया",
         "secTime": "समय नियंत्रण और गति",
         "speedStop": "⏸️ रोकें",
@@ -1808,6 +1830,8 @@ const TRANSLATIONS = {
         "secSource": "مصادر بيانات الأقمار والإعدادات",
         "loadMajor": "⭐ الأقمار الرئيسية (محطة الفضاء، هابل، الطقس، الحطام)",
         "loadLocal": "🛰️ كوكبة ستارلينك (2000 قمر صناعي)",
+        "loadDebris": "💥 سحابة الحطام الفضائي العملاقة (2,200+ شظية)",
+        "badgeDebris": "💥 تم تحميل سحابة الحطام الفضائي (2,200 شظية)",
         "badgeMajor": "⭐ تم تحميل الأقمار الرئيسية",
         "secTime": "التحكم بالوقت وسرعة المحاكاة",
         "speedStop": "⏸️ إيقاف",
@@ -1914,6 +1938,8 @@ const TRANSLATIONS = {
         "secSource": "卫星数据源与预设",
         "loadMajor": "⭐ 核心著名卫星 (空间站, 气象卫星, 导航, 碎片)",
         "loadLocal": "🛰️ 星链(Starlink) 巨型星座 (2,000颗全量)",
+        "loadDebris": "💥 太空垃圾碎片巨型云 (2,200+ 碎片)",
+        "badgeDebris": "💥 太空垃圾碎片巨型云已载入 (2,200碎片)",
         "badgeMajor": "⭐ 核心卫星预设已载入",
         "secTime": "时间控制与倍速调节",
         "speedStop": "⏸️ 暂停",
@@ -2024,6 +2050,8 @@ const TRANSLATIONS = {
         "secSource": "Источники данных и пресеты",
         "loadMajor": "⭐ Основные спутники (МКС, Хаббл, Погода, Мусор)",
         "loadLocal": "🛰️ Мега-группировка Starlink (2 000 спутников)",
+        "loadDebris": "💥 Мегаоблако космического мусора (2 200+ обломков)",
+        "badgeDebris": "💥 Мегаоблако космического мусора загружено (2 200 обломков)",
         "badgeMajor": "⭐ Пресет основных спутников загружен",
         "secTime": "Управление временем и скоростью",
         "speedStop": "⏸️ Пауза",
@@ -2152,6 +2180,7 @@ function applyLanguage(lang) {
     const idsToTranslate = {
         'loadMajorBtn': 'loadMajor',
         'loadLocalBtn': 'loadLocal',
+        'loadDebrisBtn': 'loadDebris',
         'sourceStatusBadge': 'badgeMajor',
         'resetNowBtn': 'resetNow',
         'geoLocateBtn': 'btnGeo',
@@ -2502,6 +2531,7 @@ const labelsContainer = document.getElementById('labelsContainer');
 const tzSelect = document.getElementById('tzSelect');
 const loadMajorBtn = document.getElementById('loadMajorBtn');
 const loadLocalBtn = document.getElementById('loadLocalBtn');
+const loadDebrisBtn = document.getElementById('loadDebrisBtn');
 const loadOnlineBtn = document.getElementById('loadOnlineBtn');
 const sourceStatusBadge = document.getElementById('sourceStatusBadge');
 
@@ -6048,7 +6078,7 @@ async function fetchTLEText(url) {
         const pathParts = window.location.pathname.split('/').filter(Boolean);
         const isSub = pathParts.length > 0 && ['en','zh','ko','de','fr','es','pt','it','nl','id','hi','ar','ru'].includes(pathParts[0]);
         const pfx = isSub ? '../' : './';
-        const localPaths = [url, pfx + 'data/starlink.txt', pfx + 'starlink.txt', 'data/starlink.txt', 'starlink.txt'];
+        const localPaths = [url, pfx + url, pfx + 'data/' + url, pfx + 'data/debris.txt', pfx + 'debris.txt', pfx + 'data/starlink.txt', pfx + 'starlink.txt', 'data/' + url, url];
         for (const path of localPaths) {
             try {
                 const res = await fetch(path);
@@ -6127,11 +6157,21 @@ async function loadSatelliteData(sourceUrl) {
                 sourceStatusBadge.style.color = '#10b981';
             }
         } else {
-            setActivePresetBtn(loadLocalBtn);
-            if (sourceStatusBadge) {
-                sourceStatusBadge.textContent = `⚡ ローカル保存データ使用中 (STARLINK ${parsed.length.toLocaleString()}機)`;
-                sourceStatusBadge.style.borderColor = 'rgba(59, 130, 246, 0.35)';
-                sourceStatusBadge.style.color = '#3b82f6';
+            const isDebrisSource = sourceUrl.includes('debris');
+            if (isDebrisSource) {
+                setActivePresetBtn(loadDebrisBtn);
+                if (sourceStatusBadge) {
+                    sourceStatusBadge.textContent = `💥 宇宙デブリ・メガクラウド読込済 (${parsed.length.toLocaleString()}破片)`;
+                    sourceStatusBadge.style.borderColor = 'rgba(192, 132, 252, 0.45)';
+                    sourceStatusBadge.style.color = '#c084fc';
+                }
+            } else {
+                setActivePresetBtn(loadLocalBtn);
+                if (sourceStatusBadge) {
+                    sourceStatusBadge.textContent = `⚡ ローカル保存データ使用中 (STARLINK ${parsed.length.toLocaleString()}機)`;
+                    sourceStatusBadge.style.borderColor = 'rgba(59, 130, 246, 0.35)';
+                    sourceStatusBadge.style.color = '#3b82f6';
+                }
             }
         }
         hideLoading();
@@ -7691,6 +7731,13 @@ function setupEventListeners() {
         loadSatelliteData('starlink.txt');
     });
 
+    if (loadDebrisBtn) {
+        loadDebrisBtn.addEventListener('click', () => {
+            setActivePresetBtn(loadDebrisBtn);
+            loadSatelliteData('debris.txt');
+        });
+    }
+
     if (loadOnlineBtn) {
         loadOnlineBtn.addEventListener('click', () => {
             setActivePresetBtn(loadOnlineBtn);
@@ -8046,7 +8093,7 @@ function setupCameraDPadControls() {
 }
 
 function setActivePresetBtn(activeBtn) {
-    [loadMajorBtn, loadLocalBtn, loadOnlineBtn].forEach(btn => {
+    [loadMajorBtn, loadLocalBtn, loadDebrisBtn, loadOnlineBtn].forEach(btn => {
         if (btn) btn.classList.remove('active');
     });
     if (activeBtn) activeBtn.classList.add('active');
