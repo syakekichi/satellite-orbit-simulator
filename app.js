@@ -7298,7 +7298,7 @@ function updatePassPredictionAndRisk(sat, jsDate) {
         satellitesData.forEach(otherSat => {
             if (otherSat !== sat && otherSat.currentCartesian) {
                 const nameUpper = otherSat.name.toUpperCase();
-                const isDebris = nameUpper.includes('DEBRIS') || nameUpper.includes('IRIDIUM') || nameUpper.includes('COSMOS') || nameUpper.includes('FENGYUN') || nameUpper.includes('SL-8') || nameUpper.includes('DELTA');
+                const isDebris = nameUpper.includes('DEBRIS') || nameUpper.includes('IRIDIUM') || nameUpper.includes('COSMOS') || nameUpper.includes('FENGYUN') || nameUpper.includes('SL-8') || nameUpper.includes('SL-16') || nameUpper.includes('DELTA') || nameUpper.includes('CZ-4') || nameUpper.includes('ARIANE') || nameUpper.includes('BREEZE') || nameUpper.includes('CENTAUR') || nameUpper.includes('TITAN') || nameUpper.includes('PEGASUS') || nameUpper.includes('CERISE');
                 if (isDebris) {
                     const d = Cesium.Cartesian3.distance(satPos, otherSat.currentCartesian) / 1000;
                     if (d < minDebrisDist) {
@@ -7330,7 +7330,7 @@ function updatePassPredictionAndRisk(sat, jsDate) {
                         satellitesData.forEach(otherSat => {
                             if (otherSat !== sat && otherSat.satrec) {
                                 const oUpper = otherSat.name.toUpperCase();
-                                if (oUpper.includes('DEBRIS') || oUpper.includes('IRIDIUM') || oUpper.includes('COSMOS') || oUpper.includes('FENGYUN')) {
+                                if (oUpper.includes('DEBRIS') || oUpper.includes('IRIDIUM') || oUpper.includes('COSMOS') || oUpper.includes('FENGYUN') || oUpper.includes('SL-8') || oUpper.includes('SL-16') || oUpper.includes('DELTA') || oUpper.includes('CZ-4') || oUpper.includes('ARIANE') || oUpper.includes('BREEZE') || oUpper.includes('CENTAUR') || oUpper.includes('TITAN') || oUpper.includes('PEGASUS') || oUpper.includes('CERISE')) {
                                     try {
                                         const pvOther = satellite.propagate(otherSat.satrec, futureTime);
                                         if (pvOther.position && Number.isFinite(pvOther.position.x)) {
