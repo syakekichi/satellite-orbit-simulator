@@ -1,4 +1,36 @@
 
+/**
+ * Security: Comprehensive HTML Escaping Helper to prevent XSS attacks
+ */
+function escapeHTML(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+/**
+ * Security: Strict URL validator to prevent SSRF and unsafe protocols
+ */
+function isValidExternalUrl(url) {
+    if (!url || typeof url !== 'string') return false;
+    try {
+        const parsed = new URL(url, window.location.origin);
+        if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return false;
+        // Block loopback and local private networks
+        const host = parsed.hostname.toLowerCase();
+        if (host === 'localhost' || host.startsWith('127.') || host.startsWith('192.168.') || host.startsWith('10.') || host === '0.0.0.0') {
+            return false;
+        }
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
 const CELESTIAL_BADGE_TYPES = {
     'SUN': { ja: '☀️ 恒星 (G型主系列星)', en: '☀️ G-Type Main-Sequence Star', de: '☀️ Hauptreihenstern (G-Klasse)', fr: '☀️ Étoile naine jaune', es: '☀️ Estrella enana amarilla', pt: '☀️ Estrela anã amarela', it: '☀️ Stella nana gialla', ko: '☀️ G형 주계열성 (항성)', nl: '☀️ Hoofdreeksster (G-type)', id: '☀️ Bintang Deret Utama', hi: '☀️ मुख्य-अनुक्रम तारा', ar: '☀️ نجم النسق الأساسي', zh: '☀️ G型主序星 (恒星)', ru: '☀️ Желтый карлик (Звезда)' },
     'MOON': { ja: '🌕 地球の自然衛星', en: "🌕 Earth's Natural Satellite", de: '🌕 Natürlicher Satellit der Erde', fr: '🌕 Satellite naturel de la Terre', es: '🌕 Satélite natural de la Tierra', pt: '🌕 Satélite natural da Terra', it: '🌕 Satellite naturale della Terra', ko: '🌕 지구의 자연위성', nl: '🌕 Natuurlijke satelliet van de aarde', id: '🌕 Satelit Alami Bumi', hi: '🌕 पृथ्वी का प्राकृतिक उपग्रह', ar: '🌕 التابع الطبيعي للأرض', zh: '🌕 地球的天然卫星', ru: '🌕 Естественный спутник Земли' },
@@ -5665,22 +5697,27 @@ function initCesiumViewer() {
     // Dummy access token to bypass Cesium 1.119.0 Ion token requirement exception
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkdW1teSJ9.dummy';
 
+    // Determine asset relative path dynamically based on multilingual subdirectory
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    const isSub = pathParts.length > 0 && ['en','zh','ko','de','fr','es','pt','it','nl','id','hi','ar','ru'].includes(pathParts[0]);
+    const assetPrefix = isSub ? '../' : './';
+
     // Create Direct Real Earth Imagery Provider (Precision WGS84 Mapping)
     const realEarthProvider = new Cesium.SingleTileImageryProvider({
-        url: 'earth_texture.jpg?v=20260820_101',
+        url: assetPrefix + 'earth_texture.jpg?v=20260822_640',
         rectangle: Cesium.Rectangle.fromDegrees(-180.0, -90.0, 180.0, 90.0)
     });
 
-    // Bulletproof Standard Viewer Initialization
+    // Bulletproof Standard Viewer Initialization (clean UI, no redundant 2D sceneModePicker buttons)
     viewer = new Cesium.Viewer('cesiumContainer', {
         imageryProvider: realEarthProvider,
         baseLayerPicker: false,
         geocoder: false,
         homeButton: false,
-        sceneModePicker: true,
+        sceneModePicker: false,
         navigationHelpButton: false,
-        animation: true,
-        timeline: true,
+        animation: false,
+        timeline: false,
         fullscreenButton: false,
         selectionIndicator: false,
         infoBox: false
@@ -6008,7 +6045,10 @@ function loadMajorSatellitesPreset() {
  */
 async function fetchTLEText(url) {
     if (!url.startsWith('http')) {
-        const localPaths = [url, 'data/starlink.txt', 'starlink.txt'];
+        const pathParts = window.location.pathname.split('/').filter(Boolean);
+        const isSub = pathParts.length > 0 && ['en','zh','ko','de','fr','es','pt','it','nl','id','hi','ar','ru'].includes(pathParts[0]);
+        const pfx = isSub ? '../' : './';
+        const localPaths = [url, pfx + 'data/starlink.txt', pfx + 'starlink.txt', 'data/starlink.txt', 'starlink.txt'];
         for (const path of localPaths) {
             try {
                 const res = await fetch(path);
@@ -6606,7 +6646,7 @@ function selectSatellite(index) {
     satBadge.textContent = sat.name.toUpperCase().includes('STARLINK') ? 'STARLINK' : (sat.name.toUpperCase().includes('DEBRIS') ? 'SPACE DEBRIS' : 'SATELLITE');
     satName.textContent = getSatDisplayName(sat.name);
     const countryStr = getSatCountry(sat.name);
-    satNorad.innerHTML = `<span>NORAD ID: ${sat.noradId}</span> <span style="margin-left:8px; padding:2px 8px; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.35); border-radius:4px; font-weight:700; color:#38bdf8; font-size:0.75rem;">${countryStr}</span>`;
+    satNorad.innerHTML = `<span>NORAD ID: ${escapeHTML(sat.noradId)}</span> <span style="margin-left:8px; padding:2px 8px; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.35); border-radius:4px; font-weight:700; color:#38bdf8; font-size:0.75rem;">${escapeHTML(countryStr)}</span>`;
 
     // Satellite Visual Image Update
     if (satImageWrapper && satImage) {
@@ -7980,7 +8020,7 @@ function performSearch(rawQuery) {
         const item = document.createElement('div');
         item.className = 'search-item';
         item.style.borderLeft = '3px solid #f59e0b';
-        item.innerHTML = `<span>${b.symbol} <strong>${b.name}</strong></span><span style="font-family:var(--font-mono); font-size:0.75rem; color:#f59e0b;">${b.type}</span>`;
+        item.innerHTML = `<span>${escapeHTML(b.symbol)} <strong>${escapeHTML(b.name)}</strong></span><span style="font-family:var(--font-mono); font-size:0.75rem; color:#f59e0b;">${escapeHTML(b.type)}</span>`;
         item.addEventListener('click', () => {
             selectCelestialBody(b.id);
             satSelect.value = `celestial_${b.id}`;
@@ -7992,7 +8032,7 @@ function performSearch(rawQuery) {
     matchedSats.slice(0, 10).forEach(sat => {
         const item = document.createElement('div');
         item.className = 'search-item';
-        item.innerHTML = `<span>${sat.name}</span><span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-cyan);">${sat.noradId}</span>`;
+        item.innerHTML = `<span>${escapeHTML(sat.name)}</span><span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-cyan);">${escapeHTML(sat.noradId)}</span>`;
         item.addEventListener('click', () => {
             const index = satellitesData.indexOf(sat);
             selectSatellite(index);
