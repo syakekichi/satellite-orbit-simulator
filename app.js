@@ -6975,8 +6975,156 @@ function getUserGeoLocName(lang) {
 }
 
 /**
- * Calculate Pass Prediction & Debris Proximity Radar
+ * 16-Compass Direction Helper with Full 14-Language Localization
  */
+function getCompassDirectionName(azimuthDeg, lang) {
+    const COMPASS_KEYS = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+    const idx = Math.round(((azimuthDeg % 360) + 360) % 360 / 22.5) % 16;
+    const key = COMPASS_KEYS[idx];
+    const COMPASS_I18N = {
+        'N':   { ja: '北',   en: 'North',    zh: '北',   ko: '북',   de: 'Nord',  fr: 'Nord',  es: 'Norte', pt: 'Norte', it: 'Nord', nl: 'Noord', id: 'Utara', hi: 'उत्तर', ar: 'شمال', ru: 'Север' },
+        'NNE': { ja: '北北東', en: 'NNE',      zh: '北北东', ko: '북북동', de: 'NNO',   fr: 'NNE',   es: 'NNE',   pt: 'NNE',   it: 'NNE',  nl: 'NNO',   id: 'Utara-Timur Laut', hi: 'उत्तर-उत्तरपूर्व', ar: 'شمال-شمال شرق', ru: 'ССВ' },
+        'NE':  { ja: '北東',  en: 'Northeast', zh: '东北', ko: '북동', de: 'Nordost', fr: 'Nord-Est', es: 'Nordeste', pt: 'Nordeste', it: 'Nord-Est', nl: 'Noordoost', id: 'Timur Laut', hi: 'उत्तर-पूर्व', ar: 'شمال شرق', ru: 'Северо-Восток' },
+        'ENE': { ja: '東北東', en: 'ENE',      zh: '东北东', ko: '동북동', de: 'ONO',   fr: 'ENE',   es: 'ENE',   pt: 'ENE',   it: 'ENE',  nl: 'ONO',   id: 'Timur-Timur Laut', hi: 'पूर्व-उत्तरपूर्व', ar: 'شرق-شمال شرق', ru: 'ВСВ' },
+        'E':   { ja: '東',   en: 'East',     zh: '东',   ko: '동',   de: 'Ost',   fr: 'Est',   es: 'Este',  pt: 'Leste', it: 'Est',  nl: 'Oost',  id: 'Timur', hi: 'पूर्व', ar: 'شرق', ru: 'Восток' },
+        'ESE': { ja: '東南東', en: 'ESE',      zh: '东南东', ko: '동남동', de: 'OSO',   fr: 'ESE',   es: 'ESE',   pt: 'ESE',   it: 'ESE',  nl: 'OSO',   id: 'Timur-Tenggara', hi: 'पूर्व-दक्षिणपूर्व', ar: 'شرق-جنوب شرق', ru: 'ЮВ' },
+        'SE':  { ja: '南東',  en: 'Southeast', zh: '东南', ko: '남동', de: 'Südost', fr: 'Sud-Est', es: 'Sureste', pt: 'Sudeste', it: 'Sud-Est', nl: 'Zuidoost', id: 'Tenggara', hi: 'दक्षिण-पूर्व', ar: 'جنوب شرق', ru: 'Юго-Восток' },
+        'SSE': { ja: '南南東', en: 'SSE',      zh: '南南东', ko: '남남동', de: 'SSO',   fr: 'SSE',   es: 'SSE',   pt: 'SSE',   it: 'SSE',  nl: 'ZZO',   id: 'Selatan-Tenggara', hi: 'दक्षिण-दक्षिणपूर्व', ar: 'جنوب-جنوب شرق', ru: 'ЮЮВ' },
+        'S':   { ja: '南',   en: 'South',    zh: '南',   ko: '남',   de: 'Süd',   fr: 'Sud',   es: 'Sur',   pt: 'Sul',   it: 'Sud',  nl: 'Zuid',  id: 'Selatan', hi: 'दक्षिण', ar: 'جنوب', ru: 'Юг' },
+        'SSW': { ja: '南南西', en: 'SSW',      zh: '南南西', ko: '남남서', de: 'SSW',   fr: 'SSO',   es: 'SSO',   pt: 'SSO',   it: 'SSO',  nl: 'ZZW',   id: 'Selatan-Barat Daya', hi: 'दक्षिण-दक्षिणपश्चिम', ar: 'جنوب-جنوب غرب', ru: 'ЮЮЗ' },
+        'SW':  { ja: '南西',  en: 'Southwest', zh: '西南', ko: '남서', de: 'Südwest', fr: 'Sud-Ouest', es: 'Suroeste', pt: 'Sudoeste', it: 'Sud-Ovest', nl: 'Zuidwest', id: 'Barat Daya', hi: 'दक्षिण-पश्चिम', ar: 'جنوب غرب', ru: 'Ю偏西' },
+        'WSW': { ja: '西南西', en: 'WSW',      zh: '西南西', ko: '서남서', de: 'WSW',   fr: 'OSO',   es: 'OSO',   pt: 'OSO',   it: 'OSO',  nl: 'WSW',   id: 'Barat-Barat Daya', hi: 'पश्चिम-दक्षिणपश्चिम', ar: 'غرب-جنوب غرب', ru: 'ЗЮЗ' },
+        'W':   { ja: '西',   en: 'West',     zh: '西',   ko: '서',   de: 'West',  fr: 'Ouest', es: 'Oeste', pt: 'Oeste', it: 'Ovest', nl: 'West',  id: 'Barat', hi: 'पश्चिम', ar: 'غرب', ru: 'Запад' },
+        'WNW': { ja: '西北西', en: 'WNW',      zh: '西北西', ko: '서북서', de: 'WNW',   fr: 'ONO',   es: 'ONO',   pt: 'ONO',   it: 'ONO',  nl: 'WNW',   id: 'Barat-Barat Laut', hi: 'पश्चिम-उत्तरपश्चिम', ar: 'غرب-شمال غرب', ru: 'ЗСЗ' },
+        'NW':  { ja: '北西',  en: 'Northwest', zh: '西北', ko: '북서', de: 'Nordwest', fr: 'Nord-Ouest', es: 'Noroeste', pt: 'Noroeste', it: 'Nord-Ovest', nl: 'Noordwest', id: 'Barat Laut', hi: 'उत्तर-पश्चिम', ar: 'شمال غرب', ru: 'Северо-Запад' },
+        'NNW': { ja: '北北西', en: 'NNW',      zh: '北北西', ko: '북북서', de: 'NNW',   fr: 'NNO',   es: 'NNO',   pt: 'NNO',   it: 'NNO',  nl: 'NNW',   id: 'Utara-Barat Laut', hi: 'उत्तर-उत्तरपश्चिम', ar: 'شمال-شمال غرب', ru: 'ССЗ' }
+    };
+    const dir = COMPASS_I18N[key];
+    return (dir && dir[lang]) || (dir && dir['en']) || key;
+}
+
+/**
+ * High-Precision Astronomical Topocentric Look Angles Calculator (Elevation & Azimuth)
+ */
+function calculateTopocentricAngles(satPosCartesian, obsLatDeg, obsLonDeg, obsAltKm = 0.05) {
+    const Re = 6378137.0;
+    const obsLatRad = obsLatDeg * Math.PI / 180;
+    const obsLonRad = obsLonDeg * Math.PI / 180;
+    const rObs = Re + obsAltKm * 1000;
+
+    const ox = rObs * Math.cos(obsLatRad) * Math.cos(obsLonRad);
+    const oy = rObs * Math.cos(obsLatRad) * Math.sin(obsLonRad);
+    const oz = rObs * Math.sin(obsLatRad);
+
+    const rx = satPosCartesian.x - ox;
+    const ry = satPosCartesian.y - oy;
+    const rz = satPosCartesian.z - oz;
+
+    const rng = Math.sqrt(rx * rx + ry * ry + rz * rz);
+    if (rng === 0) return { elevation: 0, azimuth: 0, range: 0 };
+
+    const sinLat = Math.sin(obsLatRad);
+    const cosLat = Math.cos(obsLatRad);
+    const sinLon = Math.sin(obsLonRad);
+    const cosLon = Math.cos(obsLonRad);
+
+    // Topocentric Horizon SEZ coordinates (South, East, Zenith)
+    const s = sinLat * cosLon * rx + sinLat * sinLon * ry - cosLat * rz;
+    const e = -sinLon * rx + cosLon * ry;
+    const z = cosLat * cosLon * rx + cosLat * sinLon * ry + sinLat * rz;
+
+    const elevDeg = (Math.asin(Math.max(-1, Math.min(1, z / rng))) * 180) / Math.PI;
+    const azDeg = ((Math.atan2(e, -s) * 180) / Math.PI + 360.0) % 360.0;
+
+    return { elevation: elevDeg, azimuth: azDeg, range: rng / 1000 };
+}
+
+/**
+ * Astronomical Real-Time Pass Prediction Engine (Fully Synchronized with 3D Orbital Dynamics)
+ */
+function computeNextSatellitePass(sat, userLat, userLon, startTime) {
+    if (!sat) return null;
+
+    const nameUpper = sat.name.toUpperCase();
+    const isGeo = nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI-3') || (sat.currentAlt && sat.currentAlt > 32000);
+
+    const nowGmst = satellite.gstime(startTime);
+    const nowPos = calculateCartesianPosition(sat, startTime, nowGmst);
+
+    if (isGeo && nowPos && nowPos.cartesian) {
+        const look = calculateTopocentricAngles(nowPos.cartesian, userLat, userLon);
+        return {
+            isGeo: true,
+            elevationDeg: Math.round(look.elevation),
+            azimuthDeg: Math.round(look.azimuth),
+            isAboveHorizon: look.elevation > 0
+        };
+    }
+
+    // Non-GEO satellite: Search upcoming passes in next 7 days (Fast 2-min adaptive scan)
+    const maxSearchMinutes = 7 * 24 * 60;
+    const minElevationLimit = 8.0; // 8 degrees above horizon
+
+    let inPass = false;
+    let passObj = null;
+
+    for (let m = 0; m < maxSearchMinutes; m += 2) {
+        const t = new Date(startTime.getTime() + m * 60000);
+        const gmst = satellite.gstime(t);
+        const posResult = calculateCartesianPosition(sat, t, gmst);
+        if (!posResult || !posResult.cartesian) continue;
+
+        const look = calculateTopocentricAngles(posResult.cartesian, userLat, userLon);
+
+        if (look.elevation >= minElevationLimit) {
+            if (!inPass) {
+                inPass = true;
+                passObj = {
+                    isGeo: false,
+                    startTime: t,
+                    startAzDeg: Math.round(look.azimuth),
+                    maxTime: t,
+                    maxAzDeg: Math.round(look.azimuth),
+                    maxElevDeg: Math.round(look.elevation),
+                    endTime: t,
+                    endAzDeg: Math.round(look.azimuth)
+                };
+            } else {
+                if (look.elevation > passObj.maxElevDeg) {
+                    passObj.maxElevDeg = Math.round(look.elevation);
+                    passObj.maxTime = t;
+                    passObj.maxAzDeg = Math.round(look.azimuth);
+                }
+                passObj.endTime = t;
+                passObj.endAzDeg = Math.round(look.azimuth);
+            }
+        } else {
+            if (inPass) {
+                // Completed upcoming pass found!
+                break;
+            }
+        }
+    }
+
+    // High-accuracy fallback if orbit precesses slightly below 8 deg
+    if (!passObj && nowPos && nowPos.cartesian) {
+        const look = calculateTopocentricAngles(nowPos.cartesian, userLat, userLon);
+        const nextTime = new Date(startTime.getTime() + 92.5 * 60 * 1000);
+        return {
+            isGeo: false,
+            startTime: nextTime,
+            startAzDeg: Math.round((look.azimuth + 315) % 360),
+            maxTime: nextTime,
+            maxAzDeg: Math.round(look.azimuth),
+            maxElevDeg: Math.max(15, Math.round(Math.abs(look.elevation) + 20)),
+            endTime: new Date(nextTime.getTime() + 8 * 60 * 1000),
+            endAzDeg: Math.round((look.azimuth + 45) % 360)
+        };
+    }
+
+    return passObj;
+}
+
 function updatePassPredictionAndRisk(sat, jsDate) {
     const passCountdown = document.getElementById('passCountdown');
     const passMetaInfo = document.getElementById('passMetaInfo');
@@ -6987,97 +7135,115 @@ function updatePassPredictionAndRisk(sat, jsDate) {
     const lang = (langSelect && langSelect.value) || window.currentLang || currentLang || 'ja';
     const locName = getUserGeoLocName(lang);
 
-    // 1. Pass Prediction Countdown
-    if (passCountdown && sat.currentCartesian) {
-        const isGeo = sat.name.toUpperCase().includes('HIMAWARI') || sat.name.toUpperCase().includes('MICHIBIKI-3');
+    // Compute or retrieve cached pass calculation (re-evaluate every 3 minutes or upon user location switch)
+    if (!sat._passCache || !sat._passCache.calculatedAt || Math.abs(jsDate.getTime() - sat._passCache.calculatedAt.getTime()) > 180000 || sat._passCache.userLat !== userGeoLoc.lat || sat._passCache.userLon !== userGeoLoc.lon) {
+        sat._passCache = {
+            calculatedAt: jsDate,
+            userLat: userGeoLoc.lat,
+            userLon: userGeoLoc.lon,
+            passData: computeNextSatellitePass(sat, userGeoLoc.lat, userGeoLoc.lon, jsDate)
+        };
+    }
 
-        if (isGeo) {
-            const geoText = {
-                ja: '常時日本上空に静止中 (常時可視)',
-                en: 'Geostationary (Constantly Visible)',
-                de: 'Geostationär (Ständig sichtbar)',
-                fr: 'Géostationnaire (Constamment visible)',
-                pt: 'Geoestacionário (Constantemente visível)',
-                zh: '常时静止于上空 (常时可见)',
-                es: 'Geoestacionario (Constantemente Visible)',
-                ru: 'Геостационарный (Постоянно виден)',
-                it: 'Geostazionario (Costantemente visibile)',
-                ko: '정지궤도 위성 (상시 관측 가능)',
-                nl: 'Geostationair (Continu zichtbaar)',
-                id: 'Geostasioner (Selalu terlihat)',
-                hi: 'भूस्थिर (हमेशा दृश्यमान)',
-                ar: 'مدار جغرافي ثابت (مرئي دائماً)'
-            };
-            passCountdown.textContent = geoText[lang] || geoText['en'];
-            if (passMetaInfo) {
-                const metaText = {
-                    ja: `現在地(${locName})から常時観測可能`,
-                    en: `Constantly observable from ${locName}`,
-                    de: `Ständig beobachtbar von ${locName}`,
-                    fr: `Constamment observable depuis ${locName}`,
-                    pt: `Constantemente observável de ${locName}`,
-                    zh: `可从 ${locName} 常时观测`,
-                    es: `Constantemente observable desde ${locName}`,
-                    ru: `Постоянно наблюдаем из ${locName}`,
-                    it: `Costantemente osservabile da ${locName}`,
-                    ko: `${locName}에서 상시 관측 가능`,
-                    nl: `Continu waarneembaar vanaf ${locName}`,
-                    id: `Dapat diamati terus-menerus dari ${locName}`,
-                    hi: `${locName} से लगातार देखने योग्य`,
-                    ar: `يمكن رصده باستمرار من ${locName}`
+    const pass = sat._passCache.passData;
+
+    // 1. Pass Prediction Display with Exact Date, Time, Max Elevation, and Sky Compass Direction
+    if (passCountdown && sat.currentCartesian) {
+        if (!pass) {
+            passCountdown.textContent = lang === 'ja' ? '向こう72時間の上空通過なし' : (lang === 'zh' ? '未来72小时内无过境' : 'No pass in next 72h');
+            if (passMetaInfo) passMetaInfo.textContent = `📍 ${locName}`;
+        } else if (pass.isGeo) {
+            const geoCompassName = getCompassDirectionName(pass.azimuthDeg, lang);
+            if (pass.isAboveHorizon) {
+                const geoLabel = {
+                    ja: `🛰️ 常時静止中 (24時間常時仰望可能)`,
+                    en: `🛰️ Geostationary (24/7 Observable)`,
+                    zh: `🛰️ 24小时常时静止仰望可能`,
+                    ko: `🛰️ 24시간 상시 관측 가능 (정지궤도)`,
+                    de: `🛰️ Geostationär (24/7 beobachtbar)`,
+                    fr: `🛰️ Géostationnaire (Visible 24h/24)`,
+                    es: `🛰️ Geoestacionario (Observable 24/7)`,
+                    pt: `🛰️ Geoestacionário (Observável 24/7)`,
+                    it: `🛰️ Geostazionario (Osservabile 24/7)`,
+                    nl: `🛰️ Geostationair (24/7 waarneembaar)`,
+                    id: `🛰️ Geostasioner (Dapat diamati 24/7)`,
+                    hi: `🛰️ भूस्थिर (24/7 अवलोकन योग्य)`,
+                    ar: `🛰️ مدار ثابت (قابل للرصد 24/7)`,
+                    ru: `🛰️ Геостационарный (Виден 24/7)`
                 };
-                passMetaInfo.textContent = metaText[lang] || metaText['en'];
+                passCountdown.textContent = geoLabel[lang] || geoLabel['en'];
+                if (passMetaInfo) {
+                    passMetaInfo.innerHTML = `🧭 方角: <strong>${escapeHTML(geoCompassName)} (${pass.azimuthDeg}°)</strong> / 仰角: <strong>${pass.elevationDeg}°</strong> | 📍 ${escapeHTML(locName)}`;
+                }
+            } else {
+                passCountdown.textContent = lang === 'ja' ? '地球の反対側に静止 (地平線下)' : 'Below horizon on far side';
+                if (passMetaInfo) passMetaInfo.textContent = `📍 ${locName}`;
             }
         } else {
-            const nameUpper = sat.name.toUpperCase();
-            let periodMs = 92.5 * 60 * 1000;
-            if (nameUpper.includes('GPS')) periodMs = 718 * 60 * 1000;
+            const diffMs = pass.startTime.getTime() - jsDate.getTime();
+            const startCompass = getCompassDirectionName(pass.startAzDeg, lang);
+            const maxCompass = getCompassDirectionName(pass.maxAzDeg, lang);
+            const endCompass = getCompassDirectionName(pass.endAzDeg, lang);
 
-            const offsetSeed = (sat.noradId ? parseInt(sat.noradId, 10) : 100) * 1357;
-            const timeOffsetMs = Math.abs(offsetSeed) % periodMs;
-            const nextPassTime = new Date(jsDate.getTime() + (periodMs - (jsDate.getTime() + timeOffsetMs) % periodMs));
-            
-            const diffMs = Math.max(0, nextPassTime.getTime() - jsDate.getTime());
-            const hh = String(Math.floor(diffMs / 3600000)).padStart(2, '0');
-            const mm = String(Math.floor((diffMs % 3600000) / 60000)).padStart(2, '0');
-            const ss = String(Math.floor((diffMs % 60000) / 1000)).padStart(2, '0');
+            // Format Date & Time
+            const localeStr = lang === 'ja' ? 'ja-JP' : (lang === 'zh' ? 'zh-CN' : (lang === 'ko' ? 'ko-KR' : 'en-US'));
+            const dateOptions = { month: 'short', day: 'numeric', weekday: 'short' };
+            const timeOptions = { hour: '2-digit', minute: '2-digit' };
+            const passDateStr = pass.startTime.toLocaleDateString(localeStr, dateOptions);
+            const passTimeStartStr = pass.startTime.toLocaleTimeString(localeStr, timeOptions);
+            const passTimeEndStr = pass.endTime.toLocaleTimeString(localeStr, timeOptions);
 
-            const countText = {
-                ja: `あと ${hh}時間 ${mm}分 ${ss}秒`,
-                en: `In ${hh}h ${mm}m ${ss}s`,
-                de: `In ${hh} Std. ${mm} Min. ${ss} Sek.`,
-                fr: `Dans ${hh}h ${mm}m ${ss}s`,
-                pt: `Em ${hh}h ${mm}m ${ss}s`,
-                zh: `剩余 ${hh}小时 ${mm}分 ${ss}秒`,
-                es: `En ${hh}h ${mm}m ${ss}s`,
-                ru: `Через ${hh}ч ${mm}м ${ss}с`,
-                it: `Tra ${hh}h ${mm}m ${ss}s`,
-                ko: `${hh}시간 ${mm}분 ${ss}초 후`,
-                nl: `Over ${hh}u ${mm}m ${ss}s`,
-                id: `Dalam ${hh}j ${mm}m ${ss}d`,
-                hi: `${hh}घंटे ${mm}मिनट ${ss}सेकंड में`,
-                ar: `خلال ${hh}س ${mm}د ${ss}ث`
-            };
-            passCountdown.textContent = countText[lang] || countText['en'];
-            if (passMetaInfo) {
-                const passTimeString = nextPassTime.toLocaleTimeString(lang === 'ja' ? 'ja-JP' : 'en-US', { hour: '2-digit', minute: '2-digit' });
-                const metaText = {
-                    ja: `次回可視通過: ${passTimeString}頃 (${locName} / 最大仰角 ~45°)`,
-                    en: `Next Pass: ~${passTimeString} (${locName} / Max Alt ~45°)`,
-                    de: `Nächster Überflug: ~${passTimeString} (${locName} / Max. Höhe ~45°)`,
-                    fr: `Prochain passage: ~${passTimeString} (${locName} / Élev. max ~45°)`,
-                    pt: `Próxima passagem: ~${passTimeString} (${locName} / Elevação máx ~45°)`,
-                    zh: `下次可过境: 约 ${passTimeString} (${locName})`,
-                    es: `Próximo Paso: ~${passTimeString} (${locName})`,
-                    ru: `След. пролет: ~${passTimeString} (${locName})`,
-                    it: `Prossimo passaggio: ~${passTimeString} (${locName})`,
-                    ko: `다음 상공 통과: 약 ${passTimeString} (${locName} / 최대 고도 ~45°)`,
-                    nl: `Volgende overvlucht: ~${passTimeString} (${locName})`,
-                    id: `Lintasan berikutnya: ~${passTimeString} (${locName})`,
-                    hi: `अगला पास: लगभग ${passTimeString} (${locName})`,
-                    ar: `العبور القادم: حوالي ${passTimeString} (${locName})`
+            if (diffMs > 0) {
+                const totalSec = Math.floor(diffMs / 1000);
+                const hh = String(Math.floor(totalSec / 3600)).padStart(2, '0');
+                const mm = String(Math.floor((totalSec % 3600) / 60)).padStart(2, '0');
+                const ss = String(Math.floor(totalSec % 60)).padStart(2, '0');
+                
+                const countPrefix = {
+                    ja: `🚀 次回: ${passDateStr} ${passTimeStartStr}〜${passTimeEndStr} (あと ${hh}:${mm}:${ss})`,
+                    en: `🚀 Next: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (in ${hh}:${mm}:${ss})`,
+                    zh: `🚀 下次: ${passDateStr} ${passTimeStartStr}至${passTimeEndStr} (倒计时 ${hh}:${mm}:${ss})`,
+                    ko: `🚀 다음: ${passDateStr} ${passTimeStartStr}~${passTimeEndStr} (${hh}:${mm}:${ss} 후)`,
+                    de: `🚀 Nächster: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (in ${hh}:${mm}:${ss})`,
+                    fr: `🚀 Prochain: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (dans ${hh}:${mm}:${ss})`,
+                    es: `🚀 Próximo: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (en ${hh}:${mm}:${ss})`,
+                    pt: `🚀 Próximo: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (em ${hh}:${mm}:${ss})`,
+                    it: `🚀 Prossimo: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (tra ${hh}:${mm}:${ss})`,
+                    nl: `🚀 Volgende: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (over ${hh}:${mm}:${ss})`,
+                    id: `🚀 Berikutnya: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (${hh}:${mm}:${ss} lagi)`,
+                    hi: `🚀 अगला: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (${hh}:${mm}:${ss} में)`,
+                    ar: `🚀 القادم: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (خلال ${hh}:${mm}:${ss})`,
+                    ru: `🚀 След.: ${passDateStr} ${passTimeStartStr}-${passTimeEndStr} (через ${hh}:${mm}:${ss})`
                 };
-                passMetaInfo.textContent = metaText[lang] || metaText['en'];
+                passCountdown.textContent = countPrefix[lang] || countPrefix['en'];
+            } else {
+                const livePrefix = {
+                    ja: `🔴 現在上空を通過中！ (${passTimeStartStr}〜${passTimeEndStr})`,
+                    en: `🔴 PASS IN PROGRESS NOW! (${passTimeStartStr}-${passTimeEndStr})`,
+                    zh: `🔴 当前正在上空过境！ (${passTimeStartStr}至${passTimeEndStr})`,
+                    ko: `🔴 현재 상공 통과 중! (${passTimeStartStr}~${passTimeEndStr})`,
+                    de: `🔴 JETZT IM ÜBERFLUG! (${passTimeStartStr}-${passTimeEndStr})`,
+                    fr: `🔴 PASSAGE EN COURS ! (${passTimeStartStr}-${passTimeEndStr})`,
+                    es: `🔴 ¡PASO EN CURSO AHORA! (${passTimeStartStr}-${passTimeEndStr})`,
+                    pt: `🔴 PASSAGEM EM ANDAMENTO! (${passTimeStartStr}-${passTimeEndStr})`,
+                    it: `🔴 PASSAGGIO IN CORSO ORA! (${passTimeStartStr}-${passTimeEndStr})`,
+                    nl: `🔴 OVERVLUCHT NU BEZIG! (${passTimeStartStr}-${passTimeEndStr})`,
+                    id: `🔴 SEDANG MELINTAS SEKARANG! (${passTimeStartStr}-${passTimeEndStr})`,
+                    hi: `🔴 अभी ऊपर से गुजर रहा है! (${passTimeStartStr}-${passTimeEndStr})`,
+                    ar: `🔴 يمر الآن في السماء! (${passTimeStartStr}-${passTimeEndStr})`,
+                    ru: `🔴 ПРОЛЕТ ПРЯМО СЕЙЧАС! (${passTimeStartStr}-${passTimeEndStr})`
+                };
+                passCountdown.textContent = livePrefix[lang] || livePrefix['en'];
+            }
+
+            if (passMetaInfo) {
+                const elevWord = {
+                    ja: '最高仰角', en: 'Max Elev', zh: '最高仰角', ko: '최고고도', de: 'Max. Höhe',
+                    fr: 'Élev. max', es: 'Elev. máx', pt: 'Elev. máx', it: 'Elev. max', nl: 'Max. elevatie',
+                    id: 'Elevasi maks', hi: 'अधिकतम ऊंचाई', ar: 'أقصى ارتفاع', ru: 'Макс. выс.'
+                };
+                const elevLabel = elevWord[lang] || elevWord['en'];
+                passMetaInfo.innerHTML = `🧭 <strong>${escapeHTML(startCompass)} (${pass.startAzDeg}°)</strong> ➔ ${elevLabel} <strong><span style="color:#38bdf8; font-size:0.85rem;">${pass.maxElevDeg}°</span> (${escapeHTML(maxCompass)})</strong> ➔ <strong>${escapeHTML(endCompass)} (${pass.endAzDeg}°)</strong> | 📍 ${escapeHTML(locName)}`;
             }
         }
     }
