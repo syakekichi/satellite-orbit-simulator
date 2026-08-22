@@ -6686,6 +6686,30 @@ function flyToSatellite(sat) {
 
     viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
 
+    const is2DMode = viewer.scene.mode === Cesium.SceneMode.SCENE2D || (toggle2D && toggle2D.checked);
+
+    if (is2DMode) {
+        // 2D World Map View: Smoothly pan and center camera over satellite's geodetic position without camera distortion
+        try {
+            const carto = Cesium.Cartographic.fromCartesian(sat.currentCartesian);
+            const lonDeg = Cesium.Math.toDegrees(carto.longitude);
+            const latDeg = Cesium.Math.toDegrees(carto.latitude);
+            
+            // Maintain a clean bird's-eye view height in 2D map
+            const currentHeight = viewer.camera.positionCartographic ? viewer.camera.positionCartographic.height : 22000000;
+            const targetHeight = Math.max(12000000, Math.min(currentHeight, 30000000));
+
+            viewer.camera.flyTo({
+                destination: Cesium.Cartesian3.fromDegrees(lonDeg, latDeg, targetHeight),
+                duration: 1.2
+            });
+        } catch (e) {
+            console.warn("2D FlyTo warning:", e);
+        }
+        return;
+    }
+
+    // 3D Globe Mode: Natural smooth orbital direction camera tracking
     const satPos = sat.currentCartesian;
     const nameUpper = sat.name.toUpperCase();
     
@@ -7417,8 +7441,18 @@ function setupEventListeners() {
     toggle2D.addEventListener('change', (e) => {
         if (e.target.checked) {
             viewer.scene.morphTo2D(1.0);
+            if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
+                setTimeout(() => {
+                    flyToSatellite(satellitesData[selectedSatIndex]);
+                }, 1100);
+            }
         } else {
             viewer.scene.morphTo3D(1.0);
+            if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
+                setTimeout(() => {
+                    flyToSatellite(satellitesData[selectedSatIndex]);
+                }, 1100);
+            }
         }
     });
 
