@@ -441,7 +441,7 @@
                 </div>
                 <div class="modal-tabs">
                     <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 Controls</button>
-                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 更新履歴</button>
+                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 v2.7 ملاحظات الإصدار</button>
                     <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ Disclaimer</button>
                     <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 Privacy Policy</button>
                     <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ About</button>
@@ -465,10 +465,27 @@
                     <div id="tabReleases" class="tab-content">
                         <h3 data-i18n="releaseTitle">📜 SatViewer3D 更新履歴・リリースノート</h3>
                         <div class="release-timeline" style="display:flex; flex-direction:column; gap:16px; margin-top:12px;">
+                            <!-- Version 2.7.0 -->
+                            <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 8px; padding: 14px 16px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.7.0 (Latest)</span>
+                                    <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-22</span>
+                                </div>
+                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel27Title">📡 مسار العبور السماوي & 💥 سحابة الحطام الفضائي العملاقة (2,200+ شظية)</h4>
+                                <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
+                                    <li data-i18n="rel27_1">📡 <strong>محرك التنبؤ الفلكي بالعبور SGP4/SEZ</strong>: يتنبأ بالتاريخ والوقت ومسار البوصلة ذي الـ 16 اتجاهاً مع عد تنازلي حي.</li>
+                                    <li data-i18n="rel27_2">💥 <strong>سحابة الحطام الفضائي العملاقة (2,200+ شظية)</strong>: إعداد مسبق جديد يعرض أكثر من 2,200 شظية تصادم حقيقية بسرعة 60 إطاراً/ث.</li>
+                                    <li data-i18n="rel27_3">🔮 <strong>رادار الاقتراب الشامل لـ 2,200 شظية</strong>: يحسب في الوقت الفعلي أقرب مسافات التلاقي ومخاطر التصادم خلال 24 ساعة.</li>
+                                    <li data-i18n="rel27_4">🗺️ <strong>تتبع كاميرا سلس في وضع خريطة العالم 2D</strong>: تثبيت الرؤية وتمركز الكاميرا أفقياً بسلاسة.</li>
+                                    <li data-i18n="rel27_5">🛡️ <strong>تعزيز الأمان ودعم اللغات المتعددة</strong>: تنقية مدخلات XSS وتحميل فوري للكرة الأرضية ثلاثية الأبعاد.</li>
+                                </ul>
+                            </div>
+
+
                             <!-- Version 2.6.0 -->
                             <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 8px; padding: 14px 16px;">
                                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.6.0 (Latest)</span>
+                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.6.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-22</span>
                                 </div>
                                 <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel26Title">🛰️ Michibiki 7-Sat Constellation Completion & Official Spacecraft Visuals Upgrade</h4>
@@ -579,7 +596,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260822_720"></script>
+    <script src="app.js?v=20260822_730"></script>
     
     </div>
 </body>
