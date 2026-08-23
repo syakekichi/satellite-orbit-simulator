@@ -223,6 +223,16 @@
                     <span data-i18n="secSelect">Select / Search Satellite</span>
                 </h2>
                 
+                                <!-- Smart Guide Popup Tooltip -->
+                <div id="satSelectGuideTooltip" class="sat-guide-tooltip">
+                    <div class="tooltip-pulse-dot"></div>
+                    <div class="tooltip-content">
+                        <div class="tooltip-title" data-i18n="tooltipGuideTitle">💡 위성을 선택하여 자유롭게 전환 가능!</div>
+                        <div class="tooltip-desc" data-i18n="tooltipGuideDesc">스타링크, 허블 우주망원경, 기상위성 히마와리 등을 선택·추적할 수 있습니다.</div>
+                    </div>
+                    <button id="closeGuideTooltipBtn" class="tooltip-close-btn" title="閉じる">&times;</button>
+                </div>
+                
                 <!-- Dropdown Selector -->
                 <div class="select-box">
                     <select id="satSelect" class="custom-select">
@@ -596,7 +606,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260822_730"></script>
+    <script src="app.js?v=20260824_100"></script>
     
     </div>
 </body>

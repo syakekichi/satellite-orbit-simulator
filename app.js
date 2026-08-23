@@ -630,6 +630,8 @@ function getSatDisplayName(name) {
 
 const TRANSLATIONS = {
     "ja": {
+        "tooltipGuideTitle": "💡 衛星をタップして切り替え可能！",
+        "tooltipGuideDesc": "スターリンク、ハッブル宇宙望遠鏡、気象衛星ひまわりなどを選択・追跡できます。",
 
         "appSubtitle": "リアルタイム3D人工衛星・宇宙デブリ軌道シミュレーター",
         "statCount": "追跡衛星数",
@@ -744,6 +746,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。"
     },
     "en": {
+        "tooltipGuideTitle": "💡 Switch & Track Any Satellite!",
+        "tooltipGuideDesc": "Select and track Starlink, Hubble, Himawari weather satellites, and more.",
 
         "appSubtitle": "Real-time 3D Satellite & Space Debris Orbit Simulator",
         "statCount": "Tracked Satellites",
@@ -858,6 +862,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "For inquiries and feedback, contact info@satviewer3d.com"
     },
     "de": {
+        "tooltipGuideTitle": "💡 Satellit auswählen & verfolgen!",
+        "tooltipGuideDesc": "Wählen und verfolgen Sie Starlink, Hubble, Wettersatelliten und mehr.",
 
         "appSubtitle": "Echtzeit-3D-Satelliten- und Weltraummüll-Orbitalsimulator",
         "statCount": "Verfolgte Satelliten",
@@ -972,6 +978,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Für Anfragen: info@satviewer3d.com"
     },
     "fr": {
+        "tooltipGuideTitle": "💡 Changez et suivez n'importe quel satellite !",
+        "tooltipGuideDesc": "Suivez Starlink, le télescope Hubble, les satellites météo et plus encore.",
 
         "appSubtitle": "Simulateur d'orbite de satellites et débris spatiaux 3D en temps réel",
         "statCount": "Satellites suivis",
@@ -1086,6 +1094,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Pour toute demande : info@satviewer3d.com"
     },
     "es": {
+        "tooltipGuideTitle": "💡 ¡Selecciona y rastrea cualquier satélite!",
+        "tooltipGuideDesc": "Rastrea Starlink, telescopio Hubble, satélites meteorológicos y más.",
 
         "appSubtitle": "Simulador de Órbitas 3D en Tiempo Real de Satélites y Basura Espacial",
         "statCount": "Satélites Rastreados",
@@ -1200,6 +1210,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para consultas: info@satviewer3d.com"
     },
     "pt": {
+        "tooltipGuideTitle": "💡 Selecione e rastreie qualquer satélite!",
+        "tooltipGuideDesc": "Rastreie Starlink, telescópio Hubble, satélites meteorológicos e muito mais.",
 
         "appSubtitle": "Simulador de Órbitas 3D em Tempo Real de Satélites e Lixo Espacial",
         "statCount": "Satélites Rastreados",
@@ -1314,6 +1326,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para dúvidas: info@satviewer3d.com"
     },
     "it": {
+        "tooltipGuideTitle": "💡 Seleziona e traccia qualsiasi satellite!",
+        "tooltipGuideDesc": "Traccia Starlink, il telescopio Hubble, i satelliti meteo e altro ancora.",
 
         "appSubtitle": "Simulatore di Orbite 3D in Tempo Reale di Satelliti e Detriti Spaziali",
         "statCount": "Satelliti Tracciati",
@@ -1428,6 +1442,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Per richieste: info@satviewer3d.com"
     },
     "ko": {
+        "tooltipGuideTitle": "💡 위성을 선택하여 자유롭게 전환 가능!",
+        "tooltipGuideDesc": "스타링크, 허블 우주망원경, 기상위성 히마와리 등을 선택·추적할 수 있습니다.",
 
         "appSubtitle": "실시간 3D 인공위성 및 우주 쓰레기 궤도 시뮬레이터",
         "statCount": "추적 위성 수",
@@ -1542,6 +1558,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다."
     },
     "nl": {
+        "tooltipGuideTitle": "💡 Wissel & volg elke gewenste satelliet!",
+        "tooltipGuideDesc": "Volg Starlink, de Hubble-telescoop, weersatellieten en meer.",
 
         "appSubtitle": "Realtime 3D Satelliet- en Ruimtepuin-orbitsimulator",
         "statCount": "Gevolgde Satellieten",
@@ -1656,6 +1674,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Voor vragen: info@satviewer3d.com"
     },
     "id": {
+        "tooltipGuideTitle": "💡 Pilih & Lacak Satelit Mana Pun!",
+        "tooltipGuideDesc": "Pilih dan lacak Starlink, teleskop Hubble, satelit cuaca, dan lainnya.",
 
         "appSubtitle": "Simulator Orbit Satelit & Sampah Antariksa 3D Real-Time",
         "statCount": "Satelit Terlacak",
@@ -1770,6 +1790,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com"
     },
     "hi": {
+        "tooltipGuideTitle": "💡 किसी भी उपग्रह को चुनें और ट्रैक करें!",
+        "tooltipGuideDesc": "स्टारलिंक, हबल टेलीस्कोप, मौसम उपग्रह और अन्य को ट्रैक करें।",
 
         "appSubtitle": "वास्तविक समय 3D कृत्रिम उपग्रह एवं अंतरिक्ष मलबा कक्षा सिम्युलेटर",
         "statCount": "ट्रैक किए गए उपग्रह",
@@ -1884,6 +1906,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com"
     },
     "ar": {
+        "tooltipGuideTitle": "💡 اختر وتتبع أي قمر صناعي!",
+        "tooltipGuideDesc": "اختر وتتبع ستارلينك وتلسكوب هابل وأقمار الطقس الصناعية والمزيد.",
 
         "appSubtitle": "محاكي مدارات الأقمار الصناعية والحطام الفضائي ثلاثي الأبعاد بالوقت الفعلي",
         "statCount": "الأقمار المتتبعة",
@@ -1998,6 +2022,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "للاستفسارات: info@satviewer3d.com"
     },
     "zh": {
+        "tooltipGuideTitle": "💡 点击可切换任意卫星！",
+        "tooltipGuideDesc": "自由选择并追踪星链(Starlink)、哈勃望远镜、向日葵气象卫星等。",
 
         "appSubtitle": "实时3D人造卫星与空间碎片轨道模拟器",
         "statCount": "追踪卫星总数",
@@ -2112,6 +2138,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com"
     },
     "ru": {
+        "tooltipGuideTitle": "💡 Выбирайте и отслеживайте любой спутник!",
+        "tooltipGuideDesc": "Отслеживайте Starlink, телескоп Хаббл, метеоспутники и многое другое.",
 
 
 
@@ -3904,7 +3932,24 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
         initCesiumViewer();
         setupEventListeners();
-        loadMajorSatellitesPreset();
+        loadMajorSatellitesPreset(true);
+
+    // Initialize Smart Guide Tooltip dismiss listeners
+    const guideTooltip = document.getElementById('satSelectGuideTooltip');
+    const closeTooltipBtn = document.getElementById('closeGuideTooltipBtn');
+    if (closeTooltipBtn && guideTooltip) {
+        closeTooltipBtn.addEventListener('click', () => {
+            guideTooltip.classList.add('fade-out');
+            setTimeout(() => guideTooltip.style.display = 'none', 300);
+        });
+    }
+    if (satSelect && guideTooltip) {
+        satSelect.addEventListener('change', () => {
+            guideTooltip.classList.add('fade-out');
+            setTimeout(() => guideTooltip.style.display = 'none', 300);
+        });
+    }
+
         applyLanguage(currentLang);
 
         const yr = new Date().getFullYear();
@@ -6140,7 +6185,7 @@ function updateDropdownOptions() {
 /**
  * Load Major Satellites Built-in Preset
  */
-function loadMajorSatellitesPreset() {
+function loadMajorSatellitesPreset(autoSelectIss = true) {
     showLoading("主要・有名衛星プリセットを読み込んでいます...");
     satellitesData = parseTLE(MAJOR_SATELLITES_TLE);
     statCount.textContent = satellitesData.length.toLocaleString();
@@ -6152,6 +6197,16 @@ function loadMajorSatellitesPreset() {
         sourceStatusBadge.style.color = '#f59e0b';
     }
     hideLoading();
+
+    // Auto-select ISS (ZARYA) on default initial startup for instant engaging 3D orbit visualization!
+    if (autoSelectIss && satellitesData && satellitesData.length > 0) {
+        const issIndex = satellitesData.findIndex(s => s.name.toUpperCase().includes('ISS (ZARYA)') || s.name.toUpperCase().includes('ISS'));
+        if (issIndex >= 0) {
+            setTimeout(() => {
+                selectSatellite(issIndex);
+            }, 300);
+        }
+    }
 }
 
 /**
@@ -7807,7 +7862,24 @@ function setupEventListeners() {
 
     loadMajorBtn.addEventListener('click', () => {
         setActivePresetBtn(loadMajorBtn);
-        loadMajorSatellitesPreset();
+        loadMajorSatellitesPreset(true);
+
+    // Initialize Smart Guide Tooltip dismiss listeners
+    const guideTooltip = document.getElementById('satSelectGuideTooltip');
+    const closeTooltipBtn = document.getElementById('closeGuideTooltipBtn');
+    if (closeTooltipBtn && guideTooltip) {
+        closeTooltipBtn.addEventListener('click', () => {
+            guideTooltip.classList.add('fade-out');
+            setTimeout(() => guideTooltip.style.display = 'none', 300);
+        });
+    }
+    if (satSelect && guideTooltip) {
+        satSelect.addEventListener('change', () => {
+            guideTooltip.classList.add('fade-out');
+            setTimeout(() => guideTooltip.style.display = 'none', 300);
+        });
+    }
+
     });
 
     loadLocalBtn.addEventListener('click', () => {

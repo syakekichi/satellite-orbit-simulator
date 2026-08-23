@@ -227,6 +227,16 @@
                     <span data-i18n="secSelect">Selecionar / Buscar satélite</span>
                 </h2>
                 
+                                <!-- Smart Guide Popup Tooltip -->
+                <div id="satSelectGuideTooltip" class="sat-guide-tooltip">
+                    <div class="tooltip-pulse-dot"></div>
+                    <div class="tooltip-content">
+                        <div class="tooltip-title" data-i18n="tooltipGuideTitle">💡 Selecione e rastreie qualquer satélite!</div>
+                        <div class="tooltip-desc" data-i18n="tooltipGuideDesc">Rastreie Starlink, telescópio Hubble, satélites meteorológicos e muito mais.</div>
+                    </div>
+                    <button id="closeGuideTooltipBtn" class="tooltip-close-btn" title="閉じる">&times;</button>
+                </div>
+                
                 <!-- Dropdown Selector -->
                 <div class="select-box">
                     <select id="satSelect" class="custom-select">
@@ -600,7 +610,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260822_730"></script>
+    <script src="app.js?v=20260824_100"></script>
     
     </div>
 </body>

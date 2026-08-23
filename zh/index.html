@@ -223,6 +223,16 @@
                     <span data-i18n="secSelect">选择 / 搜索卫星</span>
                 </h2>
                 
+                                <!-- Smart Guide Popup Tooltip -->
+                <div id="satSelectGuideTooltip" class="sat-guide-tooltip">
+                    <div class="tooltip-pulse-dot"></div>
+                    <div class="tooltip-content">
+                        <div class="tooltip-title" data-i18n="tooltipGuideTitle">💡 点击可切换任意卫星！</div>
+                        <div class="tooltip-desc" data-i18n="tooltipGuideDesc">自由选择并追踪星链(Starlink)、哈勃望远镜、向日葵气象卫星等。</div>
+                    </div>
+                    <button id="closeGuideTooltipBtn" class="tooltip-close-btn" title="閉じる">&times;</button>
+                </div>
+                
                 <!-- Dropdown Selector -->
                 <div class="select-box">
                     <select id="satSelect" class="custom-select">
@@ -596,7 +606,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260822_730"></script>
+    <script src="app.js?v=20260824_100"></script>
     
     </div>
 </body>
