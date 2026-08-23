@@ -630,6 +630,8 @@ function getSatDisplayName(name) {
 
 const TRANSLATIONS = {
     "ja": {
+        "zoomHintTitle": "🔍 マウスホイール / ピンチでズーム",
+        "zoomHintSub": "スクロールして地球全体を見渡せます",
         "loadTrain": "🚂 スターリンク・トレイン (最新打ち上げ列・24機)",
         "tooltipGuideTitle": "💡 衛星をタップして切り替え可能！",
         "tooltipGuideDesc": "スターリンク、ハッブル宇宙望遠鏡、気象衛星ひまわりなどを選択・追跡できます。",
@@ -747,6 +749,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。"
     },
     "en": {
+        "zoomHintTitle": "🔍 Mouse Wheel / Pinch to Zoom",
+        "zoomHintSub": "Scroll to zoom out and view the full Earth",
         "loadTrain": "🚂 Starlink Train (Latest Launch Chain · 24 Sats)",
         "tooltipGuideTitle": "💡 Switch & Track Any Satellite!",
         "tooltipGuideDesc": "Select and track Starlink, Hubble, Himawari weather satellites, and more.",
@@ -864,6 +868,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "For inquiries and feedback, contact info@satviewer3d.com"
     },
     "de": {
+        "zoomHintTitle": "🔍 Mausrad / Zoomen mit Fingern",
+        "zoomHintSub": "Rollen für globale Erdansicht",
         "loadTrain": "🚂 Starlink-Zug (Neueste Startkette · 24 Satelliten)",
         "tooltipGuideTitle": "💡 Satellit auswählen & verfolgen!",
         "tooltipGuideDesc": "Wählen und verfolgen Sie Starlink, Hubble, Wettersatelliten und mehr.",
@@ -981,6 +987,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Für Anfragen: info@satviewer3d.com"
     },
     "fr": {
+        "zoomHintTitle": "🔍 Molette / Pincer pour zoomer",
+        "zoomHintSub": "Faites défiler pour voir la Terre entière",
         "loadTrain": "🚂 Train Starlink (Chaîne de lancement · 24 sat.)",
         "tooltipGuideTitle": "💡 Changez et suivez n'importe quel satellite !",
         "tooltipGuideDesc": "Suivez Starlink, le télescope Hubble, les satellites météo et plus encore.",
@@ -1098,6 +1106,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Pour toute demande : info@satviewer3d.com"
     },
     "es": {
+        "zoomHintTitle": "🔍 Rueda del ratón / Pellizcar para zoom",
+        "zoomHintSub": "Haz zoom para ver la Tierra completa",
         "loadTrain": "🚂 Tren Starlink (Cadena de lanzamiento · 24 satélites)",
         "tooltipGuideTitle": "💡 ¡Selecciona y rastrea cualquier satélite!",
         "tooltipGuideDesc": "Rastrea Starlink, telescopio Hubble, satélites meteorológicos y más.",
@@ -1215,6 +1225,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para consultas: info@satviewer3d.com"
     },
     "pt": {
+        "zoomHintTitle": "🔍 Roda do mouse / Pinça para zoom",
+        "zoomHintSub": "Role para ver a Terra inteira",
         "loadTrain": "🚂 Trem Starlink (Cadeia de lançamento · 24 satélites)",
         "tooltipGuideTitle": "💡 Selecione e rastreie qualquer satélite!",
         "tooltipGuideDesc": "Rastreie Starlink, telescópio Hubble, satélites meteorológicos e muito mais.",
@@ -1332,6 +1344,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para dúvidas: info@satviewer3d.com"
     },
     "it": {
+        "zoomHintTitle": "🔍 Rotellina del mouse / Pizzica per zoom",
+        "zoomHintSub": "Scorri per vedere la Terra intera",
         "loadTrain": "🚂 Treno Starlink (Catena di lancio · 24 satelliti)",
         "tooltipGuideTitle": "💡 Seleziona e traccia qualsiasi satellite!",
         "tooltipGuideDesc": "Traccia Starlink, il telescopio Hubble, i satelliti meteo e altro ancora.",
@@ -1449,6 +1463,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Per richieste: info@satviewer3d.com"
     },
     "ko": {
+        "zoomHintTitle": "🔍 마우스 휠 / 핀치로 줌 조절",
+        "zoomHintSub": "휠을 굴려 지구 전체를 한눈에 둘러보세요",
         "loadTrain": "🚂 스타링크 트레인 (최신 발사 열차 · 24기)",
         "tooltipGuideTitle": "💡 위성을 선택하여 자유롭게 전환 가능!",
         "tooltipGuideDesc": "스타링크, 허블 우주망원경, 기상위성 히마와리 등을 선택·추적할 수 있습니다.",
@@ -1566,6 +1582,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다."
     },
     "nl": {
+        "zoomHintTitle": "🔍 Muiswiel / Knijpen om te zoomen",
+        "zoomHintSub": "Scrol om de hele aarde te zien",
         "loadTrain": "🚂 Starlink-trein (Nieuwste lanceerketen · 24 sat.)",
         "tooltipGuideTitle": "💡 Wissel & volg elke gewenste satelliet!",
         "tooltipGuideDesc": "Volg Starlink, de Hubble-telescoop, weersatellieten en meer.",
@@ -1683,6 +1701,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Voor vragen: info@satviewer3d.com"
     },
     "id": {
+        "zoomHintTitle": "🔍 Roda Mouse / Cubit untuk Zoom",
+        "zoomHintSub": "Gulir untuk melihat Bumi secara penuh",
         "loadTrain": "🚂 Kereta Starlink (Rantai Peluncuran Baru · 24 Satelit)",
         "tooltipGuideTitle": "💡 Pilih & Lacak Satelit Mana Pun!",
         "tooltipGuideDesc": "Pilih dan lacak Starlink, teleskop Hubble, satelit cuaca, dan lainnya.",
@@ -1800,6 +1820,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com"
     },
     "hi": {
+        "zoomHintTitle": "🔍 माउस व्हील / पिंच से ज़ूम करें",
+        "zoomHintSub": "पूरी पृथ्वी को देखने के लिए स्क्रॉल करें",
         "loadTrain": "🚂 स्टारलिंक ट्रेन (नवीनतम प्रक्षेपण श्रृंखला · 24 उपग्रह)",
         "tooltipGuideTitle": "💡 किसी भी उपग्रह को चुनें और ट्रैक करें!",
         "tooltipGuideDesc": "स्टारलिंक, हबल टेलीस्कोप, मौसम उपग्रह और अन्य को ट्रैक करें।",
@@ -1917,6 +1939,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com"
     },
     "ar": {
+        "zoomHintTitle": "🔍 عجلة الفأرة / القرص للتكبير",
+        "zoomHintSub": "قم بالتمرير لمشاهدة الأرض بأكملها",
         "loadTrain": "🚂 قطار ستارلينك (سلسلة الإطلاق الأخيرة · 24 قمراً)",
         "tooltipGuideTitle": "💡 اختر وتتبع أي قمر صناعي!",
         "tooltipGuideDesc": "اختر وتتبع ستارلينك وتلسكوب هابل وأقمار الطقس الصناعية والمزيد.",
@@ -2034,6 +2058,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "للاستفسارات: info@satviewer3d.com"
     },
     "zh": {
+        "zoomHintTitle": "🔍 滚轮 / 双指缩放视野",
+        "zoomHintSub": "滚动鼠标可缩放并纵览地球全景",
         "loadTrain": "🚂 星链列车 Starlink Train (最新发射链 · 24星)",
         "tooltipGuideTitle": "💡 点击可切换任意卫星！",
         "tooltipGuideDesc": "自由选择并追踪星链(Starlink)、哈勃望远镜、向日葵气象卫星等。",
@@ -2151,6 +2177,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com"
     },
     "ru": {
+        "zoomHintTitle": "🔍 Колесико мыши / Жест для масштаба",
+        "zoomHintSub": "Прокрутите, чтобы увидеть всю Землю",
         "loadTrain": "🚂 Поезд Старлинк (Цепочка запуска · 24 спутника)",
         "tooltipGuideTitle": "💡 Выбирайте и отслеживайте любой спутник!",
         "tooltipGuideDesc": "Отслеживайте Starlink, телескоп Хаббл, метеоспутники и многое другое.",
@@ -4063,6 +4091,28 @@ document.addEventListener('DOMContentLoaded', () => {
         initCesiumViewer();
         setupEventListeners();
         loadMajorSatellitesPreset(true);
+
+    
+    // Floating Zoom Hint Toast: Auto-dismiss on wheel, touch, or after 6 seconds
+    const zoomToast = document.getElementById('zoomHintToast');
+    if (zoomToast) {
+        let isDismissed = false;
+        const dismissToast = () => {
+            if (isDismissed) return;
+            isDismissed = true;
+            zoomToast.classList.add('fade-out');
+            setTimeout(() => {
+                zoomToast.style.display = 'none';
+            }, 600);
+        };
+
+        // Dismiss automatically on wheel or touch
+        window.addEventListener('wheel', dismissToast, { passive: true, once: true });
+        window.addEventListener('touchmove', dismissToast, { passive: true, once: true });
+        
+        // Auto-dismiss after 6.5 seconds
+        setTimeout(dismissToast, 6500);
+    }
 
     // Initialize Smart Guide Tooltip dismiss listeners
     const guideTooltip = document.getElementById('satSelectGuideTooltip');
@@ -8089,6 +8139,28 @@ function setupEventListeners() {
     loadMajorBtn.addEventListener('click', () => {
         setActivePresetBtn(loadMajorBtn);
         loadMajorSatellitesPreset(true);
+
+    
+    // Floating Zoom Hint Toast: Auto-dismiss on wheel, touch, or after 6 seconds
+    const zoomToast = document.getElementById('zoomHintToast');
+    if (zoomToast) {
+        let isDismissed = false;
+        const dismissToast = () => {
+            if (isDismissed) return;
+            isDismissed = true;
+            zoomToast.classList.add('fade-out');
+            setTimeout(() => {
+                zoomToast.style.display = 'none';
+            }, 600);
+        };
+
+        // Dismiss automatically on wheel or touch
+        window.addEventListener('wheel', dismissToast, { passive: true, once: true });
+        window.addEventListener('touchmove', dismissToast, { passive: true, once: true });
+        
+        // Auto-dismiss after 6.5 seconds
+        setTimeout(dismissToast, 6500);
+    }
 
     // Initialize Smart Guide Tooltip dismiss listeners
     const guideTooltip = document.getElementById('satSelectGuideTooltip');
