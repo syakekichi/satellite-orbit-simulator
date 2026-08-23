@@ -630,6 +630,10 @@ function getSatDisplayName(name) {
 
 const TRANSLATIONS = {
     "ja": {
+        "zoomHintPcTitle": "🔍 マウスホイールでズーム",
+        "zoomHintPcSub": "スクロールして地球全体を見渡せます",
+        "zoomHintTouchTitle": "🔍 2本指ピンチでズーム",
+        "zoomHintTouchSub": "画面をつまんで地球全体を見渡せます",
         "zoomHintTitle": "🔍 マウスホイール / ピンチでズーム",
         "zoomHintSub": "スクロールして地球全体を見渡せます",
         "loadTrain": "🚂 スターリンク・トレイン (最新打ち上げ列・24機)",
@@ -749,6 +753,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。"
     },
     "en": {
+        "zoomHintPcTitle": "🔍 Mouse Wheel to Zoom",
+        "zoomHintPcSub": "Scroll to zoom out and view the full Earth",
+        "zoomHintTouchTitle": "🔍 Pinch with 2 Fingers to Zoom",
+        "zoomHintTouchSub": "Pinch screen to view the full Earth",
         "zoomHintTitle": "🔍 Mouse Wheel / Pinch to Zoom",
         "zoomHintSub": "Scroll to zoom out and view the full Earth",
         "loadTrain": "🚂 Starlink Train (Latest Launch Chain · 24 Sats)",
@@ -868,6 +876,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "For inquiries and feedback, contact info@satviewer3d.com"
     },
     "de": {
+        "zoomHintPcTitle": "🔍 Mausrad zum Zoomen",
+        "zoomHintPcSub": "Rollen für globale Erdansicht",
+        "zoomHintTouchTitle": "🔍 Mit 2 Fingern zoomen",
+        "zoomHintTouchSub": "Zusammenziehen für globale Erdansicht",
         "zoomHintTitle": "🔍 Mausrad / Zoomen mit Fingern",
         "zoomHintSub": "Rollen für globale Erdansicht",
         "loadTrain": "🚂 Starlink-Zug (Neueste Startkette · 24 Satelliten)",
@@ -987,6 +999,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Für Anfragen: info@satviewer3d.com"
     },
     "fr": {
+        "zoomHintPcTitle": "🔍 Molette pour zoomer",
+        "zoomHintPcSub": "Faites défiler pour voir la Terre entière",
+        "zoomHintTouchTitle": "🔍 Pincez avec 2 doigts pour zoomer",
+        "zoomHintTouchSub": "Pincez l'écran pour voir la Terre entière",
         "zoomHintTitle": "🔍 Molette / Pincer pour zoomer",
         "zoomHintSub": "Faites défiler pour voir la Terre entière",
         "loadTrain": "🚂 Train Starlink (Chaîne de lancement · 24 sat.)",
@@ -1106,6 +1122,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Pour toute demande : info@satviewer3d.com"
     },
     "es": {
+        "zoomHintPcTitle": "🔍 Rueda del ratón para zoom",
+        "zoomHintPcSub": "Haz scroll para ver la Tierra completa",
+        "zoomHintTouchTitle": "🔍 Pellizca con 2 dedos para zoom",
+        "zoomHintTouchSub": "Pellizca la pantalla para ver la Tierra completa",
         "zoomHintTitle": "🔍 Rueda del ratón / Pellizcar para zoom",
         "zoomHintSub": "Haz zoom para ver la Tierra completa",
         "loadTrain": "🚂 Tren Starlink (Cadena de lanzamiento · 24 satélites)",
@@ -1225,6 +1245,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para consultas: info@satviewer3d.com"
     },
     "pt": {
+        "zoomHintPcTitle": "🔍 Roda do mouse para zoom",
+        "zoomHintPcSub": "Role para ver a Terra inteira",
+        "zoomHintTouchTitle": "🔍 Pinça com 2 dedos para zoom",
+        "zoomHintTouchSub": "Faça o gesto de pinça para ver a Terra inteira",
         "zoomHintTitle": "🔍 Roda do mouse / Pinça para zoom",
         "zoomHintSub": "Role para ver a Terra inteira",
         "loadTrain": "🚂 Trem Starlink (Cadeia de lançamento · 24 satélites)",
@@ -1344,6 +1368,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para dúvidas: info@satviewer3d.com"
     },
     "it": {
+        "zoomHintPcTitle": "🔍 Rotellina del mouse per zoom",
+        "zoomHintPcSub": "Scorri per vedere la Terra intera",
+        "zoomHintTouchTitle": "🔍 Pizzica con 2 dita per zoom",
+        "zoomHintTouchSub": "Pizzica lo schermo per vedere la Terra intera",
         "zoomHintTitle": "🔍 Rotellina del mouse / Pizzica per zoom",
         "zoomHintSub": "Scorri per vedere la Terra intera",
         "loadTrain": "🚂 Treno Starlink (Catena di lancio · 24 satelliti)",
@@ -1463,6 +1491,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Per richieste: info@satviewer3d.com"
     },
     "ko": {
+        "zoomHintPcTitle": "🔍 마우스 휠로 줌 조절",
+        "zoomHintPcSub": "휠을 굴려 지구 전체를 둘러보세요",
+        "zoomHintTouchTitle": "🔍 두 손가락 핀치로 줌 조절",
+        "zoomHintTouchSub": "화면을 줌아웃하여 지구 전체를 둘러보세요",
         "zoomHintTitle": "🔍 마우스 휠 / 핀치로 줌 조절",
         "zoomHintSub": "휠을 굴려 지구 전체를 한눈에 둘러보세요",
         "loadTrain": "🚂 스타링크 트레인 (최신 발사 열차 · 24기)",
@@ -1582,6 +1614,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다."
     },
     "nl": {
+        "zoomHintPcTitle": "🔍 Muiswiel om te zoomen",
+        "zoomHintPcSub": "Scrol om de hele aarde te zien",
+        "zoomHintTouchTitle": "🔍 Knijpen met 2 vingers om te zoomen",
+        "zoomHintTouchSub": "Knijp in het scherm om de hele aarde te zien",
         "zoomHintTitle": "🔍 Muiswiel / Knijpen om te zoomen",
         "zoomHintSub": "Scrol om de hele aarde te zien",
         "loadTrain": "🚂 Starlink-trein (Nieuwste lanceerketen · 24 sat.)",
@@ -1701,6 +1737,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Voor vragen: info@satviewer3d.com"
     },
     "id": {
+        "zoomHintPcTitle": "🔍 Roda Mouse untuk Zoom",
+        "zoomHintPcSub": "Gulir untuk melihat Bumi secara penuh",
+        "zoomHintTouchTitle": "🔍 Cubit dengan 2 Jari untuk Zoom",
+        "zoomHintTouchSub": "Cubit layar untuk melihat Bumi secara penuh",
         "zoomHintTitle": "🔍 Roda Mouse / Cubit untuk Zoom",
         "zoomHintSub": "Gulir untuk melihat Bumi secara penuh",
         "loadTrain": "🚂 Kereta Starlink (Rantai Peluncuran Baru · 24 Satelit)",
@@ -1820,6 +1860,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com"
     },
     "hi": {
+        "zoomHintPcTitle": "🔍 माउस व्हील से ज़ूम करें",
+        "zoomHintPcSub": "पूरी पृथ्वी को देखने के लिए स्क्रॉल करें",
+        "zoomHintTouchTitle": "🔍 2 उंगलियों से पिंच करके ज़ूम करें",
+        "zoomHintTouchSub": "पूरी पृथ्वी को देखने के लिए स्क्रीन पिंच करें",
         "zoomHintTitle": "🔍 माउस व्हील / पिंच से ज़ूम करें",
         "zoomHintSub": "पूरी पृथ्वी को देखने के लिए स्क्रॉल करें",
         "loadTrain": "🚂 स्टारलिंक ट्रेन (नवीनतम प्रक्षेपण श्रृंखला · 24 उपग्रह)",
@@ -1939,6 +1983,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com"
     },
     "ar": {
+        "zoomHintPcTitle": "🔍 عجلة الفأرة للتكبير",
+        "zoomHintPcSub": "قم بالتمرير لمشاهدة الأرض بأكملها",
+        "zoomHintTouchTitle": "🔍 اقرص بإصبعين للتكبير",
+        "zoomHintTouchSub": "اقرص الشاشة لمشاهدة الأرض بأكملها",
         "zoomHintTitle": "🔍 عجلة الفأرة / القرص للتكبير",
         "zoomHintSub": "قم بالتمرير لمشاهدة الأرض بأكملها",
         "loadTrain": "🚂 قطار ستارلينك (سلسلة الإطلاق الأخيرة · 24 قمراً)",
@@ -2058,6 +2106,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "للاستفسارات: info@satviewer3d.com"
     },
     "zh": {
+        "zoomHintPcTitle": "🔍 鼠标滚轮缩放视野",
+        "zoomHintPcSub": "滚动鼠标可纵览地球全景",
+        "zoomHintTouchTitle": "🔍 双指捏合缩放视野",
+        "zoomHintTouchSub": "双指捏合屏幕可纵览地球全景",
         "zoomHintTitle": "🔍 滚轮 / 双指缩放视野",
         "zoomHintSub": "滚动鼠标可缩放并纵览地球全景",
         "loadTrain": "🚂 星链列车 Starlink Train (最新发射链 · 24星)",
@@ -2177,6 +2229,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com"
     },
     "ru": {
+        "zoomHintPcTitle": "🔍 Колесико мыши для масштаба",
+        "zoomHintPcSub": "Прокрутите, чтобы увидеть всю Землю",
+        "zoomHintTouchTitle": "🔍 Жест двумя пальцами для масштаба",
+        "zoomHintTouchSub": "Сведите пальцы, чтобы увидеть всю Землю",
         "zoomHintTitle": "🔍 Колесико мыши / Жест для масштаба",
         "zoomHintSub": "Прокрутите, чтобы увидеть всю Землю",
         "loadTrain": "🚂 Поезд Старлинк (Цепочка запуска · 24 спутника)",
@@ -2301,6 +2357,44 @@ const TRANSLATIONS = {
     }
 };
 
+
+/**
+ * Guaranteed Device-Adaptive Zoom Hint Toast Manager (Differentiates PC vs Mobile Touch)
+ */
+function updateZoomHintToast() {
+    const zoomToast = document.getElementById('zoomHintToast');
+    if (!zoomToast) return;
+
+    // Robust Touch Device Detection: Handles Mobile Phones, Tablets, Touchscreens, and Viewport size
+    const isTouchDevice = ('ontouchstart' in window) || 
+                          (navigator.maxTouchPoints > 0) || 
+                          (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || 
+                          (window.innerWidth <= 1024);
+
+    const lang = window.currentLang || currentLang || 'ja';
+    const d = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[lang]) ? TRANSLATIONS[lang] : {};
+
+    const titleElem = zoomToast.querySelector('.zoom-hint-title');
+    const subElem = zoomToast.querySelector('.zoom-hint-sub');
+    const iconElem = zoomToast.querySelector('.zoom-hint-icon');
+
+    if (isTouchDevice) {
+        // Mobile Touch Pinch Layout
+        if (titleElem) titleElem.textContent = d.zoomHintTouchTitle || "🔍 2本指ピンチでズーム";
+        if (subElem) subElem.textContent = d.zoomHintTouchSub || "画面をつまんで地球全体を見渡せます";
+        if (iconElem) {
+            iconElem.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg>`;
+        }
+    } else {
+        // PC Mouse Wheel Layout
+        if (titleElem) titleElem.textContent = d.zoomHintPcTitle || "🔍 マウスホイールでズーム";
+        if (subElem) subElem.textContent = d.zoomHintPcSub || "スクロールして地球全体を見渡せます";
+        if (iconElem) {
+            iconElem.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none"><rect x="6" y="3" width="12" height="18" rx="6"></rect><line x1="12" y1="7" x2="12" y2="11" stroke="#38bdf8" stroke-width="2.5"></line></svg>`;
+        }
+    }
+}
+
 function applyLanguage(lang) {
     window.currentLang = lang;
     currentLang = lang;
@@ -2389,6 +2483,7 @@ function applyLanguage(lang) {
     if (typeof updateDropdownOptions === 'function') {
         updateDropdownOptions();
     }
+    updateZoomHintToast();
 
     // Dynamic Live Re-render for Selected Celestial Body if open
     if (typeof selectedCelestialId !== 'undefined' && selectedCelestialId) {
@@ -4093,7 +4188,8 @@ document.addEventListener('DOMContentLoaded', () => {
         loadMajorSatellitesPreset(true);
 
     
-    // Floating Zoom Hint Toast: Auto-dismiss on wheel, touch, or after 6 seconds
+    // Device-Adaptive Floating Zoom Hint Toast (Auto-Dismiss)
+    updateZoomHintToast();
     const zoomToast = document.getElementById('zoomHintToast');
     if (zoomToast) {
         let isDismissed = false;
@@ -4106,11 +4202,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 600);
         };
 
-        // Dismiss automatically on wheel or touch
         window.addEventListener('wheel', dismissToast, { passive: true, once: true });
         window.addEventListener('touchmove', dismissToast, { passive: true, once: true });
+        window.addEventListener('touchstart', dismissToast, { passive: true, once: true });
         
-        // Auto-dismiss after 6.5 seconds
         setTimeout(dismissToast, 6500);
     }
 
@@ -8141,7 +8236,8 @@ function setupEventListeners() {
         loadMajorSatellitesPreset(true);
 
     
-    // Floating Zoom Hint Toast: Auto-dismiss on wheel, touch, or after 6 seconds
+    // Device-Adaptive Floating Zoom Hint Toast (Auto-Dismiss)
+    updateZoomHintToast();
     const zoomToast = document.getElementById('zoomHintToast');
     if (zoomToast) {
         let isDismissed = false;
@@ -8154,11 +8250,10 @@ function setupEventListeners() {
             }, 600);
         };
 
-        // Dismiss automatically on wheel or touch
         window.addEventListener('wheel', dismissToast, { passive: true, once: true });
         window.addEventListener('touchmove', dismissToast, { passive: true, once: true });
+        window.addEventListener('touchstart', dismissToast, { passive: true, once: true });
         
-        // Auto-dismiss after 6.5 seconds
         setTimeout(dismissToast, 6500);
     }
 
