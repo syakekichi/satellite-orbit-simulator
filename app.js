@@ -2743,6 +2743,24 @@ const sourceStatusBadge = document.getElementById('sourceStatusBadge');
 
 // High Quality Royalty-Free & Public Domain Satellite Images (Local High-Speed Cache)
 const SATELLITE_IMAGES = {
+    "STARLINK-G10": {
+        "country": "🇺🇸 アメリカ (SpaceX 最新トレイン編隊)",
+        "country_en": "🇺🇸 USA (SpaceX Latest Train Chain)",
+        "ja": "【🚀 最新打上 スターリンク・トレイン (Starlink Group 10-1)】\n■ 打上日時: 2026年8月22日 14:18:00 UTC (日本時間 23:18:00)\n■ 打上ロケット: SpaceX Falcon 9 Block 5 (フロリダ州 SLC-40)\n■ 展開編隊: 24機等間隔トレイン配置 (軌道高度 約340km / 秒速7.7km)\n■ 軌道傾斜角: 53.2度\n■ 観測特徴: ロケットから放出された直後のみ夜空に現れる、24機の光の点が数珠つなぎに一列で疾走する『銀河鉄道』現象。",
+        "en": "[🚀 Latest Launch: Starlink Train (Group 10-1 Chain)]\n■ Launch Time: Aug 22, 2026 14:18:00 UTC (23:18 JST)\n■ Rocket: SpaceX Falcon 9 Block 5 (Cape Canaveral SLC-40)\n■ Formation: 24-Satellite Luminous Deployment Chain (Alt ~340 km / 7.7 km/s)\n■ Inclination: 53.2°\n■ Visual Phenomenon: Iconic 'satellite train' marching across the night sky shortly after rocket deployment.",
+        "zh": "【🚀 最新发射：星链列车 Starlink Train (Group 10-1)】\n■ 发射时间：2026年8月22日 14:18:00 UTC (北京时间 22:18)\n■ 运载火箭：SpaceX 猎鹰9号 (卡纳维拉尔角 SLC-40)\n■ 编队构型：24星等间距列车队形 (轨道高度约340km / 速度7.7km/s)\n■ 轨道倾角：53.2°\n■ 视觉特征：火箭发射后数日内在夜空中呈现为一条璀璨的“银河铁道”光珠长龙。",
+        "es": "【🚀 Último lanzamiento: Tren Starlink (Grupo 10-1)】\n■ Fecha de lanzamiento: 22 de agosto de 2026, 14:18:00 UTC\n■ Cohete: SpaceX Falcon 9 (Cabo Cañaveral SLC-40)\n■ Formación: Cadena de 24 satélites (Alt ~340 km / 7,7 km/s)\n■ Inclinación: 53,2°\n■ Fenómeno: Espectacular tren luminoso visible en el cielo nocturno.",
+        "fr": "【🚀 Dernier lancement : Train Starlink (Groupe 10-1)】\n■ Date de lancement : 22 août 2026 à 14:18:00 UTC\n■ Fusée : SpaceX Falcon 9 (Cap Canaveral SLC-40)\n■ Formation : Chaîne de 24 satellites (Alt ~340 km / 7,7 km/s)\n■ Inclinaison : 53,2°\n■ Phénomène : Chapelet lumineux spectaculaire traversant le ciel nocturne.",
+        "de": "【🚀 Neuester Start: Starlink-Zug (Gruppe 10-1)】\n■ Startzeit: 22. August 2026, 14:18:00 UTC\n■ Rakete: SpaceX Falcon 9 (Cape Canaveral SLC-40)\n■ Formation: 24-Satelliten-Perlenkette (Höhe ~340 km / 7,7 km/s)\n■ Inklination: 53,2°\n■ Phänomen: Faszinierender Perlschnur-Effekt am Nachthimmel.",
+        "ru": "【🚀 Последний запуск: Поезд Старлинк (Группа 10-1)】\n■ Время запуска: 22 августа 2026 г., 14:18:00 UTC\n■ Ракета: SpaceX Falcon 9 (Мыс Канаверал SLC-40)\n■ Структура: Цепочка из 24 спутников (Высота ~340 км / 7,7 км/с)\n■ Наклонение: 53,2°\n■ Явление: Зрелищный светящийся поезд из спутников в ночном небе.",
+        "pt": "【🚀 Último lançamento: Trem Starlink (Grupo 10-1)】\n■ Hora de lançamento: 22 de agosto de 2026, 14:18:00 UTC\n■ Foguete: SpaceX Falcon 9 (Cabo Canaveral SLC-40)\n■ Formação: Trem luminoso de 24 satélites (Alt ~340 km / 7,7 km/s)\n■ Inclinação: 53,2°\n■ Fenômeno: Trem de luzes estelar visível nos primeiros dias após o lançamento.",
+        "it": "【🚀 Ultimo lancio: Treno Starlink (Gruppo 10-1)】\n■ Orario di lancio: 22 agosto 2026, 14:18:00 UTC\n■ Vettore: SpaceX Falcon 9 (Cape Canaveral SLC-40)\n■ Formazione: Catena luminosa di 24 satelliti (Alt ~340 km / 7,7 km/s)\n■ Inclinazione: 53,2°\n■ Fenomeno: Spettacolare treno di satelliti allineati nel cielo notturno.",
+        "ko": "【🚀 최신 발사: 스타링크 트레인 (Group 10-1)】\n■ 발사 일시: 2026년 8월 22일 14:18:00 UTC (한국시간 23:18)\n■ 발사체: SpaceX Falcon 9 (플로리다 케이프커내버럴 SLC-40)\n■ 편대 구성: 24기 등간격 트레인 대형 (고도 약 340km / 초속 7.7km)\n■ 궤도 경사각: 53.2도\n■ 관측 특징: 발사 직후 밤하늘을 일렬로 가로지르는 환상적인 '은하철도' 현상.",
+        "nl": "【🚀 Nieuwste lancering: Starlink-trein (Groep 10-1)】\n■ Lanceringstijd: 22 augustus 2026, 14:18:00 UTC\n■ Raket: SpaceX Falcon 9 (Cape Canaveral SLC-40)\n■ Formatie: 24-satellieten lichtketen (Hoogte ~340 km / 7,7 km/s)\n■ Inclinatie: 53,2°\n■ Fenomeen: Spectaculaire 'satelliettrein' aan de nachthemel.",
+        "id": "【🚀 Peluncuran Terbaru: Kereta Starlink (Grup 10-1)】\n■ Waktu Peluncuran: 22 Agustus 2026, 14:18:00 UTC\n■ Roket: SpaceX Falcon 9 (Cape Canaveral SLC-40)\n■ Formasi: Rantai 24 satelit sejajar (Ketinggian ~340 km / 7,7 km/dtk)\n■ Inklinasi: 53,2°\n■ Fenomena: Rantai cahaya memanjang di langit malam setelah peluncuran.",
+        "hi": "【🚀 नवीनतम प्रक्षेपण: स्टारलिंक ट्रेन (Group 10-1)】\n■ प्रक्षेपण समय: 22 अगस्त 2026, 14:18:00 UTC (भारतीय समयानुसार 19:48)\n■ रॉकेट: SpaceX Falcon 9 (केप कैनावेरल SLC-40)\n■ संरचना: 24 उपग्रहों की प्रकाश श्रृंखला (ऊंचाई ~340 km / 7.7 km/s)\n■ झुकाव: 53.2°\n■ दृश्य विशेषता: अंतरिक्ष में एक पंक्ति में दौड़ती 'गैलेक्सी ट्रेन'।",
+        "ar": "【🚀 آخر إطلاق: قطار ستارلينك (المجموعة 10-1)】\n■ وقت الإطلاق: 22 أغسطس 2026، 14:18:00 UTC\n■ الصاروخ: SpaceX Falcon 9 (كيب كانافيرال SLC-40)\n■ التشكيل: سلسلة متتالية من 24 قمراً (الارتفاع ~340 كم / 7.7 كم/ثانية)\n■ الميل المداري: 53.2°\n■ الظاهرة: قطار أضواء مذهل يعبر سماء الليل بعد الإطلاق مباشرة."
+    },
     "STARLINK": {
         "url": "assets/sat_images/starlink_nasa.jpg?v=20260822_530",
         "caption": "Illustration: NASA / Ames Research Center / SpaceX",
@@ -3919,6 +3937,24 @@ const SATELLITE_DESCRIPTIONS = {
         "ar": "【حطام فضائي مداري】.",
         "zh": "【空间碎片 (太空垃圾)】 退役卫星、火箭残骸及爆炸碎片，以约7.5公里/秒高速运行。",
         "ru": "【Космический мусор】."
+    },
+    "STARLINK-G10": {
+        "country": "🇺🇸 アメリカ (SpaceX 最新トレイン編隊)",
+        "country_en": "🇺🇸 USA (SpaceX Latest Train Chain)",
+        "ja": "【🚀 最新打上 スターリンク・トレイン (Starlink Group 10-1)】\n■ 打上日時: 2026年8月22日 14:18:00 UTC (日本時間 23:18:00)\n■ 打上ロケット: SpaceX Falcon 9 Block 5 (フロリダ州 SLC-40)\n■ 展開編隊: 24機等間隔トレイン配置 (軌道高度 約340km / 秒速7.7km)\n■ 軌道傾斜角: 53.2度\n■ 観測特徴: ロケットから放出された直後のみ夜空に現れる、24機の光の点が数珠つなぎに一列で疾走する『銀河鉄道』現象。",
+        "en": "[🚀 Latest Launch: Starlink Train (Group 10-1 Chain)]\n■ Launch Time: Aug 22, 2026 14:18:00 UTC (23:18 JST)\n■ Rocket: SpaceX Falcon 9 Block 5 (Cape Canaveral SLC-40)\n■ Formation: 24-Satellite Luminous Deployment Chain (Alt ~340 km / 7.7 km/s)\n■ Inclination: 53.2°\n■ Visual Phenomenon: Iconic 'satellite train' marching across the night sky shortly after rocket deployment.",
+        "zh": "【🚀 最新发射：星链列车 Starlink Train (Group 10-1)】\n■ 发射时间：2026年8月22日 14:18:00 UTC (北京时间 22:18)\n■ 运载火箭：SpaceX 猎鹰9号 (卡纳维拉尔角 SLC-40)\n■ 编队构型：24星等间距列车队形 (轨道高度约340km / 速度7.7km/s)\n■ 轨道倾角：53.2°\n■ 视觉特征：火箭发射后数日内在夜空中呈现为一条璀璨的“银河铁道”光珠长龙。",
+        "es": "【🚀 Último lanzamiento: Tren Starlink (Grupo 10-1)】\n■ Fecha de lanzamiento: 22 de agosto de 2026, 14:18:00 UTC\n■ Cohete: SpaceX Falcon 9 (Cabo Cañaveral SLC-40)\n■ Formación: Cadena de 24 satélites (Alt ~340 km / 7,7 km/s)\n■ Inclinación: 53,2°\n■ Fenómeno: Espectacular tren luminoso visible en el cielo nocturno.",
+        "fr": "【🚀 Dernier lancement : Train Starlink (Groupe 10-1)】\n■ Date de lancement : 22 août 2026 à 14:18:00 UTC\n■ Fusée : SpaceX Falcon 9 (Cap Canaveral SLC-40)\n■ Formation : Chaîne de 24 satellites (Alt ~340 km / 7,7 km/s)\n■ Inclinaison : 53,2°\n■ Phénomène : Chapelet lumineux spectaculaire traversant le ciel nocturne.",
+        "de": "【🚀 Neuester Start: Starlink-Zug (Gruppe 10-1)】\n■ Startzeit: 22. August 2026, 14:18:00 UTC\n■ Rakete: SpaceX Falcon 9 (Cape Canaveral SLC-40)\n■ Formation: 24-Satelliten-Perlenkette (Höhe ~340 km / 7,7 km/s)\n■ Inklination: 53,2°\n■ Phänomen: Faszinierender Perlschnur-Effekt am Nachthimmel.",
+        "ru": "【🚀 Последний запуск: Поезд Старлинк (Группа 10-1)】\n■ Время запуска: 22 августа 2026 г., 14:18:00 UTC\n■ Ракета: SpaceX Falcon 9 (Мыс Канаверал SLC-40)\n■ Структура: Цепочка из 24 спутников (Высота ~340 км / 7,7 км/с)\n■ Наклонение: 53,2°\n■ Явление: Зрелищный светящийся поезд из спутников в ночном небе.",
+        "pt": "【🚀 Último lançamento: Trem Starlink (Grupo 10-1)】\n■ Hora de lançamento: 22 de agosto de 2026, 14:18:00 UTC\n■ Foguete: SpaceX Falcon 9 (Cabo Canaveral SLC-40)\n■ Formação: Trem luminoso de 24 satélites (Alt ~340 km / 7,7 km/s)\n■ Inclinação: 53,2°\n■ Fenômeno: Trem de luzes estelar visível nos primeiros dias após o lançamento.",
+        "it": "【🚀 Ultimo lancio: Treno Starlink (Gruppo 10-1)】\n■ Orario di lancio: 22 agosto 2026, 14:18:00 UTC\n■ Vettore: SpaceX Falcon 9 (Cape Canaveral SLC-40)\n■ Formazione: Catena luminosa di 24 satelliti (Alt ~340 km / 7,7 km/s)\n■ Inclinazione: 53,2°\n■ Fenomeno: Spettacolare treno di satelliti allineati nel cielo notturno.",
+        "ko": "【🚀 최신 발사: 스타링크 트레인 (Group 10-1)】\n■ 발사 일시: 2026년 8월 22일 14:18:00 UTC (한국시간 23:18)\n■ 발사체: SpaceX Falcon 9 (플로리다 케이프커내버럴 SLC-40)\n■ 편대 구성: 24기 등간격 트레인 대형 (고도 약 340km / 초속 7.7km)\n■ 궤도 경사각: 53.2도\n■ 관측 특징: 발사 직후 밤하늘을 일렬로 가로지르는 환상적인 '은하철도' 현상.",
+        "nl": "【🚀 Nieuwste lancering: Starlink-trein (Groep 10-1)】\n■ Lanceringstijd: 22 augustus 2026, 14:18:00 UTC\n■ Raket: SpaceX Falcon 9 (Cape Canaveral SLC-40)\n■ Formatie: 24-satellieten lichtketen (Hoogte ~340 km / 7,7 km/s)\n■ Inclinatie: 53,2°\n■ Fenomeen: Spectaculaire 'satelliettrein' aan de nachthemel.",
+        "id": "【🚀 Peluncuran Terbaru: Kereta Starlink (Grup 10-1)】\n■ Waktu Peluncuran: 22 Agustus 2026, 14:18:00 UTC\n■ Roket: SpaceX Falcon 9 (Cape Canaveral SLC-40)\n■ Formasi: Rantai 24 satelit sejajar (Ketinggian ~340 km / 7,7 km/dtk)\n■ Inklinasi: 53,2°\n■ Fenomena: Rantai cahaya memanjang di langit malam setelah peluncuran.",
+        "hi": "【🚀 नवीनतम प्रक्षेपण: स्टारलिंक ट्रेन (Group 10-1)】\n■ प्रक्षेपण समय: 22 अगस्त 2026, 14:18:00 UTC (भारतीय समयानुसार 19:48)\n■ रॉकेट: SpaceX Falcon 9 (केप कैनावेरल SLC-40)\n■ संरचना: 24 उपग्रहों की प्रकाश श्रृंखला (ऊंचाई ~340 km / 7.7 km/s)\n■ झुकाव: 53.2°\n■ दृश्य विशेषता: अंतरिक्ष में एक पंक्ति में दौड़ती 'गैलेक्सी ट्रेन'।",
+        "ar": "【🚀 آخر إطلاق: قطار ستارلينك (المجموعة 10-1)】\n■ وقت الإطلاق: 22 أغسطس 2026، 14:18:00 UTC\n■ الصاروخ: SpaceX Falcon 9 (كيب كانافيرال SLC-40)\n■ التشكيل: سلسلة متتالية من 24 قمراً (الارتفاع ~340 كم / 7.7 كم/ثانية)\n■ الميل المداري: 53.2°\n■ الظاهرة: قطار أضواء مذهل يعبر سماء الليل بعد الإطلاق مباشرة."
     },
     "STARLINK": {
         "country": "🇺🇸 アメリカ (SpaceX / 民間)",
@@ -6841,7 +6877,7 @@ function formatSimTime(jsDate) {
 
 // Global State for Time Control & Multiplier
 let customSimTime = null; // null means live real-time
-let timeSpeedMultiplier = 1; // 0, 1, 10, 100, 1000
+let timeSpeedMultiplier = 10; // 0, 1, 10, 100, 1000
 let lastRealTime = Date.now();
 let lastOrbitDrawTime = 0;
 let fpInstance = null; // Flatpickr Multilingual Calendar Instance
@@ -7069,28 +7105,30 @@ function flyToSatellite(sat) {
         return;
     }
 
-    // 3D Globe Mode: Natural smooth orbital direction camera tracking
+    // 3D Globe Mode: Position camera directly outside the satellite so it is ALWAYS 100% in the foreground of Earth!
     const satPos = sat.currentCartesian;
     const nameUpper = sat.name.toUpperCase();
     
-    let targetDist = 15000000;
+    let viewDist = 18000000.0;
     if (nameUpper.includes('HIMAWARI') || nameUpper.includes('MICHIBIKI')) {
-        targetDist = 45000000;
+        viewDist = 48000000.0;
     } else if (nameUpper.includes('GPS')) {
-        targetDist = 30000000;
+        viewDist = 32000000.0;
     }
 
-    const cameraPos = viewer.camera.position;
+    // Vector from Earth center to satellite
+    const satDir = Cesium.Cartesian3.normalize(satPos, new Cesium.Cartesian3());
+    
+    // Position camera along the Earth-Satellite ray outside the satellite with a slight inclination for optimal 3D perspective
+    const targetCamPos = Cesium.Cartesian3.multiplyByScalar(satDir, viewDist, new Cesium.Cartesian3());
+
     viewer.camera.flyTo({
-        destination: cameraPos,
+        destination: targetCamPos,
         orientation: {
-            direction: Cesium.Cartesian3.normalize(
-                Cesium.Cartesian3.subtract(satPos, cameraPos, new Cesium.Cartesian3()),
-                new Cesium.Cartesian3()
-            ),
+            direction: Cesium.Cartesian3.negate(satDir, new Cesium.Cartesian3()), // Looks directly towards Satellite and Earth
             up: Cesium.Cartesian3.UNIT_Z
         },
-        duration: 1.6
+        duration: 1.5
     });
 }
 
