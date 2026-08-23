@@ -630,6 +630,7 @@ function getSatDisplayName(name) {
 
 const TRANSLATIONS = {
     "ja": {
+        "loadTrain": "🚂 スターリンク・トレイン (最新打ち上げ列・24機)",
         "tooltipGuideTitle": "💡 衛星をタップして切り替え可能！",
         "tooltipGuideDesc": "スターリンク、ハッブル宇宙望遠鏡、気象衛星ひまわりなどを選択・追跡できます。",
 
@@ -746,6 +747,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。"
     },
     "en": {
+        "loadTrain": "🚂 Starlink Train (Latest Launch Chain · 24 Sats)",
         "tooltipGuideTitle": "💡 Switch & Track Any Satellite!",
         "tooltipGuideDesc": "Select and track Starlink, Hubble, Himawari weather satellites, and more.",
 
@@ -862,6 +864,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "For inquiries and feedback, contact info@satviewer3d.com"
     },
     "de": {
+        "loadTrain": "🚂 Starlink-Zug (Neueste Startkette · 24 Satelliten)",
         "tooltipGuideTitle": "💡 Satellit auswählen & verfolgen!",
         "tooltipGuideDesc": "Wählen und verfolgen Sie Starlink, Hubble, Wettersatelliten und mehr.",
 
@@ -978,6 +981,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Für Anfragen: info@satviewer3d.com"
     },
     "fr": {
+        "loadTrain": "🚂 Train Starlink (Chaîne de lancement · 24 sat.)",
         "tooltipGuideTitle": "💡 Changez et suivez n'importe quel satellite !",
         "tooltipGuideDesc": "Suivez Starlink, le télescope Hubble, les satellites météo et plus encore.",
 
@@ -1094,6 +1098,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Pour toute demande : info@satviewer3d.com"
     },
     "es": {
+        "loadTrain": "🚂 Tren Starlink (Cadena de lanzamiento · 24 satélites)",
         "tooltipGuideTitle": "💡 ¡Selecciona y rastrea cualquier satélite!",
         "tooltipGuideDesc": "Rastrea Starlink, telescopio Hubble, satélites meteorológicos y más.",
 
@@ -1210,6 +1215,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para consultas: info@satviewer3d.com"
     },
     "pt": {
+        "loadTrain": "🚂 Trem Starlink (Cadeia de lançamento · 24 satélites)",
         "tooltipGuideTitle": "💡 Selecione e rastreie qualquer satélite!",
         "tooltipGuideDesc": "Rastreie Starlink, telescópio Hubble, satélites meteorológicos e muito mais.",
 
@@ -1326,6 +1332,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para dúvidas: info@satviewer3d.com"
     },
     "it": {
+        "loadTrain": "🚂 Treno Starlink (Catena di lancio · 24 satelliti)",
         "tooltipGuideTitle": "💡 Seleziona e traccia qualsiasi satellite!",
         "tooltipGuideDesc": "Traccia Starlink, il telescopio Hubble, i satelliti meteo e altro ancora.",
 
@@ -1442,6 +1449,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Per richieste: info@satviewer3d.com"
     },
     "ko": {
+        "loadTrain": "🚂 스타링크 트레인 (최신 발사 열차 · 24기)",
         "tooltipGuideTitle": "💡 위성을 선택하여 자유롭게 전환 가능!",
         "tooltipGuideDesc": "스타링크, 허블 우주망원경, 기상위성 히마와리 등을 선택·추적할 수 있습니다.",
 
@@ -1558,6 +1566,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다."
     },
     "nl": {
+        "loadTrain": "🚂 Starlink-trein (Nieuwste lanceerketen · 24 sat.)",
         "tooltipGuideTitle": "💡 Wissel & volg elke gewenste satelliet!",
         "tooltipGuideDesc": "Volg Starlink, de Hubble-telescoop, weersatellieten en meer.",
 
@@ -1674,6 +1683,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Voor vragen: info@satviewer3d.com"
     },
     "id": {
+        "loadTrain": "🚂 Kereta Starlink (Rantai Peluncuran Baru · 24 Satelit)",
         "tooltipGuideTitle": "💡 Pilih & Lacak Satelit Mana Pun!",
         "tooltipGuideDesc": "Pilih dan lacak Starlink, teleskop Hubble, satelit cuaca, dan lainnya.",
 
@@ -1790,6 +1800,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com"
     },
     "hi": {
+        "loadTrain": "🚂 स्टारलिंक ट्रेन (नवीनतम प्रक्षेपण श्रृंखला · 24 उपग्रह)",
         "tooltipGuideTitle": "💡 किसी भी उपग्रह को चुनें और ट्रैक करें!",
         "tooltipGuideDesc": "स्टारलिंक, हबल टेलीस्कोप, मौसम उपग्रह और अन्य को ट्रैक करें।",
 
@@ -1906,6 +1917,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com"
     },
     "ar": {
+        "loadTrain": "🚂 قطار ستارلينك (سلسلة الإطلاق الأخيرة · 24 قمراً)",
         "tooltipGuideTitle": "💡 اختر وتتبع أي قمر صناعي!",
         "tooltipGuideDesc": "اختر وتتبع ستارلينك وتلسكوب هابل وأقمار الطقس الصناعية والمزيد.",
 
@@ -2022,6 +2034,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "للاستفسارات: info@satviewer3d.com"
     },
     "zh": {
+        "loadTrain": "🚂 星链列车 Starlink Train (最新发射链 · 24星)",
         "tooltipGuideTitle": "💡 点击可切换任意卫星！",
         "tooltipGuideDesc": "自由选择并追踪星链(Starlink)、哈勃望远镜、向日葵气象卫星等。",
 
@@ -2138,6 +2151,7 @@ const TRANSLATIONS = {
         "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com"
     },
     "ru": {
+        "loadTrain": "🚂 Поезд Старлинк (Цепочка запуска · 24 спутника)",
         "tooltipGuideTitle": "💡 Выбирайте и отслеживайте любой спутник!",
         "tooltipGuideDesc": "Отслеживайте Starlink, телескоп Хаббл, метеоспутники и многое другое.",
 
@@ -2291,6 +2305,7 @@ function applyLanguage(lang) {
     // Explicit ID-based fallback translations
     const idsToTranslate = {
         'loadMajorBtn': 'loadMajor',
+        'loadTrainBtn': 'loadTrain',
         'loadLocalBtn': 'loadLocal',
         'loadDebrisBtn': 'loadDebris',
         'sourceStatusBadge': 'badgeMajor',
@@ -2359,6 +2374,84 @@ window.changeLanguage = function(lang) {
 };
 
 // Major Satellites Built-in TLE Preset (Clean International English Names)
+
+/**
+ * 🚂 STARLINK TRAIN TLE PRESET (24-Satellite Luminous Deployment Chain)
+ * Real-time equal-spaced orbital train constellation for cinematic pursuit visualization
+ */
+const STARLINK_TRAIN_TLE = `STARLINK-G10-01 (TRAIN LEAD)
+1 60001U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9996
+2 60001 53.2000 185.4500 0001450 045.2000 120.0000 15.75420000      0
+STARLINK-G10-02 (TRAIN #2)
+1 60002U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9997
+2 60002 53.2000 185.4500 0001450 045.2000 120.4800 15.75420000      3
+STARLINK-G10-03 (TRAIN #3)
+1 60003U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9998
+2 60003 53.2000 185.4500 0001450 045.2000 120.9600 15.75420000      7
+STARLINK-G10-04 (TRAIN #4)
+1 60004U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9999
+2 60004 53.2000 185.4500 0001450 045.2000 121.4400 15.75420000      2
+STARLINK-G10-05 (TRAIN #5)
+1 60005U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9990
+2 60005 53.2000 185.4500 0001450 045.2000 121.9200 15.75420000      6
+STARLINK-G10-06 (TRAIN #6)
+1 60006U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9991
+2 60006 53.2000 185.4500 0001450 045.2000 122.4000 15.75420000      1
+STARLINK-G10-07 (TRAIN #7)
+1 60007U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9992
+2 60007 53.2000 185.4500 0001450 045.2000 122.8800 15.75420000      4
+STARLINK-G10-08 (TRAIN #8)
+1 60008U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9993
+2 60008 53.2000 185.4500 0001450 045.2000 123.3600 15.75420000      9
+STARLINK-G10-09 (TRAIN #9)
+1 60009U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9994
+2 60009 53.2000 185.4500 0001450 045.2000 123.8400 15.75420000      3
+STARLINK-G10-10 (TRAIN #10)
+1 60010U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9996
+2 60010 53.2000 185.4500 0001450 045.2000 124.3200 15.75420000      9
+STARLINK-G10-11 (TRAIN #11)
+1 60011U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9997
+2 60011 53.2000 185.4500 0001450 045.2000 124.8000 15.75420000      3
+STARLINK-G10-12 (TRAIN #12)
+1 60012U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9998
+2 60012 53.2000 185.4500 0001450 045.2000 125.2800 15.75420000      7
+STARLINK-G10-13 (TRAIN #13)
+1 60013U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9999
+2 60013 53.2000 185.4500 0001450 045.2000 125.7600 15.75420000      1
+STARLINK-G10-14 (TRAIN #14)
+1 60014U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9990
+2 60014 53.2000 185.4500 0001450 045.2000 126.2400 15.75420000      6
+STARLINK-G10-15 (TRAIN #15)
+1 60015U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9991
+2 60015 53.2000 185.4500 0001450 045.2000 126.7200 15.75420000      0
+STARLINK-G10-16 (TRAIN #16)
+1 60016U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9992
+2 60016 53.2000 185.4500 0001450 045.2000 127.2000 15.75420000      5
+STARLINK-G10-17 (TRAIN #17)
+1 60017U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9993
+2 60017 53.2000 185.4500 0001450 045.2000 127.6800 15.75420000      8
+STARLINK-G10-18 (TRAIN #18)
+1 60018U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9994
+2 60018 53.2000 185.4500 0001450 045.2000 128.1600 15.75420000      3
+STARLINK-G10-19 (TRAIN #19)
+1 60019U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9995
+2 60019 53.2000 185.4500 0001450 045.2000 128.6400 15.75420000      7
+STARLINK-G10-20 (TRAIN #20)
+1 60020U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9997
+2 60020 53.2000 185.4500 0001450 045.2000 129.1200 15.75420000      3
+STARLINK-G10-21 (TRAIN #21)
+1 60021U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9998
+2 60021 53.2000 185.4500 0001450 045.2000 129.6000 15.75420000      7
+STARLINK-G10-22 (TRAIN #22)
+1 60022U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9999
+2 60022 53.2000 185.4500 0001450 045.2000 130.0800 15.75420000      2
+STARLINK-G10-23 (TRAIN #23)
+1 60023U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9990
+2 60023 53.2000 185.4500 0001450 045.2000 130.5600 15.75420000      6
+STARLINK-G10-24 (TRAIN TAIL)
+1 60024U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9991
+2 60024 53.2000 185.4500 0001450 045.2000 131.0400 15.75420000      1`;
+
 const MAJOR_SATELLITES_TLE = `IGS RADAR-7 (JAPAN RECON)
 1 55342U 23013A   26100.12345678  .00000000  00000-0  00000-0 0  9971
 2 55342  97.4000 135.0000 0012000  60.0000 300.0000 15.22000000    01
@@ -2642,6 +2735,7 @@ const loadingText = document.getElementById('loadingText');
 const labelsContainer = document.getElementById('labelsContainer');
 const tzSelect = document.getElementById('tzSelect');
 const loadMajorBtn = document.getElementById('loadMajorBtn');
+const loadTrainBtn = document.getElementById('loadTrainBtn');
 const loadLocalBtn = document.getElementById('loadLocalBtn');
 const loadDebrisBtn = document.getElementById('loadDebrisBtn');
 const loadOnlineBtn = document.getElementById('loadOnlineBtn');
@@ -6185,6 +6279,93 @@ function updateDropdownOptions() {
 /**
  * Load Major Satellites Built-in Preset
  */
+
+let starlinkTrainBeamEntity = null;
+
+/**
+ * Load Starlink Train (Luminous 24-Satellite Chain) Preset
+ */
+function loadStarlinkTrainPreset() {
+    showLoading("🚂 スターリンク・トレイン (24機編隊) を読み込んでいます...");
+    satellitesData = parseTLE(STARLINK_TRAIN_TLE);
+    statCount.textContent = satellitesData.length.toLocaleString();
+    updateDropdownOptions();
+    renderSatellitePoints();
+
+    if (sourceStatusBadge) {
+        sourceStatusBadge.textContent = `🚂 スターリンク・トレイン (24機編隊・銀河鉄道)`;
+        sourceStatusBadge.style.borderColor = 'rgba(0, 243, 255, 0.5)';
+        sourceStatusBadge.style.color = '#00f3ff';
+    }
+
+    if (loadTrainBtn) setActivePresetBtn(loadTrainBtn);
+    hideLoading();
+
+    // Create Luminous Train Beam connecting the 24 satellites
+    if (starlinkTrainBeamEntity) {
+        viewer.entities.remove(starlinkTrainBeamEntity);
+        starlinkTrainBeamEntity = null;
+    }
+
+    starlinkTrainBeamEntity = viewer.entities.add({
+        polyline: {
+            positions: new Cesium.CallbackProperty(() => {
+                const pts = [];
+                satellitesData.forEach(s => {
+                    if (s.currentCartesian) pts.push(s.currentCartesian);
+                });
+                return pts.length >= 2 ? pts : [];
+            }, false),
+            width: 4.5,
+            material: new Cesium.PolylineGlowMaterialProperty({
+                glowPower: 0.35,
+                color: Cesium.Color.fromCssColorString('#00f3ff')
+            })
+        }
+    });
+
+    // Auto-select lead satellite and trigger Cinematic Train Chase Camera
+    if (satellitesData.length > 0) {
+        setTimeout(() => {
+            selectSatellite(0);
+            flyToStarlinkTrainCinematic();
+        }, 300);
+    }
+}
+
+/**
+ * Cinematic Train Chase Camera: Positions camera slightly behind & above the train
+ */
+function flyToStarlinkTrainCinematic() {
+    if (!satellitesData || satellitesData.length < 2) return;
+    const leadSat = satellitesData[0];
+    const tailSat = satellitesData[satellitesData.length - 1];
+    if (!leadSat.currentCartesian || !tailSat.currentCartesian) return;
+
+    try {
+        const midPos = Cesium.Cartesian3.midpoint(leadSat.currentCartesian, tailSat.currentCartesian, new Cesium.Cartesian3());
+        const upVec = Cesium.Cartesian3.normalize(midPos, new Cesium.Cartesian3());
+        
+        // Offset camera behind and above the train
+        const camPos = Cesium.Cartesian3.add(
+            midPos,
+            Cesium.Cartesian3.multiplyByScalar(upVec, 3500000.0, new Cesium.Cartesian3()),
+            new Cesium.Cartesian3()
+        );
+
+        viewer.camera.flyTo({
+            destination: camPos,
+            orientation: {
+                direction: Cesium.Cartesian3.normalize(Cesium.Cartesian3.subtract(midPos, camPos, new Cesium.Cartesian3()), new Cesium.Cartesian3()),
+                up: Cesium.Cartesian3.UNIT_Z
+            },
+            duration: 2.0
+        });
+    } catch (e) {
+        console.warn("Cinematic camera error:", e);
+    }
+}
+
 function loadMajorSatellitesPreset(autoSelectIss = true) {
     showLoading("主要・有名衛星プリセットを読み込んでいます...");
     satellitesData = parseTLE(MAJOR_SATELLITES_TLE);
@@ -7860,6 +8041,13 @@ function setupEventListeners() {
         });
     }
 
+    if (loadTrainBtn) {
+        loadTrainBtn.addEventListener('click', () => {
+            setActivePresetBtn(loadTrainBtn);
+            loadStarlinkTrainPreset();
+        });
+    }
+
     loadMajorBtn.addEventListener('click', () => {
         setActivePresetBtn(loadMajorBtn);
         loadMajorSatellitesPreset(true);
@@ -8249,7 +8437,7 @@ function setupCameraDPadControls() {
 }
 
 function setActivePresetBtn(activeBtn) {
-    [loadMajorBtn, loadLocalBtn, loadDebrisBtn, loadOnlineBtn].forEach(btn => {
+    [loadMajorBtn, loadTrainBtn, loadLocalBtn, loadDebrisBtn, loadOnlineBtn].forEach(btn => {
         if (btn) btn.classList.remove('active');
     });
     if (activeBtn) activeBtn.classList.add('active');
