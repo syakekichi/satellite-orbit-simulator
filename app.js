@@ -718,6 +718,10 @@ function getSatDisplayName(name) {
 
 const TRANSLATIONS = {
     "ja": {
+        "mobileBtnSelect": "🛰️ 衛星選択",
+        "mobileBtnDetail": "📊 衛星詳細",
+        "mobileSheetSelectTitle": "🛰️ 衛星選択・メニュー",
+        "mobileSheetDetailTitle": "📊 衛星詳細情報",
         "zoomHintPcTitle": "🔍 マウスホイールでズーム",
         "zoomHintPcSub": "スクロールして地球全体を見渡せます",
         "zoomHintTouchTitle": "🔍 2本指ピンチでズーム",
@@ -841,6 +845,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。"
     },
     "en": {
+        "mobileBtnSelect": "🛰️ Satellites",
+        "mobileBtnDetail": "📊 Details",
+        "mobileSheetSelectTitle": "🛰️ Satellites & Menu",
+        "mobileSheetDetailTitle": "📊 Satellite Details",
         "zoomHintPcTitle": "🔍 Mouse Wheel to Zoom",
         "zoomHintPcSub": "Scroll to zoom out and view the full Earth",
         "zoomHintTouchTitle": "🔍 Pinch with 2 Fingers to Zoom",
@@ -964,6 +972,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "For inquiries and feedback, contact info@satviewer3d.com"
     },
     "de": {
+        "mobileBtnSelect": "🛰️ Satelliten",
+        "mobileBtnDetail": "📊 Details",
+        "mobileSheetSelectTitle": "🛰️ Satelliten & Menü",
+        "mobileSheetDetailTitle": "📊 Satelliten-Details",
         "zoomHintPcTitle": "🔍 Mausrad zum Zoomen",
         "zoomHintPcSub": "Rollen für globale Erdansicht",
         "zoomHintTouchTitle": "🔍 Mit 2 Fingern zoomen",
@@ -1087,6 +1099,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Für Anfragen: info@satviewer3d.com"
     },
     "fr": {
+        "mobileBtnSelect": "🛰️ Satellites",
+        "mobileBtnDetail": "📊 Détails",
+        "mobileSheetSelectTitle": "🛰️ Satellites & Menu",
+        "mobileSheetDetailTitle": "📊 Détails du Satellite",
         "zoomHintPcTitle": "🔍 Molette pour zoomer",
         "zoomHintPcSub": "Faites défiler pour voir la Terre entière",
         "zoomHintTouchTitle": "🔍 Pincez avec 2 doigts pour zoomer",
@@ -1210,6 +1226,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Pour toute demande : info@satviewer3d.com"
     },
     "es": {
+        "mobileBtnSelect": "🛰️ Satélites",
+        "mobileBtnDetail": "📊 Detalles",
+        "mobileSheetSelectTitle": "🛰️ Satélites y Menú",
+        "mobileSheetDetailTitle": "📊 Detalles del Satélite",
         "zoomHintPcTitle": "🔍 Rueda del ratón para zoom",
         "zoomHintPcSub": "Haz scroll para ver la Tierra completa",
         "zoomHintTouchTitle": "🔍 Pellizca con 2 dedos para zoom",
@@ -1333,6 +1353,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para consultas: info@satviewer3d.com"
     },
     "pt": {
+        "mobileBtnSelect": "🛰️ Satélites",
+        "mobileBtnDetail": "📊 Detalhes",
+        "mobileSheetSelectTitle": "🛰️ Satélites e Menu",
+        "mobileSheetDetailTitle": "📊 Detalhes do Satélite",
         "zoomHintPcTitle": "🔍 Roda do mouse para zoom",
         "zoomHintPcSub": "Role para ver a Terra inteira",
         "zoomHintTouchTitle": "🔍 Pinça com 2 dedos para zoom",
@@ -1456,6 +1480,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para dúvidas: info@satviewer3d.com"
     },
     "it": {
+        "mobileBtnSelect": "🛰️ Satelliti",
+        "mobileBtnDetail": "📊 Dettagli",
+        "mobileSheetSelectTitle": "🛰️ Satelliti e Menu",
+        "mobileSheetDetailTitle": "📊 Dettagli Satellite",
         "zoomHintPcTitle": "🔍 Rotellina del mouse per zoom",
         "zoomHintPcSub": "Scorri per vedere la Terra intera",
         "zoomHintTouchTitle": "🔍 Pizzica con 2 dita per zoom",
@@ -1579,6 +1607,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Per richieste: info@satviewer3d.com"
     },
     "ko": {
+        "mobileBtnSelect": "🛰️ 위성 선택",
+        "mobileBtnDetail": "📊 위성 상세",
+        "mobileSheetSelectTitle": "🛰️ 위성 선택·메뉴",
+        "mobileSheetDetailTitle": "📊 위성 상세 정보",
         "zoomHintPcTitle": "🔍 마우스 휠로 줌 조절",
         "zoomHintPcSub": "휠을 굴려 지구 전체를 둘러보세요",
         "zoomHintTouchTitle": "🔍 두 손가락 핀치로 줌 조절",
@@ -1702,6 +1734,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다."
     },
     "nl": {
+        "mobileBtnSelect": "🛰️ Satellieten",
+        "mobileBtnDetail": "📊 Details",
+        "mobileSheetSelectTitle": "🛰️ Satellieten & Menu",
+        "mobileSheetDetailTitle": "📊 Satellietdetails",
         "zoomHintPcTitle": "🔍 Muiswiel om te zoomen",
         "zoomHintPcSub": "Scrol om de hele aarde te zien",
         "zoomHintTouchTitle": "🔍 Knijpen met 2 vingers om te zoomen",
@@ -1825,6 +1861,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Voor vragen: info@satviewer3d.com"
     },
     "id": {
+        "mobileBtnSelect": "🛰️ Satelit",
+        "mobileBtnDetail": "📊 Detail",
+        "mobileSheetSelectTitle": "🛰️ Satelit & Menu",
+        "mobileSheetDetailTitle": "📊 Detail Satelit",
         "zoomHintPcTitle": "🔍 Roda Mouse untuk Zoom",
         "zoomHintPcSub": "Gulir untuk melihat Bumi secara penuh",
         "zoomHintTouchTitle": "🔍 Cubit dengan 2 Jari untuk Zoom",
@@ -1948,6 +1988,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com"
     },
     "hi": {
+        "mobileBtnSelect": "🛰️ उपग्रह",
+        "mobileBtnDetail": "📊 विवरण",
+        "mobileSheetSelectTitle": "🛰️ उपग्रह चयन और मेनू",
+        "mobileSheetDetailTitle": "📊 उपग्रह विस्तृत विवरण",
         "zoomHintPcTitle": "🔍 माउस व्हील से ज़ूम करें",
         "zoomHintPcSub": "पूरी पृथ्वी को देखने के लिए स्क्रॉल करें",
         "zoomHintTouchTitle": "🔍 2 उंगलियों से पिंच करके ज़ूम करें",
@@ -2071,6 +2115,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com"
     },
     "ar": {
+        "mobileBtnSelect": "🛰️ الأقمار",
+        "mobileBtnDetail": "📊 التفاصيل",
+        "mobileSheetSelectTitle": "🛰️ اختيار الأقمار والقائمة",
+        "mobileSheetDetailTitle": "📊 تفاصيل القمر الصناعي",
         "zoomHintPcTitle": "🔍 عجلة الفأرة للتكبير",
         "zoomHintPcSub": "قم بالتمرير لمشاهدة الأرض بأكملها",
         "zoomHintTouchTitle": "🔍 اقرص بإصبعين للتكبير",
@@ -2194,6 +2242,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "للاستفسارات: info@satviewer3d.com"
     },
     "zh": {
+        "mobileBtnSelect": "🛰️ 卫星选择",
+        "mobileBtnDetail": "📊 卫星详情",
+        "mobileSheetSelectTitle": "🛰️ 卫星选择·菜单",
+        "mobileSheetDetailTitle": "📊 卫星详细信息",
         "zoomHintPcTitle": "🔍 鼠标滚轮缩放视野",
         "zoomHintPcSub": "滚动鼠标可纵览地球全景",
         "zoomHintTouchTitle": "🔍 双指捏合缩放视野",
@@ -2317,6 +2369,10 @@ const TRANSLATIONS = {
         "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com"
     },
     "ru": {
+        "mobileBtnSelect": "🛰️ Спутники",
+        "mobileBtnDetail": "📊 Детали",
+        "mobileSheetSelectTitle": "🛰️ Спутники и меню",
+        "mobileSheetDetailTitle": "📊 Информация о спутнике",
         "zoomHintPcTitle": "🔍 Колесико мыши для масштаба",
         "zoomHintPcSub": "Прокрутите, чтобы увидеть всю Землю",
         "zoomHintTouchTitle": "🔍 Жест двумя пальцами для масштаба",
@@ -2566,6 +2622,24 @@ function applyLanguage(lang) {
                 }
             });
         }
+    }
+
+    // Explicit Mobile Bottom Dock and Sheet Header Translations
+    const mobileMenuText = document.getElementById('mobileMenuText');
+    if (mobileMenuText && dict.mobileBtnSelect) {
+        mobileMenuText.textContent = dict.mobileBtnSelect;
+    }
+    const mobileDetailText = document.getElementById('mobileDetailText');
+    if (mobileDetailText && dict.mobileBtnDetail) {
+        mobileDetailText.textContent = dict.mobileBtnDetail;
+    }
+    const mobileSidebarTitle = document.getElementById('mobileSidebarTitle');
+    if (mobileSidebarTitle && dict.mobileSheetSelectTitle) {
+        mobileSidebarTitle.textContent = dict.mobileSheetSelectTitle;
+    }
+    const mobileDetailTitle = document.getElementById('mobileDetailTitle');
+    if (mobileDetailTitle && dict.mobileSheetDetailTitle) {
+        mobileDetailTitle.textContent = dict.mobileSheetDetailTitle;
     }
 
     if (typeof updateDropdownOptions === 'function') {

@@ -214,11 +214,11 @@
 
                 <!-- Mobile Bottom Dock Action Buttons (FABs) -->
         <div class="mobile-bottom-dock">
-            <button id="mobileMenuBtn" class="mobile-menu-btn" onclick="window.toggleMobileMenu()">
-                <span>🛰️ 卫星选择</span>
+            <button id="mobileMenuBtn" class="mobile-menu-btn" onclick="window.toggleMobileMenu(event)">
+                <span id="mobileMenuText" data-i18n="mobileBtnSelect">🛰️ 卫星选择</span>
             </button>
-            <button id="mobileDetailBtn" class="mobile-detail-btn" onclick="window.toggleMobileDetail()">
-                <span>📊 卫星详情</span>
+            <button id="mobileDetailBtn" class="mobile-detail-btn" onclick="window.toggleMobileDetail(event)">
+                <span id="mobileDetailText" data-i18n="mobileBtnDetail">📊 卫星详情</span>
             </button>
         </div>
 
@@ -230,8 +230,8 @@
             </div>
                         
                         <div class="sidebar-mobile-header">
-                <span class="sidebar-mobile-title">🛰️ 卫星选择·菜单</span>
-                <button id="closeMobileSidebarBtn" class="sidebar-mobile-close-btn" onclick="window.closeMobileMenu()">&times;</button>
+                <span class="sidebar-mobile-title" id="mobileSidebarTitle" data-i18n="mobileSheetSelectTitle">🛰️ 卫星选择·菜单</span>
+                <button id="closeMobileSidebarBtn" class="sidebar-mobile-close-btn" onclick="window.closeMobileMenu(event)">&times;</button>
             </div>
             <div id="sidebarContent" class="sidebar-collapsible-content">
             <div class="sidebar-section">
@@ -385,8 +385,8 @@
         </div>
         <div id="detailCard" class="hud-card glass-panel">
             <div class="detail-mobile-header">
-                <span class="detail-mobile-title">📊 卫星详细参数</span>
-                <button id="closeMobileDetailBtn" class="detail-mobile-close-btn" onclick="window.closeMobileDetail()">&times;</button>
+                <span class="detail-mobile-title" id="mobileDetailTitle" data-i18n="mobileSheetDetailTitle">📊 卫星详细信息</span>
+                <button id="closeMobileDetailBtn" class="detail-mobile-close-btn" onclick="window.closeMobileDetail(event)">&times;</button>
             </div>
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
                 <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">拖拽卡片</span></div>
@@ -627,7 +627,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260824_2200"></script>
+    <script src="app.js?v=20260824_2700"></script>
     
     </div>
         <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->

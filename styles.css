@@ -1940,10 +1940,25 @@ html[dir="rtl"] .toggle-switch {
         transform: none !important;
     }
 
-    aside#sidebarPanel.hud-sidebar.mobile-open {
+    aside#sidebarPanel.hud-sidebar.mobile-open,
+    aside#sidebarPanel.mobile-open,
+    #sidebarPanel.mobile-open {
         display: flex !important;
         flex-direction: column !important;
         animation: mobileSheetSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
+
+    aside#sidebarPanel.mobile-open .sidebar-collapsible-content,
+    aside#sidebarPanel.hud-sidebar.mobile-open .sidebar-collapsible-content,
+    #sidebarPanel.mobile-open .sidebar-collapsible-content {
+        max-height: none !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+
+    aside#sidebarPanel .panel-drag-bar,
+    #sidebarPanel .panel-drag-bar {
+        display: none !important;
     }
 
     .sidebar-mobile-header {
@@ -2051,41 +2066,64 @@ html[dir="rtl"] .toggle-switch {
         cursor: pointer;
     }
 
-    /* 5. Mini Camera D-Pad (Micro size on Bottom-Right) */
+    /* 5. Pure Frameless Floating Camera Controller on Bottom-Right */
     .camera-dpad-hud {
         position: fixed !important;
         bottom: 12px !important;
-        right: 12px !important;
+        right: 10px !important;
         top: auto !important;
         left: auto !important;
-        padding: 6px !important;
-        border-radius: 12px !important;
-        background: rgba(11, 19, 43, 0.85) !important;
-        border: 1px solid rgba(56, 189, 248, 0.4) !important;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
-        z-index: 9998 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        z-index: 99999 !important;
         transform: none !important;
+        pointer-events: auto !important;
     }
 
-    .camera-dpad-hud .dpad-title-bar {
+    .camera-dpad-hud .panel-drag-bar,
+    .camera-dpad-hud .dpad-title-bar,
+    .camera-dpad-hud .panel-min-btn {
         display: none !important;
     }
 
+    .camera-dpad-hud .card-collapsible-content {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+        max-height: none !important;
+        opacity: 1 !important;
+    }
+
     .camera-dpad-hud .dpad-grid {
-        grid-template-columns: repeat(3, 28px) !important;
-        grid-template-rows: repeat(3, 28px) !important;
-        gap: 3px !important;
+        grid-template-columns: repeat(3, 26px) !important;
+        grid-template-rows: repeat(3, 26px) !important;
+        gap: 2px !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     .camera-dpad-hud .dpad-btn {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 0.8rem !important;
-        border-radius: 5px !important;
-        border-width: 1px !important;
-        background: rgba(15, 23, 42, 0.9) !important;
-        border-color: rgba(56, 189, 248, 0.5) !important;
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 0.75rem !important;
+        border-radius: 6px !important;
+        border: 1px solid rgba(56, 189, 248, 0.45) !important;
+        background: rgba(11, 19, 43, 0.85) !important;
         color: #38bdf8 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
     }
 
     
