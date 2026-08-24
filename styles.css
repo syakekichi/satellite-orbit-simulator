@@ -1704,9 +1704,34 @@ html[dir="rtl"] .toggle-switch {
 
 
 
+
 /* ==========================================================================
-   CSS-Guaranteed Zoom Hint Differentiator (Auto-Dismiss)
+   CSS-Guaranteed Auto-Dismiss Zoom Hint (Zero JS Lag!)
    ========================================================================== */
+@keyframes zoomHintAutoFade {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+        visibility: visible;
+    }
+    12% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        visibility: visible;
+    }
+    75% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(15px);
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
 .zoom-hint-toast {
     position: absolute;
     bottom: 80px;
@@ -1721,13 +1746,13 @@ html[dir="rtl"] .toggle-switch {
     -webkit-backdrop-filter: blur(12px);
     z-index: 999999;
     pointer-events: none;
-    animation: zoomHintSlideUp 0.5s ease-out forwards;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    animation: zoomHintAutoFade 4.2s ease-in-out forwards !important;
 }
 
 .zoom-hint-toast.fade-out {
     opacity: 0 !important;
-    transform: translateX(-50%) translateY(12px) !important;
+    visibility: hidden !important;
+    transform: translateX(-50%) translateY(15px) !important;
     pointer-events: none !important;
 }
 
@@ -1947,8 +1972,9 @@ html[dir="rtl"] .toggle-switch {
         cursor: pointer;
     }
 
-    /* 4. Detail Card Bottom Sheet Drawer (Hidden by default until clicked!) */
+    /* 4. Detail Card Bottom Sheet Drawer (Hidden by default, 100% opens on .mobile-open!) */
     #detailCard.hud-card,
+    #detailCard,
     .hud-detail-card {
         position: fixed !important;
         top: auto !important;
@@ -1973,11 +1999,19 @@ html[dir="rtl"] .toggle-switch {
         transform: none !important;
     }
 
+    #detailCard.mobile-open,
     #detailCard.hud-card.mobile-open,
     .hud-detail-card.mobile-open {
         display: flex !important;
         flex-direction: column !important;
         animation: mobileSheetSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
+
+    #detailCard.mobile-open .card-collapsible-content,
+    .hud-detail-card.mobile-open .card-collapsible-content {
+        max-height: none !important;
+        opacity: 1 !important;
+        display: block !important;
     }
 
     #detailCard .panel-drag-bar,

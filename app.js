@@ -1,4 +1,49 @@
 
+// Guaranteed Global Mobile Bottom Dock Helpers (100% Direct Response & Zero Style Conflict)
+window.toggleMobileMenu = function(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const sidebar = document.getElementById('sidebarPanel');
+    const detail = document.getElementById('detailCard');
+    if (detail) detail.classList.remove('mobile-open');
+    if (sidebar) {
+        sidebar.style.top = '';
+        sidebar.style.left = '';
+        sidebar.style.right = '';
+        sidebar.style.transform = '';
+        sidebar.classList.toggle('mobile-open');
+    }
+};
+
+window.closeMobileMenu = function(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const sidebar = document.getElementById('sidebarPanel');
+    if (sidebar) sidebar.classList.remove('mobile-open');
+};
+
+window.toggleMobileDetail = function(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const detail = document.getElementById('detailCard');
+    const sidebar = document.getElementById('sidebarPanel');
+    if (sidebar) sidebar.classList.remove('mobile-open');
+    if (detail) {
+        detail.classList.remove('hidden');
+        detail.classList.remove('is-minimized');
+        detail.style.top = '';
+        detail.style.left = '';
+        detail.style.right = '';
+        detail.style.bottom = '';
+        detail.style.transform = '';
+        detail.classList.toggle('mobile-open');
+    }
+};
+
+window.closeMobileDetail = function(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const detail = document.getElementById('detailCard');
+    if (detail) detail.classList.remove('mobile-open');
+};
+
+
 // Guaranteed Global Mobile Menu Helpers (100% Direct Response & Style Reset)
 window.toggleMobileMenu = function(e) {
     if (e && e.stopPropagation) e.stopPropagation();
