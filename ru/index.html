@@ -210,10 +210,17 @@
             </div>
         </div>
 
-                <!-- Mobile Floating Action Button (FAB) to open Bottom Sheet Menu -->
-        <button id="mobileMenuBtn" class="mobile-menu-btn" onclick="window.toggleMobileMenu()">
-            <span>🛰️ Спутники и меню</span>
-        </button>
+                
+
+                <!-- Mobile Bottom Dock Action Buttons (FABs) -->
+        <div class="mobile-bottom-dock">
+            <button id="mobileMenuBtn" class="mobile-menu-btn" onclick="window.toggleMobileMenu()">
+                <span>🛰️ Спутники</span>
+            </button>
+            <button id="mobileDetailBtn" class="mobile-detail-btn" onclick="window.toggleMobileDetail()">
+                <span>📊 Детали</span>
+            </button>
+        </div>
 
         <!-- Sidebar Navigation & Control -->
         <aside id="sidebarPanel" class="hud-sidebar glass-panel">
@@ -221,6 +228,7 @@
                 <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ Перетащить</span></div>
                 <button id="toggleSidebarMinBtn" class="panel-min-btn" title="Свернуть / Развернуть">➖</button>
             </div>
+                        
                         <div class="sidebar-mobile-header">
                 <span class="sidebar-mobile-title">🛰️ Спутники и меню</span>
                 <button id="closeMobileSidebarBtn" class="sidebar-mobile-close-btn" onclick="window.closeMobileMenu()">&times;</button>
@@ -376,6 +384,10 @@
             </div>
         </div>
         <div id="detailCard" class="hud-card glass-panel hidden">
+            <div class="detail-mobile-header">
+                <span class="detail-mobile-title">📊 Подробности спутника</span>
+                <button id="closeMobileDetailBtn" class="detail-mobile-close-btn" onclick="window.closeMobileDetail()">&times;</button>
+            </div>
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
                 <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">Перетащить</span></div>
                 <div style="display:flex; gap:6px; align-items:center;">
@@ -614,7 +626,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260824_1200"></script>
+    <script src="app.js?v=20260824_1600"></script>
     
     </div>
         <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->

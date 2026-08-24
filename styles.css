@@ -1703,9 +1703,34 @@ html[dir="rtl"] .toggle-switch {
 
 
 
+
 /* ==========================================================================
-   CSS-Guaranteed Zoom Hint Differentiator (Zero JS Glitch!)
+   CSS-Guaranteed Zoom Hint Differentiator (Auto-Dismiss)
    ========================================================================== */
+.zoom-hint-toast {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    background: linear-gradient(135deg, rgba(11, 19, 43, 0.94), rgba(15, 23, 42, 0.94));
+    border: 1px solid rgba(56, 189, 248, 0.55);
+    border-radius: 30px;
+    padding: 8px 18px;
+    box-shadow: 0 0 24px rgba(56, 189, 248, 0.35), 0 8px 20px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 999999;
+    pointer-events: none;
+    animation: zoomHintSlideUp 0.5s ease-out forwards;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.zoom-hint-toast.fade-out {
+    opacity: 0 !important;
+    transform: translateX(-50%) translateY(12px) !important;
+    pointer-events: none !important;
+}
+
 .zoom-hint-pc-content {
     display: flex !important;
     align-items: center;
@@ -1717,13 +1742,23 @@ html[dir="rtl"] .toggle-switch {
 }
 
 @media (max-width: 768px) {
+    .zoom-hint-toast {
+        bottom: 75px !important;
+        padding: 6px 14px !important;
+    }
     .zoom-hint-pc-content {
         display: none !important;
     }
     .zoom-hint-touch-content {
         display: flex !important;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
+    }
+    .zoom-hint-title {
+        font-size: 0.78rem !important;
+    }
+    .zoom-hint-sub {
+        font-size: 0.68rem !important;
     }
 }
 
@@ -1813,15 +1848,22 @@ html[dir="rtl"] .toggle-switch {
         font-size: 0.72rem !important;
     }
 
-    /* 2. Floating Action Button (FAB) on Bottom-Left for Menu */
-    .mobile-menu-btn {
-        display: flex !important;
-        align-items: center;
-        gap: 6px;
+    /* 2. Bottom Dock Action Buttons: [🛰️ 衛星選択] and [📊 衛星詳細] */
+    .mobile-bottom-dock {
         position: fixed !important;
         bottom: 14px !important;
         left: 12px !important;
-        z-index: 99999 !important;
+        display: flex !important;
+        gap: 8px !important;
+        z-index: 999999 !important;
+        pointer-events: auto !important;
+    }
+
+    .mobile-menu-btn,
+    .mobile-detail-btn {
+        display: flex !important;
+        align-items: center;
+        gap: 5px;
         background: linear-gradient(135deg, #0284c7, #6366f1) !important;
         color: #ffffff !important;
         border: 1px solid rgba(255, 255, 255, 0.4) !important;
@@ -1829,17 +1871,23 @@ html[dir="rtl"] .toggle-switch {
         padding: 8px 14px !important;
         font-size: 0.82rem !important;
         font-weight: 700 !important;
-        box-shadow: 0 4px 20px rgba(2, 132, 199, 0.6), 0 0 14px rgba(0, 243, 255, 0.5) !important;
+        box-shadow: 0 4px 20px rgba(2, 132, 199, 0.6), 0 0 14px rgba(0, 243, 255, 0.4) !important;
         cursor: pointer !important;
-        pointer-events: auto !important;
         backdrop-filter: blur(8px) !important;
     }
 
-    .mobile-menu-btn:active {
+    .mobile-detail-btn {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.95), rgba(79, 70, 229, 0.95)) !important;
+        box-shadow: 0 4px 20px rgba(168, 85, 247, 0.6), 0 0 14px rgba(192, 132, 252, 0.4) !important;
+        border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .mobile-menu-btn:active,
+    .mobile-detail-btn:active {
         transform: scale(0.92) !important;
     }
 
-    /* 3. Sidebar transformed into 100% Reliable Bottom Sheet on Mobile */
+    /* 3. Sidebar Bottom Sheet Drawer (Hidden by default until clicked!) */
     aside#sidebarPanel.hud-sidebar {
         position: fixed !important;
         top: auto !important;
@@ -1849,7 +1897,7 @@ html[dir="rtl"] .toggle-switch {
         width: 100vw !important;
         max-width: 100vw !important;
         height: auto !important;
-        max-height: 75vh !important;
+        max-height: 78vh !important;
         border-radius: 22px 22px 0 0 !important;
         background: rgba(11, 19, 43, 0.98) !important;
         border: 1px solid rgba(56, 189, 248, 0.5) !important;
@@ -1858,20 +1906,16 @@ html[dir="rtl"] .toggle-switch {
         z-index: 1000000 !important;
         padding: 14px 16px 28px 16px !important;
         margin: 0 !important;
-        display: none !important;
+        display: none !important; /* DEFAULT 100% STORED IN BUTTON */
         overflow-y: auto !important;
         pointer-events: auto !important;
+        transform: none !important;
     }
 
     aside#sidebarPanel.hud-sidebar.mobile-open {
         display: flex !important;
         flex-direction: column !important;
         animation: mobileSheetSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-    }
-
-    @keyframes mobileSheetSlideUp {
-        from { transform: translateY(100%); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
     }
 
     .sidebar-mobile-header {
@@ -1903,7 +1947,74 @@ html[dir="rtl"] .toggle-switch {
         cursor: pointer;
     }
 
-    /* 4. Mini Camera D-Pad (Micro size on Bottom-Right) */
+    /* 4. Detail Card Bottom Sheet Drawer (Hidden by default until clicked!) */
+    #detailCard.hud-card,
+    .hud-detail-card {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        height: auto !important;
+        max-height: 78vh !important;
+        border-radius: 22px 22px 0 0 !important;
+        background: rgba(11, 19, 43, 0.98) !important;
+        border: 1px solid rgba(168, 85, 247, 0.5) !important;
+        border-bottom: none !important;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9) !important;
+        z-index: 1000000 !important;
+        padding: 14px 16px 28px 16px !important;
+        margin: 0 !important;
+        display: none !important; /* DEFAULT 100% STORED IN BUTTON */
+        overflow-y: auto !important;
+        pointer-events: auto !important;
+        transform: none !important;
+    }
+
+    #detailCard.hud-card.mobile-open,
+    .hud-detail-card.mobile-open {
+        display: flex !important;
+        flex-direction: column !important;
+        animation: mobileSheetSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
+
+    #detailCard .panel-drag-bar,
+    .hud-detail-card .panel-drag-bar {
+        display: none !important;
+    }
+
+    .detail-mobile-header {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .detail-mobile-title {
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: #c084fc;
+    }
+
+    .detail-mobile-close-btn {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    /* 5. Mini Camera D-Pad (Micro size on Bottom-Right) */
     .camera-dpad-hud {
         position: fixed !important;
         bottom: 12px !important;
@@ -1940,81 +2051,19 @@ html[dir="rtl"] .toggle-switch {
         color: #38bdf8 !important;
     }
 
-    /* 5. Mobile Detail Card: 30% Ultra-Slim Compact Bar */
-    .hud-detail-card {
-        position: fixed !important;
-        bottom: 14px !important;
-        left: 145px !important;
-        right: 76px !important;
-        width: auto !important;
-        max-width: calc(100vw - 225px) !important;
-        height: 36px !important;
-        max-height: 36px !important;
-        border-radius: 18px !important;
-        padding: 2px 8px !important;
-        margin: 0 !important;
-        background: rgba(11, 19, 43, 0.90) !important;
-        border: 1px solid rgba(56, 189, 248, 0.4) !important;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
-        z-index: 9997 !important;
-        transform: none !important;
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        overflow: hidden !important;
+    @keyframes mobileSheetSlideUp {
+        from { transform: translateY(100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
     }
+}
 
-    .hud-detail-card.hidden {
+/* Hide Mobile Elements on PC / Desktop */
+@media (min-width: 769px) {
+    .mobile-bottom-dock {
         display: none !important;
     }
-
-    .hud-detail-card .panel-drag-bar,
-    .hud-detail-card .card-header .badge,
-    .hud-detail-card .card-header .card-subtitle,
-    .hud-detail-card .sat-image-wrapper,
-    .hud-detail-card #satDescription,
-    .hud-detail-card .data-item:nth-child(n+3),
-    .hud-detail-card .actions-group,
-    .hud-detail-card #trackBtn {
+    .sidebar-mobile-header,
+    .detail-mobile-header {
         display: none !important;
-    }
-
-    .hud-detail-card .card-header {
-        padding: 0 !important;
-        margin-right: 6px !important;
-        border: none !important;
-        white-space: nowrap !important;
-    }
-
-    .hud-detail-card .card-title {
-        font-size: 0.74rem !important;
-        margin: 0 !important;
-        color: #ffffff !important;
-    }
-
-    .hud-detail-card .card-body.grid-2col {
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 4px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-
-    .hud-detail-card .data-item {
-        padding: 0 !important;
-        background: transparent !important;
-        border: none !important;
-        flex-direction: row !important;
-        align-items: center !important;
-    }
-
-    .hud-detail-card .data-label {
-        display: none !important;
-    }
-
-    .hud-detail-card .data-value {
-        font-size: 0.70rem !important;
-        color: #38bdf8 !important;
-        white-space: nowrap !important;
     }
 }
