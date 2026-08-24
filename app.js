@@ -1,30 +1,44 @@
 
-// Guaranteed Global Mobile Bottom Dock Helpers (100% Direct Response & Zero Style Conflict)
+// Guaranteed Global Mobile Bottom Dock Helpers (100% Direct Response & Double-Guard Control)
 window.toggleMobileMenu = function(e) {
     if (e && e.stopPropagation) e.stopPropagation();
     const sidebar = document.getElementById('sidebarPanel');
     const detail = document.getElementById('detailCard');
-    if (detail) detail.classList.remove('mobile-open');
+    if (detail) {
+        detail.classList.remove('mobile-open');
+        if (window.innerWidth <= 768) detail.style.display = 'none';
+    }
     if (sidebar) {
+        sidebar.classList.remove('is-minimized');
         sidebar.style.top = '';
         sidebar.style.left = '';
         sidebar.style.right = '';
+        sidebar.style.bottom = '';
         sidebar.style.transform = '';
-        sidebar.classList.toggle('mobile-open');
+        const isOpen = sidebar.classList.toggle('mobile-open');
+        if (window.innerWidth <= 768) {
+            sidebar.style.display = isOpen ? 'flex' : 'none';
+        }
     }
 };
 
 window.closeMobileMenu = function(e) {
     if (e && e.stopPropagation) e.stopPropagation();
     const sidebar = document.getElementById('sidebarPanel');
-    if (sidebar) sidebar.classList.remove('mobile-open');
+    if (sidebar) {
+        sidebar.classList.remove('mobile-open');
+        if (window.innerWidth <= 768) sidebar.style.display = 'none';
+    }
 };
 
 window.toggleMobileDetail = function(e) {
     if (e && e.stopPropagation) e.stopPropagation();
     const detail = document.getElementById('detailCard');
     const sidebar = document.getElementById('sidebarPanel');
-    if (sidebar) sidebar.classList.remove('mobile-open');
+    if (sidebar) {
+        sidebar.classList.remove('mobile-open');
+        if (window.innerWidth <= 768) sidebar.style.display = 'none';
+    }
     if (detail) {
         detail.classList.remove('hidden');
         detail.classList.remove('is-minimized');
@@ -33,14 +47,20 @@ window.toggleMobileDetail = function(e) {
         detail.style.right = '';
         detail.style.bottom = '';
         detail.style.transform = '';
-        detail.classList.toggle('mobile-open');
+        const isOpen = detail.classList.toggle('mobile-open');
+        if (window.innerWidth <= 768) {
+            detail.style.display = isOpen ? 'flex' : 'none';
+        }
     }
 };
 
 window.closeMobileDetail = function(e) {
     if (e && e.stopPropagation) e.stopPropagation();
     const detail = document.getElementById('detailCard');
-    if (detail) detail.classList.remove('mobile-open');
+    if (detail) {
+        detail.classList.remove('mobile-open');
+        if (window.innerWidth <= 768) detail.style.display = 'none';
+    }
 };
 
 
