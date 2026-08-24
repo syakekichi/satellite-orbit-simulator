@@ -7034,7 +7034,7 @@ function updateSatellitePositions(jsDate) {
 }
 
 /**
- * Off-Screen Edge Pointer HUD
+ * Off-Screen Edge Pointer HUD (Guaranteed In-Screen Viewport Clamping)
  */
 function updateOffScreenPointer() {
     if (selectedSatIndex < 0 || !satellitesData[selectedSatIndex]) {
@@ -7053,7 +7053,7 @@ function updateOffScreenPointer() {
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
 
-    if (windowCoord && windowCoord.x >= 50 && windowCoord.x <= width - 50 && windowCoord.y >= 50 && windowCoord.y <= height - 50) {
+    if (windowCoord && windowCoord.x >= 60 && windowCoord.x <= width - 60 && windowCoord.y >= 60 && windowCoord.y <= height - 60) {
         edgePointer.classList.add('hidden');
     } else {
         edgePointer.classList.remove('hidden');
@@ -7062,11 +7062,15 @@ function updateOffScreenPointer() {
         let screenX = windowCoord ? windowCoord.x : width / 2;
         let screenY = windowCoord ? windowCoord.y : height / 2;
 
-        const marginX = 90;
-        const marginTop = 90;
-        const marginBottom = 110;
-        const clampedX = Math.max(marginX, Math.min(width - marginX, screenX));
-        const clampedY = Math.max(marginTop, Math.min(height - marginBottom, screenY));
+        const isMobile = (window.innerWidth <= 768);
+        const halfW = isMobile ? 115 : 135;
+        const halfH = 22;
+
+        const marginTop = 50; // Below top minimal header
+        const marginBottom = isMobile ? 75 : 55; // Above bottom mobile dock
+
+        const clampedX = Math.max(halfW + 6, Math.min(width - halfW - 6, screenX));
+        const clampedY = Math.max(marginTop + halfH + 6, Math.min(height - marginBottom - halfH - 6, screenY));
 
         const centerX = width / 2;
         const centerY = height / 2;

@@ -624,20 +624,23 @@ aside#sidebarPanel.hud-sidebar {
 /* Off-Screen Edge Pointer HUD */
 .edge-pointer-hud {
     position: fixed;
-    z-index: 1000;
+    z-index: 99999;
     pointer-events: auto;
     cursor: pointer;
-    background: rgba(13, 17, 26, 0.9);
-    border: 2px solid var(--accent-rose);
+    background: rgba(13, 17, 26, 0.94);
+    border: 1.5px solid var(--accent-rose);
     border-radius: 30px;
-    padding: 8px 16px;
+    padding: 6px 14px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     box-shadow: 0 0 20px rgba(244, 63, 94, 0.5), inset 0 0 10px rgba(244, 63, 94, 0.2);
     backdrop-filter: blur(12px);
-    transition: transform 0.1s ease, background-color 0.2s ease;
+    -webkit-backdrop-filter: blur(12px);
+    transform: translate(-50%, -50%);
+    transition: background-color 0.2s ease;
     animation: pointerGlow 1.5s infinite alternate ease-in-out;
+    max-width: calc(100vw - 24px);
 }
 
 .edge-pointer-hud:hover {
@@ -2083,6 +2086,29 @@ html[dir="rtl"] .toggle-switch {
         background: rgba(15, 23, 42, 0.9) !important;
         border-color: rgba(56, 189, 248, 0.5) !important;
         color: #38bdf8 !important;
+    }
+
+    
+    /* 6. Edge Pointer HUD Mobile In-Screen Guard */
+    .edge-pointer-hud {
+        padding: 4px 10px !important;
+        border-radius: 18px !important;
+        max-width: 220px !important;
+        transform: translate(-50%, -50%) !important;
+    }
+    .edge-pointer-hud .pointer-arrow {
+        font-size: 1.1rem !important;
+    }
+    .edge-pointer-hud .pointer-name {
+        font-size: 0.74rem !important;
+        max-width: 140px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    .edge-pointer-hud .pointer-hint {
+        font-size: 0.62rem !important;
+        white-space: nowrap !important;
     }
 
     @keyframes mobileSheetSlideUp {
