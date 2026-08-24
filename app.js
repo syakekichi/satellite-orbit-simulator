@@ -1,4 +1,27 @@
 
+// Guaranteed Global Mobile Menu Helpers (100% Direct Response & Style Reset)
+window.toggleMobileMenu = function(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const sidebar = document.getElementById('sidebarPanel');
+    if (sidebar) {
+        // Clear any desktop drag inline coordinates that would break fixed bottom-sheet
+        sidebar.style.top = '';
+        sidebar.style.left = '';
+        sidebar.style.right = '';
+        sidebar.style.transform = '';
+        sidebar.classList.toggle('mobile-open');
+    }
+};
+
+window.closeMobileMenu = function(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const sidebar = document.getElementById('sidebarPanel');
+    if (sidebar) {
+        sidebar.classList.remove('mobile-open');
+    }
+};
+
+
 /**
  * Security: Comprehensive HTML Escaping Helper to prevent XSS attacks
  */
@@ -4185,7 +4208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
         initCesiumViewer();
         setupEventListeners();
-        loadMajorSatellitesPreset(true);
+        loadMajorSatellitesPreset(true); if (window.innerWidth <= 768 && sidebarPanel) sidebarPanel.classList.remove('mobile-open');
 
     
     // Device-Adaptive Floating Zoom Hint Toast (Auto-Dismiss)
@@ -4207,6 +4230,35 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('touchstart', dismissToast, { passive: true, once: true });
         
         setTimeout(dismissToast, 6500);
+    }
+
+    
+    // Mobile Bottom Sheet Drawer Toggle Handler
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeMobileSidebarBtn = document.getElementById('closeMobileSidebarBtn');
+    const sidebarPanel = document.getElementById('sidebarPanel');
+
+    if (mobileMenuBtn && sidebarPanel) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebarPanel.classList.toggle('mobile-open');
+        });
+    }
+
+    if (closeMobileSidebarBtn && sidebarPanel) {
+        closeMobileSidebarBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebarPanel.classList.remove('mobile-open');
+        });
+    }
+
+    // Auto-close sidebar on mobile after choosing a satellite or preset
+    if (satSelect && sidebarPanel) {
+        satSelect.addEventListener('change', () => {
+            if (window.innerWidth <= 768) {
+                sidebarPanel.classList.remove('mobile-open');
+            }
+        });
     }
 
     // Initialize Smart Guide Tooltip dismiss listeners
@@ -8227,13 +8279,13 @@ function setupEventListeners() {
     if (loadTrainBtn) {
         loadTrainBtn.addEventListener('click', () => {
             setActivePresetBtn(loadTrainBtn);
-            loadStarlinkTrainPreset();
+            loadStarlinkTrainPreset(); if (window.innerWidth <= 768 && sidebarPanel) sidebarPanel.classList.remove('mobile-open');
         });
     }
 
     loadMajorBtn.addEventListener('click', () => {
         setActivePresetBtn(loadMajorBtn);
-        loadMajorSatellitesPreset(true);
+        loadMajorSatellitesPreset(true); if (window.innerWidth <= 768 && sidebarPanel) sidebarPanel.classList.remove('mobile-open');
 
     
     // Device-Adaptive Floating Zoom Hint Toast (Auto-Dismiss)
@@ -8255,6 +8307,35 @@ function setupEventListeners() {
         window.addEventListener('touchstart', dismissToast, { passive: true, once: true });
         
         setTimeout(dismissToast, 6500);
+    }
+
+    
+    // Mobile Bottom Sheet Drawer Toggle Handler
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeMobileSidebarBtn = document.getElementById('closeMobileSidebarBtn');
+    const sidebarPanel = document.getElementById('sidebarPanel');
+
+    if (mobileMenuBtn && sidebarPanel) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebarPanel.classList.toggle('mobile-open');
+        });
+    }
+
+    if (closeMobileSidebarBtn && sidebarPanel) {
+        closeMobileSidebarBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebarPanel.classList.remove('mobile-open');
+        });
+    }
+
+    // Auto-close sidebar on mobile after choosing a satellite or preset
+    if (satSelect && sidebarPanel) {
+        satSelect.addEventListener('change', () => {
+            if (window.innerWidth <= 768) {
+                sidebarPanel.classList.remove('mobile-open');
+            }
+        });
     }
 
     // Initialize Smart Guide Tooltip dismiss listeners

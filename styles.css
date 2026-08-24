@@ -1410,26 +1410,7 @@ input:focus + .slider.purple-slider {
         height: 100vh !important;
     }
 
-    aside#sidebarPanel.hud-sidebar {
-        position: fixed !important;
-        top: auto !important;
-        bottom: 12px !important;
-        left: 12px !important;
-        right: auto !important;
-        width: calc(100vw - 24px) !important;
-        max-width: 360px !important;
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: 48vh !important;
-        border-radius: 16px !important;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85) !important;
-        z-index: 99999 !important;
-        padding: 10px 14px 8px 14px !important;
-        margin: 0 !important;
-        transform: none !important;
-        background: rgba(11, 19, 41, 0.95) !important;
-        backdrop-filter: blur(16px) !important;
-    }
+/* Cleaned for Mobile Bottom Sheet */
 
     .sidebar-collapsible-content {
         max-height: calc(48vh - 36px) !important;
@@ -1717,5 +1698,323 @@ html[dir="rtl"] .toggle-switch {
     }
     .zoom-hint-sub {
         font-size: 0.65rem;
+    }
+}
+
+
+
+/* ==========================================================================
+   CSS-Guaranteed Zoom Hint Differentiator (Zero JS Glitch!)
+   ========================================================================== */
+.zoom-hint-pc-content {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+}
+
+.zoom-hint-touch-content {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .zoom-hint-pc-content {
+        display: none !important;
+    }
+    .zoom-hint-touch-content {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+/* ==========================================================================
+   Mobile Modern UI Overhaul (Max Width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* 1. Header Top Strip: Slim single-row minimal HUD */
+    .hud-top-split {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 6px !important;
+        padding: 6px 8px !important;
+        height: 42px !important;
+        max-height: 42px !important;
+        background: transparent !important;
+        pointer-events: none !important;
+    }
+
+    .header-left-island {
+        pointer-events: auto !important;
+        padding: 4px 10px !important;
+        border-radius: 20px !important;
+        max-width: fit-content !important;
+        margin: 0 !important;
+        background: rgba(11, 19, 43, 0.85) !important;
+        border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    }
+
+    .header-left-island .panel-drag-bar,
+    .header-left-island .app-subtitle {
+        display: none !important;
+    }
+
+    .header-left-island .app-title {
+        font-size: 0.95rem !important;
+        line-height: 1 !important;
+    }
+
+    .header-left-island .pulse-icon {
+        width: 18px !important;
+        height: 18px !important;
+    }
+    .header-left-island .pulse-icon svg {
+        width: 14px !important;
+        height: 14px !important;
+    }
+
+    .header-right-island {
+        pointer-events: auto !important;
+        padding: 4px 8px !important;
+        border-radius: 20px !important;
+        max-width: fit-content !important;
+        margin: 0 !important;
+        background: rgba(11, 19, 43, 0.85) !important;
+        border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    }
+
+    .header-right-island .panel-drag-bar,
+    .header-right-island #statCountLabel,
+    .header-right-island #statCount,
+    .header-right-island #statTimeLabel,
+    .header-right-island #openReleaseBtn {
+        display: none !important;
+    }
+
+    .header-right-island .stat-pill {
+        padding: 2px 6px !important;
+        border: none !important;
+        background: transparent !important;
+    }
+
+    .header-right-island .stat-value.mono-text {
+        font-size: 0.82rem !important;
+        color: #38bdf8 !important;
+        font-weight: 700 !important;
+    }
+
+    .header-right-island #langSelect {
+        font-size: 0.72rem !important;
+        padding: 2px !important;
+    }
+
+    .header-right-island #openGuideBtn {
+        padding: 2px 6px !important;
+        font-size: 0.72rem !important;
+    }
+
+    /* 2. Floating Action Button (FAB) on Bottom-Left for Menu */
+    .mobile-menu-btn {
+        display: flex !important;
+        align-items: center;
+        gap: 6px;
+        position: fixed !important;
+        bottom: 14px !important;
+        left: 12px !important;
+        z-index: 99999 !important;
+        background: linear-gradient(135deg, #0284c7, #6366f1) !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(255, 255, 255, 0.4) !important;
+        border-radius: 24px !important;
+        padding: 8px 14px !important;
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 20px rgba(2, 132, 199, 0.6), 0 0 14px rgba(0, 243, 255, 0.5) !important;
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        backdrop-filter: blur(8px) !important;
+    }
+
+    .mobile-menu-btn:active {
+        transform: scale(0.92) !important;
+    }
+
+    /* 3. Sidebar transformed into 100% Reliable Bottom Sheet on Mobile */
+    aside#sidebarPanel.hud-sidebar {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        height: auto !important;
+        max-height: 75vh !important;
+        border-radius: 22px 22px 0 0 !important;
+        background: rgba(11, 19, 43, 0.98) !important;
+        border: 1px solid rgba(56, 189, 248, 0.5) !important;
+        border-bottom: none !important;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9) !important;
+        z-index: 1000000 !important;
+        padding: 14px 16px 28px 16px !important;
+        margin: 0 !important;
+        display: none !important;
+        overflow-y: auto !important;
+        pointer-events: auto !important;
+    }
+
+    aside#sidebarPanel.hud-sidebar.mobile-open {
+        display: flex !important;
+        flex-direction: column !important;
+        animation: mobileSheetSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
+
+    @keyframes mobileSheetSlideUp {
+        from { transform: translateY(100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .sidebar-mobile-header {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-mobile-title {
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: #38bdf8;
+    }
+
+    .sidebar-mobile-close-btn {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    /* 4. Mini Camera D-Pad (Micro size on Bottom-Right) */
+    .camera-dpad-hud {
+        position: fixed !important;
+        bottom: 12px !important;
+        right: 12px !important;
+        top: auto !important;
+        left: auto !important;
+        padding: 6px !important;
+        border-radius: 12px !important;
+        background: rgba(11, 19, 43, 0.85) !important;
+        border: 1px solid rgba(56, 189, 248, 0.4) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
+        z-index: 9998 !important;
+        transform: none !important;
+    }
+
+    .camera-dpad-hud .dpad-title-bar {
+        display: none !important;
+    }
+
+    .camera-dpad-hud .dpad-grid {
+        grid-template-columns: repeat(3, 28px) !important;
+        grid-template-rows: repeat(3, 28px) !important;
+        gap: 3px !important;
+    }
+
+    .camera-dpad-hud .dpad-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.8rem !important;
+        border-radius: 5px !important;
+        border-width: 1px !important;
+        background: rgba(15, 23, 42, 0.9) !important;
+        border-color: rgba(56, 189, 248, 0.5) !important;
+        color: #38bdf8 !important;
+    }
+
+    /* 5. Mobile Detail Card: 30% Ultra-Slim Compact Bar */
+    .hud-detail-card {
+        position: fixed !important;
+        bottom: 14px !important;
+        left: 145px !important;
+        right: 76px !important;
+        width: auto !important;
+        max-width: calc(100vw - 225px) !important;
+        height: 36px !important;
+        max-height: 36px !important;
+        border-radius: 18px !important;
+        padding: 2px 8px !important;
+        margin: 0 !important;
+        background: rgba(11, 19, 43, 0.90) !important;
+        border: 1px solid rgba(56, 189, 248, 0.4) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
+        z-index: 9997 !important;
+        transform: none !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        overflow: hidden !important;
+    }
+
+    .hud-detail-card.hidden {
+        display: none !important;
+    }
+
+    .hud-detail-card .panel-drag-bar,
+    .hud-detail-card .card-header .badge,
+    .hud-detail-card .card-header .card-subtitle,
+    .hud-detail-card .sat-image-wrapper,
+    .hud-detail-card #satDescription,
+    .hud-detail-card .data-item:nth-child(n+3),
+    .hud-detail-card .actions-group,
+    .hud-detail-card #trackBtn {
+        display: none !important;
+    }
+
+    .hud-detail-card .card-header {
+        padding: 0 !important;
+        margin-right: 6px !important;
+        border: none !important;
+        white-space: nowrap !important;
+    }
+
+    .hud-detail-card .card-title {
+        font-size: 0.74rem !important;
+        margin: 0 !important;
+        color: #ffffff !important;
+    }
+
+    .hud-detail-card .card-body.grid-2col {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 4px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .hud-detail-card .data-item {
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+
+    .hud-detail-card .data-label {
+        display: none !important;
+    }
+
+    .hud-detail-card .data-value {
+        font-size: 0.70rem !important;
+        color: #38bdf8 !important;
+        white-space: nowrap !important;
     }
 }

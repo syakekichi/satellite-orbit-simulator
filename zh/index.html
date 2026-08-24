@@ -210,11 +210,20 @@
             </div>
         </div>
 
+                <!-- Mobile Floating Action Button (FAB) to open Bottom Sheet Menu -->
+        <button id="mobileMenuBtn" class="mobile-menu-btn" onclick="window.toggleMobileMenu()">
+            <span>🛰️ 卫星选择·菜单</span>
+        </button>
+
         <!-- Sidebar Navigation & Control -->
         <aside id="sidebarPanel" class="hud-sidebar glass-panel">
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
                 <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ 拖拽面板</span></div>
                 <button id="toggleSidebarMinBtn" class="panel-min-btn" title="最小化 / 展开">➖</button>
+            </div>
+                        <div class="sidebar-mobile-header">
+                <span class="sidebar-mobile-title">🛰️ 卫星选择·菜单</span>
+                <button id="closeMobileSidebarBtn" class="sidebar-mobile-close-btn" onclick="window.closeMobileMenu()">&times;</button>
             </div>
             <div id="sidebarContent" class="sidebar-collapsible-content">
             <div class="sidebar-section">
@@ -606,20 +615,30 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260824_900"></script>
+    <script src="app.js?v=20260824_1200"></script>
     
     </div>
-    <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss) -->
+        <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
     <div id="zoomHintToast" class="zoom-hint-toast">
-        <div class="zoom-hint-icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none">
-                <rect x="6" y="3" width="12" height="18" rx="6"></rect>
-                <line x1="12" y1="7" x2="12" y2="11" stroke="#38bdf8" stroke-width="2.5"></line>
-            </svg>
+        <!-- PC View (Mouse Wheel) -->
+        <div class="zoom-hint-pc-content">
+            <div class="zoom-hint-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none"><rect x="6" y="3" width="12" height="18" rx="6"></rect><line x1="12" y1="7" x2="12" y2="11" stroke="#38bdf8" stroke-width="2.5"></line></svg>
+            </div>
+            <div class="zoom-hint-text">
+                <span class="zoom-hint-title">🔍 鼠标滚轮缩放视野</span>
+                <span class="zoom-hint-sub">滚动鼠标可纵览地球全景</span>
+            </div>
         </div>
-        <div class="zoom-hint-text">
-            <span class="zoom-hint-title">🔍 滚轮 / 双指缩放视野</span>
-            <span class="zoom-hint-sub">滚动鼠标可缩放并纵览地球全景</span>
+        <!-- Touch / Mobile View (2-Finger Pinch) -->
+        <div class="zoom-hint-touch-content">
+            <div class="zoom-hint-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg>
+            </div>
+            <div class="zoom-hint-text">
+                <span class="zoom-hint-title">🔍 双指捏合缩放视野</span>
+                <span class="zoom-hint-sub">双指捏合屏幕可纵览地球全景</span>
+            </div>
         </div>
     </div>
 </body>
