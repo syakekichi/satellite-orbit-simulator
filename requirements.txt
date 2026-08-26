@@ -1,3 +1,9 @@
 skyfield
 numpy
 matplotlib
+Pillow
+requests
+scipy
+playwright
+tweepy
+python-dotenv

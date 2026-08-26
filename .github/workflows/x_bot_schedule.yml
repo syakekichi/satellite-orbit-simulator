@@ -1,0 +1,49 @@
+name: SatViewer3D X Bot Automation
+
+on:
+  schedule:
+    # 4時間ごとに自動実行 (UTC 0:00, 4:00, 8:00, 12:00, 16:00, 20:00)
+    # JST(日本時間): 09:00, 13:00, 17:00, 21:00, 01:00, 05:00
+    - cron: '0 0,4,8,12,16,20 * * *'
+  workflow_dispatch: # GitHubのWeb画面から「Run workflow」でいつでも手動テスト実行可能
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright Chromium & System Dependencies
+        run: |
+          python -m playwright install chromium --with-deps
+
+      - name: Restore X Authentication Session
+        env:
+          X_AUTH_JSON: ${{ secrets.X_AUTH_JSON }}
+        run: |
+          echo "$X_AUTH_JSON" > auth.json
+
+      - name: Run Master Satellite Bot
+        run: |
+          python bot_master.py
+
+      - name: Upload Generated Card Artifact (Optional Debug)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bot-generated-card
+          path: post_card.png
+          if-no-files-found: ignore
