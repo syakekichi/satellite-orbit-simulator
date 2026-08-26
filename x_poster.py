@@ -74,20 +74,12 @@ def post_to_x(text: str, image_path: str = None, headless: bool = True) -> bool:
                 else: context.close()
                 return False
 
-            # モーダルダイアログまたは入力欄を探す
-            print("[INFO] 投稿入力欄を待機中...")
-            try:
-                dialog = page.wait_for_selector('div[role="dialog"]', timeout=8000)
-                container = page.locator('div[role="dialog"]').first
-                print("[INFO] 投稿モーダルを検出しました。")
-            except Exception:
-                container = page
-                print("[INFO] 全画面/インライン投稿欄を検出しました。")
-
-            editor = container.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"]').first
+            # 入力欄の特定
+            print("[INFO] 投稿入力欄を探しています...")
+            editor = page.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"]').first
             editor.wait_for(state="visible", timeout=15000)
 
-            # 強制フォーカス＆クリック
+            # フォーカス＆入力
             editor.click(force=True)
             time.sleep(0.5)
             page.keyboard.insert_text(text)
@@ -98,45 +90,64 @@ def post_to_x(text: str, image_path: str = None, headless: bool = True) -> bool:
             if image_path and os.path.exists(image_path):
                 abs_path = os.path.abspath(image_path)
                 print(f"[INFO] 画像をアップロード中: {abs_path}")
-                file_input = container.locator('input[data-testid="fileInput"]').first
+                file_input = page.locator('input[data-testid="fileInput"]').first
                 file_input.set_input_files(abs_path)
                 
                 # 画像プレビュー待機
                 try:
-                    container.locator('div[data-testid="attachments"], button[aria-label="Remove media"], button[aria-label="メディアを削除"]').first.wait_for(state="visible", timeout=15000)
+                    page.locator('div[data-testid="attachments"], button[aria-label="Remove media"], button[aria-label="メディアを削除"]').first.wait_for(state="visible", timeout=15000)
                     print("[INFO] 画像アップロード完了を確認しました。")
                 except Exception:
-                    print("[WARN] プレビュー待機タイムアウト。待機を継続します。")
+                    print("[WARN] プレビュー待機タイムアウト。")
                 time.sleep(3)
 
-            # 送信ボタン
-            post_btn = container.locator('button[data-testid="tweetButton"], button[data-testid="tweetButtonInline"]').first
-            post_btn.wait_for(state="visible", timeout=10000)
-
-            for _ in range(15):
-                if post_btn.is_enabled():
-                    break
-                time.sleep(1)
-
-            print("[INFO] 送信ボタンをクリックします...")
+            # 送信直前のスクリーンショット
             page.screenshot(path="before_click_post.png")
-            post_btn.click(force=True)
 
-            # 送信完了待機
+            # 送信処理：ショートカットキー ＋ JSネイティブクリック
+            print("[INFO] ポスト送信を実行中...")
+            
+            # 1. エディタにフォーカスして Control+Enter
+            editor.focus()
+            time.sleep(0.5)
+            page.keyboard.press("Control+Enter")
+            time.sleep(1)
+
+            # 2. JSで直接DOMのポストボタンをクリック
+            page.evaluate("""() => {
+                const btns = Array.from(document.querySelectorAll('button[data-testid="tweetButton"], button[data-testid="tweetButtonInline"]'));
+                if (btns.length > 0) {
+                    const targetBtn = btns[btns.length - 1];
+                    if (!targetBtn.disabled) {
+                        targetBtn.click();
+                    }
+                }
+            }""")
+            time.sleep(1)
+
+            # 3. Playwright 通常クリック
+            try:
+                post_btn = page.locator('button[data-testid="tweetButton"]').last
+                if post_btn.is_visible() and post_btn.is_enabled():
+                    post_btn.click(force=True)
+            except Exception:
+                pass
+
+            # 送信完了の待機（ダイアログが閉じるのを最大15秒待つ）
             print("[INFO] 送信完了を待機中...")
             is_closed = False
             for _ in range(15):
                 time.sleep(1)
-                if editor.count() == 0 or not editor.is_visible():
+                if page.locator('div[data-testid="tweetTextarea_0"]').count() == 0 or not editor.is_visible():
                     is_closed = True
                     break
 
             page.screenshot(path="after_click_post.png")
 
             if is_closed:
-                print("🎉 [VERIFIED] 投稿が正常に送信されました！")
+                print("🎉 [VERIFIED] 投稿が正常に送信され、ダイアログが閉じました！")
             else:
-                print("[WARN] ダイアログが自動で閉じませんでした。")
+                print("[WARN] 送信完了待機タイムアウト（ダイアログ未クローズ）。")
 
             # セッション更新保存
             try:
