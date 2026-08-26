@@ -29,15 +29,15 @@ def get_region_name_en(lat, lon):
         elif 100 <= lon <= 180 and lat >= 0:
             return "North Pacific Ocean"
         elif -180 <= lon <= -70 and lat >= 0:
-            return "North America / East Pacific"
+            return "North America / Pacific"
         elif -70 <= lon <= -30 and lat <= 15:
-            return "South America / South Atlantic"
+            return "South America / Atlantic"
         elif -30 <= lon <= 60 and lat >= 30:
             return "Europe & Mediterranean"
         elif -20 <= lon <= 55 and lat < 30 and lat > -35:
             return "African Continent"
         elif 60 <= lon <= 120 and lat >= 0:
-            return "Central / South Asia"
+            return "Asia Continent"
         elif 60 <= lon <= 120 and lat < 0:
             return "Indian Ocean"
         elif lon > 120 and lat < 0:
@@ -89,8 +89,7 @@ def task_iss_live():
     
     pos1 = iss.at(t).position.km
     pos2 = iss.at(ts.from_datetime(now_utc + datetime.timedelta(seconds=1))).position.km
-    speed_km_s = np.linalg.norm(pos2 - pos1)
-    speed_km_h = speed_km_s * 3600
+    speed_km_h = np.linalg.norm(pos2 - pos1) * 3600
 
     trail_lons, trail_lats = [], []
     for dt_min in range(-45, 46, 2):
@@ -129,14 +128,13 @@ def task_iss_live():
 
     region = get_region_name_en(lat, lon)
     text = (
-        f"🛰️ ISS Live Orbit Tracker ({now_utc.strftime('%H:%M UTC')})\n\n"
-        f"📍 Current Region: {region}\n"
-        f"🌐 Coordinates: {lat_card}, {lon_card}\n"
-        f"📏 Altitude: {alt:.0f} km ({alt*0.621371:.0f} mi)\n"
-        f"⚡ Velocity: {speed_km_h:,.0f} km/h ({speed_km_s:.2f} km/s)\n\n"
-        f"🌍 Track real-time satellites in 3D 👇\n"
+        f"🛰️ ISS Live Orbit ({now_utc.strftime('%H:%M UTC')})\n"
+        f"📍 Over: {region}\n"
+        f"🌐 Pos: {lat_card}, {lon_card}\n"
+        f"📏 Alt: {alt:.0f} km ({alt*0.621371:.0f} mi) | {speed_km_h:,.0f} km/h\n\n"
+        f"🌍 Track ISS in 3D 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#ISS #Space #SatelliteTracking #SatViewer3D #SpaceStation #NASA #SpaceX"
+        f"#ISS #Space #SatViewer3D #SpaceStation"
     )
     return text, out_img
 
@@ -153,7 +151,6 @@ def task_starlink_fleet():
         lines = f.readlines()
 
     sats = []
-    # 最新の数百基をサンプリング
     for i in range(0, min(len(lines), 1500), 3):
         try:
             line1, line2, name = lines[i].strip(), lines[i+1].strip(), lines[i+2].strip()
@@ -171,13 +168,12 @@ def task_starlink_fleet():
             pass
 
     fig, ax = create_base_map()
-    # Starlinkネオンクラスター
     ax.scatter(lons, lats, color='#00F0FF', s=22, alpha=0.75, edgecolors='none', label='Starlink')
     ax.scatter(lons, lats, color='#FFFFFF', s=5, alpha=0.95, edgecolors='none')
 
     utc_str = now_utc.strftime('%Y-%m-%d %H:%M:%S UTC')
     fig.suptitle("SatViewer3D  •  SpaceX Starlink Mega-Constellation Radar", fontsize=15, fontweight='bold', color='#00F0FF', y=0.96)
-    ax.set_title(f"Time: {utc_str}  |  Sample Network: {len(lons)} Satellites Plotted  |  Alt: ~550 km LEO", fontsize=10.5, color='#94A3B8', pad=10)
+    ax.set_title(f"Time: {utc_str}  |  Active Sample: {len(lons)} Satellites Plotted  |  Alt: ~550 km LEO", fontsize=10.5, color='#94A3B8', pad=10)
 
     out_img = "post_card.png"
     plt.tight_layout()
@@ -185,18 +181,18 @@ def task_starlink_fleet():
     plt.close()
 
     text = (
-        f"🛰️ SpaceX Starlink Mega-Constellation Live Fleet ({now_utc.strftime('%H:%M UTC')})\n\n"
-        f"🌌 Active Satellites in Orbit: 6,000+ total in LEO\n"
-        f"📡 Orbital Altitude: ~550 km | Orbital Speed: ~27,000 km/h\n"
-        f"⚡ High-speed, low-latency satellite internet spanning 100+ countries\n\n"
-        f"🔭 View real-time 3D Starlink swarm & train passes 👇\n"
+        f"🛰️ SpaceX Starlink Fleet Radar ({now_utc.strftime('%H:%M UTC')})\n"
+        f"🌌 Active in LEO: 6,000+ Satellites\n"
+        f"📡 Alt: ~550 km | Speed: ~27,000 km/h\n"
+        f"⚡ Global Broadband Constellation\n\n"
+        f"🌍 Track Starlink in 3D 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#Starlink #SpaceX #ElonMusk #SatelliteInternet #TechNews #SatViewer3D #Astronomy"
+        f"#Starlink #SpaceX #SatViewer3D #Space"
     )
     return text, out_img
 
 # -------------------------------------------------------------
-# Mode 2-B: Starlink Train / Spotter Watch
+# Mode 3: Starlink Train / Spotter Watch
 # -------------------------------------------------------------
 def task_starlink_train():
     ts = load.timescale()
@@ -207,7 +203,6 @@ def task_starlink_train():
     with open(starlink_file, 'r') as f:
         lines = f.readlines()
 
-    # 直近の打ち上げグループ（上部にある衛星群）を抽出
     recent_sats = []
     for i in range(0, min(len(lines), 180), 3):
         try:
@@ -226,7 +221,6 @@ def task_starlink_train():
             pass
 
     fig, ax = create_base_map()
-    # 密集したトレインを描画
     ax.scatter(lons, lats, color='#F59E0B', s=35, alpha=0.85, edgecolors='#FFFFFF', linewidth=1)
     ax.scatter(lons, lats, color='#FDE68A', s=80, alpha=0.3)
 
@@ -240,25 +234,23 @@ def task_starlink_train():
     plt.close()
 
     text = (
-        f"✨ SpaceX Starlink Train Tracker ({now_utc.strftime('%H:%M UTC')})\n\n"
-        f"🚀 Spotting the 'Train of Lights' in the night sky?\n"
-        f"🛰️ Newly launched Starlink batches travel in close formation before dispersing to operational orbits.\n"
-        f"🔭 Best viewed right after sunset / before sunrise!\n\n"
-        f"Check 3D live orbital trajectories & visibility 👇\n"
+        f"✨ SpaceX Starlink Train Tracker ({now_utc.strftime('%H:%M UTC')})\n"
+        f"🚀 Spotting the 'Train of Lights' in the sky?\n"
+        f"🛰️ Newly launched batch in tight formation!\n\n"
+        f"🔭 Check Live 3D Trajectory 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#Starlink #StarlinkTrain #SpaceX #ElonMusk #Stargazing #SatViewer3D #Astronomy"
+        f"#Starlink #StarlinkTrain #SpaceX #SatViewer3D"
     )
     return text, out_img
 
 # -------------------------------------------------------------
-# Mode 3: Hubble Space Telescope (HST)
+# Mode 4: Hubble Space Telescope (HST)
 # -------------------------------------------------------------
 def task_hubble_live():
     ts = load.timescale()
     now_utc = datetime.datetime.now(datetime.timezone.utc)
     t = ts.from_datetime(now_utc)
 
-    # Celestrak science satellites
     url = 'https://celestrak.org/NORAD/elements/gp.php?GROUP=science&FORMAT=tle'
     satellites = load.tle_file(url)
     by_name = {sat.name: sat for sat in satellites}
@@ -308,20 +300,18 @@ def task_hubble_live():
 
     region = get_region_name_en(lat, lon)
     text = (
-        f"🔭 Hubble Space Telescope (HST) Live Tracker ({now_utc.strftime('%H:%M UTC')})\n\n"
-        f"📍 Current Region: {region}\n"
-        f"🌐 Position: {lat_card}, {lon_card}\n"
-        f"📏 Altitude: {alt:.0f} km ({alt*0.621371:.0f} mi)\n"
-        f"⚡ Speed: {speed_km_h:,.0f} km/h\n\n"
-        f"🔭 Over 30+ years uncovering cosmic wonders!\n"
-        f"Track Hubble in 3D 👇\n"
+        f"🔭 Hubble Telescope Live ({now_utc.strftime('%H:%M UTC')})\n"
+        f"📍 Over: {region}\n"
+        f"🌐 Pos: {lat_card}, {lon_card}\n"
+        f"📏 Alt: {alt:.0f} km ({alt*0.621371:.0f} mi) | {speed_km_h:,.0f} km/h\n\n"
+        f"🔭 Track Hubble in 3D 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#Hubble #NASA #Astronomy #SpaceTelescope #SatViewer3D #Space"
+        f"#Hubble #NASA #SatViewer3D #Astronomy"
     )
     return text, out_img
 
 # -------------------------------------------------------------
-# Mode 4: Space Debris Tracking Radar
+# Mode 5: Space Debris Tracking Radar
 # -------------------------------------------------------------
 def task_space_debris():
     ts = load.timescale()
@@ -363,74 +353,59 @@ def task_space_debris():
     plt.close()
 
     text = (
-        f"⚠️ Orbital Space Debris Tracking Radar ({now_utc.strftime('%H:%M UTC')})\n\n"
-        f"💥 Tracked Objects: Thousands of cataloged orbital debris fragments\n"
-        f"🛡️ 24h MOID Collision Risk Analysis active\n"
-        f"⚡ Hypervelocity orbits exceeding 27,000 km/h\n\n"
-        f"Inspect real-time space debris orbits in 3D 👇\n"
+        f"⚠️ Space Debris Risk Radar ({now_utc.strftime('%H:%M UTC')})\n"
+        f"💥 Tracking cataloged orbital debris fragments\n"
+        f"🛡️ 24h MOID Collision Risk Radar active\n"
+        f"⚡ Velocity: 27,000+ km/h\n\n"
+        f"🌍 Real-time 3D Debris Map 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#SpaceDebris #SpaceSafety #SatViewer3D #LEO #SpaceX #NASA #ESA"
+        f"#SpaceDebris #SpaceSafety #SatViewer3D"
     )
     return text, out_img
 
 # -------------------------------------------------------------
-# Mode 5: Unique Satellite Spotlight (面白い人工衛星図鑑)
+# Mode 6: Unique Satellite Spotlight (面白い人工衛星図鑑)
 # -------------------------------------------------------------
 FEATURED_SATELLITES = [
     {
         "name": "Vanguard 1 (1958)",
         "tag": "Vanguard1",
         "badge": "Oldest Human-Made Object in Space",
-        "launch_year": "1958 (68+ years in orbit)",
-        "altitude": "~650 - 3,800 km (Elliptical Orbit)",
-        "speed": "~28,000 km/h",
-        "fact": "Launched by the US in 1958, this tiny 1.4 kg aluminum sphere is the oldest artificial satellite still orbiting Earth today! It is expected to remain in orbit for another 240+ years.",
+        "launch_year": "1958 (68+ yrs in orbit)",
+        "altitude": "~650 - 3,800 km",
+        "fact": "Launched in 1958, this 1.4 kg sphere is the oldest artificial satellite still orbiting Earth today! It will orbit for 240+ more years.",
         "color": "#F59E0B",
         "accent": "#FDE68A"
     },
     {
-        "name": "LAGEOS-1 (Laser Geodynamics)",
+        "name": "LAGEOS-1 (Laser Target)",
         "tag": "LAGEOS",
-        "badge": "8-Million-Year Cosmic Time Capsule",
+        "badge": "8-Million-Year Time Capsule",
         "launch_year": "1976",
-        "altitude": "5,900 km (Stable MEO)",
-        "speed": "~20,500 km/h",
-        "fact": "A solid aluminum sphere covered with 426 cube-corner retroreflectors. It has no electronics, no engine, and acts as a passive laser target. It carries a plaque designed by Carl Sagan for civilizations 8 million years in the future!",
+        "altitude": "5,900 km MEO",
+        "fact": "A solid brass/aluminum sphere with 426 retroreflectors. No electronics! Carries a plaque for humans 8 million years in the future.",
         "color": "#10B981",
         "accent": "#A7F3D0"
     },
     {
-        "name": "Envisat (The Ghost Giant)",
+        "name": "Envisat (Ghost Giant)",
         "tag": "Envisat",
-        "badge": "Largest Abandoned Satellite in LEO",
-        "launch_year": "2002 (Lost Contact in 2012)",
-        "altitude": "~770 km (Polar Orbit)",
-        "speed": "~27,000 km/h",
-        "fact": "Weighing over 8.2 tonnes (size of a large bus), Envisat is one of the largest non-functional satellites in Low Earth Orbit. It poses one of the highest collision risks and will drift for over a century.",
+        "badge": "Largest Dead Satellite in LEO",
+        "launch_year": "2002",
+        "altitude": "~770 km Polar",
+        "fact": "An 8.2-tonne dead satellite the size of a bus! One of the biggest collision hazards in Low Earth Orbit.",
         "color": "#EF4444",
         "accent": "#FCA5A5"
     },
     {
-        "name": "QZSS 'Michibiki' (Quasi-Zenith)",
+        "name": "QZSS 'Michibiki'",
         "tag": "Michibiki",
-        "badge": "Figure-8 Asymmetrical Geosynchronous Orbit",
-        "launch_year": "2010 - Present",
-        "altitude": "32,600 - 39,000 km (QZO)",
-        "speed": "~11,000 km/h",
-        "fact": "Japan's navigation satellites fly in a unique 'Figure-8' shaped orbit directly above Tokyo, providing centimeter-level high-precision GPS positioning even in dense urban canyons.",
+        "badge": "Figure-8 Quasi-Zenith Orbit",
+        "launch_year": "2010",
+        "altitude": "32,600 - 39,000 km",
+        "fact": "Flies in an asymmetrical Figure-8 orbit directly above Japan, enabling centimeter-level GPS accuracy in urban canyons!",
         "color": "#8B5CF6",
         "accent": "#DDD6FE"
-    },
-    {
-        "name": "Tiangong (Chinese Space Station)",
-        "tag": "Tiangong",
-        "badge": "Modular Crewed Orbital Laboratory",
-        "launch_year": "2021 - Present",
-        "altitude": "~380 - 420 km (LEO)",
-        "speed": "~27,600 km/h",
-        "fact": "Weighing over 100 tonnes with Tianhe, Wentian, and Mengtian modules, Tiangong is humanity's other permanently crewed space station alongside the ISS!",
-        "color": "#06B6D4",
-        "accent": "#A5F3FC"
     }
 ]
 
@@ -439,14 +414,11 @@ def task_satellite_spotlight():
     now_utc = datetime.datetime.now(datetime.timezone.utc)
 
     fig, ax = create_base_map()
-    
-    # 抽象的な軌道リングを描画
     theta = np.linspace(0, 2*np.pi, 200)
     orbit_x = 140 * np.cos(theta)
     orbit_y = 60 * np.sin(theta)
     ax.plot(orbit_x, orbit_y, color=sat_info["color"], linewidth=3, alpha=0.8, linestyle='--')
 
-    # 代表マーカー
     ax.scatter([0], [0], color=sat_info["color"], s=450, zorder=6, edgecolors='#FFFFFF', linewidth=2.5)
     ax.scatter([0], [0], color=sat_info["accent"], s=1100, alpha=0.25, zorder=5)
 
@@ -467,14 +439,13 @@ def task_satellite_spotlight():
     plt.close()
 
     text = (
-        f"🛰️ Satellite Spotlight: {sat_info['name']}\n"
-        f"✨ {sat_info['badge']}\n\n"
-        f"📅 Launched: {sat_info['launch_year']}\n"
-        f"📏 Orbit: {sat_info['altitude']}\n\n"
-        f"💡 Fun Fact:\n{sat_info['fact']}\n\n"
-        f"Explore historical & active orbits in 3D 👇\n"
+        f"🛰️ Spotlight: {sat_info['name']}\n"
+        f"✨ {sat_info['badge']}\n"
+        f"📅 Launch: {sat_info['launch_year']}\n\n"
+        f"💡 {sat_info['fact']}\n\n"
+        f"🔭 3D Orbit Tracker 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#{sat_info['tag']} #SpaceHistory #SatViewer3D #Satellite #Astronomy #NASA"
+        f"#{sat_info['tag']} #SpaceHistory #SatViewer3D #Space"
     )
     return text, out_img
 
@@ -522,9 +493,9 @@ def run_master_bot(mode=None):
 
     print("\n--- [Tweet Preview] ---")
     print(text)
+    print(f"Text Length: {len(text)} chars")
     print("-----------------------\n")
 
-    # Xへ自動ポスト
     success = post_to_x(text, image_path=img, headless=True)
     if success:
         with open(MODE_FILE, "w") as f:
@@ -535,6 +506,5 @@ def run_master_bot(mode=None):
         sys.exit(1)
 
 if __name__ == "__main__":
-    # 引数があれば特定モード、なければローテーション
     target_mode = sys.argv[1] if len(sys.argv) > 1 else None
     run_master_bot(target_mode)
