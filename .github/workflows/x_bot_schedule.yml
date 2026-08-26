@@ -40,10 +40,15 @@ jobs:
         run: |
           python bot_master.py
 
-      - name: Upload Generated Card Artifact (Optional Debug)
+      - name: Upload Debug Screenshots & Card Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: bot-generated-card
-          path: post_card.png
+          name: bot-debug-screenshots
+          path: |
+            post_card.png
+            before_click_post.png
+            after_click_post.png
+            error_screenshot.png
+            login_error.png
           if-no-files-found: ignore

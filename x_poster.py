@@ -62,26 +62,34 @@ def post_to_x(text: str, image_path: str = None, headless: bool = True) -> bool:
         page = context.pages[0] if context.pages else context.new_page()
 
         try:
-            print("[INFO] 投稿作成ページにアクセス中...")
+            print("[INFO] ホームページにアクセス中...")
+            page.goto("https://x.com/home", wait_until="domcontentloaded")
+            time.sleep(4)
+
+            # ログイン確認
+            if "login" in page.url:
+                print("[ERROR] ログインセッションが無効です。")
+                page.screenshot(path="login_error.png")
+                if browser: browser.close()
+                else: context.close()
+                return False
+
+            # ホーム画面のインライン投稿欄、またはダイアログを開く
+            print("[INFO] 投稿入力欄を探しています...")
             page.goto("https://x.com/compose/post", wait_until="domcontentloaded")
             time.sleep(4)
 
-            if "login" in page.url:
-                print("[ERROR] ログインセッションが無効です。再度 login_x.py でログインしてください。")
-                if browser: browser.close()
-                else: context.close()
-                return False
+            # 投稿ダイアログを探す
+            dialog = page.locator('div[role="dialog"]').first
+            if dialog.count() > 0 and dialog.is_visible():
+                target_container = dialog
+                print("[INFO] 投稿モーダルダイアログを検出しました。")
+            else:
+                target_container = page.locator('div[data-testid="primaryColumn"]').first
+                print("[INFO] メインカラムの投稿欄を検出しました。")
 
-            # 入力エリアを探す
-            editor = page.wait_for_selector(
-                'div[data-testid="tweetTextarea_0"], div[role="textbox"]',
-                timeout=15000
-            )
-            if not editor:
-                print("[ERROR] 投稿入力欄が見つかりませんでした。")
-                if browser: browser.close()
-                else: context.close()
-                return False
+            editor = target_container.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"]').first
+            editor.wait_for(state="visible", timeout=15000)
 
             # テキスト入力
             editor.click()
@@ -94,62 +102,54 @@ def post_to_x(text: str, image_path: str = None, headless: bool = True) -> bool:
             if image_path and os.path.exists(image_path):
                 abs_path = os.path.abspath(image_path)
                 print(f"[INFO] 画像をアップロード中: {abs_path}")
-                file_input = page.locator('input[data-testid="fileInput"]').first
+                file_input = target_container.locator('input[data-testid="fileInput"]').first
                 file_input.set_input_files(abs_path)
                 
-                # 画像プレビューが表示されるまで待機（最大15秒）
+                # 画像のプレビュー完了待機
                 try:
-                    page.wait_for_selector('div[data-testid="attachments"], button[aria-label="Remove media"], button[aria-label="メディアを削除"]', timeout=15000)
-                    print("[INFO] 画像のアップロード＆プレビュー完了を確認しました。")
+                    target_container.locator('div[data-testid="attachments"], button[aria-label="Remove media"], button[aria-label="メディアを削除"]').first.wait_for(state="visible", timeout=15000)
+                    print("[INFO] 画像アップロード完了を確認しました。")
                 except Exception:
-                    print("[WARN] プレビュー検出タイムアウト。待機を継続します。")
+                    print("[WARN] プレビュー待機タイムアウト。待機を継続します。")
                 time.sleep(3)
 
-            # 「ポストする」ボタンを探してクリック
-            print("[INFO] 「ポストする」ボタンを探しています...")
-            post_button = None
-            for selector in ['button[data-testid="tweetButton"]', 'button[data-testid="tweetButtonInline"]']:
-                btn = page.locator(selector).first
-                if btn.count() > 0 and btn.is_visible():
-                    post_button = btn
-                    break
+            # 送信ボタンを特定（モーダル/コンテナ内のボタンを厳密に指定）
+            post_btn = target_container.locator('button[data-testid="tweetButton"], button[data-testid="tweetButtonInline"]').first
+            post_btn.wait_for(state="visible", timeout=10000)
 
-            if not post_button:
-                # 日本語/英語のテキストで探すフォールバック
-                post_button = page.get_by_role("button", name="Post").or_(page.get_by_role("button", name="ポストする")).first
-
-            # ボタンが有効（enabled）になるまで待機
-            post_button.wait_for(state="visible", timeout=10000)
-            for _ in range(10):
-                if post_button.is_enabled():
+            # ボタンが有効になるのを待つ
+            for i in range(15):
+                if post_btn.is_enabled():
+                    print(f"[INFO] 送信ボタンが有効化されました（{i}秒待機）。")
                     break
                 time.sleep(1)
 
-            print("[INFO] 「ポストする」ボタンをクリックします...")
-            post_button.click(force=True)
+            # スクリーンショット（送信直前）
+            page.screenshot(path="before_click_post.png")
 
-            # 投稿完了の検証（入力エリアが消えるか、ダイアログが閉じるまで待機）
-            print("[INFO] 投稿の完了を検証中...")
-            try:
-                editor.wait_for(state="hidden", timeout=15000)
-                print("🎉 [VERIFIED] 入力欄が正常に閉じられ、ツイートが送信されました！")
-            except Exception:
-                # URLの変化やトースト確認
-                print("[INFO] 画面遷移・トースト通知を確認中...")
+            print("[INFO] 送信ボタンをクリックします...")
+            post_btn.click(force=True)
+
+            # 送信完了の待機（ダイアログが閉じる、またはエディタが消える）
+            print("[INFO] 送信完了を待機中...")
+            is_closed = False
+            for _ in range(12):
+                time.sleep(1)
+                if editor.count() == 0 or not editor.is_visible():
+                    is_closed = True
+                    break
+
+            page.screenshot(path="after_click_post.png")
+
+            if is_closed:
+                print("🎉 [VERIFIED] 投稿が正常に送信され、入力ダイアログが閉じました！")
+            else:
+                print("[WARN] ダイアログが自動で閉じませんでした。追加待機します。")
                 time.sleep(5)
 
-            # 最新のセッションを更新保存
+            # セッション最新化
             try:
                 context.storage_state(path=AUTH_FILE)
-            except:
-                pass
-
-            # 投稿後のプロフィール確認
-            try:
-                page.goto("https://x.com/satviewer3d_bot", wait_until="domcontentloaded")
-                time.sleep(3)
-                page.screenshot(path="post_success_screenshot.png")
-                print("[DEBUG] 投稿後のプロフィール画面を 'post_success_screenshot.png' に保存しました。")
             except:
                 pass
 
@@ -161,7 +161,6 @@ def post_to_x(text: str, image_path: str = None, headless: bool = True) -> bool:
             print(f"[ERROR] 投稿処理中にエラーが発生しました: {e}")
             try:
                 page.screenshot(path="error_screenshot.png")
-                print("[DEBUG] 'error_screenshot.png' にエラー画面を保存しました。")
             except:
                 pass
             if browser: browser.close()
