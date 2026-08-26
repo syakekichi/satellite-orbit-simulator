@@ -34,7 +34,7 @@ jobs:
         env:
           X_AUTH_JSON: ${{ secrets.X_AUTH_JSON }}
         run: |
-          echo "$X_AUTH_JSON" > auth.json
+          python -c "import os, sys; content = os.environ.get('X_AUTH_JSON', '').strip(); sys.exit('Error: X_AUTH_JSON secret is empty!') if not content else open('auth.json', 'w', encoding='utf-8').write(content)"
 
       - name: Run Master Satellite Bot
         run: |

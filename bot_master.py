@@ -532,6 +532,7 @@ def run_master_bot(mode=None):
         print(f"🎉 Successfully posted mode [{mode}] to X!")
     else:
         print(f"❌ Failed to post mode [{mode}].")
+        sys.exit(1)
 
 if __name__ == "__main__":
     # 引数があれば特定モード、なければローテーション
