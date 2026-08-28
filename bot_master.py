@@ -714,7 +714,7 @@ def task_satellite_spotlight():
 # -------------------------------------------------------------
 # メイン実行ルーチン
 # -------------------------------------------------------------
-MODES = ["ISS_LIVE", "TIANGONG_LIVE", "SPAIN_LATAM_LIVE", "STARLINK_FLEET", "STARLINK_TRAIN", "SATELLITE_SPOTLIGHT", "HUBBLE_LIVE", "SPACE_DEBRIS"]
+MODES = ["AUTO_FOLLOWER", "ISS_LIVE", "TIANGONG_LIVE", "SPAIN_LATAM_LIVE", "STARLINK_FLEET", "STARLINK_TRAIN", "SATELLITE_SPOTLIGHT", "HUBBLE_LIVE", "SPACE_DEBRIS"]
 
 def get_next_mode():
     last_mode = None

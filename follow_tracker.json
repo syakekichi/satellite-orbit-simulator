@@ -1,0 +1,55 @@
+{
+  "following": {
+    "ian_j_tickle": {
+      "followed_at": "2026-08-28T15:11:03.320774+00:00",
+      "is_mutual": false,
+      "last_checked": "2026-08-28T15:11:03.320774+00:00"
+    },
+    "postnasa": {
+      "followed_at": "2026-08-28T15:11:03.320774+00:00",
+      "is_mutual": false,
+      "last_checked": "2026-08-28T15:11:03.320774+00:00"
+    },
+    "zentdaily": {
+      "followed_at": "2026-08-28T15:11:03.320774+00:00",
+      "is_mutual": false,
+      "last_checked": "2026-08-28T15:11:03.320774+00:00"
+    },
+    "astro_pettit": {
+      "followed_at": "2026-08-28T15:11:03.320774+00:00",
+      "is_mutual": true,
+      "last_checked": "2026-08-28T15:11:03.320774+00:00"
+    },
+    "babaktafreshi": {
+      "followed_at": "2026-08-28T15:11:03.320774+00:00",
+      "is_mutual": false,
+      "last_checked": "2026-08-28T15:11:03.320774+00:00"
+    },
+    "natgeo": {
+      "followed_at": "2026-08-28T15:11:03.320774+00:00",
+      "is_mutual": true,
+      "last_checked": "2026-08-28T15:11:03.320774+00:00"
+    },
+    "astronomyirl": {
+      "followed_at": "2026-08-28T15:11:03.320774+00:00",
+      "is_mutual": false,
+      "last_checked": "2026-08-28T15:11:03.320774+00:00"
+    },
+    "kulingold": {
+      "followed_at": "2026-08-28T15:11:03.320774+00:00",
+      "is_mutual": false,
+      "last_checked": "2026-08-28T15:11:03.320774+00:00"
+    },
+    "szabben004": {
+      "followed_at": "2026-08-28T15:11:03.320774+00:00",
+      "is_mutual": false,
+      "last_checked": "2026-08-28T15:11:03.320774+00:00"
+    },
+    "lottyeliza55833": {
+      "followed_at": "2026-08-28T15:11:03.320774+00:00",
+      "is_mutual": false,
+      "last_checked": "2026-08-28T15:11:03.320774+00:00"
+    }
+  },
+  "history_unfollowed": []
+}
