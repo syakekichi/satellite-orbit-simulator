@@ -20,11 +20,12 @@ WEBSITE_URL = "https://satviewer3d.com"
 MODE_FILE = "last_bot_mode.txt"
 
 # -------------------------------------------------------------
-# 地理・言語判定エンジン (4大宇宙言語: RU, ZH, JA, EN)
+# 地理・言語判定エンジン (5大宇宙言語: ES, RU, ZH, JA, EN)
 # -------------------------------------------------------------
 def get_location_context(lat, lon):
     """
-    緯度経度から地域名と最適な表示言語（RU/ZH/JA/EN）を自動判定。
+    緯度経度から地域名と最適な表示言語（ES/RU/ZH/JA/EN）を自動判定。
+    - スペイン・中南米: ES (スペイン語 + 英語)
     - ロシア・ユーラシア: RU (ロシア語 + 英語)
     - 中国・台湾周辺: ZH (中国語 + 英語)
     - 日本周辺: JA (日本語 + 英語)
@@ -37,7 +38,8 @@ def get_location_context(lat, lon):
             "region_ja": "日本・東アジア",
             "region_en": "Japan & East Asia",
             "region_zh": "日本及东亚上空",
-            "region_ru": "Япония и Восточная Азия"
+            "region_ru": "Япония и Восточная Азия",
+            "region_es": "Japón y Asia Oriental"
         }
 
     # 2. 中国・台湾・香港周辺
@@ -47,26 +49,48 @@ def get_location_context(lat, lon):
             "region_ja": "中国・東アジア",
             "region_en": "China & East Asia",
             "region_zh": "中国大陆及周边上空",
-            "region_ru": "Китай и Восточная Азия"
+            "region_ru": "Китай и Восточная Азия",
+            "region_es": "China y Asia Oriental"
         }
 
-    # 3. ロシア・ユーラシア・中央アジア
+    # 3. スペイン本土・イベリア半島
+    if (35 <= lat <= 44) and (-10 <= lon <= 4):
+        return {
+            "lang": "ES",
+            "region_ja": "スペイン・イベリア半島",
+            "region_en": "Spain & Iberian Peninsula",
+            "region_zh": "西班牙及伊比利亚半岛",
+            "region_ru": "Испания и Пиренейский полуостров",
+            "region_es": "España y la Península Ibérica"
+        }
+
+    # 4. 中南米（ラテンアメリカ・スペイン語圏）
+    if (-55 <= lat <= 33) and (-118 <= lon <= -34):
+        return {
+            "lang": "ES",
+            "region_ja": "中南米・ラテンアメリカ",
+            "region_en": "Latin America",
+            "region_zh": "拉丁美洲上空",
+            "region_ru": "Латинская Америка",
+            "region_es": "Latinoamérica"
+        }
+
+    # 5. ロシア・ユーラシア・中央アジア
     if (45 <= lat <= 75) and (28 <= lon <= 180):
         return {
             "lang": "RU",
             "region_ja": "ロシア・ユーラシア",
             "region_en": "Russia & Eurasia",
             "region_zh": "俄罗斯及欧亚大陆",
-            "region_ru": "Россия и Евразия"
+            "region_ru": "Россия и Евразия",
+            "region_es": "Rusia y Eurasia"
         }
 
-    # 4. 欧米・その他世界（ENネイティブ）
+    # 6. 北米・西欧・大洋・その他世界（ENネイティブ）
     region_en = "Open Ocean"
-    if (15 <= lat <= 66.5) and (-170 <= lon <= -50):
+    if (33 <= lat <= 66.5) and (-170 <= lon <= -50):
         region_en = "North America"
-    elif (-60 <= lat <= 15) and (-90 <= lon <= -30):
-        region_en = "South America"
-    elif (35 <= lat <= 66.5) and (-15 <= lon <= 28):
+    elif (44 <= lat <= 66.5) and (-15 <= lon <= 28):
         region_en = "Western Europe"
     elif (-35 <= lat <= 35) and (-20 <= lon <= 55):
         region_en = "Africa"
@@ -98,7 +122,8 @@ def get_location_context(lat, lon):
         "region_ja": region_en,
         "region_en": region_en,
         "region_zh": region_en,
-        "region_ru": region_en
+        "region_ru": region_en,
+        "region_es": region_en
     }
 
 def create_base_map():
@@ -124,7 +149,7 @@ def create_base_map():
     return fig, ax
 
 # -------------------------------------------------------------
-# Mode 1: ISS Live Tracker (動的4言語ルーティング: RU, ZH, JA, EN)
+# Mode 1: ISS Live Tracker (動的5言語ルーティング: ES, RU, ZH, JA, EN)
 # -------------------------------------------------------------
 def task_iss_live():
     ts = load.timescale()
@@ -180,7 +205,16 @@ def task_iss_live():
 
     ctx = get_location_context(lat, lon)
     
-    if ctx["lang"] == "RU":
+    if ctx["lang"] == "ES":
+        text = (
+            f"🛰️ ¡La Estación Espacial (ISS) sobrevuela {ctx['region_es']}!\n"
+            f"Viaja a 27,700 km/h (8 km/s) ✨ ¡Mira el cielo nocturno hoy!\n\n"
+            f"Look up! ISS is zooming over {ctx['region_en']} ({speed_km_h:,.0f} km/h) 🌌🔭\n\n"
+            f"🌍 Órbita en 3D en vivo 👇\n"
+            f"{WEBSITE_URL}\n\n"
+            f"#Espacio #Astronomía #ISS #Ciencia #NASA #Space"
+        )
+    elif ctx["lang"] == "RU":
         text = (
             f"🛰️ МКС (Заря) пролетает над {ctx['region_ru']}!\n"
             f"Международная космическая станция мчится со скоростью 27,700 км/ч ✨ Взгляните на ночное небо!\n\n"
@@ -283,6 +317,15 @@ def task_tiangong_live():
             f"{WEBSITE_URL}\n\n"
             f"#中国空间站 #天宫 #中国航天 #天文 #Tiangong #Space"
         )
+    elif ctx["lang"] == "ES":
+        text = (
+            f"🛰️ ¡La Estación Espacial Tiangong sobrevuela {ctx['region_es']}!\n"
+            f"El módulo Tianhe vuela a 27,600 km/h ✨ ¡Mira el cielo nocturno!\n\n"
+            f"Tiangong (CSS) is zooming over {ctx['region_en']} at {speed_km_h:,.0f} km/h 🌌🔭\n\n"
+            f"🌍 Órbita en 3D en vivo 👇\n"
+            f"{WEBSITE_URL}\n\n"
+            f"#Tiangong #Espacio #Astronomía #Ciencia #Space"
+        )
     elif ctx["lang"] == "RU":
         text = (
             f"🛰️ Китайская станция «Тяньгун» на орбите!\n"
@@ -312,7 +355,61 @@ def task_tiangong_live():
     return text, out_img
 
 # -------------------------------------------------------------
-# Mode 3: Starlink Mega-Constellation
+# Mode 3: Spanish & Latin American Satellite Radar (🇪🇸 スペイン・中南米衛星)
+# -------------------------------------------------------------
+def task_spanish_radar():
+    ts = load.timescale()
+    now_utc = datetime.datetime.now(datetime.timezone.utc)
+    t = ts.from_datetime(now_utc)
+
+    spanish_file = "data/spanish_sats.txt" if os.path.exists("data/spanish_sats.txt") else "spanish_sats.txt"
+    with open(spanish_file, 'r') as f:
+        lines = f.readlines()
+
+    sats = []
+    for i in range(0, len(lines), 3):
+        try:
+            name, line1, line2 = lines[i].strip(), lines[i+1].strip(), lines[i+2].strip()
+            sats.append((name, EarthSatellite(line1, line2, name, ts)))
+        except:
+            pass
+
+    fig, ax = create_base_map()
+    colors = ['#EF4444', '#F59E0B', '#10B981', '#38BDF8', '#8B5CF6', '#EC4899']
+    
+    first_sat_name = sats[0][0]
+    for idx, (name, sat) in enumerate(sats):
+        try:
+            sp = wgs84.subpoint(sat.at(t))
+            lat, lon = sp.latitude.degrees, sp.longitude.degrees
+            c = colors[idx % len(colors)]
+            ax.scatter([lon], [lat], color=c, s=180, edgecolors='#FFFFFF', linewidth=1.5, zorder=6)
+            ax.annotate(name, xy=(lon, lat), xytext=(lon+5, lat+5), color='#FFFFFF', fontsize=9, fontweight='bold',
+                        bbox=dict(boxstyle='round,pad=0.3', facecolor='#0F172A', edgecolor=c, alpha=0.9))
+        except:
+            pass
+
+    utc_str = now_utc.strftime('%Y-%m-%d %H:%M:%S UTC')
+    fig.suptitle("SatViewer3D  •  Spain & Latin America Satellite Constellation", fontsize=15, fontweight='bold', color='#EF4444', y=0.96)
+    ax.set_title(f"Time: {utc_str}  |  Tracking PAZ (Radar), SAOCOM 1A/1B, CHEOPS, HISPASAT", fontsize=10.5, color='#94A3B8', pad=10)
+
+    out_img = "post_card.png"
+    plt.tight_layout()
+    plt.savefig(out_img, dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close()
+
+    text = (
+        f"🛰️ ¡Satélites de España y Latinoamérica en Órbita!\n"
+        f"Rastreando en vivo los radares PAZ (España), SAOCOM 1A/1B (Argentina), CHEOPS y HISPASAT 📡✨\n\n"
+        f"Tracking Spanish & Latin American satellites live in 3D 🌐\n\n"
+        f"🌍 Rastrear en 3D 👇\n"
+        f"{WEBSITE_URL}\n\n"
+        f"#Espacio #Astronomía #Satélite #PAZ #SAOCOM #Space #Ciencia"
+    )
+    return text, out_img
+
+# -------------------------------------------------------------
+# Mode 4: Starlink Mega-Constellation
 # -------------------------------------------------------------
 def task_starlink_fleet():
     ts = load.timescale()
@@ -363,7 +460,7 @@ def task_starlink_fleet():
     return text, out_img
 
 # -------------------------------------------------------------
-# Mode 4: Starlink Train
+# Mode 5: Starlink Train
 # -------------------------------------------------------------
 def task_starlink_train():
     ts = load.timescale()
@@ -414,7 +511,7 @@ def task_starlink_train():
     return text, out_img
 
 # -------------------------------------------------------------
-# Mode 5: Space Debris Risk Radar
+# Mode 6: Space Debris Risk Radar
 # -------------------------------------------------------------
 def task_space_debris():
     ts = load.timescale()
@@ -465,7 +562,7 @@ def task_space_debris():
     return text, out_img
 
 # -------------------------------------------------------------
-# Mode 6: Hubble Space Telescope
+# Mode 7: Hubble Space Telescope
 # -------------------------------------------------------------
 def task_hubble_live():
     ts = load.timescale()
@@ -530,9 +627,25 @@ def task_hubble_live():
     return text, out_img
 
 # -------------------------------------------------------------
-# Mode 7: Unique Satellite Spotlight (スプートニク1号追加！)
+# Mode 8: Unique Satellite Spotlight (🇪🇸 PAZ / 🇦🇷 SAOCOM 追加)
 # -------------------------------------------------------------
 FEATURED_SATELLITES = [
+    {
+        "name": "PAZ (Spanish Radar)",
+        "badge": "Spain's High-Resolution SAR Satellite",
+        "fact": "Spain's flagship X-band radar satellite launched in 2018! It sees through clouds and darkness to monitor Earth with millimeter precision 🛰️🇪🇸",
+        "tag": "PAZ",
+        "color": "#EF4444",
+        "accent": "#FCA5A5"
+    },
+    {
+        "name": "SAOCOM 1A (Argentina)",
+        "badge": "35-sqm Giant L-Band Radar Giant",
+        "fact": "Argentina's massive 3-tonne radar satellite with a 35 sqm antenna! Monitors soil moisture, floods, and Andean seismic activity 🛰️🇦🇷",
+        "tag": "SAOCOM",
+        "color": "#38BDF8",
+        "accent": "#BAE6FD"
+    },
     {
         "name": "Sputnik 1 (1957)",
         "badge": "First Artificial Satellite in History",
@@ -601,7 +714,7 @@ def task_satellite_spotlight():
 # -------------------------------------------------------------
 # メイン実行ルーチン
 # -------------------------------------------------------------
-MODES = ["ISS_LIVE", "TIANGONG_LIVE", "STARLINK_FLEET", "STARLINK_TRAIN", "SATELLITE_SPOTLIGHT", "HUBBLE_LIVE", "SPACE_DEBRIS"]
+MODES = ["ISS_LIVE", "TIANGONG_LIVE", "SPAIN_LATAM_LIVE", "STARLINK_FLEET", "STARLINK_TRAIN", "SATELLITE_SPOTLIGHT", "HUBBLE_LIVE", "SPACE_DEBRIS"]
 
 def get_next_mode():
     last_mode = None
@@ -629,6 +742,8 @@ def run_master_bot(mode=None):
         text, img = task_iss_live()
     elif mode == "TIANGONG_LIVE":
         text, img = task_tiangong_live()
+    elif mode == "SPAIN_LATAM_LIVE":
+        text, img = task_spanish_radar()
     elif mode == "STARLINK_FLEET":
         text, img = task_starlink_fleet()
     elif mode == "STARLINK_TRAIN":
