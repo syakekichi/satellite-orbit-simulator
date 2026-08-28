@@ -2738,7 +2738,16 @@ STARLINK-G10-24 (TRAIN TAIL)
 1 60024U 26055A   26236.40000000  .00012500  00000-0  52000-3 0  9991
 2 60024 53.2000 185.4500 0001450 045.2000 131.0400 15.75420000      1`;
 
-const MAJOR_SATELLITES_TLE = `IGS RADAR-7 (JAPAN RECON)
+const MAJOR_SATELLITES_TLE = `PAZ (SPAIN RADAR)
+1 43215U 18020A   26240.29867021  .00001546  00000+0  76820-4 0  9997
+2 43215  97.4459 246.6656 0001689  85.1196 275.0231 15.19145522471955
+SAOCOM 1A (ARGENTINA RADAR)
+1 43641U 18076A   26240.30481417 -.00000079  00000+0 -33742-5 0  9993
+2 43641  97.8894  66.0136 0001542  86.3256 273.8133 14.82155308426780
+CHEOPS (SPAIN EXOPLANET)
+1 44874U 19092B   26240.28971890  .00000232  00000+0  55580-4 0  9999
+2 44874  98.1515  67.5594 0009473 229.3581 130.6798 14.62005337356433
+IGS RADAR-7 (JAPAN RECON)
 1 55342U 23013A   26100.12345678  .00000000  00000-0  00000-0 0  9971
 2 55342  97.4000 135.0000 0012000  60.0000 300.0000 15.22000000    01
 KIRAMEKI-2 (DSN-2 MILSATCOM)
@@ -6656,6 +6665,16 @@ function updateDropdownOptions() {
 
 let starlinkTrainBeamEntity = null;
 
+function clearTrainBeamEntity() {
+    if (typeof starlinkTrainBeamEntity !== 'undefined' && starlinkTrainBeamEntity) {
+        if (viewer && viewer.entities) {
+            viewer.entities.remove(starlinkTrainBeamEntity);
+        }
+        starlinkTrainBeamEntity = null;
+    }
+}
+
+
 /**
  * Load Starlink Train (Luminous 24-Satellite Chain) Preset
  */
@@ -6761,6 +6780,7 @@ AMAZONAS 5
 2 42934   0.0101 281.7520 0001684 268.3481 196.0340  1.00269770 32765`;
 
 function loadSpanishSatellitesPreset() {
+    clearTrainBeamEntity();
     showLoading("🇪🇸 スペイン・中南米衛星プリセットを読み込んでいます...");
     satellitesData = parseTLE(SPANISH_SATELLITES_TLE);
     statCount.textContent = satellitesData.length.toLocaleString();
@@ -6778,6 +6798,7 @@ function loadSpanishSatellitesPreset() {
 }
 
 function loadMajorSatellitesPreset(autoSelectIss = true) {
+    clearTrainBeamEntity();
     showLoading("主要・有名衛星プリセットを読み込んでいます...");
     satellitesData = parseTLE(MAJOR_SATELLITES_TLE);
     statCount.textContent = satellitesData.length.toLocaleString();
