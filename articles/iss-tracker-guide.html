@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国際宇宙ステーション（ISSきぼう）を肉眼で見る方法とリアルタイム軌道の科学 | SatViewer3D 宇宙科学コラム</title>
+    <meta name="description" content="国際宇宙ステーション（ISS）を夜空で肉眼観測するための完全ガイド。飛行原理、高度約400kmでの秒速7.7kmの軌道力学、日本実験棟「きぼう」の役割まで徹底解説します。">
+    <meta name="keywords" content="ISS, 国際宇宙ステーション, きぼう, 宇宙ステーション 見方, ISS 軌道, 肉眼観測, 宇宙飛行士">
+    <meta name="author" content="SatViewer3D 開発運営チーム">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/articles/iss-tracker-guide.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="国際宇宙ステーション（ISSきぼう）を肉眼で見る方法とリアルタイム軌道の科学">
+    <meta property="og:description" content="国際宇宙ステーション（ISS）を夜空で肉眼観測するための完全ガイド。飛行原理、高度約400kmでの秒速7.7kmの軌道力学、日本実験棟「きぼう」の役割まで徹底解説します。">
+    <meta property="og:url" content="https://satviewer3d.com/articles/iss-tracker-guide.html">
+    <meta property="og:site_name" content="SatViewer3D">
+    <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
+
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --accent-gold: #fbbf24; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.85; padding: 20px; }
+        .container { max-width: 880px; margin: 30px auto; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 36px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 28px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; }
+        .article-title { font-size: 1.85rem; color: #ffffff; line-height: 1.35; margin-bottom: 12px; }
+        .article-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .meta-badge { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .toc-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+        .toc-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; font-size: 1rem; }
+        .toc-list { list-style-type: decimal; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1; }
+        .toc-list li { margin-bottom: 4px; }
+        .toc-list a { color: #cbd5e1; text-decoration: none; }
+        .toc-list a:hover { color: var(--accent-blue); text-decoration: underline; }
+        h2 { font-size: 1.35rem; color: var(--accent-blue); margin: 36px 0 14px; border-left: 4px solid var(--accent-blue); padding-left: 12px; line-height: 1.4; }
+        h3 { font-size: 1.12rem; color: #e2e8f0; margin: 22px 0 10px; }
+        p { margin-bottom: 18px; color: #cbd5e1; font-size: 1rem; text-align: justify; }
+        ul, ol { margin: 0 0 18px 24px; color: #cbd5e1; font-size: 0.98rem; }
+        li { margin-bottom: 8px; }
+        strong { color: #ffffff; }
+        .callout { background: rgba(56, 189, 248, 0.08); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; color: #e2e8f0; }
+        .callout-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .simulator-cta { background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(99,102,241,0.15)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 24px; text-align: center; margin: 36px 0; }
+        .simulator-cta h3 { color: #ffffff; font-size: 1.25rem; margin-bottom: 10px; }
+        .simulator-cta p { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 16px; }
+        .cta-btn { display: inline-block; background: var(--accent-blue); color: #07090e; font-weight: 700; text-decoration: none; padding: 10px 24px; border-radius: 6px; transition: transform 0.2s, background 0.2s; }
+        .cta-btn:hover { transform: translateY(-2px); background: #7dd3fc; }
+        .footer-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="article-header">
+            <div class="breadcrumb">
+                <a href="/">SatViewer3D</a> &gt; <a href="/articles/">宇宙科学コラム</a> &gt; 記事
+            </div>
+            <h1 class="article-title">国際宇宙ステーション（ISSきぼう）を肉眼で見る方法とリアルタイム軌道の科学</h1>
+            <div class="article-meta">
+                <span class="meta-badge">宇宙科学・軌道力学</span>
+                <span>📅 公開日: 2026-08-25</span>
+                <span>⏱️ 読了時間: 約 5 分</span>
+                <span>✍️ 著者: SatViewer3D 編集部</span>
+            </div>
+        </div>
+
+        
+        <div class="toc-box">
+            <div class="toc-title">📑 目次</div>
+            <ol class="toc-list">
+                <li><a href="#sec1">国際宇宙ステーション（ISS）とは何か？</a></li>
+                <li><a href="#sec2">なぜ夜空で肉眼で見えるのか？（光る原理）</a></li>
+                <li><a href="#sec3">ISSの軌道力学：高度400km・時速27,700kmの世界</a></li>
+                <li><a href="#sec4">肉眼でISSを見つけるための3大ステップ</a></li>
+                <li><a href="#sec5">日本の実験棟「きぼう」の歴史と科学的意義</a></li>
+            </ol>
+        </div>
+
+        <h2 id="sec1">1. 国際宇宙ステーション（ISS）とは何か？</h2>
+        <p>国際宇宙ステーション（International Space Station: ISS）は、地球上空約400kmの低地球軌道（LEO: Low Earth Orbit）を周回する、人類史上最大の巨大有人宇宙実験施設です。アメリカ（NASA）、ロシア（Roscosmos）、日本（JAXA）、欧州（ESA）、カナダ（CSA）の5つの宇宙機関が共同で運用しており、サッカー場（約108m × 73m）に匹敵する巨大な構造を誇ります。</p>
+        <p>1998年の最初のモジュール「ザーリャ（Zarya）」打ち上げ以来、2000年11月から現在に至るまで、20年以上にわたって常に宇宙飛行士が滞在し、微小重力環境を利用した創薬研究、新素材開発、天文学、地球観測などの最先端科学実験が日々行われています。</p>
+
+        <h2 id="sec2">2. なぜ夜空で肉眼で見えるのか？（光る原理）</h2>
+        <p>ISSは自らサーチライトのように発光しているわけではありません。それにもかかわらず、夜空で1等星や木星、時には金星（-4等級）に匹敵する強烈な明るさで輝いて見えるのは、<strong>巨大な太陽電池パドル（ソーラーアレイ）が太陽光を強く反射しているため</strong>です。</p>
+        <p>ISSの太陽電池パネルは総面積約2,400平方メートルにも及び、地上から見ると非常に効率的な反射板として機能します。日没直後や日の出前の1〜2時間、地上は夜で暗い一方、高度400kmの宇宙空間には太陽光が当たっている状態（トワイライトゾーン）のとき、頭上を通過するISSが眩しく輝いて見えるのです。</p>
+
+        <div class="callout">
+            <div class="callout-title">💡 飛行機や星との見分け方</div>
+            <p>ISSは点滅せず、スーッと滑らかな一定のスピードで空を横切っていきます。飛行機のように赤や緑の点滅灯はなく、白く強い光が音もなく約3〜5分かけて西から東へ通過していくのが特徴です。</p>
+        </div>
+
+        <h2 id="sec3">3. ISSの軌道力学：高度400km・時速27,700kmの世界</h2>
+        <p>ISSが地球に落下せずに周回し続けられるのは、<strong>秒速約7.7km（時速約27,700km）</strong>という猛スピードで飛行しているからです。これは東京〜大阪間をわずか1分弱で移動する速さであり、約92分で地球を1周します。つまり、ISSに滞在する宇宙飛行士は、1日に約16回の日の出と日の入りを体験しています。</p>
+        <p>軌道傾斜角は51.6度に設定されており、赤道から北緯51.6度〜南緯51.6度の範囲を網羅しています。この角度はロシアのバイコヌール宇宙基地から打ち上げられたロケットが効率的にドッキングできるように設計された歴史的背景を持っています。</p>
+
+        <h2 id="sec4">4. 肉眼でISSを見つけるための3大ステップ</h2>
+        <ol>
+            <li><strong>通過日時と方角を確認する</strong>: SatViewer3Dの「上空通過予報（Pass Prediction）」で、お住まいの地域の上空を通過する日時・最大仰角・方角（例: 南西から北東）をチェックします。</li>
+            <li><strong>最大仰角が高い日を狙う</strong>: 地平線近く（仰角10〜20度）よりも、頭上高く（仰角45度以上）を通る日の方が建物に遮られず、明るく見えます。</li>
+            <li><strong>通過の1〜2分前に空を見上げる</strong>: 予定時刻になると、予告された方角から音もなく明るい光の点が現れ、夜空を静かに旅していきます。</li>
+        </ol>
+
+        <h2 id="sec5">5. 日本の実験棟「きぼう」の歴史と科学的意義</h2>
+        <p>ISSにおいて日本が誇る最大の拠点が、JAXAの日本実験棟「きぼう（Kibo: JEM）」です。船内実験室、船外実験プラットフォーム、ロボットアーム、エアロックを備えた最大級のモジュールであり、高品質タンパク質結晶生成実験や超小型衛星（CubeSat）の放出機構など、世界中から高い評価を受ける先端宇宙実験を牽引しています。</p>
+        
+
+        <div class="simulator-cta">
+            <h3>🌍 SatViewer3Dで実際の軌道を3D体験しよう！</h3>
+            <p>本記事で紹介した人工衛星や軌道は、ブラウザ上で誰でもリアルタイム3Dシミュレーションできます。地球を360度自由回転させて今すぐ追跡してみましょう。</p>
+            <a href="/" class="cta-btn">🚀 3Dシミュレーターを開く (無料)</a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="/">🏠 ホーム (3Dシミュレーター)</a>
+            <a href="/articles/">📚 宇宙科学・衛星コラム一覧</a>
+            <a href="/about.html">ℹ️ サイトについて</a>
+            <a href="/privacy.html">🔒 プライバシーポリシー</a>
+            <a href="/terms.html">📜 利用規約</a>
+            <a href="/contact.html">📬 お問い合わせ</a>
+            <a href="/sitemap.html">🗺️ サイトマップ</a>
+        </div>
+    </div>
+</body>
+</html>

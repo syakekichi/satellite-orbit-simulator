@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SatViewer3D について | 運営者情報・開発理念</title>
+    <meta name="description" content="SatViewer3Dの運営者情報、開発理念、ミッションをご紹介します。宇宙科学教育の推進と、誰でも直感的に人工衛星や宇宙デブリを学べるオープンツールの提供を目指しています。">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/about.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.8; padding: 20px; }
+        .container { max-width: 860px; margin: 40px auto; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 36px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .header { border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 28px; }
+        .header h1 { font-size: 1.8rem; color: var(--accent-blue); display: flex; align-items: center; gap: 10px; }
+        .header a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; margin-top: 8px; display: inline-block; }
+        .header a:hover { color: var(--accent-blue); }
+        h2 { font-size: 1.25rem; color: #e2e8f0; margin: 28px 0 12px; border-left: 4px solid var(--accent-blue); padding-left: 12px; }
+        p { margin-bottom: 16px; color: #cbd5e1; font-size: 0.95rem; }
+        ul { margin: 0 0 16px 24px; color: #cbd5e1; font-size: 0.95rem; }
+        li { margin-bottom: 8px; }
+        .profile-card { background: rgba(56, 189, 248, 0.08); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .profile-card h3 { color: var(--accent-blue); margin-bottom: 10px; font-size: 1.1rem; }
+        .footer-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ℹ️ SatViewer3D について</h1>
+            <a href="/">&larr; SatViewer3D 3Dシミュレーターへ戻る</a>
+        </div>
+
+        <h2>🌟 サイトのミッションと開発理念</h2>
+        <p>SatViewer3D は、地球周回軌道を周回する数千機の人工衛星（国際宇宙ステーション、Starlink、気象衛星ひまわり、準天頂衛星みちびき等）やスペースデブリのリアルタイム3D可視化Webシミュレーターです。</p>
+        <p>「宇宙をもっと身近に、直感的に学べる社会を創る」をスローガンに、教育現場での理科・地学・プログラミング学習の教材として、また世界中の天体観測ファンや宇宙愛好家が夜空を見上げるきっかけとなるオープンサイエンス・ツールとして無償公開しています。</p>
+
+        <h2>👨‍🏫 運営者プロフィール</h2>
+        <div class="profile-card">
+            <h3>SatViewer3D 開発運営チーム</h3>
+            <p><strong>代表・開発者</strong>: ITエンジニア 兼 教育者</p>
+            <p><strong>専門分野</strong>: 3D Webグラフィックス（WebGL / CesiumJS）、軌道力学シミュレーション、多言語教育プラットフォーム開発、データサイエンス</p>
+            <p><strong>メッセージ</strong>: 教育者としての「分かりやすく本質を伝える視点」と、エンジニアとしての「先端Webテクノロジー」を融合させ、子供から専門家まで誰もが地球と宇宙のダイナミズムを体感できる最高峰のプラットフォームを目指して日々アップデートを続けています。</p>
+        </div>
+
+        <h2>🔬 使用しているデータと技術</h2>
+        <ul>
+            <li><strong>軌道データソース</strong>: CelesTrak、Space-Track（米国宇宙軍 NORAD 公開データ）</li>
+            <li><strong>軌道伝播計算</strong>: SGP4（Simplified General Perturbations-4）モデルによる Kepler 軌道要素のリアルタイム摂動計算</li>
+            <li><strong>3Dレンダリング</strong>: CesiumJS / WebGL による高精細地球儀・大気圏ライティング描画</li>
+            <li><strong>多言語ローカライズ</strong>: 日本語、英語、スペイン語、中国語、ロシア語など世界14言語に対応</li>
+        </ul>
+
+        <h2>🚀 姉妹プロジェクトのご紹介</h2>
+        <p>当サイトの姉妹サービスとして、世界中の地震活動・プレート境界・マントル内部を3D可視化する<a href="https://earthquake.satviewer3d.com/" target="_blank" rel="noopener noreferrer">QuakeViewer3D（リアルタイム3D地球儀地震シミュレーター）</a>も運営しています。</p>
+
+        <div class="footer-nav">
+            <a href="/">🏠 ホーム (3Dシミュレーター)</a>
+            <a href="/articles/">📚 宇宙科学・衛星コラム一覧</a>
+            <a href="/privacy.html">🔒 プライバシーポリシー</a>
+            <a href="/terms.html">📜 利用規約</a>
+            <a href="/contact.html">📬 お問い合わせ</a>
+            <a href="/sitemap.html">🗺️ サイトマップ</a>
+        </div>
+    </div>
+</body>
+</html>

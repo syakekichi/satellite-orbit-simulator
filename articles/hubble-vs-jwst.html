@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ハッブル宇宙望遠鏡とジェームズ・ウェッブ宇宙望遠鏡（JWST）の徹底比較 | SatViewer3D 宇宙科学コラム</title>
+    <meta name="description" content="天文学の歴史を塗り替えた「ハッブル（HST）」と「ジェームズ・ウェッブ（JWST）」。可視光と赤外線の波長の違い、高度540kmの低軌道と150万km離れたラグランジュ点L2の軌道比較を解説。">
+    <meta name="keywords" content="ハッブル宇宙望遠鏡, JWST, ジェームズウェッブ, 宇宙望遠鏡, 赤外線天文学, ラグランジュ点, ビッグバン">
+    <meta name="author" content="SatViewer3D 開発運営チーム">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/articles/hubble-vs-jwst.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ハッブル宇宙望遠鏡とジェームズ・ウェッブ宇宙望遠鏡（JWST）の徹底比較">
+    <meta property="og:description" content="天文学の歴史を塗り替えた「ハッブル（HST）」と「ジェームズ・ウェッブ（JWST）」。可視光と赤外線の波長の違い、高度540kmの低軌道と150万km離れたラグランジュ点L2の軌道比較を解説。">
+    <meta property="og:url" content="https://satviewer3d.com/articles/hubble-vs-jwst.html">
+    <meta property="og:site_name" content="SatViewer3D">
+    <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
+
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --accent-gold: #fbbf24; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.85; padding: 20px; }
+        .container { max-width: 880px; margin: 30px auto; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 36px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 28px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; }
+        .article-title { font-size: 1.85rem; color: #ffffff; line-height: 1.35; margin-bottom: 12px; }
+        .article-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .meta-badge { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .toc-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+        .toc-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; font-size: 1rem; }
+        .toc-list { list-style-type: decimal; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1; }
+        .toc-list li { margin-bottom: 4px; }
+        .toc-list a { color: #cbd5e1; text-decoration: none; }
+        .toc-list a:hover { color: var(--accent-blue); text-decoration: underline; }
+        h2 { font-size: 1.35rem; color: var(--accent-blue); margin: 36px 0 14px; border-left: 4px solid var(--accent-blue); padding-left: 12px; line-height: 1.4; }
+        h3 { font-size: 1.12rem; color: #e2e8f0; margin: 22px 0 10px; }
+        p { margin-bottom: 18px; color: #cbd5e1; font-size: 1rem; text-align: justify; }
+        ul, ol { margin: 0 0 18px 24px; color: #cbd5e1; font-size: 0.98rem; }
+        li { margin-bottom: 8px; }
+        strong { color: #ffffff; }
+        .callout { background: rgba(56, 189, 248, 0.08); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; color: #e2e8f0; }
+        .callout-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .simulator-cta { background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(99,102,241,0.15)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 24px; text-align: center; margin: 36px 0; }
+        .simulator-cta h3 { color: #ffffff; font-size: 1.25rem; margin-bottom: 10px; }
+        .simulator-cta p { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 16px; }
+        .cta-btn { display: inline-block; background: var(--accent-blue); color: #07090e; font-weight: 700; text-decoration: none; padding: 10px 24px; border-radius: 6px; transition: transform 0.2s, background 0.2s; }
+        .cta-btn:hover { transform: translateY(-2px); background: #7dd3fc; }
+        .footer-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="article-header">
+            <div class="breadcrumb">
+                <a href="/">SatViewer3D</a> &gt; <a href="/articles/">宇宙科学コラム</a> &gt; 記事
+            </div>
+            <h1 class="article-title">ハッブル宇宙望遠鏡とジェームズ・ウェッブ宇宙望遠鏡（JWST）の徹底比較</h1>
+            <div class="article-meta">
+                <span class="meta-badge">宇宙科学・軌道力学</span>
+                <span>📅 公開日: 2026-08-28</span>
+                <span>⏱️ 読了時間: 約 5 分</span>
+                <span>✍️ 著者: SatViewer3D 編集部</span>
+            </div>
+        </div>
+
+        
+        <div class="toc-box">
+            <div class="toc-title">📑 目次</div>
+            <ol class="toc-list">
+                <li><a href="#sec1">30年以上宇宙を見つめ続ける偉人「ハッブル宇宙望遠鏡」</a></li>
+                <li><a href="#sec2">深宇宙のタイムマシン「ジェームズ・ウェッブ宇宙望遠鏡（JWST）」</a></li>
+                <li><a href="#sec3">観測波長の違い：可視光・紫外線 vs 中赤外線・近赤外線</a></li>
+                <li><a href="#sec4">軌道の決定的な違い：高度540km LEO vs 150万km L2点</a></li>
+                <li><a href="#sec5">宇宙の夜明け（初代星・ファーストスター）を探る探査の未来</a></li>
+            </ol>
+        </div>
+
+        <h2 id="sec1">1. 30年以上宇宙を見つめ続ける偉人「ハッブル宇宙望遠鏡」</h2>
+        <p>1990年にスペースシャトル・ディスカバリーによって打ち上げられたハッブル宇宙望遠鏡（Hubble Space Telescope: HST）は、地球の大気による光の揺らぎや吸収を避けて宇宙空間から直接天体を観測する、天文学史上もっとも成功した観測装置です。</p>
+        <p>主鏡直径2.4mの反射望遠鏡を備え、宇宙の膨張速度（ハッブル定数）の精密測定、銀河中心の超大質量ブラックホールの実証、息をのむほど美しい「創造の柱（Pillars of Creation）」など、数々の歴史的発見をもたらしました。</p>
+
+        <h2 id="sec2">2. 深宇宙のタイムマシン「ジェームズ・ウェッブ宇宙望遠鏡（JWST）」</h2>
+        <p>2021年12月25日に打ち上げられたジェームズ・ウェッブ宇宙望遠鏡（James Webb Space Telescope: JWST）は、ハッブルの後継機として約100億ドルを投じて開発された人類最強の宇宙望遠鏡です。18枚のベリリウム製六角形ミラーを組み合わせた主鏡の直径は6.5m（ハッブルの約2.7倍、集光力は約6倍）を誇り、テニスコート大の巨大な5層サンシールドで熱を遮断しています。</p>
+
+        <h2 id="sec3">3. 観測波長の違い：可視光・紫外線 vs 中赤外線・近赤外線</h2>
+        <p>ハッブルの主な観測波長は<strong>「紫外線から可視光（人間が見える光）」</strong>です。これに対し、JWSTは<strong>「赤外線（近赤外線〜中間赤外線）」</strong>に特化しています。</p>
+        <p>宇宙の膨張に伴い、135億年以上前の初期宇宙から放たれた光は波長が引き伸ばされて「赤方偏移（Redshift）」を起こし、可視光から赤外線へと変化しています。JWSTは極めて高感度な赤外線検出器を搭載することで、厚い星間ガスや宇宙塵の雲を透視し、宇宙誕生直後に生まれた最初の星（ファーストスター）や初期銀河の光を捉えることができます。</p>
+
+        <h2 id="sec4">4. 軌道の決定的な違い：高度540km LEO vs 150万km L2点</h2>
+        <p>ハッブルは地球上空約540kmの低地球軌道（LEO）を約95分で周回しています。かつてはスペースシャトルで宇宙飛行士が訪れて修理や機器交換（サービスミッション）を行うことが可能でした。</p>
+        <p>一方、JWSTは地球から月よりもはるかに遠い<strong>約150万km離れた太陽・地球系の第2ラグランジュ点（L2点）</strong>の周りを周回しています。地球や月、太陽の強い熱放射から逃れ、マイナス230℃以下の極低温環境を維持するためです。この距離は人間が修理に行くことは不可能なため、打ち上げ時の折りたたみ式ミラーやサンシールドの自動展開には数百もの単一障害点（失敗が許されない工程）を完璧にクリアする究極の工学技術が投入されました。</p>
+        
+
+        <div class="simulator-cta">
+            <h3>🌍 SatViewer3Dで実際の軌道を3D体験しよう！</h3>
+            <p>本記事で紹介した人工衛星や軌道は、ブラウザ上で誰でもリアルタイム3Dシミュレーションできます。地球を360度自由回転させて今すぐ追跡してみましょう。</p>
+            <a href="/" class="cta-btn">🚀 3Dシミュレーターを開く (無料)</a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="/">🏠 ホーム (3Dシミュレーター)</a>
+            <a href="/articles/">📚 宇宙科学・衛星コラム一覧</a>
+            <a href="/about.html">ℹ️ サイトについて</a>
+            <a href="/privacy.html">🔒 プライバシーポリシー</a>
+            <a href="/terms.html">📜 利用規約</a>
+            <a href="/contact.html">📬 お問い合わせ</a>
+            <a href="/sitemap.html">🗺️ サイトマップ</a>
+        </div>
+    </div>
+</body>
+</html>

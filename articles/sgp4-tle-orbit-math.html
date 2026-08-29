@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人工衛星の軌道計算入門：2行軌道要素形式（TLE）とSGP4モデルの数学アルゴリズム | SatViewer3D 宇宙科学コラム</title>
+    <meta name="description" content="SatViewer3Dがリアルタイムで秒速計算している軌道伝播アルゴリズム「SGP4」と「TLE（2行軌道要素）」。ケプラーの6要素、地球の扁平率摂動（J2効果）、大気抵抗ドラッグの数学モデルを優しく解説。">
+    <meta name="keywords" content="SGP4, TLE, 軌道計算, 軌道要素, ケプラーの法則, J2摂動, 宇宙工学, アルゴリズム">
+    <meta name="author" content="SatViewer3D 開発運営チーム">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/articles/sgp4-tle-orbit-math.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="人工衛星の軌道計算入門：2行軌道要素形式（TLE）とSGP4モデルの数学アルゴリズム">
+    <meta property="og:description" content="SatViewer3Dがリアルタイムで秒速計算している軌道伝播アルゴリズム「SGP4」と「TLE（2行軌道要素）」。ケプラーの6要素、地球の扁平率摂動（J2効果）、大気抵抗ドラッグの数学モデルを優しく解説。">
+    <meta property="og:url" content="https://satviewer3d.com/articles/sgp4-tle-orbit-math.html">
+    <meta property="og:site_name" content="SatViewer3D">
+    <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
+
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --accent-gold: #fbbf24; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.85; padding: 20px; }
+        .container { max-width: 880px; margin: 30px auto; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 36px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 28px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; }
+        .article-title { font-size: 1.85rem; color: #ffffff; line-height: 1.35; margin-bottom: 12px; }
+        .article-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .meta-badge { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .toc-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+        .toc-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; font-size: 1rem; }
+        .toc-list { list-style-type: decimal; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1; }
+        .toc-list li { margin-bottom: 4px; }
+        .toc-list a { color: #cbd5e1; text-decoration: none; }
+        .toc-list a:hover { color: var(--accent-blue); text-decoration: underline; }
+        h2 { font-size: 1.35rem; color: var(--accent-blue); margin: 36px 0 14px; border-left: 4px solid var(--accent-blue); padding-left: 12px; line-height: 1.4; }
+        h3 { font-size: 1.12rem; color: #e2e8f0; margin: 22px 0 10px; }
+        p { margin-bottom: 18px; color: #cbd5e1; font-size: 1rem; text-align: justify; }
+        ul, ol { margin: 0 0 18px 24px; color: #cbd5e1; font-size: 0.98rem; }
+        li { margin-bottom: 8px; }
+        strong { color: #ffffff; }
+        .callout { background: rgba(56, 189, 248, 0.08); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; color: #e2e8f0; }
+        .callout-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .simulator-cta { background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(99,102,241,0.15)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 24px; text-align: center; margin: 36px 0; }
+        .simulator-cta h3 { color: #ffffff; font-size: 1.25rem; margin-bottom: 10px; }
+        .simulator-cta p { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 16px; }
+        .cta-btn { display: inline-block; background: var(--accent-blue); color: #07090e; font-weight: 700; text-decoration: none; padding: 10px 24px; border-radius: 6px; transition: transform 0.2s, background 0.2s; }
+        .cta-btn:hover { transform: translateY(-2px); background: #7dd3fc; }
+        .footer-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="article-header">
+            <div class="breadcrumb">
+                <a href="/">SatViewer3D</a> &gt; <a href="/articles/">宇宙科学コラム</a> &gt; 記事
+            </div>
+            <h1 class="article-title">人工衛星の軌道計算入門：2行軌道要素形式（TLE）とSGP4モデルの数学アルゴリズム</h1>
+            <div class="article-meta">
+                <span class="meta-badge">宇宙科学・軌道力学</span>
+                <span>📅 公開日: 2026-08-29</span>
+                <span>⏱️ 読了時間: 約 6 分</span>
+                <span>✍️ 著者: SatViewer3D 編集部</span>
+            </div>
+        </div>
+
+        
+        <div class="toc-box">
+            <div class="toc-title">📑 目次</div>
+            <ol class="toc-list">
+                <li><a href="#sec1">人工衛星の位置はどうやって計算されているのか？</a></li>
+                <li><a href="#sec2">2行軌道要素形式（TLE: Two-Line Element set）の読み解き方</a></li>
+                <li><a href="#sec3">ケプラー軌道を狂わせる「地球の歪み（J2摂動）」と「大気ドラッグ」</a></li>
+                <li><a href="#sec4">SGP4（Simplified General Perturbations-4）モデルの計算フロー</a></li>
+                <li><a href="#sec5">ECI座標からECEF・経緯度・高度（Geodetic）への座標変換数学</a></li>
+            </ol>
+        </div>
+
+        <h2 id="sec1">1. 人工衛星の位置はどうやって計算されているのか？</h2>
+        <p>GPSやSatViewer3Dのような軌道シミュレーターが、今この瞬間に人工衛星が地球上のどこを飛んでいるかをミリ秒単位で表示できるのは、<strong>「軌道伝播（Orbit Propagation）」</strong>と呼ばれる高度な軌道力学計算をブラウザ上で実行しているからです。</p>
+
+        <h2 id="sec2">2. 2行軌道要素形式（TLE: Two-Line Element set）の読み解き方</h2>
+        <p>米宇宙軍（NORAD）が公開する標準的な軌道データ形式が「TLE（ツーライン・エレメント・セット）」です。以下のような69文字×2行の数字列の中に、軌道の形状と向きを決定する「ケプラーの6要素」が凝縮されています。</p>
+        
+        <div class="callout">
+            <div class="callout-title">📋 ISS（国際宇宙ステーション）の実際のTLE例</div>
+            <pre style="font-family: monospace; font-size: 0.85rem; overflow-x: auto; color: #38bdf8;">
+ISS (ZARYA)
+1 25544U 98067A   26240.29867021  .00016717  00000-0  10270-3 0  9002
+2 25544  51.6415 160.1234 0005421  85.1196 275.0231 15.49871234471955</pre>
+        </div>
+
+        <ul>
+            <li><strong>Line 1 - 25544U</strong>: NORAD衛生カタログ番号（25544）と機密区分（U=非機密）。</li>
+            <li><strong>Line 1 - 26240.29867021</strong>: エポック時刻（2026年の第240日目、約0.298日時点の観測値）。</li>
+            <li><strong>Line 2 - 51.6415</strong>: 軌道傾斜角 $i$（赤道面に対する傾き、約51.6度）。</li>
+            <li><strong>Line 2 - 160.1234</strong>: 昇交点赤経 $\Omega$（軌道が南から北へ赤道を横切る経度方向の角度）。</li>
+            <li><strong>Line 2 - 0005421</strong>: 軌道離心率 $e$（0.0005421、ほぼ真円）。</li>
+            <li><strong>Line 2 - 85.1196</strong>: 近地点引数 $\omega$（軌道の中で最も地球に近い地点の角度）。</li>
+            <li><strong>Line 2 - 275.0231</strong>: 平均近点角 $M$（エポック時刻における衛星の軌道上の位置）。</li>
+            <li><strong>Line 2 - 15.49871234</strong>: 平均運動 $n$（1日に地球を周回する回数、約15.5周）。</li>
+        </ul>
+
+        <h2 id="sec3">3. ケプラー軌道を狂わせる「地球の歪み（J2摂動）」と「大気ドラッグ」</h2>
+        <p>もし地球が完全な真球で大気がなければ、衛星は永遠に同じ楕円軌道を回り続けます。しかし現実の地球は、自転の遠心力によって赤道が膨らんだ回転楕円体（扁平率約1/298.25）をしています。この重力場の歪み（J2摂動項）によって、軌道面全体がコマのように首振り運動（歳差運動）を起こします。さらに高度数百kmの低軌道には希薄な大気が存在し、摩擦ドラッグによって衛星の高度を徐々に奪っていきます。</p>
+
+        <h2 id="sec4">4. SGP4（Simplified General Perturbations-4）モデルの計算フロー</h2>
+        <p>SGP4アルゴリズムは、これらのJ2/J3/J4地球重力高次項、大気抵抗（BSTARパラメータ）、太陽・月の重力引力を解析的に数式モデル化し、任意の未来・過去の時刻 $t$ における衛星の真の位置ベクトル $ec{r}(t)$ と速度ベクトル $ec{v}(t)$ を超高速に計算する世界標準の軌道力学ライブラリです。</p>
+
+        <h2 id="sec5">5. ECI座標からECEF・経緯度・高度（Geodetic）への座標変換数学</h2>
+        <p>SGP4から出力される座標は、宇宙空間に固定された「慣性座標系（ECI: Earth-Centered Inertial）」です。SatViewer3Dでは、グリニッジ平均恒星時（GMST）を用いて自転する地球の「地心固定座標系（ECEF）」へと回転行列変換し、WGS84地球楕円体モデルに基づいて最終的な「緯度・経度・高度」を算出・レンダリングしています。</p>
+        
+
+        <div class="simulator-cta">
+            <h3>🌍 SatViewer3Dで実際の軌道を3D体験しよう！</h3>
+            <p>本記事で紹介した人工衛星や軌道は、ブラウザ上で誰でもリアルタイム3Dシミュレーションできます。地球を360度自由回転させて今すぐ追跡してみましょう。</p>
+            <a href="/" class="cta-btn">🚀 3Dシミュレーターを開く (無料)</a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="/">🏠 ホーム (3Dシミュレーター)</a>
+            <a href="/articles/">📚 宇宙科学・衛星コラム一覧</a>
+            <a href="/about.html">ℹ️ サイトについて</a>
+            <a href="/privacy.html">🔒 プライバシーポリシー</a>
+            <a href="/terms.html">📜 利用規約</a>
+            <a href="/contact.html">📬 お問い合わせ</a>
+            <a href="/sitemap.html">🗺️ サイトマップ</a>
+        </div>
+    </div>
+</body>
+</html>

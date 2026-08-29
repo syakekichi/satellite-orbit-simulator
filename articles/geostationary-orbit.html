@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静止軌道（GEO）と気象衛星ひまわり：なぜ高度36,000kmで空に止まって見えるのか？ | SatViewer3D 宇宙科学コラム</title>
+    <meta name="description" content="気象衛星ひまわりや通信衛星が配置される「静止軌道（GEO）」。ケプラーの第3法則と地球自転周期が一致する高度35,786kmの物理メカニズム、静止衛星の寿命と墓場軌道（Graveyard Orbit）を解説。">
+    <meta name="keywords" content="静止軌道, GEO, ひまわり, 気象衛星, 軌道力学, ケプラーの法則, 墓場軌道">
+    <meta name="author" content="SatViewer3D 開発運営チーム">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/articles/geostationary-orbit.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="静止軌道（GEO）と気象衛星ひまわり：なぜ高度36,000kmで空に止まって見えるのか？">
+    <meta property="og:description" content="気象衛星ひまわりや通信衛星が配置される「静止軌道（GEO）」。ケプラーの第3法則と地球自転周期が一致する高度35,786kmの物理メカニズム、静止衛星の寿命と墓場軌道（Graveyard Orbit）を解説。">
+    <meta property="og:url" content="https://satviewer3d.com/articles/geostationary-orbit.html">
+    <meta property="og:site_name" content="SatViewer3D">
+    <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
+
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --accent-gold: #fbbf24; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.85; padding: 20px; }
+        .container { max-width: 880px; margin: 30px auto; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 36px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 28px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; }
+        .article-title { font-size: 1.85rem; color: #ffffff; line-height: 1.35; margin-bottom: 12px; }
+        .article-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .meta-badge { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .toc-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+        .toc-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; font-size: 1rem; }
+        .toc-list { list-style-type: decimal; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1; }
+        .toc-list li { margin-bottom: 4px; }
+        .toc-list a { color: #cbd5e1; text-decoration: none; }
+        .toc-list a:hover { color: var(--accent-blue); text-decoration: underline; }
+        h2 { font-size: 1.35rem; color: var(--accent-blue); margin: 36px 0 14px; border-left: 4px solid var(--accent-blue); padding-left: 12px; line-height: 1.4; }
+        h3 { font-size: 1.12rem; color: #e2e8f0; margin: 22px 0 10px; }
+        p { margin-bottom: 18px; color: #cbd5e1; font-size: 1rem; text-align: justify; }
+        ul, ol { margin: 0 0 18px 24px; color: #cbd5e1; font-size: 0.98rem; }
+        li { margin-bottom: 8px; }
+        strong { color: #ffffff; }
+        .callout { background: rgba(56, 189, 248, 0.08); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; color: #e2e8f0; }
+        .callout-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .simulator-cta { background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(99,102,241,0.15)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 24px; text-align: center; margin: 36px 0; }
+        .simulator-cta h3 { color: #ffffff; font-size: 1.25rem; margin-bottom: 10px; }
+        .simulator-cta p { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 16px; }
+        .cta-btn { display: inline-block; background: var(--accent-blue); color: #07090e; font-weight: 700; text-decoration: none; padding: 10px 24px; border-radius: 6px; transition: transform 0.2s, background 0.2s; }
+        .cta-btn:hover { transform: translateY(-2px); background: #7dd3fc; }
+        .footer-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="article-header">
+            <div class="breadcrumb">
+                <a href="/">SatViewer3D</a> &gt; <a href="/articles/">宇宙科学コラム</a> &gt; 記事
+            </div>
+            <h1 class="article-title">静止軌道（GEO）と気象衛星ひまわり：なぜ高度36,000kmで空に止まって見えるのか？</h1>
+            <div class="article-meta">
+                <span class="meta-badge">宇宙科学・軌道力学</span>
+                <span>📅 公開日: 2026-08-28</span>
+                <span>⏱️ 読了時間: 約 5 分</span>
+                <span>✍️ 著者: SatViewer3D 編集部</span>
+            </div>
+        </div>
+
+        
+        <div class="toc-box">
+            <div class="toc-title">📑 目次</div>
+            <ol class="toc-list">
+                <li><a href="#sec1">静止衛星とは？地上から見て「動かない星」</a></li>
+                <li><a href="#sec2">なぜ「高度35,786km」なのか？（ケプラーの法則と自転の一致）</a></li>
+                <li><a href="#sec3">日本の気象衛星「ひまわり」が24時間日本を監視できる理由</a></li>
+                <li><a href="#sec4">静止軌道のスロット（経度位置）争奪戦と国際ルール</a></li>
+                <li><a href="#sec5">寿命を迎えた衛星が向かう「墓場軌道（Graveyard Orbit）」</a></li>
+            </ol>
+        </div>
+
+        <h2 id="sec1">1. 静止衛星とは？地上から見て「動かない星」</h2>
+        <p>夜空を見上げると、月や星は地球の自転に伴って東から西へと動いていきます。しかし、気象衛星「ひまわり」や衛星放送用のBS/CSアンテナが向いている通信衛星は、24時間365日、空のまったく同じ位置にピタリと静止しているように見えます。これらが配置されているのが<strong>「静止地球軌道（GEO: Geostationary Earth Orbit）」</strong>です。</p>
+
+        <h2 id="sec2">2. なぜ「高度35,786km」なのか？（ケプラーの法則と自転の一致）</h2>
+        <p>人工衛星が地球を周回する周期（1周にかかる時間）は、衛星の質量に関係なく、<strong>「地球の中心からの距離（軌道半径）」</strong>だけで決まります（ケプラーの第3法則）。</p>
+        <ul>
+            <li>高度400km（低軌道 ISS）: 約92分で地球を1周（秒速7.7km）</li>
+            <li>高度20,000km（中軌道 GPS）: 約12時間で地球を1周（秒速3.9km）</li>
+            <li><strong>高度35,786km（静止軌道 GEO）: ちょうど23時間56分4秒（地球が1回転する自転周期）で地球を1周（秒速3.07km）</strong></li>
+        </ul>
+        <p>地球が自転するスピードと、衛星が地球を回るスピードが完全に一致するため、地上にいる私たちからは衛星が上空の一定の位置に止まっているように見えるのです。この特別な軌道は、赤道直下の高度約35,786kmに円周として1本だけ存在します。</p>
+
+        <h2 id="sec3">3. 日本の気象衛星「ひまわり」が24時間日本を監視できる理由</h2>
+        <p>日本の気象衛星「ひまわり8号・9号」は、東経140.7度の赤道上空約35,800kmに静止しています。この絶好の観測ポイントから、日本を含む東アジア・西太平洋全域の雲の動きや台風の発達、水蒸気の流れを10分ごと（日本周辺は2.5分ごと）にカラー連続撮影し、私たちの毎日の天気予報や線状降水帯の早期警戒を支えています。</p>
+
+        <h2 id="sec4">4. 静止軌道のスロット（経度位置）争奪戦と国際ルール</h2>
+        <p>赤道上空36,000kmの円周上は、世界中の国々が通信・放送・気象・軍事衛星を配置したい一等地です。電波の混信や衝突を防ぐため、国連の国際電気通信連合（ITU）が衛星同士の間隔（通常1〜2度刻み）と経度位置（スロット）を厳格に管理・調整しています。</p>
+
+        <h2 id="sec5">5. 寿命を迎えた衛星が向かう「墓場軌道（Graveyard Orbit）」</h2>
+        <p>静止衛星は燃料が尽きると位置を維持できなくなります。しかし、高度36,000kmからは大気抵抗で地球に落下させることができません。そのため、寿命を迎える直前に残りの燃料を使って静止軌道より約300km高い<strong>「墓場軌道（スーパーシンクロナス軌道）」</strong>へと自力で上昇し、貴重な静止軌道スロットを後継衛星に譲り渡す国際ルールが定められています。</p>
+        
+
+        <div class="simulator-cta">
+            <h3>🌍 SatViewer3Dで実際の軌道を3D体験しよう！</h3>
+            <p>本記事で紹介した人工衛星や軌道は、ブラウザ上で誰でもリアルタイム3Dシミュレーションできます。地球を360度自由回転させて今すぐ追跡してみましょう。</p>
+            <a href="/" class="cta-btn">🚀 3Dシミュレーターを開く (無料)</a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="/">🏠 ホーム (3Dシミュレーター)</a>
+            <a href="/articles/">📚 宇宙科学・衛星コラム一覧</a>
+            <a href="/about.html">ℹ️ サイトについて</a>
+            <a href="/privacy.html">🔒 プライバシーポリシー</a>
+            <a href="/terms.html">📜 利用規約</a>
+            <a href="/contact.html">📬 お問い合わせ</a>
+            <a href="/sitemap.html">🗺️ サイトマップ</a>
+        </div>
+    </div>
+</body>
+</html>

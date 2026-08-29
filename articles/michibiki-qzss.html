@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本の準天頂衛星「みちびき（QZSS）」の8の字軌道とセンチメートル級GPS測位技術 | SatViewer3D 宇宙科学コラム</title>
+    <meta name="description" content="日本の真上（天頂）に常に滞在する準天頂衛星システム「みちびき（QZSS）」。なぜ日本とオーストラリアの上空を8の字を描いて周回するのか、ビルの谷間でも狂わない高精度測位の科学を解説。">
+    <meta name="keywords" content="みちびき, QZSS, 準天頂衛星, GPS, センチメートル級測位, 8の字軌道, 自動運転, JAXA">
+    <meta name="author" content="SatViewer3D 開発運営チーム">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/articles/michibiki-qzss.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="日本の準天頂衛星「みちびき（QZSS）」の8の字軌道とセンチメートル級GPS測位技術">
+    <meta property="og:description" content="日本の真上（天頂）に常に滞在する準天頂衛星システム「みちびき（QZSS）」。なぜ日本とオーストラリアの上空を8の字を描いて周回するのか、ビルの谷間でも狂わない高精度測位の科学を解説。">
+    <meta property="og:url" content="https://satviewer3d.com/articles/michibiki-qzss.html">
+    <meta property="og:site_name" content="SatViewer3D">
+    <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
+
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --accent-gold: #fbbf24; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.85; padding: 20px; }
+        .container { max-width: 880px; margin: 30px auto; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 36px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 28px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; }
+        .article-title { font-size: 1.85rem; color: #ffffff; line-height: 1.35; margin-bottom: 12px; }
+        .article-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .meta-badge { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .toc-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+        .toc-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; font-size: 1rem; }
+        .toc-list { list-style-type: decimal; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1; }
+        .toc-list li { margin-bottom: 4px; }
+        .toc-list a { color: #cbd5e1; text-decoration: none; }
+        .toc-list a:hover { color: var(--accent-blue); text-decoration: underline; }
+        h2 { font-size: 1.35rem; color: var(--accent-blue); margin: 36px 0 14px; border-left: 4px solid var(--accent-blue); padding-left: 12px; line-height: 1.4; }
+        h3 { font-size: 1.12rem; color: #e2e8f0; margin: 22px 0 10px; }
+        p { margin-bottom: 18px; color: #cbd5e1; font-size: 1rem; text-align: justify; }
+        ul, ol { margin: 0 0 18px 24px; color: #cbd5e1; font-size: 0.98rem; }
+        li { margin-bottom: 8px; }
+        strong { color: #ffffff; }
+        .callout { background: rgba(56, 189, 248, 0.08); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; color: #e2e8f0; }
+        .callout-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .simulator-cta { background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(99,102,241,0.15)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 24px; text-align: center; margin: 36px 0; }
+        .simulator-cta h3 { color: #ffffff; font-size: 1.25rem; margin-bottom: 10px; }
+        .simulator-cta p { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 16px; }
+        .cta-btn { display: inline-block; background: var(--accent-blue); color: #07090e; font-weight: 700; text-decoration: none; padding: 10px 24px; border-radius: 6px; transition: transform 0.2s, background 0.2s; }
+        .cta-btn:hover { transform: translateY(-2px); background: #7dd3fc; }
+        .footer-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="article-header">
+            <div class="breadcrumb">
+                <a href="/">SatViewer3D</a> &gt; <a href="/articles/">宇宙科学コラム</a> &gt; 記事
+            </div>
+            <h1 class="article-title">日本の準天頂衛星「みちびき（QZSS）」の8の字軌道とセンチメートル級GPS測位技術</h1>
+            <div class="article-meta">
+                <span class="meta-badge">宇宙科学・軌道力学</span>
+                <span>📅 公開日: 2026-08-28</span>
+                <span>⏱️ 読了時間: 約 5 分</span>
+                <span>✍️ 著者: SatViewer3D 編集部</span>
+            </div>
+        </div>
+
+        
+        <div class="toc-box">
+            <div class="toc-title">📑 目次</div>
+            <ol class="toc-list">
+                <li><a href="#sec1">準天頂衛星「みちびき（QZSS）」とは？日本独自の宇宙インフラ</a></li>
+                <li><a href="#sec2">なぜ「8の字軌道」を描くのか？（軌道傾斜角45度の非対称性）</a></li>
+                <li><a href="#sec3">ビルの谷間や山間部でも途切れない「真上（天頂）」の威力</a></li>
+                <li><a href="#sec4">誤差数メートルから「わずか数センチ」へ！CLAS補強信号の驚異</a></li>
+                <li><a href="#sec5">みちびき7機体制への進化と自動運転・ドローン・スマート農業への応用</a></li>
+            </ol>
+        </div>
+
+        <h2 id="sec1">1. 準天頂衛星「みちびき（QZSS）」とは？日本独自の宇宙インフラ</h2>
+        <p>「みちびき（Quasi-Zenith Satellite System: QZSS）」は、内閣府およびJAXAが運用する日本独自の衛星測位システムです。アメリカのGPS衛星と互換性を持つ測位信号を発信し、GPSの精度と信頼性を飛躍的に高める「日本版GPS」として活躍しています。</p>
+
+        <h2 id="sec2">2. なぜ「8の字軌道」を描くのか？（軌道傾斜角45度の非対称性）</h2>
+        <p>SatViewer3Dで「みちびき」を選択して複数周回軌跡（Multi-Lap）を表示すると、<strong>日本とオーストラリアを結ぶ巨大な「非対称な8の字」</strong>を描いていることが分かります。</p>
+        <p>みちびきは軌道傾斜角約45度、離心率約0.075の「準天頂軌道」を採用しています。高度は約32,000km〜40,000kmの間を変化し、日本を含む北半球側を通過するときは遠地点（高度約40,000km）付近をゆっくりと飛行し、南半球側は近地点（高度約32,000km）付近を高速で通過します。この軌道力学の工夫により、<strong>1日のうち約16時間という長時間を日本の真上（天頂付近）に滞在</strong>させることができるのです。</p>
+
+        <h2 id="sec3">3. ビルの谷間や山間部でも途切れない「真上（天頂）」の威力</h2>
+        <p>従来の米GPS衛星は世界中に均等に配置されているため、高層ビルが立ち並ぶ都市部や急峻な山間部では、ビルの壁や山肌に電波が遮られてGPSを受信できなくなる「測位不能」や、反射波による位置ズレ（マルチパス誤差）が頻発していました。</p>
+        <p>みちびきは常に日本の「ほぼ真上（仰角70〜80度以上）」から電波を照射するため、高層ビル街の谷間であっても電波が遮られず、常に安定した高精度な位置情報をスマートフォンやカーナビに届けることができます。</p>
+
+        <h2 id="sec4">4. 誤差数メートルから「わずか数センチ」へ！CLAS補強信号の驚異</h2>
+        <p>通常のGPSの測位誤差は数メートルから十数メートル程度です。しかし、みちびきが発信する「センチメートル級測位補強サービス（CLAS: Centimeter-Level Augmentation Service）」を受信すると、電離層や対流圏の遅延誤差をリアルタイム補正し、<strong>位置誤差をわずか「2〜3センチメートル以内」に極小化</strong>できます。</p>
+
+        <h2 id="sec5">5. みちびき7機体制への進化と自動運転・ドローン・スマート農業への応用</h2>
+        <p>現在は4機体制で24時間常に最低1機が日本上空に見える状態を維持していますが、2026年以降は7機体制へと拡張され、米GPSに依存せず日本単独でも持続可能な高精度測位が可能になります。この超高精度測位は、完全自動運転車、無人ドローン宅配、農機の無人自動耕作、建設機械の遠隔精密操作など、次世代の社会インフラを根底から支えています。</p>
+        
+
+        <div class="simulator-cta">
+            <h3>🌍 SatViewer3Dで実際の軌道を3D体験しよう！</h3>
+            <p>本記事で紹介した人工衛星や軌道は、ブラウザ上で誰でもリアルタイム3Dシミュレーションできます。地球を360度自由回転させて今すぐ追跡してみましょう。</p>
+            <a href="/" class="cta-btn">🚀 3Dシミュレーターを開く (無料)</a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="/">🏠 ホーム (3Dシミュレーター)</a>
+            <a href="/articles/">📚 宇宙科学・衛星コラム一覧</a>
+            <a href="/about.html">ℹ️ サイトについて</a>
+            <a href="/privacy.html">🔒 プライバシーポリシー</a>
+            <a href="/terms.html">📜 利用規約</a>
+            <a href="/contact.html">📬 お問い合わせ</a>
+            <a href="/sitemap.html">🗺️ サイトマップ</a>
+        </div>
+    </div>
+</body>
+</html>
