@@ -455,7 +455,7 @@ def task_starlink_fleet():
         f"Weaving a global broadband web around Earth with 6,000+ active satellites in LEO 🌐⚡\n\n"
         f"🌍 Track Starlink Fleet in 3D 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#Starlink #SpaceX #ElonMusk #Space #Astronomy #Satellite"
+        f"#Starlink #SpaceX"
     )
     return text, out_img
 
@@ -506,7 +506,7 @@ def task_starlink_train():
         f"Ever spotted a 'train of lights' marching across the night sky? Freshly launched satellites in tight formation 🛰️✨\n\n"
         f"🔭 Check Live 3D Trajectory 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#Starlink #SpaceX #StarlinkTrain #Stargazing #Astronomy #Space"
+        f"#Starlink #スターリンク"
     )
     return text, out_img
 
@@ -557,7 +557,7 @@ def task_space_debris():
         f"Tracking dangerous space debris fragments traveling at 27,000+ km/h (10x faster than a bullet) 🛡️💥\n\n"
         f"🌍 Real-Time 3D Debris Map 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#SpaceDebris #Space #NASA #SpaceSafety #Astronomy"
+        f"#SpaceDebris #宇宙デブリ"
     )
     return text, out_img
 
@@ -707,7 +707,7 @@ def task_satellite_spotlight():
         f"💡 {sat['fact']}\n\n"
         f"🌍 Track in 3D 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#Space #Astronomy #NASA #{sat['tag']} #Science"
+        f"#{sat['tag']} #SatViewer3D"
     )
     return text, out_img
 
@@ -842,7 +842,7 @@ def task_asteroid_alert():
         f"💡 {ast['fact']}\n\n"
         f"🪐 Interactive 3D Orbit & Impact Physics Simulator 👇\n"
         f"https://asteroid.satviewer3d.com/\n\n"
-        f"#Asteroids #Space #PlanetaryDefense #NASA #Astronomy"
+        f"#Asteroids #小惑星"
     )
     return text, out_img
 
