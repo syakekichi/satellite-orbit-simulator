@@ -712,9 +712,144 @@ def task_satellite_spotlight():
     return text, out_img
 
 # -------------------------------------------------------------
+# Mode 9: Asteroid Spotlight (Asteroid3D / 3D Keplerian Orbit Alert)
+# -------------------------------------------------------------
+ASTEROIDS_DB = [
+    {
+        "id": "apophis",
+        "name": "99942 Apophis",
+        "type": "Atens (Potentially Hazardous Asteroid)",
+        "diameter": "340 m",
+        "speed": "30.7 km/s",
+        "flyby": "April 13, 2029",
+        "dist": "0.08 LD (31,600 km - Closer than GEO satellites!)",
+        "a": 0.9224, "e": 0.1912, "color": "#EF4444",
+        "fact": "Will pass so close to Earth in 2029 that it will be visible to the naked eye for over 2 billion people across Europe and Africa! ✨"
+    },
+    {
+        "id": "bennu",
+        "name": "101955 Bennu",
+        "type": "Apollo (PHA / OSIRIS-REx Sampled)",
+        "diameter": "490 m",
+        "speed": "27.8 km/s",
+        "flyby": "Sept 25, 2135",
+        "dist": "0.53 LD (203,000 km)",
+        "a": 1.1264, "e": 0.2037, "color": "#F97316",
+        "fact": "A carbonaceous rubble-pile asteroid with a 1-in-2,700 cumulative impact risk in 2182. Samples returned to Earth by NASA in 2023! 🔬"
+    },
+    {
+        "id": "ryugu",
+        "name": "162173 Ryugu",
+        "type": "Apollo (Hayabusa2 Sampled)",
+        "diameter": "900 m",
+        "speed": "26.9 km/s",
+        "flyby": "Dec 5, 2076",
+        "dist": "3.90 LD (1,500,000 km)",
+        "a": 1.1896, "e": 0.1902, "color": "#EAB308",
+        "fact": "A diamond-shaped spinning top asteroid explored by JAXA's Hayabusa2, revealing primordial water and amino acids from the birth of the Solar System! 💎"
+    },
+    {
+        "id": "dimorphos",
+        "name": "65803 Dimorphos",
+        "type": "DART Kinetic Impact Defense Target",
+        "diameter": "160 m",
+        "speed": "23.5 km/s",
+        "flyby": "Oct 4, 2123",
+        "dist": "15.3 LD (5,900,000 km)",
+        "a": 1.644, "e": 0.3838, "color": "#06B6D4",
+        "fact": "In 2022, NASA's DART spacecraft intentionally slammed into it at 22,500 km/h, proving humanity can deflect dangerous asteroids! 💥🛡️"
+    }
+]
+
+def task_asteroid_alert():
+    ast = random.choice(ASTEROIDS_DB)
+    now_utc = datetime.datetime.now(datetime.timezone.utc)
+
+    fig, ax = plt.subplots(figsize=(10, 6), facecolor='#0B0F19')
+    ax.set_facecolor('#0B0F19')
+
+    # Draw Solar System Orbits
+    theta = np.linspace(0, 2*np.pi, 200)
+    
+    # Sun
+    ax.scatter([0], [0], color='#FBBF24', s=600, zorder=7, edgecolors='#FFFFFF', linewidth=2)
+    ax.scatter([0], [0], color='#F59E0B', s=1400, alpha=0.3, zorder=6)
+    ax.annotate("Sun", xy=(0, 0), xytext=(-0.15, -0.22), color='#FDE68A', fontsize=10, fontweight='bold')
+
+    # Planet Orbits
+    planets = [
+        {"name": "Mercury", "r": 0.387, "color": "#64748B"},
+        {"name": "Venus", "r": 0.723, "color": "#F59E0B"},
+        {"name": "Earth", "r": 1.000, "color": "#38BDF8"},
+        {"name": "Mars", "r": 1.524, "color": "#EF4444"}
+    ]
+
+    for p in planets:
+        ax.plot(p["r"] * np.cos(theta), p["r"] * np.sin(theta), color=p["color"], linestyle=':', linewidth=1.2, alpha=0.5)
+        pa = random.random() * 2 * np.pi
+        px, py = p["r"] * np.cos(pa), p["r"] * np.sin(pa)
+        ax.scatter([px], [py], color=p["color"], s=70, zorder=5)
+        if p["name"] == "Earth":
+            ax.annotate("Earth", xy=(px, py), xytext=(px+0.05, py+0.05), color='#38BDF8', fontsize=9.5, fontweight='bold')
+
+    # Asteroid Elliptical Orbit
+    a = ast["a"]
+    e = ast["e"]
+    b = a * np.sqrt(1 - e**2)
+    c = a * e
+    
+    orb_x = a * np.cos(theta) - c
+    orb_y = b * np.sin(theta)
+    ax.plot(orb_x, orb_y, color=ast["color"], linewidth=2.8, alpha=0.9, linestyle='-', label=f"{ast['name']} Orbit")
+    
+    ast_angle = 0.45
+    ast_x = a * np.cos(ast_angle) - c
+    ast_y = b * np.sin(ast_angle)
+    ax.scatter([ast_x], [ast_y], color=ast["color"], s=380, zorder=8, edgecolors='#FFFFFF', linewidth=2)
+    ax.scatter([ast_x], [ast_y], color=ast["color"], s=1000, alpha=0.35, zorder=7)
+
+    ax.annotate(
+        f"{ast['name']}\nDiameter: {ast['diameter']}\nSpeed: {ast['speed']}",
+        xy=(ast_x, ast_y), xytext=(ast_x + 0.2, ast_y + 0.25),
+        color='#FFFFFF', fontsize=10.5, fontweight='bold',
+        bbox=dict(boxstyle='round,pad=0.6', facecolor='#0F172A', edgecolor=ast["color"], alpha=0.95),
+        arrowprops=dict(arrowstyle='->', color=ast["color"], lw=1.8)
+    )
+
+    ax.set_xlim(-2.2, 2.2)
+    ax.set_ylim(-1.8, 1.8)
+    ax.set_aspect('equal')
+    ax.grid(color='#1E293B', linestyle='--', linewidth=0.6, alpha=0.6)
+    ax.tick_params(colors='#64748B')
+    ax.set_xlabel("Orbital Distance (Astronomical Units - AU)", color='#64748B', fontsize=9.5)
+    
+    fig.suptitle(f"Asteroid3D  •  Near-Earth Asteroid Radar: {ast['name']}", fontsize=14, fontweight='bold', color=ast["color"], y=0.96)
+    ax.set_title(f"{ast['type']}  |  Next Flyby: {ast['flyby']} ({ast['dist']})", fontsize=10, color='#94A3B8', pad=10)
+    ax.text(2.1, -1.65, "asteroid.satviewer3d.com", color='#38BDF8', fontsize=10, ha='right', va='bottom', fontweight='bold')
+
+    out_img = "post_card.png"
+    plt.tight_layout()
+    plt.savefig(out_img, dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor())
+    plt.close()
+
+    text = (
+        f"☄️ [Asteroid Spotlight] {ast['name']}\n"
+        f"🏷️ Type: {ast['type']}\n\n"
+        f"📏 Diameter: {ast['diameter']}\n"
+        f"⚡ Speed: {ast['speed']}\n"
+        f"⏱️ Next Flyby: {ast['flyby']}\n"
+        f"🎯 Miss Distance: {ast['dist']}\n\n"
+        f"💡 {ast['fact']}\n\n"
+        f"🪐 Interactive 3D Orbit & Impact Physics Simulator 👇\n"
+        f"https://asteroid.satviewer3d.com/\n\n"
+        f"#Asteroids #Space #PlanetaryDefense #NASA #Astronomy"
+    )
+    return text, out_img
+
+# -------------------------------------------------------------
 # メイン実行ルーチン
 # -------------------------------------------------------------
-MODES = ["AUTO_FOLLOWER", "ISS_LIVE", "TIANGONG_LIVE", "SPAIN_LATAM_LIVE", "STARLINK_FLEET", "STARLINK_TRAIN", "SATELLITE_SPOTLIGHT", "HUBBLE_LIVE", "SPACE_DEBRIS"]
+MODES = ["ISS_LIVE", "TIANGONG_LIVE", "ASTEROID_ALERT", "SPAIN_LATAM_LIVE", "STARLINK_FLEET", "STARLINK_TRAIN", "SATELLITE_SPOTLIGHT", "HUBBLE_LIVE", "SPACE_DEBRIS"]
 
 def get_next_mode():
     last_mode = None
@@ -742,6 +877,8 @@ def run_master_bot(mode=None):
         text, img = task_iss_live()
     elif mode == "TIANGONG_LIVE":
         text, img = task_tiangong_live()
+    elif mode == "ASTEROID_ALERT":
+        text, img = task_asteroid_alert()
     elif mode == "SPAIN_LATAM_LIVE":
         text, img = task_spanish_radar()
     elif mode == "STARLINK_FLEET":
