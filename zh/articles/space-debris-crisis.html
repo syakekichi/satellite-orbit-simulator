@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>太空垃圾危机：每秒8公里的致命碰撞与凯斯勒现象 | SatViewer3D</title>
+    <meta name="description" content="地球轨道上漂浮的数百万太空碎片。2009年美俄卫星碰撞惨剧、每秒8公里的巨大动能破坏力、连锁碰撞的噩梦与主动碎片清除技术。">
+    <meta name="keywords" content="空间碎片, 太空垃圾, 凯斯勒现象, 卫星碰撞, 轨道安全, 空间态势感知">
+    <meta name="author" content="SatViewer3D Editorial Team">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/zh/articles/space-debris-crisis.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="太空垃圾危机：每秒8公里的致命碰撞与凯斯勒现象">
+    <meta property="og:description" content="地球轨道上漂浮的数百万太空碎片。2009年美俄卫星碰撞惨剧、每秒8公里的巨大动能破坏力、连锁碰撞的噩梦与主动碎片清除技术。">
+    <meta property="og:url" content="https://satviewer3d.com/zh/articles/space-debris-crisis.html">
+    <meta property="og:site_name" content="SatViewer3D">
+    <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
+
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --accent-gold: #fbbf24; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.85; padding: 20px; }
+        .container { max-width: 880px; margin: 30px auto; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 36px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 28px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; }
+        .article-title { font-size: 1.85rem; color: #ffffff; line-height: 1.35; margin-bottom: 12px; }
+        .article-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .meta-badge { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .toc-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+        .toc-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; font-size: 1rem; }
+        .toc-list { list-style-type: decimal; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1; }
+        .toc-list li { margin-bottom: 4px; }
+        .toc-list a { color: #cbd5e1; text-decoration: none; }
+        .toc-list a:hover { color: var(--accent-blue); text-decoration: underline; }
+        h2 { font-size: 1.35rem; color: var(--accent-blue); margin: 36px 0 14px; border-left: 4px solid var(--accent-blue); padding-left: 12px; line-height: 1.4; }
+        h3 { font-size: 1.12rem; color: #e2e8f0; margin: 22px 0 10px; }
+        p { margin-bottom: 18px; color: #cbd5e1; font-size: 1rem; text-align: justify; }
+        ul, ol { margin: 0 0 18px 24px; color: #cbd5e1; font-size: 0.98rem; }
+        li { margin-bottom: 8px; }
+        strong { color: #ffffff; }
+        .callout { background: rgba(56, 189, 248, 0.08); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; color: #e2e8f0; }
+        .callout-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .simulator-cta { background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(99,102,241,0.15)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 24px; text-align: center; margin: 36px 0; }
+        .simulator-cta h3 { color: #ffffff; font-size: 1.25rem; margin-bottom: 10px; }
+        .simulator-cta p { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 16px; }
+        .cta-btn { display: inline-block; background: var(--accent-blue); color: #07090e; font-weight: 700; text-decoration: none; padding: 10px 24px; border-radius: 6px; transition: transform 0.2s, background 0.2s; }
+        .cta-btn:hover { transform: translateY(-2px); background: #7dd3fc; }
+        .footer-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="article-header">
+            <div class="breadcrumb">
+                <a href="/zh/">SatViewer3D</a> &gt; <a href="/zh/articles/">空间科学与轨道力学</a> &gt; <span>space-debris-crisis</span>
+            </div>
+            <h1 class="article-title">太空垃圾危机：每秒8公里的致命碰撞与凯斯勒现象</h1>
+            <div class="article-meta">
+                <span class="meta-badge">空间科学与轨道力学</span>
+                <span>📅 2026-08-28</span>
+                <span>⏱️ 阅读时间：约 5 min</span>
+                <span>✍️ SatViewer3D 科学编辑部</span>
+            </div>
+        </div>
+
+        
+        <h2 id="sec1">1. 什么是空间碎片？</h2>
+        <p>近地轨道上的碎片以<strong>每秒7至8公里（时速约2.8万公里）</strong>超高速飞行。动能与速度平方成正比，哪怕只有1厘米的碎片碰撞，其威力也堪比一枚引爆的手榴弹。</p>
+        
+
+        <div class="simulator-cta">
+            <h3>🌍 在 SatViewer3D 实时体验三维轨道视界！</h3>
+            <p>本文中提及的所有人造卫星与空间站均可在浏览器中进行全天候三维交互式实时追踪。</p>
+            <a href="/zh/" class="cta-btn">🚀 打开 3D 模拟器 (免费)</a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="/zh/">🏠 Home</a>
+            <a href="/zh/articles/">📚 Articles</a>
+            <a href="/about.html">ℹ️ About</a>
+            <a href="/privacy.html">🔒 Privacy Policy</a>
+            <a href="/terms.html">📜 Terms</a>
+            <a href="/contact.html">📬 Contact</a>
+            <a href="/sitemap.html">🗺️ Sitemap</a>
+        </div>
+    </div>
+</body>
+</html>

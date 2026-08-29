@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何肉眼观测国际空间站（ISS）与轨道科学原理全解析 | SatViewer3D</title>
+    <meta name="description" content="夜空肉眼观测国际空间站（ISS）完整指南。解析400公里轨道高度、7.7公里/秒高速运行的轨道力学以及日本希望号实验舱的科学价值。">
+    <meta name="keywords" content="国际空间站, ISS, 肉眼观测空间站, 卫星追踪, 轨道力学, 日本希望号, 航天科普">
+    <meta name="author" content="SatViewer3D Editorial Team">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/zh/articles/iss-tracker-guide.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="如何肉眼观测国际空间站（ISS）与轨道科学原理全解析">
+    <meta property="og:description" content="夜空肉眼观测国际空间站（ISS）完整指南。解析400公里轨道高度、7.7公里/秒高速运行的轨道力学以及日本希望号实验舱的科学价值。">
+    <meta property="og:url" content="https://satviewer3d.com/zh/articles/iss-tracker-guide.html">
+    <meta property="og:site_name" content="SatViewer3D">
+    <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
+
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --accent-gold: #fbbf24; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.85; padding: 20px; }
+        .container { max-width: 880px; margin: 30px auto; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 36px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 28px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; }
+        .article-title { font-size: 1.85rem; color: #ffffff; line-height: 1.35; margin-bottom: 12px; }
+        .article-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .meta-badge { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .toc-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+        .toc-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; font-size: 1rem; }
+        .toc-list { list-style-type: decimal; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1; }
+        .toc-list li { margin-bottom: 4px; }
+        .toc-list a { color: #cbd5e1; text-decoration: none; }
+        .toc-list a:hover { color: var(--accent-blue); text-decoration: underline; }
+        h2 { font-size: 1.35rem; color: var(--accent-blue); margin: 36px 0 14px; border-left: 4px solid var(--accent-blue); padding-left: 12px; line-height: 1.4; }
+        h3 { font-size: 1.12rem; color: #e2e8f0; margin: 22px 0 10px; }
+        p { margin-bottom: 18px; color: #cbd5e1; font-size: 1rem; text-align: justify; }
+        ul, ol { margin: 0 0 18px 24px; color: #cbd5e1; font-size: 0.98rem; }
+        li { margin-bottom: 8px; }
+        strong { color: #ffffff; }
+        .callout { background: rgba(56, 189, 248, 0.08); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; color: #e2e8f0; }
+        .callout-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .simulator-cta { background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(99,102,241,0.15)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 24px; text-align: center; margin: 36px 0; }
+        .simulator-cta h3 { color: #ffffff; font-size: 1.25rem; margin-bottom: 10px; }
+        .simulator-cta p { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 16px; }
+        .cta-btn { display: inline-block; background: var(--accent-blue); color: #07090e; font-weight: 700; text-decoration: none; padding: 10px 24px; border-radius: 6px; transition: transform 0.2s, background 0.2s; }
+        .cta-btn:hover { transform: translateY(-2px); background: #7dd3fc; }
+        .footer-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="article-header">
+            <div class="breadcrumb">
+                <a href="/zh/">SatViewer3D</a> &gt; <a href="/zh/articles/">空间科学与轨道力学</a> &gt; <span>iss-tracker-guide</span>
+            </div>
+            <h1 class="article-title">如何肉眼观测国际空间站（ISS）与轨道科学原理全解析</h1>
+            <div class="article-meta">
+                <span class="meta-badge">空间科学与轨道力学</span>
+                <span>📅 2026-08-25</span>
+                <span>⏱️ 阅读时间：约 5 min</span>
+                <span>✍️ SatViewer3D 科学编辑部</span>
+            </div>
+        </div>
+
+        
+        <div class="toc-box">
+            <div class="toc-title">📑 目录</div>
+            <ol class="toc-list">
+                <li><a href="#sec1">什么是国际空间站（ISS）？</a></li>
+                <li><a href="#sec2">为什么夜空中肉眼可见？（反光原理）</a></li>
+                <li><a href="#sec3">轨道力学：400公里高度与时速27,700公里的世界</a></li>
+                <li><a href="#sec4">肉眼观测国际空间站的3个步骤</a></li>
+                <li><a href="#sec5">日本“希望号”实验舱的科研价值</a></li>
+            </ol>
+        </div>
+
+        <h2 id="sec1">1. 什么是国际空间站（ISS）？</h2>
+        <p>国际空间站（International Space Station: ISS）是人类在近地轨道（LEO）上建造的最大人造航天器，轨道高度约为400公里。它由美国国家航空航天局（NASA）、俄罗斯联邦航天局（Roscosmos）、日本宇宙航空研究开发机构（JAXA）、欧洲空间局（ESA）和加拿大航天局（CSA）联合运营，尺寸相当于一个足球场（约108米×73米），自2000年11月以来一直有宇航员常驻。</p>
+
+        <h2 id="sec2">2. 为什么夜空中肉眼可见？（反光原理）</h2>
+        <p>国际空间站自身并不发光，之所以在夜空中比木星甚至金星还要明亮，是因为其超过2,400平方米的巨大太阳能电池翼极强地反射了太阳光。在日落后或日出前的一两个小时（晨昏蒙影时段），地面处于黑夜，而400公里高空的空间站正沐浴在阳光下，形成耀眼的亮星划过夜空。</p>
+
+        <div class="callout">
+            <div class="callout-title">💡 如何与飞机区分</div>
+            <p>国际空间站没有飞机的红绿闪烁航行灯，也不会发出任何发动机噪音。它看起来像一颗极为明亮的白亮恒星，在3到5分钟内平稳无声地划过天际。</p>
+        </div>
+
+        <h2 id="sec3">3. 轨道力学：400公里高度与时速27,700公里的世界</h2>
+        <p>国际空间站以<strong>每秒7.66公里（时速约27,700公里）</strong>的惊人速度绕地球飞行，每92分钟即可绕地球一周。这意味着空间站上的宇航员每天可以经历16次日出和日落。</p>
+        
+
+        <div class="simulator-cta">
+            <h3>🌍 在 SatViewer3D 实时体验三维轨道视界！</h3>
+            <p>本文中提及的所有人造卫星与空间站均可在浏览器中进行全天候三维交互式实时追踪。</p>
+            <a href="/zh/" class="cta-btn">🚀 打开 3D 模拟器 (免费)</a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="/zh/">🏠 Home</a>
+            <a href="/zh/articles/">📚 Articles</a>
+            <a href="/about.html">ℹ️ About</a>
+            <a href="/privacy.html">🔒 Privacy Policy</a>
+            <a href="/terms.html">📜 Terms</a>
+            <a href="/contact.html">📬 Contact</a>
+            <a href="/sitemap.html">🗺️ Sitemap</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Геостационарная орбита (ГСО): Почему метеоспутники неподвижны на 36 000 км | SatViewer3D</title>
+    <meta name="description" content="Физика геостационарной орбиты (35 786 км). Третий закон Кеплера, синхронизация с вращением Земли и орбита захоронения.">
+    <meta name="keywords" content="Геостационарная орбита, ГСО, Метеоспутники, Законы Кеплера, Орбита захоронения">
+    <meta name="author" content="SatViewer3D Editorial Team">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/ru/articles/geostationary-orbit.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- OGP -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Геостационарная орбита (ГСО): Почему метеоспутники неподвижны на 36 000 км">
+    <meta property="og:description" content="Физика геостационарной орбиты (35 786 км). Третий закон Кеплера, синхронизация с вращением Земли и орбита захоронения.">
+    <meta property="og:url" content="https://satviewer3d.com/ru/articles/geostationary-orbit.html">
+    <meta property="og:site_name" content="SatViewer3D">
+    <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
+
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --accent-gold: #fbbf24; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.85; padding: 20px; }
+        .container { max-width: 880px; margin: 30px auto; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 36px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 28px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+        .breadcrumb a { color: var(--accent-blue); text-decoration: none; }
+        .article-title { font-size: 1.85rem; color: #ffffff; line-height: 1.35; margin-bottom: 12px; }
+        .article-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .meta-badge { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .toc-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+        .toc-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; font-size: 1rem; }
+        .toc-list { list-style-type: decimal; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1; }
+        .toc-list li { margin-bottom: 4px; }
+        .toc-list a { color: #cbd5e1; text-decoration: none; }
+        .toc-list a:hover { color: var(--accent-blue); text-decoration: underline; }
+        h2 { font-size: 1.35rem; color: var(--accent-blue); margin: 36px 0 14px; border-left: 4px solid var(--accent-blue); padding-left: 12px; line-height: 1.4; }
+        h3 { font-size: 1.12rem; color: #e2e8f0; margin: 22px 0 10px; }
+        p { margin-bottom: 18px; color: #cbd5e1; font-size: 1rem; text-align: justify; }
+        ul, ol { margin: 0 0 18px 24px; color: #cbd5e1; font-size: 0.98rem; }
+        li { margin-bottom: 8px; }
+        strong { color: #ffffff; }
+        .callout { background: rgba(56, 189, 248, 0.08); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; color: #e2e8f0; }
+        .callout-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .simulator-cta { background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(99,102,241,0.15)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 24px; text-align: center; margin: 36px 0; }
+        .simulator-cta h3 { color: #ffffff; font-size: 1.25rem; margin-bottom: 10px; }
+        .simulator-cta p { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 16px; }
+        .cta-btn { display: inline-block; background: var(--accent-blue); color: #07090e; font-weight: 700; text-decoration: none; padding: 10px 24px; border-radius: 6px; transition: transform 0.2s, background 0.2s; }
+        .cta-btn:hover { transform: translateY(-2px); background: #7dd3fc; }
+        .footer-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="article-header">
+            <div class="breadcrumb">
+                <a href="/ru/">SatViewer3D</a> &gt; <a href="/ru/articles/">Космическая наука и астродинамика</a> &gt; <span>geostationary-orbit</span>
+            </div>
+            <h1 class="article-title">Геостационарная орбита (ГСО): Почему метеоспутники неподвижны на 36 000 км</h1>
+            <div class="article-meta">
+                <span class="meta-badge">Космическая наука и астродинамика</span>
+                <span>📅 2026-08-28</span>
+                <span>⏱️ Время чтения: 5 min</span>
+                <span>✍️ Редакция SatViewer3D</span>
+            </div>
+        </div>
+
+        
+        <h2 id="sec1">1. Что такое геостационарная орбита?</h2>
+        <p>На высоте 35 786 км над экватором период обращения спутника точно равен периоду вращения Земли (23 ч 56 мин 4 с).</p>
+        
+
+        <div class="simulator-cta">
+            <h3>🌍 Интерактивная 3D визуализация на SatViewer3D!</h3>
+            <p>Отслеживайте все спутники из этой статьи в 3D прямо в вашем браузере в реальном времени.</p>
+            <a href="/ru/" class="cta-btn">🚀 Запустить 3D симулятор (Бесплатно)</a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="/ru/">🏠 Home</a>
+            <a href="/ru/articles/">📚 Articles</a>
+            <a href="/about.html">ℹ️ About</a>
+            <a href="/privacy.html">🔒 Privacy Policy</a>
+            <a href="/terms.html">📜 Terms</a>
+            <a href="/contact.html">📬 Contact</a>
+            <a href="/sitemap.html">🗺️ Sitemap</a>
+        </div>
+    </div>
+</body>
+</html>

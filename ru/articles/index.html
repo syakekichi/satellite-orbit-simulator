@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статьи по космической науке и спутникам | SatViewer3D</title>
+    <meta name="description" content="Образовательные и технические статьи о космической науке, орбитальной механике, МКС, SpaceX Starlink, 'Тяньгун', радарах SAR и космическом мусоре.">
+    <meta name="keywords" content="Космическая наука, Трекер спутников, Орбитальная механика, МКС, Starlink, Тяньгун, Космический мусор, SGP4">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/ru/articles/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --accent-purple: #c084fc; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.8; padding: 20px; }
+        .container { max-width: 960px; margin: 30px auto; }
+        .header { background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px 36px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .header h1 { font-size: 1.85rem; color: #ffffff; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .header p { color: var(--text-muted); font-size: 0.95rem; }
+        .header a { color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; margin-top: 10px; display: inline-block; }
+        
+        .article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .article-card { background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 22px; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; justify-content: space-between; text-decoration: none; color: inherit; }
+        .article-card:hover { transform: translateY(-4px); border-color: var(--accent-blue); box-shadow: 0 12px 24px rgba(56, 189, 248, 0.15); }
+        .card-tag { font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); background: rgba(56, 189, 248, 0.12); padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 12px; align-self: flex-start; }
+        .card-title { font-size: 1.12rem; font-weight: 700; color: #ffffff; line-height: 1.45; margin-bottom: 10px; }
+        .card-desc { font-size: 0.86rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 16px; flex-grow: 1; }
+        .card-footer { font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; }
+        
+        .footer-nav { margin-top: 40px; padding: 24px; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 10px; display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Статьи по космической науке | SatViewer3D</h1>
+            <p>Исследуйте МКС, группировку SpaceX Starlink, китайскую станцию 'Тяньгун', радары SAR, космический мусор и математику орбит.</p>
+            <a href="/ru/">&larr; Запустить 3D трекер спутников</a>
+        </div>
+
+        <div class="article-grid">
+            <a href="/ru/articles/iss-tracker-guide.html" class="article-card">
+                <div>
+                    <span class="card-tag">🛰️ Космическая станция</span>
+                    <h2 class="card-title">Как увидеть Международную космическую станцию (МКС) невооруженным глазом</h2>
+                    <p class="card-desc">Орбитальная механика на высоте 400 км, скорость 27 700 км/ч и наблюдение МКС на небе.</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-25</span>
+                    <span>⏱️ 5 мин чтения</span>
+                </div>
+            </a>
+
+            <a href="/ru/articles/starlink-constellation.html" class="article-card">
+                <div>
+                    <span class="card-tag">🌐 Мега-созвездие</span>
+                    <h2 class="card-title">Спутниковая группировка SpaceX Starlink: Принципы работы и 'Поезд Starlink'</h2>
+                    <p class="card-desc">Низкоорбитальный спутниковый интернет и как наблюдать цепочки светящихся спутников.</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-26</span>
+                    <span>⏱️ 5 мин чтения</span>
+                </div>
+            </a>
+
+            <a href="/ru/articles/tiangong-space-station.html" class="article-card">
+                <div>
+                    <span class="card-tag">🇨🇳 Пилотируемая космонавтика</span>
+                    <h2 class="card-title">Китайская космическая станция 'Тяньгун': Архитектура и пилотируемая космонавтика</h2>
+                    <p class="card-desc">Модули 'Тяньхэ', 'Вэньтянь', 'Мэнтянь' и будущий телескоп 'Сюньтянь'.</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-27</span>
+                    <span>⏱️ 5 мин чтения</span>
+                </div>
+            </a>
+
+            <a href="/ru/articles/sar-satellite-radar.html" class="article-card">
+                <div>
+                    <span class="card-tag">📡 Радиолокация</span>
+                    <h2 class="card-title">Радиолокационные спутники SAR: Сквозь облака и ночную тьму</h2>
+                    <p class="card-desc">Всепогодная радарная съемка Земли с миллиметровой точностью на примере PAZ и SAOCOM.</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-27</span>
+                    <span>⏱️ 5 мин чтения</span>
+                </div>
+            </a>
+
+            <a href="/ru/articles/space-debris-crisis.html" class="article-card">
+                <div>
+                    <span class="card-tag">💥 Космическая экология</span>
+                    <h2 class="card-title">Кризис космического мусора: Удары на скорости 8 км/с и Синдром Кесслера</h2>
+                    <p class="card-desc">Гиперскоростные удары, столкновение 2009 года и активные технологии очистки орбит.</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-28</span>
+                    <span>⏱️ 5 мин чтения</span>
+                </div>
+            </a>
+
+            <a href="/ru/articles/geostationary-orbit.html" class="article-card">
+                <div>
+                    <span class="card-tag">🌀 Орбитальная механика</span>
+                    <h2 class="card-title">Геостационарная орбита (ГСО): Почему метеоспутники неподвижны на 36 000 км</h2>
+                    <p class="card-desc">Законы Кеплера на высоте 35 786 км, метеорологическое наблюдение и орбита захоронения.</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-28</span>
+                    <span>⏱️ 5 мин чтения</span>
+                </div>
+            </a>
+
+            <a href="/ru/articles/michibiki-qzss.html" class="article-card">
+                <div>
+                    <span class="card-tag">🗾 Навигация</span>
+                    <h2 class="card-title">Японская система QZSS 'Мичибики': Восьмеркообразная орбита и сантиметровая точность GPS</h2>
+                    <p class="card-desc">Квазизенитная орбита над городскими каньонами и сантиметровое позиционирование CLAS.</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-28</span>
+                    <span>⏱️ 5 мин чтения</span>
+                </div>
+            </a>
+
+            <a href="/ru/articles/hubble-vs-jwst.html" class="article-card">
+                <div>
+                    <span class="card-tag">🔭 Космические телескопы</span>
+                    <h2 class="card-title">Хаббл против Джеймса Уэбба (JWST): Сравнение космических обсерваторий</h2>
+                    <p class="card-desc">Оптический и инфракрасный диапазоны, низкая орбита 540 км против точки Лагранжа L2.</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-28</span>
+                    <span>⏱️ 5 мин чтения</span>
+                </div>
+            </a>
+
+            <a href="/ru/articles/sgp4-tle-orbit-math.html" class="article-card">
+                <div>
+                    <span class="card-tag">📐 Астродинамика</span>
+                    <h2 class="card-title">Орбитальная математика спутников: Модель SGP4 и двухстрочные элементы (TLE)</h2>
+                    <p class="card-desc">Математика SatViewer3D. Параметры TLE от NORAD, возмущения J2 и модель распространения SGP4.</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-29</span>
+                    <span>⏱️ 6 мин чтения</span>
+                </div>
+            </a>
+
+            <a href="/ru/articles/satellite-spotting-guide.html" class="article-card">
+                <div>
+                    <span class="card-tag">✨ Наблюдение неба</span>
+                    <h2 class="card-title">Руководство для начинающих: Как наблюдать спутники на ночном небе</h2>
+                    <p class="card-desc">Как находить спутники невооруженным глазом в сумерках и отслеживать их на SatViewer3D.</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-29</span>
+                    <span>⏱️ 5 мин чтения</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="/ru/">🏠 Главная</a>
+            <a href="/about.html">ℹ️ О проекте</a>
+            <a href="/privacy.html">🔒 Политика конфиденциальности</a>
+            <a href="/terms.html">📜 Условия</a>
+            <a href="/contact.html">📬 Контакты</a>
+            <a href="/sitemap.html">🗺️ Карта сайта</a>
+        </div>
+    </div>
+</body>
+</html>

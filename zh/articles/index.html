@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空间科学与人造卫星学习专栏 | SatViewer3D</title>
+    <meta name="description" content="深入浅出的空间科学与航天技术专栏。探索国际空间站、SpaceX星链、中国天宫空间站、SAR雷达卫星、空间碎片与轨道力学算法。">
+    <meta name="keywords" content="空间科学, 卫星追踪, 轨道力学, 国际空间站, 星链, 天宫空间站, 空间碎片, SGP4, 航天科普">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://satviewer3d.com/zh/articles/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%2307090e'/><circle cx='32' cy='32' r='18' fill='%230b1329' stroke='%2338bdf8' stroke-width='2.5'/><circle cx='32' cy='32' r='6' fill='%2338bdf8'/></svg>">
+    
+    <!-- Google AdSense Auto-Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <style>
+        :root { --bg-dark: #07090e; --panel-bg: #0f172a; --accent-blue: #38bdf8; --accent-purple: #c084fc; --text-light: #f8fafc; --text-muted: #94a3b8; --border-color: rgba(56, 189, 248, 0.2); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-dark); color: var(--text-light); line-height: 1.8; padding: 20px; }
+        .container { max-width: 960px; margin: 30px auto; }
+        .header { background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px 36px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .header h1 { font-size: 1.85rem; color: #ffffff; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .header p { color: var(--text-muted); font-size: 0.95rem; }
+        .header a { color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; margin-top: 10px; display: inline-block; }
+        
+        .article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .article-card { background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 22px; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; justify-content: space-between; text-decoration: none; color: inherit; }
+        .article-card:hover { transform: translateY(-4px); border-color: var(--accent-blue); box-shadow: 0 12px 24px rgba(56, 189, 248, 0.15); }
+        .card-tag { font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); background: rgba(56, 189, 248, 0.12); padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 12px; align-self: flex-start; }
+        .card-title { font-size: 1.12rem; font-weight: 700; color: #ffffff; line-height: 1.45; margin-bottom: 10px; }
+        .card-desc { font-size: 0.86rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 16px; flex-grow: 1; }
+        .card-footer { font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; }
+        
+        .footer-nav { margin-top: 40px; padding: 24px; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 10px; display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.88rem; color: var(--text-muted); }
+        a { color: var(--accent-blue); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 SatViewer3D 空间科学与航天学习专栏</h1>
+            <p>探索国际空间站、SpaceX星链星座、中国天宫空间站、合成孔径雷达、空间碎片危机与轨道力学数学原理。</p>
+            <a href="/zh/">&larr; 开启 3D 实时卫星模拟器</a>
+        </div>
+
+        <div class="article-grid">
+            <a href="/zh/articles/iss-tracker-guide.html" class="article-card">
+                <div>
+                    <span class="card-tag">🛰️ 空间站</span>
+                    <h2 class="card-title">如何肉眼观测国际空间站（ISS）与轨道科学原理全解析</h2>
+                    <p class="card-desc">400公里轨道高度、7.7公里/秒高速运行的力学原理，以及夜空肉眼观测技巧。</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-25</span>
+                    <span>⏱️ 5 分钟阅读</span>
+                </div>
+            </a>
+
+            <a href="/zh/articles/starlink-constellation.html" class="article-card">
+                <div>
+                    <span class="card-tag">🌐 巨型星座</span>
+                    <h2 class="card-title">SpaceX 星链（Starlink）卫星系统原理解析与“星链列车”观测指南</h2>
+                    <p class="card-desc">数千颗低轨卫星宽带通信网与如何在夜空中捕捉连成一线的璀璨星链列车。</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-26</span>
+                    <span>⏱️ 5 分钟阅读</span>
+                </div>
+            </a>
+
+            <a href="/zh/articles/tiangong-space-station.html" class="article-card">
+                <div>
+                    <span class="card-tag">🇨🇳 载人航天</span>
+                    <h2 class="card-title">中国“天宫”空间站全貌解析：构型、前沿科技与载人航天新篇章</h2>
+                    <p class="card-desc">天和核心舱、问天与梦天实验舱构型，神舟飞船交会对接及巡天望远镜计划。</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-27</span>
+                    <span>⏱️ 5 分钟阅读</span>
+                </div>
+            </a>
+
+            <a href="/zh/articles/sar-satellite-radar.html" class="article-card">
+                <div>
+                    <span class="card-tag">📡 对地观测雷达</span>
+                    <h2 class="card-title">合成孔径雷达（SAR）卫星：穿透云雨与黑夜的地球透视之眼</h2>
+                    <p class="card-desc">主动微波雷达全天候、全天时对地毫米级成像原理及PAZ与SAOCOM雷达卫星。</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-27</span>
+                    <span>⏱️ 5 分钟阅读</span>
+                </div>
+            </a>
+
+            <a href="/zh/articles/space-debris-crisis.html" class="article-card">
+                <div>
+                    <span class="card-tag">💥 空间环境</span>
+                    <h2 class="card-title">太空垃圾危机：每秒8公里的致命碰撞与凯斯勒现象</h2>
+                    <p class="card-desc">超高速碰撞动能破坏力、2009年美俄卫星碰撞惨剧与太空碎片清除前沿。</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-28</span>
+                    <span>⏱️ 5 分钟阅读</span>
+                </div>
+            </a>
+
+            <a href="/zh/articles/geostationary-orbit.html" class="article-card">
+                <div>
+                    <span class="card-tag">🌀 轨道力学</span>
+                    <h2 class="card-title">地球静止轨道（GEO）：为什么气象卫星在36,000公里高空“悬停”不动？</h2>
+                    <p class="card-desc">开普勒第三定律与地球自转周期的物理契合、24小时气象观测与坟墓轨道。</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-28</span>
+                    <span>⏱️ 5 分钟阅读</span>
+                </div>
+            </a>
+
+            <a href="/zh/articles/michibiki-qzss.html" class="article-card">
+                <div>
+                    <span class="card-tag">🗾 导航定位</span>
+                    <h2 class="card-title">日本准天顶卫星“引路号”（QZSS）：8字形轨道与厘米级高精度导航</h2>
+                    <p class="card-desc">大倾角准天顶轨道高仰角覆盖城市峡谷与CLAS厘米级高精度定位服务。</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-28</span>
+                    <span>⏱️ 5 分钟阅读</span>
+                </div>
+            </a>
+
+            <a href="/zh/articles/hubble-vs-jwst.html" class="article-card">
+                <div>
+                    <span class="card-tag">🔭 空间望远镜</span>
+                    <h2 class="card-title">哈勃与詹姆斯·韦伯太空望远镜（JWST）全方位深度对比</h2>
+                    <p class="card-desc">可见光与红外天文波段差异、540公里近地轨道与150万公里拉格朗日L2点。</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-28</span>
+                    <span>⏱️ 5 分钟阅读</span>
+                </div>
+            </a>
+
+            <a href="/zh/articles/sgp4-tle-orbit-math.html" class="article-card">
+                <div>
+                    <span class="card-tag">📐 航天动力学</span>
+                    <h2 class="card-title">人造卫星轨道计算入门：两行根数（TLE）与SGP4轨道外推数学模型</h2>
+                    <p class="card-desc">NORAD两行轨道根数解析、J2地球扁率摄动数学与SGP4实时外推算法。</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-29</span>
+                    <span>⏱️ 6 分钟阅读</span>
+                </div>
+            </a>
+
+            <a href="/zh/articles/satellite-spotting-guide.html" class="article-card">
+                <div>
+                    <span class="card-tag">✨ 观星入门</span>
+                    <h2 class="card-title">新手观星指南：如何在夜空中捕捉人造卫星的身影</h2>
+                    <p class="card-desc">如何区分卫星、飞机与流星，晨昏蒙影观测时间窗与SatViewer3D实战技巧。</p>
+                </div>
+                <div class="card-footer">
+                    <span>📅 2026-08-29</span>
+                    <span>⏱️ 5 分钟阅读</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="/zh/">🏠 首页</a>
+            <a href="/about.html">ℹ️ 关于我们</a>
+            <a href="/privacy.html">🔒 隐私政策</a>
+            <a href="/terms.html">📜 服务条款</a>
+            <a href="/contact.html">📬 联系我们</a>
+            <a href="/sitemap.html">🗺️ 网站地图</a>
+        </div>
+    </div>
+</body>
+</html>
