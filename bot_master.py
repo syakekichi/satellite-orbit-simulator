@@ -849,7 +849,7 @@ def task_asteroid_alert():
 # -------------------------------------------------------------
 # メイン実行ルーチン
 # -------------------------------------------------------------
-MODES = ["ISS_LIVE", "TIANGONG_LIVE", "ASTEROID_ALERT", "SPAIN_LATAM_LIVE", "STARLINK_FLEET", "STARLINK_TRAIN", "SATELLITE_SPOTLIGHT", "HUBBLE_LIVE", "SPACE_DEBRIS"]
+MODES = ["AUTO_FOLLOWER", "ISS_LIVE", "TIANGONG_LIVE", "ASTEROID_ALERT", "SPAIN_LATAM_LIVE", "STARLINK_FLEET", "STARLINK_TRAIN", "SATELLITE_SPOTLIGHT", "HUBBLE_LIVE", "SPACE_DEBRIS"]
 
 def get_next_mode():
     last_mode = None
@@ -872,6 +872,19 @@ def run_master_bot(mode=None):
     print("=" * 60)
     print(f"🛰️ SatViewer3D Master Bot - Running Mode: [{mode}]")
     print("=" * 60)
+
+    if mode == "AUTO_FOLLOWER":
+        print("🤖 [AUTO_FOLLOWER] 宇宙・衛星ツイートユーザーの自動フォロー＆10日後アンフォローを実行します...")
+        try:
+            import auto_follower
+            auto_follower.main()
+            with open(MODE_FILE, "w") as f:
+                f.write(mode)
+            print("🎉 [AUTO_FOLLOWER] Completed successfully!")
+            return
+        except Exception as e:
+            print(f"❌ [AUTO_FOLLOWER] Error: {e}")
+            sys.exit(1)
 
     if mode == "ISS_LIVE":
         text, img = task_iss_live()

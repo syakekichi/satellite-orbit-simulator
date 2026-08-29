@@ -209,11 +209,11 @@ def run_follow_routine(page, tracker):
             time.sleep(random.uniform(4.0, 6.0))
 
             # タイムラインを少しスクロール
-            page.mouse.wheel(0, 800)
-            time.sleep(2.0)
+            page.mouse.wheel(0, 1000)
+            time.sleep(3.0)
 
             # ツイート内のユーザーリンクを取得
-            user_links = page.locator('article[data-testid="tweet"] a[role="link"][href^="/"]')
+            user_links = page.locator('article[data-testid="tweet"] a[role="link"][href^="/"], div[data-testid="UserCell"] a[role="link"][href^="/"]')
             count = user_links.count()
             found_users = []
 
@@ -221,12 +221,12 @@ def run_follow_routine(page, tracker):
                 href = user_links.nth(i).get_attribute("href")
                 if href and "/" in href:
                     parts = [p for p in href.split("/") if p]
-                    if len(parts) == 1 and not parts[0].startswith("hashtag") and not parts[0].startswith("i"):
+                    if len(parts) == 1 and not parts[0].startswith("hashtag") and not parts[0].startswith("i") and not parts[0].startswith("search"):
                         uname = parts[0].lower()
                         if uname not in EXCLUDED_USERS and uname not in found_users:
                             found_users.append(uname)
 
-            print(f"👥 発見したユーザー候補: {found_users[:6]}")
+            print(f"👥 発見したユーザー候補: {found_users[:8]}")
 
             for uname in found_users:
                 if followed_count >= MAX_FOLLOWS_PER_RUN:
@@ -244,7 +244,7 @@ def run_follow_routine(page, tracker):
                 time.sleep(random.uniform(3.5, 5.5))
 
                 # すでにフォロー中か確認
-                already_following = page.locator('button[data-testid$="-unfollow"]')
+                already_following = page.locator('button[data-testid$="-unfollow"], div[data-testid$="-unfollow"]')
                 if already_following.count() > 0 and already_following.first.is_visible():
                     print(f"⏩ @{uname} は既にフォロー中のためトラッカーに追加のみ行います。")
                     tracker["following"][uname] = {
@@ -255,8 +255,8 @@ def run_follow_routine(page, tracker):
                     save_tracker(tracker)
                     continue
 
-                # フォローボタンを探す
-                follow_btn = page.locator('button[data-testid$="-follow"]')
+                # フォローボタンを探す（多角的なセレクタ）
+                follow_btn = page.locator('button[data-testid$="-follow"], div[data-testid$="-follow"], button[aria-label*="Follow"], button[aria-label*="フォロー"]')
                 if follow_btn.count() == 0:
                     follow_btn = page.locator('button:has-text("フォロー"), button:has-text("Follow"), button:has-text("Seguir"), button:has-text("Подписаться"), button:has-text("关注")')
 
