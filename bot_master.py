@@ -207,47 +207,43 @@ def task_iss_live():
     
     if ctx["lang"] == "ES":
         text = (
-            f"🛰️ ¡La Estación Espacial (ISS) sobrevuela {ctx['region_es']}!\n"
-            f"Viaja a 27,700 km/h (8 km/s) ✨ ¡Mira el cielo nocturno hoy!\n\n"
-            f"Look up! ISS is zooming over {ctx['region_en']} ({speed_km_h:,.0f} km/h) 🌌🔭\n\n"
-            f"🌍 Órbita en 3D en vivo 👇\n"
+            f"🛰️ La Estación Espacial (ISS) sobre {ctx['region_es']}!\n"
+            f"Velocidad: {speed_km_h:,.0f} km/h 🌌✨\n\n"
+            f"🌍 Órbita en 3D 👇\n"
             f"{WEBSITE_URL}\n\n"
-            f"#Espacio #Astronomía #ISS #Ciencia #NASA #Space"
+            f"#ISS #Espacio #Space"
         )
     elif ctx["lang"] == "RU":
         text = (
-            f"🛰️ МКС (Заря) пролетает над {ctx['region_ru']}!\n"
-            f"Международная космическая станция мчится со скоростью 27,700 км/ч ✨ Взгляните на ночное небо!\n\n"
-            f"Look up! ISS is zooming over {ctx['region_en']} ({speed_km_h:,.0f} km/h) 🌌🔭\n\n"
-            f"🌍 3D Орбита онлайн 👇\n"
+            f"🛰️ МКС (Заря) над {ctx['region_ru']}!\n"
+            f"Скорость: {speed_km_h:,.0f} км/ч 🌌✨\n\n"
+            f"🌍 3D Орбита 👇\n"
             f"{WEBSITE_URL}\n\n"
-            f"#Космос #МКС #Роскосмос #Астрономия #ISS #Space"
+            f"#МКС #Космос #Space"
         )
     elif ctx["lang"] == "ZH":
         text = (
-            f"🛰️ 国际空间站（ISS）实时飞越！\n"
-            f"目前ISS正以每秒7.7公里的速度飞越【{ctx['region_zh']}】✨ 今晚抬头看夜空！\n\n"
-            f"Look up! ISS is zooming over {ctx['region_en']} ({speed_km_h:,.0f} km/h) 🌌🔭\n\n"
-            f"🌍 3D 实况跟踪 👇\n"
+            f"🛰️ 国际空间站（ISS）飞越【{ctx['region_zh']}】！\n"
+            f"速度: {speed_km_h:,.0f} km/h 🌌✨\n\n"
+            f"🌍 3D 实况追踪 👇\n"
             f"{WEBSITE_URL}\n\n"
-            f"#空间站 #ISS #天文 #星空 #Space #NASA"
+            f"#空间站 #ISS #Space"
         )
     elif ctx["lang"] == "JA":
         text = (
-            f"🛰️ ISS（きぼう）通過ウォッチ！\n"
-            f"いま国際宇宙ステーションは【{ctx['region_ja']}】上空を秒速7.7kmで飛行中✨\n\n"
-            f"Look up! ISS is zooming over {ctx['region_en']} ({speed_km_h:,.0f} km/h) 🌌🔭\n\n"
+            f"🛰️ ISS（きぼう）通過中！\n"
+            f"いま【{ctx['region_ja']}】上空を飛行中✨\n\n"
             f"🌍 3D Live 👇\n"
             f"{WEBSITE_URL}\n\n"
-            f"#宇宙 #きぼう #ISS #星空 #NASA #Space"
+            f"#きぼう #ISS #宇宙"
         )
-    else: # 欧米・その他世界（完全英語ネイティブ）
+    else:
         text = (
-            f"🛰️ International Space Station (ISS) Live Orbit!\n"
-            f"Currently zooming over {ctx['region_en']} at {speed_km_h:,.0f} km/h (17,200 mph) 🌌✨\n\n"
-            f"🔭 Track ISS in Real-Time 3D 👇\n"
+            f"🛰️ International Space Station (ISS) Live!\n"
+            f"Zooming over {ctx['region_en']} at {speed_km_h:,.0f} km/h 🌌✨\n\n"
+            f"🔭 Track ISS in 3D 👇\n"
             f"{WEBSITE_URL}\n\n"
-            f"#ISS #Space #NASA #SpaceX #Astronomy #Stargazing #NightSky"
+            f"#ISS #NASA #Space"
         )
     return text, out_img
 
@@ -310,47 +306,43 @@ def task_tiangong_live():
     
     if ctx["lang"] == "ZH":
         text = (
-            f"🇨🇳 中国空间站（天宫）实时飞越！\n"
-            f"天和核心舱目前正以每秒7.7公里的高速飞越【{ctx['region_zh']}】✨ 今晚抬头仰望星空！\n\n"
-            f"Look up! Tiangong Space Station is zooming over {ctx['region_en']} 🌌🔭\n\n"
-            f"🌍 3D 实时轨迹追踪 👇\n"
+            f"🇨🇳 中国空间站（天宫）飞越【{ctx['region_zh']}】！\n"
+            f"天和核心舱正以 {speed_km_h:,.0f} km/h 高速飞行 🌌✨\n\n"
+            f"🌍 3D 实时轨迹 👇\n"
             f"{WEBSITE_URL}\n\n"
-            f"#中国空间站 #天宫 #中国航天 #天文 #Tiangong #Space"
+            f"#天宫 #中国空间站 #Space"
         )
     elif ctx["lang"] == "ES":
         text = (
-            f"🛰️ ¡La Estación Espacial Tiangong sobrevuela {ctx['region_es']}!\n"
-            f"El módulo Tianhe vuela a 27,600 km/h ✨ ¡Mira el cielo nocturno!\n\n"
-            f"Tiangong (CSS) is zooming over {ctx['region_en']} at {speed_km_h:,.0f} km/h 🌌🔭\n\n"
-            f"🌍 Órbita en 3D en vivo 👇\n"
+            f"🛰️ Estación Tiangong sobre {ctx['region_es']}!\n"
+            f"Velocidad: {speed_km_h:,.0f} km/h 🌌✨\n\n"
+            f"🌍 Órbita en 3D 👇\n"
             f"{WEBSITE_URL}\n\n"
-            f"#Tiangong #Espacio #Astronomía #Ciencia #Space"
+            f"#Tiangong #Espacio #Space"
         )
     elif ctx["lang"] == "RU":
         text = (
-            f"🛰️ Китайская станция «Тяньгун» на орбите!\n"
-            f"Модуль «Тяньхэ» пролетает над {ctx['region_ru']} со скоростью 27,600 км/ч ✨\n\n"
-            f"Tiangong (CSS) is zooming over {ctx['region_en']} 🌌🔭\n\n"
+            f"🛰️ Станция «Тяньгун» над {ctx['region_ru']}!\n"
+            f"Скорость: {speed_km_h:,.0f} км/ч 🌌✨\n\n"
             f"🌍 3D Орбита 👇\n"
             f"{WEBSITE_URL}\n\n"
-            f"#Тяньгун #Космос #Астрономия #Tiangong #Space"
+            f"#Тяньгун #Космос #Space"
         )
     elif ctx["lang"] == "JA":
         text = (
-            f"🛰️ 中国宇宙ステーション『天宮』通過速報！\n"
-            f"中国の大型有人宇宙ステーション（天和）は、いま【{ctx['region_ja']}】上空を秒速7.7kmで飛行中✨\n\n"
-            f"Tiangong (CSS) is zooming over {ctx['region_en']} at {speed_km_h:,.0f} km/h 🌌🔭\n\n"
+            f"🛰️ 中国宇宙ステーション『天宮』通過！\n"
+            f"いま【{ctx['region_ja']}】上空を飛行中✨\n\n"
             f"🌍 3D Live 👇\n"
             f"{WEBSITE_URL}\n\n"
-            f"#宇宙 #天宮 #宇宙ステーション #天体観測 #Tiangong #Space"
+            f"#天宮 #宇宙 #Space"
         )
-    else: # 欧米・その他世界（完全英語ネイティブ）
+    else:
         text = (
-            f"🛰️ Tiangong Space Station (CSS) Live Orbit!\n"
-            f"China's permanent space station is currently flying over {ctx['region_en']} at {speed_km_h:,.0f} km/h 🌌✨\n\n"
-            f"🔭 Track Tiangong in Real-Time 3D 👇\n"
+            f"🛰️ Tiangong Space Station (CSS) Live!\n"
+            f"Flying over {ctx['region_en']} at {speed_km_h:,.0f} km/h 🌌✨\n\n"
+            f"🔭 Track in 3D 👇\n"
             f"{WEBSITE_URL}\n\n"
-            f"#Tiangong #SpaceStation #Space #Astronomy #Stargazing #NightSky"
+            f"#Tiangong #SpaceStation #Space"
         )
     return text, out_img
 
@@ -399,12 +391,11 @@ def task_spanish_radar():
     plt.close()
 
     text = (
-        f"🛰️ ¡Satélites de España y Latinoamérica en Órbita!\n"
-        f"Rastreando en vivo los radares PAZ (España), SAOCOM 1A/1B (Argentina), CHEOPS y HISPASAT 📡✨\n\n"
-        f"Tracking Spanish & Latin American satellites live in 3D 🌐\n\n"
+        f"🛰️ Satélites de España y Latinoamérica!\n"
+        f"Rastreando PAZ, SAOCOM 1A/1B, CHEOPS y HISPASAT 📡✨\n\n"
         f"🌍 Rastrear en 3D 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#Espacio #Astronomía #Satélite #PAZ #SAOCOM #Space #Ciencia"
+        f"#Espacio #Satélite #Space"
     )
     return text, out_img
 
@@ -619,10 +610,10 @@ def task_hubble_live():
     ctx = get_location_context(lat, lon)
     text = (
         f"🔭 Hubble Space Telescope (HST) Live!\n"
-        f"35 years of unveiling the cosmic mysteries! Silently orbiting over {ctx['region_en']} at {speed_km_h:,.0f} km/h 🌌🔭\n\n"
+        f"Orbiting over {ctx['region_en']} at {speed_km_h:,.0f} km/h 🌌✨\n\n"
         f"🔭 3D Orbit Tracker 👇\n"
         f"{WEBSITE_URL}\n\n"
-        f"#Hubble #NASA #Astronomy #Space #Stargazing #NightSky"
+        f"#Hubble #NASA #Space"
     )
     return text, out_img
 
@@ -833,16 +824,13 @@ def task_asteroid_alert():
     plt.close()
 
     text = (
-        f"☄️ [Asteroid Spotlight] {ast['name']}\n"
-        f"🏷️ Type: {ast['type']}\n\n"
-        f"📏 Diameter: {ast['diameter']}\n"
-        f"⚡ Speed: {ast['speed']}\n"
-        f"⏱️ Next Flyby: {ast['flyby']}\n"
-        f"🎯 Miss Distance: {ast['dist']}\n\n"
-        f"💡 {ast['fact']}\n\n"
-        f"🪐 Interactive 3D Orbit & Impact Physics Simulator 👇\n"
+        f"☄️ Asteroid: {ast['name']}\n"
+        f"🏷️ {ast['type']}\n\n"
+        f"📏 {ast['diameter']} | ⚡ {ast['speed']}\n"
+        f"🎯 Flyby: {ast['flyby']} ({ast['dist']})\n\n"
+        f"🪐 3D Orbit Simulator 👇\n"
         f"https://asteroid.satviewer3d.com/\n\n"
-        f"#Asteroids #小惑星"
+        f"#Asteroids #Space"
     )
     return text, out_img
 
