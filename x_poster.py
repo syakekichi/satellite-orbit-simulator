@@ -124,9 +124,9 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
         page = context.pages[0] if context.pages else context.new_page()
 
         try:
-            print("[INFO] Xのホームを開きます...")
-            page.goto("https://x.com/home", wait_until="domcontentloaded")
-            time.sleep(5)
+            print("[INFO] Xの新規ポスト作成画面を開きます (compose/post)...")
+            page.goto("https://x.com/compose/post", wait_until="domcontentloaded")
+            time.sleep(4)
             dismiss_modals(page, context)
 
             current_url = page.url
@@ -138,17 +138,10 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
                 else: context.close()
                 return False
 
-            # ホーム画面の投稿入力欄を取得
-            print("[INFO] 投稿欄をクリックしてテキストを入力します...")
-            editor = page.locator('div[data-testid="tweetTextarea_0"]').first
-            try:
-                editor.wait_for(state="visible", timeout=10000)
-            except Exception:
-                compose_link = page.locator('a[data-testid="SideNav_NewTweet_Button"], a[href="/compose/post"]').first
-                if compose_link.is_visible():
-                    compose_link.click(force=True)
-                    time.sleep(2)
-                    editor = page.locator('div[data-testid="tweetTextarea_0"]').first
+            # 新規投稿モーダル内のエディタを取得
+            print("[INFO] 新規投稿欄を取得してテキストを入力します...")
+            editor = page.locator('div[role="dialog"] div[data-testid="tweetTextarea_0"], div[data-testid="tweetTextarea_0"]').first
+            editor.wait_for(state="visible", timeout=12000)
 
             # テキストを確実に直接入力
             editor.click(force=True)
@@ -161,7 +154,7 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
             if image_path and os.path.exists(image_path):
                 abs_path = os.path.abspath(image_path)
                 print(f"[INFO] 画像をアップロード中: {abs_path}")
-                file_input = page.locator('input[data-testid="fileInput"]').first
+                file_input = page.locator('div[role="dialog"] input[data-testid="fileInput"], input[data-testid="fileInput"]').first
                 file_input.set_input_files(abs_path)
                 time.sleep(5)
                 print("[INFO] 画像アップロード待機完了。")
