@@ -3,9 +3,59 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-FONT_PATH_TITLE = "C:/Windows/Fonts/meiryob.ttc" if os.path.exists("C:/Windows/Fonts/meiryob.ttc") else ("C:/Windows/Fonts/segoeuib.ttf" if os.path.exists("C:/Windows/Fonts/segoeuib.ttf") else "C:/Windows/Fonts/arialbd.ttf")
-FONT_PATH_BODY = "C:/Windows/Fonts/meiryo.ttc" if os.path.exists("C:/Windows/Fonts/meiryo.ttc") else "C:/Windows/Fonts/arial.ttf"
-FONT_PATH_MONO = "C:/Windows/Fonts/consola.ttf" if os.path.exists("C:/Windows/Fonts/consola.ttf") else FONT_PATH_BODY
+def _find_font(candidates):
+    for p in candidates:
+        if os.path.exists(p):
+            return p
+    return None
+
+FONT_PATH_TITLE = _find_font([
+    "C:/Windows/Fonts/meiryob.ttc",
+    "C:/Windows/Fonts/segoeuib.ttf",
+    "C:/Windows/Fonts/arialbd.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+])
+
+FONT_PATH_BODY = _find_font([
+    "C:/Windows/Fonts/meiryo.ttc",
+    "C:/Windows/Fonts/segoeui.ttf",
+    "C:/Windows/Fonts/arial.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+])
+
+FONT_PATH_MONO = _find_font([
+    "C:/Windows/Fonts/consola.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+]) or FONT_PATH_BODY
+
+_orig_truetype = ImageFont.truetype
+def _safe_truetype(font=None, size=10, index=0, encoding="", layout_engine=None):
+    if font and os.path.exists(str(font)):
+        try:
+            return _orig_truetype(font, size, index, encoding, layout_engine)
+        except Exception:
+            pass
+    for fb in [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+        "arial.ttf"
+    ]:
+        if os.path.exists(fb):
+            try:
+                return _orig_truetype(fb, size, index, encoding, layout_engine)
+            except Exception:
+                pass
+    try:
+        return ImageFont.load_default(size=size)
+    except Exception:
+        return ImageFont.load_default()
+
+ImageFont.truetype = _safe_truetype
 
 def project_3d(lat, lon, alt_km, center_lat, center_lon, cx, cy, radius):
     """
