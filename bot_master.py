@@ -961,7 +961,11 @@ def task_asteroid_alert():
 # -------------------------------------------------------------
 # メイン実行ルーチン
 # -------------------------------------------------------------
-MODES = ["AUTO_FOLLOWER", "ISS_LIVE", "TIANGONG_LIVE", "ASTEROID_ALERT", "SPAIN_LATAM_LIVE", "STARLINK_FLEET", "STARLINK_TRAIN", "SATELLITE_SPOTLIGHT", "HUBBLE_LIVE", "SPACE_DEBRIS"]
+MODES = [
+    "ISS_LIVE", "TIANGONG_LIVE", "ASTEROID_ALERT", 
+    "SPAIN_LATAM_LIVE", "STARLINK_FLEET", "STARLINK_TRAIN", 
+    "SATELLITE_SPOTLIGHT", "HUBBLE_LIVE", "SPACE_DEBRIS"
+]
 
 def get_next_mode():
     last_mode = None
@@ -985,13 +989,12 @@ def run_master_bot(mode=None):
     print(f"🛰️ SatViewer3D Master Bot - Running Mode: [{mode}]")
     print("=" * 60)
 
+    # 互換性: 単体で AUTO_FOLLOWER が指定された場合
     if mode == "AUTO_FOLLOWER":
-        print("🤖 [AUTO_FOLLOWER] 宇宙・衛星ツイートユーザーの自動フォロー＆10日後アンフォローを実行します...")
+        print("🤖 [AUTO_FOLLOWER] 宇宙・天体観測ツイートユーザーの自動フォロー＆アンフォローを実行します...")
         try:
             import auto_follower
             auto_follower.main()
-            with open(MODE_FILE, "w") as f:
-                f.write(mode)
             print("🎉 [AUTO_FOLLOWER] Completed successfully!")
             return
         except Exception as e:
@@ -1023,6 +1026,7 @@ def run_master_bot(mode=None):
     print(text)
     print("-----------------------\n")
 
+    # 1. ツイート投稿を実行
     success = post_to_x(text, image_path=img, headless=True)
     if success:
         with open(MODE_FILE, "w") as f:
@@ -1031,6 +1035,15 @@ def run_master_bot(mode=None):
     else:
         print(f"❌ Failed to post mode [{mode}].")
         sys.exit(1)
+
+    # 2. 投稿完了後、ついでにフォロワー育成巡回（auto_follower）も必ず毎回実行（QuakeViewer3Dと同等の高成長方式）
+    try:
+        import auto_follower
+        print("\n🤖 [AUTO_FOLLOWER] 宇宙・天体観測関心ユーザーの巡回を実行します...")
+        auto_follower.main()
+        print("🎉 [AUTO_FOLLOWER] Completed successfully!")
+    except Exception as e:
+        print(f"[WARN] AUTO_FOLLOWER skipped: {e}")
 
 if __name__ == "__main__":
     target_mode = sys.argv[1] if len(sys.argv) > 1 else None

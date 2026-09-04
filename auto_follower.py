@@ -22,23 +22,32 @@ GRACE_PERIOD_DAYS = 10       # フォローバック待ち期間（10日間）
 # 多言語 宇宙・衛星検索キーワード（日・英・西・中・露）
 # -------------------------------------------------------------
 SEARCH_QUERIES = [
-    # 🇯🇵 日本語
+    # 🇯🇵 日本語（リアルタイム目撃・天体観測・夜空ファン）
     '"ISS きぼう" lang:ja -filter:retweets',
     '"国際宇宙ステーション" lang:ja -filter:retweets',
+    '"きぼう 見えた" lang:ja -filter:retweets',
+    '"ISS 見えた" lang:ja -filter:retweets',
+    '"スターリンク" "夜空" lang:ja -filter:retweets',
     '"スターリンク トレイン" lang:ja -filter:retweets',
     '"人工衛星" "天体観測" lang:ja -filter:retweets',
+    '"天体観測" lang:ja -filter:retweets',
+    '"星空撮影" lang:ja -filter:retweets',
 
-    # 🇺🇸 英語
+    # 🇺🇸 英語（ISS目撃・Starlink・Stargazing・Astrophotography）
     '"ISS pass" lang:en -filter:retweets',
+    '"saw the ISS" lang:en -filter:retweets',
+    '"saw the space station" lang:en -filter:retweets',
     '"Starlink train" lang:en -filter:retweets',
+    '"Starlink satellites" lang:en -filter:retweets',
     '"satellite spotting" lang:en -filter:retweets',
-    '"space station" "stargazing" lang:en -filter:retweets',
+    '"stargazing" lang:en -filter:retweets',
+    '"astrophotography" lang:en -filter:retweets',
 
-    # 🇪🇸 スペイン語
+    # 🇪🇸 スペイン語（中南米・スペインの宇宙ファン）
     '"estacion espacial" lang:es -filter:retweets',
     '"tren de satelites" lang:es -filter:retweets',
     '"avistamiento satelite" lang:es -filter:retweets',
-    '"satelite PAZ" lang:es -filter:retweets',
+    '"satelites en el cielo" lang:es -filter:retweets',
 
     # 🇨🇳 中国語
     '"中国空间站" lang:zh -filter:retweets',
