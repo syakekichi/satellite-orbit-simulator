@@ -168,16 +168,17 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
             except:
                 pass
 
-            # 送信の実行 (Control+Enter を直接エディタに送信)
+            # 送信の実行 (ボタンクリック優先)
             print("[INFO] ポスト送信を実行中...")
-            editor.focus()
-            time.sleep(0.5)
-            editor.press("Control+Enter")
+            btn = page.locator('button[data-testid="tweetButtonInline"], button[data-testid="tweetButton"]').first
+            if btn.is_visible() and btn.is_enabled():
+                btn.click()
+            else:
+                editor.focus()
+                editor.press("Control+Enter")
 
             print("[INFO] 送信完了を待機・ダイアログ処理中...")
-            time.sleep(4)
-            dismiss_modals(page, context)
-            time.sleep(2)
+            time.sleep(5)
             dismiss_modals(page, context)
 
             # 送信後スクリーンショット
@@ -185,6 +186,17 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
                 page.screenshot(path="after_click_post.png")
             except:
                 pass
+
+            # エラーバナーの検知
+            error_toast = page.locator('div[data-testid="toast"], [role="alert"]').first
+            if error_toast.is_visible():
+                err_text = error_toast.inner_text()
+                print(f"[WARN] Xから通知/警告メッセージ: {err_text}")
+                if "問題が発生" in err_text or "制限" in err_text:
+                    print(f"❌ [POST BLOCKED] X側のレートリミット等により送信がブロックされました。")
+                    if browser: browser.close()
+                    else: context.close()
+                    return False
 
             print("🎉 [VERIFIED] 投稿が正常に送信されました！")
             try:
