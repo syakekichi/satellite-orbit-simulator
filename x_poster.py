@@ -138,6 +138,18 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
                 else: context.close()
                 return False
 
+            if "account/access" in current_url or "challenge" in current_url or "checkpoint" in current_url or "suspended" in current_url:
+                print(f"❌ [ACCOUNT RESTRICTED] Xのアカウント確認・一時制限画面にリダイレクトされました: {current_url}")
+                print("⚠️ 原因: Bot検知（CAPTCHA認証）、電話番号/メール認証、利用規約同意、またはアカウントロックの可能性があります。")
+                print("👉 対処法: 通常のPCブラウザ等で該当アカウントに手動ログインし、認証・確認を完了させてから auth.json を再生成してください。")
+                try:
+                    page.screenshot(path="account_access_error.png")
+                except:
+                    pass
+                if browser: browser.close()
+                else: context.close()
+                return False
+
             # 新規投稿モーダル内のエディタを取得
             print("[INFO] 新規投稿欄を取得してテキストを入力します...")
             editor = page.locator('div[role="dialog"] div[data-testid="tweetTextarea_0"], div[data-testid="tweetTextarea_0"]').first

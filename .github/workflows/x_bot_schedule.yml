@@ -37,6 +37,11 @@ jobs:
           python -c "import os, sys; content = os.environ.get('X_AUTH_JSON', '').strip(); sys.exit('Error: X_AUTH_JSON secret is empty!') if not content else open('auth.json', 'w', encoding='utf-8').write(content)"
 
       - name: Run Master Satellite Bot
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
         run: |
           python bot_master.py
 
@@ -51,4 +56,5 @@ jobs:
             after_click_post.png
             error_screenshot.png
             login_error.png
+            account_access_error.png
           if-no-files-found: ignore
