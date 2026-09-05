@@ -124,6 +124,7 @@ const CELESTIAL_BADGE_TYPES = {
     'MOON': { ja: '🌕 地球の自然衛星', en: "🌕 Earth's Natural Satellite", de: '🌕 Natürlicher Satellit der Erde', fr: '🌕 Satellite naturel de la Terre', es: '🌕 Satélite natural de la Tierra', pt: '🌕 Satélite natural da Terra', it: '🌕 Satellite naturale della Terra', ko: '🌕 지구의 자연위성', nl: '🌕 Natuurlijke satelliet van de aarde', id: '🌕 Satelit Alami Bumi', hi: '🌕 पृथ्वी का प्राकृतिक उपग्रह', ar: '🌕 التابع الطبيعي للأرض', zh: '🌕 地球的天然卫星', ru: '🌕 Естественный спутник Земли' },
     'MERCURY': { ja: '🔘 太陽系第1惑星 (岩石惑星)', en: '🔘 1st Terrestrial Planet', de: '🔘 1. Planet (Gesteinsplanet)', fr: '🔘 1re planète tellurique', es: '🔘 1.º planeta rocoso', pt: '🔘 1º planeta rochoso', it: '🔘 1º pianeta roccioso', ko: '🔘 제1행성 (지구형 암석 행성)', nl: '🔘 1e Rotsachtige planeet', id: '🔘 Planet Berbatu ke-1', hi: '🔘 प्रथम स्थलीय ग्रह', ar: '🔘 الكوكب الصخري الأول', zh: '🔘 太阳系第一行星 (岩质行星)', ru: '🔘 1-я планета (Каменистая)' },
     'VENUS': { ja: '🟡 太陽系第2惑星 (岩石惑星)', en: '🟡 2nd Terrestrial Planet', de: '🟡 2. Planet (Gesteinsplanet)', fr: '🟡 2e planète tellurique', es: '🟡 2.º planeta rocoso', pt: '🟡 2º planeta rochoso', it: '🟡 2º pianeta roccioso', ko: '🟡 제2행성 (지구형 암석 행성)', nl: '🟡 2e Rotsachtige planeet', id: '🟡 Planet Berbatu ke-2', hi: '🟡 द्वितीय स्थलीय ग्रह', ar: '🟡 الكوكب الصخري الثاني', zh: '🟡 太阳系第二行星 (岩质行星)', ru: '🟡 2-я планета (Каменистая)' },
+    'EARTH': { ja: '🌍 太陽系第3惑星 (生命の母星)', en: '🌍 3rd Terrestrial Planet (Earth)', de: '🌍 3. Planet (Erde / Die Heimatwelt)', fr: '🌍 3e planète tellurique (Terre)', es: '🌍 3.er planeta rocoso (Tierra)', pt: '🌍 3º planeta rochoso (Terra)', it: '🌍 3º pianeta roccioso (Terra)', ko: '🌍 제3행성 (지구 / 인류의 고향)', nl: '🌍 3e planeet (Aarde / De leefwereld)', id: '🌍 Planet Berbatu ke-3 (Bumi)', hi: '🌍 तीसरा स्थलीय ग्रह (पृथ्वी)', ar: '🌍 الكوكب الثالث (الأرض / موطن الحياة)', zh: '🌍 太阳系第三行星 (地球 / 人类家园)', ru: '🌍 3-я планета (Земля / Колыбель жизни)' },
     'MARS': { ja: '🔴 太陽系第4惑星 (岩石惑星)', en: '🔴 4th Terrestrial Planet', de: '🔴 4. Planet (Gesteinsplanet)', fr: '🔴 4e planète tellurique', es: '🔴 4.º planeta rocoso', pt: '🔴 4º planeta rochoso', it: '🔴 4º pianeta roccioso', ko: '🔴 제4행성 (지구형 암석 행성)', nl: '🔴 4e Rotsachtige planeet', id: '🔴 Planet Berbatu ke-4', hi: '🔴 चतुर्थ स्थलीय ग्रह', ar: '🔴 الكوكب الصخري الرابع', zh: '🔴 太阳系第四行星 (岩质行星)', ru: '🔴 4-я планета (Каменистая)' },
     'JUPITER': { ja: '🟠 太陽系第5惑星 (巨大ガス惑星)', en: '🟠 5th Planet (Gas Giant)', de: '🟠 5. Planet (Gasriese)', fr: '🟠 5e planète (Géante gazeuse)', es: '🟠 5.º planeta (Gigante gaseoso)', pt: '🟠 5º planeta (Gigante gasoso)', it: '🟠 5º pianeta (Gigante gassoso)', ko: '🟠 제5행성 (거대 가스 행성)', nl: '🟠 5e planeet (Gasreus)', id: '🟠 Planet ke-5 (Raksasa Gas)', hi: '🟠 5वां ग्रह (विशाल गैस दानव)', ar: '🟠 الكوكب الخامس (عملاق غازي)', zh: '🟠 太阳系第五行星 (气态巨行星)', ru: '🟠 5-я планета (Газовый гигант)' },
     'SATURN': { ja: '🪐 太陽系第6惑星 (巨大ガス惑星)', en: '🪐 6th Planet (Gas Giant)', de: '🪐 6. Planet (Gasriese)', fr: '🪐 6e planète (Géante gazeuse)', es: '🪐 6.º planeta (Gigante gaseoso)', pt: '🪐 6º planeta (Gigante gasoso)', it: '🪐 6º pianeta (Gigante gassoso)', ko: '🪐 제6행성 (거대 가스 행성)', nl: '🪐 6e planeet (Gasreus)', id: '🪐 Planet ke-6 (Raksasa Gas)', hi: '🪐 6वां ग्रह (विशाल गैस दानव)', ar: '🪐 الكوكب السادس (عملاق غازي)', zh: '🪐 太阳系第六行星 (气态巨行星)', ru: '🪐 6-я планета (Газовый гигант)' },
@@ -5280,6 +5281,136 @@ const CELESTIAL_ENCYCLOPEDIA = {
             "ru": "Венера-7 (первая посадка на другую планету, 1970), NASA Магеллан (1990), JAXA Акацуки (2015)."
         }
     },
+    "EARTH": {
+        "mass": {
+            "ja": "5.972 × 10^24 kg (太陽系最大の岩石惑星)",
+            "en": "5.972 × 10^24 kg (Largest terrestrial planet)",
+            "de": "5,972 × 10^24 kg (Größter Gesteinsplanet)",
+            "fr": "5,972 × 10^24 kg (Plus grande planète tellurique)",
+            "es": "5,972 × 10^24 kg (Mayor planeta rocoso)",
+            "pt": "5,972 × 10^24 kg (Maior planeta rochoso)",
+            "it": "5,972 × 10^24 kg (Il più grande pianeta roccioso)",
+            "ko": "5.972 × 10^24 kg (태양계 최대의 암석 행성)",
+            "nl": "5,972 × 10^24 kg (Grootste terrestrische planeet)",
+            "id": "5,972 × 10^24 kg (Planet berbatu terbesar)",
+            "hi": "5.972 × 10^24 किग्रा (सौर मंडल का सबसे बड़ा स्थलीय ग्रह)",
+            "ar": "5.972 × 10^24 كجم (أكبر كوكب صخري في النظام الشمسي)",
+            "zh": "5.972 × 10^24 千克 (太阳系最大的岩质行星)",
+            "ru": "5,972 × 10^24 кг (Крупнейшая планета земной группы)"
+        },
+        "diameter": {
+            "ja": "12,742 km (赤道 12,756 km / 極 12,714 km)",
+            "en": "12,742 km (Equatorial 12,756 km / Polar 12,714 km)",
+            "de": "12.742 km (Äquator 12.756 km / Pole 12.714 km)",
+            "fr": "12 742 km (Équateur 12 756 km / Pôles 12 714 km)",
+            "es": "12.742 km (Ecuador 12.756 km / Polos 12.714 km)",
+            "pt": "12.742 km (Equador 12.756 km / Polos 12.714 km)",
+            "it": "12.742 km (Equatore 12.756 km / Poli 12.714 km)",
+            "ko": "12,742 km (적도 12,756 km / 극지 12,714 km)",
+            "nl": "12.742 km (Evenaar 12.756 km / Polen 12.714 km)",
+            "id": "12.742 km (Khatulistiwa 12.756 km / Kutub 12.714 km)",
+            "hi": "12,742 किमी (भूमध्यरेखीय 12,756 किमी / ध्रुवीय 12,714 किमी)",
+            "ar": "12,742 كم (عند خط الاستواء 12,756 كم / القطبين 12,714 كم)",
+            "zh": "12,742 公里 (赤道 12,756 公里 / 极半径 12,714 公里)",
+            "ru": "12 742 км (экватор 12 756 км / полюса 12 714 км)"
+        },
+        "rotation": {
+            "ja": "23時間56分4秒 (1恒星日) / 傾斜角 23.44°",
+            "en": "23h 56m 4s (1 Sidereal Day) / Axial Tilt 23.44°",
+            "de": "23h 56m 4s (1 siderischer Tag) / Neigung 23,44°",
+            "fr": "23h 56m 4s (1 jour sidéral) / Inclinaison 23,44°",
+            "es": "23h 56m 4s (1 día sideral) / Inclinación 23,44°",
+            "pt": "23h 56m 4s (1 dia sideral) / Inclinação 23,44°",
+            "it": "23h 56m 4s (1 giorno siderale) / Inclinazione 23,44°",
+            "ko": "23시간 56분 4초 (1 항성일) / 자전축 기울기 23.44°",
+            "nl": "23u 56m 4s (1 siderische dag) / Ashelling 23,44°",
+            "id": "23j 56m 4d (1 Hari Sideris) / Kemiringan Sumbu 23,44°",
+            "hi": "23 घंटे 56 मिनट 4 सेकंड (1 नाक्षत्र दिन) / झुकाव 23.44°",
+            "ar": "23 ساعة و56 دقيقة و4 ثوانٍ (يوم نجمي) / ميل المحور 23.44°",
+            "zh": "23小时56分4秒 (1恒星日) / 黄赤交角 23.44°",
+            "ru": "23 ч 56 мин 4 с (1 звездные сутки) / Наклон оси 23,44°"
+        },
+        "orbit": {
+            "ja": "365.256日 (1太陽年 / 平均軌道速度 29.78 km/s)",
+            "en": "365.256 days (1 Solar Year / Orbital Speed 29.78 km/s)",
+            "de": "365,256 Tage (1 Sonnenjahr / Bahngeschw. 29,78 km/s)",
+            "fr": "365,256 jours (1 an solaire / Vitesse orbitale 29,78 km/s)",
+            "es": "365,256 días (1 año solar / Velocidad orbital 29,78 km/s)",
+            "pt": "365,256 dias (1 ano solar / Velocidade orbital 29,78 km/s)",
+            "it": "365,256 giorni (1 anno solare / Velocità orbitale 29,78 km/s)",
+            "ko": "365.256일 (1 태양년 / 평균 공전속도 29.78 km/s)",
+            "nl": "365,256 dagen (1 zonnejaar / Baansnelheid 29,78 km/s)",
+            "id": "365,256 hari (1 Tahun Matahari / Kecepatan Orbit 29,78 km/s)",
+            "hi": "365.256 दिन (1 सौर वर्ष / कक्षीय गति 29.78 किमी/सेकंड)",
+            "ar": "365.256 يوماً (سنة شمسية واحدة / سرعة المدار 29.78 كم/ثانية)",
+            "zh": "365.256天 (1恒星年 / 公转均速 29.78 km/s)",
+            "ru": "365,256 дня (1 солнечный год / Скорость орбиты 29,78 км/с)"
+        },
+        "temperature": {
+            "ja": "平均 15℃ (最低 -89.2℃ 南極 / 最高 56.7℃ デスバレー)",
+            "en": "Mean 15°C (Min -89.2°C Antarctica / Max 56.7°C Death Valley)",
+            "de": "Mittel 15°C (Min -89,2°C Antarktis / Max 56,7°C Death Valley)",
+            "fr": "Moyenne 15°C (Min -89,2°C Antarctique / Max 56,7°C Death Valley)",
+            "es": "Media 15°C (Mín -89,2°C Antártida / Máx 56,7°C Valle de la Muerte)",
+            "pt": "Média 15°C (Mín -89,2°C Antártida / Máx 56,7°C Vale da Morte)",
+            "it": "Media 15°C (Min -89,2°C Antartide / Max 56,7°C Death Valley)",
+            "ko": "평균 15℃ (최저 -89.2℃ 남극 / 최고 56.7℃ 데스밸리)",
+            "nl": "Gemiddeld 15°C (Min -89,2°C Antarctica / Max 56,7°C Death Valley)",
+            "id": "Rata-rata 15°C (Min -89,2°C Antartika / Maks 56,7°C Death Valley)",
+            "hi": "औसत 15°C (न्यूनतम -89.2°C अंटार्कटिका / अधिकतम 56.7°C डेथ वैली)",
+            "ar": "المتوسط 15°م (الأدنى -89.2°م في القارة القطبية / الأقصى 56.7°م)",
+            "zh": "平均 15°C (极低 -89.2°C 南极 / 极高 56.7°C 死亡谷)",
+            "ru": "Средняя 15°C (Мин -89,2°C Антарктида / Макс 56,7°C Долина Смерти)"
+        },
+        "satellites": {
+            "ja": "自然衛星 1個 (月) / 人工衛星 10,000機以上 (ISS・通信・観測網)",
+            "en": "1 Natural Moon / 10,000+ Active Satellites (ISS, Starlink, Earth Observation)",
+            "de": "1 Mond / Über 10.000 aktive Satelliten (ISS, Erdbeobachtung)",
+            "fr": "1 Lune naturelle / Plus de 10 000 satellites actifs (ISS, réseaux orbitaux)",
+            "es": "1 Luna natural / Más de 10.000 satélites activos (ISS, constelaciones)",
+            "pt": "1 Lua natural / Mais de 10.000 satélites ativos (ISS, observação)",
+            "it": "1 Luna naturale / Oltre 10.000 satelliti attivi (ISS, costellazioni)",
+            "ko": "자연위성 1개 (달) / 인공위성 10,000기 이상 (ISS, 스타링크, 지구관측망)",
+            "nl": "1 Natuurlijke maan / 10.000+ actieve satellieten (ISS, aardobservatie)",
+            "id": "1 Bulan Alami / 10.000+ Satelit Aktif (ISS, pengamatan Bumi)",
+            "hi": "1 प्राकृतिक चंद्रमा / 10,000+ सक्रिय उपग्रह (ISS, पृथ्वी अवलोकन)",
+            "ar": "قمر طبيعي واحد / أكثر من 10,000 قمر صناعي نشط (محطة الفضاء الدولية وشبكات المراقبة)",
+            "zh": "天然卫星 1颗 (月球) / 人造卫星 10,000+颗 (空间站·遥感·通信星座)",
+            "ru": "1 Луна / Более 10 000 действующих спутников (МКС, спутниковые группировки)"
+        },
+        "discovery": {
+            "ja": "約45.4億年前に太陽系星雲から形成。ハビタブルゾーンの中心で液体の海と磁気圏を維持し生命を進化させた母星。",
+            "en": "Formed ~4.54 billion years ago. Located in the habitable zone, sustaining oceans and a protective magnetosphere for life.",
+            "de": "Vor ~4,54 Mrd. Jahren entstanden. In der habitablen Zone mit flüssigen Ozeanen und schützendem Magnetfeld.",
+            "fr": "Formée il y a ~4,54 milliards d'années. Dans la zone habitable, maintenant des océans liquides et un champ magnétique.",
+            "es": "Formada hace ~4.540 millones de años. En la zona habitable, con océanos líquidos y magnetosfera protectora.",
+            "pt": "Formada há ~4,54 bilhões de anos. Na zona habitável, com oceanos líquidos e magnetosfera protetora.",
+            "it": "Formatasi circa 4,54 miliardi di anni fa nella zona abitabile, mantiene oceani liquidi e una magnetosfera vitale.",
+            "ko": "약 45.4억 년 전 태양계 성운에서 형성. 생명 거주 가능 영역(골디락스 존)에 위치하여 액체 바다와 자기장을 보존해온 유일한 요람.",
+            "nl": "Gevormd ~4,54 miljard jaar geleden in de leefbare zone, met vloeibare oceanen en een beschermend magnetisch veld.",
+            "id": "Terbentuk ~4,54 miliar tahun lalu di zona layak huni, mempertahankan lautan cair dan medan magnet untuk kehidupan.",
+            "hi": "लगभग 4.54 अरब वर्ष पूर्व निर्मित। रहने योग्य क्षेत्र में तरल महासागरों और चुंबकीय क्षेत्र को बनाए रखने वाला जीवन का पालना।",
+            "ar": "تشكلت قبل نحو 4.54 مليار سنة في النطاق الصالح للحياة، لتحافظ على المحيطات السائلة والغلاف المغناطيسي الحامي للحياة.",
+            "zh": "形成于约45.4亿年前的太阳星云。地处宜居带黄金位置，孕育并维系着浩瀚的液态海洋与保护生命的地球磁场。",
+            "ru": "Сформировалась ~4,54 млрд лет назад в обитаемой зоне, сохранив океаны и защитную магнитосферу для развития жизни."
+        },
+        "missions": {
+            "ja": "スプートニク1号(1957年宇宙時代幕開け), アポロ計画(全地球撮影), 国際宇宙ステーション(2000年〜有人常駐), 気象・地球観測網。",
+            "en": "Sputnik 1 (1957 space age dawn), Apollo program (Blue Marble), ISS continuous crew (2000-present), Earth observing constellations.",
+            "de": "Sputnik 1 (1957), Apollo-Programm (Blue Marble), ISS Dauerbetrieb seit 2000, globale Erdbeobachtungssatelliten.",
+            "fr": "Spoutnik 1 (1957), programme Apollo (Blue Marble), présence humaine continue sur l'ISS depuis 2000, réseau Copernicus.",
+            "es": "Sputnik 1 (1957), Apolo (Canica Azul), presencia humana continua en la ISS desde 2000, satélites de observación terrestre.",
+            "pt": "Sputnik 1 (1957), Programa Apollo (Blue Marble), presença contínua na ISS desde 2000, constelações de observação.",
+            "it": "Sputnik 1 (1957), Programma Apollo (Blue Marble), equipaggio permanente sulla ISS dal 2000, flotta d'osservazione terrestre.",
+            "ko": "스푸트니크 1호(1957년 우주시대 개막), 아폴로 계획(인류 최초 지구 전체 촬영), 국제우주정거장 ISS(2000년 이후 연속 유인 체류), 첨단 지구관측 위성망.",
+            "nl": "Spoetnik 1 (1957), Apollo-programma (Blue Marble), permanente bemanning van het ISS sinds 2000, aardobservatienetwerken.",
+            "id": "Sputnik 1 (1957), Program Apollo (Blue Marble), awak berkelanjutan di ISS sejak 2000, konstelasi pengamatan Bumi global.",
+            "hi": "स्पुतनिक 1 (1957), अपोलो कार्यक्रम (ब्लू मार्बल), 2000 से ISS पर निरंतर मानव उपस्थिति, वैश्विक पृथ्वी अवलोकन उपग्रह।",
+            "ar": "سبوتنيك 1 (1957)، برنامج أبولو (صورة الرخام الأزرق)، الوجود البشري المستمر في محطة الفضاء الدولية منذ 2000، وأقمار رصد الأرض.",
+            "zh": "人类航天纪元始于人造卫星一号(1957), 阿波罗计划从太空拍下“蓝色弹珠”, 国际空间站常驻(2000至今), 全球气象遥感监测网络。",
+            "ru": "Спутник-1 (1957, начало космической эры), Программа Аполлон (Blue Marble), МКС с 2000 г., спутниковые системы мониторинга Земли."
+        }
+    },
     "MARS": {
         "mass": {
             "ja": "6.417 × 10^23 kg (地球の0.107倍 / 約1/10)",
@@ -6106,6 +6237,17 @@ const CELESTIAL_BODIES = [
         a: 0.723332, e: 0.006773, I: 3.39471, L: 181.97973, w: 131.57294, node: 76.68069, n: 1.60213022
     },
     {
+        id: 'EARTH',
+        name: 'EARTH (地球 / 私たちの母なる惑星)',
+        color: '#38bdf8',
+        radiusKm: 6371.0,
+        distKm: 149598023,
+        periodDays: 365.256,
+        type: 'PLANET',
+        symbol: '🌍',
+        a: 1.000000, e: 0.016710, I: 0.00005, L: 100.464, w: 102.947, node: 0.0, n: 0.985608
+    },
+    {
         id: 'MARS',
         name: 'MARS (火星 / 第4惑星)',
         color: '#ef4444',
@@ -6220,6 +6362,7 @@ function computeHeliocentricCoordinates(p, d) {
  * 惑星のリアルタイム天体暦（地心距離Km、AU、日心距離、Cesium固定座標系位置）を算出
  */
 function computePlanetEphemeris(bodyId, time) {
+    if (bodyId === 'EARTH') return null;
     const pData = PLANETARY_ORBIT_DATA[bodyId];
     if (!pData) return null;
 
@@ -6758,6 +6901,22 @@ const CELESTIAL_DESCRIPTIONS = {
         "zh": "太阳系第二大行星“金星”(地球姊妹星)。受浓密二氧化碳的失控温室效应影响，表面温度达约462℃(全太阳系最高)，自转方向与公转相反。",
         "ru": "Вторая планета от Солнца (близнец Земли). Парниковый эффект делает её самой горячей (~462°C). Имеет уникальное обратное вращение."
     },
+    "EARTH": {
+        "ja": "太陽系第3惑星「地球」。豊かな液体の海と酸素に富む大気、強力な地磁気を備え、現在知られる宇宙で唯一生命が存在する母なる惑星。1つの自然衛星（月）を持ちます。",
+        "en": "The 3rd planet from the Sun and our home world. The only known astronomical object known to harbor life, featuring vast liquid oceans, a protective atmosphere, and strong magnetic field.",
+        "de": "Der 3. Planet von der Sonne und unsere Heimatwelt. Der einzige bekannte Himmelskörper mit Leben, riesigen flüssigen Ozeanen und einem schützenden Magnetfeld.",
+        "fr": "La 3e planète depuis le Soleil et notre monde d'origine. Le seul objet connu abritant la vie, avec de vastes océans liquides et un champ magnétique protecteur.",
+        "es": "El 3.er planeta desde el Sol y nuestro hogar. El único astro conocido que alberga vida, con vastos océanos líquidos y un campo magnético protector.",
+        "pt": "O 3º planeta a partir do Sol e nosso mundo de origem. O único astro conhecido que abriga vida, com vastos oceanos de água líquida e campo magnético protetor.",
+        "it": "Il 3º pianeta dal Sole e la nostra casa cosmica. L'unico corpo celeste noto a ospitare la vita, con vasti oceani di acqua liquida e uno scudo geomagnetico.",
+        "ko": "태양계 제3행성 '지구'. 풍부한 액체 바다와 산소가 풍부한 대기, 자기장을 지녀 현재 우주에서 유일하게 생명체가 번영하는 인류의 모성입니다.",
+        "nl": "De 3e planeet vanaf de zon en onze thuiswereld. De enige bekende plek met leven, oceanen van vloeibaar water en een beschermend magnetisch veld.",
+        "id": "Planet ke-3 dari Matahari dan rumah kita. Satu-satunya tempat yang diketahui memiliki kehidupan, dengan lautan cair yang luas dan medan magnet pelindung.",
+        "hi": "सूर्य से तीसरा ग्रह और हमारी मातृभूमि। ज्ञात ब्रह्मांड में जीवन को आश्रय देने वाला एकमात्र ग्रह, जिसमें विशाल महासागर और सुरक्षात्मक चुंबकीय क्षेत्र हैं।",
+        "ar": "الكوكب الثالث من الشمس وموطننا الأم. الجرم الفلكي الوحيد المعروف بإيوائه للحياة، ويتميز بمحيطات شاسعة من المياه السائلة وغلاف جوي واقٍ.",
+        "zh": "太阳系第三大行星“地球”。拥有浩瀚液态海洋、富氧大气层与强地磁屏障，是人类与已知宇宙中唯一生机勃勃的生命母星，拥有一颗天然卫星(月球)。",
+        "ru": "Третья планета от Солнца и наш общий дом. Единственное известное небесное тело, населенное живыми организмами, с океанами жидкой воды и мощной магнитосферой."
+    },
     "MARS": {
         "ja": "太陽系第4惑星「火星」(Red Planet)。酸化鉄に覆われた赤い地表と希薄な大気、白い極冠を持つ。NASAパーサヴィアランス探査車や有人火星探査計画の最前線です。",
         "en": "The 4th planet (The Red Planet). Known for its iron-rich red soil, thin atmosphere, and polar ice caps. Target of NASA rovers and future crewed missions.",
@@ -7046,6 +7205,7 @@ function createCelestialEntities() {
     const isVisible = (!toggleCelestial || toggleCelestial.checked);
 
     CELESTIAL_BODIES.forEach(body => {
+        if (body.id === 'EARTH') return; // 地球本体はCesium Globeそのもののため、通常モードで原点に天体ビルボードを置かない
         const billboardCanvas = createCelestialBillboard(body);
         const isSun = (body.id === 'SUN');
 
@@ -7832,7 +7992,7 @@ function computePlanetaryOrbitPoints(pData, d, eHelio, epsRad, cosEps, sinEps, i
  * 太陽系惑星の正確なケプラー公転軌道ループ（Polyline）を描画
  */
 function drawCelestialOrbit(body) {
-    if (!viewer || !body) return;
+    if (!viewer || !body || body.id === 'EARTH') return;
     const pData = PLANETARY_ORBIT_DATA[body.id];
     if (!pData) return;
 
@@ -8557,6 +8717,7 @@ function selectCelestialBody(bodyId) {
     const localizedNames = {
         SUN: { ja: '太陽 (Sun)', en: 'Sun', de: 'Sonne', fr: 'Soleil', es: 'Sol', pt: 'Sol', it: 'Sole', ko: '태양 (Sun)', nl: 'Zon', id: 'Matahari', hi: 'सूर्य (Sun)', ar: 'الشمس', zh: '太阳 (Sun)', ru: 'Солнце' },
         MOON: { ja: '月 (Moon)', en: 'Moon', de: 'Mond', fr: 'Lune', es: 'Luna', pt: 'Lua', it: 'Luna', ko: '달 (Moon)', nl: 'Maan', id: 'Bulan', hi: 'चंद्रमा (Moon)', ar: 'القمر', zh: '月球 (Moon)', ru: 'Луна' },
+        EARTH: { ja: '地球 (Earth)', en: 'Earth', de: 'Erde', fr: 'Terre', es: 'Tierra', pt: 'Terra', it: 'Terra', ko: '지구 (Earth)', nl: 'Aarde', id: 'Bumi', hi: 'पृथ्वी (Earth)', ar: 'الأرض', zh: '地球 (Earth)', ru: 'Земля' },
         MARS: { ja: '火星 (Mars)', en: 'Mars', de: 'Mars', fr: 'Mars', es: 'Marte', pt: 'Marte', it: 'Marte', ko: '화성 (Mars)', nl: 'Mars', id: 'Mars', hi: 'मंगल (Mars)', ar: 'المريخ', zh: '火星 (Mars)', ru: 'Марс' },
         JUPITER: { ja: '木星 (Jupiter)', en: 'Jupiter', de: 'Jupiter', fr: 'Jupiter', es: 'Júpiter', pt: 'Júpiter', it: 'Giove', ko: '목성 (Jupiter)', nl: 'Jupiter', id: 'Yupiter', hi: 'बृहस्पति (Jupiter)', ar: 'المشتري', zh: '木星 (Jupiter)', ru: 'Юпитер' },
         SATURN: { ja: '土星 (Saturn)', en: 'Saturn', de: 'Saturn', fr: 'Saturne', es: 'Saturno', pt: 'Saturno', it: 'Saturno', ko: '토성 (Saturn)', nl: 'Saturnus', id: 'Saturnus', hi: 'शनि (Saturn)', ar: 'زحل', zh: '土星 (Saturn)', ru: 'Сатурн' },
@@ -8582,6 +8743,7 @@ function selectCelestialBody(bodyId) {
         const textureMap = {
             SUN: { url: 'assets/planet_images/sun.jpg', cap: 'NASA SDO (Public Domain)' },
             MOON: { url: 'assets/planet_images/moon.jpg', cap: 'NASA / GSFC (Public Domain)' },
+            EARTH: { url: 'assets/planet_images/earth.jpg', cap: 'NASA Blue Marble / Apollo 17 (Public Domain)' },
             MARS: { url: 'assets/planet_images/mars.jpg', cap: 'ESA / MPS / OSIRIS (Public Domain)' },
             JUPITER: { url: 'assets/planet_images/jupiter.jpg', cap: 'NASA / ESA / Hubble (Public Domain)' },
             SATURN: { url: 'assets/planet_images/saturn.jpg', cap: 'NASA / JPL / Cassini (Public Domain)' },
@@ -8646,16 +8808,53 @@ function selectCelestialBody(bodyId) {
     const ephem = computePlanetEphemeris(body.id, effectiveTime);
     const pos = computeCelestialPosition(body, effectiveTime) || new Cesium.Cartesian3(100000000, 0, 0);
 
-    // Hide satellite points and labels during celestial inspection
-    if (typeof satPointPrimitives !== 'undefined' && satPointPrimitives) {
-        satPointPrimitives.show = false;
+    // Hide satellite points and labels during other celestial inspection (preserve for Earth)
+    if (body.id !== 'EARTH') {
+        if (typeof satPointPrimitives !== 'undefined' && satPointPrimitives) {
+            satPointPrimitives.show = false;
+        }
+        document.querySelectorAll('.sat-dom-label').forEach(el => {
+            el.style.display = 'none';
+            el.classList.remove('selected');
+        });
     }
-    document.querySelectorAll('.sat-dom-label').forEach(el => {
-        el.style.display = 'none';
-        el.classList.remove('selected');
-    });
 
-    if (ephem) {
+    if (body.id === 'EARTH') {
+        const earthDistLabel = {
+            ja: '0 km (基準母星 / 地心原点)',
+            en: '0 km (Base Home World / Geocentric Origin)',
+            de: '0 km (Heimatbasis / Geozentrischer Ursprung)',
+            fr: '0 km (Monde d\'origine / Centre géocentrique)',
+            es: '0 km (Mundo natal / Origen geocéntrico)',
+            pt: '0 km (Mundo de origem / Origem geocêntrica)',
+            it: '0 km (Pianeta d\'origine / Origine geocentrica)',
+            ko: '0 km (기준 모성 / 지심 원점)',
+            nl: '0 km (Thuiswereld / Geocentrische oorsprong)',
+            id: '0 km (Bumi Asal / Titik Pusat Geosentris)',
+            hi: '0 किमी (मातृ गृह / भूकेंद्रीय मूल)',
+            ar: '0 كم (الموطن الأم / المركز الأرضي)',
+            zh: '0 km (母星基准 / 地心坐标原点)',
+            ru: '0 км (Опорная планета / Геоцентрический центр)'
+        };
+        const earthPeriodLabel = {
+            ja: '365.26 d (1.00 AU / 1億4,960万km)',
+            en: '365.26 d (1.00 AU / 149.60 million km)',
+            de: '365,26 d (1,00 AE / 149,60 Mio. km)',
+            fr: '365,26 j (1,00 UA / 149,60 millions km)',
+            es: '365,26 d (1,00 UA / 149,60 millones km)',
+            pt: '365,26 d (1,00 UA / 149,60 milhões km)',
+            it: '365,26 g (1,00 UA / 149,60 milioni km)',
+            ko: '365.26일 (1.00 AU / 1억 4,960만 km)',
+            nl: '365,26 d (1,00 AE / 149,60 mln km)',
+            id: '365,26 h (1,00 SA / 149,60 juta km)',
+            hi: '365.26 दिन (1.00 AU / 14.96 करोड़ किमी)',
+            ar: '365.26 يوم (1.00 و.ف / 149.60 مليون كم)',
+            zh: '365.26 天 (1.00 AU / 1.496亿公里)',
+            ru: '365,26 д (1,00 а.е. / 149,6 млн км)'
+        };
+        satAlt.textContent = earthDistLabel[lang] || earthDistLabel['en'];
+        satPeriod.textContent = earthPeriodLabel[lang] || earthPeriodLabel['en'];
+    } else if (ephem) {
         // 1. 地球からのリアルタイム地心距離 (万km / 億km & AU)
         const geoKm = ephem.geocentricDistKm;
         const geoAu = ephem.geocentricDistAu;
@@ -8720,9 +8919,28 @@ function selectCelestialBody(bodyId) {
 
     detailCard.classList.remove('hidden');
 
-    // Inspect All Celestial Bodies with 3D Textured Sphere
-    const bodyDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
-    inspectCelestialPlanet(body, pos, bodyDir);
+    // Inspect Earth or Other Celestial Bodies
+    if (body.id === 'EARTH') {
+        if (viewer.scene && viewer.scene.globe) viewer.scene.globe.show = true;
+        if (viewer.scene && viewer.scene.skyAtmosphere) viewer.scene.skyAtmosphere.show = true;
+        if (typeof satPointPrimitives !== 'undefined' && satPointPrimitives) {
+            satPointPrimitives.show = true;
+        }
+        document.querySelectorAll('.sat-dom-label').forEach(el => {
+            el.style.display = '';
+        });
+        clearPlanetInspectionEntities();
+        viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+        viewer.trackedEntity = undefined;
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(139.6917, 35.6895, 20000000),
+            duration: 2.0
+        });
+    } else {
+        // Inspect All Celestial Bodies with 3D Textured Sphere
+        const bodyDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+        inspectCelestialPlanet(body, pos, bodyDir);
+    }
 }
 
 function initCesiumViewer() {
@@ -8835,7 +9053,7 @@ function initCesiumViewer() {
         const delta = e.deltaY;
         
         // 1. When inspecting a 3D Planet: Ultra-fine, delicate micro-zoom
-        if (activePlanetSphereEntity || selectedCelestialId) {
+        if (activePlanetSphereEntity || (selectedCelestialId && selectedCelestialId !== 'EARTH')) {
             const body = CELESTIAL_BODIES.find(b => b.id === selectedCelestialId);
             const planetRadius = (body && body.radiusKm ? body.radiusKm * 1000 : 6000000);
             
@@ -8980,11 +9198,12 @@ function updateDropdownOptions() {
     const celestialNames = {
         SUN: { ja: '☀️ 太陽 (Sun)', en: '☀️ Sun', de: '☀️ Sonne', fr: '☀️ Soleil', es: '☀️ Sol', pt: '☀️ Sol', it: '☀️ Sole', ko: '☀️ 태양 (Sun)', nl: '☀️ Zon', id: '☀️ Matahari', hi: '☀️ सूर्य (Sun)', ar: '☀️ الشمس', zh: '☀️ 太阳 (Sun)', ru: '☀️ Солнце' },
         MOON: { ja: '🌕 月 (Moon)', en: '🌕 Moon', de: '🌕 Mond', fr: '🌕 Lune', es: '🌕 Luna', pt: '🌕 Lua', it: '🌕 Luna', ko: '🌕 달 (Moon)', nl: '🌕 Maan', id: '🌕 Bulan', hi: '🌕 चंद्रमा (Moon)', ar: '🌕 القمر', zh: '🌕 月球 (Moon)', ru: '🌕 Луна' },
+        EARTH: { ja: '🌍 地球 (Earth)', en: '🌍 Earth', de: '🌍 Erde', fr: '🌍 Terre', es: '🌍 Tierra', pt: '🌍 Terra', it: '🌍 Terra', ko: '🌍 지구 (Earth)', nl: '🌍 Aarde', id: '🌍 Bumi', hi: '🌍 पृथ्वी (Earth)', ar: '🌍 الأرض', zh: '🌍 地球 (Earth)', ru: '🌍 Земля' },
         MARS: { ja: '🔴 火星 (Mars)', en: '🔴 Mars', de: '🔴 Mars', fr: '🔴 Mars', es: '🔴 Marte', pt: '🔴 Marte', it: '🔴 Marte', ko: '🔴 화성 (Mars)', nl: '🔴 Mars', id: '🔴 Mars', hi: '🔴 मंगल (Mars)', ar: '🔴 المريخ', zh: '🔴 火星 (Mars)', ru: '🔴 Марс' },
         JUPITER: { ja: '🟠 木星 (Jupiter)', en: '🟠 Jupiter', de: '🟠 Jupiter', fr: '🟠 Jupiter', es: '🟠 Júpiter', pt: '🟠 Júpiter', it: '🟠 Giove', ko: '🟠 목성 (Jupiter)', nl: '🟠 Jupiter', id: '🟠 Yupiter', hi: '🟠 बृहस्पति (Jupiter)', ar: '🟠 المشتري', zh: '🟠 木星 (Jupiter)', ru: '🟠 Юпитер' },
         SATURN: { ja: '🪐 土星 (Saturn)', en: '🪐 Saturn', de: '🪐 Saturn', fr: '🪐 Saturne', es: '🪐 Saturno', pt: '🪐 Saturno', it: '🪐 Saturno', ko: '🪐 토성 (Saturn)', nl: '🪐 Saturnus', id: '🪐 Saturnus', hi: '🪐 शनि (Saturn)', ar: '🪐 زحل', zh: '🪐 土星 (Saturn)', ru: '🪐 Сатурн' },
         VENUS: { ja: '🟡 金星 (Venus)', en: '🟡 Venus', de: '🟡 Venus', fr: '🟡 Vénus', es: '🟡 Venus', pt: '🟡 Vênus', it: '🟡 Venere', ko: '🟡 금성 (Venus)', nl: '🟡 Venus', id: '🟡 Venus', hi: '🟡 शुक्र (Venus)', ar: '🟡 الزهرة', zh: '🟡 金星 (Venus)', ru: '🟡 Венера' },
-        MERCURY: { ja: '🔘 水星 (Mercury)', en: '🔘 Mercury', de: '🔘 Merkur', fr: '🔘 Mercure', es: '🔘 Mercurio', pt: '🔘 Mercúrio', it: '🔘 Mercurio', ko: '🔘 수성 (Mercury)', nl: '🔘 Mercurius', id: '🔘 Merkurius', hi: '🔘 बुध (Mercury)', ar: '🔘 عطارد', zh: '🔘 水星 (Mercury)', ru: '🔘 Меркурий' },
+        MERCURY: { ja: '🔘 水星 (Mercury)', en: '🔘 Mercury', de: '🔘 Merkur', fr: '🔘 Mercure', es: '🔘 Mercurio', pt: '🔘 Mercurio', it: '🔘 Mercurio', ko: '🔘 수성 (Mercury)', nl: '🔘 Mercurius', id: '🔘 Merkurius', hi: '🔘 बुध (Mercury)', ar: '🔘 عطارد', zh: '🔘 水星 (Mercury)', ru: '🔘 Меркурий' },
         URANUS: { ja: '🌀 天王星 (Uranus)', en: '🌀 Uranus', de: '🌀 Uranus', fr: '🌀 Uranus', es: '🌀 Urano', pt: '🌀 Urano', it: '🌀 Urano', ko: '🌀 천왕성 (Uranus)', nl: '🌀 Uranus', id: '🌀 Uranus', hi: '🌀 अरुण (Uranus)', ar: '🌀 أورانوس', zh: '🌀 天王星 (Uranus)', ru: '🌀 Уран' },
         NEPTUNE: { ja: '🌊 海王星 (Neptune)', en: '🌊 Neptune', de: '🌊 Neptun', fr: '🌊 Neptune', es: '🌊 Neptuno', pt: '🌊 Netuno', it: '🌊 Nettuno', ko: '🌊 해왕성 (Neptune)', nl: '🌊 Neptunus', id: '🌊 Neptunus', hi: '🌊 वरुण (Neptune)', ar: '🌊 نبتون', zh: '🌊 海王星 (Neptune)', ru: '🌊 Нептун' },
         SOLAR_SYSTEM: { ja: '🌌 太陽系全体 (Solar System Orrery)', en: '🌌 Solar System (Orrery View)', de: '🌌 Sonnensystem (Orrery-Ansicht)', fr: '🌌 Système Solaire (Vue Orrery)', es: '🌌 Sistema Solar (Vista Orrery)', pt: '🌌 Sistema Solar (Visão Orrery)', it: '🌌 Sistema Solare (Vista Orrery)', ko: '🌌 태양계 전체 (Solar System Orrery)', nl: '🌌 Zonnestelsel (Orrery-weergave)', id: '🌌 Tata Surya Lengkap (Tampilan Orrery)', hi: '🌌 संपूर्ण सौर मंडल (ऑरेरी दृश्य)', ar: '🌌 النظام الشمسي بالكامل (عرض الأوريري)', zh: '🌌 太阳系全景 (Orrery太阳系仪)', ru: '🌌 Вся Солнечная система (Оррери)' }
@@ -9822,7 +10041,8 @@ function onSceneClick(clickEvent) {
                 return;
             }
             if (typeof entity.id === 'string' && entity.id.startsWith('orrery_planet_')) {
-                const bodyId = entity.id.replace('orrery_planet_', '');
+                let bodyId = entity.id.replace('orrery_planet_', '');
+                if (bodyId.startsWith('sphere_')) bodyId = bodyId.replace('sphere_', '');
                 selectCelestialBody(bodyId);
                 if (satSelect) satSelect.value = `celestial_${bodyId}`;
                 return;
@@ -11597,6 +11817,7 @@ function performSearch(rawQuery) {
     const celestialAliases = {
         SUN: ['太陽', 'たいよう', 'タイヨウ', 'SUN', 'SOLAR', 'SOLEIL', 'SONNE', 'SOL', 'SOLE', '태양', 'ZON', 'MATAHARI', 'सूर्य', 'الشمس', 'СОЛНЦЕ'],
         MOON: ['月', 'つき', 'ツキ', 'MOON', 'LUNA', 'LUNE', 'MOND', '달', 'MAAN', 'BULAN', 'चन्द्र', 'चंद्रमा', 'القمر', 'ЛУНА'],
+        EARTH: ['地球', 'ちきゅう', 'チキュウ', 'EARTH', 'TERRE', 'TIERRA', 'TERRA', 'ERDE', '지구', 'AARDE', 'BUMI', 'पृथ्वी', 'الأرض', 'ЗЕМЛЯ', 'BLUE MARBLE', '母星'],
         MARS: ['火星', 'かせい', 'カセイ', 'MARS', 'MARTE', '화성', 'ROTE PLANET', 'RED PLANET', 'मंगल', 'المريخ', 'МАРС'],
         JUPITER: ['木星', 'もくせい', 'モクセイ', 'JUPITER', 'GIOVE', '목성', 'YUPITER', 'बृहस्पति', 'المشتري', 'ЮПИТЕР', 'GREAT RED SPOT', '大赤斑'],
         SATURN: ['土星', 'どせい', 'ドセイ', 'SATURN', 'SATURNO', 'SATURNUS', 'SATURNE', '토성', 'शनि', 'زحل', 'САТУРН', 'RINGS', '輪', 'リング'],
