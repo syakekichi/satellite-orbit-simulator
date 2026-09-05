@@ -6568,10 +6568,75 @@ function computeCelestialPosition(body, time) {
 let deepSpaceEntities = [];
 let selectedDeepSpaceId = null;
 let deepSpaceOrbitEntity = null;
+let deepSpaceDomLabels = {};
+
+/**
+ * 深宇宙探査機用の高視認性 HTML DOM ラベルを初期化生成
+ */
+function initDeepSpaceDomLabels() {
+    if (!labelsContainer) return;
+    DEEP_SPACE_MISSIONS.forEach(mission => {
+        if (!deepSpaceDomLabels[mission.id]) {
+            const labelElem = document.createElement('div');
+            labelElem.className = 'sat-dom-label deep-space-label';
+            labelElem.textContent = `${mission.symbol || '🚀'} ${mission.shortName}`;
+            labelElem.dataset.missionId = mission.id;
+            labelElem.style.borderColor = mission.color || '#38bdf8';
+            labelElem.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectDeepSpaceMission(mission.id);
+                satSelect.value = `deepspace_${mission.id}`;
+            });
+            labelsContainer.appendChild(labelElem);
+            deepSpaceDomLabels[mission.id] = labelElem;
+        }
+    });
+}
+
+/**
+ * 毎フレーム深宇宙探査機の3D位置をスクリーン座標へ高精度同期投影
+ */
+function updateDeepSpaceDomLabels(effectiveTime) {
+    if (!viewer || !labelsContainer) return;
+    const toggleDeepSpace = document.getElementById('toggleDeepSpace');
+    const isDeepSpaceVisible = (!toggleDeepSpace || toggleDeepSpace.checked);
+    const toggleLabels = document.getElementById('toggleLabels');
+    const showLabels = (!toggleLabels || toggleLabels.checked);
+
+    const canvasWidth = viewer.scene.canvas.clientWidth;
+    const canvasHeight = viewer.scene.canvas.clientHeight;
+
+    DEEP_SPACE_MISSIONS.forEach(mission => {
+        const labelElem = deepSpaceDomLabels[mission.id];
+        if (!labelElem) return;
+
+        const isSelected = (selectedDeepSpaceId === mission.id);
+        if (isSelected) {
+            labelElem.classList.add('selected');
+        } else {
+            labelElem.classList.remove('selected');
+        }
+
+        if (isDeepSpaceVisible && (showLabels || isSelected)) {
+            const pos = computeDeepSpacePosition(mission, effectiveTime);
+            if (pos) {
+                const screenPos = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, pos);
+                if (screenPos && screenPos.x >= -100 && screenPos.x <= canvasWidth + 100 && screenPos.y >= -100 && screenPos.y <= canvasHeight + 100) {
+                    labelElem.style.display = 'block';
+                    labelElem.style.left = `${screenPos.x}px`;
+                    labelElem.style.top = `${screenPos.y}px`;
+                    return;
+                }
+            }
+        }
+        labelElem.style.display = 'none';
+    });
+}
 
 function initDeepSpaceMissions() {
     if (!viewer) return;
     createDeepSpaceEntities();
+    initDeepSpaceDomLabels();
 }
 
 /**
@@ -6618,7 +6683,8 @@ function computeDeepSpaceOrbitCenter(mission, time) {
         return marsPos || new Cesium.Cartesian3(2000000000, 0, 0);
     }
 
-    return Cesium.Cartesian3.ZERO;
+    // ボイジャー1号やはやぶさ2等の恒星間・深宇宙探査機は、探査機自身の位置を中心点とする！
+    return computeDeepSpacePosition(mission, effectiveTime);
 }
 
 /**
@@ -6652,7 +6718,17 @@ function getDeepSpaceOrbitOverviewOffset(mission) {
         const dist = 5000000; // 5,000 km
         return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
     }
-    const dist = 2500000000;
+    if (mission.id === 'VOYAGER1') {
+        // ボイジャー1号の機体を斜め手前からしっかり捉える距離 (~60,000 km)
+        const dist = 60000000;
+        return new Cesium.Cartesian3(dist * 0.4, -dist * 0.6, dist * 0.5);
+    }
+    if (mission.id === 'HAYABUSA2') {
+        // はやぶさ2の機体を斜め手前から捉える距離 (~50,000 km)
+        const dist = 50000000;
+        return new Cesium.Cartesian3(dist * 0.4, -dist * 0.6, dist * 0.5);
+    }
+    const dist = 50000000;
     return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
 }
 
@@ -7233,6 +7309,24 @@ function selectDeepSpaceMission(missionId) {
         celestialOrbitEntity = null;
     }
     drawDeepSpaceOrbit(mission);
+
+    // Add Glowing Target Ring Marker for selected deep space mission
+    if (targetHighlightEntity) {
+        viewer.entities.remove(targetHighlightEntity);
+    }
+    targetHighlightEntity = viewer.entities.add({
+        position: new Cesium.CallbackProperty((time) => {
+            const effTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || (viewer && viewer.clock.currentTime));
+            return computeDeepSpacePosition(mission, effTime) || Cesium.Cartesian3.ZERO;
+        }, false),
+        point: {
+            pixelSize: 36,
+            color: Cesium.Color.fromCssColorString(mission.color || '#ff0055').withAlpha(0.35),
+            outlineColor: Cesium.Color.fromCssColorString(mission.color || '#ff0055'),
+            outlineWidth: 3,
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+        }
+    });
 
     const langSelect = document.getElementById('langSelect');
     const lang = (langSelect && langSelect.value) || window.currentLang || currentLang || 'ja';
@@ -8628,6 +8722,7 @@ function onClockTick(clock) {
 
     statTime.textContent = formatSimTime(customSimTime);
     updateSatellitePositions(customSimTime);
+    updateDeepSpaceDomLabels(viewer ? viewer.clock.currentTime : null);
 
     // Dynamically update Orbit Line as simulation time progresses so satellite never drifts from line in 2nd/3rd laps!
     if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
@@ -8758,6 +8853,11 @@ function selectSatellite(index) {
     // Reset planet inspection sphere and unlock camera transform
     clearPlanetInspectionEntities();
     selectedDeepSpaceId = null;
+    if (deepSpaceDomLabels) {
+        Object.values(deepSpaceDomLabels).forEach(lbl => {
+            if (lbl) lbl.classList.remove('selected');
+        });
+    }
     if (deepSpaceOrbitEntity && viewer) {
         viewer.entities.remove(deepSpaceOrbitEntity);
         deepSpaceOrbitEntity = null;
@@ -8916,6 +9016,13 @@ function deselectSatellite() {
         }
     }
     selectedSatIndex = -1;
+    selectedDeepSpaceId = null;
+    selectedCelestialId = null;
+    if (deepSpaceDomLabels) {
+        Object.values(deepSpaceDomLabels).forEach(lbl => {
+            if (lbl) lbl.classList.remove('selected');
+        });
+    }
     satSelect.value = "";
     detailCard.classList.add('hidden');
     edgePointer.classList.add('hidden');
