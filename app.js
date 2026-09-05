@@ -387,10 +387,11 @@ function inspectCelestialPlanet(body, bodyPos, bodyDir) {
     // Remove previous inspection sphere and rings
     clearPlanetInspectionEntities();
 
-    const planetRadius = (body.radiusKm || 6000) * 1000;
+    const isHalley = (body.id === 'HALLEY');
+    const planetRadius = isHalley ? 12000 : ((body.radiusKm || 6000) * 1000);
     const texImage = NASA_PLANET_TEXTURES[body.id] || getPlanetTextureDataUrl(body.id);
 
-    // Place ultra-photorealistic NASA 3D sphere directly at body target coordinates
+    // 1. Place ultra-photorealistic NASA 3D sphere directly at body target coordinates
     activePlanetSphereEntity = viewer.entities.add({
         id: `inspect_planet_${body.id}`,
         name: body.name,
@@ -400,15 +401,85 @@ function inspectCelestialPlanet(body, bodyPos, bodyDir) {
             material: new Cesium.ImageMaterialProperty({
                 image: texImage,
                 transparent: false
-            })
+            }),
+            // ハレー彗星は核(半径18km)が漆黒の有機物岩肌のため、100km以上ズームアウトした際は黒い遮蔽球体を消して美麗な自発光コマ・尾にシームレス移行
+            distanceDisplayCondition: isHalley ? new Cesium.DistanceDisplayCondition(0.0, 100000.0) : new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
         }
     });
 
-    // Create Genuine 3D Planetary Rings in Space
-    create3DPlanetaryRings(body, bodyPos, planetRadius);
+    if (isHalley) {
+        // --- ハレー彗星：太陽光を浴びて青白く輝く巨大なコマ（ガス雲）と壮大な尾の完全再現 ---
+        // 2. 太陽（原点）と反対方向に伸びる壮大な彗星の尾（イオンテイル＆ダストテイル：長さ3,500万km）
+        const antiSunDir = Cesium.Cartesian3.normalize(bodyPos, new Cesium.Cartesian3());
+        const tailLength = 35000000000; // 35,000,000 km
+        const tailEnd = Cesium.Cartesian3.add(bodyPos, Cesium.Cartesian3.multiplyByScalar(antiSunDir, tailLength, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+
+        // 青い直線的イオンテイル（プラズマ尾）
+        const ionTail = viewer.entities.add({
+            id: 'inspect_halley_ion_tail',
+            name: 'Halley Ion Tail (青色プラズマ尾)',
+            polyline: {
+                positions: [bodyPos, tailEnd],
+                width: 7.0,
+                arcType: Cesium.ArcType.NONE,
+                material: new Cesium.PolylineGlowMaterialProperty({
+                    glowPower: 0.55,
+                    color: Cesium.Color.fromCssColorString('#38bdf8').withAlpha(0.85)
+                }),
+                distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
+            }
+        });
+        activePlanetRingEntities.push(ionTail);
+
+        // 湾曲した白金色ダストテイル（塵の散乱光尾）
+        const dustDir = new Cesium.Cartesian3(
+            antiSunDir.x * 0.94 - antiSunDir.y * 0.18,
+            antiSunDir.y * 0.94 + antiSunDir.x * 0.18,
+            antiSunDir.z
+        );
+        Cesium.Cartesian3.normalize(dustDir, dustDir);
+        const dustTailEnd = Cesium.Cartesian3.add(bodyPos, Cesium.Cartesian3.multiplyByScalar(dustDir, tailLength * 0.85, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+        const dustTail = viewer.entities.add({
+            id: 'inspect_halley_dust_tail',
+            name: 'Halley Dust Tail (白色ダスト尾)',
+            polyline: {
+                positions: [bodyPos, dustTailEnd],
+                width: 5.5,
+                arcType: Cesium.ArcType.NONE,
+                material: new Cesium.PolylineGlowMaterialProperty({
+                    glowPower: 0.45,
+                    color: Cesium.Color.fromCssColorString('#fef08a').withAlpha(0.65)
+                }),
+                distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
+            }
+        });
+        activePlanetRingEntities.push(dustTail);
+
+        // 3. 自発光コマ＆彗星ビルボード（至近距離から超遠方まで黒く消えず、青白く輝くコマオーラと尾を描画）
+        const cometCanvas = createFaithfulCometCanvas();
+        const cometBillboard = viewer.entities.add({
+            id: 'inspect_halley_billboard',
+            name: 'Halley Visual Marker',
+            position: bodyPos,
+            billboard: {
+                image: cometCanvas,
+                width: 140,
+                height: 70,
+                verticalOrigin: Cesium.VerticalOrigin.CENTER,
+                horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+                pixelOffset: Cesium.Cartesian2.ZERO,
+                scaleByDistance: new Cesium.NearFarScalar(1.0e3, 1.4, 5.0e10, 0.85),
+                disableDepthTestDistance: Number.POSITIVE_INFINITY
+            }
+        });
+        activePlanetRingEntities.push(cometBillboard);
+    } else {
+        // Create Genuine 3D Planetary Rings in Space
+        create3DPlanetaryRings(body, bodyPos, planetRadius);
+    }
 
     // Lock camera target transform to the planet center!
-    const targetRange = planetRadius * ((body.id === 'SATURN' || body.id === 'JUPITER' || body.id === 'URANUS') ? 3.4 : 2.8);
+    const targetRange = isHalley ? 350000 : (planetRadius * ((body.id === 'SATURN' || body.id === 'JUPITER' || body.id === 'URANUS') ? 3.4 : 2.8));
     const hpr = new Cesium.HeadingPitchRange(0.0, Cesium.Math.toRadians(-22.0), targetRange);
 
     viewer.camera.flyTo({
@@ -610,10 +681,12 @@ function getPlanetTextureDataUrl(bodyId) {
         ctx.ellipse(650, 270, 60, 75, 0.2, 0, Math.PI * 2);
         ctx.fill();
     } else if (bodyId === 'HALLEY') {
-        // Halley's Comet: Very dark nucleus with icy sublimation gas geysers
+        // Halley's Comet: Dark organic crust with active bright icy sublimation geysers & cyan coma glow
         ctx.fillStyle = '#1c1917';
         ctx.fillRect(0, 0, 1024, 512);
-        ctx.fillStyle = 'rgba(41, 37, 36, 0.8)';
+
+        // Dark basalt/carbon crater textures
+        ctx.fillStyle = 'rgba(41, 37, 36, 0.85)';
         for (let i = 0; i < 60; i++) {
             const x = (i * 113) % 1024;
             const y = (i * 71) % 512;
@@ -623,15 +696,25 @@ function getPlanetTextureDataUrl(bodyId) {
             ctx.ellipse(x, y, rx, ry, i * 0.3, 0, Math.PI * 2);
             ctx.fill();
         }
-        // Active Sublimation Gas Jets
-        ctx.strokeStyle = 'rgba(186, 230, 253, 0.7)';
-        ctx.lineWidth = 3;
-        for (let j = 0; j < 6; j++) {
-            const jx = 350 + j * 60;
-            const jy = 240 + (j % 2) * 40;
+
+        // Active Sublimation Gas Jets & Cyan Coma Sheen (太陽光を受けて激しく吹き出す白銀の氷昇華噴煙)
+        const jetGlow = ctx.createLinearGradient(0, 200, 0, 320);
+        jetGlow.addColorStop(0, 'rgba(56, 189, 248, 0.6)');
+        jetGlow.addColorStop(0.5, 'rgba(255, 255, 255, 0.85)');
+        jetGlow.addColorStop(1, 'rgba(56, 189, 248, 0.2)');
+        ctx.fillStyle = jetGlow;
+        ctx.beginPath();
+        ctx.ellipse(512, 256, 320, 90, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 3.5;
+        for (let j = 0; j < 12; j++) {
+            const jx = 220 + j * 55;
+            const jy = 220 + (j % 3) * 35;
             ctx.beginPath();
             ctx.moveTo(jx, jy);
-            ctx.lineTo(jx + 40, jy - 60);
+            ctx.lineTo(jx + (j % 2 === 0 ? 50 : -40), jy - 85);
             ctx.stroke();
         }
     } else {
@@ -2989,7 +3072,7 @@ const CosmicAudio = {
 const HISTORICAL_EVENTS = {
     apollo11: {
         time: '1969-07-20T20:17:40Z',
-        action: 'moon',
+        action: 'apollo11',
         titles: {
             ja: '🌕 1969年7月20日 20:17 UTC: アポロ11号 人類月面着陸！',
             en: '🌕 July 20, 1969 20:17 UTC: Apollo 11 Lunar Landing!',
@@ -2999,8 +3082,8 @@ const HISTORICAL_EVENTS = {
             zh: '🌕 1969年7月20日: 阿波罗11号人类登月！'
         },
         descs: {
-            ja: '月着陸船「イーグル」が静かの海に着陸。『ヒューストン、こちら静かの海基地。イーグルは着陸した』。人類が初めて地球以外の天体に足跡を刻みました。',
-            en: 'Lunar Module "Eagle" touched down at Tranquility Base: "Houston, Tranquility Base here. The Eagle has landed." Humanity\'s first footprints on another world.',
+            ja: '月着陸船「イーグル」が静かの海に着陸。『ヒューストン、こちら静かの海基地。イーグルは着陸した』。司令船コロンビアと月着陸船の勇姿を再現！',
+            en: 'Lunar Module "Eagle" touched down at Tranquility Base: "Houston, Tranquility Base here. The Eagle has landed." Recreating Columbia CSM and LM Eagle in lunar orbit!',
             de: 'Die Mondlandefähre "Eagle" landete im Meer der Ruhe: "Houston, Tranquility Base here. The Eagle has landed."',
             fr: 'Le module lunaire "Eagle" s\'est posé dans la mer de la Tranquillité.',
             es: 'El módulo lunar "Eagle" alunizó en el Mar de la Tranquilidad.',
@@ -3009,7 +3092,7 @@ const HISTORICAL_EVENTS = {
     },
     voyager1: {
         time: '1979-03-05T12:05:00Z',
-        action: 'orrery_jupiter',
+        action: 'voyager1',
         titles: {
             ja: '🪐 1979年3月5日 12:05 UTC: ボイジャー1号 木星最接近！',
             en: '🪐 March 5, 1979 12:05 UTC: Voyager 1 Jupiter Flyby!',
@@ -3019,12 +3102,12 @@ const HISTORICAL_EVENTS = {
             zh: '🪐 1979年3月5日: 旅行者1号飞掠木星！'
         },
         descs: {
-            ja: '木星から約35万kmまで最接近。木星を取り巻く未知の薄い環や、衛星イオでの人類史上初となる太陽系外天体の活火山噴火を発見しました！',
-            en: 'Closest approach to Jupiter at 349,000 km. Discovered Jupiter\'s rings and active volcanism on Io—the first active extraterrestrial volcanoes found!',
-            de: 'Entdeckung der Jupiterringe und des aktiven Vulkanismus auf dem Mond Io.',
-            fr: 'Découverte des anneaux de Jupiter et du volcanisme actif sur Io.',
-            es: 'Descubrimiento de los anillos de Júpiter y volcanismo activo en Ío.',
-            zh: '距木星仅35万公里。首次发现了木星微弱光环，以及木卫一（艾奥）上喷发的活火山！'
+            ja: '木星から約35万kmまで最接近。高利得アンテナとゴールデンレコードを搭載した探査機本体と、木星重力アシストによる双曲線軌道を完全再現！',
+            en: 'Closest approach to Jupiter at 349,000 km. Displaying the authentic Voyager spacecraft with its high-gain antenna and Golden Record along its gravity-assist trajectory!',
+            de: 'Entdeckung der Jupiterringe und des aktiven Vulkanismus auf dem Mond Io durch die Raumsonde Voyager 1.',
+            fr: 'Découverte des anneaux de Jupiter et du volcanisme actif sur Io par Voyager 1.',
+            es: 'Descubrimiento de los anillos de Júpiter y volcanismo activo en Ío por la sonda Voyager 1.',
+            zh: '距木星仅35万公里。高增益天线与镀金唱片清晰可见，完整展现木星引力弹弓双曲线轨迹！'
         }
     },
     halley1986: {
@@ -3039,17 +3122,17 @@ const HISTORICAL_EVENTS = {
             zh: '☄️ 1986年2月9日: 哈雷彗星近日点通过！'
         },
         descs: {
-            ja: 'ハレー彗星が太陽から約0.586 AU（約8,770万km）の近日点を通過。欧州ジオット探査機や日本の「さきがけ」「すいせい」が彗星核へ接近観測を行いました。',
-            en: 'Halley reached perihelion at 0.586 AU from the Sun. An international armada including ESA\'s Giotto and Japan\'s Sakigake explored the nucleus.',
-            de: 'Halley erreichte das Perihel bei 0,586 AE. Die ESA-Sonde Giotto fotografierte erstmals den Kometenkern.',
-            fr: 'Passage au plus près du Soleil. La sonde européenne Giotto a photographié le noyau.',
-            es: 'Halley alcanzó el perihelio a 0,586 UA. La sonda Giotto fotografió el núcleo.',
-            zh: '哈雷彗星抵达近日点（0.586天文单位）。欧洲“乔托号”等探测器编队首次近距离拍摄到彗核实貌。'
+            ja: 'ハレー彗星が太陽から約0.586 AU（約8,770万km）の近日点を通過。激しく吹き出すエメラルドシアンの壮大なダスト＆イオンテイルを描画！',
+            en: 'Halley reached perihelion at 0.586 AU from the Sun. Magnificent cyan dust and ion comet tails extending opposite to the Sun!',
+            de: 'Halley erreichte das Perihel bei 0,586 AE. Spektakulärer Kometenschweif im inneren Sonnensystem.',
+            fr: 'Passage au plus près du Soleil avec sa magnifique chevelure et queue de comète.',
+            es: 'Halley alcanzó el perihelio a 0,586 UA con su espectacular cola de cometa.',
+            zh: '哈雷彗星抵达近日点（0.586天文单位），展开展延数千万公里的壮观青色彗尾！'
         }
     },
     voyager2neptune: {
         time: '1989-08-25T03:56:00Z',
-        action: 'orrery_neptune',
+        action: 'voyager2neptune',
         titles: {
             ja: '🌊 1989年8月25日 03:56 UTC: ボイジャー2号 海王星最接近！',
             en: '🌊 Aug 25, 1989 03:56 UTC: Voyager 2 Neptune Flyby!',
@@ -3059,17 +3142,17 @@ const HISTORICAL_EVENTS = {
             zh: '🌊 1989年8月25日: 旅行者2号飞掠海王星！'
         },
         descs: {
-            ja: 'ボイジャー2号が太陽系最遠の巨大氷惑星・海王星の北極上空わずか4,950kmをフライバイ。大暗斑や衛星トリトンの氷間欠泉を発見しました。',
-            en: 'Voyager 2 skimmed just 4,950 km above Neptune\'s north pole, discovering the Great Dark Spot and cryovolcanic geysers on moon Triton.',
+            ja: 'ボイジャー2号が太陽系最遠の巨大氷惑星・海王星の北極上空わずか4,950kmをフライバイ。大暗斑や衛星トリトンを発見した歴史的探査機と軌道線を再現！',
+            en: 'Voyager 2 skimmed just 4,950 km above Neptune\'s north pole. Showing Voyager 2 with its grand tour hyperbolic trajectory past the blue ice giant!',
             de: 'Voyager 2 passierte Neptun in nur 4.950 km Höhe und entdeckte Geysire auf Triton.',
             fr: 'Survol à seulement 4 950 km au-dessus du pôle nord de Neptune.',
             es: 'Voyager 2 pasó a solo 4.950 km de Neptuno, descubriendo géiseres en Tritón.',
-            zh: '距海王星北极仅4,950公里。发现了海王星大黑斑以及海卫一上的液氮冰火山喷泉！'
+            zh: '距海王星北极仅4,950公里。忠实展现旅行者2号在蓝色冰巨星上空的壮丽航迹！'
         }
     },
     sputnik1: {
         time: '1957-10-04T19:28:34Z',
-        action: 'earth',
+        action: 'sputnik1',
         titles: {
             ja: '🛰️ 1957年10月4日 19:28 UTC: スプートニク1号 宇宙時代の幕開け！',
             en: '🛰️ Oct 4, 1957 19:28 UTC: Sputnik 1 — Dawn of the Space Age!',
@@ -3079,12 +3162,12 @@ const HISTORICAL_EVENTS = {
             zh: '🛰️ 1957年10月4日: 斯普特尼克1号——太空时代黎明！'
         },
         descs: {
-            ja: 'バイコヌール宇宙基地から人類史上初の人工衛星「スプートニク1号」が地球周回軌道へ到達。世界中に受信された「ピピッ、ピピッ」の無線信号から人類の宇宙進出が始まりました。',
-            en: 'The world\'s first artificial satellite was placed into orbit from Baikonur Cosmodrome. Its historic "beep-beep" radio signal heralded the space age.',
-            de: 'Der erste künstliche Erdsatellit startete in die Umlaufbahn. Sein Radiosignal leitete das Raumzeitalter ein.',
-            fr: 'Premier satellite artificiel de la Terre lancé depuis Baïkonour.',
-            es: 'El primer satélite artificial alcanzó la órbita terrestre, iniciando la carrera espacial.',
-            zh: '世界上第一颗人造地球卫星成功入轨。来自太空的“哔哔”无线电信号宣告了人类宇宙时代的正式开启。'
+            ja: 'バイコヌールから人類初の人工衛星が軌道へ。鏡面研磨の金属球体、4本のホイップアンテナ、発信される電波ビーコン波紋を忠実に再現！',
+            en: 'The world\'s first artificial satellite in orbit! Showing the polished sphere, 4 trailing whip antennas, and historical radio wave emission rings.',
+            de: 'Der erste künstliche Erdsatellit mit vier Antennen und Radiosignal.',
+            fr: 'Premier satellite artificiel de la Terre avec ses quatre antennes et son signal radio historique.',
+            es: 'El primer satélite artificial con sus 4 antenas y señales de radio históricas.',
+            zh: '世界上第一颗人造地球卫星！高度还原抛光金属球体、4根长天线与无线电波纹脉冲！'
         }
     }
 };
@@ -3110,27 +3193,23 @@ function executeHistoricalEvent(eventId) {
         viewer.clock.currentTime = Cesium.JulianDate.fromDate(targetDate);
     }
 
-    if (ev.action === 'moon') {
-        selectCelestialBody('MOON');
-    } else if (ev.action === 'orrery_jupiter') {
-        const loadSolarSystemBtn = document.getElementById('loadSolarSystemBtn');
-        if (loadSolarSystemBtn) loadSolarSystemBtn.click();
-        setTimeout(() => { selectCelestialBody('JUPITER'); }, 1200);
+    const toggleDeepSpace = document.getElementById('toggleDeepSpace');
+    if (toggleDeepSpace && !toggleDeepSpace.checked) {
+        toggleDeepSpace.checked = true;
+    }
+
+    if (ev.action === 'apollo11' || ev.action === 'moon') {
+        selectDeepSpaceMission('APOLLO11');
+    } else if (ev.action === 'voyager1' || ev.action === 'orrery_jupiter') {
+        selectDeepSpaceMission('VOYAGER1');
+    } else if (ev.action === 'voyager2neptune' || ev.action === 'orrery_neptune') {
+        selectDeepSpaceMission('VOYAGER2');
+    } else if (ev.action === 'sputnik1' || ev.action === 'earth') {
+        selectDeepSpaceMission('SPUTNIK1');
     } else if (ev.action === 'orrery_halley') {
         const loadSolarSystemBtn = document.getElementById('loadSolarSystemBtn');
         if (loadSolarSystemBtn) loadSolarSystemBtn.click();
         setTimeout(() => { selectCelestialBody('HALLEY'); }, 1200);
-    } else if (ev.action === 'orrery_neptune') {
-        const loadSolarSystemBtn = document.getElementById('loadSolarSystemBtn');
-        if (loadSolarSystemBtn) loadSolarSystemBtn.click();
-        setTimeout(() => { selectCelestialBody('NEPTUNE'); }, 1200);
-    } else if (ev.action === 'earth') {
-        const loadMajorBtn = document.getElementById('loadMajorBtn');
-        if (loadMajorBtn) loadMajorBtn.click();
-        viewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(63.3, 45.9, 15000000),
-            duration: 1.5
-        });
     }
 
     const lang = window.currentLang || currentLang || 'ja';
@@ -7728,6 +7807,64 @@ const DEEP_SPACE_MISSIONS = [
         instruments: 'The Golden Record, Magnetometer (MAG), Cosmic Ray Subsystem',
         speedKmS: '17.0 km/s (Escape Velocity)',
         modelType: 'VOYAGER'
+    },
+    {
+        id: 'VOYAGER2',
+        name: 'Voyager 2 Grand Tour Mission (ボイジャー2号・惑星大紀行探査機)',
+        shortName: 'VOYAGER 2',
+        symbol: '🌊',
+        color: '#38bdf8',
+        parent: 'INTERSTELLAR',
+        distKm: 20500000000,
+        periodDays: '---',
+        type: 'INTERSTELLAR_PROBE',
+        launchDate: '1977-08-20',
+        rocket: 'Titan IIIE / Centaur',
+        agency: 'NASA / JPL',
+        site: 'Interstellar Space beyond Heliopause (~137 AU / Neptune: 1989)',
+        instruments: 'The Golden Record, Magnetometer (MAG), Cosmic Ray Subsystem, CRS',
+        speedKmS: '15.3 km/s (Escape Velocity)',
+        modelType: 'VOYAGER2'
+    },
+    {
+        id: 'APOLLO11',
+        name: 'Apollo 11 Spacecraft (アポロ11号・司令船コロンビア & 月着陸船イーグル)',
+        shortName: 'APOLLO 11',
+        symbol: '🌕',
+        color: '#fbbf24',
+        parent: 'MOON',
+        distKm: 384400,
+        periodDays: 0.083,
+        type: 'LUNAR_MISSION',
+        isHistoricOnly: true,
+        historicYear: 1969,
+        launchDate: '1969-07-16 (Moon Landing: 1969-07-20)',
+        rocket: 'Saturn V (SA-506)',
+        agency: 'NASA',
+        site: 'Lunar Orbit & Tranquility Base (0.67°N, 23.47°E)',
+        instruments: 'LM Eagle, Columbia CSM, EASEP, Lunar Surface Scientific Experiments',
+        speedKmS: '1.63 km/s (Lunar Orbit)',
+        modelType: 'APOLLO'
+    },
+    {
+        id: 'SPUTNIK1',
+        name: 'Sputnik 1 (スプートニク1号・人類初の人工衛星)',
+        shortName: 'SPUTNIK 1',
+        symbol: '🛰️',
+        color: '#f43f5e',
+        parent: 'EARTH',
+        distKm: 6586,
+        periodDays: 0.067,
+        type: 'HISTORIC_SATELLITE',
+        isHistoricOnly: true,
+        historicYear: 1957,
+        launchDate: '1957-10-04',
+        rocket: 'R-7 Semyorka (8K71PS)',
+        agency: 'Soviet Union (OKB-1)',
+        site: 'Low Earth Elliptical Orbit (215 × 939 km / 65.1° inc)',
+        instruments: '20.005 MHz / 40.002 MHz Radio Transmitters, 4 Whip Antennas',
+        speedKmS: '7.80 km/s',
+        modelType: 'SPUTNIK'
     }
 ];
 
@@ -7843,6 +7980,54 @@ const DEEP_SPACE_DISPLAY_NAMES = {
         ar: '🌌 فوياجر 1 (الفضاء بين النجوم / ~164 وحدة فلكية)',
         zh: '🌌 旅行者1号 (星际空间探测器 / 164天文单位)',
         ru: '🌌 Вояджер-1 (Межзвездное пространство / ~164 а.е.)'
+    },
+    VOYAGER2: {
+        ja: '🌊 ボイジャー2号 (惑星大紀行探査機 / 137 AU)',
+        en: '🌊 Voyager 2 (Grand Tour Interstellar Probe / ~137 AU)',
+        de: '🌊 Voyager 2 (Grand Tour Sonde / ~137 AE)',
+        fr: '🌊 Voyager 2 (Grand Tour interstellaire / ~137 UA)',
+        es: '🌊 Voyager 2 (Sonda Gran Tour / ~137 UA)',
+        pt: '🌊 Voyager 2 (Sonda Grand Tour / ~137 UA)',
+        it: '🌊 Voyager 2 (Sonda Grand Tour / ~137 UA)',
+        ko: '🌊 보이저 2호 (행성 대기행 성간 탐사선 / ~137 AU)',
+        nl: '🌊 Voyager 2 (Grand Tour ruimtesonde / ~137 AE)',
+        id: '🌊 Voyager 2 (Wahana Grand Tour / ~137 AU)',
+        hi: '🌊 वॉयेजर 2 (ग्रैंड टूर प्रोब / ~137 AU)',
+        ar: '🌊 فوياجر 2 (مسبار الجولة الكبرى / ~137 وحدة فلكية)',
+        zh: '🌊 旅行者2号 (行星大巡礼深空探测器 / 137天文单位)',
+        ru: '🌊 Вояджер-2 (Гранд-тур зонд / ~137 а.е.)'
+    },
+    APOLLO11: {
+        ja: '🌕 アポロ11号 (人類初月面着陸有人船 / 月軌道)',
+        en: '🌕 Apollo 11 (First Moon Landing Spacecraft / Lunar Orbit)',
+        de: '🌕 Apollo 11 (Erste bemannte Mondlandung / Mondorbit)',
+        fr: '🌕 Apollo 11 (Premier alunissage habité / Orbite lunaire)',
+        es: '🌕 Apolo 11 (Primer alunizaje tripulado / Órbita lunar)',
+        pt: '🌕 Apollo 11 (Primeiro pouso lunar tripulado / Orbita lunar)',
+        it: '🌕 Apollo 11 (Primo allunaggio con equipaggio / Orbita lunare)',
+        ko: '🌕 아폴로 11호 (인류 최초 유인 달 착륙선 / 달 궤도)',
+        nl: '🌕 Apollo 11 (Eerste bemande maanlanding / Maanbaan)',
+        id: '🌕 Apollo 11 (Pendaratan Berawak Pertama di Bulan / Orbit Bulan)',
+        hi: '🌕 अपोलो 11 (प्रथम मानवयुक्त चंद्र लैंडिंग / चंद्र कक्षा)',
+        ar: '🌕 أبولو 11 (أول هبوط مأهول على القمر / مدار قمري)',
+        zh: '🌕 阿波罗11号 (人类首次载人登月飞船 / 月球轨道)',
+        ru: '🌕 Аполлон-11 (Первая пилотируемая высадка на Луну / Лунная орбита)'
+    },
+    SPUTNIK1: {
+        ja: '🛰️ スプートニク1号 (人類史上初の人工衛星 / 地球周回)',
+        en: '🛰️ Sputnik 1 (World\'s First Artificial Satellite / Earth Orbit)',
+        de: '🛰️ Sputnik 1 (Erster künstlicher Erdsatellit / Erdorbit)',
+        fr: '🛰️ Spoutnik 1 (Premier satellite artificiel au monde / Orbite)',
+        es: '🛰️ Sputnik 1 (Primer satélite artificial de la historia / Órbita)',
+        pt: '🛰️ Sputnik 1 (Primeiro satélite artificial do mundo / Orbita)',
+        it: '🛰️ Sputnik 1 (Primo satellite artificiale della storia / Orbita)',
+        ko: '🛰️ 스푸트니크 1호 (인류 최초의 인공위성 / 지구 저궤도)',
+        nl: '🛰️ Spoetnik 1 (Eerste kunstmatige satelliet / Aardbaan)',
+        id: '🛰️ Sputnik 1 (Satelit Buatan Pertama di Dunia / Orbit Bumi)',
+        hi: '🛰️ स्पुतनिक 1 (दुनिया का पहला कृत्रिम उपग्रह / पृथ्वी कक्षा)',
+        ar: '🛰️ سبوتنيك 1 (أول قمر صناعي في العالم / مدار أرضي)',
+        zh: '🛰️ 斯普特尼克1号 (人类历史上第一颗人造地球卫星 / 环地轨道)',
+        ru: '🛰️ Спутник-1 (Первый в мире искусственный спутник Земли / Орбита)'
     }
 };
 
@@ -7958,6 +8143,54 @@ const DEEP_SPACE_DESCRIPTIONS = {
         "ar": "أبعد جسم من صنع الإنسان في التاريخ، تم إطلاقه عام 1977، ودخل الفضاء بين النجوم عام 2012 على بعد أكثر من 24.5 مليار كم من الأرض.",
         "zh": "人类历史上飞得最远的人造物体。1977年由NASA发射，2012年穿越日球层顶进入星际空间，目前距离地球超过245亿公里（约164天文单位），携带着人类文明的镀金唱片向银河系深处飞去。",
         "ru": "Самый далекий рукотворный объект в истории человечества. Запущенный в 1977 году, 'Вояджер-1' в 2012 году вышел в межзвездное пространство на расстояние более 24,5 млрд км."
+    },
+    "VOYAGER2": {
+        "ja": "NASAの探査機。木星・土星・天王星・海王星の全4大巨大惑星を唯一すべて探査した「惑星大紀行（グランドツアー）」の偉業を達成。1989年に海王星の北極上空わずか4,950kmをフライバイし、大暗斑や衛星トリトンの液体窒素間欠泉を発見。2018年にヘリオポーズを突破し、現在約205億km彼方の星間空間を飛行中。",
+        "en": "The only spacecraft in history to explore all four giant outer planets: Jupiter, Saturn, Uranus, and Neptune (The Grand Tour). In 1989, it skimmed 4,950 km above Neptune's north pole, discovering the Great Dark Spot and geysers on Triton. It entered interstellar space in 2018, now over 20.5 billion km (~137 AU) away.",
+        "de": "Die einzige Sonde, die alle vier Gas- und Eisriesen (Jupiter, Saturn, Uranus, Neptun) besuchte. Passierte 1989 Neptun und befindet sich im interstellaren Raum.",
+        "fr": "La seule sonde à avoir exploré Jupiter, Saturne, Uranus et Neptune. En 1989, elle a survolé Neptune à 4 950 km avant d'entrer dans l'espace interstellaire en 2018.",
+        "es": "La única nave que visitó Júpiter, Saturno, Urano y Neptuno. En 1989 sobrevoló Neptuno a 4.950 km y en 2018 ingresó al espacio interestelar a 20.500 millones de km.",
+        "pt": "A única espaçonave que visitou os quatro gigantes gasosos e de gelo. Em 1989 sobrevoou Netuno e em 2018 entrou no espaço interestelar.",
+        "it": "L'unica sonda ad aver esplorato Giove, Saturno, Urano e Nettuno. Nel 1989 ha sorvolato Nettuno prima di entrare nello spazio interstellare nel 2018.",
+        "ko": "목성, 토성, 천왕성, 해왕성의 4대 거대 행성을 모두 탐사한 유일한 탐사선(그랜드 투어). 1989년 해왕성 상공 4,950km를 초근접 통과하고 2018년 성간 공간에 진입했습니다.",
+        "nl": "De enige sonde die alle vier buitenplaneten bezocht. Scheerde in 1989 langs Neptunus en bevindt zich nu in de interstellaire ruimte.",
+        "id": "Satu-satunya wahana yang menjelajahi Jupiter, Saturnus, Uranus, dan Neptunus. Terbang lintas Neptunus pada 1989 dan kini berada di ruang antarbintang.",
+        "hi": "चारों बाहरी ग्रहों (बृहस्पति, शनि, अरुण, वरुण) का अन्वेषण करने वाला एकमात्र यान। 1989 में वरुण के करीब से गुजरा और अब इंटरस्टेलर अंतरिक्ष में है।",
+        "ar": "المركبة الفضائية الوحيدة التي زارت عمالقة الكواكب الأربعة (المشتري، زحل، أورانوس، نبتون)، وتحلق الآن في الفضاء بين النجوم.",
+        "zh": "人类历史上唯一完成四大气态与冰巨行星（木星、土星、天王星、海王星）大满贯巡礼的探测器。1989年近距离掠过海王星北极4,950公里，2018年进入星际空间。",
+        "ru": "Единственный зонд, исследовавший все 4 планеты-гиганта (Юпитер, Сатурн, Уран, Нептун). В 1989 г. пролетел над Нептуном и вышел в межзвездное пространство в 2018 г."
+    },
+    "APOLLO11": {
+        "ja": "1969年7月、人類を初めて月に到達させたアポロ計画の歴史的宇宙船。ニール・アームストロング、バズ・オルドリン、マイケル・コリンズの3名が搭乗。月周回軌道上の司令船「コロンビア」と、月面静かの海に着陸した月着陸船「イーグル」により、人類史上最大の宇宙探査マイルストーンを樹立しました。",
+        "en": "The historic Apollo mission that landed the first humans on the Moon in July 1969. Crewed by Neil Armstrong, Buzz Aldrin, and Michael Collins, the mission comprised Command/Service Module 'Columbia' in lunar orbit and Lunar Module 'Eagle' touching down at Tranquility Base.",
+        "de": "Die historische Mondlandemission von 1969 mit Neil Armstrong, Buzz Aldrin und Michael Collins. Mondlandefähre Eagle landete im Meer der Ruhe.",
+        "fr": "La mission historique ayant permis le premier pas sur la Lune en juillet 1969 avec Neil Armstrong, Buzz Aldrin et Michael Collins.",
+        "es": "Misión histórica que llevó a los primeros humanos a la Luna en julio de 1969. El módulo lunar Eagle alunizó en el Mar de la Tranquilidad.",
+        "pt": "A histórica missão que levou os primeiros seres humanos à Lua em julho de 1969, pousando no Mar da Tranqüilidade.",
+        "it": "La storica missione che portò i primi uomini sulla Luna nel luglio 1969 con il modulo lunare Eagle atterrato nel Mare della Tranquillità.",
+        "ko": "1969년 7월 인류 최초로 달 착륙에 성공한 역사적인 아폴로 11호. 닐 암스트롱, 버즈 올드린, 마이클 콜린스가 탑승하여 '고요의 바다'에 역사적인 첫 발자국을 남겼습니다.",
+        "nl": "De historische missie die in juli 1969 de eerste mensen op de Maan zette met de maanlander Eagle.",
+        "id": "Misi bersejarah yang mendaratkan manusia pertama di Bulan pada Juli 1969 di Laut Ketenangan (Tranquility Base).",
+        "hi": "जुलाई 1969 में पहले मानव को चंद्रमा पर उतारने वाला ऐतिहासिक मिशन। लूनर मॉड्यूल 'ईगल' ने ट्रैंक्विलिटी बेस पर लैंड किया।",
+        "ar": "المهمة التاريخية التي هبطت بأول إنسان على سطح القمر في يوليو 1969 بقيادة نيل أرمسترونغ في بحر الهدوء.",
+        "zh": "1969年7月实现人类首次登月的历史性飞船。阿姆斯特朗与奥尔德林驾驶“鹰号”登月舱降落月球静海基地，柯林斯驾驶“哥伦比亚号”指令舱在月球轨道待命。",
+        "ru": "Исторический корабль, доставивший первых людей на Луну в июле 1969 года (Нил Армстронг, Базз Олдрин, Майкл Коллинз)."
+    },
+    "SPUTNIK1": {
+        "ja": "1957年10月4日にソビエト連邦によって打ち上げられた、人類史上初の人工衛星。直径58cmの研磨アルミニウム合金球体に4本のホイップアンテナを装着。地球を約96分で1周しながら発信した「ピピッ、ピピッ」の20MHz電波信号は世界中で受信され、宇宙時代の幕開けと宇宙開発競争の火蓋を切りました。",
+        "en": "The world's first artificial satellite, launched on October 4, 1957 by the Soviet Union. A 58 cm polished aluminum sphere with 4 whip antennas, orbiting Earth every 96.2 minutes. Its historic 20.005 MHz radio beeps ushered humanity into the Space Age.",
+        "de": "Der erste künstliche Erdsatellit der Weltgeschichte, gestartet am 4. Oktober 1957. Leitete das Raumzeitalter ein.",
+        "fr": "Le premier satellite artificiel de l'histoire, lancé le 4 octobre 1957, inaugurant l'ère spatiale avec son signal radio.",
+        "es": "El primer satélite artificial de la historia, lanzado el 4 de octubre de 1957, iniciando la era espacial con sus señales de radio.",
+        "pt": "O primeiro satélite artificial da história, lançado em 4 de outubro de 1957, inaugurando a era espacial.",
+        "it": "Il primo satellite artificiale della storia lanciato il 4 ottobre 1957, aprendo l'era spaziale con i suoi leggendari segnali radio.",
+        "ko": "1957년 10월 4일 인류 최초로 발사된 인공위성. 지름 58cm의 알루미늄 구체에 4개의 안테나를 달고 지구를 96분에 1바퀴 돌며 전파를 송신, 인류 우주시대의 개막을 알렸습니다.",
+        "nl": "De eerste kunstmatige satelliet ter wereld, gelanceerd op 4 oktober 1957, waarmee het ruimtevaarttijdperk begon.",
+        "id": "Satelit buatan pertama di dunia yang diluncurkan pada 4 Oktober 1957, mengawali era penjelajahan luar angkasa.",
+        "hi": "4 अक्टूबर 1957 को प्रक्षेपित दुनिया का पहला कृत्रिम उपग्रह, जिसने मानव अंतरिक्ष युग की शुरुआत की।",
+        "ar": "أول قمر صناعي في تاريخ البشرية، أُطلق في 4 أكتوبر 1957 مُعلناً بداية عصر الفضاء.",
+        "zh": "1957年10月4日升空的人类历史上第一颗人造地球卫星。直径58厘米抛光铝制球体，装有4根鞭状天线，以96.2分钟环绕地球一周并向全球播发哔哔无线电信号，开启人类太空时代。",
+        "ru": "Первый в мире искусственный спутник Земли, запущенный 4 октября 1957 года. Открыл космическую эру человечества."
     }
 };
 
@@ -8010,6 +8243,27 @@ const DEEP_SPACE_SPECS = {
         dimensions: { ja: "高利得パラボラアンテナ直径: 3.7 m / 重量: 825 kg", en: "High-Gain Antenna: 3.7 m / Mass: 825 kg" },
         instruments: { ja: "ゴールデンレコード (人類の音楽・言語・メッセージ), 磁力計 (MAG), 宇宙線検出器 (CRS)", en: "The Golden Record, Magnetometer (MAG), Cosmic Ray Subsystem, Plasma Wave System" },
         scienceGoal: { ja: "太陽風が届かない星間磁場・宇宙線の直接測定、人類文明のメッセージを銀河系へ運ぶ", en: "First in-situ sampling of interstellar medium, plasma density beyond heliopause, galactic messenger" }
+    },
+    "VOYAGER2": {
+        agency: { ja: "NASA / JPL", en: "NASA / Jet Propulsion Laboratory" },
+        orbitType: { ja: "太陽系脱出双曲線星間軌道 (~137 AU / 205億km彼方 / 海王星探査)", en: "Interstellar Hyperbolic Escape Trajectory (~137 AU / Neptune Grand Tour)" },
+        dimensions: { ja: "高利得パラボラアンテナ直径: 3.7 m / 重量: 825 kg", en: "High-Gain Antenna: 3.7 m / Mass: 825 kg" },
+        instruments: { ja: "ゴールデンレコード, 磁力計 (MAG), 低エネルギー荷電粒子計 (LECP), 宇宙線検出器", en: "The Golden Record, Magnetometer, LECP, Cosmic Ray System, Photopolarimeter" },
+        scienceGoal: { ja: "木星・土星・天王星・海王星の全巨大惑星グランドツアー探査、現在星間空間の観測", en: "Only spacecraft to visit Uranus and Neptune, ongoing interstellar medium exploration" }
+    },
+    "APOLLO11": {
+        agency: { ja: "NASA (アメリカ航空宇宙局)", en: "NASA (National Aeronautics and Space Administration)" },
+        orbitType: { ja: "月周回楕円軌道 (高度 ~110 km) & 静かの海着陸地 (0.67°N, 23.47°E)", en: "Lunar Orbit (~110 km alt) & Tranquility Base (0.67°N, 23.47°E)" },
+        dimensions: { ja: "CSM全長: 11.0 m / LM全幅: 9.4 m (脚展開時) / 打ち上げ総質量: 49,735 kg", en: "CSM Length: 11.0 m / LM Span: 9.4 m with gear / Total Mass: 49,735 kg" },
+        instruments: { ja: "司令船コロンビア (CSM), 月着陸船イーグル (LM), 早期アポロ科学実験装置 (EASEP)", en: "Columbia CSM, Eagle LM, EASEP Seismometer, Laser Ranging Retroreflector" },
+        scienceGoal: { ja: "人類初の月面有人着陸と安全な地球帰還、21.55kgの月試料採取、太陽風・月震観測", en: "First crewed lunar landing, surface EVA, 21.55 kg lunar sample return, seismic monitoring" }
+    },
+    "SPUTNIK1": {
+        agency: { ja: "OKB-1 (ソビエト連邦 第1設計局)", en: "Soviet Space Program / OKB-1 (Sergei Korolev)" },
+        orbitType: { ja: "低地球周回楕円軌道 (近地点 215 km / 遠地点 939 km / 傾斜角 65.1°)", en: "Low Earth Elliptical Orbit (Perigee 215 km / Apogee 939 km / 65.1° inc)" },
+        dimensions: { ja: "球体直径: 58.0 cm / アンテナ長: 2.4 m & 2.9 m / 質量: 83.6 kg", en: "Sphere Diameter: 58.0 cm / Antennas: 2.4 m & 2.9 m / Mass: 83.6 kg" },
+        instruments: { ja: "20.005 MHz / 40.002 MHz 無線送信機 (1ワット), 温度・圧力センサー", en: "Dual Radio Transmitters (20.005 & 40.002 MHz), Barometric/Thermal switches" },
+        scienceGoal: { ja: "人類初の人工衛星軌道投入成功の実証、電離層電波伝搬特性の解明、大気密度測定", en: "First artificial orbital insertion, ionospheric radio propagation, upper atmosphere density" }
     }
 };
 
@@ -8530,6 +8784,27 @@ let deepSpaceOrbitEntity = null;
 let deepSpaceDomLabels = {};
 
 /**
+ * ミッションが現在のアクティブ期間（現役か、歴史的ミッションのタイムトラベル中か）にあるかを判定
+ * （現在時刻においてアポロ11号やスプートニク1号などの退役・過去ミッションが誤って表示されるのを防止）
+ */
+function isDeepSpaceMissionActive(mission, time) {
+    if (!mission) return false;
+    // 1. ユーザーが明示的に選択中のミッションは常に表示
+    if (selectedDeepSpaceId === mission.id) return true;
+    // 2. 現役探査機（JWST, アルテミス, LRO, パーサヴィアランス, MRO, はやぶさ2, ボイジャー1/2など）は常時表示
+    if (!mission.isHistoricOnly) return true;
+
+    // 3. 歴史的ミッション（アポロ11号, スプートニク1号など）：
+    // 現在のシミュレーション時刻がその歴史的活動年・期間と一致している時のみ表示
+    const jsDate = customSimTime || (time ? Cesium.JulianDate.toDate(time) : (viewer ? Cesium.JulianDate.toDate(viewer.clock.currentTime) : new Date()));
+    const simYear = jsDate.getUTCFullYear();
+    if (mission.historicYear) {
+        return simYear === mission.historicYear;
+    }
+    return false;
+}
+
+/**
  * 深宇宙探査機用の高視認性 HTML DOM ラベルを初期化生成
  */
 function initDeepSpaceDomLabels() {
@@ -8576,7 +8851,9 @@ function updateDeepSpaceDomLabels(effectiveTime) {
             labelElem.classList.remove('selected');
         }
 
-        if (isDeepSpaceVisible && (showLabels || isSelected)) {
+        const isActive = isDeepSpaceMissionActive(mission, effectiveTime);
+
+        if (isDeepSpaceVisible && (showLabels || isSelected) && isActive) {
             const pos = computeDeepSpacePosition(mission, effectiveTime);
             if (pos) {
                 const screenPos = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, pos);
@@ -8599,7 +8876,7 @@ function initDeepSpaceMissions() {
 }
 
 /**
- * 各深宇宙探査機の軌道中心（L2点、月中心、火星中心など）の3D座標を算出
+ * 各深宇宙探査機の軌道中心（L2点、月中心、火星中心、木星、海王星など）の3D座標を算出
  */
 function computeDeepSpaceOrbitCenter(mission, time) {
     if (!viewer || !mission) return Cesium.Cartesian3.ZERO;
@@ -8624,7 +8901,7 @@ function computeDeepSpaceOrbitCenter(mission, time) {
         return Cesium.Cartesian3.multiplyByScalar(antiSunDir, L2_DIST, new Cesium.Cartesian3());
     }
 
-    if (mission.id === 'ARTEMIS_ORION' || mission.id === 'LRO') {
+    if (mission.id === 'ARTEMIS_ORION' || mission.id === 'LRO' || mission.id === 'APOLLO11') {
         let moonPos;
         try {
             const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
@@ -8642,7 +8919,35 @@ function computeDeepSpaceOrbitCenter(mission, time) {
         return marsPos || new Cesium.Cartesian3(2000000000, 0, 0);
     }
 
-    // ボイジャー1号やはやぶさ2等の恒星間・深宇宙探査機は、探査機自身の位置を中心点とする！
+    if (mission.id === 'VOYAGER1') {
+        const jsDate = customSimTime || (effectiveTime ? Cesium.JulianDate.toDate(effectiveTime) : new Date());
+        if (jsDate.getUTCFullYear() <= 1980) {
+            try {
+                const jupiterBody = CELESTIAL_BODIES.find(b => b.id === 'JUPITER');
+                const jupPos = computeCelestialPosition(jupiterBody, effectiveTime);
+                if (jupPos) return jupPos;
+            } catch(e) {}
+        }
+        return computeDeepSpacePosition(mission, effectiveTime);
+    }
+
+    if (mission.id === 'VOYAGER2') {
+        const jsDate = customSimTime || (effectiveTime ? Cesium.JulianDate.toDate(effectiveTime) : new Date());
+        if (jsDate.getUTCFullYear() <= 1990) {
+            try {
+                const neptuneBody = CELESTIAL_BODIES.find(b => b.id === 'NEPTUNE');
+                const nepPos = computeCelestialPosition(neptuneBody, effectiveTime);
+                if (nepPos) return nepPos;
+            } catch(e) {}
+        }
+        return computeDeepSpacePosition(mission, effectiveTime);
+    }
+
+    if (mission.id === 'SPUTNIK1') {
+        return Cesium.Cartesian3.ZERO;
+    }
+
+    // はやぶさ2等の恒星間・深宇宙探査機は、探査機自身の位置を中心点とする！
     return computeDeepSpacePosition(mission, effectiveTime);
 }
 
@@ -8653,37 +8958,42 @@ function getDeepSpaceOrbitOverviewOffset(mission) {
     if (!mission) return new Cesium.Cartesian3(0, -300000000, 400000000);
 
     if (mission.id === 'JWST') {
-        // ハロー軌道（長径36万km、短径22万km）の楕円ループ全体が画面中央にどっしり美しく収まるアングル
-        // 地球側（Z < 0）斜め手前南側（Y < 0）から見上げる/見下ろす最適距離 (~65万km)
         const dist = 650000000;
         return new Cesium.Cartesian3(0, -dist * 0.55, -dist * 0.75);
     }
     if (mission.id === 'ARTEMIS_ORION') {
-        // 月DRO軌道（直径7万km）全体と月を見渡す距離 (~13万km)
         const dist = 130000000;
         return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
     }
     if (mission.id === 'LRO') {
-        // 月球と極軌道リング全体を見渡す距離 (~8,000km)
         const dist = 8000000;
         return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
     }
+    if (mission.id === 'APOLLO11') {
+        const dist = 12000000; // 月球とアポロ11号軌道を完璧に収める12,000 km
+        return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
+    }
     if (mission.id === 'MARS_MRO') {
-        // 火星球と火星極軌道リング全体を見渡す距離 (~15,000km)
         const dist = 15000000;
         return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
     }
     if (mission.id === 'MARS_PERSEVERANCE') {
-        const dist = 5000000; // 5,000 km
+        const dist = 5000000;
         return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
     }
     if (mission.id === 'VOYAGER1') {
-        // ボイジャー1号の機体を斜め手前からしっかり捉える距離 (~60,000 km)
-        const dist = 60000000;
-        return new Cesium.Cartesian3(dist * 0.4, -dist * 0.6, dist * 0.5);
+        const dist = 380000000; // 木星とボイジャー1号の機体を斜め手前からしっかり捉える距離
+        return new Cesium.Cartesian3(dist * 0.4, -dist * 0.65, dist * 0.45);
+    }
+    if (mission.id === 'VOYAGER2') {
+        const dist = 120000000; // 海王星とボイジャー2号の機体を捉える距離
+        return new Cesium.Cartesian3(dist * 0.35, -dist * 0.6, dist * 0.5);
+    }
+    if (mission.id === 'SPUTNIK1') {
+        const dist = 22000000; // 地球球体とスプートニク1号の軌道全体を見渡す22,000 km
+        return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
     }
     if (mission.id === 'HAYABUSA2') {
-        // はやぶさ2の機体を斜め手前から捉える距離 (~50,000 km)
         const dist = 50000000;
         return new Cesium.Cartesian3(dist * 0.4, -dist * 0.6, dist * 0.5);
     }
@@ -8716,7 +9026,7 @@ function createDeepSpaceEntities() {
         const billboardCanvas = createDeepSpaceBillboard(mission);
         const overviewOffset = getDeepSpaceOrbitOverviewOffset(mission);
 
-        // 1. 探査機本体エンティティ
+        // 1. 探査機本体エンティティ（自発光・ズームアウトしても一定サイズ保証）
         const entity = viewer.entities.add({
             id: `deepspace_${mission.id}`,
             name: mission.name,
@@ -8725,55 +9035,374 @@ function createDeepSpaceEntities() {
             }, false),
             billboard: {
                 image: billboardCanvas,
-                width: 90,
-                height: 45,
+                width: 140,
+                height: 70,
                 verticalOrigin: Cesium.VerticalOrigin.CENTER,
                 horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
                 pixelOffset: Cesium.Cartesian2.ZERO,
-                show: isVisible,
+                show: new Cesium.CallbackProperty((time) => {
+                    const toggle = document.getElementById('toggleDeepSpace');
+                    const isVis = (!toggle || toggle.checked);
+                    return isVis && isDeepSpaceMissionActive(mission, time);
+                }, false),
+                scaleByDistance: new Cesium.NearFarScalar(1.0e3, 1.35, 5.0e11, 0.75),
+                disableDepthTestDistance: Number.POSITIVE_INFINITY
+            },
+            point: {
+                pixelSize: 18,
+                color: Cesium.Color.fromCssColorString(mission.color || '#38bdf8').withAlpha(0.6),
+                outlineColor: Cesium.Color.WHITE,
+                outlineWidth: 2,
+                show: new Cesium.CallbackProperty((time) => {
+                    const toggle = document.getElementById('toggleDeepSpace');
+                    const isVis = (!toggle || toggle.checked);
+                    return isVis && isDeepSpaceMissionActive(mission, time);
+                }, false),
                 disableDepthTestDistance: Number.POSITIVE_INFINITY
             }
         });
         entity.deepSpaceData = mission;
         deepSpaceEntities.push(entity);
 
-        // 2. 軌道中心エンティティ（軌道全体の楕円ループを画面中央に捉え続けるための仮想アンカー）
+        // 2. 軌道中心エンティティ（軌道全体のループを画面中央に捉え続けるための仮想アンカー）
         const centerEntity = viewer.entities.add({
             id: `orbitcenter_${mission.id}`,
             name: `${mission.shortName} Orbit Center`,
             viewFrom: overviewOffset,
             position: new Cesium.CallbackProperty((time) => {
                 return computeDeepSpaceOrbitCenter(mission, time);
-            }, false)
+            }, false),
+            show: new Cesium.CallbackProperty((time) => isDeepSpaceMissionActive(mission, time), false)
         });
         deepSpaceEntities.push(centerEntity);
     });
 }
 
-function createDeepSpaceBillboard(mission) {
+/**
+ * 太陽光を浴びて青白く輝くハレー彗星の高解像度ベクターグラフィックス生成エンジン
+ * （自発光・Unlit仕様：太陽系スケールまでズームアウトしても黒く消えず、雄大な尾とコマを常時維持）
+ */
+function createFaithfulCometCanvas() {
     const canvas = document.createElement('canvas');
-    canvas.width = 320;
-    canvas.height = 160;
+    canvas.width = 360;
+    canvas.height = 180;
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, 320, 160);
+    ctx.clearRect(0, 0, 360, 180);
 
-    const cx = 160;
-    const cy = 80; // 幾何学的中心に配置し、軌道線の3D座標と1ピクセルの狂いもなく完全一致させる
+    const cx = 130;
+    const cy = 90;
 
-    // 1. Soft Outer Glow
-    const glowGrad = ctx.createRadialGradient(cx, cy, 4, cx, cy, 38);
-    glowGrad.addColorStop(0, mission.color || '#f59e0b');
-    glowGrad.addColorStop(0.5, mission.color || '#f59e0b');
+    // 1. 青白い自発光コマ（Coma：昇華ガス雲オーラ）
+    const comaGrad = ctx.createRadialGradient(cx, cy, 4, cx, cy, 60);
+    comaGrad.addColorStop(0, '#ffffff');
+    comaGrad.addColorStop(0.25, '#7dd3fc');
+    comaGrad.addColorStop(0.55, 'rgba(14, 165, 233, 0.45)');
+    comaGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = comaGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 60, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 2. 右斜め上へたなびく壮大な彗星の尾（イオンテイル＆ダストテイル）
+    const tailGrad = ctx.createLinearGradient(cx, cy, cx + 190, cy - 55);
+    tailGrad.addColorStop(0, 'rgba(255, 255, 255, 0.85)');
+    tailGrad.addColorStop(0.25, 'rgba(56, 189, 248, 0.7)');
+    tailGrad.addColorStop(0.65, 'rgba(14, 165, 233, 0.35)');
+    tailGrad.addColorStop(1, 'rgba(2, 6, 23, 0)');
+    ctx.fillStyle = tailGrad;
+    ctx.beginPath();
+    ctx.moveTo(cx - 6, cy + 14);
+    ctx.lineTo(cx + 205, cy - 65);
+    ctx.lineTo(cx + 195, cy - 25);
+    ctx.lineTo(cx + 14, cy - 6);
+    ctx.closePath();
+    ctx.fill();
+
+    // 3. 高輝度の彗星核コア
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 4. ボールド多言語ラベル
+    ctx.font = 'bold 22px "Inter", "Segoe UI", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.strokeStyle = '#020617';
+    ctx.lineWidth = 4.5;
+    ctx.strokeText('☄️ 1P/Halley', cx, 142);
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillText('☄️ 1P/Halley', cx, 142);
+
+    return canvas;
+}
+
+/**
+ * 忠実な宇宙機・ロケット・衛星の高解像度ベクターグラフィックス生成エンジン
+ * （常時自発光・Unlit仕様：天体の夜側や深宇宙の影でも絶対に黒く潰れない）
+ */
+function createFaithfulCraftCanvas(craftType, options = {}) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 360;
+    canvas.height = 180;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, 360, 180);
+
+    const cx = 180;
+    const cy = 90;
+    const primaryColor = options.color || '#38bdf8';
+    const labelText = options.name || '';
+
+    // 1. 周囲のソフトな自発光ネオンオーラ（暗黒の宇宙でも位置を100%保証）
+    const glowGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, 60);
+    glowGrad.addColorStop(0, primaryColor);
+    glowGrad.addColorStop(0.45, primaryColor);
     glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
     ctx.fillStyle = glowGrad;
     ctx.beginPath();
-    ctx.arc(cx, cy, 38, 0, Math.PI * 2);
+    ctx.arc(cx, cy, 60, 0, Math.PI * 2);
     ctx.fill();
 
-    // 2. Specialized Spacecraft Vector Graphic
     ctx.save();
-    if (mission.id === 'JWST') {
-        // Silver Kite Sunshield
+    if (craftType === 'VOYAGER' || craftType === 'VOYAGER2') {
+        // --- ボイジャー1号 / 2号 忠実再現 ---
+        // 1. 13m 磁力計ブーム（右斜め上へ伸びる長大なトラス）
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(cx + 8, cy - 6);
+        ctx.lineTo(cx + 58, cy - 38);
+        ctx.stroke();
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.arc(cx + 58, cy - 38, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 2. RTG原子力電池ブーム（左斜め下へ伸びる3基のシリンダー）
+        ctx.strokeStyle = '#64748b';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(cx - 10, cy + 8);
+        ctx.lineTo(cx - 42, cy + 28);
+        ctx.stroke();
+        ctx.fillStyle = '#334155';
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.2;
+        ctx.fillRect(cx - 52, cy + 22, 16, 10);
+        ctx.strokeRect(cx - 52, cy + 22, 16, 10);
+
+        // 3. 10面体バス本体（ゴールドマイラー断熱シート）
+        ctx.fillStyle = '#d97706';
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy + 6, 14, 10, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // 4. ゴールデンレコード（人類のメッセージを刻んだ金色の円盤）
+        ctx.fillStyle = '#fbbf24';
+        ctx.strokeStyle = '#b45309';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(cx + 12, cy + 6, 6.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.strokeStyle = '#d97706';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.arc(cx + 12, cy + 6, 3.5, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // 5. 直径3.7m 高利得パラボラアンテナ（純白のカセグレンお皿）
+        const dishGrad = ctx.createLinearGradient(cx - 28, cy - 32, cx + 28, cy - 4);
+        dishGrad.addColorStop(0, '#ffffff');
+        dishGrad.addColorStop(0.5, '#f1f5f9');
+        dishGrad.addColorStop(1, '#cbd5e1');
+        ctx.fillStyle = dishGrad;
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(cx - 4, cy - 14, 26, 16, -0.25, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // アンテナ内側のサブ反射鏡3脚フィードホーン
+        ctx.strokeStyle = '#64748b';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(cx - 18, cy - 14); ctx.lineTo(cx - 4, cy - 24);
+        ctx.moveTo(cx + 10, cy - 14); ctx.lineTo(cx - 4, cy - 24);
+        ctx.moveTo(cx - 4, cy - 4);  ctx.lineTo(cx - 4, cy - 24);
+        ctx.stroke();
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        ctx.arc(cx - 4, cy - 24, 3, 0, Math.PI * 2);
+        ctx.fill();
+
+    } else if (craftType === 'APOLLO') {
+        // --- アポロ11号 (CSM コロンビア & LM イーグル) 忠実再現 ---
+        const nozGrad = ctx.createLinearGradient(cx - 38, cy, cx - 24, cy);
+        nozGrad.addColorStop(0, '#475569');
+        nozGrad.addColorStop(1, '#94a3b8');
+        ctx.fillStyle = nozGrad;
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(cx - 24, cy - 6);
+        ctx.lineTo(cx - 38, cy - 12);
+        ctx.lineTo(cx - 38, cy + 12);
+        ctx.lineTo(cx - 24, cy + 6);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 2;
+        ctx.fillRect(cx - 24, cy - 12, 26, 24);
+        ctx.strokeRect(cx - 24, cy - 12, 26, 24);
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(cx - 16, cy - 10, 10, 20);
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(cx - 14, cy - 16, 6, 4);
+        ctx.fillRect(cx - 14, cy + 12, 6, 4);
+
+        ctx.fillStyle = '#e2e8f0';
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx + 2, cy - 12);
+        ctx.lineTo(cx + 18, cy);
+        ctx.lineTo(cx + 2, cy + 12);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath();
+        ctx.arc(cx + 8, cy - 2, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#fbbf24';
+        ctx.strokeStyle = '#d97706';
+        ctx.lineWidth = 1.8;
+        ctx.fillRect(cx + 22, cy - 9, 16, 18);
+        ctx.strokeRect(cx + 22, cy - 9, 16, 18);
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx + 24, cy - 9); ctx.lineTo(cx + 18, cy - 22);
+        ctx.moveTo(cx + 36, cy - 9); ctx.lineTo(cx + 42, cy - 22);
+        ctx.moveTo(cx + 24, cy + 9); ctx.lineTo(cx + 18, cy + 22);
+        ctx.moveTo(cx + 36, cy + 9); ctx.lineTo(cx + 42, cy + 22);
+        ctx.stroke();
+        ctx.fillStyle = '#fef08a';
+        [ [cx + 18, cy - 22], [cx + 42, cy - 22], [cx + 18, cy + 22], [cx + 42, cy + 22] ].forEach(([px, py]) => {
+            ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI * 2); ctx.fill();
+        });
+        ctx.fillStyle = '#cbd5e1';
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 1.5;
+        ctx.fillRect(cx + 25, cy - 6, 10, 12);
+        ctx.strokeRect(cx + 25, cy - 6, 10, 12);
+
+    } else if (craftType === 'SPUTNIK') {
+        // --- スプートニク1号 忠実再現 ---
+        ctx.strokeStyle = 'rgba(244, 63, 94, 0.45)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.arc(cx, cy, 32, 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeStyle = 'rgba(244, 63, 94, 0.25)';
+        ctx.beginPath(); ctx.arc(cx, cy, 48, 0, Math.PI * 2); ctx.stroke();
+
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx - 8, cy - 8);  ctx.lineTo(cx - 52, cy - 38);
+        ctx.moveTo(cx - 8, cy - 4);  ctx.lineTo(cx - 58, cy - 22);
+        ctx.moveTo(cx - 8, cy + 4);  ctx.lineTo(cx - 58, cy + 22);
+        ctx.moveTo(cx - 8, cy + 8);  ctx.lineTo(cx - 52, cy + 38);
+        ctx.stroke();
+
+        const sphereGrad = ctx.createRadialGradient(cx - 5, cy - 5, 2, cx, cy, 18);
+        sphereGrad.addColorStop(0, '#ffffff');
+        sphereGrad.addColorStop(0.35, '#e2e8f0');
+        sphereGrad.addColorStop(0.75, '#94a3b8');
+        sphereGrad.addColorStop(1, '#475569');
+        ctx.fillStyle = sphereGrad;
+        ctx.strokeStyle = '#f8fafc';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, 18, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, 18, 5, 0.2, 0, Math.PI * 2);
+        ctx.stroke();
+
+    } else if (craftType === 'ISS') {
+        // --- 国際宇宙ステーション (ISS) 忠実再現 ---
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 3.5;
+        ctx.beginPath();
+        ctx.moveTo(cx - 65, cy);
+        ctx.lineTo(cx + 65, cy);
+        ctx.stroke();
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.2;
+        [-38, 0, 38].forEach(rx => {
+            ctx.fillRect(cx + rx - 4, cy - 14, 8, 28);
+            ctx.strokeRect(cx + rx - 4, cy - 14, 8, 28);
+        });
+
+        const drawSolarWing = (x, y, w, h) => {
+            const pvGrad = ctx.createLinearGradient(x, y, x + w, y + h);
+            pvGrad.addColorStop(0, '#f59e0b');
+            pvGrad.addColorStop(0.5, '#b45309');
+            pvGrad.addColorStop(1, '#d97706');
+            ctx.fillStyle = pvGrad;
+            ctx.strokeStyle = '#fde047';
+            ctx.lineWidth = 1.5;
+            ctx.fillRect(x, y, w, h);
+            ctx.strokeRect(x, y, w, h);
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(x + w * 0.5, y); ctx.lineTo(x + w * 0.5, y + h);
+            ctx.moveTo(x, y + h * 0.5); ctx.lineTo(x + w, y + h * 0.5);
+            ctx.stroke();
+        };
+
+        drawSolarWing(cx - 68, cy - 36, 14, 30);
+        drawSolarWing(cx - 52, cy - 36, 14, 30);
+        drawSolarWing(cx - 68, cy + 6, 14, 30);
+        drawSolarWing(cx - 52, cy + 6, 14, 30);
+
+        drawSolarWing(cx + 38, cy - 36, 14, 30);
+        drawSolarWing(cx + 54, cy - 36, 14, 30);
+        drawSolarWing(cx + 38, cy + 6, 14, 30);
+        drawSolarWing(cx + 54, cy + 6, 14, 30);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 1.5;
+        ctx.fillRect(cx - 8, cy - 18, 16, 36);
+        ctx.strokeRect(cx - 8, cy - 18, 16, 36);
+
+        ctx.fillStyle = '#f1f5f9';
+        ctx.fillRect(cx + 8, cy - 6, 14, 12);
+        ctx.strokeRect(cx + 8, cy - 6, 14, 12);
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath();
+        ctx.arc(cx, cy + 12, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+
+    } else if (craftType === 'JWST') {
         ctx.fillStyle = '#94a3b8';
         ctx.strokeStyle = '#e2e8f0';
         ctx.lineWidth = 1.5;
@@ -8786,7 +9415,6 @@ function createDeepSpaceBillboard(mission) {
         ctx.fill();
         ctx.stroke();
 
-        // 18-Segment Gold Primary Mirror Hexagon
         ctx.fillStyle = '#fbbf24';
         ctx.strokeStyle = '#d97706';
         ctx.lineWidth = 2;
@@ -8801,20 +9429,7 @@ function createDeepSpaceBillboard(mission) {
         ctx.closePath();
         ctx.fill();
         ctx.stroke();
-
-        // Secondary mirror tripod
-        ctx.strokeStyle = '#78350f';
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-        ctx.moveTo(cx, cy - 2);
-        ctx.lineTo(cx - 7, cy + 6);
-        ctx.moveTo(cx, cy - 2);
-        ctx.lineTo(cx + 7, cy + 6);
-        ctx.moveTo(cx, cy - 2);
-        ctx.lineTo(cx, cy - 10);
-        ctx.stroke();
-    } else if (mission.id === 'ARTEMIS_ORION') {
-        // Orion Capsule + X-Wing 4 Solar Arrays
+    } else if (craftType === 'ORION') {
         ctx.strokeStyle = '#38bdf8';
         ctx.lineWidth = 3.5;
         ctx.beginPath();
@@ -8832,109 +9447,198 @@ function createDeepSpaceBillboard(mission) {
         ctx.lineTo(cx, cy - 14);
         ctx.closePath();
         ctx.fill();
-    } else if (mission.id === 'MARS_PERSEVERANCE') {
-        // Rover chassis + Mast + Wheels
-        ctx.fillStyle = '#ea580c';
-        ctx.fillRect(cx - 14, cy - 6, 28, 12);
-        
-        ctx.strokeStyle = '#f97316';
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.moveTo(cx - 7, cy - 6);
-        ctx.lineTo(cx - 7, cy - 18);
-        ctx.lineTo(cx - 2, cy - 18);
-        ctx.stroke();
-
-        ctx.fillStyle = '#475569';
-        [-12, 0, 12].forEach(wx => {
+    } else if (craftType === 'HST') {
+        // --- ハッブル宇宙望遠鏡 (HST) 忠実再現 ---
+        // 1. 左右の大型ソーラーアレイ（ゴールド／ブロンズ）
+        const drawHstWing = (wx) => {
+            ctx.fillStyle = '#b45309';
+            ctx.strokeStyle = '#fbbf24';
+            ctx.lineWidth = 1.5;
+            ctx.fillRect(wx, cy - 32, 16, 64);
+            ctx.strokeRect(wx, cy - 32, 16, 64);
+            ctx.strokeStyle = '#fef08a';
+            ctx.lineWidth = 1;
             ctx.beginPath();
-            ctx.arc(cx + wx, cy + 9, 3.5, 0, Math.PI * 2);
-            ctx.fill();
-        });
-    } else if (mission.id === 'MARS_MRO') {
-        // Dish + Solar Panels
-        ctx.fillStyle = '#dc2626';
-        ctx.fillRect(cx - 26, cy - 4, 14, 8);
-        ctx.fillRect(cx + 12, cy - 4, 14, 8);
-        ctx.fillStyle = '#fef2f2';
-        ctx.fillRect(cx - 6, cy - 7, 12, 14);
-        ctx.strokeStyle = '#ef4444';
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.arc(cx, cy - 10, 8, Math.PI, Math.PI * 2);
-        ctx.stroke();
-    } else if (mission.id === 'VOYAGER1') {
-        ctx.strokeStyle = '#fbbf24';
+            ctx.moveTo(wx + 8, cy - 32); ctx.lineTo(wx + 8, cy + 32);
+            ctx.moveTo(wx, cy); ctx.lineTo(wx + 16, cy);
+            ctx.stroke();
+            // 支持アーム
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(wx < cx ? wx + 16 : wx, cy);
+            ctx.lineTo(wx < cx ? cx - 14 : cx + 14, cy);
+            ctx.stroke();
+        };
+        drawHstWing(cx - 58);
+        drawHstWing(cx + 42);
+
+        // 2. 円筒形鏡筒本体（高輝度シルバー断熱ブランケット）
+        const tubeGrad = ctx.createLinearGradient(cx - 14, cy, cx + 14, cy);
+        tubeGrad.addColorStop(0, '#64748b');
+        tubeGrad.addColorStop(0.35, '#f8fafc');
+        tubeGrad.addColorStop(0.7, '#cbd5e1');
+        tubeGrad.addColorStop(1, '#475569');
+        ctx.fillStyle = tubeGrad;
+        ctx.strokeStyle = '#e2e8f0';
         ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.lineTo(cx + 24, cy - 16);
-        ctx.stroke();
+        ctx.fillRect(cx - 14, cy - 22, 28, 44);
+        ctx.strokeRect(cx - 14, cy - 22, 28, 44);
 
-        ctx.fillStyle = '#f8fafc';
-        ctx.strokeStyle = '#cbd5e1';
-        ctx.lineWidth = 1.5;
+        // 3. 開いたアパーチャードア（鏡筒上部フード）
+        ctx.fillStyle = '#334155';
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1.8;
         ctx.beginPath();
-        ctx.ellipse(cx - 4, cy, 14, 10, -0.3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = '#d97706';
-        ctx.beginPath();
-        ctx.arc(cx - 5, cy - 1, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-    } else if (mission.id === 'HAYABUSA2') {
-        ctx.fillStyle = '#10b981';
-        ctx.fillRect(cx - 22, cy - 4, 14, 8);
-        ctx.fillRect(cx + 8, cy - 4, 14, 8);
-        ctx.fillStyle = '#ecfdf5';
-        ctx.fillRect(cx - 6, cy - 6, 12, 12);
-        
-        const plumeGrad = ctx.createLinearGradient(cx, cy + 6, cx, cy + 16);
-        plumeGrad.addColorStop(0, '#38bdf8');
-        plumeGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
-        ctx.fillStyle = plumeGrad;
-        ctx.beginPath();
-        ctx.moveTo(cx - 4, cy + 6);
-        ctx.lineTo(cx + 4, cy + 6);
-        ctx.lineTo(cx, cy + 16);
+        ctx.moveTo(cx - 14, cy - 22);
+        ctx.lineTo(cx - 24, cy - 34);
+        ctx.lineTo(cx - 6, cy - 34);
+        ctx.lineTo(cx, cy - 22);
         ctx.closePath();
         ctx.fill();
-    } else {
-        ctx.fillStyle = mission.color || '#e2e8f0';
-        ctx.fillRect(cx - 8, cy - 8, 16, 16);
+        ctx.stroke();
+
+        // 4. ハイゲインディッシュアンテナ
+        ctx.strokeStyle = '#f1f5f9';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(cx + 18, cy + 16, 7, 0, Math.PI);
+        ctx.stroke();
+    } else if (craftType === 'TIANGONG') {
+        // --- 中国宇宙ステーション天宮 (CSS) 忠実再現 ---
+        // 1. T字型コア＆実験モジュール
+        ctx.fillStyle = '#f8fafc';
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 1.8;
+        // 天和コアモジュール（垂直）
+        ctx.fillRect(cx - 8, cy - 24, 16, 48);
+        ctx.strokeRect(cx - 8, cy - 24, 16, 48);
+        // 問天・夢天モジュール（水平）
+        ctx.fillRect(cx - 32, cy - 7, 64, 14);
+        ctx.strokeRect(cx - 32, cy - 7, 64, 14);
+
+        // 2. 巨大ソーラーパネル（高彩度ブルー）
+        const drawTgWing = (x, y) => {
+            ctx.fillStyle = '#0284c7';
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 1.2;
+            ctx.fillRect(x, y, 22, 14);
+            ctx.strokeRect(x, y, 22, 14);
+        };
+        drawTgWing(cx - 58, cy - 7);
+        drawTgWing(cx + 36, cy - 7);
+    } else if (craftType === 'ROCKET') {
+        // --- ロケット上段 (Rocket Body) / 大型スペースデブリ 忠実再現 ---
+        // 1. 円筒形ロケットボディ（断熱白色＆チタン）
+        const rktGrad = ctx.createLinearGradient(cx - 12, cy, cx + 12, cy);
+        rktGrad.addColorStop(0, '#475569');
+        rktGrad.addColorStop(0.35, '#f8fafc');
+        rktGrad.addColorStop(0.8, '#cbd5e1');
+        rktGrad.addColorStop(1, '#334155');
+        ctx.fillStyle = rktGrad;
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 2;
+        ctx.fillRect(cx - 12, cy - 28, 24, 46);
+        ctx.strokeRect(cx - 12, cy - 28, 24, 46);
+
+        // ロケット識別ストライプ
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(cx - 12, cy - 14, 24, 5);
+
+        // 2. ロケットエンジンベルノズル（下部）
+        const nozGrad = ctx.createLinearGradient(cx - 8, cy + 18, cx + 8, cy + 32);
+        nozGrad.addColorStop(0, '#334155');
+        nozGrad.addColorStop(1, '#94a3b8');
+        ctx.fillStyle = nozGrad;
+        ctx.strokeStyle = '#f8fafc';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(cx - 7, cy + 18);
+        ctx.lineTo(cx - 13, cy + 32);
+        ctx.lineTo(cx + 13, cy + 32);
+        ctx.lineTo(cx + 7, cy + 18);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // 3. ノーズコーン / ペイロードアダプタ（上部）
+        ctx.fillStyle = '#64748b';
         ctx.strokeStyle = '#94a3b8';
+        ctx.beginPath();
+        ctx.moveTo(cx - 12, cy - 28);
+        ctx.lineTo(cx, cy - 36);
+        ctx.lineTo(cx + 12, cy - 28);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    } else {
+        // 一般人工衛星 / ロケット体
+        const pvGrad = ctx.createLinearGradient(cx - 50, cy, cx + 50, cy);
+        pvGrad.addColorStop(0, '#0284c7');
+        pvGrad.addColorStop(0.5, '#38bdf8');
+        pvGrad.addColorStop(1, '#0284c7');
+        ctx.fillStyle = pvGrad;
+        ctx.strokeStyle = '#7dd3fc';
+        ctx.lineWidth = 1.5;
+        ctx.fillRect(cx - 48, cy - 8, 28, 16);
+        ctx.strokeRect(cx - 48, cy - 8, 28, 16);
+        ctx.fillRect(cx + 20, cy - 8, 28, 16);
+        ctx.strokeRect(cx + 20, cy - 8, 28, 16);
+
+        ctx.fillStyle = '#fbbf24';
+        ctx.strokeStyle = '#d97706';
+        ctx.lineWidth = 2;
+        ctx.fillRect(cx - 12, cy - 12, 24, 24);
+        ctx.strokeRect(cx - 12, cy - 12, 24, 24);
+
+        ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(cx - 20, cy); ctx.lineTo(cx - 8, cy);
-        ctx.moveTo(cx + 8, cy); ctx.lineTo(cx + 20, cy);
+        ctx.arc(cx, cy - 16, 7, Math.PI, Math.PI * 2);
         ctx.stroke();
     }
     ctx.restore();
 
-    // 2.5 Precision Center Core Marker (Pinpoints exact position on 3D orbit line)
+    // 中央コアマーカー
     ctx.fillStyle = '#ffffff';
     ctx.beginPath();
-    ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+    ctx.arc(cx, cy, 3.5, 0, Math.PI * 2);
     ctx.fill();
 
-    // 3. Crisp Bold Label
-    ctx.font = 'bold 24px "Inter", "Segoe UI", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    ctx.strokeStyle = '#020617';
-    ctx.lineWidth = 5;
-    ctx.strokeText(mission.shortName, cx, 118);
-    ctx.fillStyle = mission.color || '#ffffff';
-    ctx.fillText(mission.shortName, cx, 118);
+    // 視認性の高いボールドラベル
+    if (labelText) {
+        ctx.font = 'bold 22px "Inter", "Segoe UI", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.strokeStyle = '#020617';
+        ctx.lineWidth = 4.5;
+        ctx.strokeText(labelText, cx, 142);
+        ctx.fillStyle = primaryColor || '#ffffff';
+        ctx.fillText(labelText, cx, 142);
+    }
 
     return canvas;
+}
+
+function createDeepSpaceBillboard(mission) {
+    let craftType = 'SATELLITE';
+    if (mission.id === 'VOYAGER1') craftType = 'VOYAGER';
+    else if (mission.id === 'VOYAGER2') craftType = 'VOYAGER2';
+    else if (mission.id === 'APOLLO11') craftType = 'APOLLO';
+    else if (mission.id === 'SPUTNIK1') craftType = 'SPUTNIK';
+    else if (mission.id === 'JWST') craftType = 'JWST';
+    else if (mission.id === 'ARTEMIS_ORION') craftType = 'ORION';
+    else if (mission.id === 'HAYABUSA2') craftType = 'VOYAGER';
+
+    return createFaithfulCraftCanvas(craftType, {
+        color: mission.color || '#38bdf8',
+        name: mission.shortName || mission.name
+    });
 }
 
 function computeDeepSpacePosition(mission, time) {
     if (!viewer) return Cesium.Cartesian3.ZERO;
 
-    // customSimTime（シミュレータの倍速クロック）を最優先し、100倍速・1000倍速と完全同期
     const simDate = customSimTime || (time ? Cesium.JulianDate.toDate(time) : new Date());
     const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || viewer.clock.currentTime);
     const d = (simDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0;
@@ -8954,7 +9658,6 @@ function computeDeepSpacePosition(mission, time) {
             antiSunDir = new Cesium.Cartesian3(1, 0, 0);
         }
 
-        // L2点の視覚的配置 (~80万km: 月の約2倍外側で、地球・月・L2ハローのパースペクティブを美しく両立)
         const L2_DIST = 800000000;
         const l2Center = Cesium.Cartesian3.multiplyByScalar(antiSunDir, L2_DIST, new Cesium.Cartesian3());
 
@@ -8964,8 +9667,7 @@ function computeDeepSpacePosition(mission, time) {
         const haloZ = Cesium.Cartesian3.cross(haloY, antiSunDir, new Cesium.Cartesian3());
         Cesium.Cartesian3.normalize(haloZ, haloZ);
 
-        // ハロー軌道の公転運動（100倍速で約2分で1周、金色の軌道ループ上を滑らかに公転する姿がはっきり目視可能）
-        const haloPeriodDays = 0.15; // ~3.6時間周期
+        const haloPeriodDays = 0.15;
         const theta = ((d % haloPeriodDays) / haloPeriodDays) * Math.PI * 2;
         const yOffset = Cesium.Cartesian3.multiplyByScalar(haloY, 180000000 * Math.cos(theta), new Cesium.Cartesian3());
         const zOffset = Cesium.Cartesian3.multiplyByScalar(haloZ, 110000000 * Math.sin(theta), new Cesium.Cartesian3());
@@ -8983,9 +9685,9 @@ function computeDeepSpacePosition(mission, time) {
         } catch(e) {}
         if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
 
-        const droPeriodDays = 0.12; // 100倍速で約1.7分で1周
+        const droPeriodDays = 0.12;
         const theta = ((d % droPeriodDays) / droPeriodDays) * Math.PI * 2;
-        const droRadius = 35000000; // 35,000 km
+        const droRadius = 35000000;
         
         const ox = droRadius * Math.cos(theta);
         const oy = droRadius * Math.sin(theta) * 0.7071;
@@ -9001,13 +9703,42 @@ function computeDeepSpacePosition(mission, time) {
         } catch(e) {}
         if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
 
-        const period = 0.08; // 月周回極軌道 (~1.9時間、100倍速で約1分で1周)
+        const period = 0.08;
         const theta = ((d % period) / period) * Math.PI * 2;
         const orbitR = 3500000;
         
         const ox = orbitR * Math.cos(theta);
         const oz = orbitR * Math.sin(theta);
         return Cesium.Cartesian3.add(moonPos, new Cesium.Cartesian3(ox, 0, oz), new Cesium.Cartesian3());
+    }
+
+    if (mission.id === 'APOLLO11') {
+        let moonPos;
+        try {
+            const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
+            moonPos = computeCelestialPosition(moonBody, effectiveTime);
+        } catch(e) {}
+        if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
+
+        const period = 0.083; // 2時間周期
+        const theta = ((d % period) / period) * Math.PI * 2;
+        const orbitR = 3800000; // 月球のすぐ外側の周回軌道
+        
+        const ox = orbitR * Math.cos(theta);
+        const oz = orbitR * Math.sin(theta);
+        return Cesium.Cartesian3.add(moonPos, new Cesium.Cartesian3(ox, 0, oz), new Cesium.Cartesian3());
+    }
+
+    if (mission.id === 'SPUTNIK1') {
+        const period = 0.0668; // ~96.2分周期
+        const theta = ((d % period) / period) * Math.PI * 2;
+        const incRad = 65.1 * Math.PI / 180;
+        const orbitR = 6948000 + 360000 * Math.cos(theta);
+        
+        const ox = orbitR * Math.cos(theta);
+        const oy = orbitR * Math.sin(theta) * Math.cos(incRad);
+        const oz = orbitR * Math.sin(theta) * Math.sin(incRad);
+        return new Cesium.Cartesian3(ox, oy, oz);
     }
 
     if (mission.id === 'MARS_PERSEVERANCE') {
@@ -9036,7 +9767,7 @@ function computeDeepSpacePosition(mission, time) {
         } catch(e) {}
         if (!marsPos) marsPos = new Cesium.Cartesian3(2000000000, 0, 0);
 
-        const period = 0.08; // 火星極軌道 (~1.9時間、100倍速で約1分で1周)
+        const period = 0.08;
         const theta = ((d % period) / period) * Math.PI * 2;
         const orbitR = 5500000;
         
@@ -9056,9 +9787,44 @@ function computeDeepSpacePosition(mission, time) {
     }
 
     if (mission.id === 'VOYAGER1') {
-        const dist = 2500000000;
+        const jsDate = customSimTime || (effectiveTime ? Cesium.JulianDate.toDate(effectiveTime) : new Date());
+        if (jsDate.getUTCFullYear() <= 1980) {
+            let jupPos;
+            try {
+                const jupiterBody = CELESTIAL_BODIES.find(b => b.id === 'JUPITER');
+                jupPos = computeCelestialPosition(jupiterBody, effectiveTime);
+            } catch(e) {}
+            if (jupPos) {
+                const offset = new Cesium.Cartesian3(350000000 * 0.75, -350000000 * 0.55, 350000000 * 0.25);
+                return Cesium.Cartesian3.add(jupPos, offset, new Cesium.Cartesian3());
+            }
+        }
+        const dist = 24500000000;
         const raRad = (17.22 / 24) * Math.PI * 2;
         const decRad = 12.0 * Math.PI / 180;
+        return new Cesium.Cartesian3(
+            dist * Math.cos(decRad) * Math.cos(raRad),
+            dist * Math.cos(decRad) * Math.sin(raRad),
+            dist * Math.sin(decRad)
+        );
+    }
+
+    if (mission.id === 'VOYAGER2') {
+        const jsDate = customSimTime || (effectiveTime ? Cesium.JulianDate.toDate(effectiveTime) : new Date());
+        if (jsDate.getUTCFullYear() <= 1990) {
+            let nepPos;
+            try {
+                const neptuneBody = CELESTIAL_BODIES.find(b => b.id === 'NEPTUNE');
+                nepPos = computeCelestialPosition(neptuneBody, effectiveTime);
+            } catch(e) {}
+            if (nepPos) {
+                const offset = new Cesium.Cartesian3(18000000, -22000000, 32000000);
+                return Cesium.Cartesian3.add(nepPos, offset, new Cesium.Cartesian3());
+            }
+        }
+        const dist = 20500000000;
+        const raRad = (20.0 / 24) * Math.PI * 2;
+        const decRad = -56.0 * Math.PI / 180;
         return new Cesium.Cartesian3(
             dist * Math.cos(decRad) * Math.cos(raRad),
             dist * Math.cos(decRad) * Math.sin(raRad),
@@ -9076,7 +9842,6 @@ function drawDeepSpaceOrbit(mission) {
         deepSpaceOrbitEntity = null;
     }
 
-    // 閉じた美しい滑らかな3Dループ軌道（自転による螺旋バネを完全解消）
     deepSpaceOrbitEntity = viewer.entities.add({
         id: `orbit_deepspace_${mission.id}`,
         name: `${mission.shortName} Orbit Loop`,
@@ -9085,7 +9850,7 @@ function drawDeepSpaceOrbit(mission) {
                 const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || (viewer && viewer.clock.currentTime));
                 if (!effectiveTime) return [];
                 const pts = [];
-                const sampleCount = 90;
+                const sampleCount = 120;
 
                 if (mission.id === 'JWST') {
                     let sunPos;
@@ -9150,6 +9915,41 @@ function drawDeepSpaceOrbit(mission) {
                         const oz = orbitR * Math.sin(th);
                         pts.push(Cesium.Cartesian3.add(moonPos, new Cesium.Cartesian3(ox, 0, oz), new Cesium.Cartesian3()));
                     }
+                } else if (mission.id === 'APOLLO11') {
+                    let moonPos;
+                    try {
+                        const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
+                        moonPos = computeCelestialPosition(moonBody, effectiveTime);
+                    } catch(e) {}
+                    if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
+
+                    // 1. 地球から月への自由帰還遷移軌道 (Trans-Lunar Injection: 8の字ループ)
+                    for (let i = 0; i <= sampleCount; i++) {
+                        const u = i / sampleCount; // 0 (地球) -> 1 (月)
+                        const px = moonPos.x * u;
+                        const py = moonPos.y * u + 42000000 * Math.sin(u * Math.PI);
+                        const pz = moonPos.z * u + 18000000 * Math.sin(u * Math.PI * 2);
+                        pts.push(new Cesium.Cartesian3(px, py, pz));
+                    }
+                    // 2. 月周回低軌道 (高度111km、半径約1850km)
+                    const orbitR = 1850000;
+                    for (let i = 0; i <= sampleCount; i++) {
+                        const th = (i / sampleCount) * Math.PI * 2;
+                        const ox = orbitR * Math.cos(th);
+                        const oz = orbitR * Math.sin(th);
+                        pts.push(Cesium.Cartesian3.add(moonPos, new Cesium.Cartesian3(ox, 0, oz), new Cesium.Cartesian3()));
+                    }
+                } else if (mission.id === 'SPUTNIK1') {
+                    // スプートニク1号 (近地点215km, 遠地点939km, 軌道傾斜角65.1度)
+                    const incRad = 65.1 * Math.PI / 180;
+                    for (let i = 0; i <= sampleCount; i++) {
+                        const th = (i / sampleCount) * Math.PI * 2;
+                        const orbitR = 6948000 + 360000 * Math.cos(th);
+                        const ox = orbitR * Math.cos(th);
+                        const oy = orbitR * Math.sin(th) * Math.cos(incRad);
+                        const oz = orbitR * Math.sin(th) * Math.sin(incRad);
+                        pts.push(new Cesium.Cartesian3(ox, oy, oz));
+                    }
                 } else if (mission.id === 'MARS_MRO') {
                     let marsPos;
                     try {
@@ -9165,14 +9965,87 @@ function drawDeepSpaceOrbit(mission) {
                         const oz = orbitR * Math.sin(th);
                         pts.push(Cesium.Cartesian3.add(marsPos, new Cesium.Cartesian3(0, oy, oz), new Cesium.Cartesian3()));
                     }
+                } else if (mission.id === 'VOYAGER1') {
+                    let jupPos;
+                    try {
+                        const jBody = CELESTIAL_BODIES.find(b => b.id === 'JUPITER');
+                        jupPos = computeCelestialPosition(jBody, effectiveTime);
+                    } catch(e) {}
+                    if (!jupPos) jupPos = new Cesium.Cartesian3(778000000000, 0, 0);
+
+                    // 木星最接近スイングバイ (~35万km) と、太陽系横断・脱出軌道 (~2.8兆m / ~19 AU) の融合連続軌道
+                    // ズームインでも木星の真横の急カーブが見え、ズームアウトしても画面いっぱいに広がり絶対に見失わない！
+                    const v1Count = 180;
+                    for (let i = -v1Count; i <= v1Count; i++) {
+                        const s = i / v1Count; // -1.0 (進入遠景) ~ 0 (近木点) ~ +1.0 (脱出星間空間)
+                        const sign = s < 0 ? -1 : 1;
+                        const t = sign * Math.pow(Math.abs(s), 2.2) * 4.2;
+
+                        // 木星重力圏内スイングバイ双曲線成分
+                        const localX = 350000000 * Math.cosh(t * 0.85) - 220000000;
+                        const localY = 480000000 * Math.sinh(t * 0.85);
+                        const localZ = 220000000 * Math.sinh(t * 0.85);
+
+                        // 太陽系進入・脱出漸近線成分（数百〜数千万kmスケール：ズームアウトしても消えず、カリングされない最適スパン）
+                        const asympDist = sign * Math.pow(Math.abs(s), 2.0) * 1.5e10;
+                        const dirX = s < 0 ? -0.85 : 0.45;
+                        const dirY = s < 0 ? -0.52 : 0.62;
+                        const dirZ = s < 0 ? 0.05 : 0.64; // 北方+35度へ脱出
+
+                        const hx = localX + dirX * Math.abs(asympDist);
+                        const hy = localY + dirY * asympDist;
+                        const hz = localZ + dirZ * asympDist;
+                        pts.push(Cesium.Cartesian3.add(jupPos, new Cesium.Cartesian3(hx, hy, hz), new Cesium.Cartesian3()));
+                    }
+                } else if (mission.id === 'VOYAGER2') {
+                    let nepPos;
+                    try {
+                        const nBody = CELESTIAL_BODIES.find(b => b.id === 'NEPTUNE');
+                        nepPos = computeCelestialPosition(nBody, effectiveTime);
+                    } catch(e) {}
+                    if (!nepPos) nepPos = new Cesium.Cartesian3(4500000000000, 0, 0);
+
+                    // 海王星最接近スイングバイ (~3万km) と、太陽系脱出南方軌道 (~2500万km) の融合連続軌道
+                    const v2Count = 180;
+                    for (let i = -v2Count; i <= v2Count; i++) {
+                        const s = i / v2Count;
+                        const sign = s < 0 ? -1 : 1;
+                        const t = sign * Math.pow(Math.abs(s), 2.2) * 4.2;
+
+                        const localX = 28000000 * Math.cosh(t * 0.85) - 18000000;
+                        const localY = 38000000 * Math.sinh(t * 0.85);
+                        const localZ = -48000000 * Math.sinh(t * 0.85);
+
+                        const asympDist = sign * Math.pow(Math.abs(s), 2.0) * 2.5e10;
+                        const dirX = s < 0 ? -0.75 : 0.35;
+                        const dirY = s < 0 ? -0.65 : 0.45;
+                        const dirZ = s < 0 ? -0.08 : -0.82; // 南方-55度へ脱出
+
+                        const hx = localX + dirX * Math.abs(asympDist);
+                        const hy = localY + dirY * asympDist;
+                        const hz = localZ + dirZ * asympDist;
+                        pts.push(Cesium.Cartesian3.add(nepPos, new Cesium.Cartesian3(hx, hy, hz), new Cesium.Cartesian3()));
+                    }
+                } else if (mission.id === 'HAYABUSA2') {
+                    for (let i = 0; i <= sampleCount; i++) {
+                        const th = (i / sampleCount) * Math.PI * 2;
+                        const dist = 1200000000;
+                        pts.push(new Cesium.Cartesian3(
+                            dist * Math.cos(th),
+                            dist * Math.sin(th) * 0.9,
+                            dist * Math.sin(th) * 0.15
+                        ));
+                    }
                 }
                 return pts;
             }, false),
-            width: 3.5,
+            width: 6.0,
+            arcType: Cesium.ArcType.NONE,
             material: new Cesium.PolylineGlowMaterialProperty({
-                glowPower: 0.35,
+                glowPower: 0.52,
                 color: Cesium.Color.fromCssColorString(mission.color || '#f59e0b')
-            })
+            }),
+            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
         }
     });
 }
@@ -9411,12 +10284,13 @@ function drawAllPlanetaryOrbits() {
             name: p.id + ' Orbit',
             polyline: {
                 positions: pts,
-                width: isGasGiant ? 2.8 : (isComet ? 2.2 : 2.0),
+                width: isGasGiant ? 5.5 : (isComet ? 4.8 : 4.0),
                 arcType: Cesium.ArcType.NONE,
                 material: new Cesium.PolylineGlowMaterialProperty({
-                    glowPower: isGasGiant ? 0.32 : (isComet ? 0.35 : 0.22),
-                    color: Cesium.Color.fromCssColorString(p.color).withAlpha(isComet ? 0.85 : 0.65)
-                })
+                    glowPower: 0.48,
+                    color: Cesium.Color.fromCssColorString(p.color).withAlpha(0.98)
+                }),
+                distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
             }
         });
         solarSystemOrbitEntities.push(orbEnt);
@@ -9490,6 +10364,126 @@ function drawAllPlanetaryOrbits() {
             solarSystemOrbitEntities.push(tailEnt);
         }
     });
+
+    // 3. ボイジャー1号＆2号の太陽系脱出ハイパーボリック軌道線と現在位置マーカー（Orrery View）
+    const v1Names = { ja: '🛸 ボイジャー1号 (Voyager 1)', en: '🛸 Voyager 1', de: '🛸 Voyager 1', fr: '🛸 Voyager 1', es: '🛸 Voyager 1', pt: '🛸 Voyager 1', it: '🛸 Voyager 1', ko: '🛸 보이저 1호 (Voyager 1)', nl: '🛸 Voyager 1', id: '🛸 Voyager 1', hi: '🛸 वॉयेजर 1', ar: '🛸 فوياجر 1', zh: '🛸 旅行者1号 (Voyager 1)', ru: '🛸 Вояджер-1' };
+    const v2Names = { ja: '🛸 ボイジャー2号 (Voyager 2)', en: '🛸 Voyager 2', de: '🛸 Voyager 2', fr: '🛸 Voyager 2', es: '🛸 Voyager 2', pt: '🛸 Voyager 2', it: '🛸 Voyager 2', ko: '🛸 보이저 2호 (Voyager 2)', nl: '🛸 Voyager 2', id: '🛸 Voyager 2', hi: '🛸 वॉयेजर 2', ar: '🛸 فوياجر 2', zh: '🛸 旅行者2号 (Voyager 2)', ru: '🛸 Вояджер-2' };
+
+    // ボイジャー1号：地球(1AU) -> 木星スイングバイ(5.2AU) -> 土星(9.5AU) -> 太陽系外脱出(北方+35度)
+    const ptsVoyager1 = [];
+    const v1Steps = 150;
+    for (let i = 0; i <= v1Steps; i++) {
+        const u = i / v1Steps; // 0.0 ~ 1.0
+        const au = 1.0 + Math.pow(u, 1.8) * 45.0; // 1AU ~ 46AU
+        const r = getOrreryRadius(au);
+        const theta = 0.8 + u * 2.2;
+        const zRatio = u < 0.25 ? 0 : Math.sin((u - 0.25) * 1.5) * 0.58; // 木星通過後に北方+35度へ跳ね上がる
+        ptsVoyager1.push(new Cesium.Cartesian3(
+            r * Math.cos(theta),
+            r * Math.sin(theta) * 0.92,
+            r * zRatio
+        ));
+    }
+    const v1OrbitEnt = viewer.entities.add({
+        id: 'orrery_orbit_VOYAGER1',
+        name: 'Voyager 1 Escape Trajectory',
+        polyline: {
+            positions: ptsVoyager1,
+            width: 5.0,
+            arcType: Cesium.ArcType.NONE,
+            material: new Cesium.PolylineGlowMaterialProperty({
+                glowPower: 0.52,
+                color: Cesium.Color.fromCssColorString('#c084fc')
+            }),
+            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
+        }
+    });
+    solarSystemOrbitEntities.push(v1OrbitEnt);
+
+    // ボイジャー1号のマーカー
+    const v1MarkerPos = ptsVoyager1[Math.min(v1Steps, Math.floor(v1Steps * 0.65))];
+    const v1MarkerEnt = viewer.entities.add({
+        id: 'orrery_craft_VOYAGER1',
+        name: 'Voyager 1',
+        position: v1MarkerPos,
+        point: {
+            pixelSize: 18,
+            color: Cesium.Color.fromCssColorString('#c084fc'),
+            outlineColor: Cesium.Color.WHITE,
+            outlineWidth: 2.5,
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+        },
+        label: {
+            text: v1Names[lang] || v1Names['en'],
+            font: 'bold 13px "Inter", "Segoe UI", sans-serif',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            fillColor: Cesium.Color.fromCssColorString('#e879f9'),
+            outlineColor: Cesium.Color.BLACK,
+            outlineWidth: 3.5,
+            verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+            pixelOffset: new Cesium.Cartesian2(0, -18),
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+        }
+    });
+    solarSystemOrbitEntities.push(v1MarkerEnt);
+
+    // ボイジャー2号：地球(1AU) -> 木星 -> 土星 -> 天王星 -> 海王星スイングバイ(30AU) -> 太陽系外脱出(南方-55度)
+    const ptsVoyager2 = [];
+    const v2Steps = 150;
+    for (let i = 0; i <= v2Steps; i++) {
+        const u = i / v2Steps;
+        const au = 1.0 + Math.pow(u, 1.7) * 44.0;
+        const r = getOrreryRadius(au);
+        const theta = 0.5 + u * 3.4;
+        const zRatio = u < 0.65 ? 0 : -Math.sin((u - 0.65) * 2.2) * 0.72; // 海王星通過後に南方-55度へ急降下
+        ptsVoyager2.push(new Cesium.Cartesian3(
+            r * Math.cos(theta),
+            r * Math.sin(theta) * 0.88,
+            r * zRatio
+        ));
+    }
+    const v2OrbitEnt = viewer.entities.add({
+        id: 'orrery_orbit_VOYAGER2',
+        name: 'Voyager 2 Escape Trajectory',
+        polyline: {
+            positions: ptsVoyager2,
+            width: 5.0,
+            arcType: Cesium.ArcType.NONE,
+            material: new Cesium.PolylineGlowMaterialProperty({
+                glowPower: 0.52,
+                color: Cesium.Color.fromCssColorString('#22d3ee')
+            }),
+            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
+        }
+    });
+    solarSystemOrbitEntities.push(v2OrbitEnt);
+
+    // ボイジャー2号のマーカー
+    const v2MarkerPos = ptsVoyager2[Math.min(v2Steps, Math.floor(v2Steps * 0.68))];
+    const v2MarkerEnt = viewer.entities.add({
+        id: 'orrery_craft_VOYAGER2',
+        name: 'Voyager 2',
+        position: v2MarkerPos,
+        point: {
+            pixelSize: 18,
+            color: Cesium.Color.fromCssColorString('#22d3ee'),
+            outlineColor: Cesium.Color.WHITE,
+            outlineWidth: 2.5,
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+        },
+        label: {
+            text: v2Names[lang] || v2Names['en'],
+            font: 'bold 13px "Inter", "Segoe UI", sans-serif',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            fillColor: Cesium.Color.fromCssColorString('#38bdf8'),
+            outlineColor: Cesium.Color.BLACK,
+            outlineWidth: 3.5,
+            verticalOrigin: Cesium.VerticalOrigin.TOP,
+            pixelOffset: new Cesium.Cartesian2(0, 18),
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+        }
+    });
+    solarSystemOrbitEntities.push(v2MarkerEnt);
 }
 
 /**
@@ -9697,6 +10691,14 @@ function selectDeepSpaceMission(missionId, skipFly = false) {
     selectedCelestialId = null;
     selectedDeepSpaceId = missionId;
 
+    if (satSelect) {
+        const optExists = Array.from(satSelect.options).some(opt => opt.value === `deepspace_${mission.id}`);
+        if (!optExists) {
+            updateDropdownOptions();
+        }
+        satSelect.value = `deepspace_${mission.id}`;
+    }
+
     clearAllPlanetaryOrbits();
     if (orbitPolylineEntity) {
         viewer.entities.remove(orbitPolylineEntity);
@@ -9708,15 +10710,26 @@ function selectDeepSpaceMission(missionId, skipFly = false) {
     }
     drawDeepSpaceOrbit(mission);
 
-    // Add Glowing Target Ring Marker for selected deep space mission
+    // Add Glowing Target Ring Marker & Faithful Emissive Craft Billboard for selected deep space mission
     if (targetHighlightEntity) {
         viewer.entities.remove(targetHighlightEntity);
     }
+    const missionBillboardCanvas = createDeepSpaceBillboard(mission);
     targetHighlightEntity = viewer.entities.add({
         position: new Cesium.CallbackProperty((time) => {
             const effTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || (viewer && viewer.clock.currentTime));
             return computeDeepSpacePosition(mission, effTime) || Cesium.Cartesian3.ZERO;
         }, false),
+        billboard: {
+            image: missionBillboardCanvas,
+            width: 140,
+            height: 70,
+            verticalOrigin: Cesium.VerticalOrigin.CENTER,
+            horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+            pixelOffset: Cesium.Cartesian2.ZERO,
+            scaleByDistance: new Cesium.NearFarScalar(1.0e3, 1.4, 5.0e10, 0.85),
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+        },
         point: {
             pixelSize: 36,
             color: Cesium.Color.fromCssColorString(mission.color || '#ff0055').withAlpha(0.35),
@@ -9899,7 +10912,7 @@ function selectDeepSpaceMission(missionId, skipFly = false) {
 
 function loadDeepSpaceMissionsPreset() {
     if (sourceStatusBadge) {
-        sourceStatusBadge.textContent = '🔭 深宇宙・月/火星探査機 (7機)';
+        sourceStatusBadge.textContent = '🔭 深宇宙・月/火星探査機 (8機)';
         sourceStatusBadge.style.borderColor = 'rgba(245, 158, 11, 0.6)';
         sourceStatusBadge.style.color = '#fbbf24';
     }
@@ -9907,9 +10920,14 @@ function loadDeepSpaceMissionsPreset() {
     const toggleDeepSpace = document.getElementById('toggleDeepSpace');
     if (toggleDeepSpace && !toggleDeepSpace.checked) {
         toggleDeepSpace.checked = true;
+    }
+    if (viewer) {
+        const time = viewer.clock.currentTime;
         deepSpaceEntities.forEach(ent => {
-            if (ent.billboard) ent.billboard.show = true;
-            ent.show = true;
+            const m = ent.deepSpaceData;
+            const isAct = m ? isDeepSpaceMissionActive(m, time) : true;
+            if (ent.billboard) ent.billboard.show = isAct;
+            ent.show = isAct;
         });
     }
 
@@ -10536,11 +11554,15 @@ function updateDropdownOptions() {
 
     if (typeof DEEP_SPACE_MISSIONS !== 'undefined' && Array.isArray(DEEP_SPACE_MISSIONS)) {
         DEEP_SPACE_MISSIONS.forEach(m => {
-            const opt = document.createElement('option');
-            opt.value = `deepspace_${m.id}`;
-            const nameMap = deepSpaceNames[m.id];
-            opt.textContent = (nameMap && (nameMap[lang] || nameMap['en'])) || `${m.symbol} ${m.name}`;
-            deepSpaceGroup.appendChild(opt);
+            // 現在時刻では現役探査機のみ表示。歴史的ミッションはタイムトラベル時または選択中のみ追加
+            const isHistoricalActive = isDeepSpaceMissionActive(m, viewer ? viewer.clock.currentTime : null);
+            if (!m.isHistoricOnly || isHistoricalActive || selectedDeepSpaceId === m.id) {
+                const opt = document.createElement('option');
+                opt.value = `deepspace_${m.id}`;
+                const nameMap = deepSpaceNames[m.id];
+                opt.textContent = (nameMap && (nameMap[lang] || nameMap['en'])) || `${m.symbol} ${m.name}`;
+                deepSpaceGroup.appendChild(opt);
+            }
         });
         satSelect.appendChild(deepSpaceGroup);
     }
@@ -11469,16 +12491,43 @@ function selectSatellite(index) {
         sat.domLabel.style.display = 'block';
     }
 
-    // Add Glowing Target Ring Marker
+    // Add Faithful Emissive Craft Billboard & Glowing Target Ring Marker
     if (targetHighlightEntity) {
         viewer.entities.remove(targetHighlightEntity);
     }
+    let satCraftType = 'SATELLITE';
+    const sNameUpper = (sat.name || '').toUpperCase();
+    if (sNameUpper.includes('ISS') || sat.noradId === '25544') {
+        satCraftType = 'ISS';
+    } else if (sNameUpper.includes('HST') || sNameUpper.includes('HUBBLE')) {
+        satCraftType = 'HST';
+    } else if (sNameUpper.includes('TIANGONG') || sNameUpper.includes('CSS') || sNameUpper.includes('TIANHE')) {
+        satCraftType = 'TIANGONG';
+    } else if (isDebris || sNameUpper.includes('R/B') || sNameUpper.includes('ROCKET') || sNameUpper.includes('DEBRIS')) {
+        satCraftType = 'ROCKET';
+    }
+
+    const craftCanvas = createFaithfulCraftCanvas(satCraftType, {
+        color: isDebris ? '#c084fc' : (satCraftType === 'ISS' ? '#38bdf8' : '#00f3ff'),
+        name: sat.name
+    });
+
     targetHighlightEntity = viewer.entities.add({
         position: new Cesium.CallbackProperty(() => sat.currentCartesian || Cesium.Cartesian3.ZERO, false),
+        billboard: {
+            image: craftCanvas,
+            width: 140,
+            height: 70,
+            verticalOrigin: Cesium.VerticalOrigin.CENTER,
+            horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+            pixelOffset: Cesium.Cartesian2.ZERO,
+            scaleByDistance: new Cesium.NearFarScalar(1.0e3, 1.35, 3.0e7, 0.70),
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+        },
         point: {
             pixelSize: 32,
-            color: Cesium.Color.fromCssColorString('#ff0055').withAlpha(0.3),
-            outlineColor: Cesium.Color.fromCssColorString('#ff0055'),
+            color: Cesium.Color.fromCssColorString(isDebris ? '#c084fc' : '#ff0055').withAlpha(0.28),
+            outlineColor: Cesium.Color.fromCssColorString(isDebris ? '#e879f9' : '#ff0055'),
             outlineWidth: 3,
             disableDepthTestDistance: Number.POSITIVE_INFINITY
         }
