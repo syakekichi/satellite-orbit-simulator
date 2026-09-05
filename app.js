@@ -6509,9 +6509,9 @@ function createDeepSpaceEntities() {
             }, false),
             billboard: {
                 image: billboardCanvas,
-                width: 80,
-                height: 40,
-                verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                width: 90,
+                height: 45,
+                verticalOrigin: Cesium.VerticalOrigin.CENTER,
                 horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
                 pixelOffset: Cesium.Cartesian2.ZERO,
                 show: isVisible,
@@ -6531,7 +6531,7 @@ function createDeepSpaceBillboard(mission) {
     ctx.clearRect(0, 0, 320, 160);
 
     const cx = 160;
-    const cy = 48;
+    const cy = 80; // 幾何学的中心に配置し、軌道線の3D座標と1ピクセルの狂いもなく完全一致させる
 
     // 1. Soft Outer Glow
     const glowGrad = ctx.createRadialGradient(cx, cy, 4, cx, cy, 38);
@@ -6685,30 +6685,38 @@ function createDeepSpaceBillboard(mission) {
     }
     ctx.restore();
 
+    // 2.5 Precision Center Core Marker (Pinpoints exact position on 3D orbit line)
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+    ctx.fill();
+
     // 3. Crisp Bold Label
-    ctx.font = 'bold 26px "Inter", "Segoe UI", sans-serif';
+    ctx.font = 'bold 24px "Inter", "Segoe UI", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
     ctx.strokeStyle = '#020617';
     ctx.lineWidth = 5;
-    ctx.strokeText(mission.shortName, cx, 86);
+    ctx.strokeText(mission.shortName, cx, 118);
     ctx.fillStyle = mission.color || '#ffffff';
-    ctx.fillText(mission.shortName, cx, 86);
+    ctx.fillText(mission.shortName, cx, 118);
 
     return canvas;
 }
 
 function computeDeepSpacePosition(mission, time) {
-    if (!viewer || !time) return Cesium.Cartesian3.ZERO;
+    if (!viewer) return Cesium.Cartesian3.ZERO;
 
-    const jsDate = Cesium.JulianDate.toDate(time);
-    const d = (jsDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0;
+    // customSimTime（シミュレータの倍速クロック）を最優先し、100倍速・1000倍速と完全同期
+    const simDate = customSimTime || (time ? Cesium.JulianDate.toDate(time) : new Date());
+    const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || viewer.clock.currentTime);
+    const d = (simDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0;
 
     if (mission.id === 'JWST') {
         let sunPos;
         try {
             const sunBody = CELESTIAL_BODIES.find(b => b.id === 'SUN');
-            sunPos = computeCelestialPosition(sunBody, time);
+            sunPos = computeCelestialPosition(sunBody, effectiveTime);
         } catch(e) {}
         
         let antiSunDir;
@@ -6729,8 +6737,8 @@ function computeDeepSpacePosition(mission, time) {
         const haloZ = Cesium.Cartesian3.cross(haloY, antiSunDir, new Cesium.Cartesian3());
         Cesium.Cartesian3.normalize(haloZ, haloZ);
 
-        // ハロー軌道の視覚的公転運動 (倍速や時間の進行に伴い、金のハロー軌道上を滑らかに周回飛行)
-        const haloPeriodDays = 8.0; // 画面上で動きが実感できるダイナミック周期
+        // ハロー軌道の公転運動（100倍速で約2分で1周、金色の軌道ループ上を滑らかに公転する姿がはっきり目視可能）
+        const haloPeriodDays = 0.15; // ~3.6時間周期
         const theta = ((d % haloPeriodDays) / haloPeriodDays) * Math.PI * 2;
         const yOffset = Cesium.Cartesian3.multiplyByScalar(haloY, 180000000 * Math.cos(theta), new Cesium.Cartesian3());
         const zOffset = Cesium.Cartesian3.multiplyByScalar(haloZ, 110000000 * Math.sin(theta), new Cesium.Cartesian3());
@@ -6744,11 +6752,11 @@ function computeDeepSpacePosition(mission, time) {
         let moonPos;
         try {
             const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
-            moonPos = computeCelestialPosition(moonBody, time);
+            moonPos = computeCelestialPosition(moonBody, effectiveTime);
         } catch(e) {}
         if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
 
-        const droPeriodDays = 5.0;
+        const droPeriodDays = 0.12; // 100倍速で約1.7分で1周
         const theta = ((d % droPeriodDays) / droPeriodDays) * Math.PI * 2;
         const droRadius = 35000000; // 35,000 km
         
@@ -6762,11 +6770,11 @@ function computeDeepSpacePosition(mission, time) {
         let moonPos;
         try {
             const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
-            moonPos = computeCelestialPosition(moonBody, time);
+            moonPos = computeCelestialPosition(moonBody, effectiveTime);
         } catch(e) {}
         if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
 
-        const period = 0.3; // 月周回極軌道
+        const period = 0.08; // 月周回極軌道 (~1.9時間、100倍速で約1分で1周)
         const theta = ((d % period) / period) * Math.PI * 2;
         const orbitR = 3500000;
         
@@ -6779,7 +6787,7 @@ function computeDeepSpacePosition(mission, time) {
         let marsPos;
         try {
             const marsBody = CELESTIAL_BODIES.find(b => b.id === 'MARS');
-            marsPos = computeCelestialPosition(marsBody, time);
+            marsPos = computeCelestialPosition(marsBody, effectiveTime);
         } catch(e) {}
         if (!marsPos) marsPos = new Cesium.Cartesian3(2000000000, 0, 0);
 
@@ -6797,11 +6805,11 @@ function computeDeepSpacePosition(mission, time) {
         let marsPos;
         try {
             const marsBody = CELESTIAL_BODIES.find(b => b.id === 'MARS');
-            marsPos = computeCelestialPosition(marsBody, time);
+            marsPos = computeCelestialPosition(marsBody, effectiveTime);
         } catch(e) {}
         if (!marsPos) marsPos = new Cesium.Cartesian3(2000000000, 0, 0);
 
-        const period = 0.4;
+        const period = 0.08; // 火星極軌道 (~1.9時間、100倍速で約1分で1周)
         const theta = ((d % period) / period) * Math.PI * 2;
         const orbitR = 5500000;
         
@@ -6847,7 +6855,8 @@ function drawDeepSpaceOrbit(mission) {
         name: `${mission.shortName} Orbit Loop`,
         polyline: {
             positions: new Cesium.CallbackProperty((time) => {
-                if (!time) return [];
+                const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || (viewer && viewer.clock.currentTime));
+                if (!effectiveTime) return [];
                 const pts = [];
                 const sampleCount = 90;
 
@@ -6855,7 +6864,7 @@ function drawDeepSpaceOrbit(mission) {
                     let sunPos;
                     try {
                         const sunBody = CELESTIAL_BODIES.find(b => b.id === 'SUN');
-                        sunPos = computeCelestialPosition(sunBody, time);
+                        sunPos = computeCelestialPosition(sunBody, effectiveTime);
                     } catch(e) {}
 
                     let antiSunDir;
@@ -6887,7 +6896,7 @@ function drawDeepSpaceOrbit(mission) {
                     let moonPos;
                     try {
                         const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
-                        moonPos = computeCelestialPosition(moonBody, time);
+                        moonPos = computeCelestialPosition(moonBody, effectiveTime);
                     } catch(e) {}
                     if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
 
@@ -6903,7 +6912,7 @@ function drawDeepSpaceOrbit(mission) {
                     let moonPos;
                     try {
                         const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
-                        moonPos = computeCelestialPosition(moonBody, time);
+                        moonPos = computeCelestialPosition(moonBody, effectiveTime);
                     } catch(e) {}
                     if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
 
@@ -6918,7 +6927,7 @@ function drawDeepSpaceOrbit(mission) {
                     let marsPos;
                     try {
                         const marsBody = CELESTIAL_BODIES.find(b => b.id === 'MARS');
-                        marsPos = computeCelestialPosition(marsBody, time);
+                        marsPos = computeCelestialPosition(marsBody, effectiveTime);
                     } catch(e) {}
                     if (!marsPos) marsPos = new Cesium.Cartesian3(2000000000, 0, 0);
 
@@ -8302,6 +8311,12 @@ function onClockTick(clock) {
         if (timeSpeedMultiplier > 0) {
             customSimTime = new Date(customSimTime.getTime() + deltaMs * timeSpeedMultiplier);
         }
+    }
+
+    // Cesium の内部クロック currentTime をカスタムシミュレーション時刻と完全同期
+    // これにより深宇宙探査機・惑星・天体の CallbackProperty も倍速（100x, 1000x）と連動して高速公転する
+    if (viewer && customSimTime) {
+        viewer.clock.currentTime = Cesium.JulianDate.fromDate(customSimTime);
     }
 
     statTime.textContent = formatSimTime(customSimTime);
