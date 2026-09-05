@@ -6490,6 +6490,101 @@ function initDeepSpaceMissions() {
     createDeepSpaceEntities();
 }
 
+/**
+ * 各深宇宙探査機の軌道中心（L2点、月中心、火星中心など）の3D座標を算出
+ */
+function computeDeepSpaceOrbitCenter(mission, time) {
+    if (!viewer || !mission) return Cesium.Cartesian3.ZERO;
+    const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || (viewer && viewer.clock.currentTime));
+
+    if (mission.id === 'JWST') {
+        let sunPos;
+        try {
+            const sunBody = CELESTIAL_BODIES.find(b => b.id === 'SUN');
+            sunPos = computeCelestialPosition(sunBody, effectiveTime);
+        } catch(e) {}
+        
+        let antiSunDir;
+        if (sunPos && Cesium.Cartesian3.magnitude(sunPos) > 1000) {
+            const sunDir = Cesium.Cartesian3.normalize(sunPos, new Cesium.Cartesian3());
+            antiSunDir = Cesium.Cartesian3.negate(sunDir, new Cesium.Cartesian3());
+        } else {
+            antiSunDir = new Cesium.Cartesian3(1, 0, 0);
+        }
+
+        const L2_DIST = 800000000;
+        return Cesium.Cartesian3.multiplyByScalar(antiSunDir, L2_DIST, new Cesium.Cartesian3());
+    }
+
+    if (mission.id === 'ARTEMIS_ORION' || mission.id === 'LRO') {
+        let moonPos;
+        try {
+            const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
+            moonPos = computeCelestialPosition(moonBody, effectiveTime);
+        } catch(e) {}
+        return moonPos || new Cesium.Cartesian3(384400000, 0, 0);
+    }
+
+    if (mission.id === 'MARS_PERSEVERANCE' || mission.id === 'MARS_MRO') {
+        let marsPos;
+        try {
+            const marsBody = CELESTIAL_BODIES.find(b => b.id === 'MARS');
+            marsPos = computeCelestialPosition(marsBody, effectiveTime);
+        } catch(e) {}
+        return marsPos || new Cesium.Cartesian3(2000000000, 0, 0);
+    }
+
+    return Cesium.Cartesian3.ZERO;
+}
+
+/**
+ * 軌道全体の楕円ループが画面に美しく収まる局所座標（ENU: East-North-Up）オフセットベクトル
+ */
+function getDeepSpaceOrbitOverviewOffset(mission) {
+    if (!mission) return new Cesium.Cartesian3(0, -300000000, 400000000);
+
+    if (mission.id === 'JWST') {
+        // ハロー軌道（長径36万km、短径22万km）の楕円ループ全体が画面中央にどっしり美しく収まるアングル
+        // 地球側（Z < 0）斜め手前南側（Y < 0）から見上げる/見下ろす最適距離 (~65万km)
+        const dist = 650000000;
+        return new Cesium.Cartesian3(0, -dist * 0.55, -dist * 0.75);
+    }
+    if (mission.id === 'ARTEMIS_ORION') {
+        // 月DRO軌道（直径7万km）全体と月を見渡す距離 (~13万km)
+        const dist = 130000000;
+        return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
+    }
+    if (mission.id === 'LRO') {
+        // 月球と極軌道リング全体を見渡す距離 (~8,000km)
+        const dist = 8000000;
+        return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
+    }
+    if (mission.id === 'MARS_MRO') {
+        // 火星球と火星極軌道リング全体を見渡す距離 (~15,000km)
+        const dist = 15000000;
+        return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
+    }
+    if (mission.id === 'MARS_PERSEVERANCE') {
+        const dist = 5000000; // 5,000 km
+        return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
+    }
+    const dist = 2500000000;
+    return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
+}
+
+/**
+ * 軌道中心のENUフレーム基準オフセットから、カメラのワールド座標（ECEF）を算出
+ */
+function getDeepSpaceOverviewCameraDestination(centerPos, overviewEnuOffset) {
+    if (!centerPos) return overviewEnuOffset;
+    try {
+        const enuTransform = Cesium.Transforms.eastNorthUpToFixedFrame(centerPos);
+        return Cesium.Matrix4.multiplyByPoint(enuTransform, overviewEnuOffset, new Cesium.Cartesian3());
+    } catch(e) {
+        return Cesium.Cartesian3.add(centerPos, overviewEnuOffset, new Cesium.Cartesian3());
+    }
+}
+
 function createDeepSpaceEntities() {
     if (!viewer) return;
     deepSpaceEntities.forEach(ent => viewer.entities.remove(ent));
@@ -6500,7 +6595,9 @@ function createDeepSpaceEntities() {
 
     DEEP_SPACE_MISSIONS.forEach(mission => {
         const billboardCanvas = createDeepSpaceBillboard(mission);
+        const overviewOffset = getDeepSpaceOrbitOverviewOffset(mission);
 
+        // 1. 探査機本体エンティティ
         const entity = viewer.entities.add({
             id: `deepspace_${mission.id}`,
             name: mission.name,
@@ -6520,6 +6617,17 @@ function createDeepSpaceEntities() {
         });
         entity.deepSpaceData = mission;
         deepSpaceEntities.push(entity);
+
+        // 2. 軌道中心エンティティ（軌道全体の楕円ループを画面中央に捉え続けるための仮想アンカー）
+        const centerEntity = viewer.entities.add({
+            id: `orbitcenter_${mission.id}`,
+            name: `${mission.shortName} Orbit Center`,
+            viewFrom: overviewOffset,
+            position: new Cesium.CallbackProperty((time) => {
+                return computeDeepSpaceOrbitCenter(mission, time);
+            }, false)
+        });
+        deepSpaceEntities.push(centerEntity);
     });
 }
 
@@ -7068,33 +7176,34 @@ function selectDeepSpaceMission(missionId) {
     detailCard.classList.remove('hidden');
 
     // =========================================================================
-    // カメラの自由操作とズームを100%保証するスムーズな Fly-To
+    // 軌道線（楕円ループ全体）を美しく俯瞰し、探査機の周回を一望するカメラ遷移
     // =========================================================================
-    // 1. 以前のあらゆる lookAt ロックを確実にリセット
     viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
 
     const time = viewer.clock.currentTime;
-    const pos = computeDeepSpacePosition(mission, time);
-    const missionDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+    const centerPos = computeDeepSpaceOrbitCenter(mission, time);
+    const overviewOffset = getDeepSpaceOrbitOverviewOffset(mission);
+    const cameraDest = getDeepSpaceOverviewCameraDestination(centerPos, overviewOffset);
 
-    // 2. 地球と探査機の位置関係が美しく見渡せる快適な距離にカメラを配置
-    const viewDist = 320000000; // 約32万km手前
-    const cameraDest = Cesium.Cartesian3.add(
-        pos,
-        new Cesium.Cartesian3(-viewDist * 0.75, viewDist * 0.45, viewDist * 0.35),
-        new Cesium.Cartesian3()
-    );
-    const toTarget = Cesium.Cartesian3.subtract(pos, cameraDest, new Cesium.Cartesian3());
-    const targetDir = Cesium.Cartesian3.normalize(toTarget, new Cesium.Cartesian3());
+    const toCenter = Cesium.Cartesian3.subtract(centerPos, cameraDest, new Cesium.Cartesian3());
+    const targetDir = Cesium.Cartesian3.normalize(toCenter, new Cesium.Cartesian3());
 
-    // 3. lookAt を呼ばず flyTo のみでカメラを向けることで、マウスホイールでの自由なズームイン・ズームアウトが可能！
+    // flyTo でスムーズに接近したのち、軌道中心（L2点や月など）にカメラを自動追従！
+    // これにより探査機単体にカメラが張り付くのではなく、軌道の楕円ループ全体がどっしり画面中央に収まり、
+    // 100倍速・1000倍速でも探査機がその楕円の上を周回する様子をずっと快適に眺め続けられる！
     viewer.camera.flyTo({
         destination: cameraDest,
         orientation: {
             direction: targetDir,
             up: Cesium.Cartesian3.UNIT_Z
         },
-        duration: 2.0
+        duration: 2.0,
+        complete: () => {
+            const centerEntity = viewer.entities.getById(`orbitcenter_${mission.id}`);
+            if (centerEntity) {
+                viewer.trackedEntity = centerEntity;
+            }
+        }
     });
 }
 
@@ -9412,6 +9521,35 @@ function setupEventListeners() {
 
     if (trackBtn) {
         trackBtn.addEventListener('click', () => {
+            // A. 深宇宙探査機が選択されている場合（衛星単体追尾ではなく、金色の楕円軌道全体を見渡す俯瞰追従）
+            if (selectedDeepSpaceId) {
+                const mission = DEEP_SPACE_MISSIONS.find(m => m.id === selectedDeepSpaceId);
+                const centerEntity = viewer.entities.getById(`orbitcenter_${selectedDeepSpaceId}`);
+                if (centerEntity && mission) {
+                    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+                    const time = viewer.clock.currentTime;
+                    const centerPos = computeDeepSpaceOrbitCenter(mission, time);
+                    const overviewOffset = getDeepSpaceOrbitOverviewOffset(mission);
+                    const cameraDest = getDeepSpaceOverviewCameraDestination(centerPos, overviewOffset);
+                    const toCenter = Cesium.Cartesian3.subtract(centerPos, cameraDest, new Cesium.Cartesian3());
+                    const targetDir = Cesium.Cartesian3.normalize(toCenter, new Cesium.Cartesian3());
+
+                    viewer.camera.flyTo({
+                        destination: cameraDest,
+                        orientation: {
+                            direction: targetDir,
+                            up: Cesium.Cartesian3.UNIT_Z
+                        },
+                        duration: 1.5,
+                        complete: () => {
+                            viewer.trackedEntity = centerEntity;
+                        }
+                    });
+                }
+                return;
+            }
+
+            // B. 通常の地球衛星が選択されている場合
             if (selectedSatIndex < 0) return;
             const sat = satellitesData[selectedSatIndex];
             
