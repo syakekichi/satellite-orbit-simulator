@@ -379,8 +379,8 @@ function inspectCelestialPlanet(body, bodyPos, bodyDir) {
         },
         duration: 2.0,
         complete: () => {
-            // Lock rotation and wheel zoom pivot onto the planet center!
-            viewer.camera.lookAt(bodyPos, hpr);
+            // lookAt ロックを解除し、マウスホイールでの自由なズームアウト（太陽系全体への引き）を100%保証！
+            viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
         }
     });
 }
@@ -5723,72 +5723,186 @@ const CELESTIAL_BODIES = [
         symbol: '🌕'
     },
     {
-        id: 'MARS',
-        name: 'MARS (火星 / 第4惑星)',
-        color: '#ef4444',
-        radiusKm: 3389.5,
-        distKm: 227900000,
-        periodDays: 686.98,
+        id: 'MERCURY',
+        name: 'MERCURY (水星 / 第1惑星)',
+        color: '#94a3b8',
+        radiusKm: 2439.7,
+        distKm: 57909050,
+        periodDays: 87.97,
         type: 'PLANET',
-        symbol: '🔴',
-        a: 1.524, e: 0.0934, I: 1.85, L: 355.45, M0: 19.37, n: 0.524039
+        symbol: '🔘',
+        a: 0.387099, e: 0.205631, I: 7.00487, L: 252.25084, w: 77.45645, node: 48.33167, n: 4.09233444
     },
     {
         id: 'VENUS',
         name: 'VENUS (金星 / 第2惑星)',
         color: '#fef08a',
         radiusKm: 6051.8,
-        distKm: 108200000,
+        distKm: 108208000,
         periodDays: 224.70,
         type: 'PLANET',
         symbol: '🟡',
-        a: 0.723, e: 0.0067, I: 3.39, L: 181.98, M0: 48.01, n: 1.602130
+        a: 0.723332, e: 0.006773, I: 3.39471, L: 181.97973, w: 131.57294, node: 76.68069, n: 1.60213022
+    },
+    {
+        id: 'MARS',
+        name: 'MARS (火星 / 第4惑星)',
+        color: '#ef4444',
+        radiusKm: 3389.5,
+        distKm: 227939200,
+        periodDays: 686.98,
+        type: 'PLANET',
+        symbol: '🔴',
+        a: 1.523662, e: 0.093412, I: 1.85061, L: 355.45332, w: 336.04084, node: 49.57854, n: 0.52403840
     },
     {
         id: 'JUPITER',
         name: 'JUPITER (木星 / 太陽系最大惑星)',
         color: '#fb923c',
         radiusKm: 69911,
-        distKm: 778500000,
+        distKm: 778570000,
         periodDays: 4332.59,
         type: 'PLANET',
         symbol: '🟠',
-        a: 5.204, e: 0.0485, I: 1.30, L: 34.40, M0: 20.02, n: 0.083085
+        a: 5.203363, e: 0.048393, I: 1.30530, L: 34.40438, w: 14.75385, node: 100.55615, n: 0.08308530
     },
     {
         id: 'SATURN',
         name: 'SATURN (土星 / 環を持つ巨大ガス惑星)',
         color: '#fde047',
         radiusKm: 58232,
-        distKm: 1433500000,
+        distKm: 1433530000,
         periodDays: 10759.22,
         type: 'PLANET',
         symbol: '🪐',
-        a: 9.582, e: 0.0555, I: 2.49, L: 49.94, M0: 317.02, n: 0.033444
-    },
-    {
-        id: 'MERCURY',
-        name: 'MERCURY (水星 / 第1惑星)',
-        color: '#94a3b8',
-        radiusKm: 2439.7,
-        distKm: 57900000,
-        periodDays: 87.97,
-        type: 'PLANET',
-        symbol: '🔘',
-        a: 0.387, e: 0.2056, I: 7.00, L: 252.25, M0: 174.79, n: 4.092334
+        a: 9.537070, e: 0.054151, I: 2.48446, L: 49.94432, w: 92.43194, node: 113.71504, n: 0.03344423
     },
     {
         id: 'URANUS',
         name: 'URANUS (天王星 / 環を持つ巨大氷惑星)',
         color: '#38bdf8',
         radiusKm: 25362,
-        distKm: 2871000000,
+        distKm: 2872460000,
         periodDays: 30685.4,
         type: 'PLANET',
         symbol: '🌀',
-        a: 19.218, e: 0.0463, I: 0.77, L: 314.05, M0: 142.24, n: 0.01173
+        a: 19.191264, e: 0.047168, I: 0.76986, L: 313.23218, w: 170.96424, node: 74.22988, n: 0.01172581
     }
 ];
+
+/**
+ * NASA JPL Standard Keplerian Orbital Elements for Planets (Epoch J2000.0)
+ */
+const PLANETARY_ORBIT_DATA = {
+    MERCURY: { a: 0.38709893, e: 0.20563069, I: 7.00487, L: 252.25084, w: 77.45645, node: 48.33167, n: 4.09233444, periodDays: 87.97, meanDistKm: 57909050 },
+    VENUS:   { a: 0.72333199, e: 0.00677323, I: 3.39471, L: 181.97973, w: 131.57294, node: 76.68069, n: 1.60213022, periodDays: 224.70, meanDistKm: 108208000 },
+    EARTH:   { a: 1.00000011, e: 0.01671022, I: 0.00005, L: 100.46435, w: 102.94719, node: 0.0,      n: 0.98560766, periodDays: 365.26, meanDistKm: 149598023 },
+    MARS:    { a: 1.52366231, e: 0.09341233, I: 1.85061, L: 355.45332, w: 336.04084, node: 49.57854, n: 0.52403840, periodDays: 686.98, meanDistKm: 227939200 },
+    JUPITER: { a: 5.20336301, e: 0.04839266, I: 1.30530, L: 34.40438,  w: 14.75385,  node: 100.55615, n: 0.08308530, periodDays: 4332.59, meanDistKm: 778570000 },
+    SATURN:  { a: 9.53707032, e: 0.05415060, I: 2.48446, L: 49.94432,  w: 92.43194,  node: 113.71504, n: 0.03344423, periodDays: 10759.22, meanDistKm: 1433530000 },
+    URANUS:  { a: 19.19126393, e: 0.04716771, I: 0.76986, L: 313.23218, w: 170.96424, node: 74.22988, n: 0.01172581, periodDays: 30685.4, meanDistKm: 2872460000 }
+};
+
+/**
+ * ニュートン法によるケプラー方程式の求解: M = E - e*sin(E)
+ */
+function solveKeplerEquation(M_rad, e) {
+    let E = M_rad;
+    for (let i = 0; i < 10; i++) {
+        const dE = (E - e * Math.sin(E) - M_rad) / (1 - e * Math.cos(E));
+        E -= dE;
+        if (Math.abs(dE) < 1e-7) break;
+    }
+    return E;
+}
+
+/**
+ * 惑星の日心黄道直交座標 (Heliocentric Ecliptic, AU & Km) を算出
+ */
+function computeHeliocentricCoordinates(p, d) {
+    const deg2rad = Math.PI / 180;
+    const M_deg = ((p.L - p.w + p.n * d) % 360 + 360) % 360;
+    const M_rad = M_deg * deg2rad;
+    const E_rad = solveKeplerEquation(M_rad, p.e);
+
+    const xv = p.a * (Math.cos(E_rad) - p.e);
+    const yv = p.a * Math.sqrt(1 - p.e * p.e) * Math.sin(E_rad);
+    const r = Math.sqrt(xv * xv + yv * yv);
+    const v = Math.atan2(yv, xv);
+
+    const omega = (p.w - p.node) * deg2rad;
+    const u = v + omega;
+
+    const nodeRad = p.node * deg2rad;
+    const incRad = p.I * deg2rad;
+
+    const xh = r * (Math.cos(nodeRad) * Math.cos(u) - Math.sin(nodeRad) * Math.sin(u) * Math.cos(incRad));
+    const yh = r * (Math.sin(nodeRad) * Math.cos(u) + Math.cos(nodeRad) * Math.sin(u) * Math.cos(incRad));
+    const zh = r * (Math.sin(u) * Math.sin(incRad));
+
+    return { x: xh, y: yh, z: zh, rAu: r, rKm: r * 149597870.7 };
+}
+
+/**
+ * 惑星のリアルタイム天体暦（地心距離Km、AU、日心距離、Cesium固定座標系位置）を算出
+ */
+function computePlanetEphemeris(bodyId, time) {
+    const pData = PLANETARY_ORBIT_DATA[bodyId];
+    if (!pData) return null;
+
+    const jsDate = customSimTime || (time ? Cesium.JulianDate.toDate(time) : new Date());
+    const d = (jsDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0;
+
+    // 1. 惑星と地球の日心黄道直交座標 (AU)
+    const pHelio = computeHeliocentricCoordinates(pData, d);
+    const eHelio = computeHeliocentricCoordinates(PLANETARY_ORBIT_DATA.EARTH, d);
+
+    // 2. 地球から見た地心黄道直交ベクトル (AU)
+    const gx = pHelio.x - eHelio.x;
+    const gy = pHelio.y - eHelio.y;
+    const gz = pHelio.z - eHelio.z;
+    const geocentricDistAu = Math.sqrt(gx * gx + gy * gy + gz * gz);
+    const geocentricDistKm = geocentricDistAu * 149597870.7;
+
+    // 3. 黄道傾斜角 eps = 23.439291 deg による赤道座標系 (ICRF) への厳密回転
+    const epsRad = 23.439291 * (Math.PI / 180);
+    const cosEps = Math.cos(epsRad);
+    const sinEps = Math.sin(epsRad);
+
+    const xIcrf = gx;
+    const yIcrf = gy * cosEps - gz * sinEps;
+    const zIcrf = gy * sinEps + gz * cosEps;
+    const dirIcrf = new Cesium.Cartesian3(xIcrf / geocentricDistAu, yIcrf / geocentricDistAu, zIcrf / geocentricDistAu);
+
+    // 4. 地球固定座標系 (ECEF) への変換
+    let dirFixed = dirIcrf;
+    const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || (viewer && viewer.clock.currentTime));
+    if (effectiveTime) {
+        try {
+            const icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(effectiveTime);
+            if (icrfToFixed) {
+                dirFixed = Cesium.Matrix3.multiplyByVector(icrfToFixed, dirIcrf, new Cesium.Cartesian3());
+                Cesium.Cartesian3.normalize(dirFixed, dirFixed);
+            }
+        } catch(e) {}
+    }
+
+    // 5. 3D空間描画用の奥行きスケール配置（実際の地心距離AUに応じた美しい立体深度）
+    // 最小(0.28AU: 金星近点) 約1200万km 〜 最大(20AU: 天王星) 約8500万km
+    const visualDistanceMeters = 8000000000 * (1.0 + Math.log10(Math.max(0.25, geocentricDistAu)));
+    const visualPosFixed = Cesium.Cartesian3.multiplyByScalar(dirFixed, visualDistanceMeters, new Cesium.Cartesian3());
+
+    return {
+        geocentricDistKm: geocentricDistKm,
+        geocentricDistAu: geocentricDistAu,
+        heliocentricDistKm: pHelio.rKm,
+        heliocentricDistAu: pHelio.rAu,
+        visualPosFixed: visualPosFixed,
+        dirFixed: dirFixed,
+        pHelio: pHelio,
+        eHelio: eHelio
+    };
+}
 
 // ==========================================================================
 // Deep Space Missions & Interplanetary Orbit Visualizer (JWST, Artemis, Mars)
@@ -6389,19 +6503,19 @@ function createCelestialEntities() {
 }
 
 function computeCelestialPosition(body, time) {
-    if (!viewer || !time) return Cesium.Cartesian3.ZERO;
+    if (!viewer) return Cesium.Cartesian3.ZERO;
+    const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || (viewer && viewer.clock.currentTime));
+    if (!effectiveTime) return Cesium.Cartesian3.ZERO;
 
-    const jsDate = Cesium.JulianDate.toDate(time);
+    const jsDate = customSimTime || Cesium.JulianDate.toDate(effectiveTime);
     const d = (jsDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0; // Days from J2000.0
-    // Deep space celestial sphere radius to eliminate parallax with real Sun & stars
     const SUN_SKY_RADIUS = 10000000000; // 10 Million km (Glued to distant real Sun)
-    const PLANET_SKY_RADIUS = 2000000000; // 2 Million km (Deep background)
 
     // 1. Exact Alignment with Cesium's Real Sun Position at Infinite Depth
     if (body.id === 'SUN') {
         try {
-            const sunInertial = Cesium.Simon1994PlanetaryPositions.computeSunPositionInInertial(time);
-            const icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);
+            const sunInertial = Cesium.Simon1994PlanetaryPositions.computeSunPositionInInertial(effectiveTime);
+            const icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(effectiveTime);
             if (sunInertial && icrfToFixed) {
                 const sunFixed = Cesium.Matrix3.multiplyByVector(icrfToFixed, sunInertial, new Cesium.Cartesian3());
                 const direction = Cesium.Cartesian3.normalize(sunFixed, new Cesium.Cartesian3());
@@ -6422,8 +6536,8 @@ function computeCelestialPosition(body, time) {
     // 2. Exact Alignment with Cesium's Real 3D Moon
     if (body.id === 'MOON') {
         try {
-            const moonInertial = Cesium.Simon1994PlanetaryPositions.computeMoonPositionInInertial(time);
-            const icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);
+            const moonInertial = Cesium.Simon1994PlanetaryPositions.computeMoonPositionInInertial(effectiveTime);
+            const icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(effectiveTime);
             if (moonInertial && icrfToFixed) {
                 const moonFixed = Cesium.Matrix3.multiplyByVector(icrfToFixed, moonInertial, new Cesium.Cartesian3());
                 return moonFixed;
@@ -6439,43 +6553,13 @@ function computeCelestialPosition(body, time) {
         return Cesium.Cartesian3.fromRadians(lambda_moon - gmst, beta_moon, 384400000);
     }
 
-    // 3. Planets Deep Space Positioning in Earth-Fixed frame
-    const earthM = (357.529 + 0.98560028 * d) * Math.PI / 180;
-    const earthL_corr = (280.466 + 0.98564736 * d + 1.915 * Math.sin(earthM) + 0.020 * Math.sin(2 * earthM)) * Math.PI / 180;
-    const xe = Math.cos(earthL_corr);
-    const ye = Math.sin(earthL_corr);
+    // 3. NASA JPL Keplerian Precision Positioning for Planets
+    const ephem = computePlanetEphemeris(body.id, effectiveTime);
+    if (ephem && ephem.visualPosFixed) {
+        return ephem.visualPosFixed;
+    }
 
-    const M = (body.M0 + body.n * d) % 360;
-    const M_rad = M * Math.PI / 180;
-    const v = M_rad + (2 * body.e - Math.pow(body.e, 3)/4) * Math.sin(M_rad) + 1.25 * Math.pow(body.e, 2) * Math.sin(2 * M_rad);
-    const r = body.a * (1 - Math.pow(body.e, 2)) / (1 + body.e * Math.cos(v));
-    const I_rad = body.I * Math.PI / 180;
-    const lon_rad = (v + (body.L - body.M0) * Math.PI / 180);
-
-    const xp = r * Math.cos(lon_rad);
-    const yp = r * Math.sin(lon_rad) * Math.cos(I_rad);
-    const zp = r * Math.sin(lon_rad) * Math.sin(I_rad);
-
-    const gx = xp - xe;
-    const gy = yp - ye;
-    const gz = zp;
-    const planetInertial = new Cesium.Cartesian3(gx, gy, gz);
-
-    try {
-        const icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);
-        if (icrfToFixed) {
-            const planetFixed = Cesium.Matrix3.multiplyByVector(icrfToFixed, planetInertial, new Cesium.Cartesian3());
-            const direction = Cesium.Cartesian3.normalize(planetFixed, new Cesium.Cartesian3());
-            return Cesium.Cartesian3.multiplyByScalar(direction, PLANET_SKY_RADIUS, new Cesium.Cartesian3());
-        }
-    } catch(e) {}
-
-    const gLen = Math.sqrt(gx*gx + gy*gy + gz*gz) || 1;
-    return new Cesium.Cartesian3(
-        (gx / gLen) * PLANET_SKY_RADIUS,
-        (gy / gLen) * PLANET_SKY_RADIUS,
-        (gz / gLen) * PLANET_SKY_RADIUS
-    );
+    return Cesium.Cartesian3.ZERO;
 }
 
 // ==========================================================================
@@ -7058,6 +7142,80 @@ function drawDeepSpaceOrbit(mission) {
     });
 }
 
+let celestialOrbitEntity = null;
+
+/**
+ * 太陽系惑星の正確なケプラー公転軌道ループ（Polyline）を描画
+ */
+function drawCelestialOrbit(body) {
+    if (!viewer || !body) return;
+    const pData = PLANETARY_ORBIT_DATA[body.id];
+    if (!pData) return;
+
+    if (celestialOrbitEntity) {
+        viewer.entities.remove(celestialOrbitEntity);
+        celestialOrbitEntity = null;
+    }
+
+    celestialOrbitEntity = viewer.entities.add({
+        id: `orbit_celestial_${body.id}`,
+        name: `${body.name} Orbit`,
+        polyline: {
+            positions: new Cesium.CallbackProperty((time) => {
+                const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || (viewer && viewer.clock.currentTime));
+                if (!effectiveTime) return [];
+                const jsDate = customSimTime || Cesium.JulianDate.toDate(effectiveTime);
+                const d = (jsDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0;
+
+                const eHelio = computeHeliocentricCoordinates(PLANETARY_ORBIT_DATA.EARTH, d);
+                const pts = [];
+                const samples = 120;
+                const epsRad = 23.439291 * (Math.PI / 180);
+                const cosEps = Math.cos(epsRad);
+                const sinEps = Math.sin(epsRad);
+
+                let icrfToFixed = null;
+                try {
+                    icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(effectiveTime);
+                } catch(e) {}
+
+                for (let i = 0; i <= samples; i++) {
+                    const stepD = d + (i / samples) * pData.periodDays;
+                    const pHelio = computeHeliocentricCoordinates(pData, stepD);
+
+                    // 地球から見た地心黄道直交ベクトル (AU)
+                    const gx = pHelio.x - eHelio.x;
+                    const gy = pHelio.y - eHelio.y;
+                    const gz = pHelio.z - eHelio.z;
+                    const gDistAu = Math.sqrt(gx * gx + gy * gy + gz * gz);
+
+                    // ICRF 赤道直交座標
+                    const xIcrf = gx;
+                    const yIcrf = gy * cosEps - gz * sinEps;
+                    const zIcrf = gy * sinEps + gz * cosEps;
+                    const dirIcrf = new Cesium.Cartesian3(xIcrf / gDistAu, yIcrf / gDistAu, zIcrf / gDistAu);
+
+                    let dirFixed = dirIcrf;
+                    if (icrfToFixed) {
+                        dirFixed = Cesium.Matrix3.multiplyByVector(icrfToFixed, dirIcrf, new Cesium.Cartesian3());
+                        Cesium.Cartesian3.normalize(dirFixed, dirFixed);
+                    }
+
+                    const visualDist = 8000000000 * (1.0 + Math.log10(Math.max(0.25, gDistAu)));
+                    const pt = Cesium.Cartesian3.multiplyByScalar(dirFixed, visualDist, new Cesium.Cartesian3());
+                    pts.push(pt);
+                }
+                return pts;
+            }, false),
+            width: 3.5,
+            material: new Cesium.PolylineGlowMaterialProperty({
+                glowPower: 0.35,
+                color: Cesium.Color.fromCssColorString(body.color || '#f59e0b')
+            })
+        }
+    });
+}
+
 function selectDeepSpaceMission(missionId) {
     const mission = DEEP_SPACE_MISSIONS.find(m => m.id === missionId);
     if (!mission || !viewer) return;
@@ -7069,6 +7227,10 @@ function selectDeepSpaceMission(missionId) {
     if (orbitPolylineEntity) {
         viewer.entities.remove(orbitPolylineEntity);
         orbitPolylineEntity = null;
+    }
+    if (celestialOrbitEntity) {
+        viewer.entities.remove(celestialOrbitEntity);
+        celestialOrbitEntity = null;
     }
     drawDeepSpaceOrbit(mission);
 
@@ -7234,11 +7396,20 @@ function selectCelestialBody(bodyId) {
     selectedSatIndex = -1;
     selectedCelestialId = bodyId;
 
-    // Clear satellite orbit line if any
+    // Clear existing orbit lines
     if (orbitPolylineEntity) {
         viewer.entities.remove(orbitPolylineEntity);
         orbitPolylineEntity = null;
     }
+    if (deepSpaceOrbitEntity) {
+        viewer.entities.remove(deepSpaceOrbitEntity);
+        deepSpaceOrbitEntity = null;
+    }
+    if (celestialOrbitEntity) {
+        viewer.entities.remove(celestialOrbitEntity);
+        celestialOrbitEntity = null;
+    }
+    drawCelestialOrbit(body);
 
     const langSelect = document.getElementById('langSelect');
     const lang = (langSelect && langSelect.value) || window.currentLang || currentLang || 'ja';
@@ -7338,18 +7509,45 @@ function selectCelestialBody(bodyId) {
         satDescription.textContent = baseDesc;
     }
 
-    // Dynamic real-time distance
-    const time = viewer.clock.currentTime;
-    const pos = computeCelestialPosition(body, time);
-    const distMeters = Cesium.Cartesian3.magnitude(pos);
-    const distKm = (distMeters / 1000).toLocaleString(undefined, { maximumFractionDigits: 0 });
+    // Dynamic real-time distance & precise Keplerian planetary metrics
+    const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (viewer ? viewer.clock.currentTime : null);
+    const ephem = computePlanetEphemeris(body.id, effectiveTime);
 
-    satAlt.textContent = `${distKm} km`;
+    if (ephem) {
+        // 1. 地球からのリアルタイム地心距離 (万km / 億km & AU)
+        const geoKm = ephem.geocentricDistKm;
+        const geoAu = ephem.geocentricDistAu;
+        if (geoKm >= 1e8) {
+            satAlt.textContent = `${(geoKm / 1e8).toFixed(2)} 億km (${geoAu.toFixed(2)} AU)`;
+        } else {
+            satAlt.textContent = `${(geoKm / 1e4).toLocaleString(undefined, { maximumFractionDigits: 0 })} 万km (${geoAu.toFixed(2)} AU)`;
+        }
+
+        // 2. 太陽からの公転軌道長半径 (AU & 万km)
+        const pData = PLANETARY_ORBIT_DATA[body.id];
+        if (pData) {
+            satPeriod.textContent = `${pData.periodDays} d (${pData.a} AU / ${(pData.meanDistKm / 1e4).toLocaleString(undefined, { maximumFractionDigits: 0 })}万km)`;
+        } else {
+            satPeriod.textContent = info ? getL(info.orbit) : `${body.periodDays} d`;
+        }
+    } else if (body.id === 'SUN') {
+        satAlt.textContent = '1億4,960万 km (1.00 AU)';
+        satPeriod.textContent = '--- (太陽系中心星)';
+    } else if (body.id === 'MOON') {
+        satAlt.textContent = '384,400 km (0.0026 AU)';
+        satPeriod.textContent = '27.32 d (地球周回)';
+    } else {
+        const time = viewer.clock.currentTime;
+        const pos = computeCelestialPosition(body, time);
+        const distKm = (Cesium.Cartesian3.magnitude(pos) / 1000).toLocaleString(undefined, { maximumFractionDigits: 0 });
+        satAlt.textContent = `${distKm} km`;
+        satPeriod.textContent = info ? getL(info.orbit) : `${body.periodDays} d`;
+    }
+
     satVel.textContent = info ? getL(info.diameter) : `${(body.radiusKm * 2).toLocaleString()} km`;
     satLat.textContent = info ? getL(info.mass) : '---';
     satLon.textContent = info ? getL(info.rotation) : '---';
     satInc.textContent = info ? getL(info.temperature) : '---';
-    satPeriod.textContent = info ? getL(info.orbit) : `${body.periodDays} d`;
 
     // Update detail card headers to Temperature, Mass, Diameter etc.
     updateDetailCardMetricLabels(true);
@@ -8564,6 +8762,10 @@ function selectSatellite(index) {
         viewer.entities.remove(deepSpaceOrbitEntity);
         deepSpaceOrbitEntity = null;
     }
+    if (celestialOrbitEntity && viewer) {
+        viewer.entities.remove(celestialOrbitEntity);
+        celestialOrbitEntity = null;
+    }
     if (viewer) {
         viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
     }
@@ -8721,6 +8923,14 @@ function deselectSatellite() {
     if (orbitPolylineEntity) {
         viewer.entities.remove(orbitPolylineEntity);
         orbitPolylineEntity = null;
+    }
+    if (deepSpaceOrbitEntity) {
+        viewer.entities.remove(deepSpaceOrbitEntity);
+        deepSpaceOrbitEntity = null;
+    }
+    if (celestialOrbitEntity) {
+        viewer.entities.remove(celestialOrbitEntity);
+        celestialOrbitEntity = null;
     }
     if (targetHighlightEntity) {
         viewer.entities.remove(targetHighlightEntity);
