@@ -5810,7 +5810,7 @@ const DEEP_SPACE_MISSIONS = [
         site: 'Sun-Earth L2 Lagrange Halo Orbit (~1.5M km)',
         primaryMirror: '6.5 m (18 Gold-Coated Beryllium Hexagons)',
         instruments: 'NIRCam, MIRI, NIRSpec, FGS/NIRISS',
-        speedKmS: '0.25 km/s (relative to L2)',
+        speedKmS: '0.25 km/s (L2ハロー公転中 / 非静止軌道)',
         modelType: 'JWST'
     },
     {
@@ -5926,13 +5926,13 @@ const DEEP_SPACE_MISSIONS = [
 
 const DEEP_SPACE_DESCRIPTIONS = {
     "JWST": {
-        "ja": "NASA・ESA・CSAが共同開発した人類史上最強の次世代宇宙望遠鏡。地球から約150万km離れた太陽-地球の第2ラグランジュ点（L2）のハロー軌道を周回。18枚の金コーティング・ベリリウム製六角形主鏡（口径6.5m）とテニスコート大の5層サンシールドを備え、赤外線観測によって135億年以上前の宇宙黎明期の最遠銀河や恒星の誕生、太陽系外惑星の大気成分（水蒸気や二酸化炭素）を直接検出しています。",
-        "en": "The premier deep space observatory developed by NASA, ESA, and CSA. Orbiting the Sun-Earth L2 Lagrange point ~1.5 million km from Earth, JWST features a 6.5-meter gold-coated beryllium primary mirror and a 5-layer tennis-court-sized sunshield. Operating at cryogenic temperatures below -233°C (40 K), it penetrates cosmic dust to observe the universe's first luminous galaxies from 13.5 billion years ago and analyzes exoplanet atmospheres.",
-        "de": "Das weltweit leistungsfahigste Weltraumteleskop von NASA, ESA und CSA. Es umkreist den Sonne-Erde-L2-Lagrange-Punkt in ca. 1,5 Mio. km Entfernung mit einem 6,5 m Beryllium-Goldspiegel.",
-        "fr": "Le plus puissant telescope spatial jamais concu par la NASA, l'ESA et l'ASC. En orbite au point de Lagrange L2 a 1,5 million de km, son miroir de 6,5 m observe les premieres galaxies de l'Univers.",
-        "es": "El telescopio espacial mas avanzado del mundo, desarrollado por NASA, ESA y CSA. Orbita en el punto de Lagrange L2 a 1,5 millones de km de la Tierra con un espejo dorado de 6,5 m.",
-        "zh": "NASA、ESA与CSA联合研制的人类史上最强太空望远镜。位于日地L2拉格朗日点光环轨道（距地约150万公里），配备6.5米镀金铍主镜，直接观测135亿年前早期宇宙第一代星系。",
-        "ru": "Самый мощный космический телескоп в истории, созданный NASA, ESA и CSA. Находится в точке Лагранжа L2 в 1,5 млн км от Земли, исследуя древнейшие галактики ранней Вселенной."
+        "ja": "NASA・ESA・CSAが共同開発した人類史上最強の次世代宇宙望遠鏡。※地球の赤道上空3.6万kmにとどまる「静止衛星」とは全く異なり、月（約38万km）のさらに4倍も遠い約150万km彼方の「太陽-地球 第2ラグランジュ点（L2）」を半年かけて1周する巨大なハロー軌道を飛行しています。18枚の金コーティング・ベリリウム製六角形主鏡（口径6.5m）とテニスコート大の5層サンシールドを備え、絶対零度近くの極低温（-233℃以下）から135億年以上前の宇宙黎明期の最遠銀河や太陽系外惑星の大気成分を直接検出しています。",
+        "en": "The premier deep space observatory developed by NASA, ESA, and CSA. Unlike geostationary satellites orbiting 36,000 km above Earth, JWST is stationed ~1.5 million km away (4 times farther than the Moon) in a wide Halo orbit around the Sun-Earth L2 Lagrange point, completing one orbit every ~6 months. Featuring a 6.5-meter gold-coated beryllium mirror and tennis-court-sized sunshield, it operates below -233°C to observe the universe's first luminous galaxies from 13.5 billion years ago and analyze exoplanet atmospheres.",
+        "de": "Das weltweit leistungsfahigste Weltraumteleskop von NASA, ESA und CSA. Im Gegensatz zu Geostationaren Satelliten umkreist es den 1,5 Mio. km entfernten Sonne-Erde-L2-Lagrange-Punkt in einem weiten Halo-Orbit mit einem 6,5 m Beryllium-Goldspiegel.",
+        "fr": "Le plus puissant telescope spatial jamais concu par la NASA, l'ESA et l'ASC. Bien distinct d'un satellite geostationnaire, il evolue sur une orbite de halo au point de Lagrange L2 a 1,5 million de km de la Terre.",
+        "es": "El telescopio espacial mas avanzado del mundo, desarrollado por NASA, ESA y CSA. A diferencia de un satelite geoestacionario, orbita en un halo alrededor del punto Lagrange L2 a 1,5 millones de km de la Tierra.",
+        "zh": "NASA、ESA与CSA联合研制的人类史上最强太空望远镜。不同于赤道上空3.6万公里的地球静止卫星，它运行在距地约150万公里（月球距离4倍）的日地L2拉格朗日点巨大光环轨道上，每半年公转一周。",
+        "ru": "Самый мощный космический телескоп в истории, созданный NASA, ESA и CSA. В отличие от геостационарных спутников, он обращается по гало-орбите вокруг точки Лагранжа L2 в 1,5 млн км от Земли (в 4 раза дальше Луны)."
     },
     "ARTEMIS_ORION": {
         "ja": "人類の月面再到達と将来の火星有人探査を目指す国際深宇宙探査計画「アルテミス計画」の中核を担う有人宇宙船。月を周回する遠方逆行軌道（DRO）や近直線ハロー軌道（NRHO）を飛行。欧州宇宙機関（ESA）が提供するサービスモジュール（ESM）と強固な耐熱シールドを搭載し、月軌道ステーション「ゲートウェイ」への人員・物資輸送を担います。",
@@ -5993,7 +5993,7 @@ const DEEP_SPACE_DESCRIPTIONS = {
 const DEEP_SPACE_SPECS = {
     "JWST": {
         agency: { ja: "NASA / ESA / CSA (欧州宇宙機関・カナダ宇宙庁)", en: "NASA / ESA / CSA International Collaboration" },
-        orbitType: { ja: "太陽-地球 L2 ラグランジュ点 ハロー軌道 (~150万km)", en: "Sun-Earth L2 Lagrange Point Halo Orbit (~1.5M km)" },
+        orbitType: { ja: "太陽-地球 L2 ラグランジュ点 ハロー軌道 (~150万km / 非静止軌道・約半年周期公転)", en: "Sun-Earth L2 Lagrange Point Halo Orbit (~1.5M km / Non-Geostationary, ~6-month period)" },
         dimensions: { ja: "主鏡直径: 6.5 m (18分割ベリリウム金鏡) / サンシールド: 21.2 m × 14.2 m", en: "Primary Mirror: 6.5 m / Sunshield: 21.2 m × 14.2 m" },
         instruments: { ja: "NIRCam (近赤外線カメラ), MIRI (中赤外線分光撮像), NIRSpec, FGS/NIRISS", en: "NIRCam, MIRI, NIRSpec, FGS/NIRISS" },
         scienceGoal: { ja: "135億年前の宇宙最初期銀河観測、星・惑星系の誕生、太陽系外惑星の大気組成探査", en: "First light galaxies at 13.5B yr, stellar evolution, exoplanet atmospheric transmission spectra" }
@@ -6719,7 +6719,8 @@ function computeDeepSpacePosition(mission, time) {
             antiSunDir = new Cesium.Cartesian3(1, 0, 0);
         }
 
-        const L2_DIST = 1500000000;
+        // L2点の視覚的配置 (~80万km: 月の約2倍外側で、地球・月・L2ハローのパースペクティブを美しく両立)
+        const L2_DIST = 800000000;
         const l2Center = Cesium.Cartesian3.multiplyByScalar(antiSunDir, L2_DIST, new Cesium.Cartesian3());
 
         const zUp = Cesium.Cartesian3.UNIT_Z;
@@ -6728,10 +6729,11 @@ function computeDeepSpacePosition(mission, time) {
         const haloZ = Cesium.Cartesian3.cross(haloY, antiSunDir, new Cesium.Cartesian3());
         Cesium.Cartesian3.normalize(haloZ, haloZ);
 
-        const period = 180.0;
-        const theta = (d % period) / period * Math.PI * 2;
-        const yOffset = Cesium.Cartesian3.multiplyByScalar(haloY, 400000000 * Math.cos(theta), new Cesium.Cartesian3());
-        const zOffset = Cesium.Cartesian3.multiplyByScalar(haloZ, 250000000 * Math.sin(theta), new Cesium.Cartesian3());
+        // ハロー軌道の視覚的公転運動 (倍速や時間の進行に伴い、金のハロー軌道上を滑らかに周回飛行)
+        const haloPeriodDays = 8.0; // 画面上で動きが実感できるダイナミック周期
+        const theta = ((d % haloPeriodDays) / haloPeriodDays) * Math.PI * 2;
+        const yOffset = Cesium.Cartesian3.multiplyByScalar(haloY, 180000000 * Math.cos(theta), new Cesium.Cartesian3());
+        const zOffset = Cesium.Cartesian3.multiplyByScalar(haloZ, 110000000 * Math.sin(theta), new Cesium.Cartesian3());
 
         const jwstPos = Cesium.Cartesian3.add(l2Center, yOffset, new Cesium.Cartesian3());
         Cesium.Cartesian3.add(jwstPos, zOffset, jwstPos);
@@ -6746,16 +6748,14 @@ function computeDeepSpacePosition(mission, time) {
         } catch(e) {}
         if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
 
-        const period = 14.0;
-        const theta = (d % period) / period * Math.PI * 2;
-        const droRadius = 35000000;
+        const droPeriodDays = 5.0;
+        const theta = ((d % droPeriodDays) / droPeriodDays) * Math.PI * 2;
+        const droRadius = 35000000; // 35,000 km
         
         const ox = droRadius * Math.cos(theta);
         const oy = droRadius * Math.sin(theta) * 0.7071;
         const oz = droRadius * Math.sin(theta) * 0.7071;
-        const droOffset = new Cesium.Cartesian3(ox, oy, oz);
-
-        return Cesium.Cartesian3.add(moonPos, droOffset, new Cesium.Cartesian3());
+        return Cesium.Cartesian3.add(moonPos, new Cesium.Cartesian3(ox, oy, oz), new Cesium.Cartesian3());
     }
 
     if (mission.id === 'LRO') {
@@ -6766,15 +6766,13 @@ function computeDeepSpacePosition(mission, time) {
         } catch(e) {}
         if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
 
-        const period = 0.083;
-        const theta = (d % period) / period * Math.PI * 2;
-        const orbitR = 2500000;
+        const period = 0.3; // 月周回極軌道
+        const theta = ((d % period) / period) * Math.PI * 2;
+        const orbitR = 3500000;
         
         const ox = orbitR * Math.cos(theta);
         const oz = orbitR * Math.sin(theta);
-        const lroOffset = new Cesium.Cartesian3(ox, 0, oz);
-
-        return Cesium.Cartesian3.add(moonPos, lroOffset, new Cesium.Cartesian3());
+        return Cesium.Cartesian3.add(moonPos, new Cesium.Cartesian3(ox, 0, oz), new Cesium.Cartesian3());
     }
 
     if (mission.id === 'MARS_PERSEVERANCE') {
@@ -6789,12 +6787,10 @@ function computeDeepSpacePosition(mission, time) {
         const latRad = 18.38 * Math.PI / 180;
         const lonRad = (77.58 + (d % 1.026) / 1.026 * 360) * Math.PI / 180;
 
-        const ox = (marsRadius + 150000) * Math.cos(latRad) * Math.cos(lonRad);
-        const oy = (marsRadius + 150000) * Math.cos(latRad) * Math.sin(lonRad);
-        const oz = (marsRadius + 150000) * Math.sin(latRad);
-        const roverOffset = new Cesium.Cartesian3(ox, oy, oz);
-
-        return Cesium.Cartesian3.add(marsPos, roverOffset, new Cesium.Cartesian3());
+        const ox = (marsRadius + 200000) * Math.cos(latRad) * Math.cos(lonRad);
+        const oy = (marsRadius + 200000) * Math.cos(latRad) * Math.sin(lonRad);
+        const oz = (marsRadius + 200000) * Math.sin(latRad);
+        return Cesium.Cartesian3.add(marsPos, new Cesium.Cartesian3(ox, oy, oz), new Cesium.Cartesian3());
     }
 
     if (mission.id === 'MARS_MRO') {
@@ -6805,20 +6801,18 @@ function computeDeepSpacePosition(mission, time) {
         } catch(e) {}
         if (!marsPos) marsPos = new Cesium.Cartesian3(2000000000, 0, 0);
 
-        const period = 0.078;
-        const theta = (d % period) / period * Math.PI * 2;
-        const orbitR = 4500000;
+        const period = 0.4;
+        const theta = ((d % period) / period) * Math.PI * 2;
+        const orbitR = 5500000;
         
         const oy = orbitR * Math.cos(theta);
         const oz = orbitR * Math.sin(theta);
-        const mroOffset = new Cesium.Cartesian3(0, oy, oz);
-
-        return Cesium.Cartesian3.add(marsPos, mroOffset, new Cesium.Cartesian3());
+        return Cesium.Cartesian3.add(marsPos, new Cesium.Cartesian3(0, oy, oz), new Cesium.Cartesian3());
     }
 
     if (mission.id === 'HAYABUSA2') {
-        const theta = (d % 450) / 450 * Math.PI * 2;
-        const dist = 1800000000;
+        const theta = (d % 90) / 90 * Math.PI * 2;
+        const dist = 1200000000;
         return new Cesium.Cartesian3(
             dist * Math.cos(theta),
             dist * Math.sin(theta) * 0.9,
@@ -6827,7 +6821,7 @@ function computeDeepSpacePosition(mission, time) {
     }
 
     if (mission.id === 'VOYAGER1') {
-        const dist = 3000000000;
+        const dist = 2500000000;
         const raRad = (17.22 / 24) * Math.PI * 2;
         const decRad = 12.0 * Math.PI / 180;
         return new Cesium.Cartesian3(
@@ -6847,32 +6841,104 @@ function drawDeepSpaceOrbit(mission) {
         deepSpaceOrbitEntity = null;
     }
 
-    const currentTime = viewer.clock.currentTime;
-    const positions = [];
-    const sampleCount = 120;
-    const periodDays = mission.periodDays || 180;
-    const stepSeconds = (periodDays * 86400) / sampleCount;
+    // 閉じた美しい滑らかな3Dループ軌道（自転による螺旋バネを完全解消）
+    deepSpaceOrbitEntity = viewer.entities.add({
+        id: `orbit_deepspace_${mission.id}`,
+        name: `${mission.shortName} Orbit Loop`,
+        polyline: {
+            positions: new Cesium.CallbackProperty((time) => {
+                if (!time) return [];
+                const pts = [];
+                const sampleCount = 90;
 
-    for (let i = 0; i <= sampleCount; i++) {
-        const sampleTime = Cesium.JulianDate.addSeconds(currentTime, i * stepSeconds, new Cesium.JulianDate());
-        const pos = computeDeepSpacePosition(mission, sampleTime);
-        if (pos) positions.push(pos);
-    }
+                if (mission.id === 'JWST') {
+                    let sunPos;
+                    try {
+                        const sunBody = CELESTIAL_BODIES.find(b => b.id === 'SUN');
+                        sunPos = computeCelestialPosition(sunBody, time);
+                    } catch(e) {}
 
-    if (positions.length > 2) {
-        deepSpaceOrbitEntity = viewer.entities.add({
-            id: `orbit_deepspace_${mission.id}`,
-            name: `${mission.shortName} Orbit Loop`,
-            polyline: {
-                positions: positions,
-                width: 3.5,
-                material: new Cesium.PolylineGlowMaterialProperty({
-                    glowPower: 0.25,
-                    color: Cesium.Color.fromCssColorString(mission.color || '#f59e0b')
-                })
-            }
-        });
-    }
+                    let antiSunDir;
+                    if (sunPos && Cesium.Cartesian3.magnitude(sunPos) > 1000) {
+                        const sunDir = Cesium.Cartesian3.normalize(sunPos, new Cesium.Cartesian3());
+                        antiSunDir = Cesium.Cartesian3.negate(sunDir, new Cesium.Cartesian3());
+                    } else {
+                        antiSunDir = new Cesium.Cartesian3(1, 0, 0);
+                    }
+
+                    const L2_DIST = 800000000;
+                    const l2Center = Cesium.Cartesian3.multiplyByScalar(antiSunDir, L2_DIST, new Cesium.Cartesian3());
+
+                    const zUp = Cesium.Cartesian3.UNIT_Z;
+                    const haloY = Cesium.Cartesian3.cross(antiSunDir, zUp, new Cesium.Cartesian3());
+                    Cesium.Cartesian3.normalize(haloY, haloY);
+                    const haloZ = Cesium.Cartesian3.cross(haloY, antiSunDir, new Cesium.Cartesian3());
+                    Cesium.Cartesian3.normalize(haloZ, haloZ);
+
+                    for (let i = 0; i <= sampleCount; i++) {
+                        const th = (i / sampleCount) * Math.PI * 2;
+                        const yOff = Cesium.Cartesian3.multiplyByScalar(haloY, 180000000 * Math.cos(th), new Cesium.Cartesian3());
+                        const zOff = Cesium.Cartesian3.multiplyByScalar(haloZ, 110000000 * Math.sin(th), new Cesium.Cartesian3());
+                        const p = Cesium.Cartesian3.add(l2Center, yOff, new Cesium.Cartesian3());
+                        Cesium.Cartesian3.add(p, zOff, p);
+                        pts.push(p);
+                    }
+                } else if (mission.id === 'ARTEMIS_ORION') {
+                    let moonPos;
+                    try {
+                        const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
+                        moonPos = computeCelestialPosition(moonBody, time);
+                    } catch(e) {}
+                    if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
+
+                    const droRadius = 35000000;
+                    for (let i = 0; i <= sampleCount; i++) {
+                        const th = (i / sampleCount) * Math.PI * 2;
+                        const ox = droRadius * Math.cos(th);
+                        const oy = droRadius * Math.sin(th) * 0.7071;
+                        const oz = droRadius * Math.sin(th) * 0.7071;
+                        pts.push(Cesium.Cartesian3.add(moonPos, new Cesium.Cartesian3(ox, oy, oz), new Cesium.Cartesian3()));
+                    }
+                } else if (mission.id === 'LRO') {
+                    let moonPos;
+                    try {
+                        const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
+                        moonPos = computeCelestialPosition(moonBody, time);
+                    } catch(e) {}
+                    if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
+
+                    const orbitR = 3500000;
+                    for (let i = 0; i <= sampleCount; i++) {
+                        const th = (i / sampleCount) * Math.PI * 2;
+                        const ox = orbitR * Math.cos(th);
+                        const oz = orbitR * Math.sin(th);
+                        pts.push(Cesium.Cartesian3.add(moonPos, new Cesium.Cartesian3(ox, 0, oz), new Cesium.Cartesian3()));
+                    }
+                } else if (mission.id === 'MARS_MRO') {
+                    let marsPos;
+                    try {
+                        const marsBody = CELESTIAL_BODIES.find(b => b.id === 'MARS');
+                        marsPos = computeCelestialPosition(marsBody, time);
+                    } catch(e) {}
+                    if (!marsPos) marsPos = new Cesium.Cartesian3(2000000000, 0, 0);
+
+                    const orbitR = 5500000;
+                    for (let i = 0; i <= sampleCount; i++) {
+                        const th = (i / sampleCount) * Math.PI * 2;
+                        const oy = orbitR * Math.cos(th);
+                        const oz = orbitR * Math.sin(th);
+                        pts.push(Cesium.Cartesian3.add(marsPos, new Cesium.Cartesian3(0, oy, oz), new Cesium.Cartesian3()));
+                    }
+                }
+                return pts;
+            }, false),
+            width: 3.5,
+            material: new Cesium.PolylineGlowMaterialProperty({
+                glowPower: 0.35,
+                color: Cesium.Color.fromCssColorString(mission.color || '#f59e0b')
+            })
+        }
+    });
 }
 
 function selectDeepSpaceMission(missionId) {
@@ -6922,17 +6988,21 @@ function selectDeepSpaceMission(missionId) {
 
     if (satImageWrapper && satImage) {
         const missionImages = {
-            JWST: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/James_Webb_Space_Telescope_spacecraft_model.png/640px-James_Webb_Space_Telescope_spacecraft_model.png',
-            ARTEMIS_ORION: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Artemis_1_Orion_spacecraft_seen_from_the_lunar_orbit.jpg/640px-Artemis_1_Orion_spacecraft_seen_from_the_lunar_orbit.jpg',
-            LRO: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Lunar_Reconnaissance_Orbiter.jpg/640px-Lunar_Reconnaissance_Orbiter.jpg',
-            MARS_PERSEVERANCE: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Perseverance_Selfie_at_Rochette_%28cropped%29.jpg/640px-Perseverance_Selfie_at_Rochette_%28cropped%29.jpg',
-            MARS_MRO: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Mars_Reconnaissance_Orbiter_artists_concept.jpg/640px-Mars_Reconnaissance_Orbiter_artists_concept.jpg',
-            HAYABUSA2: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Hayabusa-2_model.jpg/640px-Hayabusa-2_model.jpg',
-            VOYAGER1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Voyager_spacecraft_model.png/640px-Voyager_spacecraft_model.png'
+            JWST: 'assets/sat_images/jwst.png?v=20260905_1',
+            ARTEMIS_ORION: 'assets/sat_images/artemis_orion.jpg?v=20260905_1',
+            LRO: 'assets/sat_images/lro.jpg?v=20260905_1',
+            MARS_PERSEVERANCE: 'assets/sat_images/mars_perseverance.jpg?v=20260905_1',
+            MARS_MRO: 'assets/sat_images/mars_mro.jpg?v=20260905_1',
+            HAYABUSA2: 'assets/sat_images/hayabusa2.jpg?v=20260905_1',
+            VOYAGER1: 'assets/sat_images/voyager1.png?v=20260905_1'
         };
 
         const imgUrl = missionImages[mission.id];
         if (imgUrl) {
+            satImage.onerror = function() {
+                console.warn("Failed to load image for deep space probe:", mission.id);
+                satImageWrapper.classList.add('hidden');
+            };
             satImage.src = imgUrl;
             satImage.alt = mission.name;
             if (satImageCaption) satImageCaption.innerHTML = `<span>🔭 ${mission.shortName}</span><span>Source: NASA / JAXA (Public Domain)</span>`;
@@ -6967,12 +7037,9 @@ function selectDeepSpaceMission(missionId) {
         satDescription.textContent = descText;
     }
 
-    const time = viewer.clock.currentTime;
-    const pos = computeDeepSpacePosition(mission, time);
-    const distMeters = Cesium.Cartesian3.magnitude(pos);
-    const distKm = (distMeters / 1000).toLocaleString(undefined, { maximumFractionDigits: 0 });
-
-    satAlt.textContent = `${distKm} km`;
+    // 正確な天文学的距離 (150万km / 38.4万km 等) を表示
+    const distRealKm = (mission.distKm || 1500000).toLocaleString();
+    satAlt.textContent = `${distRealKm} km`;
     satVel.textContent = mission.speedKmS || '---';
     satLat.textContent = mission.parent || 'Deep Space';
     satLon.textContent = mission.launchDate || '---';
@@ -6987,28 +7054,38 @@ function selectDeepSpaceMission(missionId) {
 
     if (passCountdown) passCountdown.textContent = `🔭 ${mission.site || 'Deep Space Mission'}`;
     if (passMetaInfo) passMetaInfo.textContent = `${mission.agency} | Launch: ${mission.launchDate}`;
-    if (debrisProximity) debrisProximity.textContent = '🟢 Operational / Healthy';
+    if (debrisProximity) debrisProximity.textContent = '🟢 Operational / In Orbit';
 
     detailCard.classList.remove('hidden');
 
-    const missionDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
-    const cameraRange = Math.max(distMeters * 0.15, 30000000);
+    // =========================================================================
+    // カメラの自由操作とズームを100%保証するスムーズな Fly-To
+    // =========================================================================
+    // 1. 以前のあらゆる lookAt ロックを確実にリセット
+    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
 
+    const time = viewer.clock.currentTime;
+    const pos = computeDeepSpacePosition(mission, time);
+    const missionDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+
+    // 2. 地球と探査機の位置関係が美しく見渡せる快適な距離にカメラを配置
+    const viewDist = 320000000; // 約32万km手前
+    const cameraDest = Cesium.Cartesian3.add(
+        pos,
+        new Cesium.Cartesian3(-viewDist * 0.75, viewDist * 0.45, viewDist * 0.35),
+        new Cesium.Cartesian3()
+    );
+    const toTarget = Cesium.Cartesian3.subtract(pos, cameraDest, new Cesium.Cartesian3());
+    const targetDir = Cesium.Cartesian3.normalize(toTarget, new Cesium.Cartesian3());
+
+    // 3. lookAt を呼ばず flyTo のみでカメラを向けることで、マウスホイールでの自由なズームイン・ズームアウトが可能！
     viewer.camera.flyTo({
-        destination: Cesium.Cartesian3.add(
-            pos,
-            Cesium.Cartesian3.multiplyByScalar(missionDir, -cameraRange * 0.2, new Cesium.Cartesian3()),
-            new Cesium.Cartesian3()
-        ),
+        destination: cameraDest,
         orientation: {
-            direction: missionDir,
+            direction: targetDir,
             up: Cesium.Cartesian3.UNIT_Z
         },
-        duration: 2.0,
-        complete: () => {
-            const hpr = new Cesium.HeadingPitchRange(0.0, Cesium.Math.toRadians(-20.0), cameraRange * 0.25);
-            viewer.camera.lookAt(pos, hpr);
-        }
+        duration: 2.0
     });
 }
 
@@ -7301,7 +7378,7 @@ function initCesiumViewer() {
         const camera = viewer.camera;
         const delta = e.deltaY;
         
-        // When inspecting a 3D Planet: Ultra-fine, delicate micro-zoom
+        // 1. When inspecting a 3D Planet: Ultra-fine, delicate micro-zoom
         if (activePlanetSphereEntity || selectedCelestialId) {
             const body = CELESTIAL_BODIES.find(b => b.id === selectedCelestialId);
             const planetRadius = (body && body.radiusKm ? body.radiusKm * 1000 : 6000000);
@@ -7320,12 +7397,36 @@ function initCesiumViewer() {
             return;
         }
 
-        // Earth Orbit Mode: Ultra-smooth step factor
+        // 2. When inspecting Deep Space Missions (JWST, Artemis Orion, LRO, Mars, Voyager)
+        if (selectedDeepSpaceId) {
+            const mission = DEEP_SPACE_MISSIONS.find(m => m.id === selectedDeepSpaceId);
+            const time = viewer.clock.currentTime;
+            const targetPos = mission ? computeDeepSpacePosition(mission, time) : null;
+            const distToTarget = targetPos ? Cesium.Cartesian3.distance(camera.positionWC, targetPos) : Cesium.Cartesian3.magnitude(camera.positionWC);
+
+            // 適応型ステップ: 探査機至近でも深宇宙全体でも快適なプロポーショナルズーム
+            const zoomStep = Math.max(1000, distToTarget * Math.abs(delta) * 0.00035);
+
+            if (delta > 0) {
+                // ズームアウト: 制限なく最大100億メートル（1,000万km）まで広大な宇宙を引いて見渡せる
+                if (distToTarget + zoomStep <= 10000000000) {
+                    camera.zoomOut(zoomStep);
+                }
+            } else {
+                // ズームイン: 探査機至近（500m）まで精密に寄れる
+                if (distToTarget - zoomStep >= 500) {
+                    camera.zoomIn(zoomStep);
+                }
+            }
+            return;
+        }
+
+        // 3. Earth Orbit Mode: Ultra-smooth step factor (Expanded up to 3,000,000 km to view Moon & beyond)
         const currentDist = Cesium.Cartesian3.magnitude(camera.positionWC);
         const zoomStep = currentDist * (delta * 0.00015);
         
         if (delta > 0) {
-            if (currentDist + zoomStep <= 120000000) {
+            if (currentDist + zoomStep <= 3000000000) {
                 camera.zoomOut(zoomStep);
             }
         } else {
@@ -8334,6 +8435,11 @@ function selectSatellite(index) {
 
     // Reset planet inspection sphere and unlock camera transform
     clearPlanetInspectionEntities();
+    selectedDeepSpaceId = null;
+    if (deepSpaceOrbitEntity && viewer) {
+        viewer.entities.remove(deepSpaceOrbitEntity);
+        deepSpaceOrbitEntity = null;
+    }
     if (viewer) {
         viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
     }
