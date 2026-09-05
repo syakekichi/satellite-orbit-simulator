@@ -182,11 +182,45 @@ const CELESTIAL_METRIC_LABELS = {
     'ru': { alt: '📏 Расстояние', vel: '📐 Диаметр', lat: '⚖️ Масса', lon: '🔄 Вращение', inc: '🌡️ Температура', period: '🌌 Период обращения' }
 };
 
-function updateDetailCardMetricLabels(isCelestial) {
+const DEEP_SPACE_METRIC_LABELS = {
+    ja: { alt: '📏 距離 (Distance)', vel: '⚡ 速度 (Velocity)', lat: '🎯 中心天体 (Parent)', lon: '📅 打上日 (Launch)', inc: '🚀 ロケット (Rocket)', period: '🌌 周期 (Period)' },
+    en: { alt: '📏 Distance', vel: '⚡ Speed', lat: '🎯 Target/Parent', lon: '📅 Launch Date', inc: '🚀 Launch Vehicle', period: '🌌 Orbital Period' },
+    de: { alt: '📏 Distanz', vel: '⚡ Geschwindigkeit', lat: '🎯 Bezugskörper', lon: '📅 Startdatum', inc: '🚀 Trägerrakete', period: '🌌 Umlaufzeit' },
+    fr: { alt: '📏 Distance', vel: '⚡ Vitesse', lat: '🎯 Corps parent', lon: '📅 Date de lancement', inc: '🚀 Lanceur', period: '🌌 Période orbitale' },
+    es: { alt: '📏 Distancia', vel: '⚡ Velocidad', lat: '🎯 Cuerpo central', lon: '📅 Fecha de lanzamiento', inc: '🚀 Cohete lanzador', period: '🌌 Período orbital' },
+    pt: { alt: '📏 Distância', vel: '⚡ Velocidade', lat: '🎯 Corpo central', lon: '📅 Data de lançamento', inc: '🚀 Veículo lançador', period: '🌌 Período orbital' },
+    it: { alt: '📏 Distanza', vel: '⚡ Velocità', lat: '🎯 Corpo di riferimento', lon: '📅 Data di lancio', inc: '🚀 Vettore di lancio', period: '🌌 Periodo orbitale' },
+    ko: { alt: '📏 거리 (Distance)', vel: '⚡ 속도 (Velocity)', lat: '🎯 중심 천체 (Parent)', lon: '📅 발사일 (Launch)', inc: '🚀 발사체 (Rocket)', period: '🌌 주기 (Period)' },
+    nl: { alt: '📏 Afstand', vel: '⚡ Snelheid', lat: '🎯 Doellichaam', lon: '📅 Lanceerdatum', inc: '🚀 Draagraket', period: '🌌 Omlooptijd' },
+    id: { alt: '📏 Jarak', vel: '⚡ Kecepatan', lat: '🎯 Objek Induk', lon: '📅 Tanggal Peluncuran', inc: '🚀 Roket Peluncur', period: '🌌 Periode Orbit' },
+    hi: { alt: '📏 दूरी', vel: '⚡ गति', lat: '🎯 मुख्य खगोलीय पिंड', lon: '📅 प्रक्षेपण तिथि', inc: '🚀 प्रक्षेपण यान', period: '🌌 कक्षीय अवधि' },
+    ar: { alt: '📏 المسافة', vel: '⚡ السرعة', lat: '🎯 الجرم المرجعي', lon: '📅 تاريخ الإطلاق', inc: '🚀 صاروخ الإطلاق', period: '🌌 الفترة المدارية' },
+    zh: { alt: '📏 距离 (Distance)', vel: '⚡ 速度 (Velocity)', lat: '🎯 中心天体 (Parent)', lon: '📅 发射日期 (Launch)', inc: '🚀 运载火箭 (Rocket)', period: '🌌 公转周期 (Period)' },
+    ru: { alt: '📏 Дистанция', vel: '⚡ Скорость', lat: '🎯 Центр обращения', lon: '📅 Дата запуска', inc: '🚀 Ракета-носитель', period: '🌌 Период обращения' }
+};
+
+function updateDetailCardMetricLabels(mode) {
     const langSelect = document.getElementById('langSelect');
-    const lang = (langSelect && langSelect.value) || window.currentLang || currentLang || 'ja';
+    const lang = window.currentLang || currentLang || (langSelect && langSelect.value) || 'ja';
     const dict = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[lang]) ? TRANSLATIONS[lang] : {};
     const cLabels = CELESTIAL_METRIC_LABELS[lang] || CELESTIAL_METRIC_LABELS['en'] || CELESTIAL_METRIC_LABELS['ja'];
+    const dsLabels = DEEP_SPACE_METRIC_LABELS[lang] || DEEP_SPACE_METRIC_LABELS['en'] || DEEP_SPACE_METRIC_LABELS['ja'];
+
+    let labels;
+    if (mode === 'deepspace') {
+        labels = dsLabels;
+    } else if (mode === true || mode === 'celestial') {
+        labels = cLabels;
+    } else {
+        labels = {
+            alt: dict.labelAlt || '高度 (Altitude)',
+            vel: dict.labelVel || '速度 (Velocity)',
+            lat: dict.labelLat || '緯度 (Latitude)',
+            lon: dict.labelLon || '経度 (Longitude)',
+            inc: dict.labelInc || '軌道傾斜角 (Inclination)',
+            period: dict.labelPeriod || '周期 (Period)'
+        };
+    }
 
     const elAlt = document.getElementById('satAlt');
     const elVel = document.getElementById('satVel');
@@ -195,12 +229,12 @@ function updateDetailCardMetricLabels(isCelestial) {
     const elInc = document.getElementById('satInc');
     const elPeriod = document.getElementById('satPeriod');
 
-    if (elAlt && elAlt.previousElementSibling) elAlt.previousElementSibling.textContent = isCelestial ? cLabels.alt : (dict.labelAlt || '高度 (Altitude)');
-    if (elVel && elVel.previousElementSibling) elVel.previousElementSibling.textContent = isCelestial ? cLabels.vel : (dict.labelVel || '速度 (Velocity)');
-    if (elLat && elLat.previousElementSibling) elLat.previousElementSibling.textContent = isCelestial ? cLabels.lat : (dict.labelLat || '緯度 (Latitude)');
-    if (elLon && elLon.previousElementSibling) elLon.previousElementSibling.textContent = isCelestial ? cLabels.lon : (dict.labelLon || '経度 (Longitude)');
-    if (elInc && elInc.previousElementSibling) elInc.previousElementSibling.textContent = isCelestial ? cLabels.inc : (dict.labelInc || '軌道傾斜角 (Inclination)');
-    if (elPeriod && elPeriod.previousElementSibling) elPeriod.previousElementSibling.textContent = isCelestial ? cLabels.period : (dict.labelPeriod || '周期 (Period)');
+    if (elAlt && elAlt.previousElementSibling) elAlt.previousElementSibling.textContent = labels.alt;
+    if (elVel && elVel.previousElementSibling) elVel.previousElementSibling.textContent = labels.vel;
+    if (elLat && elLat.previousElementSibling) elLat.previousElementSibling.textContent = labels.lat;
+    if (elLon && elLon.previousElementSibling) elLon.previousElementSibling.textContent = labels.lon;
+    if (elInc && elInc.previousElementSibling) elInc.previousElementSibling.textContent = labels.inc;
+    if (elPeriod && elPeriod.previousElementSibling) elPeriod.previousElementSibling.textContent = labels.period;
 }
 
 
@@ -2707,6 +2741,11 @@ function applyLanguage(lang) {
     // Dynamic Live Re-render for Selected Celestial Body if open
     if (typeof selectedCelestialId !== 'undefined' && selectedCelestialId) {
         selectCelestialBody(selectedCelestialId);
+    }
+
+    // Dynamic Live Re-render for Selected Deep Space Probe if open
+    if (typeof selectedDeepSpaceId !== 'undefined' && selectedDeepSpaceId) {
+        selectDeepSpaceMission(selectedDeepSpaceId, true);
     }
 }
 
@@ -6038,49 +6077,199 @@ const DEEP_SPACE_MISSIONS = [
     }
 ];
 
+const DEEP_SPACE_DISPLAY_NAMES = {
+    JWST: {
+        ja: '🔭 JWST (ジェイムズ・ウェッブ宇宙望遠鏡 / L2)',
+        en: '🔭 JWST (James Webb Space Telescope / L2)',
+        de: '🔭 JWST (James-Webb-Weltraumteleskop / L2)',
+        fr: '🔭 JWST (Télescope spatial James Webb / L2)',
+        es: '🔭 JWST (Telescopio Espacial James Webb / L2)',
+        pt: '🔭 JWST (Telescópio Espacial James Webb / L2)',
+        it: '🔭 JWST (Telescopio Spaziale James Webb / L2)',
+        ko: '🔭 JWST (제임스 웹 우주망원경 / L2)',
+        nl: '🔭 JWST (James Webb-ruimtetelescoop / L2)',
+        id: '🔭 JWST (Teleskop Luar Angkasa James Webb / L2)',
+        hi: '🔭 JWST (जेम्स वेब स्पेस टेलीस्कोप / L2)',
+        ar: '🔭 JWST (تلسكوب جيمس ويب الفضائي / L2)',
+        zh: '🔭 JWST (詹姆斯·韦伯空间望远镜 / L2)',
+        ru: '🔭 JWST (Космический телескоп Джеймс Уэбб / L2)'
+    },
+    ARTEMIS_ORION: {
+        ja: '🚀 アルテミス・オリオン有人探査船 (月DRO軌道)',
+        en: '🚀 Artemis Orion Spacecraft (Lunar DRO)',
+        de: '🚀 Artemis Orion Raumschiff (Mond DRO-Orbit)',
+        fr: '🚀 Vaisseau spatial Artemis Orion (DRO lunaire)',
+        es: '🚀 Nave espacial Artemis Orion (DRO lunar)',
+        pt: '🚀 Nave espacial Artemis Orion (DRO lunar)',
+        it: '🚀 Navicella Artemis Orion (DRO lunare)',
+        ko: '🚀 아르테미스 오리온 우주선 (달 DRO 궤도)',
+        nl: '🚀 Artemis Orion Ruimteschip (Maan DRO)',
+        id: '🚀 Pesawat Luar Angkasa Artemis Orion (DRO Bulan)',
+        hi: '🚀 आर्टेमिस ओरियन अंतरिक्ष यान (चंद्र DRO)',
+        ar: '🚀 مركبة أرتيميس أوريون الفضائية (مدار قمري)',
+        zh: '🚀 阿尔忒弥斯·猎户座载人飞船 (月球DRO轨道)',
+        ru: '🚀 Корабль Артемида Орион (Лунная DRO орбита)'
+    },
+    LRO: {
+        ja: '🌕 LRO (月周回偵察探査衛星 / 月低軌道)',
+        en: '🌕 LRO (Lunar Reconnaissance Orbiter)',
+        de: '🌕 LRO (Lunar Reconnaissance Orbiter / Mondorbit)',
+        fr: '🌕 LRO (Lunar Reconnaissance Orbiter)',
+        es: '🌕 LRO (Orbitador de Reconocimiento Lunar)',
+        pt: '🌕 LRO (Orbitador de Reconhecimento Lunar)',
+        it: '🌕 LRO (Lunar Reconnaissance Orbiter)',
+        ko: '🌕 LRO (달 정찰 궤도선 / 달 저궤도)',
+        nl: '🌕 LRO (Lunar Reconnaissance Orbiter)',
+        id: '🌕 LRO (Pengorbit Pengintaian Bulan)',
+        hi: '🌕 LRO (चंद्र टोही ऑर्बिटर)',
+        ar: '🌕 مسبار الاستطلاع القمري (LRO)',
+        zh: '🌕 LRO (月球勘测轨道飞行器 / 极轨)',
+        ru: '🌕 LRO (Лунный разведывательный орбитальный аппарат)'
+    },
+    MARS_PERSEVERANCE: {
+        ja: '🚜 パーサヴィアランス探査車 (火星ジェゼロ湖底)',
+        en: '🚜 Perseverance Rover (Mars Jezero Crater)',
+        de: '🚜 Perseverance Rover (Mars Jezero-Krater)',
+        fr: '🚜 Rover Perseverance (Cratère Jezero, Mars)',
+        es: '🚜 Rover Perseverance (Cráter Jezero, Marte)',
+        pt: '🚜 Rover Perseverance (Cratera Jezero, Marte)',
+        it: '🚜 Rover Perseverance (Cratere Jezero, Marte)',
+        ko: '🚜 퍼서비어런스 로버 (화성 예제로 분화구)',
+        nl: '🚜 Perseverance Rover (Mars Jezero-krater)',
+        id: '🚜 Wahana Perseverance (Kawah Jezero Mars)',
+        hi: '🚜 पर्सिवियरेंस रोवर (मंगल जेज़ेरो क्रेटर)',
+        ar: '🚜 مسبار بيرسيفيرانس (فوهة جيزيرو، المريخ)',
+        zh: '🚜 毅力号火星车 (火星杰泽罗湖底)',
+        ru: '🚜 Марсоход Персеверанс (Кратер Езеро, Марс)'
+    },
+    MARS_MRO: {
+        ja: '🔴 MRO (マーズ・リコネサンス・オービター / 火星極軌道)',
+        en: '🔴 MRO (Mars Reconnaissance Orbiter)',
+        de: '🔴 MRO (Mars Reconnaissance Orbiter)',
+        fr: '🔴 MRO (Mars Reconnaissance Orbiter)',
+        es: '🔴 MRO (Orbitador de Reconocimiento de Marte)',
+        pt: '🔴 MRO (Orbitador de Reconhecimento de Marte)',
+        it: '🔴 MRO (Mars Reconnaissance Orbiter)',
+        ko: '🔴 MRO (화성 정찰 위성 / 극궤도)',
+        nl: '🔴 MRO (Mars Reconnaissance Orbiter)',
+        id: '🔴 MRO (Pengorbit Pengintaian Mars)',
+        hi: '🔴 MRO (मंगल टोही ऑर्बिटर)',
+        ar: '🔴 مسبار استطلاع المريخ مداري (MRO)',
+        zh: '🔴 MRO (火星勘测轨道飞行器 / 极轨)',
+        ru: '🔴 MRO (Марсианский разведывательный спутник)'
+    },
+    HAYABUSA2: {
+        ja: '🛸 はやぶさ2 (小惑星探査機 / 太陽周回軌道)',
+        en: '🛸 Hayabusa2 (Asteroid Sample Return / Heliocentric)',
+        de: '🛸 Hayabusa2 (Asteroidensonde / Sonnenorbit)',
+        fr: '🛸 Hayabusa2 (Sonde spatiale d\'astéroïdes / Héliocentrique)',
+        es: '🛸 Hayabusa2 (Sonda de asteroides / Heliocéntrica)',
+        pt: '🛸 Hayabusa2 (Sonda de asteroides / Heliocêntrica)',
+        it: '🛸 Hayabusa2 (Sonda per asteroidi / Eliocentrica)',
+        ko: '🛸 하야부사2 (소행성 탐사선 / 태양 주회 궤도)',
+        nl: '🛸 Hayabusa2 (Asteroïdesonde / Heliocentrisch)',
+        id: '🛸 Hayabusa2 (Penjelajah Asteroid / Heliosentris)',
+        hi: '🛸 हयाबुसा 2 (क्षुद्रग्रह अन्वेषण यान / सूर्य-केन्द्रित)',
+        ar: '🛸 هايابوسا 2 (مسبار الكويكبات / مدار شمسي)',
+        zh: '🛸 隼鸟2号 (小行星探测器 / 日心轨道)',
+        ru: '🛸 Хаябуса-2 (Межпланетный зонд / Гелиоцентрический)'
+    },
+    VOYAGER1: {
+        ja: '🌌 ボイジャー1号 (最遠の星間脱出探査機 / 164 AU)',
+        en: '🌌 Voyager 1 (Interstellar Space / ~164 AU)',
+        de: '🌌 Voyager 1 (Interstellarer Raum / ~164 AE)',
+        fr: '🌌 Voyager 1 (Espace interstellaire / ~164 UA)',
+        es: '🌌 Voyager 1 (Espacio interestelar / ~164 UA)',
+        pt: '🌌 Voyager 1 (Espaço interestelar / ~164 UA)',
+        it: '🌌 Voyager 1 (Spazio interstellare / ~164 UA)',
+        ko: '🌌 보이저 1호 (성간 공간 탐사선 / ~164 AU)',
+        nl: '🌌 Voyager 1 (Interstellaire Ruimte / ~164 AE)',
+        id: '🌌 Voyager 1 (Ruang Antarbintang / ~164 AU)',
+        hi: '🌌 वॉयेजर 1 (इंटरस्टेलर अंतरिक्ष / ~164 AU)',
+        ar: '🌌 فوياجر 1 (الفضاء بين النجوم / ~164 وحدة فلكية)',
+        zh: '🌌 旅行者1号 (星际空间探测器 / 164天文单位)',
+        ru: '🌌 Вояджер-1 (Межзвездное пространство / ~164 а.е.)'
+    }
+};
+
 const DEEP_SPACE_DESCRIPTIONS = {
     "JWST": {
         "ja": "NASA・ESA・CSAが共同開発した人類史上最強の次世代宇宙望遠鏡。※地球の赤道上空3.6万kmにとどまる「静止衛星」とは全く異なり、月（約38万km）のさらに4倍も遠い約150万km彼方の「太陽-地球 第2ラグランジュ点（L2）」を半年かけて1周する巨大なハロー軌道を飛行しています。18枚の金コーティング・ベリリウム製六角形主鏡（口径6.5m）とテニスコート大の5層サンシールドを備え、絶対零度近くの極低温（-233℃以下）から135億年以上前の宇宙黎明期の最遠銀河や太陽系外惑星の大気成分を直接検出しています。",
         "en": "The premier deep space observatory developed by NASA, ESA, and CSA. Unlike geostationary satellites orbiting 36,000 km above Earth, JWST is stationed ~1.5 million km away (4 times farther than the Moon) in a wide Halo orbit around the Sun-Earth L2 Lagrange point, completing one orbit every ~6 months. Featuring a 6.5-meter gold-coated beryllium mirror and tennis-court-sized sunshield, it operates below -233°C to observe the universe's first luminous galaxies from 13.5 billion years ago and analyze exoplanet atmospheres.",
-        "de": "Das weltweit leistungsfahigste Weltraumteleskop von NASA, ESA und CSA. Im Gegensatz zu Geostationaren Satelliten umkreist es den 1,5 Mio. km entfernten Sonne-Erde-L2-Lagrange-Punkt in einem weiten Halo-Orbit mit einem 6,5 m Beryllium-Goldspiegel.",
-        "fr": "Le plus puissant telescope spatial jamais concu par la NASA, l'ESA et l'ASC. Bien distinct d'un satellite geostationnaire, il evolue sur une orbite de halo au point de Lagrange L2 a 1,5 million de km de la Terre.",
-        "es": "El telescopio espacial mas avanzado del mundo, desarrollado por NASA, ESA y CSA. A diferencia de un satelite geoestacionario, orbita en un halo alrededor del punto Lagrange L2 a 1,5 millones de km de la Tierra.",
-        "zh": "NASA、ESA与CSA联合研制的人类史上最强太空望远镜。不同于赤道上空3.6万公里的地球静止卫星，它运行在距地约150万公里（月球距离4倍）的日地L2拉格朗日点巨大光环轨道上，每半年公转一周。",
-        "ru": "Самый мощный космический телескоп в истории, созданный NASA, ESA и CSA. В отличие от геостационарных спутников, он обращается по гало-орбите вокруг точки Лагранжа L2 в 1,5 млн км от Земли (в 4 раза дальше Луны)."
+        "de": "Das weltweit leistungsfähigste Weltraumteleskop von NASA, ESA und CSA. Im Gegensatz zu Geostationären Satelliten umkreist es den 1,5 Mio. km entfernten Sonne-Erde-L2-Lagrange-Punkt in einem weiten Halo-Orbit mit einem 6,5 m Beryllium-Goldspiegel bei unter -233°C.",
+        "fr": "Le plus puissant télescope spatial jamais conçu par la NASA, l'ESA et l'ASC. Bien distinct d'un satellite géostationnaire, il évolue sur une orbite de halo au point de Lagrange L2 à 1,5 million de km de la Terre pour observer les premières galaxies de l'Univers.",
+        "es": "El telescopio espacial más avanzado del mundo, desarrollado por NASA, ESA y CSA. A diferencia de un satélite geoestacionario, orbita en un halo alrededor del punto Lagrange L2 a 1,5 millones de km de la Tierra, captando galaxias a 13.500 millones de años luz.",
+        "pt": "O mais poderoso telescópio espacial do mundo, desenvolvido pela NASA, ESA e CSA. Opera em uma órbita de halo no ponto Lagrange L2 a 1,5 milhão de km da Terra para observar as primeiras galáxias do universo.",
+        "it": "Il più potente telescopio spaziale del mondo sviluppato da NASA, ESA e CSA. A 1,5 milioni di km dalla Terra nel punto di Lagrange L2, scruta le prime galassie dell'universo e le atmosfere esoplanetarie.",
+        "ko": "NASA, ESA, CSA가 공동 개발한 인류 역사상 최강의 우주망원경. 지구에서 150만 km 떨어진 태양-지구 L2 라그랑주 점의 헤일로 궤도를 돌며 135억 년 전 최초의 은하와 외계 행성 대기를 관측합니다.",
+        "nl": "De krachtigste ruimtetelescoop ter wereld van NASA, ESA en CSA, gestationeerd op 1,5 miljoen km afstand in het zon-aarde L2 Lagrange-punt om het vroege heelal te bestuderen.",
+        "id": "Teleskop luar angkasa terkuat di dunia yang dikembangkan oleh NASA, ESA, dan CSA. Berada di titik Lagrange L2 sejauh 1,5 juta km dari Bumi untuk mengamati galaksi-galaksi awal alam semesta.",
+        "hi": "नासा, ईएसए और सीएसए द्वारा विकसित दुनिया का सबसे शक्तिशाली अंतरिक्ष टेलीस्कोप। पृथ्वी से 15 लाख किमी दूर सूर्य-पृथ्वी L2 बिंदु पर स्थित, यह 13.5 अरब साल पुरानी आकाशगंगाओं का अध्ययन करता है।",
+        "ar": "أقوى تلسكوب فضائي في العالم تم تطويره بالتعاون بين ناسا ووكالة الفضاء الأوروبية والكندية، يدور في نقطة لاغرانج L2 على بعد 1.5 مليون كم من الأرض لرصد فجر الكون.",
+        "zh": "NASA、ESA与CSA联合研制的人类史上最强太空望远镜。不同于赤道上空3.6万公里的地球静止卫星，它运行在距地约150万公里（月球距离4倍）的日地L2拉格朗日点巨大光环轨道上，每半年公转一周，探索135亿年前早期宇宙。",
+        "ru": "Самый мощный космический телескоп в истории, созданный NASA, ESA и CSA. Он обращается по гало-орбите вокруг точки Лагранжа L2 в 1,5 млн км от Земли (в 4 раза дальше Луны), исследуя первые галактики Вселенной."
     },
     "ARTEMIS_ORION": {
         "ja": "人類の月面再到達と将来の火星有人探査を目指す国際深宇宙探査計画「アルテミス計画」の中核を担う有人宇宙船。月を周回する遠方逆行軌道（DRO）や近直線ハロー軌道（NRHO）を飛行。欧州宇宙機関（ESA）が提供するサービスモジュール（ESM）と強固な耐熱シールドを搭載し、月軌道ステーション「ゲートウェイ」への人員・物資輸送を担います。",
         "en": "The flagship crewed spacecraft of NASA's Artemis campaign, designed to return humanity to the Moon and prepare for missions to Mars. Orion features advanced life support for 4 astronauts, a high-capacity heat shield engineered for 40,000 km/h lunar re-entry, and the European Service Module (ESM) providing propulsion, power, and consumables in lunar Distant Retrograde Orbit (DRO).",
-        "de": "Das bemannte Flaggschiff-Raumschiff des Artemis-Programms von NASA, ESA und JAXA fur Langzeitmissionen im Mondorbit und die Vorbereitung von bemannten Flugen zum Mars.",
-        "fr": "Le vaisseau spatial habite du programme Artemis de la NASA, de l'ESA et de la JAXA, concu pour ramener l'humanite sur la Lune et preparer les futures missions habitees vers Mars.",
-        "es": "Nave tripulada insignia del programa Artemis de la NASA, ESA y JAXA, disenada para devolver a la humanidad a la Luna y preparar misiones tripuladas hacia Marte.",
+        "de": "Das bemannte Flaggschiff-Raumschiff des Artemis-Programms von NASA, ESA und JAXA für Langzeitmissionen im Mondorbit und die Vorbereitung von bemannten Flügen zum Mars.",
+        "fr": "Le vaisseau spatial habité du programme Artemis de la NASA, de l'ESA et de la JAXA, conçu pour ramener l'humanité sur la Lune et préparer les futures missions habitées vers Mars.",
+        "es": "Nave tripulada insignia del programa Artemis de la NASA, ESA y JAXA, diseñada para devolver a la humanidad a la Luna y preparar misiones tripuladas hacia Marte.",
+        "pt": "A principal espaçonave tripulada do programa Artemis da NASA, ESA e JAXA, projetada para levar a humanidade de volta à Lua e preparar futuras missões a Marte.",
+        "it": "La navicella con equipaggio del programma Artemis di NASA, ESA e JAXA, progettata per riportare l'umanità sulla Luna e preparare le missioni su Marte.",
+        "ko": "인류의 달 착륙과 화성 유인 탐사를 목표로 하는 아르테미스 계획의 핵심 유인 우주선. 달 원거리 역행 궤도(DRO)를 비행하며 우주비행사 수송 및 게이트웨이 기지 건설을 담당합니다.",
+        "nl": "Het bemande vlaggenschip van NASA's Artemis-programma, ontworpen om de mensheid terug te brengen naar de Maan en missies naar Mars voor te bereiden.",
+        "id": "Pesawat luar angkasa berawak andalan program Artemis NASA, dirancang untuk mengembalikan manusia ke Bulan dan mempersiapkan misi ke Mars.",
+        "hi": "नासा के आर्टेमिस कार्यक्रम का प्रमुख मानवयुक्त अंतरिक्ष यान, जो मानव को चंद्रमा पर वापस लाने और मंगल मिशन की तैयारी के लिए डिज़ाइन किया गया है।",
+        "ar": "المركبة الفضائية المأهولة الرئيسية لبرنامج أرتيميس التابع لناسا، مصممة لإعادة البشر إلى القمر والتحضير للرحلات المأهولة إلى المريخ.",
         "zh": "NASA阿尔忒弥斯计划的核心载人飞船，由NASA、ESA和JAXA联合打造，运行于月球远距离逆行轨道（DRO），旨在实现人类重返月球并为登陆火星奠定基础。",
         "ru": "Пилотируемый корабль лунной программы Artemis NASA, ESA и JAXA, предназначенный для доставки астронавтов на орбиту Луны и подготовки экспедиций на Марс."
     },
     "LRO": {
         "ja": "NASAの月周回探査機（Lunar Reconnaissance Orbiter）。月面からわずか高度50kmの極軌道から、高解像度カメラLROC（解像度0.5m/px）やレーザー高度計LOLAを用いて、アポロ着陸船の遺留品や月面の詳細地形、永久影の極域クレーターに眠る水氷資源を継続的に観測・マッピングしています。",
         "en": "NASA's robotic spacecraft orbiting the Moon in a polar mapping orbit at ~50 km altitude. Equipped with LROC (0.5m/pixel resolution), LOLA laser altimeter, and Diviner radiometer, LRO has mapped over 99% of the lunar surface, locating Apollo landing sites, fresh impact craters, and extensive water-ice deposits inside permanently shadowed craters at the lunar poles.",
-        "de": "Mondsonde der NASA im polaren Mondorbit in nur 50 km Hohe zur Erstellung hochauflosender 3D-Karten und Aufspurung von Wassereisvorkommen in den Polkratern.",
-        "fr": "Sonde spatiale de la NASA en orbite lunaire a 50 km d'altitude, cartographiant le relief lunaire et detectant la glace d'eau aux poles avec une precision de 0,5 m/pixel.",
-        "es": "Sonda espacial de la NASA en orbita polar lunar a solo 50 km de altitud, cartografiando el relieve lunar y localizando reservas de hielo de agua en los polos.",
+        "de": "Mondsonde der NASA im polaren Mondorbit in nur 50 km Höhe zur Erstellung hochauflösender 3D-Karten und Aufspürung von Wassereisvorkommen in den Polkratern.",
+        "fr": "Sonde spatiale de la NASA en orbite lunaire à 50 km d'altitude, cartographiant le relief lunaire et détectant la glace d'eau aux pôles avec une précision de 0,5 m/pixel.",
+        "es": "Sonda espacial de la NASA en órbita polar lunar a solo 50 km de altitud, cartografiando el relieve lunar y localizando reservas de hielo de agua en los polos.",
+        "pt": "Sonda espacial da NASA em órbita polar lunar a apenas 50 km de altitude, mapeando a superfície lunar e detectando depósitos de gelo de água nos polos.",
+        "it": "Sonda lunare della NASA a soli 50 km di altitudine, che mappa la superficie e individua riserve di ghiaccio d'acqua nei crateri polari.",
+        "ko": "NASA의 달 정찰 궤도선. 달 표면 50km 상공 극궤도에서 초고해상도 카메라(0.5m/px)로 아폴로 착륙지, 정밀 3D 지형, 극지방 영구 음영 지역의 물 얼음을 지속 탐사하고 있습니다.",
+        "nl": "NASA-ruimtesonde in een polaire baan op 50 km boven de Maan, die de maanbodem gedetailleerd in kaart brengt en zoekt naar waterijs.",
+        "id": "Wahana antariksa NASA yang mengorbit Bulan di ketinggian 50 km, memetakan permukaan Bulan dan mendeteksi cadangan es air di kawah kutub.",
+        "hi": "चंद्रमा की सतह से केवल 50 किमी ऊपर ध्रुवीय कक्षा में नासा का उपग्रह, जो चंद्र सतह का 3D मानचित्रण और ध्रुवों पर जल-बर्फ की खोज कर रहा है।",
+        "ar": "مسبار مداري قمري تابع لناسا على ارتفاع 50 كم فقط، يقوم برسم خرائط ثلاثية الأبعاد لسطح القمر والبحث عن الجليد المائي في الفوهات القطبية.",
         "zh": "NASA的极轨月球勘测轨道飞行器，在距离月表仅50公里的超低轨道运行，搭载LROC高清相机（0.5米/像素），绘制月面精细3D地形并探寻永久阴影区水冰。",
         "ru": "Лунный орбитальный аппарат NASA на высоте всего 50 км над поверхностью, создавший самую подробную карту Луны и обнаруживший залежи водяного льда на полюсах."
     },
     "MARS_PERSEVERANCE": {
         "ja": "NASA火星探査計画「マーズ2020」の大型探査ローバー。かつて湖とデルタ地帯が存在したジェゼロ・クレーターに着陸し、古代生命の痕跡（バイオシグネチャー）を探索。大気中の二酸化炭素から酸素を合成するMOXIE実験の成功や、将来の地球帰還用サンプルコアの採取・密封保管を進行中。",
         "en": "NASA's state-of-the-art robotic rover exploring Jezero Crater on Mars. Searching for biosignatures of ancient microbial life in a dried-up paleolake delta, Perseverance features the MOXIE oxygen generation experiment, the SuperCam laser spectrometer, and an automated drilling system caching sealed rock cores for the future Mars Sample Return mission.",
-        "de": "Der fortschrittlichste Mars-Rover der NASA im Jezero-Krater auf der Suche nach Spuren fruheren mikrobiellen Lebens und Sauerstoffgewinnung durch MOXIE.",
-        "fr": "Le rover de pointe de la NASA explorant le cratere Jezero sur Mars a la recherche de biosignatures fossiles et extrayant de l'oxygene grace a l'experience MOXIE.",
-        "es": "El rover mas avanzado de la NASA que explora el crater Jezero en Marte, buscando biofirmas de vida microbiana antigua y recolectando muestras geologicas selladas.",
+        "de": "Der fortschrittlichste Mars-Rover der NASA im Jezero-Krater auf der Suche nach Spuren früheren mikrobiellen Lebens und Sauerstoffgewinnung durch MOXIE.",
+        "fr": "Le rover de pointe de la NASA explorant le cratère Jezero sur Mars à la recherche de biosignatures fossiles et extrayant de l'oxygène grâce à l'expérience MOXIE.",
+        "es": "El rover más avanzado de la NASA que explora el cráter Jezero en Marte, buscando biofirmas de vida microbiana antigua y recolectando muestras geológicas selladas.",
+        "pt": "O mais avançado rover marciano da NASA, explorando a cratera Jezero em busca de bioassinaturas de vida antiga e coletando amostras de rocha para retorno à Terra.",
+        "it": "Il rover più avanzato della NASA che esplora il cratere Jezero su Marte alla ricerca di biosignature di vita antica e produce ossigeno tramite MOXIE.",
+        "ko": "NASA 마스 2020 미션의 대형 화성 로버. 고대 호수였던 예제로 분화구에서 미생물 생명체 흔적(바이오시그니처)을 탐색하고, 대기 중 이산화탄소에서 산소를 합성하는 MOXIE 실험 및 암석 샘플 채취를 수행 중입니다.",
+        "nl": "De geavanceerde Marsrover van NASA in de Jezero-krater, op zoek naar sporen van vorig microbieel leven en zuurstofproductie via MOXIE.",
+        "id": "Rover penjelajah Mars tercanggih NASA di Kawah Jezero, mencari jejak kehidupan purba dan memproduksi oksigen melalui eksperimen MOXIE.",
+        "hi": "मंगल के जेज़ेरो क्रेटर में नासा का अत्याधुनिक रोवर, जो प्राचीन सूक्ष्मजीवी जीवन के संकेतों की खोज और भविष्य के लिए नमूने एकत्र कर रहा है।",
+        "ar": "أحدث مسبار متحرك لناسا على المريخ في فوهة جيزيرو، يبحث عن علامات الحياة الميكروبية القديمة ويستخرج الأكسجين عبر تجربة MOXIE.",
         "zh": "NASA“毅力号”火星探测巡视车，着陆于古湖泊杰泽罗陨石坑，搜寻远古微生物生命迹象，并成功通过MOXIE实验从火星二氧化碳大气中就地制取氧气。",
         "ru": "Марсоход NASA 'Персеверанс' в кратере Езеро, ведущий поиск следов древней жизни, синтезирующий кислород из атмосферы и собирающий образцы пород для доставки на Землю."
     },
     "MARS_MRO": {
         "ja": "NASAの火星周回探査機（Mars Reconnaissance Orbiter）。口径50cmの超高解像度カメラ「HiRISE」を搭載し、火星上空300kmから地表の30cmサイズの岩石まで鮮明に捉える偵察観測を実施。火星探査車（パーサヴィアランスやキュリオシティ）の通信中継拠点としても不可欠な役割を果たしています。",
         "en": "NASA's powerhouse Mars orbital reconnaissance spacecraft. Operating in a 300 km polar orbit, its massive 0.5-meter aperture HiRISE camera delivers breathtaking 0.3 m/pixel images of Martian dunes, avalanches, and rover tracks, while serving as the primary high-bandwidth deep-space telecommunications relay for surface missions.",
-        "de": "Leistungsfahiger Mars-Orbiter der NASA mit der legendaren HiRISE-Teleskopkamera (0,3 m/Pixel Auflosung) und unverzichtbarem Datenrelais fur alle Oberflachenrover.",
-        "fr": "Sonde orbitale martienne de la NASA equipee de la camera telescopique HiRISE (0,3 m/px) et servant de relais de telecommunications pour les rovers au sol.",
-        "es": "Potente sonda orbital marciana de la NASA con camara telescopica HiRISE de 0,3 m/pixel, que proporciona datos cientificos de alta resolucion y enlace de comunicaciones.",
+        "de": "Leistungsfähiger Mars-Orbiter der NASA mit der legendären HiRISE-Teleskopkamera (0,3 m/Pixel Auflösung) und unverzichtbarem Datenrelais für alle Oberflächenrover.",
+        "fr": "Sonde orbitale martienne de la NASA équipée de la caméra télescopique HiRISE (0,3 m/px) et servant de relais de télécommunications pour les rovers au sol.",
+        "es": "Potente sonda orbital marciana de la NASA con cámara telescópica HiRISE de 0,3 m/pixel, que proporciona datos científicos de alta resolución y enlace de comunicaciones.",
+        "pt": "Poderosa sonda orbital marciana da NASA com a câmera HiRISE (resolução de 0,3 m/pixel), servindo como principal relé de comunicação para os rovers na superfície.",
+        "it": "Potente orbiter marziano della NASA con telecamera HiRISE (0,3 m/pixel), essenziale per la mappatura geologica e come ponte radio per i rover.",
+        "ko": "NASA의 화성 정찰 궤도선. 300km 상공 극궤도에서 구경 50cm HiRISE 망원 카메라(0.3m/px 해상도)로 정밀 지형을 촬영하고, 지표면 로버들의 초고속 통신 중계 기지로 활약하고 있습니다.",
+        "nl": "Krachtige Marsverkenner van NASA met de HiRISE-telescoopcamera (0,3 m/pixel) en cruciaal communicatierelais voor oppervlaktemissies.",
+        "id": "Pengorbit pengintaian Mars andalan NASA dengan kamera HiRISE (0,3 m/piksel), menjadi relai telekomunikasi utama untuk rover di permukaan Mars.",
+        "hi": "300 किमी की कक्षा में नासा का शक्तिशाली मार्स ऑर्बिटर, जो HiRISE कैमरे (0.3 मीटर/पिक्सेल) से सतह की तस्वीरें लेता है और रोवर्स के लिए डेटा रिले करता है।",
+        "ar": "مسبار استطلاع مداري قوي تابع لناسا، مجهز بكاميرا HiRISE فائقة الدقة (0.3 م/بكسل)، ويعمل كمحطة إعادة إرسال اتصالات رئيسية لمركبات المريخ.",
         "zh": "NASA火星勘测轨道飞行器，搭载50厘米口径HiRISE超高分辨率相机（0.3米/像素），在300公里极轨上对火星进行地质侦察并为地表火星车提供高带宽中继通信。",
         "ru": "Орбитальный аппарат NASA на орбите Марса с камерой HiRISE (разрешение 30 см на пиксель), передающий сверхчеткие снимки ландшафта и служащий главным ретранслятором связи."
     },
@@ -6088,17 +6277,31 @@ const DEEP_SPACE_DESCRIPTIONS = {
         "ja": "JAXAの小惑星探査機。小惑星リュウグウで世界初となる人工クレーター生成と地下物質サンプル採取に成功し、2020年に地球へカプセルを帰還。現在は地球重力アシストを経て、2031年に超高速自転小惑星「1998 KY26」へ到達する世界最長の小惑星ランデブー拡張ミッションを飛行中。",
         "en": "JAXA's historic asteroid exploration spacecraft. Following its ground-breaking 2020 return of pristine Ryugu subsurface samples containing amino acids and water, Hayabusa2 is currently on an extended mission traveling through interplanetary space to rendezvous with fast-rotating micro-asteroid 1998 KY26 in 2031.",
         "de": "Historische Asteroidensonde der JAXA, die Proben von Ryugu zur Erde brachte und sich nun auf einer erweiterten interplanetaren Mission zum Asteroiden 1998 KY26 befindet.",
-        "fr": "Sonde spatiale historique de la JAXA ayant rapporte sur Terre des echantillons de Ryugu, actuellement en route vers le micro-asteroide 1998 KY26 pour un rendez-vous en 2031.",
-        "es": "Historica sonda de asteroides de JAXA que trajo muestras de Ryugu a la Tierra y actualmente viaja hacia el asteroide de rotacion ultra-rapida 1998 KY26 para 2031.",
+        "fr": "Sonde spatiale historique de la JAXA ayant rapporté sur Terre des échantillons de Ryugu, actuellement en route vers le micro-astéroïde 1998 KY26 pour un rendez-vous en 2031.",
+        "es": "Histórica sonda de asteroides de JAXA que trajo muestras de Ryugu a la Tierra y actualmente viaja hacia el asteroide de rotación ultra-rápida 1998 KY26 para 2031.",
+        "pt": "Histórica sonda espacial de asteroides da JAXA que trouxe amostras de Ryugu para a Terra e atualmente viaja para um encontro com o microasteroide 1998 KY26 em 2031.",
+        "it": "Storica sonda per asteroidi della JAXA che ha riportato sulla Terra campioni di Ryugu, attualmente in missione estesa verso il micro-asteroide 1998 KY26 per il 2031.",
+        "ko": "JAXA의 소행성 탐사선. 소행성 류구에서 세계 최초로 인공 분화구 생성 및 지하 물질 샘플 채취에 성공하고 2020년 지구로 귀환. 현재는 2031년 초고속 자전 소행성 '1998 KY26' 랑데부를 향한 확장 임무를 비행 중입니다.",
+        "nl": "Historische asteroïdesonde van JAXA die Ryugu-monsters naar de Aarde bracht en nu onderweg is voor een ontmoeting met micro-asteroïde 1998 KY26 in 2031.",
+        "id": "Wahana antariksa penjelajah asteroid bersejarah JAXA yang berhasil membawa sampel Ryugu ke Bumi dan kini dalam misi lanjutan menuju asteroid 1998 KY26 pada tahun 2031.",
+        "hi": "JAXA का ऐतिहासिक क्षुद्रग्रह अन्वेषण यान, जिसने रयुगु के नमूने पृथ्वी पर लौटाए और अब 2031 में क्षुद्रग्रह 1998 KY26 के साथ मुलाकात के विस्तारित मिशन पर है।",
+        "ar": "مسبار الكويكبات التاريخي التابع لـ JAXA، نجح في إعادة عينات من كويكب ريوغو إلى الأرض، ويواصل رحلته للقاء الكويكب سريع الدوران 1998 KY26 في عام 2031.",
         "zh": "日本JAXA的传奇小行星探测器。在小行星“龙宫”成功实施全球首次人工撞击并取回含水和氨基酸的地下样本，目前正在深空中飞往超高速自转小行星1998 KY26扩展任务。",
         "ru": "Японский межпланетный зонд JAXA, успешно доставивший на Землю образцы астероида Рюгу и продолжающий полет к быстро вращающемуся астероиду 1998 KY26 (рандеву в 2031 г.)."
     },
     "VOYAGER1": {
         "ja": "1977年に打ち上げられた人類最遠の人工探査機。木星と土星のフライバイ探査を経て、2012年に太陽風の限界境界（ヘリオポーズ）を突破し、人類史上初めて星間空間（Interstellar Space）に到達。地球から約245億km（光速で往復約45時間）離れた深宇宙から現在も微弱な電波シグナルを送り続けています。",
         "en": "Launched by NASA in 1977, Voyager 1 is the most distant human-made object in history. Having traversed Jupiter and Saturn, it crossed the heliopause in August 2012 to become the first craft to enter interstellar space. Currently over 24.5 billion km (~164 AU) away, it continues transmitting scientific data from between the stars carrying humanity's Golden Record.",
-        "de": "Das am weitesten entfernte von Menschen gebaute Objekt der Geschichte. Voyager 1 verliess 2012 das Sonnensystem und sendet aus uber 24,5 Milliarden km Entfernung wissenschaftliche Daten.",
-        "fr": "L'objet humain le plus eloigne de l'histoire, lance en 1977. En 2012, il a franchi l'heliopause pour entrer dans l'espace interstellaire a plus de 24,5 milliards de km.",
-        "es": "El objeto fabricado por el ser humano mas lejano de la historia. Lanzo en 1977, cruzo la heliopausa en 2012 y sigue transmitiendo datos desde el espacio interestelar a 24.500 millones de km.",
+        "de": "Das am weitesten entfernte von Menschen gebaute Objekt der Geschichte. Voyager 1 verließ 2012 das Sonnensystem und sendet aus über 24,5 Milliarden km Entfernung wissenschaftliche Daten.",
+        "fr": "L'objet humain le plus éloigné de l'histoire, lancé en 1977. En 2012, il a franchi l'héliopause pour entrer dans l'espace interstellaire à plus de 24,5 milliards de km.",
+        "es": "El objeto fabricado por el ser humano más lejano de la historia. Lanzado en 1977, cruzó la heliopausa en 2012 y sigue transmitiendo datos desde el espacio interestelar a 24.500 millones de km.",
+        "pt": "O objeto feito pelo homem mais distante da história. Lançado em 1977, cruzou a heliopausa em 2012 e continua transmitindo dados do espaço interestelar a mais de 24,5 bilhões de km.",
+        "it": "L'oggetto artificiale più distante nella storia. Lanciato nel 1977, nel 2012 è entrato nello spazio interstellare a oltre 24,5 miliardi di km dalla Terra.",
+        "ko": "1977년 발사된 인류 역사상 가장 먼 인공 탐사선. 2012년 태양권계면(헬리오포즈)을 돌파하여 인류 최초로 성간 공간에 진입. 지구에서 245억 km 떨어진 심우주에서 골든 레코드를 싣고 전파를 송신하고 있습니다.",
+        "nl": "Het verst verwijderde mensgemaakte object in de geschiedenis. Voyager 1 verliet in 2012 ons zonnestelsel en zendt data uit vanaf meer dan 24,5 miljard km afstand.",
+        "id": "Objek buatan manusia terjauh dalam sejarah. Diluncurkan pada 1977, melintasi heliopause pada 2012 menuju ruang antarbintang sejauh lebih dari 24,5 miliar km dari Bumi.",
+        "hi": "1977 में प्रक्षेपित मानव इतिहास की सबसे दूर स्थित वस्तु। 2012 में इंटरस्टेलर स्पेस में प्रवेश किया, पृथ्वी से 24.5 अरब किमी दूर से अब भी डेटा भेज रहा है।",
+        "ar": "أبعد جسم من صنع الإنسان في التاريخ، تم إطلاقه عام 1977، ودخل الفضاء بين النجوم عام 2012 على بعد أكثر من 24.5 مليار كم من الأرض.",
         "zh": "人类历史上飞得最远的人造物体。1977年由NASA发射，2012年穿越日球层顶进入星际空间，目前距离地球超过245亿公里（约164天文单位），携带着人类文明的镀金唱片向银河系深处飞去。",
         "ru": "Самый далекий рукотворный объект в истории человечества. Запущенный в 1977 году, 'Вояджер-1' в 2012 году вышел в межзвездное пространство на расстояние более 24,5 млрд км."
     }
@@ -7292,7 +7495,7 @@ function drawCelestialOrbit(body) {
     });
 }
 
-function selectDeepSpaceMission(missionId) {
+function selectDeepSpaceMission(missionId, skipFly = false) {
     const mission = DEEP_SPACE_MISSIONS.find(m => m.id === missionId);
     if (!mission || !viewer) return;
 
@@ -7329,7 +7532,7 @@ function selectDeepSpaceMission(missionId) {
     });
 
     const langSelect = document.getElementById('langSelect');
-    const lang = (langSelect && langSelect.value) || window.currentLang || currentLang || 'ja';
+    const lang = window.currentLang || currentLang || (langSelect && langSelect.value) || 'ja';
 
     const getL = (obj) => {
         if (!obj) return '';
@@ -7356,8 +7559,15 @@ function selectDeepSpaceMission(missionId) {
     satBadge.textContent = badgeMap[lang] || badgeMap['en'];
     satBadge.style.background = 'linear-gradient(135deg, #f59e0b, #38bdf8)';
 
-    satName.textContent = `${mission.symbol} ${mission.name.split('(')[0].trim()}`;
-    satNorad.textContent = `${mission.agency} | ${mission.site || mission.rocket}`;
+    // 多言語タイトル（DEEP_SPACE_DISPLAY_NAMES があれば使用）
+    const dispNameMap = (typeof DEEP_SPACE_DISPLAY_NAMES !== 'undefined') ? DEEP_SPACE_DISPLAY_NAMES[mission.id] : null;
+    const localizedMissionName = (dispNameMap && (dispNameMap[lang] || dispNameMap['en'])) || `${mission.symbol} ${mission.name}`;
+    satName.textContent = localizedMissionName;
+
+    const desc = DEEP_SPACE_DESCRIPTIONS[mission.id];
+    const spec = DEEP_SPACE_SPECS[mission.id];
+    const agencyStr = (spec && getL(spec.agency)) || mission.agency;
+    satNorad.textContent = `${agencyStr} | ${mission.site || mission.rocket}`;
 
     if (satImageWrapper && satImage) {
         const missionImages = {
@@ -7385,13 +7595,23 @@ function selectDeepSpaceMission(missionId) {
         }
     }
 
-    const desc = DEEP_SPACE_DESCRIPTIONS[mission.id];
-    const spec = DEEP_SPACE_SPECS[mission.id];
     const descText = (desc && getL(desc)) || '';
 
     const specTitles = {
         ja: ["🏢 運用機関", "🛰️ 軌道諸元", "📐 機体寸法・質量", "🔬 搭載観測機器", "🎯 ミッション主目的"],
-        en: ["🏢 Operating Agency", "🛰️ Orbital Profile", "📐 Dimensions & Mass", "🔬 Science Payload", "🎯 Primary Mission Goal"]
+        en: ["🏢 Operating Agency", "🛰️ Orbital Profile", "📐 Dimensions & Mass", "🔬 Science Payload", "🎯 Primary Mission Goal"],
+        de: ["🏢 Organisation", "🛰️ Bahnparameter", "📐 Maße & Masse", "🔬 Wissenschaftliche Instrumente", "🎯 Hauptziel"],
+        fr: ["🏢 Agence opérationnelle", "🛰️ Profil orbital", "📐 Dimensions et masse", "🔬 Charge utile", "🎯 Objectif principal"],
+        es: ["🏢 Agencia operadora", "🛰️ Perfil orbital", "📐 Dimensiones y masa", "🔬 Carga útil científica", "🎯 Misión principal"],
+        pt: ["🏢 Agência operadora", "🛰️ Perfil orbital", "📐 Dimensões e massa", "🔬 Carga científica", "🎯 Missão principal"],
+        it: ["🏢 Agenzia operativa", "🛰️ Profilo orbitale", "📐 Dimensioni e massa", "🔬 Strumenti scientifici", "🎯 Obiettivo primario"],
+        ko: ["🏢 운용 기관", "🛰️ 궤도 제원", "📐 기체 치수 및 질량", "🔬 탑재 관측 장비", "🎯 주요 미션 목표"],
+        nl: ["🏢 Organisatie", "🛰️ Baangegevens", "📐 Afmetingen & Massa", "🔬 Instrumenten", "🎯 Hoofddoel"],
+        id: ["🏢 Badan Operasional", "🛰️ Profil Orbit", "📐 Dimensi & Massa", "🔬 Instrumen Ilmiah", "🎯 Target Misi Utama"],
+        hi: ["🏢 संचालन एजेंसी", "🛰️ कक्षीय विवरण", "📐 आयाम और द्रव्यमान", "🔬 वैज्ञानिक उपकरण", "🎯 प्राथमिक मिशन लक्ष्य"],
+        ar: ["🏢 الوكالة المشغلة", "🛰️ مواصفات المدار", "📐 الأبعاد والكتلة", "🔬 الأجهزة العلمية", "🎯 الهدف الرئيسي للرحلة"],
+        zh: ["🏢 运营机构", "🛰️ 轨道参数", "📐 尺寸与质量", "🔬 科学载荷设备", "🎯 主要任务目标"],
+        ru: ["🏢 Оператор миссии", "🛰️ Параметры орбиты", "📐 Размеры и масса", "🔬 Научные приборы", "🎯 Основная цель миссии"]
     };
     const st = specTitles[lang] || specTitles['en'];
 
@@ -7417,50 +7637,69 @@ function selectDeepSpaceMission(missionId) {
     satLat.textContent = mission.parent || 'Deep Space';
     satLon.textContent = mission.launchDate || '---';
     satInc.textContent = mission.rocket || '---';
-    satPeriod.textContent = `${mission.periodDays} d`;
+    satPeriod.textContent = typeof mission.periodDays === 'number' ? `${mission.periodDays} d` : (mission.periodDays || '---');
 
-    updateDetailCardMetricLabels(false);
+    updateDetailCardMetricLabels('deepspace');
 
     const passCountdown = document.getElementById('passCountdown');
     const passMetaInfo = document.getElementById('passMetaInfo');
     const debrisProximity = document.getElementById('debrisProximity');
 
-    if (passCountdown) passCountdown.textContent = `🔭 ${mission.site || 'Deep Space Mission'}`;
-    if (passMetaInfo) passMetaInfo.textContent = `${mission.agency} | Launch: ${mission.launchDate}`;
-    if (debrisProximity) debrisProximity.textContent = '🟢 Operational / In Orbit';
+    const deepSpaceStatus = {
+        ja: { status: '🟢 正常運用中 / 深宇宙航行中', mission: '🔭 深宇宙探査ミッション' },
+        en: { status: '🟢 Operational / Interplanetary Flight', mission: '🔭 Deep Space Mission' },
+        de: { status: '🟢 Betriebsbereit / Interplanetarer Flug', mission: '🔭 Tiefraummission' },
+        fr: { status: '🟢 Opérationnel / Vol interplanétaire', mission: '🔭 Mission spatiale lointaine' },
+        es: { status: '🟢 Operacional / Vuelo interplanetario', mission: '🔭 Misión del espacio profundo' },
+        pt: { status: '🟢 Operacional / Voo interplanetário', mission: '🔭 Missão do espaço profundo' },
+        it: { status: '🟢 Operativo / Volo interplanetario', mission: '🔭 Missione nello spazio profondo' },
+        ko: { status: '🟢 정상 운용 중 / 심우주 비행', mission: '🔭 심우주 탐사 미션' },
+        nl: { status: '🟢 Operationeel / Interplanetaire Vlucht', mission: '🔭 Diepe Ruimtemissie' },
+        id: { status: '🟢 Beroperasi / Penerbangan Antariksa', mission: '🔭 Misi Antariksa Jauh' },
+        hi: { status: '🟢 सक्रिय / अंतरग्रहीय उड़ान', mission: '🔭 गहरा अंतरिक्ष अभियान' },
+        ar: { status: '🟢 قيد التشغيل / رحلة بين الكواكب', mission: '🔭 مهمة الفضاء السحيق' },
+        zh: { status: '🟢 正常运行中 / 深空巡航', mission: '🔭 深空探测任务' },
+        ru: { status: '🟢 В штатном режиме / Межпланетный полет', mission: '🔭 Миссия дальнего космоса' }
+    };
+    const dsStatus = deepSpaceStatus[lang] || deepSpaceStatus['en'];
+    if (passCountdown) passCountdown.textContent = dsStatus.mission;
+    if (passMetaInfo) passMetaInfo.textContent = `${agencyStr} | Launch: ${mission.launchDate}`;
+    if (debrisProximity) debrisProximity.textContent = dsStatus.status;
 
     detailCard.classList.remove('hidden');
 
-    // =========================================================================
-    // 軌道線（楕円ループ全体）を美しく俯瞰し、探査機の周回を一望するカメラ遷移
-    // =========================================================================
-    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+    if (!skipFly) {
+        // =========================================================================
+        // 軌道線（楕円ループ全体）を美しく俯瞰し、探査機の周回を一望するカメラ遷移
+        // =========================================================================
+        viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
 
-    const time = viewer.clock.currentTime;
-    const centerPos = computeDeepSpaceOrbitCenter(mission, time);
-    const overviewOffset = getDeepSpaceOrbitOverviewOffset(mission);
-    const cameraDest = getDeepSpaceOverviewCameraDestination(centerPos, overviewOffset);
+        const time = viewer.clock.currentTime;
+        const centerPos = computeDeepSpaceOrbitCenter(mission, time);
+        const overviewOffset = getDeepSpaceOrbitOverviewOffset(mission);
+        const cameraDest = getDeepSpaceOverviewCameraDestination(centerPos, overviewOffset);
 
-    const toCenter = Cesium.Cartesian3.subtract(centerPos, cameraDest, new Cesium.Cartesian3());
-    const targetDir = Cesium.Cartesian3.normalize(toCenter, new Cesium.Cartesian3());
+        const toCenter = Cesium.Cartesian3.subtract(centerPos, cameraDest, new Cesium.Cartesian3());
+        const targetDir = Cesium.Cartesian3.normalize(toCenter, new Cesium.Cartesian3());
 
-    // flyTo でスムーズに接近したのち、軌道中心（L2点や月など）にカメラを自動追従！
-    // これにより探査機単体にカメラが張り付くのではなく、軌道の楕円ループ全体がどっしり画面中央に収まり、
-    // 100倍速・1000倍速でも探査機がその楕円の上を周回する様子をずっと快適に眺め続けられる！
-    viewer.camera.flyTo({
-        destination: cameraDest,
-        orientation: {
-            direction: targetDir,
-            up: Cesium.Cartesian3.UNIT_Z
-        },
-        duration: 2.0,
-        complete: () => {
-            const centerEntity = viewer.entities.getById(`orbitcenter_${mission.id}`);
-            if (centerEntity) {
-                viewer.trackedEntity = centerEntity;
+        // flyTo でスムーズに接近したのち、軌道中心（L2点や月など）にカメラを自動追従！
+        // これにより探査機単体にカメラが張り付くのではなく、軌道の楕円ループ全体がどっしり画面中央に収まり、
+        // 100倍速・1000倍速でも探査機がその楕円の上を周回する様子をずっと快適に眺め続けられる！
+        viewer.camera.flyTo({
+            destination: cameraDest,
+            orientation: {
+                direction: targetDir,
+                up: Cesium.Cartesian3.UNIT_Z
+            },
+            duration: 2.0,
+            complete: () => {
+                const centerEntity = viewer.entities.getById(`orbitcenter_${mission.id}`);
+                if (centerEntity) {
+                    viewer.trackedEntity = centerEntity;
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function loadDeepSpaceMissionsPreset() {
@@ -7973,7 +8212,7 @@ function updateDropdownOptions() {
         ru: '🔭 Зонды дальнего космоса и телескопы (JWST, Луна, Марс)'
     };
 
-    const deepSpaceNames = {
+    const deepSpaceNames = (typeof DEEP_SPACE_DISPLAY_NAMES !== 'undefined') ? DEEP_SPACE_DISPLAY_NAMES : {
         JWST: { ja: '🔭 JWST (ジェイムズ・ウェッブ宇宙望遠鏡 / L2)', en: '🔭 JWST (James Webb Space Telescope / L2)' },
         ARTEMIS_ORION: { ja: '🚀 アルテミス・オリオン有人探査船 (月DRO軌道)', en: '🚀 Artemis Orion Spacecraft (Lunar DRO)' },
         LRO: { ja: '🌕 LRO (月周回偵察探査衛星 / 月低軌道)', en: '🌕 LRO (Lunar Reconnaissance Orbiter)' },
