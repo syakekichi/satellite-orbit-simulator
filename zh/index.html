@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
@@ -272,6 +272,7 @@
                 </h2>
                 <div class="source-buttons">
                     <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ 主要卫星 (空间站, 星链, 气象, 碎片)</button>
+                    <button class="btn btn-secondary" id="loadDeepSpaceBtn" style="border-color:rgba(245,158,11,0.5); color:#fbbf24;" data-i18n="loadDeepSpace">🔭 深宇宙・月/火星探査機 & JWST</button>
             <button class="btn btn-secondary" id="loadSpanishBtn" style="border-color:rgba(239,68,68,0.45); color:#f87171;" data-i18n="loadSpanish">🇪🇸 西班牙及拉美卫星群 (PAZ, SAOCOM, CHEOPS)</button>
                     <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Starlink 星链完整星座 (2,000颗)</button>
                     <button class="btn btn-secondary" id="loadDebrisBtn" data-i18n="loadDebris">💥 太空垃圾碎片巨型云 (2,200+ 碎片)</button>
@@ -337,6 +338,11 @@
                         <input type="checkbox" id="toggleCelestial" checked>
                         <span class="slider"></span>
                         <span class="toggle-label" data-i18n="toggleCelestial">🌌 太阳、月球与主要行星 (火星/金星/木星/土星)</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleDeepSpace" checked>
+                        <span class="slider" style="background: rgba(245, 158, 11, 0.4);"></span>
+                        <span class="toggle-label" data-i18n="toggleDeepSpace">🔭 深宇宙・月/火星探査機 & JWST</span>
                     </label>
                     <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="碎片分析">
                         <input type="checkbox" id="toggleDebrisRisk">

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -275,6 +275,7 @@
                 </h2>
                 <div class="source-buttons">
                     <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ Satellites majeurs (ISS, Starlink, débris)</button>
+                    <button class="btn btn-secondary" id="loadDeepSpaceBtn" style="border-color:rgba(245,158,11,0.5); color:#fbbf24;" data-i18n="loadDeepSpace">🔭 深宇宙・月/火星探査機 & JWST</button>
             <button class="btn btn-secondary" id="loadSpanishBtn" style="border-color:rgba(239,68,68,0.45); color:#f87171;" data-i18n="loadSpanish">🇪🇸 Satellites d'Espagne & Amérique Latine (PAZ, SAOCOM, CHEOPS)</button>
                     <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Constellation Starlink (2 000)</button>
                     <button class="btn btn-secondary" id="loadDebrisBtn" data-i18n="loadDebris">💥 Méganuage de débris spatiaux (2 200+ fragments)</button>
@@ -340,6 +341,11 @@
                         <input type="checkbox" id="toggleCelestial" checked>
                         <span class="slider"></span>
                         <span class="toggle-label" data-i18n="toggleCelestial">🌌 Soleil, Lune et Planètes (Mars/Vénus/Jupiter/Saturne)</span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleDeepSpace" checked>
+                        <span class="slider" style="background: rgba(245, 158, 11, 0.4);"></span>
+                        <span class="toggle-label" data-i18n="toggleDeepSpace">🔭 深宇宙・月/火星探査機 & JWST</span>
                     </label>
                     <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="Analyse débris">
                         <input type="checkbox" id="toggleDebrisRisk">

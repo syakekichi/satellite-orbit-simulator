@@ -740,12 +740,14 @@ const TRANSLATIONS = {
         "secSelect": "天体・衛星を選択・検索",
         "selectPlaceholder": "-- 太陽・惑星・衛星・宇宙ゴミを選択 --",
         "searchPlaceholder": "または太陽・惑星・衛星名・NORAD IDで検索...",
-        "secSource": "衛星データソース & プリセット",
         "loadMajor": "⭐ 主要・有名衛星 (ひまわり, ISS, みちびき, デブリ)",
+        "loadDeepSpace": "🔭 深宇宙・月/火星探査機 & JWST (Webb, Artemis, MRO)",
+        "badgeDeepSpace": "🔭 深宇宙探査機・宇宙望遠鏡プリセット読込済",
         "loadLocal": "🛰️ Starlink 全衛星コンステレーション (2,000機)",
         "loadDebris": "💥 宇宙デブリ・メガクラウド (2,200+ 破片)",
         "badgeDebris": "💥 宇宙デブリ・メガクラウド読込済 (2,200破片)",
         "badgeMajor": "⭐ 主要・有名衛星プリセット読込済",
+        "optgroupDeepSpace": "🔭 深宇宙探査機 & 宇宙望遠鏡 (JWST, 月, 火星)",
         "secTime": "時間コントロール & 倍速設定",
         "speedStop": "⏸️ 停止",
         "speedReal": "▶️ 1x (リアル)",
@@ -759,6 +761,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 国境線 & 地名ラベル",
         "toggleDebrisRisk": "🔮 宇宙デブリ危険分析モード (パープル表示)",
         "toggleCelestial": "🌌 太陽・月・主要惑星 (火星/金星/木星/土星)",
+        "toggleDeepSpace": "🔭 深宇宙・月/火星探査機 & JWST",
         "dragDetail": "⋮⋮ ドラッグで詳細カード移動",
         "dragCam": "⋮⋮ カメラ視点移動",
         "labelAlt": "高度 (Altitude)",
@@ -869,10 +872,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "Search by Planet, Satellite name or NORAD ID...",
         "secSource": "Satellite Data Sources & Presets",
         "loadMajor": "⭐ Major Satellites (ISS, Hubble, Weather, Debris)",
+        "loadDeepSpace": "🔭 Deep Space & JWST (Webb, Artemis, MRO)",
+        "badgeDeepSpace": "🔭 Deep Space Missions & Space Telescopes Loaded",
         "loadLocal": "🛰️ Starlink Mega-Constellation (2,000 Satellites)",
         "loadDebris": "💥 Space Debris Mega-Cloud (2,200+ Fragments)",
         "badgeDebris": "💥 Space Debris Mega-Cloud Loaded (2,200 Fragments)",
         "badgeMajor": "⭐ Major Preset Loaded",
+        "optgroupDeepSpace": "🔭 Deep Space Probes & Telescopes (JWST, Moon, Mars)",
         "secTime": "Time Control & Warp Speed",
         "speedStop": "⏸️ Pause",
         "speedReal": "▶️ 1x (Real-time)",
@@ -886,6 +892,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 Borders & Place Labels",
         "toggleDebrisRisk": "🔮 Space Debris Collision Risk Mode",
         "toggleCelestial": "🌌 Sun, Moon & Solar System Planets",
+        "toggleDeepSpace": "🔭 Deep Space Probes & JWST",
         "dragDetail": "⋮⋮ Drag Detail Card",
         "dragCam": "⋮⋮ Camera Pan Controls",
         "labelAlt": "Altitude",
@@ -996,10 +1003,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "Name des Himmelskörpers, Satelliten oder NORAD-ID...",
         "secSource": "Satellitendatenquellen & Voreinstellungen",
         "loadMajor": "⭐ Wichtige Satelliten (ISS, Himawari, Hubble, Müll)",
+        "loadDeepSpace": "🔭 Tiefraum & JWST (Webb, Artemis, MRO)",
+        "badgeDeepSpace": "🔭 Tiefraumsonden & Weltraumteleskope geladen",
         "loadLocal": "🛰️ Starlink-Megakonstellation (2.000 Satelliten)",
         "loadDebris": "💥 Weltraummüll-Megawolke (2.200+ Trümmer)",
         "badgeDebris": "💥 Weltraummüll-Megawolke geladen (2.200 Trümmer)",
         "badgeMajor": "⭐ Hauptvoreinstellung geladen",
+        "optgroupDeepSpace": "🔭 Tiefraumsonden & Teleskope (JWST, Mond, Mars)",
         "secTime": "Zeitsteuerung & Geschwindigkeitsraffer",
         "speedStop": "⏸️ Pause",
         "speedReal": "▶️ 1x (Echtzeit)",
@@ -1013,6 +1023,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 Landesgrenzen & Ortsbeschriftungen",
         "toggleDebrisRisk": "🔮 Weltraummüll-Kollisionsrisikowarnung",
         "toggleCelestial": "🌌 Sonne, Mond & Planeten des Sonnensystems",
+        "toggleDeepSpace": "🔭 Tiefraum & JWST-Sonden",
         "dragDetail": "⋮⋮ Detailkarte verschieben",
         "dragCam": "⋮⋮ Kamerasteuerung",
         "labelAlt": "Höhe",
@@ -1123,10 +1134,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "Nom du corps céleste, satellite ou NORAD ID...",
         "secSource": "Sources de données satellites et préréglages",
         "loadMajor": "⭐ Satellites majeurs (ISS, Hubble, Météo, Débris)",
+        "loadDeepSpace": "🔭 Espace lointain & JWST (Webb, Artemis, MRO)",
+        "badgeDeepSpace": "🔭 Sondes de l'espace lointain et télescopes chargés",
         "loadLocal": "🛰️ Mégaconstellation Starlink (2 000 satellites)",
         "loadDebris": "💥 Méganuage de débris spatiaux (2 200+ fragments)",
         "badgeDebris": "💥 Méganuage de débris spatiaux chargé (2 200 fragments)",
         "badgeMajor": "⭐ Préréglage majeur chargé",
+        "optgroupDeepSpace": "🔭 Missions de l'espace lointain (JWST, Lune, Mars)",
         "secTime": "Contrôle du temps et vitesse accélérée",
         "speedStop": "⏸️ Pause",
         "speedReal": "▶️ 1x (Temps réel)",
@@ -1140,6 +1154,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 Frontières et noms de lieux",
         "toggleDebrisRisk": "🔮 Mode de risque de collision de débris",
         "toggleCelestial": "🌌 Soleil, Lune et planètes du système solaire",
+        "toggleDeepSpace": "🔭 Sondes de l'espace lointain & JWST",
         "dragDetail": "⋮⋮ Glisser la fiche détaillée",
         "dragCam": "⋮⋮ Contrôles de la caméra",
         "labelAlt": "Altitude",
@@ -1250,10 +1265,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "Buscar por nombre de astro, satélite o ID NORAD...",
         "secSource": "Fuentes de Datos y Ajustes",
         "loadMajor": "⭐ Satélites Principales (ISS, Hubble, Meteorología, Basura)",
+        "loadDeepSpace": "🔭 Espacio Profundo y JWST (Webb, Artemis, MRO)",
+        "badgeDeepSpace": "🔭 Misiones de Espacio Profundo Cargadas",
         "loadLocal": "🛰️ Constelación Starlink (2.000 Satélites)",
         "loadDebris": "💥 Meganube de Basura Espacial (2.200+ fragmentos)",
         "badgeDebris": "💥 Meganube de Basura Espacial Cargada (2.200 fragmentos)",
         "badgeMajor": "⭐ Ajuste Principal Cargado",
+        "optgroupDeepSpace": "🔭 Sondas de Espacio Profundo (JWST, Luna, Marte)",
         "secTime": "Control de Tiempo y Velocidad",
         "speedStop": "⏸️ Pausa",
         "speedReal": "▶️ 1x (Tiempo Real)",
@@ -1267,6 +1285,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 Fronteras y Etiquetas de Lugares",
         "toggleDebrisRisk": "🔮 Modo de Riesgo de Basura Espacial",
         "toggleCelestial": "🌌 Sol, Luna y Planetas del Sistema Solar",
+        "toggleDeepSpace": "🔭 Sondas de Espacio Profundo y JWST",
         "dragDetail": "⋮⋮ Arrastrar Tarjeta de Detalles",
         "dragCam": "⋮⋮ Controles de Cámara",
         "labelAlt": "Altitud",
@@ -1377,10 +1396,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "Buscar por nome de astro, satélite ou ID NORAD...",
         "secSource": "Fontes de Dados e Predefinições",
         "loadMajor": "⭐ Satélites Principais (ISS, Hubble, Meteorologia, Lixo)",
+        "loadDeepSpace": "🔭 Espaço Profundo e JWST (Webb, Artemis, MRO)",
+        "badgeDeepSpace": "🔭 Missões do Espaço Profundo Carregadas",
         "loadLocal": "🛰️ Constelação Starlink (2.000 Satélites)",
         "loadDebris": "💥 Meganuvens de Lixo Espacial (2.200+ fragmentos)",
         "badgeDebris": "💥 Meganuvens de Lixo Espacial Carregada (2.200 fragmentos)",
         "badgeMajor": "⭐ Predefinição Principal Carregada",
+        "optgroupDeepSpace": "🔭 Sondas do Espaço Profundo (JWST, Lua, Marte)",
         "secTime": "Controle de Tempo e Velocidade",
         "speedStop": "⏸️ Pausa",
         "speedReal": "▶️ 1x (Tempo Real)",
@@ -1394,6 +1416,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 Fronteiras e Nomes de Lugares",
         "toggleDebrisRisk": "🔮 Modo de Risco de Lixo Espacial",
         "toggleCelestial": "🌌 Sol, Lua e Planetas do Sistema Solar",
+        "toggleDeepSpace": "🔭 Sondas do Espaço Profundo e JWST",
         "dragDetail": "⋮⋮ Arrastar Cartão de Detalhes",
         "dragCam": "⋮⋮ Controles de Câmera",
         "labelAlt": "Altitude",
@@ -1504,10 +1527,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "Cerca per nome pianeta, satellite o ID NORAD...",
         "secSource": "Sorgenti Dati e Preimpostazioni",
         "loadMajor": "⭐ Satelliti Principali (ISS, Hubble, Meteo, Detriti)",
+        "loadDeepSpace": "🔭 Spazio Profondo e JWST (Webb, Artemis, MRO)",
+        "badgeDeepSpace": "🔭 Missioni dello Spazio Profondo Caricate",
         "loadLocal": "🛰️ Costellazione Starlink (2.000 Satelliti)",
         "loadDebris": "💥 Nuvola Gigante di Detriti Spaziali (2.200+ frammenti)",
         "badgeDebris": "💥 Nuvola di Detriti Spaziali Caricata (2.200 frammenti)",
         "badgeMajor": "⭐ Preimpostazione Principale Caricata",
+        "optgroupDeepSpace": "🔭 Sonde dello Spazio Profondo (JWST, Luna, Marte)",
         "secTime": "Controllo Tempo e Velocità",
         "speedStop": "⏸️ Pausa",
         "speedReal": "▶️ 1x (Tempo Reale)",
@@ -1521,6 +1547,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 Confini e Nomi dei Luoghi",
         "toggleDebrisRisk": "🔮 Modalità Rischio Detriti Spaziali",
         "toggleCelestial": "🌌 Sole, Luna e Pianeti del Sistema Solare",
+        "toggleDeepSpace": "🔭 Sonde dello Spazio Profondo e JWST",
         "dragDetail": "⋮⋮ Trascina Scheda Dettagli",
         "dragCam": "⋮⋮ Controlli Telecamera",
         "labelAlt": "Altitudine",
@@ -1631,10 +1658,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "행성명, 위성명 또는 NORAD ID 검색...",
         "secSource": "위성 데이터 소스 및 프리셋",
         "loadMajor": "⭐ 주요 위성 (ISS, 허블, 기상위성, 데브리)",
+        "loadDeepSpace": "🔭 심우주·달/화성 탐사선 & JWST (웹, 아르테미스, MRO)",
+        "badgeDeepSpace": "🔭 심우주 탐사선 및 우주망원경 프리셋 로드 완료",
         "loadLocal": "🛰️ 스타링크 메가 콘스텔레이션 (2,000기)",
         "loadDebris": "💥 우주 쓰레기 메가 클라우드 (2,200+ 파편)",
         "badgeDebris": "💥 우주 쓰레기 메가 클라우드 로드 완료 (2,200파편)",
         "badgeMajor": "⭐ 주요 위성 프리셋 로드 완료",
+        "optgroupDeepSpace": "🔭 심우주 탐사선 & 우주망원경 (JWST, 달, 화성)",
         "secTime": "시간 제어 및 배속 설정",
         "speedStop": "⏸️ 정지",
         "speedReal": "▶️ 1x (실시간)",
@@ -1648,6 +1678,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 국경선 및 지명 표시",
         "toggleDebrisRisk": "🔮 우주 쓰레기 충돌 위험 모드",
         "toggleCelestial": "🌌 태양, 달 및 태양계 주요 행성",
+        "toggleDeepSpace": "🔭 심우주·달/화성 탐사선 & JWST",
         "dragDetail": "⋮⋮ 드래그하여 상세 카드 이동",
         "dragCam": "⋮⋮ 카메라 제어",
         "labelAlt": "고도",
@@ -1758,10 +1789,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "Zoek op naam of NORAD-ID...",
         "secSource": "Satellietgegevensbronnen & Presets",
         "loadMajor": "⭐ Belangrijke Satellieten (ISS, Hubble, Weer, Puin)",
+        "loadDeepSpace": "🔭 Diepe Ruimte & JWST (Webb, Artemis, MRO)",
+        "badgeDeepSpace": "🔭 Diepe Ruimtemissies Geladen",
         "loadLocal": "🛰️ Starlink-Megaconstellatie (2.000 Satellieten)",
         "loadDebris": "💥 Ruimtepuin Megawolk (2.200+ fragmenten)",
         "badgeDebris": "💥 Ruimtepuin Megawolk Geladen (2.200 fragmenten)",
         "badgeMajor": "⭐ Belangrijkste Preset Geladen",
+        "optgroupDeepSpace": "🔭 Diepe Ruimtesondes & Telescopen (JWST, Maan, Mars)",
         "secTime": "Tijdregeling & Simulatiesnelheid",
         "speedStop": "⏸️ Pauze",
         "speedReal": "▶️ 1x (Realtime)",
@@ -1775,6 +1809,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 Grenzen & Plaatsnamen",
         "toggleDebrisRisk": "🔮 Ruimtepuinrisicomodus",
         "toggleCelestial": "🌌 Zon, Maan & Planeten van het Zonnestelsel",
+        "toggleDeepSpace": "🔭 Diepe Ruimte & JWST-sondes",
         "dragDetail": "⋮⋮ Detailkaart Slepen",
         "dragCam": "⋮⋮ Camerabediening",
         "labelAlt": "Hoogte",
@@ -1885,10 +1920,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "Cari berdasarkan nama planet, satelit atau ID...",
         "secSource": "Sumber Data Satelit & Preset",
         "loadMajor": "⭐ Satelit Utama (ISS, Himawari, Michibiki, Sampah)",
+        "loadDeepSpace": "🔭 Ruang Angkasa Dalam & JWST (Webb, Artemis, MRO)",
+        "badgeDeepSpace": "🔭 Misi Ruang Angkasa Dalam Dimuat",
         "loadLocal": "🛰️ Konstelasi Starlink (2.000 Satelit)",
         "loadDebris": "💥 Awan Mega Sampah Antariksa (2.200+ Fragmen)",
         "badgeDebris": "💥 Awan Mega Sampah Antariksa Dimuat (2.200 Fragmen)",
         "badgeMajor": "⭐ Preset Utama Dimuat",
+        "optgroupDeepSpace": "🔭 Wahana Antariksa Jauh (JWST, Bulan, Mars)",
         "secTime": "Kontrol Waktu & Kecepatan",
         "speedStop": "⏸️ Jeda",
         "speedReal": "▶️ 1x (Real-time)",
@@ -1902,6 +1940,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 Garis Batas & Label Wilayah",
         "toggleDebrisRisk": "🔮 Mode Risiko Tabrakan Sampah Antariksa",
         "toggleCelestial": "🌌 Matahari, Bulan & Planet Tata Surya",
+        "toggleDeepSpace": "🔭 Wahana Ruang Angkasa Dalam & JWST",
         "dragDetail": "⋮⋮ Geser Kartu Detail",
         "dragCam": "⋮⋮ Kontrol Kamera",
         "labelAlt": "Ketinggian",
@@ -2012,10 +2051,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "पिंड, उपग्रह का नाम या NORAD ID खोजें...",
         "secSource": "उपग्रह डेटा स्रोत और प्रीसेट",
         "loadMajor": "⭐ प्रमुख उपग्रह (ISS, हबल, मौसम, मलबा)",
+        "loadDeepSpace": "🔭 गहरा अंतरिक्ष और JWST (वेब, आर्टेमिस, MRO)",
+        "badgeDeepSpace": "🔭 गहरा अंतरिक्ष मिशन लोड हो गया",
         "loadLocal": "🛰️ स्टारलिंक मेगा-तारामंडल (2,000 उपग्रह)",
         "loadDebris": "💥 अंतरिक्ष मलबे का विशाल बादल (2,200+ टुकड़े)",
         "badgeDebris": "💥 अंतरिक्ष मलबे का बादल लोड किया गया (2,200 टुकड़े)",
         "badgeMajor": "⭐ प्रमुख प्रीसेट लोड हो गया",
+        "optgroupDeepSpace": "🔭 गहरा अंतरिक्ष और ग्रहीय मिशन (JWST, चंद्रमा, मंगल)",
         "secTime": "समय नियंत्रण और गति",
         "speedStop": "⏸️ रोकें",
         "speedReal": "▶️ 1x (वास्तविक समय)",
@@ -2029,6 +2071,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 सीमाएं और स्थान लेबल",
         "toggleDebrisRisk": "🔮 अंतरिक्ष मलबा जोखिम मोड",
         "toggleCelestial": "🌌 सूर्य, चंद्रमा और सौर मंडल के ग्रह",
+        "toggleDeepSpace": "🔭 गहरा अंतरिक्ष और JWST प्रोब",
         "dragDetail": "⋮⋮ विवरण कार्ड खींचें",
         "dragCam": "⋮⋮ कैमरा नियंत्रण",
         "labelAlt": "ऊंचाई",
@@ -2139,10 +2182,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "ابحث بالاسم أو معرف NORAD...",
         "secSource": "مصادر بيانات الأقمار والإعدادات",
         "loadMajor": "⭐ الأقمار الرئيسية (محطة الفضاء، هابل، الطقس، الحطام)",
+        "loadDeepSpace": "🔭 الفضاء السحيق وJWST (ويب، أرتميس، MRO)",
+        "badgeDeepSpace": "🔭 تم تحميل مهمات الفضاء السحيق",
         "loadLocal": "🛰️ كوكبة ستارلينك (2000 قمر صناعي)",
         "loadDebris": "💥 سحابة الحطام الفضائي العملاقة (2,200+ شظية)",
         "badgeDebris": "💥 تم تحميل سحابة الحطام الفضائي (2,200 شظية)",
         "badgeMajor": "⭐ تم تحميل الأقمار الرئيسية",
+        "optgroupDeepSpace": "🔭 مهمات الفضاء السحيق والكواكب (JWST، القمر، المريخ)",
         "secTime": "التحكم بالوقت وسرعة المحاكاة",
         "speedStop": "⏸️ إيقاف",
         "speedReal": "▶️ 1x (وقت حقيقي)",
@@ -2156,6 +2202,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 الحدود وأسماء الأماكن",
         "toggleDebrisRisk": "🔮 وضع خطر الحطام الفضائي",
         "toggleCelestial": "🌌 الشمس والقمر وكواكب النظام الشمسي",
+        "toggleDeepSpace": "🔭 مسابير الفضاء السحيق وJWST",
         "dragDetail": "⋮⋮ اسحب بطاقة التفاصيل",
         "dragCam": "⋮⋮ التحكم في الكاميرا",
         "labelAlt": "الارتفاع",
@@ -2266,10 +2313,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "搜索天体名、卫星名或NORAD编号...",
         "secSource": "卫星数据源与预设",
         "loadMajor": "⭐ 核心著名卫星 (空间站, 气象卫星, 导航, 碎片)",
+        "loadDeepSpace": "🔭 深空·月球/火星探测器 & 韦伯望远镜 (JWST, Artemis, MRO)",
+        "badgeDeepSpace": "🔭 深空探测器与空间望远镜预设已载入",
         "loadLocal": "🛰️ 星链(Starlink) 巨型星座 (2,000颗全量)",
         "loadDebris": "💥 太空垃圾碎片巨型云 (2,200+ 碎片)",
         "badgeDebris": "💥 太空垃圾碎片巨型云已载入 (2,200碎片)",
         "badgeMajor": "⭐ 核心卫星预设已载入",
+        "optgroupDeepSpace": "🔭 深空探测与行星任务 (JWST, Artemis, Mars)",
         "secTime": "时间控制与倍速调节",
         "speedStop": "⏸️ 暂停",
         "speedReal": "▶️ 1x (真实时间)",
@@ -2283,6 +2333,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 国家边界与主要地名",
         "toggleDebrisRisk": "🔮 空间碎片碰撞预警模式",
         "toggleCelestial": "🌌 太阳、月球及太阳系主要行星",
+        "toggleDeepSpace": "🔭 深空·月球/火星探测器 & JWST",
         "dragDetail": "⋮⋮ 拖拽移动详情卡片",
         "dragCam": "⋮⋮ 相机视角平移控制",
         "labelAlt": "轨道高度",
@@ -2397,10 +2448,13 @@ const TRANSLATIONS = {
         "searchPlaceholder": "Поиск по названию или номеру NORAD...",
         "secSource": "Источники данных и пресеты",
         "loadMajor": "⭐ Основные спутники (МКС, Хаббл, Погода, Мусор)",
+        "loadDeepSpace": "🔭 Дальний космос и JWST (Уэбб, Артемида, MRO)",
+        "badgeDeepSpace": "🔭 Миссии дальнего космоса загружены",
         "loadLocal": "🛰️ Мега-группировка Starlink (2 000 спутников)",
         "loadDebris": "💥 Мегаоблако космического мусора (2 200+ обломков)",
         "badgeDebris": "💥 Мегаоблако космического мусора загружено (2 200 обломков)",
         "badgeMajor": "⭐ Пресет основных спутников загружен",
+        "optgroupDeepSpace": "🔭 Миссии дальнего космоса и планет (JWST, Луна, Марс)",
         "secTime": "Управление временем и скоростью",
         "speedStop": "⏸️ Пауза",
         "speedReal": "▶️ 1x (Реальное время)",
@@ -2414,6 +2468,7 @@ const TRANSLATIONS = {
         "toggleBorders": "🌐 Границы и названия мест",
         "toggleDebrisRisk": "🔮 Режим риска космического мусора",
         "toggleCelestial": "🌌 Солнце, Луна и планеты Солнечной системы",
+        "toggleDeepSpace": "🔭 Зонды дальнего космоса и JWST",
         "dragDetail": "⋮⋮ Перетащите карточку",
         "dragCam": "⋮⋮ Управление камерой",
         "labelAlt": "Высота",
@@ -2571,6 +2626,7 @@ function applyLanguage(lang) {
     // Explicit ID-based fallback translations
     const idsToTranslate = {
         'loadMajorBtn': 'loadMajor',
+        'loadDeepSpaceBtn': 'loadDeepSpace',
         'loadTrainBtn': 'loadTrain',
         'loadSpanishBtn': 'loadSpanish',
         'loadLocalBtn': 'loadLocal',
@@ -3030,6 +3086,7 @@ const loadingText = document.getElementById('loadingText');
 const labelsContainer = document.getElementById('labelsContainer');
 const tzSelect = document.getElementById('tzSelect');
 const loadMajorBtn = document.getElementById('loadMajorBtn');
+const loadDeepSpaceBtn = document.getElementById('loadDeepSpaceBtn');
 const loadTrainBtn = document.getElementById('loadTrainBtn');
 const loadSpanishBtn = document.getElementById('loadSpanishBtn');
 const loadLocalBtn = document.getElementById('loadLocalBtn');
@@ -5733,6 +5790,258 @@ const CELESTIAL_BODIES = [
     }
 ];
 
+// ==========================================================================
+// Deep Space Missions & Interplanetary Orbit Visualizer (JWST, Artemis, Mars)
+// ==========================================================================
+const DEEP_SPACE_MISSIONS = [
+    {
+        id: 'JWST',
+        name: 'James Webb Space Telescope (JWST / ジェイムズ・ウェッブ宇宙望遠鏡)',
+        shortName: 'JWST',
+        symbol: '🔭',
+        color: '#f59e0b',
+        parent: 'L2',
+        distKm: 1500000,
+        periodDays: 180,
+        type: 'SPACE_TELESCOPE',
+        launchDate: '2021-12-25',
+        rocket: 'Ariane 5 ECA (Kourou ELA-3)',
+        agency: 'NASA / ESA / CSA',
+        site: 'Sun-Earth L2 Lagrange Halo Orbit (~1.5M km)',
+        primaryMirror: '6.5 m (18 Gold-Coated Beryllium Hexagons)',
+        instruments: 'NIRCam, MIRI, NIRSpec, FGS/NIRISS',
+        speedKmS: '0.25 km/s (relative to L2)',
+        modelType: 'JWST'
+    },
+    {
+        id: 'ARTEMIS_ORION',
+        name: 'Artemis Orion Spacecraft (アルテミス・オリオン有人月探査船)',
+        shortName: 'ARTEMIS ORION',
+        symbol: '🚀',
+        color: '#38bdf8',
+        parent: 'MOON',
+        distKm: 384400,
+        periodDays: 14,
+        type: 'LUNAR_SPACECRAFT',
+        launchDate: '2022-11-16 (Artemis I) / Artemis II/III',
+        rocket: 'NASA SLS (Space Launch System Block 1)',
+        agency: 'NASA / ESA / JAXA',
+        site: 'Lunar Distant Retrograde Orbit (DRO) & NRHO',
+        crewCapacity: '4 Astronauts',
+        instruments: 'European Service Module (ESM), Callisto AI, Optical Comm',
+        speedKmS: '1.2 - 2.5 km/s (Lunar Orbit)',
+        modelType: 'ORION'
+    },
+    {
+        id: 'LRO',
+        name: 'Lunar Reconnaissance Orbiter (LRO / 月周回観測衛星)',
+        shortName: 'LRO',
+        symbol: '🌕',
+        color: '#e2e8f0',
+        parent: 'MOON',
+        distKm: 384400,
+        periodDays: 0.083,
+        type: 'LUNAR_ORBITER',
+        launchDate: '2009-06-18',
+        rocket: 'Atlas V 401',
+        agency: 'NASA / Goddard Space Flight Center',
+        site: 'Low Lunar Polar Orbit (~50 km altitude)',
+        instruments: 'LROC (0.5m/px camera), LOLA Laser Altimeter, Diviner',
+        speedKmS: '1.63 km/s',
+        modelType: 'ORBITER'
+    },
+    {
+        id: 'MARS_PERSEVERANCE',
+        name: 'Mars 2020 Perseverance Rover (パーサヴィアランス火星探査車)',
+        shortName: 'PERSEVERANCE',
+        symbol: '🚜',
+        color: '#f97316',
+        parent: 'MARS',
+        distKm: 225000000,
+        periodDays: 1.026,
+        type: 'MARS_ROVER',
+        launchDate: '2020-07-30 (Landed: 2021-02-18)',
+        rocket: 'Atlas V 541',
+        agency: 'NASA / Jet Propulsion Laboratory (JPL)',
+        site: 'Jezero Crater, Mars (18.38°N, 77.58°E)',
+        instruments: 'SuperCam, Mastcam-Z, MOXIE (Oxygen In-Situ), PIXL, RIMFAX',
+        speedKmS: 'Surface Rover / Sample Cacher',
+        modelType: 'ROVER'
+    },
+    {
+        id: 'MARS_MRO',
+        name: 'Mars Reconnaissance Orbiter (MRO / マーズ・リコネサンス・オービター)',
+        shortName: 'MRO',
+        symbol: '🔴',
+        color: '#ef4444',
+        parent: 'MARS',
+        distKm: 225000000,
+        periodDays: 0.078,
+        type: 'MARS_ORBITER',
+        launchDate: '2005-08-12',
+        rocket: 'Atlas V 401',
+        agency: 'NASA / JPL',
+        site: 'Sun-synchronous Mars Polar Orbit (250 × 316 km)',
+        instruments: 'HiRISE (0.3m/px Ultra-HD Camera), CRISM, CTX, SHARAD',
+        speedKmS: '3.42 km/s (Mars Orbit)',
+        modelType: 'ORBITER'
+    },
+    {
+        id: 'HAYABUSA2',
+        name: 'Hayabusa2 Extended Mission (はやぶさ2・拡張小惑星探査ミッション)',
+        shortName: 'HAYABUSA2',
+        symbol: '🛸',
+        color: '#10b981',
+        parent: 'SUN',
+        distKm: 180000000,
+        periodDays: 450,
+        type: 'ASTEROID_PROBE',
+        launchDate: '2014-12-03 (Earth Return: 2020-12-06)',
+        rocket: 'H-IIA 202 (Tanegashima)',
+        agency: 'JAXA (Japan Aerospace Exploration Agency)',
+        site: 'Heliocentric Interplanetary Orbit towards 1998 KY26',
+        instruments: 'Microwave Ion Thrusters (IES), ONC-T, TIR, NIRS3',
+        speedKmS: '28.4 km/s (Heliocentric)',
+        modelType: 'PROBE'
+    },
+    {
+        id: 'VOYAGER1',
+        name: 'Voyager 1 Interstellar Mission (ボイジャー1号・恒星間脱出探査機)',
+        shortName: 'VOYAGER 1',
+        symbol: '🌌',
+        color: '#c084fc',
+        parent: 'INTERSTELLAR',
+        distKm: 24500000000,
+        periodDays: '---',
+        type: 'INTERSTELLAR_PROBE',
+        launchDate: '1977-09-05',
+        rocket: 'Titan IIIE / Centaur',
+        agency: 'NASA / JPL',
+        site: 'Interstellar Space beyond Heliopause (~164 AU)',
+        instruments: 'The Golden Record, Magnetometer (MAG), Cosmic Ray Subsystem',
+        speedKmS: '17.0 km/s (Escape Velocity)',
+        modelType: 'VOYAGER'
+    }
+];
+
+const DEEP_SPACE_DESCRIPTIONS = {
+    "JWST": {
+        "ja": "NASA・ESA・CSAが共同開発した人類史上最強の次世代宇宙望遠鏡。地球から約150万km離れた太陽-地球の第2ラグランジュ点（L2）のハロー軌道を周回。18枚の金コーティング・ベリリウム製六角形主鏡（口径6.5m）とテニスコート大の5層サンシールドを備え、赤外線観測によって135億年以上前の宇宙黎明期の最遠銀河や恒星の誕生、太陽系外惑星の大気成分（水蒸気や二酸化炭素）を直接検出しています。",
+        "en": "The premier deep space observatory developed by NASA, ESA, and CSA. Orbiting the Sun-Earth L2 Lagrange point ~1.5 million km from Earth, JWST features a 6.5-meter gold-coated beryllium primary mirror and a 5-layer tennis-court-sized sunshield. Operating at cryogenic temperatures below -233°C (40 K), it penetrates cosmic dust to observe the universe's first luminous galaxies from 13.5 billion years ago and analyzes exoplanet atmospheres.",
+        "de": "Das weltweit leistungsfahigste Weltraumteleskop von NASA, ESA und CSA. Es umkreist den Sonne-Erde-L2-Lagrange-Punkt in ca. 1,5 Mio. km Entfernung mit einem 6,5 m Beryllium-Goldspiegel.",
+        "fr": "Le plus puissant telescope spatial jamais concu par la NASA, l'ESA et l'ASC. En orbite au point de Lagrange L2 a 1,5 million de km, son miroir de 6,5 m observe les premieres galaxies de l'Univers.",
+        "es": "El telescopio espacial mas avanzado del mundo, desarrollado por NASA, ESA y CSA. Orbita en el punto de Lagrange L2 a 1,5 millones de km de la Tierra con un espejo dorado de 6,5 m.",
+        "zh": "NASA、ESA与CSA联合研制的人类史上最强太空望远镜。位于日地L2拉格朗日点光环轨道（距地约150万公里），配备6.5米镀金铍主镜，直接观测135亿年前早期宇宙第一代星系。",
+        "ru": "Самый мощный космический телескоп в истории, созданный NASA, ESA и CSA. Находится в точке Лагранжа L2 в 1,5 млн км от Земли, исследуя древнейшие галактики ранней Вселенной."
+    },
+    "ARTEMIS_ORION": {
+        "ja": "人類の月面再到達と将来の火星有人探査を目指す国際深宇宙探査計画「アルテミス計画」の中核を担う有人宇宙船。月を周回する遠方逆行軌道（DRO）や近直線ハロー軌道（NRHO）を飛行。欧州宇宙機関（ESA）が提供するサービスモジュール（ESM）と強固な耐熱シールドを搭載し、月軌道ステーション「ゲートウェイ」への人員・物資輸送を担います。",
+        "en": "The flagship crewed spacecraft of NASA's Artemis campaign, designed to return humanity to the Moon and prepare for missions to Mars. Orion features advanced life support for 4 astronauts, a high-capacity heat shield engineered for 40,000 km/h lunar re-entry, and the European Service Module (ESM) providing propulsion, power, and consumables in lunar Distant Retrograde Orbit (DRO).",
+        "de": "Das bemannte Flaggschiff-Raumschiff des Artemis-Programms von NASA, ESA und JAXA fur Langzeitmissionen im Mondorbit und die Vorbereitung von bemannten Flugen zum Mars.",
+        "fr": "Le vaisseau spatial habite du programme Artemis de la NASA, de l'ESA et de la JAXA, concu pour ramener l'humanite sur la Lune et preparer les futures missions habitees vers Mars.",
+        "es": "Nave tripulada insignia del programa Artemis de la NASA, ESA y JAXA, disenada para devolver a la humanidad a la Luna y preparar misiones tripuladas hacia Marte.",
+        "zh": "NASA阿尔忒弥斯计划的核心载人飞船，由NASA、ESA和JAXA联合打造，运行于月球远距离逆行轨道（DRO），旨在实现人类重返月球并为登陆火星奠定基础。",
+        "ru": "Пилотируемый корабль лунной программы Artemis NASA, ESA и JAXA, предназначенный для доставки астронавтов на орбиту Луны и подготовки экспедиций на Марс."
+    },
+    "LRO": {
+        "ja": "NASAの月周回探査機（Lunar Reconnaissance Orbiter）。月面からわずか高度50kmの極軌道から、高解像度カメラLROC（解像度0.5m/px）やレーザー高度計LOLAを用いて、アポロ着陸船の遺留品や月面の詳細地形、永久影の極域クレーターに眠る水氷資源を継続的に観測・マッピングしています。",
+        "en": "NASA's robotic spacecraft orbiting the Moon in a polar mapping orbit at ~50 km altitude. Equipped with LROC (0.5m/pixel resolution), LOLA laser altimeter, and Diviner radiometer, LRO has mapped over 99% of the lunar surface, locating Apollo landing sites, fresh impact craters, and extensive water-ice deposits inside permanently shadowed craters at the lunar poles.",
+        "de": "Mondsonde der NASA im polaren Mondorbit in nur 50 km Hohe zur Erstellung hochauflosender 3D-Karten und Aufspurung von Wassereisvorkommen in den Polkratern.",
+        "fr": "Sonde spatiale de la NASA en orbite lunaire a 50 km d'altitude, cartographiant le relief lunaire et detectant la glace d'eau aux poles avec une precision de 0,5 m/pixel.",
+        "es": "Sonda espacial de la NASA en orbita polar lunar a solo 50 km de altitud, cartografiando el relieve lunar y localizando reservas de hielo de agua en los polos.",
+        "zh": "NASA的极轨月球勘测轨道飞行器，在距离月表仅50公里的超低轨道运行，搭载LROC高清相机（0.5米/像素），绘制月面精细3D地形并探寻永久阴影区水冰。",
+        "ru": "Лунный орбитальный аппарат NASA на высоте всего 50 км над поверхностью, создавший самую подробную карту Луны и обнаруживший залежи водяного льда на полюсах."
+    },
+    "MARS_PERSEVERANCE": {
+        "ja": "NASA火星探査計画「マーズ2020」の大型探査ローバー。かつて湖とデルタ地帯が存在したジェゼロ・クレーターに着陸し、古代生命の痕跡（バイオシグネチャー）を探索。大気中の二酸化炭素から酸素を合成するMOXIE実験の成功や、将来の地球帰還用サンプルコアの採取・密封保管を進行中。",
+        "en": "NASA's state-of-the-art robotic rover exploring Jezero Crater on Mars. Searching for biosignatures of ancient microbial life in a dried-up paleolake delta, Perseverance features the MOXIE oxygen generation experiment, the SuperCam laser spectrometer, and an automated drilling system caching sealed rock cores for the future Mars Sample Return mission.",
+        "de": "Der fortschrittlichste Mars-Rover der NASA im Jezero-Krater auf der Suche nach Spuren fruheren mikrobiellen Lebens und Sauerstoffgewinnung durch MOXIE.",
+        "fr": "Le rover de pointe de la NASA explorant le cratere Jezero sur Mars a la recherche de biosignatures fossiles et extrayant de l'oxygene grace a l'experience MOXIE.",
+        "es": "El rover mas avanzado de la NASA que explora el crater Jezero en Marte, buscando biofirmas de vida microbiana antigua y recolectando muestras geologicas selladas.",
+        "zh": "NASA“毅力号”火星探测巡视车，着陆于古湖泊杰泽罗陨石坑，搜寻远古微生物生命迹象，并成功通过MOXIE实验从火星二氧化碳大气中就地制取氧气。",
+        "ru": "Марсоход NASA 'Персеверанс' в кратере Езеро, ведущий поиск следов древней жизни, синтезирующий кислород из атмосферы и собирающий образцы пород для доставки на Землю."
+    },
+    "MARS_MRO": {
+        "ja": "NASAの火星周回探査機（Mars Reconnaissance Orbiter）。口径50cmの超高解像度カメラ「HiRISE」を搭載し、火星上空300kmから地表の30cmサイズの岩石まで鮮明に捉える偵察観測を実施。火星探査車（パーサヴィアランスやキュリオシティ）の通信中継拠点としても不可欠な役割を果たしています。",
+        "en": "NASA's powerhouse Mars orbital reconnaissance spacecraft. Operating in a 300 km polar orbit, its massive 0.5-meter aperture HiRISE camera delivers breathtaking 0.3 m/pixel images of Martian dunes, avalanches, and rover tracks, while serving as the primary high-bandwidth deep-space telecommunications relay for surface missions.",
+        "de": "Leistungsfahiger Mars-Orbiter der NASA mit der legendaren HiRISE-Teleskopkamera (0,3 m/Pixel Auflosung) und unverzichtbarem Datenrelais fur alle Oberflachenrover.",
+        "fr": "Sonde orbitale martienne de la NASA equipee de la camera telescopique HiRISE (0,3 m/px) et servant de relais de telecommunications pour les rovers au sol.",
+        "es": "Potente sonda orbital marciana de la NASA con camara telescopica HiRISE de 0,3 m/pixel, que proporciona datos cientificos de alta resolucion y enlace de comunicaciones.",
+        "zh": "NASA火星勘测轨道飞行器，搭载50厘米口径HiRISE超高分辨率相机（0.3米/像素），在300公里极轨上对火星进行地质侦察并为地表火星车提供高带宽中继通信。",
+        "ru": "Орбитальный аппарат NASA на орбите Марса с камерой HiRISE (разрешение 30 см на пиксель), передающий сверхчеткие снимки ландшафта и служащий главным ретранслятором связи."
+    },
+    "HAYABUSA2": {
+        "ja": "JAXAの小惑星探査機。小惑星リュウグウで世界初となる人工クレーター生成と地下物質サンプル採取に成功し、2020年に地球へカプセルを帰還。現在は地球重力アシストを経て、2031年に超高速自転小惑星「1998 KY26」へ到達する世界最長の小惑星ランデブー拡張ミッションを飛行中。",
+        "en": "JAXA's historic asteroid exploration spacecraft. Following its ground-breaking 2020 return of pristine Ryugu subsurface samples containing amino acids and water, Hayabusa2 is currently on an extended mission traveling through interplanetary space to rendezvous with fast-rotating micro-asteroid 1998 KY26 in 2031.",
+        "de": "Historische Asteroidensonde der JAXA, die Proben von Ryugu zur Erde brachte und sich nun auf einer erweiterten interplanetaren Mission zum Asteroiden 1998 KY26 befindet.",
+        "fr": "Sonde spatiale historique de la JAXA ayant rapporte sur Terre des echantillons de Ryugu, actuellement en route vers le micro-asteroide 1998 KY26 pour un rendez-vous en 2031.",
+        "es": "Historica sonda de asteroides de JAXA que trajo muestras de Ryugu a la Tierra y actualmente viaja hacia el asteroide de rotacion ultra-rapida 1998 KY26 para 2031.",
+        "zh": "日本JAXA的传奇小行星探测器。在小行星“龙宫”成功实施全球首次人工撞击并取回含水和氨基酸的地下样本，目前正在深空中飞往超高速自转小行星1998 KY26扩展任务。",
+        "ru": "Японский межпланетный зонд JAXA, успешно доставивший на Землю образцы астероида Рюгу и продолжающий полет к быстро вращающемуся астероиду 1998 KY26 (рандеву в 2031 г.)."
+    },
+    "VOYAGER1": {
+        "ja": "1977年に打ち上げられた人類最遠の人工探査機。木星と土星のフライバイ探査を経て、2012年に太陽風の限界境界（ヘリオポーズ）を突破し、人類史上初めて星間空間（Interstellar Space）に到達。地球から約245億km（光速で往復約45時間）離れた深宇宙から現在も微弱な電波シグナルを送り続けています。",
+        "en": "Launched by NASA in 1977, Voyager 1 is the most distant human-made object in history. Having traversed Jupiter and Saturn, it crossed the heliopause in August 2012 to become the first craft to enter interstellar space. Currently over 24.5 billion km (~164 AU) away, it continues transmitting scientific data from between the stars carrying humanity's Golden Record.",
+        "de": "Das am weitesten entfernte von Menschen gebaute Objekt der Geschichte. Voyager 1 verliess 2012 das Sonnensystem und sendet aus uber 24,5 Milliarden km Entfernung wissenschaftliche Daten.",
+        "fr": "L'objet humain le plus eloigne de l'histoire, lance en 1977. En 2012, il a franchi l'heliopause pour entrer dans l'espace interstellaire a plus de 24,5 milliards de km.",
+        "es": "El objeto fabricado por el ser humano mas lejano de la historia. Lanzo en 1977, cruzo la heliopausa en 2012 y sigue transmitiendo datos desde el espacio interestelar a 24.500 millones de km.",
+        "zh": "人类历史上飞得最远的人造物体。1977年由NASA发射，2012年穿越日球层顶进入星际空间，目前距离地球超过245亿公里（约164天文单位），携带着人类文明的镀金唱片向银河系深处飞去。",
+        "ru": "Самый далекий рукотворный объект в истории человечества. Запущенный в 1977 году, 'Вояджер-1' в 2012 году вышел в межзвездное пространство на расстояние более 24,5 млрд км."
+    }
+};
+
+const DEEP_SPACE_SPECS = {
+    "JWST": {
+        agency: { ja: "NASA / ESA / CSA (欧州宇宙機関・カナダ宇宙庁)", en: "NASA / ESA / CSA International Collaboration" },
+        orbitType: { ja: "太陽-地球 L2 ラグランジュ点 ハロー軌道 (~150万km)", en: "Sun-Earth L2 Lagrange Point Halo Orbit (~1.5M km)" },
+        dimensions: { ja: "主鏡直径: 6.5 m (18分割ベリリウム金鏡) / サンシールド: 21.2 m × 14.2 m", en: "Primary Mirror: 6.5 m / Sunshield: 21.2 m × 14.2 m" },
+        instruments: { ja: "NIRCam (近赤外線カメラ), MIRI (中赤外線分光撮像), NIRSpec, FGS/NIRISS", en: "NIRCam, MIRI, NIRSpec, FGS/NIRISS" },
+        scienceGoal: { ja: "135億年前の宇宙最初期銀河観測、星・惑星系の誕生、太陽系外惑星の大気組成探査", en: "First light galaxies at 13.5B yr, stellar evolution, exoplanet atmospheric transmission spectra" }
+    },
+    "ARTEMIS_ORION": {
+        agency: { ja: "NASA / ESA / JAXA", en: "NASA / ESA / JAXA Artemis Coalition" },
+        orbitType: { ja: "月遠方逆行軌道 (DRO) / 近直線ハロー軌道 (NRHO)", en: "Lunar Distant Retrograde Orbit (DRO) & NRHO" },
+        dimensions: { ja: "全幅: 19.0 m (太陽電池パドル展開時) / 重量: 33,446 kg", en: "Width: 19.0 m with solar arrays / Mass: 33,446 kg" },
+        instruments: { ja: "有人耐熱シールド (Avcoat), 欧州サービスモジュール (ESM), 光通信端末 (O2O)", en: "Avcoat Heat Shield, European Service Module, O2O Optical Comm" },
+        scienceGoal: { ja: "人類の持続可能な月面探査、月周回拠点ゲートウェイ建設、将来の有人火星飛行検証", en: "Sustainable lunar surface exploration, Gateway station staging, crewed Mars preparation" }
+    },
+    "LRO": {
+        agency: { ja: "NASA / ゴダード宇宙飛行センター", en: "NASA / Goddard Space Flight Center" },
+        orbitType: { ja: "極月軌道 (高度 ~50 km / 傾斜角 90°)", en: "Low Lunar Polar Orbit (~50 km altitude / 90° inc)" },
+        dimensions: { ja: "サイズ: 2.7 m × 1.7 m / 重量: 1,916 kg", en: "Dimensions: 2.7 m × 1.7 m / Mass: 1,916 kg" },
+        instruments: { ja: "LROC (狭角・広角カメラ 0.5m/px), LOLA (レーザー高度計), Diviner (放射温度計)", en: "LROC (0.5m/px camera), LOLA Laser Altimeter, Diviner Radiometer" },
+        scienceGoal: { ja: "月面全域の高解像度3D地形図作成、永久影領域の水氷探査、アポロ着陸地撮影", en: "Global 3D lunar topography, permanently shadowed water ice mapping, Apollo artifact recovery" }
+    },
+    "MARS_PERSEVERANCE": {
+        agency: { ja: "NASA / ジェット推進研究所 (JPL)", en: "NASA / Jet Propulsion Laboratory (JPL)" },
+        orbitType: { ja: "火星表面探査 (ジェゼロ・クレーター 18.38°N, 77.58°E)", en: "Mars Surface Exploration (Jezero Crater 18.38°N, 77.58°E)" },
+        dimensions: { ja: "全長: 3.0 m / 全幅: 2.7 m / 重量: 1,025 kg", en: "Length: 3.0 m / Width: 2.7 m / Mass: 1,025 kg" },
+        instruments: { ja: "MOXIE (火星大気から酸素合成), Mastcam-Z (ズーム3Dカメラ), SuperCam (レーザー分析)", en: "MOXIE (Oxygen In-Situ), Mastcam-Z 3D, SuperCam Raman/Laser" },
+        scienceGoal: { ja: "古代湖底における微生物生命痕跡の探索、将来の有人火星探査用酸素抽出、岩石コア採取", en: "Astrobiology biosignatures, atmospheric in-situ resource oxygen production, sealed sample caching" }
+    },
+    "MARS_MRO": {
+        agency: { ja: "NASA / JPL", en: "NASA / Jet Propulsion Laboratory" },
+        orbitType: { ja: "火星周回太陽同期極軌道 (250 × 316 km / 周期 112分)", en: "Sun-synchronous Mars Polar Orbit (250 × 316 km / 112 min)" },
+        dimensions: { ja: "太陽電池パドル幅: 19.7 m / 重量: 2,180 kg", en: "Solar Array Span: 19.7 m / Mass: 2,180 kg" },
+        instruments: { ja: "HiRISE (口径50cm 望遠カメラ 0.3m/px), CRISM (鉱物マッピング分光器), SHARAD (地下レーダー)", en: "HiRISE (0.3m/px Telescopic Camera), CRISM Spectrometer, SHARAD Subsurface Radar" },
+        scienceGoal: { ja: "火星の過去の水環境と気候変動の解明、着陸候補地選定、火星ローバー超高速通信中継", en: "Historic water activity, mineral geology, landing site certification, gigabit relay for rovers" }
+    },
+    "HAYABUSA2": {
+        agency: { ja: "JAXA (宇宙航空研究開発機構)", en: "JAXA (Japan Aerospace Exploration Agency)" },
+        orbitType: { ja: "太陽周回ヘリオセントリック軌道 (地球-小惑星間)", en: "Heliocentric Interplanetary Orbit (Earth-Asteroid)" },
+        dimensions: { ja: "太陽電池パドル幅: 6.0 m / 重量: 609 kg", en: "Solar Array Span: 6.0 m / Mass: 609 kg" },
+        instruments: { ja: "マイクロ波イオンエンジン (4基), 光学航法カメラ (ONC), 中間赤外カメラ (TIR)", en: "Microwave Ion Engines (IES), Optical Navigation Cameras, TIR, NIRS3" },
+        scienceGoal: { ja: "小惑星リュウグウのサンプルリターン成功、超高速自転小惑星1998 KY26ランデブー (2031年)", en: "Ryugu pristine organic sample delivery, planetary defense, fast-rotator 1998 KY26 rendezvous (2031)" }
+    },
+    "VOYAGER1": {
+        agency: { ja: "NASA / JPL", en: "NASA / Jet Propulsion Laboratory" },
+        orbitType: { ja: "太陽系脱出双曲線星間軌道 (~164 AU / 245億km彼方)", en: "Interstellar Hyperbolic Escape Trajectory (~164 AU / 24.5B km)" },
+        dimensions: { ja: "高利得パラボラアンテナ直径: 3.7 m / 重量: 825 kg", en: "High-Gain Antenna: 3.7 m / Mass: 825 kg" },
+        instruments: { ja: "ゴールデンレコード (人類の音楽・言語・メッセージ), 磁力計 (MAG), 宇宙線検出器 (CRS)", en: "The Golden Record, Magnetometer (MAG), Cosmic Ray Subsystem, Plasma Wave System" },
+        scienceGoal: { ja: "太陽風が届かない星間磁場・宇宙線の直接測定、人類文明のメッセージを銀河系へ運ぶ", en: "First in-situ sampling of interstellar medium, plasma density beyond heliopause, galactic messenger" }
+    }
+};
+
 const CELESTIAL_DESCRIPTIONS = {
     "SUN": {
         "ja": "太陽系の中心に輝く恒星。表面温度は約5,500℃、中心核は約1,500万℃に達します。表面の「太陽黒点」は強力な磁場が熱対流を抑えるため、周囲より約1,500℃低い【約3,500℃〜4,000℃】となっており、相対的に黒く見えます。",
@@ -6169,6 +6478,560 @@ function computeCelestialPosition(body, time) {
     );
 }
 
+// ==========================================================================
+// Deep Space Missions (JWST, Artemis Orion, LRO, Mars, Voyager) Engine
+// ==========================================================================
+let deepSpaceEntities = [];
+let selectedDeepSpaceId = null;
+let deepSpaceOrbitEntity = null;
+
+function initDeepSpaceMissions() {
+    if (!viewer) return;
+    createDeepSpaceEntities();
+}
+
+function createDeepSpaceEntities() {
+    if (!viewer) return;
+    deepSpaceEntities.forEach(ent => viewer.entities.remove(ent));
+    deepSpaceEntities = [];
+
+    const toggleDeepSpace = document.getElementById('toggleDeepSpace');
+    const isVisible = (!toggleDeepSpace || toggleDeepSpace.checked);
+
+    DEEP_SPACE_MISSIONS.forEach(mission => {
+        const billboardCanvas = createDeepSpaceBillboard(mission);
+
+        const entity = viewer.entities.add({
+            id: `deepspace_${mission.id}`,
+            name: mission.name,
+            position: new Cesium.CallbackProperty((time) => {
+                return computeDeepSpacePosition(mission, time);
+            }, false),
+            billboard: {
+                image: billboardCanvas,
+                width: 80,
+                height: 40,
+                verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+                pixelOffset: Cesium.Cartesian2.ZERO,
+                show: isVisible,
+                disableDepthTestDistance: Number.POSITIVE_INFINITY
+            }
+        });
+        entity.deepSpaceData = mission;
+        deepSpaceEntities.push(entity);
+    });
+}
+
+function createDeepSpaceBillboard(mission) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 320;
+    canvas.height = 160;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, 320, 160);
+
+    const cx = 160;
+    const cy = 48;
+
+    // 1. Soft Outer Glow
+    const glowGrad = ctx.createRadialGradient(cx, cy, 4, cx, cy, 38);
+    glowGrad.addColorStop(0, mission.color || '#f59e0b');
+    glowGrad.addColorStop(0.5, mission.color || '#f59e0b');
+    glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = glowGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 38, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 2. Specialized Spacecraft Vector Graphic
+    ctx.save();
+    if (mission.id === 'JWST') {
+        // Silver Kite Sunshield
+        ctx.fillStyle = '#94a3b8';
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - 22);
+        ctx.lineTo(cx + 26, cy + 8);
+        ctx.lineTo(cx, cy + 22);
+        ctx.lineTo(cx - 26, cy + 8);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // 18-Segment Gold Primary Mirror Hexagon
+        ctx.fillStyle = '#fbbf24';
+        ctx.strokeStyle = '#d97706';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let i = 0; i < 6; i++) {
+            const a = (i * 60 - 30) * Math.PI / 180;
+            const hx = cx + 13 * Math.cos(a);
+            const hy = cy - 2 + 13 * Math.sin(a);
+            if (i === 0) ctx.moveTo(hx, hy);
+            else ctx.lineTo(hx, hy);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // Secondary mirror tripod
+        ctx.strokeStyle = '#78350f';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - 2);
+        ctx.lineTo(cx - 7, cy + 6);
+        ctx.moveTo(cx, cy - 2);
+        ctx.lineTo(cx + 7, cy + 6);
+        ctx.moveTo(cx, cy - 2);
+        ctx.lineTo(cx, cy - 10);
+        ctx.stroke();
+    } else if (mission.id === 'ARTEMIS_ORION') {
+        // Orion Capsule + X-Wing 4 Solar Arrays
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 3.5;
+        ctx.beginPath();
+        ctx.moveTo(cx - 22, cy - 14); ctx.lineTo(cx + 22, cy + 14);
+        ctx.moveTo(cx - 22, cy + 14); ctx.lineTo(cx + 22, cy - 14);
+        ctx.stroke();
+
+        ctx.fillStyle = '#0284c7';
+        ctx.fillRect(cx - 7, cy - 6, 14, 12);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.beginPath();
+        ctx.moveTo(cx - 9, cy + 2);
+        ctx.lineTo(cx + 9, cy + 2);
+        ctx.lineTo(cx, cy - 14);
+        ctx.closePath();
+        ctx.fill();
+    } else if (mission.id === 'MARS_PERSEVERANCE') {
+        // Rover chassis + Mast + Wheels
+        ctx.fillStyle = '#ea580c';
+        ctx.fillRect(cx - 14, cy - 6, 28, 12);
+        
+        ctx.strokeStyle = '#f97316';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(cx - 7, cy - 6);
+        ctx.lineTo(cx - 7, cy - 18);
+        ctx.lineTo(cx - 2, cy - 18);
+        ctx.stroke();
+
+        ctx.fillStyle = '#475569';
+        [-12, 0, 12].forEach(wx => {
+            ctx.beginPath();
+            ctx.arc(cx + wx, cy + 9, 3.5, 0, Math.PI * 2);
+            ctx.fill();
+        });
+    } else if (mission.id === 'MARS_MRO') {
+        // Dish + Solar Panels
+        ctx.fillStyle = '#dc2626';
+        ctx.fillRect(cx - 26, cy - 4, 14, 8);
+        ctx.fillRect(cx + 12, cy - 4, 14, 8);
+        ctx.fillStyle = '#fef2f2';
+        ctx.fillRect(cx - 6, cy - 7, 12, 14);
+        ctx.strokeStyle = '#ef4444';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(cx, cy - 10, 8, Math.PI, Math.PI * 2);
+        ctx.stroke();
+    } else if (mission.id === 'VOYAGER1') {
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + 24, cy - 16);
+        ctx.stroke();
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.ellipse(cx - 4, cy, 14, 10, -0.3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#d97706';
+        ctx.beginPath();
+        ctx.arc(cx - 5, cy - 1, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+    } else if (mission.id === 'HAYABUSA2') {
+        ctx.fillStyle = '#10b981';
+        ctx.fillRect(cx - 22, cy - 4, 14, 8);
+        ctx.fillRect(cx + 8, cy - 4, 14, 8);
+        ctx.fillStyle = '#ecfdf5';
+        ctx.fillRect(cx - 6, cy - 6, 12, 12);
+        
+        const plumeGrad = ctx.createLinearGradient(cx, cy + 6, cx, cy + 16);
+        plumeGrad.addColorStop(0, '#38bdf8');
+        plumeGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+        ctx.fillStyle = plumeGrad;
+        ctx.beginPath();
+        ctx.moveTo(cx - 4, cy + 6);
+        ctx.lineTo(cx + 4, cy + 6);
+        ctx.lineTo(cx, cy + 16);
+        ctx.closePath();
+        ctx.fill();
+    } else {
+        ctx.fillStyle = mission.color || '#e2e8f0';
+        ctx.fillRect(cx - 8, cy - 8, 16, 16);
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx - 20, cy); ctx.lineTo(cx - 8, cy);
+        ctx.moveTo(cx + 8, cy); ctx.lineTo(cx + 20, cy);
+        ctx.stroke();
+    }
+    ctx.restore();
+
+    // 3. Crisp Bold Label
+    ctx.font = 'bold 26px "Inter", "Segoe UI", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.strokeStyle = '#020617';
+    ctx.lineWidth = 5;
+    ctx.strokeText(mission.shortName, cx, 86);
+    ctx.fillStyle = mission.color || '#ffffff';
+    ctx.fillText(mission.shortName, cx, 86);
+
+    return canvas;
+}
+
+function computeDeepSpacePosition(mission, time) {
+    if (!viewer || !time) return Cesium.Cartesian3.ZERO;
+
+    const jsDate = Cesium.JulianDate.toDate(time);
+    const d = (jsDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0;
+
+    if (mission.id === 'JWST') {
+        let sunPos;
+        try {
+            const sunBody = CELESTIAL_BODIES.find(b => b.id === 'SUN');
+            sunPos = computeCelestialPosition(sunBody, time);
+        } catch(e) {}
+        
+        let antiSunDir;
+        if (sunPos && Cesium.Cartesian3.magnitude(sunPos) > 1000) {
+            const sunDir = Cesium.Cartesian3.normalize(sunPos, new Cesium.Cartesian3());
+            antiSunDir = Cesium.Cartesian3.negate(sunDir, new Cesium.Cartesian3());
+        } else {
+            antiSunDir = new Cesium.Cartesian3(1, 0, 0);
+        }
+
+        const L2_DIST = 1500000000;
+        const l2Center = Cesium.Cartesian3.multiplyByScalar(antiSunDir, L2_DIST, new Cesium.Cartesian3());
+
+        const zUp = Cesium.Cartesian3.UNIT_Z;
+        const haloY = Cesium.Cartesian3.cross(antiSunDir, zUp, new Cesium.Cartesian3());
+        Cesium.Cartesian3.normalize(haloY, haloY);
+        const haloZ = Cesium.Cartesian3.cross(haloY, antiSunDir, new Cesium.Cartesian3());
+        Cesium.Cartesian3.normalize(haloZ, haloZ);
+
+        const period = 180.0;
+        const theta = (d % period) / period * Math.PI * 2;
+        const yOffset = Cesium.Cartesian3.multiplyByScalar(haloY, 400000000 * Math.cos(theta), new Cesium.Cartesian3());
+        const zOffset = Cesium.Cartesian3.multiplyByScalar(haloZ, 250000000 * Math.sin(theta), new Cesium.Cartesian3());
+
+        const jwstPos = Cesium.Cartesian3.add(l2Center, yOffset, new Cesium.Cartesian3());
+        Cesium.Cartesian3.add(jwstPos, zOffset, jwstPos);
+        return jwstPos;
+    }
+
+    if (mission.id === 'ARTEMIS_ORION') {
+        let moonPos;
+        try {
+            const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
+            moonPos = computeCelestialPosition(moonBody, time);
+        } catch(e) {}
+        if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
+
+        const period = 14.0;
+        const theta = (d % period) / period * Math.PI * 2;
+        const droRadius = 35000000;
+        
+        const ox = droRadius * Math.cos(theta);
+        const oy = droRadius * Math.sin(theta) * 0.7071;
+        const oz = droRadius * Math.sin(theta) * 0.7071;
+        const droOffset = new Cesium.Cartesian3(ox, oy, oz);
+
+        return Cesium.Cartesian3.add(moonPos, droOffset, new Cesium.Cartesian3());
+    }
+
+    if (mission.id === 'LRO') {
+        let moonPos;
+        try {
+            const moonBody = CELESTIAL_BODIES.find(b => b.id === 'MOON');
+            moonPos = computeCelestialPosition(moonBody, time);
+        } catch(e) {}
+        if (!moonPos) moonPos = new Cesium.Cartesian3(384400000, 0, 0);
+
+        const period = 0.083;
+        const theta = (d % period) / period * Math.PI * 2;
+        const orbitR = 2500000;
+        
+        const ox = orbitR * Math.cos(theta);
+        const oz = orbitR * Math.sin(theta);
+        const lroOffset = new Cesium.Cartesian3(ox, 0, oz);
+
+        return Cesium.Cartesian3.add(moonPos, lroOffset, new Cesium.Cartesian3());
+    }
+
+    if (mission.id === 'MARS_PERSEVERANCE') {
+        let marsPos;
+        try {
+            const marsBody = CELESTIAL_BODIES.find(b => b.id === 'MARS');
+            marsPos = computeCelestialPosition(marsBody, time);
+        } catch(e) {}
+        if (!marsPos) marsPos = new Cesium.Cartesian3(2000000000, 0, 0);
+
+        const marsRadius = 3390000;
+        const latRad = 18.38 * Math.PI / 180;
+        const lonRad = (77.58 + (d % 1.026) / 1.026 * 360) * Math.PI / 180;
+
+        const ox = (marsRadius + 150000) * Math.cos(latRad) * Math.cos(lonRad);
+        const oy = (marsRadius + 150000) * Math.cos(latRad) * Math.sin(lonRad);
+        const oz = (marsRadius + 150000) * Math.sin(latRad);
+        const roverOffset = new Cesium.Cartesian3(ox, oy, oz);
+
+        return Cesium.Cartesian3.add(marsPos, roverOffset, new Cesium.Cartesian3());
+    }
+
+    if (mission.id === 'MARS_MRO') {
+        let marsPos;
+        try {
+            const marsBody = CELESTIAL_BODIES.find(b => b.id === 'MARS');
+            marsPos = computeCelestialPosition(marsBody, time);
+        } catch(e) {}
+        if (!marsPos) marsPos = new Cesium.Cartesian3(2000000000, 0, 0);
+
+        const period = 0.078;
+        const theta = (d % period) / period * Math.PI * 2;
+        const orbitR = 4500000;
+        
+        const oy = orbitR * Math.cos(theta);
+        const oz = orbitR * Math.sin(theta);
+        const mroOffset = new Cesium.Cartesian3(0, oy, oz);
+
+        return Cesium.Cartesian3.add(marsPos, mroOffset, new Cesium.Cartesian3());
+    }
+
+    if (mission.id === 'HAYABUSA2') {
+        const theta = (d % 450) / 450 * Math.PI * 2;
+        const dist = 1800000000;
+        return new Cesium.Cartesian3(
+            dist * Math.cos(theta),
+            dist * Math.sin(theta) * 0.9,
+            dist * Math.sin(theta) * 0.15
+        );
+    }
+
+    if (mission.id === 'VOYAGER1') {
+        const dist = 3000000000;
+        const raRad = (17.22 / 24) * Math.PI * 2;
+        const decRad = 12.0 * Math.PI / 180;
+        return new Cesium.Cartesian3(
+            dist * Math.cos(decRad) * Math.cos(raRad),
+            dist * Math.cos(decRad) * Math.sin(raRad),
+            dist * Math.sin(decRad)
+        );
+    }
+
+    return Cesium.Cartesian3.ZERO;
+}
+
+function drawDeepSpaceOrbit(mission) {
+    if (!viewer) return;
+    if (deepSpaceOrbitEntity) {
+        viewer.entities.remove(deepSpaceOrbitEntity);
+        deepSpaceOrbitEntity = null;
+    }
+
+    const currentTime = viewer.clock.currentTime;
+    const positions = [];
+    const sampleCount = 120;
+    const periodDays = mission.periodDays || 180;
+    const stepSeconds = (periodDays * 86400) / sampleCount;
+
+    for (let i = 0; i <= sampleCount; i++) {
+        const sampleTime = Cesium.JulianDate.addSeconds(currentTime, i * stepSeconds, new Cesium.JulianDate());
+        const pos = computeDeepSpacePosition(mission, sampleTime);
+        if (pos) positions.push(pos);
+    }
+
+    if (positions.length > 2) {
+        deepSpaceOrbitEntity = viewer.entities.add({
+            id: `orbit_deepspace_${mission.id}`,
+            name: `${mission.shortName} Orbit Loop`,
+            polyline: {
+                positions: positions,
+                width: 3.5,
+                material: new Cesium.PolylineGlowMaterialProperty({
+                    glowPower: 0.25,
+                    color: Cesium.Color.fromCssColorString(mission.color || '#f59e0b')
+                })
+            }
+        });
+    }
+}
+
+function selectDeepSpaceMission(missionId) {
+    const mission = DEEP_SPACE_MISSIONS.find(m => m.id === missionId);
+    if (!mission || !viewer) return;
+
+    selectedSatIndex = -1;
+    selectedCelestialId = null;
+    selectedDeepSpaceId = missionId;
+
+    if (orbitPolylineEntity) {
+        viewer.entities.remove(orbitPolylineEntity);
+        orbitPolylineEntity = null;
+    }
+    drawDeepSpaceOrbit(mission);
+
+    const langSelect = document.getElementById('langSelect');
+    const lang = (langSelect && langSelect.value) || window.currentLang || currentLang || 'ja';
+
+    const getL = (obj) => {
+        if (!obj) return '';
+        if (typeof obj === 'string') return obj;
+        return obj[lang] || obj['en'] || obj['ja'] || '';
+    };
+
+    const badgeMap = {
+        ja: '🔭 深宇宙探査機 & 宇宙望遠鏡',
+        en: '🔭 Deep Space Probe & Telescope',
+        de: '🔭 Tiefraumsonde & Teleskop',
+        fr: '🔭 Sonde spatiale & Télescope',
+        es: '🔭 Sonda espacial y Telescopio',
+        pt: '🔭 Sonda espacial e Telescópio',
+        it: '🔭 Sonda spaziale e Telescopio',
+        ko: '🔭 심우주 탐사선 & 우주망원경',
+        nl: '🔭 Diepe Ruimtesonde & Telescoop',
+        id: '🔭 Wahana Antariksa Luar & Teleskop',
+        hi: '🔭 गहरा अंतरिक्ष प्रोब और टेलीस्कोप',
+        ar: '🔭 مسبار الفضاء السحيق والتلسكوب',
+        zh: '🔭 深空探测器与空间望远镜',
+        ru: '🔭 Зонд дальнего космоса и телескоп'
+    };
+    satBadge.textContent = badgeMap[lang] || badgeMap['en'];
+    satBadge.style.background = 'linear-gradient(135deg, #f59e0b, #38bdf8)';
+
+    satName.textContent = `${mission.symbol} ${mission.name.split('(')[0].trim()}`;
+    satNorad.textContent = `${mission.agency} | ${mission.site || mission.rocket}`;
+
+    if (satImageWrapper && satImage) {
+        const missionImages = {
+            JWST: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/James_Webb_Space_Telescope_spacecraft_model.png/640px-James_Webb_Space_Telescope_spacecraft_model.png',
+            ARTEMIS_ORION: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Artemis_1_Orion_spacecraft_seen_from_the_lunar_orbit.jpg/640px-Artemis_1_Orion_spacecraft_seen_from_the_lunar_orbit.jpg',
+            LRO: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Lunar_Reconnaissance_Orbiter.jpg/640px-Lunar_Reconnaissance_Orbiter.jpg',
+            MARS_PERSEVERANCE: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Perseverance_Selfie_at_Rochette_%28cropped%29.jpg/640px-Perseverance_Selfie_at_Rochette_%28cropped%29.jpg',
+            MARS_MRO: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Mars_Reconnaissance_Orbiter_artists_concept.jpg/640px-Mars_Reconnaissance_Orbiter_artists_concept.jpg',
+            HAYABUSA2: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Hayabusa-2_model.jpg/640px-Hayabusa-2_model.jpg',
+            VOYAGER1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Voyager_spacecraft_model.png/640px-Voyager_spacecraft_model.png'
+        };
+
+        const imgUrl = missionImages[mission.id];
+        if (imgUrl) {
+            satImage.src = imgUrl;
+            satImage.alt = mission.name;
+            if (satImageCaption) satImageCaption.innerHTML = `<span>🔭 ${mission.shortName}</span><span>Source: NASA / JAXA (Public Domain)</span>`;
+            satImageWrapper.classList.remove('hidden');
+        } else {
+            satImageWrapper.classList.add('hidden');
+        }
+    }
+
+    const desc = DEEP_SPACE_DESCRIPTIONS[mission.id];
+    const spec = DEEP_SPACE_SPECS[mission.id];
+    const descText = (desc && getL(desc)) || '';
+
+    const specTitles = {
+        ja: ["🏢 運用機関", "🛰️ 軌道諸元", "📐 機体寸法・質量", "🔬 搭載観測機器", "🎯 ミッション主目的"],
+        en: ["🏢 Operating Agency", "🛰️ Orbital Profile", "📐 Dimensions & Mass", "🔬 Science Payload", "🎯 Primary Mission Goal"]
+    };
+    const st = specTitles[lang] || specTitles['en'];
+
+    if (spec) {
+        satDescription.innerHTML = `
+            <p style="margin-bottom: 8px; line-height: 1.5;">${descText}</p>
+            <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 8px; padding: 10px; margin-top: 8px; font-size: 0.78rem;">
+                <div style="color: #fbbf24; font-weight: 700; margin-bottom: 2px;">${st[0]}: <span style="color:#e2e8f0; font-weight:normal;">${getL(spec.agency)}</span></div>
+                <div style="color: #38bdf8; font-weight: 700; margin-bottom: 2px;">${st[1]}: <span style="color:#e2e8f0; font-weight:normal;">${getL(spec.orbitType)}</span></div>
+                <div style="color: #cbd5e1; font-weight: 700; margin-bottom: 2px;">${st[2]}: <span style="color:#e2e8f0; font-weight:normal;">${getL(spec.dimensions)}</span></div>
+                <div style="color: #a78bfa; font-weight: 700; margin-bottom: 2px;">${st[3]}: <span style="color:#e2e8f0; font-weight:normal;">${getL(spec.instruments)}</span></div>
+                <div style="color: #34d399; font-weight: 700; margin-bottom: 2px;">${st[4]}: <span style="color:#e2e8f0; font-weight:normal;">${getL(spec.scienceGoal)}</span></div>
+            </div>
+        `;
+    } else {
+        satDescription.textContent = descText;
+    }
+
+    const time = viewer.clock.currentTime;
+    const pos = computeDeepSpacePosition(mission, time);
+    const distMeters = Cesium.Cartesian3.magnitude(pos);
+    const distKm = (distMeters / 1000).toLocaleString(undefined, { maximumFractionDigits: 0 });
+
+    satAlt.textContent = `${distKm} km`;
+    satVel.textContent = mission.speedKmS || '---';
+    satLat.textContent = mission.parent || 'Deep Space';
+    satLon.textContent = mission.launchDate || '---';
+    satInc.textContent = mission.rocket || '---';
+    satPeriod.textContent = `${mission.periodDays} d`;
+
+    updateDetailCardMetricLabels(false);
+
+    const passCountdown = document.getElementById('passCountdown');
+    const passMetaInfo = document.getElementById('passMetaInfo');
+    const debrisProximity = document.getElementById('debrisProximity');
+
+    if (passCountdown) passCountdown.textContent = `🔭 ${mission.site || 'Deep Space Mission'}`;
+    if (passMetaInfo) passMetaInfo.textContent = `${mission.agency} | Launch: ${mission.launchDate}`;
+    if (debrisProximity) debrisProximity.textContent = '🟢 Operational / Healthy';
+
+    detailCard.classList.remove('hidden');
+
+    const missionDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+    const cameraRange = Math.max(distMeters * 0.15, 30000000);
+
+    viewer.camera.flyTo({
+        destination: Cesium.Cartesian3.add(
+            pos,
+            Cesium.Cartesian3.multiplyByScalar(missionDir, -cameraRange * 0.2, new Cesium.Cartesian3()),
+            new Cesium.Cartesian3()
+        ),
+        orientation: {
+            direction: missionDir,
+            up: Cesium.Cartesian3.UNIT_Z
+        },
+        duration: 2.0,
+        complete: () => {
+            const hpr = new Cesium.HeadingPitchRange(0.0, Cesium.Math.toRadians(-20.0), cameraRange * 0.25);
+            viewer.camera.lookAt(pos, hpr);
+        }
+    });
+}
+
+function loadDeepSpaceMissionsPreset() {
+    if (sourceStatusBadge) {
+        sourceStatusBadge.textContent = '🔭 深宇宙・月/火星探査機 (7機)';
+        sourceStatusBadge.style.borderColor = 'rgba(245, 158, 11, 0.6)';
+        sourceStatusBadge.style.color = '#fbbf24';
+    }
+
+    const toggleDeepSpace = document.getElementById('toggleDeepSpace');
+    if (toggleDeepSpace && !toggleDeepSpace.checked) {
+        toggleDeepSpace.checked = true;
+        deepSpaceEntities.forEach(ent => {
+            if (ent.billboard) ent.billboard.show = true;
+            ent.show = true;
+        });
+    }
+
+    selectDeepSpaceMission('JWST');
+    satSelect.value = 'deepspace_JWST';
+}
+
 function selectCelestialBody(bodyId) {
     const body = CELESTIAL_BODIES.find(b => b.id === bodyId);
     if (!body || !viewer) return;
@@ -6480,6 +7343,7 @@ function initCesiumViewer() {
 
     viewer.clock.onTick.addEventListener(onClockTick);
     initCelestialBodies();
+    initDeepSpaceMissions();
 
     const handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
     handler.setInputAction(onSceneClick, Cesium.ScreenSpaceEventType.LEFT_CLICK);
@@ -6579,6 +7443,47 @@ function updateDropdownOptions() {
             celestialGroup.appendChild(opt);
         });
         satSelect.appendChild(celestialGroup);
+    }
+
+    const catDeepSpaceLabel = {
+        ja: '🔭 深宇宙探査機 & 宇宙望遠鏡 (JWST, 月, 火星)',
+        en: '🔭 Deep Space Probes & Telescopes (JWST, Moon, Mars)',
+        de: '🔭 Tiefraumsonden & Teleskope (JWST, Mond, Mars)',
+        fr: '🔭 Sondes de l\'espace lointain et télescopes (JWST, Lune, Mars)',
+        es: '🔭 Sondas del Espacio Profundo y Telescopios (JWST, Luna, Marte)',
+        pt: '🔭 Sondas do Espaço Profundo e Telescópios (JWST, Lua, Marte)',
+        it: '🔭 Sonde dello Spazio Profondo e Telescopi (JWST, Luna, Marte)',
+        ko: '🔭 심우주 탐사선 & 우주망원경 (JWST, 달, 화성)',
+        nl: '🔭 Diepe Ruimtesondes & Telescopen (JWST, Maan, Mars)',
+        id: '🔭 Wahana Antariksa Luar & Teleskop (JWST, Bulan, Mars)',
+        hi: '🔭 गहरा अंतरिक्ष प्रोब और टेलीस्कोप (JWST, चंद्रमा, मंगल)',
+        ar: '🔭 مسابير الفضاء السحيق والتلسكوبات (JWST، القمر، المريخ)',
+        zh: '🔭 深空探测器与空间望远镜 (韦伯望远镜, 月球, 火星)',
+        ru: '🔭 Зонды дальнего космоса и телескопы (JWST, Луна, Марс)'
+    };
+
+    const deepSpaceNames = {
+        JWST: { ja: '🔭 JWST (ジェイムズ・ウェッブ宇宙望遠鏡 / L2)', en: '🔭 JWST (James Webb Space Telescope / L2)' },
+        ARTEMIS_ORION: { ja: '🚀 アルテミス・オリオン有人探査船 (月DRO軌道)', en: '🚀 Artemis Orion Spacecraft (Lunar DRO)' },
+        LRO: { ja: '🌕 LRO (月周回偵察探査衛星 / 月低軌道)', en: '🌕 LRO (Lunar Reconnaissance Orbiter)' },
+        MARS_PERSEVERANCE: { ja: '🚜 パーサヴィアランス探査車 (火星ジェゼロ湖底)', en: '🚜 Perseverance Rover (Mars Jezero Crater)' },
+        MARS_MRO: { ja: '🔴 MRO (マーズ・リコネサンス・オービター / 火星極軌道)', en: '🔴 MRO (Mars Reconnaissance Orbiter)' },
+        HAYABUSA2: { ja: '🛸 はやぶさ2 (小惑星探査機 / 太陽周回軌道)', en: '🛸 Hayabusa2 (Asteroid Sample Return / Heliocentric)' },
+        VOYAGER1: { ja: '🛰️ ボイジャー1号 (最遠の星間脱出探査機 / 164 AU)', en: '🛰️ Voyager 1 (Interstellar Space / ~164 AU)' }
+    };
+
+    const deepSpaceGroup = document.createElement('optgroup');
+    deepSpaceGroup.label = catDeepSpaceLabel[lang] || catDeepSpaceLabel['en'];
+
+    if (typeof DEEP_SPACE_MISSIONS !== 'undefined' && Array.isArray(DEEP_SPACE_MISSIONS)) {
+        DEEP_SPACE_MISSIONS.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = `deepspace_${m.id}`;
+            const nameMap = deepSpaceNames[m.id];
+            opt.textContent = (nameMap && (nameMap[lang] || nameMap['en'])) || `${m.symbol} ${m.name}`;
+            deepSpaceGroup.appendChild(opt);
+        });
+        satSelect.appendChild(deepSpaceGroup);
     }
 
     const groups = {
@@ -7334,6 +8239,17 @@ function onSceneClick(clickEvent) {
                 selectCelestialBody(bodyId);
                 return;
             }
+            if (entity.deepSpaceData && entity.deepSpaceData.id) {
+                selectDeepSpaceMission(entity.deepSpaceData.id);
+                satSelect.value = `deepspace_${entity.deepSpaceData.id}`;
+                return;
+            }
+            if (typeof entity.id === 'string' && entity.id.startsWith('deepspace_')) {
+                const missionId = entity.id.replace('deepspace_', '');
+                selectDeepSpaceMission(missionId);
+                satSelect.value = `deepspace_${missionId}`;
+                return;
+            }
         }
 
         // 2. Check if Satellite PointPrimitive was clicked
@@ -7368,10 +8284,32 @@ function onSceneClick(clickEvent) {
         }
     }
 
+    // 4. Screen-Space Proximity Detection for Deep Space Missions
+    if (typeof DEEP_SPACE_MISSIONS !== 'undefined' && Array.isArray(DEEP_SPACE_MISSIONS)) {
+        for (let i = 0; i < DEEP_SPACE_MISSIONS.length; i++) {
+            const mission = DEEP_SPACE_MISSIONS[i];
+            const worldPos = computeDeepSpacePosition(mission, time);
+            if (worldPos) {
+                const screenPos = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, worldPos);
+                if (screenPos) {
+                    const dx = screenPos.x - clickPos.x;
+                    const dy = screenPos.y - clickPos.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist <= 40) {
+                        selectDeepSpaceMission(mission.id);
+                        satSelect.value = `deepspace_${mission.id}`;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     // Deselect if background space clicked without tracked entity
     if (!viewer.trackedEntity) {
         deselectSatellite();
         selectedCelestialId = null;
+        selectedDeepSpaceId = null;
     }
 }
 
@@ -8307,6 +9245,9 @@ function setupEventListeners() {
         if (typeof val === 'string' && val.startsWith('celestial_')) {
             const bodyId = val.replace('celestial_', '');
             selectCelestialBody(bodyId);
+        } else if (typeof val === 'string' && val.startsWith('deepspace_')) {
+            const missionId = val.replace('deepspace_', '');
+            selectDeepSpaceMission(missionId);
         } else {
             selectSatellite(parseInt(val, 10));
         }
@@ -8491,6 +9432,14 @@ function setupEventListeners() {
         loadSpanishBtn.addEventListener('click', () => {
             setActivePresetBtn(loadSpanishBtn);
             loadSpanishSatellitesPreset();
+            if (window.innerWidth <= 768 && sidebarPanel) sidebarPanel.classList.remove('mobile-open');
+        });
+    }
+
+    if (loadDeepSpaceBtn) {
+        loadDeepSpaceBtn.addEventListener('click', () => {
+            setActivePresetBtn(loadDeepSpaceBtn);
+            loadDeepSpaceMissionsPreset();
             if (window.innerWidth <= 768 && sidebarPanel) sidebarPanel.classList.remove('mobile-open');
         });
     }
@@ -8690,10 +9639,26 @@ function setupEventListeners() {
             const show = e.target.checked;
             celestialEntities.forEach(ent => {
                 if (ent.label) ent.label.show = show;
+                if (ent.billboard) ent.billboard.show = show;
+                ent.show = show;
             });
             if (viewer) {
                 if (viewer.scene.moon) viewer.scene.moon.show = show;
                 if (viewer.scene.sun) viewer.scene.sun.show = show;
+            }
+        });
+    }
+
+    const toggleDeepSpace = document.getElementById('toggleDeepSpace');
+    if (toggleDeepSpace) {
+        toggleDeepSpace.addEventListener('change', (e) => {
+            const show = e.target.checked;
+            deepSpaceEntities.forEach(ent => {
+                if (ent.billboard) ent.billboard.show = show;
+                ent.show = show;
+            });
+            if (deepSpaceOrbitEntity) {
+                deepSpaceOrbitEntity.show = show;
             }
         });
     }
@@ -8935,7 +9900,7 @@ function setupCameraDPadControls() {
 }
 
 function setActivePresetBtn(activeBtn) {
-    [loadMajorBtn, loadTrainBtn, loadSpanishBtn, loadLocalBtn, loadDebrisBtn, loadOnlineBtn].forEach(btn => {
+    [loadMajorBtn, loadDeepSpaceBtn, loadTrainBtn, loadSpanishBtn, loadLocalBtn, loadDebrisBtn, loadOnlineBtn].forEach(btn => {
         if (btn) btn.classList.remove('active');
     });
     if (activeBtn) activeBtn.classList.add('active');
@@ -8968,7 +9933,25 @@ function performSearch(rawQuery) {
         return aliases.some(a => a.toUpperCase().includes(upperQuery) || upperQuery.includes(a.toUpperCase()));
     });
 
-    // 2. Search Satellites
+    // 2. Search Deep Space Missions (JWST, Artemis, Mars Probes, Voyager)
+    const deepSpaceAliases = {
+        JWST: ['JWST', 'WEBB', 'JAMES WEBB', 'ジェイムズ・ウェッブ', 'ウェッブ', 'ウエッブ', 'ジェームズ', 'L2', 'TELESCOPE', '望遠鏡', 'ハロー軌道'],
+        ARTEMIS_ORION: ['ARTEMIS', 'ORION', 'アルテミス', 'オリオン', 'SLS', '月有人', 'LUNAR SPACECRAFT', 'DRO', '有人月探査'],
+        LRO: ['LRO', 'LUNAR RECONNAISSANCE', '月周回', 'ルナー', 'MOON ORBITER', '月探査衛星'],
+        MARS_PERSEVERANCE: ['PERSEVERANCE', 'パーサヴィアランス', 'パーサビアランス', 'MARS ROVER', '火星探査車', 'ジェゼロ', 'JEZERO', 'ローバー'],
+        MARS_MRO: ['MRO', 'MARS RECONNAISSANCE', 'マーズ・リコネサンス', 'HIRISE', '火星探査機', '火星衛星'],
+        HAYABUSA2: ['HAYABUSA2', 'HAYABUSA', 'はやぶさ2', 'はやぶさ', 'ハヤブサ', 'RYUGU', 'リュウグウ', '小惑星探査', '小惑星'],
+        VOYAGER1: ['VOYAGER', 'VOYAGER1', 'ボイジャー', 'ボイジャー1号', 'INTERSTELLAR', '星間', '最遠', 'ゴールデンレコード']
+    };
+
+    const matchedMissions = (typeof DEEP_SPACE_MISSIONS !== 'undefined' && Array.isArray(DEEP_SPACE_MISSIONS))
+        ? DEEP_SPACE_MISSIONS.filter(m => {
+            const aliases = deepSpaceAliases[m.id] || [m.id, m.shortName, m.name];
+            return aliases.some(a => a.toUpperCase().includes(upperQuery) || upperQuery.includes(a.toUpperCase()));
+        })
+        : [];
+
+    // 3. Search Satellites
     const searchTerms = [upperQuery, rawQuery];
     if (rawQuery.includes('情報収集衛星') || upperQuery.includes('IGS')) searchTerms.push('IGS', '情報収集衛星');
     if (rawQuery.includes('きらめき') || upperQuery.includes('KIRAMEKI') || upperQuery.includes('DSN')) searchTerms.push('KIRAMEKI', 'DSN', 'きらめき');
@@ -9068,7 +10051,7 @@ function performSearch(rawQuery) {
         );
     });
 
-    const totalMatches = matchedBodies.length + matchedSats.length;
+    const totalMatches = matchedBodies.length + matchedMissions.length + matchedSats.length;
 
     satSelect.innerHTML = `<option value="">-- 検索結果 (${totalMatches}件) --</option>`;
 
@@ -9083,6 +10066,19 @@ function performSearch(rawQuery) {
             cGroup.appendChild(opt);
         });
         satSelect.appendChild(cGroup);
+    }
+
+    // Add matched deep space missions to dropdown
+    if (matchedMissions.length > 0) {
+        const dGroup = document.createElement('optgroup');
+        dGroup.label = '🔭 深宇宙・探査機 (Deep Space)';
+        matchedMissions.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = `deepspace_${m.id}`;
+            opt.textContent = `${m.symbol} ${m.shortName} - ${m.name.split('(')[0].trim()}`;
+            dGroup.appendChild(opt);
+        });
+        satSelect.appendChild(dGroup);
     }
 
     // Add matched satellites to dropdown
@@ -9113,6 +10109,19 @@ function performSearch(rawQuery) {
         item.addEventListener('click', () => {
             selectCelestialBody(b.id);
             satSelect.value = `celestial_${b.id}`;
+            searchResults.innerHTML = '';
+        });
+        searchResults.appendChild(item);
+    });
+
+    matchedMissions.forEach(m => {
+        const item = document.createElement('div');
+        item.className = 'search-item';
+        item.style.borderLeft = `3px solid ${m.color || '#f59e0b'}`;
+        item.innerHTML = `<span>${escapeHTML(m.symbol)} <strong>${escapeHTML(m.shortName)}</strong> (${escapeHTML(m.agency)})</span><span style="font-family:var(--font-mono); font-size:0.75rem; color:${m.color || '#f59e0b'};">${escapeHTML(m.type)}</span>`;
+        item.addEventListener('click', () => {
+            selectDeepSpaceMission(m.id);
+            satSelect.value = `deepspace_${m.id}`;
             searchResults.innerHTML = '';
         });
         searchResults.appendChild(item);
