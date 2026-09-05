@@ -130,6 +130,9 @@ const CELESTIAL_BADGE_TYPES = {
     'SATURN': { ja: '🪐 太陽系第6惑星 (巨大ガス惑星)', en: '🪐 6th Planet (Gas Giant)', de: '🪐 6. Planet (Gasriese)', fr: '🪐 6e planète (Géante gazeuse)', es: '🪐 6.º planeta (Gigante gaseoso)', pt: '🪐 6º planeta (Gigante gasoso)', it: '🪐 6º pianeta (Gigante gassoso)', ko: '🪐 제6행성 (거대 가스 행성)', nl: '🪐 6e planeet (Gasreus)', id: '🪐 Planet ke-6 (Raksasa Gas)', hi: '🪐 6वां ग्रह (विशाल गैस दानव)', ar: '🪐 الكوكب السادس (عملاق غازي)', zh: '🪐 太阳系第六行星 (气态巨行星)', ru: '🪐 6-я планета (Газовый гигант)' },
     'URANUS': { ja: '🌀 太陽系第7惑星 (巨大氷惑星)', en: '🌀 7th Planet (Ice Giant)', de: '🌀 7. Planet (Eisriese)', fr: '🌀 7e planète (Géante de glace)', es: '🌀 7.º planeta (Gigante helado)', pt: '🌀 7º planeta (Gigante de gelo)', it: '🌀 7º pianeta (Gigante di ghiaccio)', ko: '🌀 제7행성 (거대 얼음 행성)', nl: '🌀 7e planeet (Ijsreus)', id: '🌀 Planet ke-7 (Raksasa Es)', hi: '🌀 7वां ग्रह (विशाल बर्फ दानव)', ar: '🌀 الكوكب السابع (عملاق جليدي)', zh: '🌀 太阳系第七行星 (冰巨行星)', ru: '🌀 7-я планета (Ледяной гигант)' },
     'NEPTUNE': { ja: '🌊 太陽系第8惑星 (巨大氷惑星)', en: '🌊 8th Planet (Ice Giant)', de: '🌊 8. Planet (Eisriese)', fr: '🌊 8e planète (Géante de glace)', es: '🌊 8.º planeta (Gigante helado)', pt: '🌊 8º planeta (Gigante de gelo)', it: '🌊 8º pianeta (Gigante di ghiaccio)', ko: '🌊 제8행성 (거대 얼음 행성)', nl: '🌊 8e planeet (Ijsreus)', id: '🌊 Planet ke-8 (Raksasa Es)', hi: '🌊 8वां ग्रह (विशाल बर्फ दानव)', ar: '🌊 الكوكب الثامن (عملاق جليدي)', zh: '🌊 太阳系第八行星 (冰巨行星)', ru: '🌊 8-я планета (Ледяной гигант)' },
+    'CERES': { ja: '🪨 小惑星帯・準惑星', en: '🪨 Asteroid Belt Dwarf Planet', de: '🪨 Zwergplanet des Asteroidengürtels', fr: '🪨 Planète naine de la ceinture principale', es: '🪨 Planeta enano del cinturón de asteroides', pt: '🪨 Planeta anão do cinturão de asteroides', it: '🪨 Pianeta nano della fascia principale', ko: '🪨 소행성대 왜행성 (세레스)', nl: '🪨 Dwergplaneet van de planetoïdengordel', id: '🪨 Planet Kerdil Sabuk Asteroid', hi: '🪨 क्षुद्रग्रह बेल्ट बौना ग्रह (सेरेस)', ar: '🪨 كوكب قزم في حزام الكويكبات (سيريس)', zh: '🪨 小行星带矮行星 (谷神星)', ru: '🪨 Карликовая планета пояса астероидов (Церера)' },
+    'PLUTO': { ja: '❄️ カイパーベルト・準惑星', en: '❄️ Kuiper Belt Dwarf Planet', de: '❄️ Kuipergürtel-Zwergplanet', fr: '❄️ Planète naine de la ceinture de Kuiper', es: '❄️ Planeta enano del cinturón de Kuiper', pt: '❄️ Planeta anão do cinturão de Kuiper', it: '❄️ Pianeta nano della fascia di Kuiper', ko: '❄️ 카이퍼 벨트 왜행성 (명왕성)', nl: '❄️ Kuipergordel dwergplaneet (Pluto)', id: '❄️ Planet Kerdil Sabuk Kuiper (Pluto)', hi: '❄️ काइपर बेल्ट बौना ग्रह (प्लूटो)', ar: '❄️ كوكب قزم في حزام كايبر (بلوتو)', zh: '❄️ 柯伊伯带矮行星 (冥王星)', ru: '❄️ Карликовая планета пояса Койпера (Плутон)' },
+    'HALLEY': { ja: '☄️ 周期彗星 (1P/Halley)', en: '☄️ Periodic Comet (1P/Halley)', de: '☄️ Periodischer Komet (1P/Halley)', fr: '☄️ Comète périodique (1P/Halley)', es: '☄️ Cometa periódico (1P/Halley)', pt: '☄️ Cometa periódico (1P/Halley)', it: '☄️ Cometa periodica (1P/Halley)', ko: '☄️ 주기혜성 (1P/핼리 혜성)', nl: '☄️ Periodieke komeet (1P/Halley)', id: '☄️ Komet Periodik (1P/Halley)', hi: '☄️ आवधिक धूमकेतु (1P/हैली)', ar: '☄️ مذنب دوري (1P/هالي)', zh: '☄️ 周期彗星 (1P/哈雷彗星)', ru: '☄️ Периодическая комета (1P/Галлея)' },
     'SOLAR_SYSTEM': { ja: '🌌 太陽系全体オーラリー', en: '🌌 Solar System Planetary Orrery', de: '🌌 Sonnensystem Orrery-Modell', fr: '🌌 Système Solaire (Modèle Orrery)', es: '🌌 Sistema Solar (Orrery Planetario)', pt: '🌌 Sistema Solar (Orrery Planetário)', it: '🌌 Sistema Solare (Orrery)', ko: '🌌 태양계 전체 오러리 뷰', nl: '🌌 Zonnestelsel Orrery-Model', id: '🌌 Model Planetarium Tata Surya', hi: '🌌 सौर मंडल ग्रहीय मॉडल', ar: '🌌 نموذج النظام الشمسي الميكانيكي', zh: '🌌 太阳系全景 (行星运行仪)', ru: '🌌 Вся Солнечная система (Оррери)' }
 };
 
@@ -255,6 +258,9 @@ const NASA_PLANET_TEXTURES = {
     'SATURN': 'saturn_texture.jpg?v=20260821_170',
     'URANUS': 'uranus_texture.jpg?v=20260821_170',
     'NEPTUNE': 'assets/planet_images/neptune.jpg?v=20260905_1',
+    'CERES': 'assets/planet_images/ceres.jpg?v=20260906_1',
+    'PLUTO': 'assets/planet_images/pluto.jpg?v=20260906_1',
+    'HALLEY': 'assets/planet_images/halley.jpg?v=20260906_1',
     'MOON': 'moon_texture.jpg?v=20260821_170',
     'SUN': 'sun_texture.jpg?v=20260821_179'
 };
@@ -556,6 +562,78 @@ function getPlanetTextureDataUrl(bodyId) {
         ctx.beginPath();
         ctx.ellipse(420, 290, 55, 30, -0.1, 0, Math.PI * 2);
         ctx.fill();
+    } else if (bodyId === 'CERES') {
+        // Ceres: Cratered rocky asteroid terrain with Occator Crater salt faculae
+        ctx.fillStyle = '#64748b';
+        ctx.fillRect(0, 0, 1024, 512);
+        // Craters
+        ctx.fillStyle = 'rgba(30, 41, 59, 0.5)';
+        for (let i = 0; i < 90; i++) {
+            const x = (i * 97) % 1024;
+            const y = 40 + ((i * 61) % 432);
+            const r = 8 + ((i * 13) % 36);
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        // Occator Crater Bright Salt Faculae (Cerealia Facula)
+        const fx = 512, fy = 256;
+        const fgrad = ctx.createRadialGradient(fx, fy, 2, fx, fy, 45);
+        fgrad.addColorStop(0, '#ffffff');
+        fgrad.addColorStop(0.35, '#f8fafc');
+        fgrad.addColorStop(0.7, 'rgba(255,255,255,0.4)');
+        fgrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = fgrad;
+        ctx.beginPath();
+        ctx.arc(fx, fy, 45, 0, Math.PI * 2);
+        ctx.fill();
+    } else if (bodyId === 'PLUTO') {
+        // Pluto: Reddish-brown tholins with bright cream Sputnik Planitia (heart shape)
+        const grad = ctx.createLinearGradient(0, 0, 0, 512);
+        grad.addColorStop(0, '#78350f');
+        grad.addColorStop(0.3, '#9a3412');
+        grad.addColorStop(0.6, '#b45309');
+        grad.addColorStop(1, '#451a03');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1024, 512);
+
+        // Dark equatorial patches (Cthulhu Macula)
+        ctx.fillStyle = 'rgba(28, 25, 23, 0.65)';
+        ctx.beginPath();
+        ctx.ellipse(320, 290, 160, 60, 0.1, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Tombaugh Regio / Sputnik Planitia (Bright Heart)
+        ctx.fillStyle = '#fef3c7';
+        ctx.beginPath();
+        ctx.ellipse(580, 260, 70, 85, -0.2, 0, Math.PI * 2);
+        ctx.ellipse(650, 270, 60, 75, 0.2, 0, Math.PI * 2);
+        ctx.fill();
+    } else if (bodyId === 'HALLEY') {
+        // Halley's Comet: Very dark nucleus with icy sublimation gas geysers
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(0, 0, 1024, 512);
+        ctx.fillStyle = 'rgba(41, 37, 36, 0.8)';
+        for (let i = 0; i < 60; i++) {
+            const x = (i * 113) % 1024;
+            const y = (i * 71) % 512;
+            const rx = 20 + ((i * 19) % 50);
+            const ry = 10 + ((i * 11) % 30);
+            ctx.beginPath();
+            ctx.ellipse(x, y, rx, ry, i * 0.3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        // Active Sublimation Gas Jets
+        ctx.strokeStyle = 'rgba(186, 230, 253, 0.7)';
+        ctx.lineWidth = 3;
+        for (let j = 0; j < 6; j++) {
+            const jx = 350 + j * 60;
+            const jy = 240 + (j % 2) * 40;
+            ctx.beginPath();
+            ctx.moveTo(jx, jy);
+            ctx.lineTo(jx + 40, jy - 60);
+            ctx.stroke();
+        }
     } else {
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, 1024, 512);
@@ -840,6 +918,17 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 追跡カメラフォーカス",
         "btnUntrack": "🔓 追跡解除",
         "pointerHint": "画面外にあります (クリックでカメラ移動)",
+        "btnCupola": "👨‍🚀 ISS キューポラ展望窓 (搭乗視点)",
+        "btnSatPov": "🛰️ 衛星搭乗カメラ (オンボード視点)",
+        "exitCupola": "✕ 通常視点に戻る (Exit Cupola)",
+        "cupolaTitle": "👨‍🚀 ISS キューポラ展望窓 (Cupola Observation Deck)",
+        "cupolaHint": "🖱️ 画面ドラッグで展望窓からの見渡し自由回転",
+        "soundToggle": "🔇 サウンド OFF",
+        "soundOn": "🔊 サウンド ON",
+        "soundOff": "🔇 サウンド OFF",
+        "historicalTimeTravelTitle": "⏳ 歴史的瞬間タイムトラベル",
+        "btnShareTwitter": "𝕏 シェア",
+        "btnCopyShare": "📋 コピー",
         "btnRelease": "📜 v2.7 更新履歴",
         "btnGuide": "❓ ガイド & 規約",
         "modalTitle": "SatViewer3D 操作ガイド & 利用規約",
@@ -973,6 +1062,17 @@ const TRANSLATIONS = {
         "btnTrack": "🎯 Focus & Track",
         "btnUntrack": "🔓 Unlock Camera",
         "pointerHint": "Target is off-screen (Click to view)",
+        "btnCupola": "👨‍🚀 ISS Cupola View (Astronaut POV)",
+        "btnSatPov": "🛰️ Satellite Onboard Camera (POV)",
+        "exitCupola": "✕ Return to Orbit View (Exit Cupola)",
+        "cupolaTitle": "👨‍🚀 ISS Cupola Observation Deck",
+        "cupolaHint": "🖱️ Drag view to look around the cupola windows",
+        "soundToggle": "🔇 Sound OFF",
+        "soundOn": "🔊 Sound ON",
+        "soundOff": "🔇 Sound OFF",
+        "historicalTimeTravelTitle": "⏳ Historical Time Travel",
+        "btnShareTwitter": "𝕏 Share",
+        "btnCopyShare": "📋 Copy",
         "btnRelease": "📜 v2.7 Release Notes",
         "btnGuide": "❓ Guide & Terms",
         "modalTitle": "SatViewer3D User Guide & Terms of Service",
@@ -2645,6 +2745,641 @@ const TRANSLATIONS = {
     }
 };
 
+// ==========================================================================
+// Universal Glass Toast Notification System
+// ==========================================================================
+let activeToastTimeout = null;
+function showUniversalToast(message, icon = '🚀', duration = 4000) {
+    let toast = document.getElementById('universalAppToast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'universalAppToast';
+        toast.className = 'app-glass-toast';
+        document.body.appendChild(toast);
+    }
+    if (activeToastTimeout) {
+        clearTimeout(activeToastTimeout);
+        activeToastTimeout = null;
+    }
+    toast.classList.remove('fade-out');
+    toast.style.display = 'flex';
+    toast.innerHTML = `
+        <span style="font-size: 1.3rem; flex-shrink: 0;">${icon}</span>
+        <div style="font-size: 0.85rem; color: #f1f5f9; line-height: 1.45;">${message}</div>
+    `;
+
+    activeToastTimeout = setTimeout(() => {
+        toast.classList.add('fade-out');
+        setTimeout(() => {
+            if (toast.classList.contains('fade-out')) {
+                toast.style.display = 'none';
+            }
+        }, 400);
+    }, duration);
+}
+
+// ==========================================================================
+// Web Audio API Cosmic Ambient Drone & UI Sound Synthesizer
+// ==========================================================================
+const CosmicAudio = {
+    ctx: null,
+    isPlaying: false,
+    ambientGain: null,
+    droneOsc1: null,
+    droneOsc2: null,
+    droneFilter: null,
+    lfoOsc: null,
+    noiseNode: null,
+
+    init() {
+        if (this.ctx) return;
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        this.ctx = new AudioCtx();
+    },
+
+    toggle() {
+        if (this.isPlaying) {
+            this.stopAmbient();
+            localStorage.setItem('satviewer_sound_enabled', 'false');
+            this.updateButtonUI(false);
+            const isJa = (window.currentLang || currentLang) === 'ja';
+            showUniversalToast(isJa ? '🔇 宇宙アンビエント音をOFFにしました' : '🔇 Cosmic ambient audio muted', '🔇', 2500);
+            return false;
+        } else {
+            this.startAmbient();
+            localStorage.setItem('satviewer_sound_enabled', 'true');
+            this.updateButtonUI(true);
+            const isJa = (window.currentLang || currentLang) === 'ja';
+            showUniversalToast(isJa ? '🔊 宇宙アンビエント音をONにしました' : '🔊 Cosmic ambient audio active', '🔊', 2500);
+            return true;
+        }
+    },
+
+    updateButtonUI(active) {
+        const btn = document.getElementById('soundToggleBtn');
+        if (!btn) return;
+        const lang = window.currentLang || currentLang || 'ja';
+        const dict = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[lang]) || {};
+        if (active) {
+            btn.textContent = dict.soundOn || '🔊 サウンド ON';
+            btn.style.background = 'rgba(56, 189, 248, 0.25)';
+            btn.style.borderColor = '#38bdf8';
+            btn.style.boxShadow = '0 0 10px rgba(56, 189, 248, 0.4)';
+        } else {
+            btn.textContent = dict.soundOff || '🔇 サウンド OFF';
+            btn.style.background = 'rgba(56, 189, 248, 0.12)';
+            btn.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+            btn.style.boxShadow = 'none';
+        }
+    },
+
+    startAmbient() {
+        this.init();
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
+        if (this.isPlaying) return;
+
+        try {
+            this.ambientGain = this.ctx.createGain();
+            this.ambientGain.gain.setValueAtTime(0.001, this.ctx.currentTime);
+            this.ambientGain.gain.exponentialRampToValueAtTime(0.16, this.ctx.currentTime + 3);
+            this.ambientGain.connect(this.ctx.destination);
+
+            this.droneFilter = this.ctx.createBiquadFilter();
+            this.droneFilter.type = 'lowpass';
+            this.droneFilter.frequency.setValueAtTime(320, this.ctx.currentTime);
+            this.droneFilter.Q.setValueAtTime(3.5, this.ctx.currentTime);
+            this.droneFilter.connect(this.ambientGain);
+
+            // Sub-bass 55Hz (A1)
+            this.droneOsc1 = this.ctx.createOscillator();
+            this.droneOsc1.type = 'sine';
+            this.droneOsc1.frequency.setValueAtTime(55, this.ctx.currentTime);
+            this.droneOsc1.connect(this.droneFilter);
+            this.droneOsc1.start();
+
+            // Binaural harmonic 110.3Hz
+            this.droneOsc2 = this.ctx.createOscillator();
+            this.droneOsc2.type = 'triangle';
+            this.droneOsc2.frequency.setValueAtTime(110.3, this.ctx.currentTime);
+            const g2 = this.ctx.createGain();
+            g2.gain.setValueAtTime(0.20, this.ctx.currentTime);
+            this.droneOsc2.connect(g2);
+            g2.connect(this.droneFilter);
+            this.droneOsc2.start();
+
+            // Filter breathing LFO
+            this.lfoOsc = this.ctx.createOscillator();
+            this.lfoOsc.frequency.setValueAtTime(0.06, this.ctx.currentTime);
+            const lfoGain = this.ctx.createGain();
+            lfoGain.gain.setValueAtTime(110, this.ctx.currentTime);
+            this.lfoOsc.connect(lfoGain);
+            lfoGain.connect(this.droneFilter.frequency);
+            this.lfoOsc.start();
+
+            // Cosmic microwave noise buffer
+            const bufferSize = Math.floor(this.ctx.sampleRate * 2);
+            const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+            const data = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = (Math.random() * 2 - 1) * 0.015;
+            }
+            this.noiseNode = this.ctx.createBufferSource();
+            this.noiseNode.buffer = noiseBuffer;
+            this.noiseNode.loop = true;
+            const nFilter = this.ctx.createBiquadFilter();
+            nFilter.type = 'bandpass';
+            nFilter.frequency.setValueAtTime(750, this.ctx.currentTime);
+            nFilter.Q.setValueAtTime(0.8, this.ctx.currentTime);
+            this.noiseNode.connect(nFilter);
+            nFilter.connect(this.ambientGain);
+            this.noiseNode.start();
+
+            this.isPlaying = true;
+            this.updateButtonUI(true);
+        } catch(e) {
+            console.warn('Audio ambient init error:', e);
+        }
+    },
+
+    stopAmbient() {
+        if (!this.isPlaying || !this.ambientGain) return;
+        try {
+            this.ambientGain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 1.5);
+            setTimeout(() => {
+                if (this.droneOsc1) { try { this.droneOsc1.stop(); } catch(e){} this.droneOsc1 = null; }
+                if (this.droneOsc2) { try { this.droneOsc2.stop(); } catch(e){} this.droneOsc2 = null; }
+                if (this.lfoOsc) { try { this.lfoOsc.stop(); } catch(e){} this.lfoOsc = null; }
+                if (this.noiseNode) { try { this.noiseNode.stop(); } catch(e){} this.noiseNode = null; }
+                this.isPlaying = false;
+                this.updateButtonUI(false);
+            }, 1500);
+        } catch(e) {
+            this.isPlaying = false;
+            this.updateButtonUI(false);
+        }
+    },
+
+    playBlip(freq = 880, dur = 0.08) {
+        if (!this.isPlaying && localStorage.getItem('satviewer_sound_enabled') !== 'true') return;
+        this.init();
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        try {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+            g.gain.setValueAtTime(0.08, this.ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + dur);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start();
+            osc.stop(this.ctx.currentTime + dur);
+        } catch(e) {}
+    },
+
+    playWarp() {
+        if (!this.isPlaying && localStorage.getItem('satviewer_sound_enabled') !== 'true') return;
+        this.init();
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        try {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(140, this.ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(880, this.ctx.currentTime + 0.45);
+            g.gain.setValueAtTime(0.12, this.ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.65);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start();
+            osc.stop(this.ctx.currentTime + 0.65);
+        } catch(e) {}
+    },
+
+    playAirlock() {
+        if (!this.isPlaying && localStorage.getItem('satviewer_sound_enabled') !== 'true') return;
+        this.init();
+        if (!this.ctx) return;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        try {
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(280, this.ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(70, this.ctx.currentTime + 0.8);
+            g.gain.setValueAtTime(0.15, this.ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.9);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start();
+            osc.stop(this.ctx.currentTime + 0.9);
+        } catch(e) {}
+    }
+};
+
+// ==========================================================================
+// Historical Moments & Time Travel Presets Engine
+// ==========================================================================
+const HISTORICAL_EVENTS = {
+    apollo11: {
+        time: '1969-07-20T20:17:40Z',
+        action: 'moon',
+        titles: {
+            ja: '🌕 1969年7月20日 20:17 UTC: アポロ11号 人類月面着陸！',
+            en: '🌕 July 20, 1969 20:17 UTC: Apollo 11 Lunar Landing!',
+            de: '🌕 20. Juli 1969: Apollo 11 Mondlandung!',
+            fr: '🌕 20 juillet 1969: Atterrissage lunaire d\'Apollo 11 !',
+            es: '🌕 20 de julio de 1969: ¡Alunizaje del Apolo 11!',
+            zh: '🌕 1969年7月20日: 阿波罗11号人类登月！'
+        },
+        descs: {
+            ja: '月着陸船「イーグル」が静かの海に着陸。『ヒューストン、こちら静かの海基地。イーグルは着陸した』。人類が初めて地球以外の天体に足跡を刻みました。',
+            en: 'Lunar Module "Eagle" touched down at Tranquility Base: "Houston, Tranquility Base here. The Eagle has landed." Humanity\'s first footprints on another world.',
+            de: 'Die Mondlandefähre "Eagle" landete im Meer der Ruhe: "Houston, Tranquility Base here. The Eagle has landed."',
+            fr: 'Le module lunaire "Eagle" s\'est posé dans la mer de la Tranquillité.',
+            es: 'El módulo lunar "Eagle" alunizó en el Mar de la Tranquilidad.',
+            zh: '登月舱“鹰号”成功降落月球静海基地。“这是个人的一小步，却是人类的一大步。”'
+        }
+    },
+    voyager1: {
+        time: '1979-03-05T12:05:00Z',
+        action: 'orrery_jupiter',
+        titles: {
+            ja: '🪐 1979年3月5日 12:05 UTC: ボイジャー1号 木星最接近！',
+            en: '🪐 March 5, 1979 12:05 UTC: Voyager 1 Jupiter Flyby!',
+            de: '🪐 5. März 1979: Voyager 1 Jupiter-Vorbeiflug!',
+            fr: '🪐 5 mars 1979: Survol de Jupiter par Voyager 1 !',
+            es: '🪐 5 de marzo de 1979: ¡Sobrevuelo de Júpiter por Voyager 1!',
+            zh: '🪐 1979年3月5日: 旅行者1号飞掠木星！'
+        },
+        descs: {
+            ja: '木星から約35万kmまで最接近。木星を取り巻く未知の薄い環や、衛星イオでの人類史上初となる太陽系外天体の活火山噴火を発見しました！',
+            en: 'Closest approach to Jupiter at 349,000 km. Discovered Jupiter\'s rings and active volcanism on Io—the first active extraterrestrial volcanoes found!',
+            de: 'Entdeckung der Jupiterringe und des aktiven Vulkanismus auf dem Mond Io.',
+            fr: 'Découverte des anneaux de Jupiter et du volcanisme actif sur Io.',
+            es: 'Descubrimiento de los anillos de Júpiter y volcanismo activo en Ío.',
+            zh: '距木星仅35万公里。首次发现了木星微弱光环，以及木卫一（艾奥）上喷发的活火山！'
+        }
+    },
+    halley1986: {
+        time: '1986-02-09T00:00:00Z',
+        action: 'orrery_halley',
+        titles: {
+            ja: '☄️ 1986年2月9日 00:00 UTC: ハレー彗星 前回近日点通過！',
+            en: '☄️ Feb 9, 1986 00:00 UTC: Halley\'s Comet Perihelion!',
+            de: '☄️ 9. Februar 1986: Halley-Komet Periheldurchgang!',
+            fr: '☄️ 9 février 1986: Périhélie de la comète de Halley !',
+            es: '☄️ 9 de febrero de 1986: ¡Perihelio del cometa Halley!',
+            zh: '☄️ 1986年2月9日: 哈雷彗星近日点通过！'
+        },
+        descs: {
+            ja: 'ハレー彗星が太陽から約0.586 AU（約8,770万km）の近日点を通過。欧州ジオット探査機や日本の「さきがけ」「すいせい」が彗星核へ接近観測を行いました。',
+            en: 'Halley reached perihelion at 0.586 AU from the Sun. An international armada including ESA\'s Giotto and Japan\'s Sakigake explored the nucleus.',
+            de: 'Halley erreichte das Perihel bei 0,586 AE. Die ESA-Sonde Giotto fotografierte erstmals den Kometenkern.',
+            fr: 'Passage au plus près du Soleil. La sonde européenne Giotto a photographié le noyau.',
+            es: 'Halley alcanzó el perihelio a 0,586 UA. La sonda Giotto fotografió el núcleo.',
+            zh: '哈雷彗星抵达近日点（0.586天文单位）。欧洲“乔托号”等探测器编队首次近距离拍摄到彗核实貌。'
+        }
+    },
+    voyager2neptune: {
+        time: '1989-08-25T03:56:00Z',
+        action: 'orrery_neptune',
+        titles: {
+            ja: '🌊 1989年8月25日 03:56 UTC: ボイジャー2号 海王星最接近！',
+            en: '🌊 Aug 25, 1989 03:56 UTC: Voyager 2 Neptune Flyby!',
+            de: '🌊 25. August 1989: Voyager 2 Neptun-Vorbeiflug!',
+            fr: '🌊 25 août 1989: Survol de Neptune par Voyager 2 !',
+            es: '🌊 25 de agosto de 1989: ¡Sobrevuelo de Neptuno por Voyager 2!',
+            zh: '🌊 1989年8月25日: 旅行者2号飞掠海王星！'
+        },
+        descs: {
+            ja: 'ボイジャー2号が太陽系最遠の巨大氷惑星・海王星の北極上空わずか4,950kmをフライバイ。大暗斑や衛星トリトンの氷間欠泉を発見しました。',
+            en: 'Voyager 2 skimmed just 4,950 km above Neptune\'s north pole, discovering the Great Dark Spot and cryovolcanic geysers on moon Triton.',
+            de: 'Voyager 2 passierte Neptun in nur 4.950 km Höhe und entdeckte Geysire auf Triton.',
+            fr: 'Survol à seulement 4 950 km au-dessus du pôle nord de Neptune.',
+            es: 'Voyager 2 pasó a solo 4.950 km de Neptuno, descubriendo géiseres en Tritón.',
+            zh: '距海王星北极仅4,950公里。发现了海王星大黑斑以及海卫一上的液氮冰火山喷泉！'
+        }
+    },
+    sputnik1: {
+        time: '1957-10-04T19:28:34Z',
+        action: 'earth',
+        titles: {
+            ja: '🛰️ 1957年10月4日 19:28 UTC: スプートニク1号 宇宙時代の幕開け！',
+            en: '🛰️ Oct 4, 1957 19:28 UTC: Sputnik 1 — Dawn of the Space Age!',
+            de: '🛰️ 4. Oktober 1957: Sputnik 1 — Beginn des Raumzeitalters!',
+            fr: '🛰️ 4 octobre 1957: Spoutnik 1 — L\'aube de l\'ère spatiale !',
+            es: '🛰️ 4 de octubre de 1957: ¡Sputnik 1 — Amanecer de la era espacial!',
+            zh: '🛰️ 1957年10月4日: 斯普特尼克1号——太空时代黎明！'
+        },
+        descs: {
+            ja: 'バイコヌール宇宙基地から人類史上初の人工衛星「スプートニク1号」が地球周回軌道へ到達。世界中に受信された「ピピッ、ピピッ」の無線信号から人類の宇宙進出が始まりました。',
+            en: 'The world\'s first artificial satellite was placed into orbit from Baikonur Cosmodrome. Its historic "beep-beep" radio signal heralded the space age.',
+            de: 'Der erste künstliche Erdsatellit startete in die Umlaufbahn. Sein Radiosignal leitete das Raumzeitalter ein.',
+            fr: 'Premier satellite artificiel de la Terre lancé depuis Baïkonour.',
+            es: 'El primer satélite artificial alcanzó la órbita terrestre, iniciando la carrera espacial.',
+            zh: '世界上第一颗人造地球卫星成功入轨。来自太空的“哔哔”无线电信号宣告了人类宇宙时代的正式开启。'
+        }
+    }
+};
+
+function executeHistoricalEvent(eventId) {
+    const ev = HISTORICAL_EVENTS[eventId];
+    if (!ev) return;
+
+    CosmicAudio.playWarp();
+
+    const targetDate = new Date(ev.time);
+    customSimTime = targetDate;
+    lastRealTime = Date.now();
+
+    if (typeof fpInstance !== 'undefined' && fpInstance) {
+        fpInstance.setDate(targetDate);
+    } else {
+        const timePickerInput = document.getElementById('timePickerInput');
+        if (timePickerInput) timePickerInput.value = ev.time.replace('T', ' ').substring(0, 19);
+    }
+
+    if (viewer) {
+        viewer.clock.currentTime = Cesium.JulianDate.fromDate(targetDate);
+    }
+
+    if (ev.action === 'moon') {
+        selectCelestialBody('MOON');
+    } else if (ev.action === 'orrery_jupiter') {
+        const loadSolarSystemBtn = document.getElementById('loadSolarSystemBtn');
+        if (loadSolarSystemBtn) loadSolarSystemBtn.click();
+        setTimeout(() => { selectCelestialBody('JUPITER'); }, 1200);
+    } else if (ev.action === 'orrery_halley') {
+        const loadSolarSystemBtn = document.getElementById('loadSolarSystemBtn');
+        if (loadSolarSystemBtn) loadSolarSystemBtn.click();
+        setTimeout(() => { selectCelestialBody('HALLEY'); }, 1200);
+    } else if (ev.action === 'orrery_neptune') {
+        const loadSolarSystemBtn = document.getElementById('loadSolarSystemBtn');
+        if (loadSolarSystemBtn) loadSolarSystemBtn.click();
+        setTimeout(() => { selectCelestialBody('NEPTUNE'); }, 1200);
+    } else if (ev.action === 'earth') {
+        const loadMajorBtn = document.getElementById('loadMajorBtn');
+        if (loadMajorBtn) loadMajorBtn.click();
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(63.3, 45.9, 15000000),
+            duration: 1.5
+        });
+    }
+
+    const lang = window.currentLang || currentLang || 'ja';
+    const title = (ev.titles && (ev.titles[lang] || ev.titles['ja'])) || '⏳ 歴史的瞬間へタイムトラベル';
+    const desc = (ev.descs && (ev.descs[lang] || ev.descs['ja'])) || '';
+    showUniversalToast(`<strong>${title}</strong><br><span style="font-size:0.8rem; color:#cbd5e1;">${desc}</span>`, '⏳', 6500);
+}
+
+// ==========================================================================
+// ISS Cupola View & Satellite Onboard POV Experience Engine
+// ==========================================================================
+let isCupolaActive = false;
+let cupolaTargetSat = null;
+let cupolaPreRenderRemover = null;
+
+function enterCupolaMode(satIndex) {
+    if (typeof satIndex !== 'number' || satIndex < 0) {
+        satIndex = satellitesData.findIndex(s => s && s.name && (s.name.includes('ISS') || s.noradId === '25544'));
+        if (satIndex < 0 && satellitesData.length > 0) satIndex = 0;
+    }
+    if (satIndex < 0 || !satellitesData[satIndex]) {
+        showUniversalToast('衛星データが見つかりません', '⚠️');
+        return;
+    }
+
+    const sat = satellitesData[satIndex];
+    if (!sat.currentCartesian) {
+        showUniversalToast('衛星位置を計算中... 少々お待ちください', '⏳');
+        return;
+    }
+
+    isCupolaActive = true;
+    cupolaTargetSat = sat;
+    selectedSatIndex = satIndex;
+
+    CosmicAudio.playAirlock();
+    const isIss = (sat.name.includes('ISS') || sat.noradId === '25544');
+    const toastMsg = isIss 
+        ? '👨‍🚀 ISSキューポラ展望窓モードを開始しました。眼下に地球が流れます！' 
+        : `🛰️ 「${sat.name}」オンボード視点カメラモードを開始しました。`;
+    showUniversalToast(toastMsg, '👨‍🚀', 3500);
+
+    document.body.classList.add('cupola-mode-active');
+    const overlay = document.getElementById('cupolaOverlay');
+    if (overlay) {
+        overlay.classList.remove('hidden');
+        const titleText = document.getElementById('cupolaTitleText');
+        if (titleText) {
+            titleText.textContent = isIss ? '👨‍🚀 ISS キューポラ展望窓 (Cupola Observation Deck)' : `🛰️ ${sat.name} (Onboard POV)`;
+        }
+        const footerText = document.getElementById('cupolaFooterText');
+        if (footerText) {
+            footerText.textContent = isIss 
+                ? '🛰️ 国際宇宙ステーション (ISS) • 欧州宇宙機関(ESA)製造「キューポラ」展望窓から地球を見下ろしています' 
+                : `🛰️ 人工衛星「${sat.name}」搭載オンボード視点カメラから地球を見下ろしています`;
+        }
+    }
+
+    viewer.trackedEntity = undefined;
+    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+
+    const rivetsGroup = document.getElementById('cupolaRivetsGroup');
+    if (rivetsGroup && rivetsGroup.children.length === 0) {
+        for (let i = 0; i < 32; i++) {
+            const a = (i / 32) * Math.PI * 2;
+            const rx = 700 + Math.cos(a) * 326;
+            const ry = 460 + Math.sin(a) * 326;
+            const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            c.setAttribute('cx', rx.toFixed(1));
+            c.setAttribute('cy', ry.toFixed(1));
+            c.setAttribute('r', '3');
+            c.setAttribute('fill', '#64748b');
+            c.setAttribute('stroke', '#0f172a');
+            c.setAttribute('stroke-width', '1');
+            rivetsGroup.appendChild(c);
+        }
+    }
+
+    if (cupolaPreRenderRemover) {
+        cupolaPreRenderRemover();
+        cupolaPreRenderRemover = null;
+    }
+
+    cupolaPreRenderRemover = viewer.scene.preRender.addEventListener(() => {
+        if (!isCupolaActive || !cupolaTargetSat || !cupolaTargetSat.currentCartesian) return;
+        const pos = cupolaTargetSat.currentCartesian;
+
+        const up = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+        const nadir = Cesium.Cartesian3.negate(up, new Cesium.Cartesian3());
+
+        let velDir = new Cesium.Cartesian3();
+        if (cupolaTargetSat.currentVelocity) {
+            const simTime = customSimTime || new Date();
+            const futureDate = new Date(simTime.getTime() + 2000);
+            const futureGmst = satellite.gstime(futureDate);
+            const futurePos = calculateCartesianPosition(cupolaTargetSat, futureDate, futureGmst);
+            if (futurePos && futurePos.cartesian) {
+                velDir = Cesium.Cartesian3.normalize(
+                    Cesium.Cartesian3.subtract(futurePos.cartesian, pos, new Cesium.Cartesian3()),
+                    new Cesium.Cartesian3()
+                );
+            }
+        }
+        if (Cesium.Cartesian3.magnitude(velDir) < 0.5) {
+            velDir = Cesium.Cartesian3.cross(up, Cesium.Cartesian3.UNIT_Z, new Cesium.Cartesian3());
+            Cesium.Cartesian3.normalize(velDir, velDir);
+        }
+
+        const lookDir = Cesium.Cartesian3.normalize(
+            Cesium.Cartesian3.add(
+                Cesium.Cartesian3.multiplyByScalar(nadir, 0.70, new Cesium.Cartesian3()),
+                Cesium.Cartesian3.multiplyByScalar(velDir, 0.55, new Cesium.Cartesian3()),
+                new Cesium.Cartesian3()
+            ),
+            new Cesium.Cartesian3()
+        );
+
+        viewer.camera.setView({
+            destination: pos,
+            orientation: {
+                direction: lookDir,
+                up: up
+            }
+        });
+
+        const carto = Cesium.Cartographic.fromCartesian(pos);
+        const altKm = carto.height / 1000;
+        const latDeg = Cesium.Math.toDegrees(carto.latitude);
+        const lonDeg = Cesium.Math.toDegrees(carto.longitude);
+        const velKmS = (cupolaTargetSat.currentVelocity && cupolaTargetSat.currentVelocity.kmPerSec) || 7.66;
+
+        const altEl = document.getElementById('cupolaAlt');
+        const spdEl = document.getElementById('cupolaSpeed');
+        const posEl = document.getElementById('cupolaCoords');
+        const sunEl = document.getElementById('cupolaLighting');
+
+        if (altEl) altEl.textContent = `${altKm.toFixed(1)} km`;
+        if (spdEl) spdEl.textContent = `${velKmS.toFixed(2)} km/s (${Math.round(velKmS * 3600).toLocaleString()} km/h)`;
+        if (posEl) posEl.textContent = `${latDeg >= 0 ? latDeg.toFixed(2) + '°N' : Math.abs(latDeg).toFixed(2) + '°S'}, ${lonDeg >= 0 ? lonDeg.toFixed(2) + '°E' : Math.abs(lonDeg).toFixed(2) + '°W'}`;
+        if (sunEl) {
+            const sunDir = Cesium.Cartesian3.normalize(viewer.scene.sunPosition || Cesium.Cartesian3.UNIT_X, new Cesium.Cartesian3());
+            const dot = Cesium.Cartesian3.dot(up, sunDir);
+            if (dot > -0.1) {
+                sunEl.innerHTML = '☀️ 昼間域 (Sunlit)';
+                sunEl.style.color = '#10b981';
+            } else {
+                sunEl.innerHTML = '🌑 夜間域 (Eclipse / Night)';
+                sunEl.style.color = '#60a5fa';
+            }
+        }
+    });
+}
+
+function exitCupolaMode() {
+    if (!isCupolaActive) return;
+    isCupolaActive = false;
+    cupolaTargetSat = null;
+
+    if (cupolaPreRenderRemover) {
+        cupolaPreRenderRemover();
+        cupolaPreRenderRemover = null;
+    }
+
+    document.body.classList.remove('cupola-mode-active');
+    const overlay = document.getElementById('cupolaOverlay');
+    if (overlay) overlay.classList.add('hidden');
+
+    if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex] && satellitesData[selectedSatIndex].currentCartesian) {
+        const sat = satellitesData[selectedSatIndex];
+        const pos = sat.currentCartesian;
+        const up = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+        const dest = Cesium.Cartesian3.add(pos, Cesium.Cartesian3.multiplyByScalar(up, 1800000, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+        viewer.camera.flyTo({
+            destination: dest,
+            duration: 1.5
+        });
+    }
+
+    CosmicAudio.playBlip(520, 0.12);
+    showUniversalToast('通常軌道シミュレーション視点に戻りました', '🌐', 2500);
+}
+
+// ==========================================================================
+// Social Share (X / Twitter & Copy Link) Engine
+// ==========================================================================
+function generateCurrentShareData() {
+    let text = '';
+    const url = 'https://satviewer3d.com/';
+
+    if (selectedCelestialId) {
+        const bodyNames = {
+            SUN: '太陽 (Sun)', MOON: '月 (Moon)', EARTH: '地球 (Earth)',
+            MARS: '火星 (Mars)', JUPITER: '木星 (Jupiter)', SATURN: '土星 (Saturn)',
+            VENUS: '金星 (Venus)', MERCURY: '水星 (Mercury)', URANUS: '天王星 (Uranus)',
+            NEPTUNE: '海王星 (Neptune)', CERES: 'ケレス (Ceres)', PLUTO: '冥王星 (Pluto)',
+            HALLEY: 'ハレー彗星 (Halley)'
+        };
+        const name = bodyNames[selectedCelestialId] || selectedCelestialId;
+        const eph = computePlanetEphemeris(selectedCelestialId, customSimTime || viewer.clock.currentTime);
+        const distStr = eph ? `${(eph.geocentricDistKm / 10000).toFixed(0)}万km (${eph.geocentricDistAu.toFixed(3)} AU)` : '';
+        text = `🌌 SatViewer3Dで「${name}」を観測中！${distStr ? `\n🔭 地球からの距離: ${distStr}` : ''}\n太陽系オーラリー全天体軌道をリアルタイム3Dシミュレーション。`;
+    } else if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
+        const sat = satellitesData[selectedSatIndex];
+        const isIss = (sat.name.includes('ISS') || sat.noradId === '25544');
+        const altElem = document.getElementById('satAlt');
+        const velElem = document.getElementById('satVel');
+        const altStr = (altElem && altElem.textContent && !altElem.textContent.includes('--')) 
+            ? altElem.textContent 
+            : (sat.alt ? `${sat.alt.toFixed(1)} km` : '');
+        const velStr = (velElem && velElem.textContent && !velElem.textContent.includes('--')) 
+            ? velElem.textContent 
+            : (sat.vel ? `${sat.vel.toFixed(2)} km/s` : '');
+        const specStr = (altStr && velStr) ? `\n高度: ${altStr} / 速度: ${velStr}` : '';
+        if (isIss) {
+            text = `🛰️ SatViewer3Dで「国際宇宙ステーション (ISS)」を追跡中！${specStr}\n👨‍🚀 ISSキューポラ展望窓から地球を見下ろす宇宙飛行士視点も体験可能！`;
+        } else {
+            text = `🛰️ SatViewer3Dで人工衛星「${sat.name}」をリアルタイム3D追跡中！${specStr}\n地球周回軌道シミュレーター。`;
+        }
+    } else {
+        text = `🌌 SatViewer3Dで太陽系オーラリー全惑星軌道を3D探索中！\nケレス・冥王星・ハレー彗星の軌道や、ISS・Starlink全衛星コンステレーションを完全再現。`;
+    }
+
+    return { text, url };
+}
+
+function shareCurrentViewToTwitter() {
+    const { text, url } = generateCurrentShareData();
+    CosmicAudio.playBlip(980, 0.08);
+    const hashtags = 'SatViewer3D,宇宙,人工衛星,天文学';
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent(hashtags)}`;
+    window.open(tweetUrl, '_blank', 'width=560,height=440,scrollbars=yes,resizable=yes');
+    showUniversalToast('𝕏 (Twitter) シェア画面を開きました！', '𝕏', 3000);
+}
+
+function copyCurrentViewLink() {
+    const { text, url } = generateCurrentShareData();
+    CosmicAudio.playBlip(780, 0.08);
+    const fullShareText = `${text}\n${url}\n#SatViewer3D #宇宙`;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullShareText).then(() => {
+            showUniversalToast('✅ 共有テキストとURLをクリップボードにコピーしました！', '📋', 3500);
+        }).catch(() => {
+            prompt('以下のテキストをコピーしてください:', fullShareText);
+        });
+    } else {
+        prompt('以下のテキストをコピーしてください:', fullShareText);
+    }
+}
+
 
 /**
  * Guaranteed Device-Adaptive Zoom Hint Toast Manager (Differentiates PC vs Mobile Touch)
@@ -2709,6 +3444,10 @@ function applyLanguage(lang) {
         const key = el.getAttribute('data-i18n');
         if (dict && dict[key]) {
             el.innerHTML = dict[key];
+        } else if (TRANSLATIONS['en'] && TRANSLATIONS['en'][key]) {
+            el.innerHTML = TRANSLATIONS['en'][key];
+        } else if (TRANSLATIONS['ja'] && TRANSLATIONS['ja'][key]) {
+            el.innerHTML = TRANSLATIONS['ja'][key];
         }
     });
 
@@ -2726,6 +3465,10 @@ function applyLanguage(lang) {
         'geoLocateBtn': 'btnGeo',
         'trackBtn': 'btnTrack',
         'untrackBtn': 'btnUntrack',
+        'btnCupolaLaunch': 'btnCupola',
+        'exitCupolaBtn': 'exitCupola',
+        'shareTwitterBtn': 'btnShareTwitter',
+        'copyShareBtn': 'btnCopyShare',
         'openReleaseBtn': 'btnRelease',
         'openGuideBtn': 'btnGuide',
         'modalTitle': 'modalTitle'
@@ -2733,9 +3476,17 @@ function applyLanguage(lang) {
 
     for (const [id, key] of Object.entries(idsToTranslate)) {
         const el = document.getElementById(id);
-        if (el && dict[key]) {
-            el.textContent = dict[key];
+        if (el) {
+            const val = (dict && dict[key]) || (TRANSLATIONS['en'] && TRANSLATIONS['en'][key]) || (TRANSLATIONS['ja'] && TRANSLATIONS['ja'][key]);
+            if (val) el.textContent = val;
         }
+    }
+
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    if (soundToggleBtn && typeof CosmicAudio !== 'undefined') {
+        const sOn = (dict && dict.soundOn) || '🔊 サウンド ON';
+        const sOff = (dict && dict.soundOff) || '🔇 サウンド OFF';
+        soundToggleBtn.textContent = CosmicAudio.isPlaying ? sOn : sOff;
     }
 
     const searchInput = document.getElementById('searchInput');
@@ -6190,6 +6941,396 @@ const CELESTIAL_ENCYCLOPEDIA = {
             zh: "由NASA旅行者1号与2号、先驱者10号与11号、新视野号实现太阳圈边界跨越，人类探测器现已造访全部八大行星。",
             ru: "Исследован миссиями Вояджер-1 и 2, Пионер-10 и 11, Новые горизонты и зондами ко всем восьми планетам."
         }
+    },
+    "CERES": {
+        "mass": {
+            "ja": "9.38 × 10^20 kg (小惑星帯全質量の約3分の1)",
+            "en": "9.38 × 10^20 kg (~1/3 mass of entire Asteroid Belt)",
+            "de": "9,38 × 10^20 kg (~1/3 der Masse des Asteroidengürtels)",
+            "fr": "9,38 × 10^20 kg (~1/3 de la masse de la ceinture)",
+            "es": "9,38 × 10^20 kg (~1/3 de la masa del cinturón)",
+            "pt": "9,38 × 10^20 kg (~1/3 da massa do cinturão)",
+            "it": "9,38 × 10^20 kg (~1/3 della massa della fascia)",
+            "ko": "9.38 × 10^20 kg (소행성대 전체 질량의 약 3분의 1)",
+            "nl": "9,38 × 10^20 kg (~1/3 massa planetoïdengordel)",
+            "id": "9,38 × 10^20 kg (~1/3 massa Sabuk Asteroid)",
+            "hi": "9.38 × 10^20 किग्रा (क्षुद्रग्रह बेल्ट के कुल द्रव्यमान का ~1/3)",
+            "ar": "9.38 × 10^20 كجم (~ثلث كتلة حزام الكويكبات بالكامل)",
+            "zh": "9.38 × 10^20 千克 (占小行星带总质量约三分之一)",
+            "ru": "9,38 × 10^20 кг (~1/3 массы всего пояса астероидов)"
+        },
+        "diameter": {
+            "ja": "946 km (赤道 960 km / 極 891 km)",
+            "en": "946 km (Equatorial 960 km / Polar 891 km)",
+            "de": "946 km (Äquator 960 km / Pole 891 km)",
+            "fr": "946 km (Équateur 960 km / Pôles 891 km)",
+            "es": "946 km (Ecuador 960 km / Polos 891 km)",
+            "pt": "946 km (Equador 960 km / Polos 891 km)",
+            "it": "946 km (Equatore 960 km / Poli 891 km)",
+            "ko": "946 km (적도 960 km / 극지 891 km)",
+            "nl": "946 km (Evenaar 960 km / Polen 891 km)",
+            "id": "946 km (Khatulistiwa 960 km / Kutub 891 km)",
+            "hi": "946 किमी (भूमध्यरेखीय 960 किमी / ध्रुवीय 891 किमी)",
+            "ar": "946 كم (عند خط الاستواء 960 كم / القطبين 891 كم)",
+            "zh": "946 公里 (赤道 960 公里 / 极半径 891 公里)",
+            "ru": "946 км (экватор 960 км / полюса 891 км)"
+        },
+        "rotation": {
+            "ja": "9時間4分24秒 (9.074h) / 傾斜角 4.0°",
+            "en": "9h 4m 24s (9.074h) / Axial Tilt 4.0°",
+            "de": "9h 4m 24s (9,074h) / Achsneigung 4,0°",
+            "fr": "9h 4m 24s (9,074h) / Inclinaison 4,0°",
+            "es": "9h 4m 24s (9,074h) / Inclinación 4,0°",
+            "pt": "9h 4m 24s (9,074h) / Inclinação 4,0°",
+            "it": "9h 4m 24s (9,074h) / Inclinazione 4,0°",
+            "ko": "9시간 4분 24초 (9.074h) / 자전축 기울기 4.0°",
+            "nl": "9u 4m 24s (9,074u) / Ashelling 4,0°",
+            "id": "9j 4m 24d (9,074j) / Kemiringan 4,0°",
+            "hi": "9 घंटे 4 मिनट 24 सेकंड (9.074h) / अक्षीय झुकाव 4.0°",
+            "ar": "9 ساعات 4 دقائق 24 ثانية / ميل المحور 4.0 درجات",
+            "zh": "9小时4分24秒 (9.074小时) / 轨道倾角 4.0°",
+            "ru": "9 ч 4 мин 24 с (9,074 ч) / наклон оси 4,0°"
+        },
+        "orbit": {
+            "ja": "4.60 年 (1,682日) / 軌道長半径 2.768 AU (4億1,390万km)",
+            "en": "4.60 Years (1,682 days) / Semi-major Axis 2.768 AU (413.9M km)",
+            "de": "4,60 Jahre (1.682 Tage) / Große Halbachse 2,768 AE",
+            "fr": "4,60 ans (1 682 jours) / Demi-grand axe 2,768 UA",
+            "es": "4,60 años (1.682 días) / Semieje mayor 2,768 UA",
+            "pt": "4,60 anos (1.682 dias) / Semieixo maior 2,768 UA",
+            "it": "4,60 anni (1.682 giorni) / Semiasse maggiore 2,768 UA",
+            "ko": "4.60 년 (1,682일) / 궤도 장반경 2.768 AU (4억 1,390만 km)",
+            "nl": "4,60 jaar (1.682 dagen) / Halve lange as 2,768 AE",
+            "id": "4,60 tahun (1.682 hari) / Sumbu semi-mayor 2,768 SA",
+            "hi": "4.60 वर्ष (1,682 दिन) / अर्ध-दीर्घ अक्ष 2.768 AU (41.39 करोड़ किमी)",
+            "ar": "4.60 سنة (1,682 يوماً) / نصف المحور الرئيسي 2.768 وحدة فلكية",
+            "zh": "4.60 年 (1,682 天) / 轨道半长轴 2.768 AU (4.139亿公里)",
+            "ru": "4,60 года (1 682 дня) / большая полуось 2,768 а.е."
+        },
+        "temperature": {
+            "ja": "-105 ℃ (昼側最高 -38 ℃ / 夜側最低 -143 ℃)",
+            "en": "-105 °C (Day peak -38 °C / Night low -143 °C)",
+            "de": "-105 °C (Tagesmaximum -38 °C / Nacht -143 °C)",
+            "fr": "-105 °C (Jour max -38 °C / Nuit min -143 °C)",
+            "es": "-105 °C (Máx diurna -38 °C / Mín nocturna -143 °C)",
+            "pt": "-105 °C (Máx diurna -38 °C / Mín noturna -143 °C)",
+            "it": "-105 °C (Giorno max -38 °C / Notte min -143 °C)",
+            "ko": "-105 ℃ (낮 최고 -38 ℃ / 밤 최저 -143 ℃)",
+            "nl": "-105 °C (Dagmax -38 °C / Nachtmin -143 °C)",
+            "id": "-105 °C (Maks siang -38 °C / Min malam -143 °C)",
+            "hi": "-105 °C (दिन का अधिकतम -38 °C / रात का न्यूनतम -143 °C)",
+            "ar": "-105°م (أعلى حرارة نهاراً -38°م / ليلاً -143°م)",
+            "zh": "-105 ℃ (白昼最高 -38 ℃ / 夜间最低 -143 ℃)",
+            "ru": "-105 °C (днем до -38 °C / ночью до -143 °C)"
+        },
+        "satellites": {
+            "ja": "0個 (衛星なし / 小惑星帯唯一の静水圧平衡天体)",
+            "en": "0 (No Moons / Only hydrostatic object in Asteroid Belt)",
+            "de": "0 (Keine Monde / Einziger runder Körper im Gürtel)",
+            "fr": "0 (Aucune lune / Seul corps sphérique de la ceinture)",
+            "es": "0 (Sin lunas / Único cuerpo esférico del cinturón)",
+            "pt": "0 (Sem luas / Único corpo esférico do cinturão)",
+            "it": "0 (Nessuna luna / Unico corpo sferico della fascia)",
+            "ko": "0개 (위성 없음 / 소행성대 유일의 구형 천체)",
+            "nl": "0 (Geen manen / Enige ronde lichaam in de gordel)",
+            "id": "0 (Tanpa bulan / Satu-satunya objek bulat di Sabuk Asteroid)",
+            "hi": "0 (कोई चंद्रमा नहीं / क्षुद्रग्रह बेल्ट में एकमात्र गोल पिंड)",
+            "ar": "0 (لا توجد أقمار / الجرم الكروي الوحيد في حزام الكويكبات)",
+            "zh": "0 个 (无天然卫星 / 小行星带唯一流体静力平衡圆球体)",
+            "ru": "0 (Спутников нет / Единственное сферическое тело в поясе)"
+        },
+        "discovery": {
+            "ja": "1801年1月1日、イタリアの天文学者ジュゼッペ・ピアッツィがパレルモ天文台で発見。人類が最初に発見した小惑星。",
+            "en": "Discovered on January 1, 1801 by Italian astronomer Giuseppe Piazzi at Palermo Observatory (first asteroid ever found).",
+            "de": "Entdeckt am 1. Januar 1801 durch Giuseppe Piazzi in Palermo (erster entdeckter Asteroid der Menschheit).",
+            "fr": "Découverte le 1er janvier 1801 par Giuseppe Piazzi à l'observatoire de Palerme (premier astéroïde identifié).",
+            "es": "Descubierto el 1 de enero de 1801 por Giuseppe Piazzi en el Observatorio de Palermo (primer asteroide hallado).",
+            "pt": "Descoberto em 1º de janeiro de 1801 por Giuseppe Piazzi no Observatório de Palermo (primeiro asteroide encontrado).",
+            "it": "Scoperta il 1º gennaio 1801 da Giuseppe Piazzi all'Osservatorio di Palermo (primo asteroide mai scoperto).",
+            "ko": "1801년 1월 1일 이탈리아의 주세페 피아치가 팔레르모 천문대에서 발견. 인류가 최초로 발견한 소행성.",
+            "nl": "Ontdekt op 1 januari 1801 door Giuseppe Piazzi in Palermo (eerste ontdekte planetoïde).",
+            "id": "Ditemukan pada 1 Januari 1801 oleh Giuseppe Piazzi di Observatorium Palermo (asteroid pertama yang ditemukan).",
+            "hi": "1 जनवरी 1801 को इतालवी खगोलशास्त्री ग्यूसेप पियाज़ी द्वारा पलेर्मो वेधशाला में खोजा गया (खोजा गया पहला क्षुद्रग्रह)।",
+            "ar": "اكتشفه عالم الفلك الإيطالي جوزيبي بيازي في 1 يناير 1801 بمرصد باليرمو (أول كويكب تم اكتشافه).",
+            "zh": "1801年1月1日由意大利天文学家朱塞普·皮亚齐在巴勒莫天文台发现，是人类发现的第一颗小行星。",
+            "ru": "Открыта 1 января 1801 г. итальянским астрономом Джузеппе Пиацци (первый обнаруженный астероид)."
+        },
+        "missions": {
+            "ja": "NASAドーン（Dawn）探査機（2015年に周回軌道投入）。オッカトル・クレーターの高輝度炭酸ナトリウム白斑や氷火山アフラ・モンスを発見。",
+            "en": "NASA Dawn mission (orbited 2015-2018). Discovered bright sodium carbonate salt deposits in Occator Crater and ice volcano Ahuna Mons.",
+            "de": "NASA-Sonde Dawn (2015–2018 im Orbit). Entdeckte helle Salzflecken im Occator-Krater und den Eisvulkan Ahuna Mons.",
+            "fr": "Mission NASA Dawn (en orbite 2015-2018). Découverte des dépôts de carbonate de sodium d'Occator et du cryovolcan Ahuna Mons.",
+            "es": "Misión Dawn de NASA (2015-2018). Descubrió manchas de sal de carbonato de sodio en cráter Occator y el criovolcán Ahuna Mons.",
+            "pt": "Missão NASA Dawn (em órbita 2015-2018). Descobriu depósitos de sal em Occator e o criovulcão Ahuna Mons.",
+            "it": "Sonda NASA Dawn (in orbita 2015-2018). Scoperti depositi salini nel cratere Occator e il criovulcano Ahuna Mons.",
+            "ko": "NASA 던(Dawn) 탐사선(2015~2018 궤도 선회). 오카토르 크레이터의 눈부신 탄산나트륨 백반과 얼음 화산 아후나 몬스 발견.",
+            "nl": "NASA Dawn-missie (in baan 2015-2018). Ontdekte witte zoutafzettingen in Occator-krater en ijsvulkaan Ahuna Mons.",
+            "id": "Misi NASA Dawn (mengorbit 2015-2018). Menemukan endapan garam di Kawah Occator dan gunung api es Ahuna Mons.",
+            "hi": "नासा डॉन मिशन (2015-2018)। ऑकेटर क्रेटर में चमकीले सोडियम कार्बोनेट नमक के निक्षेप और अहुना मॉन्स बर्फ ज्वालामुखी की खोज की।",
+            "ar": "مهمة داون التابعة لناسا (دارت في المدار 2015-2018). اكتشفت بقع الملح الساطعة في فوهة أوكاتور وبركان الجليد أهونا مونس.",
+            "zh": "NASA黎明号Dawn探测器(2015-2018环绕探测)。发现奥卡托撞击坑闪耀的碳酸钠白色盐斑与阿胡纳山冰火山。",
+            "ru": "Зонд NASA Dawn (на орбите 2015–2018 гг.). Открыл яркие соляные пятна в кратере Оккатор и ледяной вулкан Ахуна Монс."
+        }
+    },
+    "PLUTO": {
+        "mass": {
+            "ja": "1.303 × 10^22 kg (地球の約0.22% / 月の約18%)",
+            "en": "1.303 × 10^22 kg (~0.22% Earth / 18% Moon)",
+            "de": "1,303 × 10^22 kg (~0,22% der Erde / 18% des Mondes)",
+            "fr": "1,303 × 10^22 kg (~0,22% Terre / 18% Lune)",
+            "es": "1,303 × 10^22 kg (~0,22% Tierra / 18% Luna)",
+            "pt": "1,303 × 10^22 kg (~0,22% Terra / 18% Lua)",
+            "it": "1,303 × 10^22 kg (~0,22% Terra / 18% Luna)",
+            "ko": "1.303 × 10^22 kg (지구의 약 0.22% / 달의 약 18%)",
+            "nl": "1,303 × 10^22 kg (~0,22% Aarde / 18% Maan)",
+            "id": "1,303 × 10^22 kg (~0,22% Bumi / 18% Bulan)",
+            "hi": "1.303 × 10^22 किग्रा (पृथ्वी का ~0.22% / चंद्रमा का ~18%)",
+            "ar": "1.303 × 10^22 كجم (~0.22% من الأرض / ~18% من القمر)",
+            "zh": "1.303 × 10^22 千克 (约为地球的0.22% / 月球的18%)",
+            "ru": "1,303 × 10^22 кг (~0,22% массы Земли / ~18% Луны)"
+        },
+        "diameter": {
+            "ja": "2,376.6 km (月の約3分の2 / 冥王星最大の準惑星)",
+            "en": "2,376.6 km (~2/3 Moon diameter / Largest dwarf planet)",
+            "de": "2.376,6 km (~2/3 Monddurchmesser / Größter Zwergplanet)",
+            "fr": "2 376,6 km (~2/3 diamètre de la Lune)",
+            "es": "2.376,6 km (~2/3 diámetro lunar)",
+            "pt": "2.376,6 km (~2/3 diâmetro lunar)",
+            "it": "2.376,6 km (~2/3 diametro lunare)",
+            "ko": "2,376.6 km (달 지름의 약 3분의 2)",
+            "nl": "2.376,6 km (~2/3 maandoorsnede)",
+            "id": "2.376,6 km (~2/3 diameter Bulan)",
+            "hi": "2,376.6 किमी (चंद्रमा के व्यास का ~2/3)",
+            "ar": "2,376.6 كم (~ثلثي قطر القمر / أكبر كوكب قزم)",
+            "zh": "2,376.6 公里 (约为月球直径的三分之二 / 柯伊伯带体积最大天体)",
+            "ru": "2 376,6 км (~2/3 диаметра Луны / крупнейшая карликовая планета)"
+        },
+        "rotation": {
+            "ja": "6日9時間17分 (6.387d 逆行自転) / 傾斜角 122.5°",
+            "en": "6d 9h 17m (6.387d Retrograde) / Axial Tilt 122.5°",
+            "de": "6d 9h 17m (6,387d Rückläufig) / Neigung 122,5°",
+            "fr": "6j 9h 17m (6,387j Rétrograde) / Inclinaison 122,5°",
+            "es": "6d 9h 17m (6,387d Retrógrado) / Inclinación 122,5°",
+            "pt": "6d 9h 17m (6,387d Retrógrado) / Inclinação 122,5°",
+            "it": "6g 9h 17m (6,387g Retrogrado) / Inclinazione 122,5°",
+            "ko": "6일 9시간 17분 (6.387일 역방향 자전) / 자전축 기울기 122.5°",
+            "nl": "6d 9u 17m (6,387d Retrograde) / Ashelling 122,5°",
+            "id": "6h 9j 17m (6,387h Rotasi terbalik) / Kemiringan 122,5°",
+            "hi": "6 दिन 9 घंटे 17 मिनट (6.387d प्रतिगामी) / झुकाव 122.5°",
+            "ar": "6 أيام 9 ساعات 17 دقيقة (دوران تراجعي) / ميل المحور 122.5°",
+            "zh": "6天9小时17分 (6.387天 逆向自转) / 倾角 122.5°",
+            "ru": "6 д 9 ч 17 мин (6,387 д обратное вращение) / наклон 122,5°"
+        },
+        "orbit": {
+            "ja": "247.9 年 (90,560日) / 軌道長半径 39.48 AU (近日点 29.7 AU 〜 遠日点 49.3 AU)",
+            "en": "247.9 Years (90,560 days) / Semi-major Axis 39.48 AU (Perihelion 29.7 - Aphelion 49.3 AU)",
+            "de": "247,9 Jahre (90.560 Tage) / Große Halbachse 39,48 AE",
+            "fr": "247,9 ans (90 560 jours) / Demi-grand axe 39,48 UA",
+            "es": "247,9 años (90.560 días) / Semieje mayor 39,48 UA",
+            "pt": "247,9 anos (90.560 dias) / Semieixo maior 39,48 UA",
+            "it": "247,9 anni (90.560 giorni) / Semiasse maggiore 39,48 UA",
+            "ko": "247.9 년 (90,560일) / 궤도 장반경 39.48 AU (근일점 29.7 ~ 원일점 49.3 AU)",
+            "nl": "247,9 jaar (90.560 dagen) / Halve lange as 39,48 AE",
+            "id": "247,9 tahun (90.560 hari) / Sumbu semi-mayor 39,48 SA",
+            "hi": "247.9 वर्ष (90,560 दिन) / अर्ध-दीर्घ अक्ष 39.48 AU (उपसौर 29.7 - अपसौर 49.3 AU)",
+            "ar": "247.9 سنة (90,560 يوماً) / نصف المحور الرئيسي 39.48 وحدة فلكية",
+            "zh": "247.9 年 (90,560 天) / 轨道半长轴 39.48 AU (近日点 29.7 AU 〜 远日点 49.3 AU)",
+            "ru": "247,9 года (90 560 дней) / большая полуось 39,48 а.е."
+        },
+        "temperature": {
+            "ja": "-230 ℃ (44 K / 窒素・メタン・一酸化炭素の氷地表)",
+            "en": "-230 °C (44 K / Nitrogen, methane, CO ice surface)",
+            "de": "-230 °C (44 K / Stickstoff-, Methan- und CO-Eis)",
+            "fr": "-230 °C (44 K / Glaces d'azote, méthane et CO)",
+            "es": "-230 °C (44 K / Hielos de nitrógeno, metano y CO)",
+            "pt": "-230 °C (44 K / Gelos de nitrogênio, metano e CO)",
+            "it": "-230 °C (44 K / Ghiacci di azoto, metano e CO)",
+            "ko": "-230 ℃ (44 K / 질소, 메탄, 일산화탄소 얼음 지표)",
+            "nl": "-230 °C (44 K / Stikstof-, methaan- en CO-ijs)",
+            "id": "-230 °C (44 K / Es nitrogen, metana, dan karbon monoksida)",
+            "hi": "-230 °C (44 K / नाइट्रोजन, मीथेन, कार्बन मोनोऑक्साइड बर्फ)",
+            "ar": "-230°م (44 كلفن / جليد النيتروجين والميثان وأول أكسيد الكربون)",
+            "zh": "-230 ℃ (44 K / 富含氮冰、甲烷冰与一氧化碳冰)",
+            "ru": "-230 °C (44 K / азотный, метановый и угарный лед)"
+        },
+        "satellites": {
+            "ja": "5個 (カロン, ステュクス, ニクス, ケルベロス, ヒドラ。カロンとは二重天体)",
+            "en": "5 (Charon, Styx, Nix, Kerberos, Hydra. Forms binary system with Charon)",
+            "de": "5 (Charon, Styx, Nix, Kerberos, Hydra. Doppelplanetensystem mit Charon)",
+            "fr": "5 (Charon, Styx, Nix, Kerberos, Hydra. Système binaire avec Charon)",
+            "es": "5 (Caronte, Estigia, Nix, Cerbero, Hidra. Sistema binario con Caronte)",
+            "pt": "5 (Caronte, Estige, Nix, Cérbero, Hidra. Sistema binário com Caronte)",
+            "it": "5 (Caronte, Stige, Notte, Cerbero, Idra. Sistema binario con Caronte)",
+            "ko": "5개 (카론, 스틱스, 닉스, 케르베로스, 히드라. 카론과 쌍성계 형성)",
+            "nl": "5 (Charon, Styx, Nix, Kerberos, Hydra. Dubbelsysteem met Charon)",
+            "id": "5 (Charon, Styx, Nix, Kerberos, Hydra. Sistem biner dengan Charon)",
+            "hi": "5 (कैरोन, स्टिक्स, निक्स, कर्बेरोस, हाइड्रा। कैरोन के साथ द्विआधारी प्रणाली)",
+            "ar": "5 (شارون، ستيكس، نيكس، كيربيروس، هيدرا. يشكل نظاماً ثنائياً مع شارون)",
+            "zh": "5 个 (卡戎、冥河、冥女、地狱犬、九头蛇。与卡戎构成著名双天体系统)",
+            "ru": "5 (Харон, Стикс, Никта, Кербер, Гидра. С Хароном образует двойную систему)"
+        },
+        "discovery": {
+            "ja": "1930年2月18日、米国ローウェル天文台のクライド・トンボーが発見。2006年国際天文学連合(IAU)総会で準惑星に再分類。",
+            "en": "Discovered February 18, 1930 by Clyde Tombaugh at Lowell Observatory. Reclassified as dwarf planet by IAU in 2006.",
+            "de": "Entdeckt am 18. Februar 1930 durch Clyde Tombaugh (Lowell-Observatorium). 2006 durch IAU als Zwergplanet klassifiziert.",
+            "fr": "Découverte le 18 février 1930 par Clyde Tombaugh à l'observatoire Lowell. Reclassée planète naine en 2006.",
+            "es": "Descubierto el 18 de febrero de 1930 por Clyde Tombaugh. Reclasificado como planeta enano por la UAI en 2006.",
+            "pt": "Descoberto em 18 de fevereiro de 1930 por Clyde Tombaugh. Reclassificado como planeta anão em 2006.",
+            "it": "Scoperto il 18 febbraio 1930 da Clyde Tombaugh. Riclassificato come pianeta nano dalla IAU nel 2006.",
+            "ko": "1930년 2월 18일 로웰 천문대의 클라이드 톰보가 발견. 2006년 국제천문연맹(IAU) 총회에서 왜행성으로 재분류.",
+            "nl": "Ontdekt op 18 februari 1930 door Clyde Tombaugh. In 2006 heringedeeld als dwergplaneet door de IAU.",
+            "id": "Ditemukan 18 Februari 1930 oleh Clyde Tombaugh di Observatorium Lowell. Diklasifikasikan ulang sebagai planet kerdil tahun 2006.",
+            "hi": "18 फरवरी 1930 को लोवेल वेधशाला में क्लाइड टॉमबॉग द्वारा खोजा गया। 2006 में IAU द्वारा बौने ग्रह के रूप में पुनर्वर्गीकृत।",
+            "ar": "اكتشفه كلايد تومبو في 18 فبراير 1930 بمرصد لويل. أعيد تصنيفه ككوكب قزم في عام 2006 من قبل الاتحاد الفلكي الدولي.",
+            "zh": "1930年2月18日由克莱德·汤博在洛厄尔天文台发现。2006年国际天文学联合会(IAU)布拉格大会重新分类为矮行星。",
+            "ru": "Открыт 18 февраля 1930 г. Клайдом Томбо. В 2006 г. решением МАС переклассифицирован в карликовую планету."
+        },
+        "missions": {
+            "ja": "NASAニュー・ホライズンズ（New Horizons）探査機。2015年7月14日に至近フライバイ成功。ハート型の氷原（スプートニク平原）や多層の大気ヘイズを鮮明に撮影。",
+            "en": "NASA New Horizons spacecraft. Historic flyby on July 14, 2015 revealed the iconic heart-shaped Sputnik Planitia and blue atmospheric haze.",
+            "de": "NASA New Horizons Raumsonde. Historischer Vorbeiflug am 14. Juli 2015 zeigte das Stickstoffherz (Sputnik Planitia) und blauen Dunst.",
+            "fr": "Sonde NASA New Horizons. Survol historique le 14 juillet 2015 révélant le cœur d'azote (Sputnik Planitia) et la brume bleue.",
+            "es": "Sonda New Horizons de NASA. Histórico sobrevuelo el 14 de julio de 2015 descubriendo el corazón de hielo Sputnik Planitia y bruma azul.",
+            "pt": "Sonda New Horizons da NASA. Sobrevôo histórico em 14 de julho de 2015 revelando o coração de gelo Sputnik Planitia e neblina azul.",
+            "it": "Sonda NASA New Horizons. Storico flyby il 14 luglio 2015 che rivelò il cuore di ghiaccio Sputnik Planitia e foschia blu.",
+            "ko": "NASA 뉴 허라이즌스(New Horizons) 탐사선. 2015년 7월 14일 사상 최초 근접 비행으로 하트 모양의 스푸트니크 평원과 푸른 대기 연무 촬영.",
+            "nl": "NASA New Horizons sonde. Historische scheervlucht op 14 juli 2015 onthulde het stikstofhart Sputnik Planitia en blauwe nevels.",
+            "id": "Wahana NASA New Horizons. Terbang lintas bersejarah pada 14 Juli 2015 mengungkap Sputnik Planitia berbentuk hati dan kabut biru.",
+            "hi": "नासा न्यू होराइजन्स अंतरिक्ष यान। 14 जुलाई 2015 को ऐतिहासिक फ्लाईबाई ने प्रसिद्ध दिल के आकार के स्पुतनिक प्लैनिटिया और नीले वायुमंडलीय धुंध का खुलासा किया।",
+            "ar": "مسبار نيو هورايزونز التابع لناسا. تحليق تاريخي في 14 يوليو 2015 كشف عن سهل سبوتنيك الجليدي الشهير على شكل قلب والضباب الأزرق.",
+            "zh": "NASA新视野号New Horizons探测器。2015年7月14日完成人类首次近距离飞越，拍摄到著名的心形氮冰平原(斯普特尼克平原)与蓝色多层大气雾霾。",
+            "ru": "Аппарат NASA Новые горизонты. Исторический пролет 14 июля 2015 г. показал знаменитое ледяное сердце (равнину Спутника) и голубую дымку."
+        }
+    },
+    "HALLEY": {
+        "mass": {
+            "ja": "2.2 × 10^14 kg (ジャガイモ状の低密度・多孔質核)",
+            "en": "2.2 × 10^14 kg (Potato-shaped low-density porous nucleus)",
+            "de": "2,2 × 10^14 kg (Kartoffelförmiger, poröser Kometenkern)",
+            "fr": "2,2 × 10^14 kg (Noyau poreux en forme de pomme de terre)",
+            "es": "2,2 × 10^14 kg (Núcleo poroso con forma de patata)",
+            "pt": "2,2 × 10^14 kg (Núcleo poroso em forma de batata)",
+            "it": "2,2 × 10^14 kg (Nucleo poroso a forma di patata)",
+            "ko": "2.2 × 10^14 kg (감자 형태의 다공성 저밀도 혜성핵)",
+            "nl": "2,2 × 10^14 kg (Aardappelvormige poreuze kern)",
+            "id": "2,2 × 10^14 kg (Inti komet berpori mirip kentang)",
+            "hi": "2.2 × 10^14 किग्रा (आलू के आकार का कम घनत्व वाला छिद्रपूर्ण नाभिक)",
+            "ar": "2.2 × 10^14 كجم (نواة مسامية منخفضة الكثافة تشبه حبة البطاطس)",
+            "zh": "2.2 × 10^14 千克 (呈马铃薯状的不规则多孔低密度彗核)",
+            "ru": "2,2 × 10^14 кг (пористое ядро картофелеобразной формы)"
+        },
+        "diameter": {
+            "ja": "15 × 8 × 8 km (平均有効直径 約11 km)",
+            "en": "15 × 8 × 8 km (Mean effective diameter ~11 km)",
+            "de": "15 × 8 × 8 km (Mittlerer Durchmesser ~11 km)",
+            "fr": "15 × 8 × 8 km (Diamètre moyen ~11 km)",
+            "es": "15 × 8 × 8 km (Diámetro medio ~11 km)",
+            "pt": "15 × 8 × 8 km (Diâmetro médio ~11 km)",
+            "it": "15 × 8 × 8 km (Diametro medio ~11 km)",
+            "ko": "15 × 8 × 8 km (평균 유효 지름 약 11 km)",
+            "nl": "15 × 8 × 8 km (Gemiddelde diameter ~11 km)",
+            "id": "15 × 8 × 8 km (Diameter efektif rata-rata ~11 km)",
+            "hi": "15 × 8 × 8 किमी (औसत प्रभावी व्यास ~11 किमी)",
+            "ar": "15 × 8 × 8 كم (متوسط القطر الفعال ~11 كم)",
+            "zh": "15 × 8 × 8 公里 (平均等效直径约 11 公里)",
+            "ru": "15 × 8 × 8 км (средний эффективный диаметр ~11 км)"
+        },
+        "rotation": {
+            "ja": "約52.8時間 (2.2日 / 複雑な3軸歳差首振り運動)",
+            "en": "52.8 Hours (2.2 days / Complex triaxial tumbling)",
+            "de": "52,8 Stunden (2,2 Tage / Komplexe taumelnde Rotation)",
+            "fr": "52,8 heures (2,2 jours / Culbute triaxiale complexe)",
+            "es": "52,8 horas (2,2 días / Voltereta triaxial compleja)",
+            "pt": "52,8 horas (2,2 dias / Rotação triaxial complexa)",
+            "it": "52,8 ore (2,2 giorni / Rotazione complessa su 3 assi)",
+            "ko": "약 52.8시간 (2.2일 / 복합 3축 세차 텀블링 운동)",
+            "nl": "52,8 uur (2,2 dagen / Complexe buitelende rotatie)",
+            "id": "52,8 jam (2,2 hari / Gerakan tumbling triaksial kompleks)",
+            "hi": "52.8 घंटे (2.2 दिन / जटिल त्रियाक्षीय घूर्णन)",
+            "ar": "52.8 ساعة (2.2 يوم / حركة ترنح معقدة ثلاثية المحاور)",
+            "zh": "约52.8小时 (2.2天 / 复杂的非主轴三维滚转翻滚运动)",
+            "ru": "52,8 часа (2,2 дня / сложное трехосное кувыркание)"
+        },
+        "orbit": {
+            "ja": "75.3 年 (27,500日 / 逆行公転 傾斜角 162.3° / 離心率 0.967)",
+            "en": "75.3 Years (27,500 days / Retrograde Inclination 162.3° / Eccentricity 0.967)",
+            "de": "75,3 Jahre (27.500 Tage / Retrograd Neigung 162,3° / Exzentrizität 0,967)",
+            "fr": "75,3 ans (27 500 jours / Rétrograde Inclinaison 162,3° / Excentricité 0,967)",
+            "es": "75,3 años (27.500 días / Retrógrado Inclinación 162,3° / Excentricidad 0,967)",
+            "pt": "75,3 anos (27.500 dias / Retrógrado Inclinação 162,3° / Excentricidade 0,967)",
+            "it": "75,3 anni (27.500 giorni / Retrogrado Inclinazione 162,3° / Eccentricità 0,967)",
+            "ko": "75.3 년 (27,500일 / 역방향 공전 기울기 162.3° / 이심률 0.967)",
+            "nl": "75,3 jaar (27.500 dagen / Retrograde glooiing 162,3° / Excentriciteit 0,967)",
+            "id": "75,3 tahun (27.500 hari / Inklinasi retrograd 162,3° / Eksentrisitas 0,967)",
+            "hi": "75.3 वर्ष (27,500 दिन / प्रतिगामी झुकाव 162.3° / उत्केंद्रता 0.967)",
+            "ar": "75.3 سنة (27,500 يوماً / مدار تراجعي بميل 162.3° / انحراف 0.967)",
+            "zh": "75.3 年 (27,500 天 / 逆行公转 倾角 162.3° / 轨道离心率 0.967)",
+            "ru": "75,3 года (27 500 дней / обратное обращение, наклон 162,3° / эксцентриситет 0,967)"
+        },
+        "temperature": {
+            "ja": "-70 ℃〜+80 ℃ (近日点付近) / -220 ℃以下 (遠日点)",
+            "en": "-70 °C to +80 °C (Near perihelion) / <-220 °C (Aphelion)",
+            "de": "-70 °C bis +80 °C (Sonnennähe) / <-220 °C (Sonnenferne)",
+            "fr": "-70 °C à +80 °C (Périhélie) / <-220 °C (Aphélie)",
+            "es": "-70 °C a +80 °C (Perihelio) / <-220 °C (Afelio)",
+            "pt": "-70 °C a +80 °C (Periélio) / <-220 °C (Afélio)",
+            "it": "-70 °C a +80 °C (Perielio) / <-220 °C (Afelio)",
+            "ko": "-70 ℃ ~ +80 ℃ (근일점 부근) / -220 ℃ 이하 (원일점)",
+            "nl": "-70 °C tot +80 °C (Dichtst bij de zon) / <-220 °C (Verst)",
+            "id": "-70 °C hingga +80 °C (Dekat perihelion) / <-220 °C (Aphelion)",
+            "hi": "-70 °C से +80 °C (उपसौर के पास) / <-220 °C (अपसौर)",
+            "ar": "-70°م إلى +80°م (بالقرب من الحضيض) / أقل من -220°م (عند الأوج)",
+            "zh": "-70 ℃ 至 +80 ℃ (近日点附近表面) / <-220 ℃ (远日点深空)",
+            "ru": "от -70 °C до +80 °C (в перигелии) / ниже -220 °C (в афелии)"
+        },
+        "satellites": {
+            "ja": "0個 (オリオン座流星群・みずがめ座η流星群の母天体。尾の長さは1億km以上)",
+            "en": "0 (Parent of Orionid & Eta Aquariid meteor showers; tail extends >100M km)",
+            "de": "0 (Ursprung der Orioniden & Eta-Aquariiden; Schweif >100 Mio. km)",
+            "fr": "0 (Corps parent des Orionides et Eta Aquariides; queue >100M km)",
+            "es": "0 (Progenitor de Oriónidas y Eta Acuáridas; cola >100M km)",
+            "pt": "0 (Origem das Oriônidas e Eta Aquáridas; cauda >100M km)",
+            "it": "0 (Corpo genitore delle Orionidi ed Eta Aquaridi; coda >100M km)",
+            "ko": "0개 (오리온자리 유성우 및 물병자리 에타 유성우의 모천체. 꼬리 길이 1억km 이상)",
+            "nl": "0 (Oorsprong van Orioniden en Eta Aquariïden; staart >100 mln km)",
+            "id": "0 (Induk hujan meteor Orionid & Eta Aquariid; ekor >100 juta km)",
+            "hi": "0 (ओरियोनिड्स और एटा एक्वारिड्स उल्कापिंडों का जनक; पूंछ >10 करोड़ किमी)",
+            "ar": "0 (الجرم الأم لزخات شهب الجباريات وإيتا الدلويات؛ الذيل يتجاوز 100 مليون كم)",
+            "zh": "0 个 (猎户座流星雨与宝瓶座η流星雨的母天体，巨型彗尾可延伸超1亿公里)",
+            "ru": "0 (Родоначальник метеорных потоков Ориониды и Эта-Аквариды; хвост >100 млн км)"
+        },
+        "discovery": {
+            "ja": "紀元前240年（中国『史記』秦始皇七年）に最古の記録。1705年英国のエドモンド・ハレーが周期性を証明。",
+            "en": "Recorded since at least 240 BC (Chinese Shiji). In 1705, Edmond Halley computed its orbit and predicted its return.",
+            "de": "Seit mind. 240 v. Chr. dokumentiert (China). 1705 berechnete Edmond Halley die Umlaufbahn und Periodizität.",
+            "fr": "Observée depuis au moins 240 av. J.-C. (Chine). En 1705, Edmond Halley prédit avec succès son retour périodique.",
+            "es": "Registrado desde al menos 240 a.C. (China). En 1705, Edmond Halley predijo matemáticamente su regreso.",
+            "pt": "Registrado desde 240 a.C. (China). Em 1705, Edmond Halley calculou sua órbita e previu seu retorno.",
+            "it": "Registrata dal 240 a.C. (Cina). Nel 1705 Edmond Halley calcolò l'orbita prevedendone il ritorno periodico.",
+            "ko": "기원전 240년 중국 『사기(史記)』에 최초 기록. 1705년 영국의 에드먼드 핼리가 궤도 계산을 통해 주기성을 증명.",
+            "nl": "Gedocumenteerd sinds minstens 240 v.Chr. (China). In 1705 voorspelde Edmond Halley de periodieke terugkeer.",
+            "id": "Tercatat sejak setidaknya 240 SM (Tiongkok). Pada 1705, Edmond Halley menghitung orbit dan meramalkan kepulangannya.",
+            "hi": "कम से कम 240 ईसा पूर्व (चीनी शीजी) से दर्ज। 1705 में, एडमंड हैली ने इसकी कक्षा की गणना की और वापसी की भविष्यवाणी की।",
+            "ar": "سجلت منذ عام 240 ق.م على الأقل (في السجلات الصينية). في عام 1705، تنبأ إدموند هالي بعودتها الدورية رياضياً.",
+            "zh": "公元前240年中国《史记·秦始皇本纪》已有明确观测记录。1705年英国天文学家爱德蒙·哈雷通过引力计算首次证实其为周期回归彗星。",
+            "ru": "Наблюдается как минимум с 240 г. до н.э. (хроники Китая). В 1705 г. Эдмонд Галлей доказал ее периодичность."
+        },
+        "missions": {
+            "ja": "1986年「ハレー艦隊」（ESAジオット、JAXAさきがけ・すいせい、ソ連ベガ1・2号）。ジオットが核から600kmまで接近し史上初の核直接撮影に成功。",
+            "en": "1986 'Halley Armada' (ESA Giotto, JAXA Sakigake/Suisei, Soviet Vega 1&2). Giotto flew within 600 km, capturing first close-up photos of a comet nucleus.",
+            "de": "Halley-Armada 1986 (ESA Giotto, JAXA Sakigake/Suisei, UdSSR Vega 1&2). Giotto fotografierte erstmals den Kometenkern aus 600 km Nähe.",
+            "fr": "Armada de Halley en 1986 (ESA Giotto, JAXA Sakigake/Suisei, Vega 1 et 2). Giotto a photographié le noyau à moins de 600 km.",
+            "es": "Armada de Halley de 1986 (ESA Giotto, JAXA Sakigake/Suisei, Vega 1 y 2). Giotto tomó las primeras fotos cercanas del núcleo cometario.",
+            "pt": "Armada de Halley de 1986 (ESA Giotto, JAXA Sakigake/Suisei, Vega 1 e 2). Giotto capturou as primeiras fotos do núcleo a 600 km.",
+            "it": "Armata di Halley del 1986 (ESA Giotto, JAXA Sakigake/Suisei, Vega 1 e 2). Giotto fotografò il nucleo a soli 600 km di distanza.",
+            "ko": "1986년 '핼리 함대' (ESA 지오토, JAXA 사키가케·스이세이, 소련 베가 1·2호). 지오토 탐사선이 핵 600km까지 접근하여 인류 최초로 혜성 핵 직접 촬영 성공.",
+            "nl": "Halley Armada in 1986 (ESA Giotto, JAXA Sakigake/Suisei, Vega 1 & 2). Giotto naderde tot 600 km en fotografeerde voor het eerst de kern.",
+            "id": "Armada Halley 1986 (ESA Giotto, JAXA Sakigake/Suisei, Soviet Vega 1 & 2). Giotto mendekati hingga 600 km dan memotret inti komet.",
+            "hi": "1986 'हैली आर्मडा' (ESA जियोटो, JAXA साकीगाके/सुईसी, सोवियत वेगा 1 और 2)। जियोटो ने 600 किमी के भीतर उड़ान भरी, नाभिक की पहली तस्वीरें लीं।",
+            "ar": "أسطول هالي عام 1986 (مسبار جيوتو الأوروبي، سابقت وسويسي اليابانيين، وفيغا السوفيتيين). اقترب جيوتو إلى 600 كم والتقط أول صور لنواة مذنب.",
+            "zh": "1986年国际“哈雷舰队”(欧空局乔托号Giotto、日本先驱号/彗星号、苏联织女星1/2号)。乔托号飞掠至距核仅600公里处，人类首次拍摄到彗核实貌。",
+            "ru": "Армада Галлея 1986 г. (ESA Джотто, JAXA Сакигакэ/Суйсэй, Вега-1 и 2). Джотто пролетел в 600 км и впервые сфотографировал ядро кометы."
+        }
     }
 };
 
@@ -6259,6 +7400,17 @@ const CELESTIAL_BODIES = [
         a: 1.523662, e: 0.093412, I: 1.85061, L: 355.45332, w: 336.04084, node: 49.57854, n: 0.52403840
     },
     {
+        id: 'CERES',
+        name: 'CERES (ケレス / 小惑星帯準惑星)',
+        color: '#94a3b8',
+        radiusKm: 473.0,
+        distKm: 413900000,
+        periodDays: 1682.0,
+        type: 'DWARF_PLANET',
+        symbol: '🪨',
+        a: 2.7675, e: 0.0758, I: 10.593, L: 102.83, w: 73.597, node: 80.305, n: 0.21406
+    },
+    {
         id: 'JUPITER',
         name: 'JUPITER (木星 / 太陽系最大惑星)',
         color: '#fb923c',
@@ -6301,6 +7453,28 @@ const CELESTIAL_BODIES = [
         type: 'PLANET',
         symbol: '🌊',
         a: 30.068963, e: 0.008586, I: 1.76917, L: 304.88003, w: 272.84610, node: 131.72169, n: 0.00598106
+    },
+    {
+        id: 'PLUTO',
+        name: 'PLUTO (冥王星 / カイパーベルト準惑星)',
+        color: '#d6d3d1',
+        radiusKm: 1188.3,
+        distKm: 5906380000,
+        periodDays: 90560.0,
+        type: 'DWARF_PLANET',
+        symbol: '❄️',
+        a: 39.481687, e: 0.248808, I: 17.14175, L: 14.882, w: 113.76329, node: 110.30347, n: 0.003964
+    },
+    {
+        id: 'HALLEY',
+        name: 'HALLEY (ハレー彗星 / 1P/Halley)',
+        color: '#38bdf8',
+        radiusKm: 5.5,
+        distKm: 2668000000,
+        periodDays: 27500.0,
+        type: 'COMET',
+        symbol: '☄️',
+        a: 17.834, e: 0.96714, I: 162.26, L: 58.4, w: 111.33, node: 58.42, n: 0.01297
     }
 ];
 
@@ -6312,10 +7486,13 @@ const PLANETARY_ORBIT_DATA = {
     VENUS:   { a: 0.72333199, e: 0.00677323, I: 3.39471, L: 181.97973, w: 131.57294, node: 76.68069, n: 1.60213022, periodDays: 224.70, meanDistKm: 108208000 },
     EARTH:   { a: 1.00000011, e: 0.01671022, I: 0.00005, L: 100.46435, w: 102.94719, node: 0.0,      n: 0.98560766, periodDays: 365.26, meanDistKm: 149598023 },
     MARS:    { a: 1.52366231, e: 0.09341233, I: 1.85061, L: 355.45332, w: 336.04084, node: 49.57854, n: 0.52403840, periodDays: 686.98, meanDistKm: 227939200 },
+    CERES:   { a: 2.7675,      e: 0.0758,     I: 10.593,  L: 102.83,    w: 73.597,    node: 80.305,   n: 0.21406,    periodDays: 1682.0,  meanDistKm: 413900000 },
     JUPITER: { a: 5.20336301, e: 0.04839266, I: 1.30530, L: 34.40438,  w: 14.75385,  node: 100.55615, n: 0.08308530, periodDays: 4332.59, meanDistKm: 778570000 },
     SATURN:  { a: 9.53707032, e: 0.05415060, I: 2.48446, L: 49.94432,  w: 92.43194,  node: 113.71504, n: 0.03344423, periodDays: 10759.22, meanDistKm: 1433530000 },
     URANUS:  { a: 19.19126393, e: 0.04716771, I: 0.76986, L: 313.23218, w: 170.96424, node: 74.22988, n: 0.01172581, periodDays: 30685.4, meanDistKm: 2872460000 },
-    NEPTUNE: { a: 30.06896348, e: 0.00858587, I: 1.76917, L: 304.88003, w: 272.84610, node: 131.72169, n: 0.00598106, periodDays: 60189.0, meanDistKm: 4495060000 }
+    NEPTUNE: { a: 30.06896348, e: 0.00858587, I: 1.76917, L: 304.88003, w: 272.84610, node: 131.72169, n: 0.00598106, periodDays: 60189.0, meanDistKm: 4495060000 },
+    PLUTO:   { a: 39.48168677, e: 0.24880766, I: 17.14175, L: 14.882,   w: 113.76329, node: 110.30347, n: 0.003964,   periodDays: 90560.0, meanDistKm: 5906380000 },
+    HALLEY:  { a: 17.834,      e: 0.96714,    I: 162.26,   L: 58.4,      w: 111.33,    node: 58.42,    n: 0.01297,    periodDays: 27500.0, meanDistKm: 2668000000 }
 };
 
 /**
@@ -6996,6 +8173,54 @@ const CELESTIAL_DESCRIPTIONS = {
         "ar": "الكوكب الثامن والأبعد (عملاق جليدي). غلاف جوي أزرق سماوي تعصف به أسرع رياح فوق صوتية (>2,100 كم/س) و16 قمراً (تريتون).",
         "zh": "太阳系第八大行星“海王星”(最遥远的冰巨行星)。深邃如海的深蓝色大气中呼啸着全太阳系最强烈的超音速风暴(时速超2100公里)，拥有海卫一与暗淡光环。",
         "ru": "Восьмая и самая дальняя планета (ледяной гигант). Глубокая синяя атмосфера с рекордными сверхзвуковыми ветрами (>2 100 км/ч) и 16 спутниками (Тритон)."
+    },
+    "CERES": {
+        "ja": "小惑星帯（アステロイドベルト）最大の準惑星「ケレス」。火星と木星の間に位置し、内部に水や氷のマントルを持つ。オッカトル・クレーターにある謎の白い塩斑（ファキュラ）や氷火山が有名です。",
+        "en": "The largest object in the Asteroid Belt and the closest dwarf planet. Contains substantial water ice beneath its crust. Famous for the bright reflective salt deposits in Occator Crater and the Ahuna Mons cryovolcano.",
+        "de": "Größtes Objekt im Asteroidengürtel und sonnennächster Zwergplanet. Besitzt einen eisreichen Mantel. Bekannt für helle Salzablagerungen im Occator-Krater und Kryovulkane.",
+        "fr": "Le plus grand corps de la ceinture d'astéroïdes et la planète naine la plus proche. Renferme un manteau d'eau et de glace. Renommé pour ses taches de sel brillantes dans Occator.",
+        "es": "El mayor objeto del cinturón de asteroides y el planeta enano más cercano. Contiene hielo de agua subterráneo. Famoso por los puntos brillantes de sal en el cráter Occator.",
+        "pt": "O maior objeto do cinturão de asteroides e planeta anão mais próximo. Abriga manto rico em gelo. Famoso pelos depósitos brilhantes de sal na cratera Occator.",
+        "it": "Il corpo più grande della fascia principale e pianeta nano più vicino. Contiene ghiaccio d'acqua. Celebre per le macchie bianche di sale nel cratere Occator.",
+        "ko": "소행성대 최대의 천체이자 가장 가까운 왜행성 '세레스'. 풍부한 수빙 맨틀을 지니며 오카토르 크레이터의 눈부신 탄산염 백반과 얼음 화산으로 유명합니다.",
+        "nl": "Grootste object in de planetoïdengordel en dichtstbijzijnde dwergplaneet. Bevat waterijs. Beroemd om de heldere zoutvlekken in Occator-krater.",
+        "id": "Objek terbesar di Sabuk Asteroid dan planet kerdil terdekat. Mengandung mantel es air. Terkenal dengan bintik garam putih terang di Kawah Occator.",
+        "hi": "क्षुद्रग्रह बेल्ट का सबसे बड़ा पिंड और निकटतम बौना ग्रह 'सेरेस'। इसमें भारी मात्रा में जल-बर्फ है। ऑकेटर क्रेटर में सफेद नमक के धब्बों के लिए प्रसिद्ध।",
+        "ar": "أكبر جرم في حزام الكويكبات وأقرب كوكب قزم. يحتوي على وشاح مائي جليدي. يشتهر برواسب الملح البيضاء الساطعة في فوهة أوكاتور.",
+        "zh": "小行星带中最大的天体兼距离地球最近的矮行星“谷神星”。内部含有巨量水冰地幔，以奥卡托撞击坑闪耀的碳酸盐白色斑块与阿胡纳冰火山闻名。",
+        "ru": "Крупнейшее тело в поясе астероидов и ближайшая карликовая планета. Содержит ледяную мантию. Знаменита яркими соляными пятнами в кратере Оккатор."
+    },
+    "PLUTO": {
+        "ja": "太陽系外縁カイパーベルトを代表する準惑星「冥王星」。淡い赤褐色の地表に巨大なハート型の窒素氷河（スプートニク平原）が広がり、青い大気ヘイズと5つの衛星（特に巨大なカロン）を持ちます。",
+        "en": "The iconic dwarf planet of the Kuiper Belt. Features the famous heart-shaped nitrogen glacier (Sputnik Planitia), rugged water-ice mountains, multilayered blue atmospheric haze, and 5 moons led by Charon.",
+        "de": "Der bekannteste Zwergplanet des Kuipergürtels. Berühmt für das herzförmige Stickstoff-Eisfeld (Sputnik Planitia), Wassereisberge, blaue Atmosphärenschichten und 5 Monde.",
+        "fr": "La planète naine emblématique de la ceinture de Kuiper. Présente un glacier d'azote en forme de cœur (Sputnik Planitia), une brume atmosphérique bleue et 5 lunes (Charon).",
+        "es": "El emblemático planeta enano del cinturón de Kuiper. Destaca por su glaciar de nitrógeno en forma de corazón (Sputnik Planitia), bruma azul y 5 lunas, con Caronte a la cabeza.",
+        "pt": "O emblemático planeta anão do cinturão de Kuiper. Conhecido pelo glaciar de nitrogênio em forma de coração (Sputnik Planitia), névoa azul e 5 luas com Caronte.",
+        "it": "L'emblematico pianeta nano della fascia di Kuiper. Celebre per il ghiacciaio di azoto a forma di cuore (Sputnik Planitia), foschia blu e 5 lune (Caronte).",
+        "ko": "카이퍼 벨트의 상징적인 왜행성 '명왕성'. 하트 모양의 거대한 질소 빙하(스푸트니크 평원), 물얼음 산맥, 푸른 대기 연무층 및 카론을 비롯한 5개 위성을 거느립니다.",
+        "nl": "De iconische dwergplaneet van de Kuipergordel. Beroemd om de hartvormige stikstofgletsjer (Sputnik Planitia), blauwe atmosferische nevels en 5 manen.",
+        "id": "Planet kerdil ikonis di Sabuk Kuiper. Menampilkan gletser nitrogen berbentuk hati (Sputnik Planitia), pegunungan es, kabut biru, dan 5 bulan bersama Charon.",
+        "hi": "काइपर बेल्ट का प्रतिष्ठित बौना ग्रह 'प्लूटो'। प्रसिद्ध दिल के आकार का नाइट्रोजन ग्लेशियर (स्पुतनिक प्लैनिटिया), नीली वायुमंडलीय धुंध और कैरॉन सहित 5 चंद्रमा।",
+        "ar": "الكوكب القزم الشهير في حزام كايبر. يتميز بنهر نيتروجين جليدي شهير على شكل قلب (سهل سبوتنيك)، وضباب جوي أزرق و5 أقمار يقودها شارون.",
+        "zh": "柯伊伯带最著名的矮行星“冥王星”。拥有标志性的巨大心形氮冰平原(斯普特尼克平原)、千仞水冰高山、分层蓝色大气雾霾以及以卡戎为首的5颗卫星。",
+        "ru": "Знаменитая карликовая планета пояса Койпера. Известна ледяным сердцем из азота (равниной Спутника), водяными горами, голубой дымкой и 5 спутниками (Харон)."
+    },
+    "HALLEY": {
+        "ja": "約76年周期で太陽に回帰する最も有名な周期彗星「ハレー彗星」(1P/Halley)。太陽に接近すると氷やダストが昇華して巨大なコマと1億km超の美しい青白い尾を広げます。次回近日点通過は2061年。",
+        "en": "The most famous periodic comet (75-76 year orbit). As it nears the Sun, solar heating vaporizes ice into a glowing cyan coma and sweeping dust/ion tails stretching over 100M km. Next perihelion: 2061.",
+        "de": "Der berühmteste Komet der Menschheit (Umlaufzeit ~76 Jahre). In Sonnennähe entstehen eine leuchtende Koma und ein über 100 Mio. km langer Schweif. Nächste Perihel-Passage: 2061.",
+        "fr": "La comète périodique la plus célèbre (~76 ans). À l'approche du Soleil, la sublimation de ses glaces crée une chevelure lumineuse et des queues de plus de 100M km. Prochain périhélie: 2061.",
+        "es": "El cometa periódico más célebre (~76 años). Cerca del Sol, el hielo sublimado genera una brillante cabellera y colas de más de 100M km. Próximo perihelio: 2061.",
+        "pt": "O cometa periódico mais famoso (~76 anos). Perto do Sol, o gelo sublimado forma uma coma brilhante e caudas com mais de 100M km. Próximo periélio: 2061.",
+        "it": "La cometa periodica più famosa (~76 anni). Vicino al Sole, i ghiacci sublimano creando una spettacolare chioma e code lunghe oltre 100M km. Prossimo perielio: 2061.",
+        "ko": "약 76년 주기로 태양을 회귀하는 인류 역사상 가장 유명한 '핼리 혜성'(1P/Halley). 태양에 근접하면 승화된 얼음과 가스가 1억 km가 넘는 거대한 꼬리를 형성합니다. 다음 근일점은 2061년입니다.",
+        "nl": "De beroemdste periodieke komeet (~76 jaar). Dicht bij de zon creëert verdampend ijs een prachtige coma en staarten van >100 mln km. Volgend perihelium: 2061.",
+        "id": "Komet periodik paling terkenal (~76 tahun). Di dekat Matahari, sublimasi es menciptakan koma cemerlang dan ekor sepanjang lebih dari 100 juta km. Perihelion berikutnya: 2061.",
+        "hi": "लगभग 76 साल की कक्षा वाला सबसे प्रसिद्ध आवधिक धूमकेतु 'हैली'। सूर्य के पास आने पर वाष्पीकृत बर्फ से 10 करोड़ किमी लंबी पूंछ बनती है। अगला उपसौर: 2061।",
+        "ar": "أشهر مذنب دوري في التاريخ (مدار ~76 عاماً). عند الاقتراب من الشمس يتسامى الجليد مشكلاً ذيولاً غازية وغبارية تتجاوز 100 مليون كم. الحضيض القادم: 2061.",
+        "zh": "公转周期约76年的著名周期彗星“哈雷彗星”(1P/Halley)。当接近太阳时，彗核水冰气体升华形成直径数十万公里的彗发与延伸逾1亿公里的壮丽离子/尘埃双彗尾。下一次过近日点为2061年。",
+        "ru": "Самая известная периодическая комета (период ~76 лет). Вблизи Солнца испаряющийся лед образует сияющую кому и хвосты длиной более 100 млн км. Следующий перигелий: 2061 г."
     },
     "SOLAR_SYSTEM": {
         "ja": "私たちの故郷「太陽系」(The Solar System)。中心星である太陽を中心に、岩石惑星(水星・金星・地球・火星)、小惑星帯、巨大ガス・氷惑星(木星・土星・天王星・海王星)、そしてカイパーベルトまで約60AUの広大な空間に整然たる公転軌道が広がっています。はやぶさ2やボイジャー1号など人類の探査機が翔ける宇宙の舞台です。",
@@ -8089,10 +9314,13 @@ function drawAllPlanetaryOrbits() {
         VENUS: { ja: '金星 (Venus)', en: 'Venus', de: 'Venus', fr: 'Vénus', es: 'Venus', pt: 'Vênus', it: 'Venere', ko: '금성 (Venus)', nl: 'Venus', id: 'Venus', hi: 'शुक्र (Venus)', ar: 'الزهرة (Venus)', zh: '金星 (Venus)', ru: 'Венера' },
         EARTH: { ja: '地球 (Earth)', en: 'Earth', de: 'Erde', fr: 'Terre', es: 'Tierra', pt: 'Terra', it: 'Terra', ko: '지구 (Earth)', nl: 'Aarde', id: 'Bumi', hi: 'पृथ्वी (Earth)', ar: 'الأرض (Earth)', zh: '地球 (Earth)', ru: 'Земля' },
         MARS: { ja: '火星 (Mars)', en: 'Mars', de: 'Mars', fr: 'Mars', es: 'Marte', pt: 'Marte', it: 'Marte', ko: '화성 (Mars)', nl: 'Mars', id: 'Mars', hi: 'मंगल (Mars)', ar: 'المريخ (Mars)', zh: '火星 (Mars)', ru: 'Марс' },
+        CERES: { ja: 'ケレス (Ceres)', en: 'Ceres', de: 'Ceres', fr: 'Cérès', es: 'Ceres', pt: 'Ceres', it: 'Cerere', ko: '세레스 (Ceres)', nl: 'Ceres', id: 'Ceres', hi: 'सेरेस (Ceres)', ar: 'سيريس', zh: '谷神星 (Ceres)', ru: 'Церера' },
         JUPITER: { ja: '木星 (Jupiter)', en: 'Jupiter', de: 'Jupiter', fr: 'Jupiter', es: 'Júpiter', pt: 'Júpiter', it: 'Giove', ko: '목성 (Jupiter)', nl: 'Jupiter', id: 'Jupiter', hi: 'बृहस्पति (Jupiter)', ar: 'المشتري (Jupiter)', zh: '木星 (Jupiter)', ru: 'Юпитер' },
         SATURN: { ja: '土星 (Saturn)', en: 'Saturn', de: 'Saturn', fr: 'Saturne', es: 'Saturno', pt: 'Saturno', it: 'Saturno', ko: '토성 (Saturn)', nl: 'Saturnus', id: 'Saturnus', hi: 'शनि (Saturn)', ar: 'زحل (Saturn)', zh: '土星 (Saturn)', ru: 'Сатурн' },
         URANUS: { ja: '天王星 (Uranus)', en: 'Uranus', de: 'Uranus', fr: 'Uranus', es: 'Urano', pt: 'Urano', it: 'Urano', ko: '천왕성 (Uranus)', nl: 'Uranus', id: 'Uranus', hi: 'अरुण (Uranus)', ar: 'أورانوس (Uranus)', zh: '天王星 (Uranus)', ru: 'Уран' },
-        NEPTUNE: { ja: '海王星 (Neptune)', en: 'Neptune', de: 'Neptun', fr: 'Neptune', es: 'Neptuno', pt: 'Netuno', it: 'Nettuno', ko: '해왕성 (Neptune)', nl: 'Neptunus', id: 'Neptunus', hi: 'वरुण (Neptune)', ar: 'نبتون (Neptune)', zh: '海王星 (Neptune)', ru: 'Нептун' }
+        NEPTUNE: { ja: '海王星 (Neptune)', en: 'Neptune', de: 'Neptun', fr: 'Neptune', es: 'Neptuno', pt: 'Netuno', it: 'Nettuno', ko: '해왕성 (Neptune)', nl: 'Neptunus', id: 'Neptunus', hi: 'वरुण (Neptune)', ar: 'نبتون (Neptune)', zh: '海王星 (Neptune)', ru: 'Нептун' },
+        PLUTO: { ja: '冥王星 (Pluto)', en: 'Pluto', de: 'Pluto', fr: 'Pluton', es: 'Plutón', pt: 'Plutão', it: 'Plutone', ko: '명왕성 (Pluto)', nl: 'Pluto', id: 'Pluto', hi: 'प्लूटो (Pluto)', ar: 'بلوتو', zh: '冥王星 (Pluto)', ru: 'Плутон' },
+        HALLEY: { ja: 'ハレー彗星 (Halley)', en: 'Halley Comet', de: 'Halleyscher Komet', fr: 'Comète de Halley', es: 'Cometa Halley', pt: 'Cometa Halley', it: 'Cometa di Halley', ko: '핼리 혜성 (Halley)', nl: 'Komeet Halley', id: 'Komet Halley', hi: 'हैली धूमकेतु', ar: 'مذنب هالي', zh: '哈雷彗星 (Halley)', ru: 'Комета Галлея' }
     };
     const sunNames = {
         ja: '太陽 (Sun)', en: 'Sun', de: 'Sonne', fr: 'Soleil', es: 'Sol', pt: 'Sol', it: 'Sole', ko: '태양 (Sun)', nl: 'Zon', id: 'Matahari', hi: 'सूर्य (Sun)', ar: 'الشمس (Sun)', zh: '太阳 (Sun)', ru: 'Солнце'
@@ -8145,16 +9373,19 @@ function drawAllPlanetaryOrbits() {
     sunEnt.celestialData = { id: 'SUN' };
     solarSystemOrbitEntities.push(sunEnt);
 
-    // 2. 全8惑星（水星〜海王星）- 千鳥配置ラベルで重複を防止
+    // 2. 惑星・準惑星・彗星 - 千鳥配置ラベルで重複を防止
     const planets = [
         { id: 'MERCURY', symbol: '🔘', color: '#cbd5e1', size: 14, labelOffsetY: -18 },
         { id: 'VENUS', symbol: '🟡', color: '#fde047', size: 16, labelOffsetY: 18 },
         { id: 'EARTH', symbol: '🌍', color: '#38bdf8', size: 18, labelOffsetY: -18 },
         { id: 'MARS', symbol: '🔴', color: '#ef4444', size: 15, labelOffsetY: 18 },
+        { id: 'CERES', symbol: '🪨', color: '#a8a29e', size: 13, labelOffsetY: -16 },
         { id: 'JUPITER', symbol: '🟠', color: '#fb923c', size: 26, labelOffsetY: -20 },
         { id: 'SATURN', symbol: '🪐', color: '#fcd34d', size: 24, labelOffsetY: -20 },
         { id: 'URANUS', symbol: '🌀', color: '#38bdf8', size: 18, labelOffsetY: -18 },
-        { id: 'NEPTUNE', symbol: '🌊', color: '#60a5fa', size: 18, labelOffsetY: -18 }
+        { id: 'NEPTUNE', symbol: '🌊', color: '#60a5fa', size: 18, labelOffsetY: 18 },
+        { id: 'PLUTO', symbol: '❄️', color: '#e2e8f0', size: 13, labelOffsetY: -18 },
+        { id: 'HALLEY', symbol: '☄️', color: '#38bdf8', size: 15, labelOffsetY: 20 }
     ];
 
     planets.forEach(p => {
@@ -8164,9 +9395,9 @@ function drawAllPlanetaryOrbits() {
         const scaledR = getOrreryRadius(pData.a);
         const scaleMultiplier = scaledR / pData.a;
 
-        // 公転軌道ループ（ArcType.NONE で超高速描画）
+        // 公転軌道ループ（彗星は近日点付近の曲率が大きいため240サンプル、他は120サンプル）
         const pts = [];
-        const samples = 120;
+        const samples = (p.id === 'HALLEY' ? 240 : 120);
         for (let i = 0; i <= samples; i++) {
             const stepD = d + (i / samples) * pData.periodDays;
             const h = computeHeliocentricCoordinates(pData, stepD);
@@ -8174,16 +9405,17 @@ function drawAllPlanetaryOrbits() {
         }
 
         const isGasGiant = (p.id === 'JUPITER' || p.id === 'SATURN');
+        const isComet = (p.id === 'HALLEY');
         const orbEnt = viewer.entities.add({
             id: 'orrery_orbit_' + p.id,
             name: p.id + ' Orbit',
             polyline: {
                 positions: pts,
-                width: isGasGiant ? 2.8 : 2.0,
+                width: isGasGiant ? 2.8 : (isComet ? 2.2 : 2.0),
                 arcType: Cesium.ArcType.NONE,
                 material: new Cesium.PolylineGlowMaterialProperty({
-                    glowPower: isGasGiant ? 0.32 : 0.22,
-                    color: Cesium.Color.fromCssColorString(p.color).withAlpha(0.65)
+                    glowPower: isGasGiant ? 0.32 : (isComet ? 0.35 : 0.22),
+                    color: Cesium.Color.fromCssColorString(p.color).withAlpha(isComet ? 0.85 : 0.65)
                 })
             }
         });
@@ -8236,6 +9468,27 @@ function drawAllPlanetaryOrbits() {
         });
         markerEnt.celestialData = { id: p.id };
         solarSystemOrbitEntities.push(markerEnt);
+
+        // ハレー彗星の場合は、太陽（原点）と反対方向へ伸びる美しい彗星の尾を描画！
+        if (p.id === 'HALLEY') {
+            const sunToPos = Cesium.Cartesian3.normalize(curPos, new Cesium.Cartesian3());
+            const tailLength = 18000000; // 18,000 km
+            const tailEnd = Cesium.Cartesian3.add(curPos, Cesium.Cartesian3.multiplyByScalar(sunToPos, tailLength, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+            const tailEnt = viewer.entities.add({
+                id: 'orrery_comet_tail_HALLEY',
+                name: 'Halley Comet Tail',
+                polyline: {
+                    positions: [curPos, tailEnd],
+                    width: 4.5,
+                    arcType: Cesium.ArcType.NONE,
+                    material: new Cesium.PolylineGlowMaterialProperty({
+                        glowPower: 0.5,
+                        color: Cesium.Color.fromCssColorString('#38bdf8').withAlpha(0.7)
+                    })
+                }
+            });
+            solarSystemOrbitEntities.push(tailEnt);
+        }
     });
 }
 
@@ -8681,6 +9934,18 @@ function selectCelestialBody(bodyId) {
     selectedDeepSpaceId = null;
     selectedCelestialId = bodyId;
 
+    if (typeof isCupolaActive !== 'undefined' && isCupolaActive) {
+        exitCupolaMode();
+    }
+    const cupolaActionRow = document.getElementById('cupolaActionRow');
+    if (cupolaActionRow) {
+        cupolaActionRow.style.display = 'none';
+    }
+
+    if (typeof CosmicAudio !== 'undefined') {
+        CosmicAudio.playBlip(920, 0.08);
+    }
+
     // Clear existing orbit lines
     clearAllPlanetaryOrbits();
     if (orbitPolylineEntity) {
@@ -8724,7 +9989,10 @@ function selectCelestialBody(bodyId) {
         VENUS: { ja: '金星 (Venus)', en: 'Venus', de: 'Venus', fr: 'Vénus', es: 'Venus', pt: 'Vênus', it: 'Venere', ko: '금성 (Venus)', nl: 'Venus', id: 'Venus', hi: 'शुक्र (Venus)', ar: 'الزهرة', zh: '金星 (Venus)', ru: 'Венера' },
         MERCURY: { ja: '水星 (Mercury)', en: 'Mercury', de: 'Merkur', fr: 'Mercure', es: 'Mercurio', pt: 'Mercúrio', it: 'Mercurio', ko: '수성 (Mercury)', nl: 'Mercurius', id: 'Merkurius', hi: 'बुध (Mercury)', ar: 'عطارد', zh: '水星 (Mercury)', ru: 'Меркурий' },
         URANUS: { ja: '天王星 (Uranus)', en: 'Uranus', de: 'Uranus', fr: 'Uranus', es: 'Urano', pt: 'Urano', it: 'Urano', ko: '천왕성 (Uranus)', nl: 'Uranus', id: 'Uranus', hi: 'अरुण (Uranus)', ar: 'أورانوس', zh: '天王星 (Uranus)', ru: 'Уран' },
-        NEPTUNE: { ja: '海王星 (Neptune)', en: 'Neptune', de: 'Neptun', fr: 'Neptune', es: 'Neptuno', pt: 'Netuno', it: 'Nettuno', ko: '해왕성 (Neptune)', nl: 'Neptunus', id: 'Neptunus', hi: 'वरुण (Neptune)', ar: 'نبتون', zh: '海王星 (Neptune)', ru: 'Нептун' }
+        NEPTUNE: { ja: '海王星 (Neptune)', en: 'Neptune', de: 'Neptun', fr: 'Neptune', es: 'Neptuno', pt: 'Netuno', it: 'Nettuno', ko: '해왕성 (Neptune)', nl: 'Neptunus', id: 'Neptunus', hi: 'वरुण (Neptune)', ar: 'نبتون', zh: '海王星 (Neptune)', ru: 'Нептун' },
+        CERES: { ja: 'ケレス (Ceres)', en: 'Ceres', de: 'Ceres', fr: 'Cérès', es: 'Ceres', pt: 'Ceres', it: 'Cerere', ko: '세레스 (Ceres)', nl: 'Ceres', id: 'Ceres', hi: 'सेरेस (Ceres)', ar: 'سيريس', zh: '谷神星 (Ceres)', ru: 'Церера' },
+        PLUTO: { ja: '冥王星 (Pluto)', en: 'Pluto', de: 'Pluto', fr: 'Pluton', es: 'Plutón', pt: 'Plutão', it: 'Plutone', ko: '명왕성 (Pluto)', nl: 'Pluto', id: 'Pluto', hi: 'प्लूटो (Pluto)', ar: 'بلوتو', zh: '冥王星 (Pluto)', ru: 'Плутон' },
+        HALLEY: { ja: 'ハレー彗星 (Halley)', en: 'Halley Comet', de: 'Halleyscher Komet', fr: 'Comète de Halley', es: 'Cometa Halley', pt: 'Cometa Halley', it: 'Cometa di Halley', ko: '핼리 혜성 (Halley)', nl: 'Komeet Halley', id: 'Komet Halley', hi: 'हैली धूमकेतु', ar: 'مذنب هالي', zh: '哈雷彗星 (Halley)', ru: 'Комета Галлея' }
     };
 
     // Update Detail Card Header with 14-Language Badges and Subtitles
@@ -8750,7 +10018,10 @@ function selectCelestialBody(bodyId) {
             VENUS: { url: 'assets/planet_images/venus.jpg', cap: 'NASA / Mariner 10 (Public Domain)' },
             MERCURY: { url: 'assets/planet_images/mercury.jpg', cap: 'NASA / JHUAPL / MESSENGER (Public Domain)' },
             URANUS: { url: 'assets/planet_images/uranus.jpg', cap: 'NASA / Voyager 2 (Public Domain)' },
-            NEPTUNE: { url: 'assets/planet_images/neptune.jpg', cap: 'NASA / JPL / Voyager 2 (Public Domain)' }
+            NEPTUNE: { url: 'assets/planet_images/neptune.jpg', cap: 'NASA / JPL / Voyager 2 (Public Domain)' },
+            CERES: { url: 'assets/planet_images/ceres.jpg', cap: 'NASA / JPL-Caltech / UCLA / MPS / DLR / IDA / Dawn (Public Domain)' },
+            PLUTO: { url: 'assets/planet_images/pluto.jpg', cap: 'NASA / JHUAPL / SwRI / New Horizons (Public Domain)' },
+            HALLEY: { url: 'assets/planet_images/halley.jpg', cap: 'ESA / Giotto / Max Planck Institute (Public Domain)' }
         };
         const planetImg = textureMap[body.id];
         if (planetImg) {
@@ -9205,7 +10476,10 @@ function updateDropdownOptions() {
         VENUS: { ja: '🟡 金星 (Venus)', en: '🟡 Venus', de: '🟡 Venus', fr: '🟡 Vénus', es: '🟡 Venus', pt: '🟡 Vênus', it: '🟡 Venere', ko: '🟡 금성 (Venus)', nl: '🟡 Venus', id: '🟡 Venus', hi: '🟡 शुक्र (Venus)', ar: '🟡 الزهرة', zh: '🟡 金星 (Venus)', ru: '🟡 Венера' },
         MERCURY: { ja: '🔘 水星 (Mercury)', en: '🔘 Mercury', de: '🔘 Merkur', fr: '🔘 Mercure', es: '🔘 Mercurio', pt: '🔘 Mercurio', it: '🔘 Mercurio', ko: '🔘 수성 (Mercury)', nl: '🔘 Mercurius', id: '🔘 Merkurius', hi: '🔘 बुध (Mercury)', ar: '🔘 عطارد', zh: '🔘 水星 (Mercury)', ru: '🔘 Меркурий' },
         URANUS: { ja: '🌀 天王星 (Uranus)', en: '🌀 Uranus', de: '🌀 Uranus', fr: '🌀 Uranus', es: '🌀 Urano', pt: '🌀 Urano', it: '🌀 Urano', ko: '🌀 천왕성 (Uranus)', nl: '🌀 Uranus', id: '🌀 Uranus', hi: '🌀 अरुण (Uranus)', ar: '🌀 أورانوس', zh: '🌀 天王星 (Uranus)', ru: '🌀 Уран' },
-        NEPTUNE: { ja: '🌊 海王星 (Neptune)', en: '🌊 Neptune', de: '🌊 Neptun', fr: '🌊 Neptune', es: '🌊 Neptuno', pt: '🌊 Netuno', it: '🌊 Nettuno', ko: '🌊 해왕성 (Neptune)', nl: '🌊 Neptunus', id: '🌊 Neptunus', hi: '🌊 वरुण (Neptune)', ar: '🌊 نبتون', zh: '🌊 海王星 (Neptune)', ru: '🌊 Нептун' },
+        NEPTUNE: { ja: '🌊 海王星 (Neptune)', en: 'Neptune', de: 'Neptun', fr: 'Neptune', es: 'Neptuno', pt: 'Netuno', it: 'Nettuno', ko: '해왕성 (Neptune)', nl: 'Neptunus', id: 'Neptunus', hi: 'वरुण (Neptune)', ar: 'نبتون', zh: '海王星 (Neptune)', ru: 'Нептун' },
+        CERES: { ja: '🪨 ケレス (Ceres)', en: '🪨 Ceres', de: '🪨 Ceres', fr: '🪨 Cérès', es: '🪨 Ceres', pt: '🪨 Ceres', it: '🪨 Cerere', ko: '🪨 세레스 (Ceres)', nl: '🪨 Ceres', id: '🪨 Ceres', hi: '🪨 सेरेस (Ceres)', ar: '🪨 سيريس', zh: '🪨 谷神星 (Ceres)', ru: '🪨 Церера' },
+        PLUTO: { ja: '❄️ 冥王星 (Pluto)', en: '❄️ Pluto', de: '❄️ Pluto', fr: '❄️ Pluton', es: '❄️ Plutón', pt: '❄️ Plutão', it: '❄️ Plutone', ko: '❄️ 명왕성 (Pluto)', nl: '❄️ Pluto', id: '❄️ Pluto', hi: '❄️ प्लूटो (Pluto)', ar: '❄️ بلوتو', zh: '❄️ 冥王星 (Pluto)', ru: '❄️ Плутон' },
+        HALLEY: { ja: '☄️ ハレー彗星 (Halley)', en: '☄️ Halley Comet', de: '☄️ Halleyscher Komet', fr: '☄️ Comète de Halley', es: '☄️ Cometa Halley', pt: '☄️ Cometa Halley', it: '☄️ Cometa di Halley', ko: '☄️ 핼리 혜성 (Halley)', nl: '☄️ Komeet Halley', id: '☄️ Komet Halley', hi: '☄️ हैली धूमकेतु', ar: '☄️ مذنب هالي', zh: '☄️ 哈雷彗星 (Halley)', ru: '☄️ Комета Галлея' },
         SOLAR_SYSTEM: { ja: '🌌 太陽系全体 (Solar System Orrery)', en: '🌌 Solar System (Orrery View)', de: '🌌 Sonnensystem (Orrery-Ansicht)', fr: '🌌 Système Solaire (Vue Orrery)', es: '🌌 Sistema Solar (Vista Orrery)', pt: '🌌 Sistema Solar (Visão Orrery)', it: '🌌 Sistema Solare (Vista Orrery)', ko: '🌌 태양계 전체 (Solar System Orrery)', nl: '🌌 Zonnestelsel (Orrery-weergave)', id: '🌌 Tata Surya Lengkap (Tampilan Orrery)', hi: '🌌 संपूर्ण सौर मंडल (ऑरेरी दृश्य)', ar: '🌌 النظام الشمسي بالكامل (عرض الأوريري)', zh: '🌌 太阳系全景 (Orrery太阳系仪)', ru: '🌌 Вся Солнечная система (Оррери)' }
     };
 
@@ -10235,7 +11509,28 @@ function selectSatellite(index) {
     if (satDescription) {
         satDescription.textContent = getSatDescription(sat.name);
     }
+
+    const cupolaActionRow = document.getElementById('cupolaActionRow');
+    const cupolaLaunchIcon = document.getElementById('cupolaLaunchIcon');
+    const cupolaLaunchText = document.getElementById('cupolaLaunchText');
+    if (cupolaActionRow) {
+        cupolaActionRow.style.display = 'flex';
+        const isIss = (sat.name.includes('ISS') || sat.noradId === '25544');
+        const lang = window.currentLang || currentLang || 'ja';
+        const dict = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[lang]) || {};
+        if (cupolaLaunchIcon) cupolaLaunchIcon.textContent = isIss ? '👨‍🚀' : '🛰️';
+        if (cupolaLaunchText) {
+            cupolaLaunchText.textContent = isIss 
+                ? (dict.btnCupola || 'ISS キューポラ展望窓 (搭乗視点)') 
+                : (dict.btnSatPov || '衛星搭乗カメラ (オンボード視点)');
+        }
+    }
+
     detailCard.classList.remove('hidden');
+
+    if (typeof CosmicAudio !== 'undefined') {
+        CosmicAudio.playBlip(780, 0.06);
+    }
 
     if (!toggleOrbits || toggleOrbits.checked) {
         drawOrbitPath(sat);
@@ -10327,6 +11622,13 @@ function deselectSatellite() {
         Object.values(deepSpaceDomLabels).forEach(lbl => {
             if (lbl) lbl.classList.remove('selected');
         });
+    }
+    if (typeof isCupolaActive !== 'undefined' && isCupolaActive) {
+        exitCupolaMode();
+    }
+    const cupolaActionRow = document.getElementById('cupolaActionRow');
+    if (cupolaActionRow) {
+        cupolaActionRow.style.display = 'none';
     }
     satSelect.value = "";
     detailCard.classList.add('hidden');
@@ -11559,6 +12861,75 @@ function setupEventListeners() {
             }
         });
     }
+
+    // Sound Toggle Button Listener
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    if (soundToggleBtn) {
+        soundToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            CosmicAudio.toggle();
+        });
+        if (localStorage.getItem('satviewer_sound_enabled') === 'true') {
+            const startOnce = () => {
+                if (localStorage.getItem('satviewer_sound_enabled') === 'true' && !CosmicAudio.isPlaying) {
+                    CosmicAudio.startAmbient();
+                }
+            };
+            window.addEventListener('click', startOnce, { once: true });
+            window.addEventListener('touchstart', startOnce, { once: true });
+        }
+    }
+
+    // Historical Time Travel Preset Buttons
+    document.querySelectorAll('.historical-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const evId = btn.getAttribute('data-event');
+            executeHistoricalEvent(evId);
+        });
+    });
+
+    // ISS Cupola & Satellite POV Launch Buttons
+    const btnCupolaLaunch = document.getElementById('btnCupolaLaunch');
+    if (btnCupolaLaunch) {
+        btnCupolaLaunch.addEventListener('click', (e) => {
+            e.stopPropagation();
+            enterCupolaMode(selectedSatIndex);
+        });
+    }
+
+    const exitCupolaBtn = document.getElementById('exitCupolaBtn');
+    if (exitCupolaBtn) {
+        exitCupolaBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            exitCupolaMode();
+        });
+    }
+
+    // Escape Key to Exit Cupola View
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isCupolaActive) {
+            exitCupolaMode();
+        }
+    });
+
+    // Social Share Buttons (X / Twitter & Copy Link)
+    const shareTwitterBtn = document.getElementById('shareTwitterBtn');
+    if (shareTwitterBtn) {
+        shareTwitterBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            shareCurrentViewToTwitter();
+        });
+    }
+
+    const copyShareBtn = document.getElementById('copyShareBtn');
+    if (copyShareBtn) {
+        copyShareBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            copyCurrentViewLink();
+        });
+    }
+
     setupDraggablePanels();
 }
 
@@ -11825,6 +13196,9 @@ function performSearch(rawQuery) {
         MERCURY: ['水星', 'すいせい', 'スイセイ', 'MERCURY', 'MERCURE', 'MERCURIO', 'MERKURIUS', 'MERKUR', '수성', 'बुध', 'عطارد', 'МЕРКУРИЙ'],
         URANUS: ['天王星', 'てんのうせい', 'テンノウセイ', 'URANUS', 'URANO', '천왕성', 'अरुण', 'أورانوس', 'УРАН'],
         NEPTUNE: ['海王星', 'かいおうせい', 'カイオウセイ', 'NEPTUNE', 'NEPTUN', 'NEPTUNO', 'NETUNO', 'NETTUNO', '해왕성', 'NEPTUNUS', 'वरुण', 'نبتون', 'НЕПТУН'],
+        CERES: ['ケレス', 'セレス', 'けれす', 'せれす', 'CERES', 'CÉRÈS', 'CERERE', '세레스', '谷神星', 'ЦЕРЕРА', 'DAWN', 'ドーン', '小惑星帯', 'ASTEROID', 'DWARF PLANET'],
+        PLUTO: ['冥王星', 'めいおうせい', 'メイオウセイ', 'PLUTO', 'PLUTON', 'PLUTÓN', 'PLUTÃO', 'PLUTONE', '명왕성', 'प्लूटो', 'بلوتو', 'ПЛУТОН', 'NEW HORIZONS', 'ニューホライズンズ', 'CHARON', 'カロン', 'カイパーベルト', 'KUIPER'],
+        HALLEY: ['ハレー彗星', 'ハレー', 'はれー', 'はれーすいせい', 'HALLEY', '1P', '1P/HALLEY', 'COMET HALLEY', 'COMÈTE', 'COMETA', '핼리', 'हैली', 'هالي', '哈雷', 'ГАЛЛЕЙ', '彗星', 'COMET'],
         SOLAR_SYSTEM: ['太陽系', 'たいようけい', 'タイヨウケイ', 'SOLAR SYSTEM', 'ORRERY', 'PLANETARY SYSTEM', 'SONNENSYSTEM', 'SYSTÈME SOLAIRE', 'SISTEMA SOLAR', '태양계', 'ZONNESTELSEL', 'TATA SURYA', 'सौर मंडल', 'النظام الشمسي', 'СОЛНЕЧНАЯ СИСТЕМА']
     };
 

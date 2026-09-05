@@ -201,8 +201,11 @@
                     <a href="/articles/" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.5); color: #38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; border-radius:6px;">
                         📚 宇宙コラム
                     </a>
+                    <button id="soundToggleBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer;" title="宇宙アンビエント音 ON/OFF" data-i18n="soundToggle">
+                        🔇 サウンド OFF
+                    </button>
                     <button id="openReleaseBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer;" data-i18n="btnRelease">
-                        📜 v2.6 更新履歴
+                        📜 v2.7 更新履歴
                     </button>
                     <button id="openGuideBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer;" data-i18n="btnGuide">
                         ❓ ガイド & 規約
@@ -298,6 +301,30 @@
                 <div class="time-adjust-row">
                     <input type="text" id="timePickerInput" lang="ja" class="custom-select" style="font-size: 0.8rem; padding: 6px;" placeholder="📅 Select Date & Time...">
                     <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="現在時刻へ復帰" data-i18n="resetNow">🔄 現在時刻</button>
+                </div>
+
+                <!-- Historical Time Travel Presets -->
+                <div class="time-travel-box">
+                    <div style="font-size:0.75rem; font-weight:700; color:#fbbf24; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+                        <span>⏳</span> <span data-i18n="historicalTimeTravelTitle">歴史的瞬間タイムトラベル</span>
+                    </div>
+                    <div class="historical-event-buttons" style="display:grid; grid-template-columns: 1fr 1fr; gap:5px;">
+                        <button class="btn btn-secondary historical-btn" data-event="apollo11" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="1969年7月20日 20:17 UTC">
+                            🌕 <strong>アポロ11号</strong><br><span style="font-size:0.65rem; opacity:0.8;">1969.07.20 月着陸</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="voyager1" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="1979年3月5日 12:05 UTC">
+                            🪐 <strong>ボイジャー1号</strong><br><span style="font-size:0.65rem; opacity:0.8;">1979.03.05 木星接近</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="halley1986" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="1986年2月9日 00:00 UTC">
+                            ☄️ <strong>ハレー彗星</strong><br><span style="font-size:0.65rem; opacity:0.8;">1986.02.09 近日点</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="voyager2neptune" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="1989年8月25日 03:56 UTC">
+                            🌊 <strong>ボイジャー2号</strong><br><span style="font-size:0.65rem; opacity:0.8;">1989.08.25 海王星</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="sputnik1" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3; grid-column: 1 / -1;" title="1957年10月4日 19:28 UTC">
+                            🛰️ <strong>スプートニク1号 (宇宙時代の幕開け)</strong><br><span style="font-size:0.65rem; opacity:0.8;">1957.10.04 人類初の人工衛星</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -461,6 +488,24 @@
                     <span data-i18n="btnTrack">🎯 追跡カメラフォーカス</span>
                 </button>
                 <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 追跡解除</button>
+            </div>
+            <!-- Cupola / Onboard Camera POV Button (Visible when satellite/ISS is selected) -->
+            <div id="cupolaActionRow" class="card-actions" style="margin-top: 6px;">
+                <button class="btn btn-primary cupola-launch-btn" id="btnCupolaLaunch" style="width: 100%; background: linear-gradient(135deg, #0284c7, #06b6d4); font-weight:700; border: 1px solid #38bdf8; box-shadow: 0 0 14px rgba(56,189,248,0.35); display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <span id="cupolaLaunchIcon">👨‍🚀</span>
+                    <span id="cupolaLaunchText" data-i18n="btnCupola">ISS キューポラ展望窓 (搭乗視点)</span>
+                </button>
+            </div>
+            <!-- Social Share Actions Row -->
+            <div class="card-actions" style="margin-top: 6px; display: flex; gap: 6px;">
+                <button class="btn btn-secondary" id="shareTwitterBtn" style="flex: 1; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); color: #f8fafc; font-weight:600; display: flex; align-items: center; justify-content: center; gap: 6px;" title="X (Twitter) で現在の衛星・天体をシェア">
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    <span data-i18n="btnShareTwitter">𝕏 シェア</span>
+                </button>
+                <button class="btn btn-secondary" id="copyShareBtn" style="flex: 1; background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.35); color: #38bdf8; font-weight:600; display: flex; align-items: center; justify-content: center; gap: 6px;" title="共有URLとテキストをクリップボードにコピー">
+                    <span>📋</span>
+                    <span data-i18n="btnCopyShare">コピー</span>
+                </button>
             </div>
             </div>
         </div>
@@ -718,6 +763,83 @@
                 <span class="zoom-hint-title">🔍 2本指ピンチでズーム</span>
                 <span class="zoom-hint-sub">画面をつまんで地球全体を見渡せます</span>
             </div>
+        </div>
+    </div>
+
+    <!-- ISS Cupola View & Astronaut POV Overlay -->
+    <div id="cupolaOverlay" class="cupola-overlay hidden">
+        <!-- SVG Cockpit Frame -->
+        <svg viewBox="0 0 1400 900" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
+            <defs>
+                <mask id="cupolaWindowsMask">
+                    <rect width="1400" height="900" fill="white" />
+                    <!-- Center Window -->
+                    <circle cx="700" cy="460" r="310" fill="black" />
+                    <!-- 6 Outer Trapezoid Windows -->
+                    <polygon points="540,60 860,60 820,135 580,135" fill="black" />
+                    <polygon points="1060,160 1260,330 1190,390 1010,250" fill="black" />
+                    <polygon points="1260,590 1060,760 1010,670 1190,530" fill="black" />
+                    <polygon points="860,860 540,860 580,785 820,785" fill="black" />
+                    <polygon points="340,760 140,590 210,530 390,670" fill="black" />
+                    <polygon points="140,330 340,160 390,250 210,390" fill="black" />
+                </mask>
+                <radialGradient id="cupolaVignette" cx="50%" cy="51%" r="50%">
+                    <stop offset="65%" stop-color="rgba(0,0,0,0)" />
+                    <stop offset="92%" stop-color="rgba(0,0,0,0.4)" />
+                    <stop offset="100%" stop-color="rgba(0,0,0,0.85)" />
+                </radialGradient>
+            </defs>
+            <rect width="1400" height="900" fill="#090d16" mask="url(#cupolaWindowsMask)" />
+            <!-- Outer Ring Struts -->
+            <circle cx="700" cy="460" r="312" fill="none" stroke="#334155" stroke-width="8" />
+            <circle cx="700" cy="460" r="316" fill="none" stroke="#1e293b" stroke-width="5" />
+            <circle cx="700" cy="460" r="308" fill="none" stroke="rgba(56,189,248,0.45)" stroke-width="1.5" />
+            <!-- Rivets -->
+            <g id="cupolaRivetsGroup"></g>
+            <!-- 6 Radial Strut Lines -->
+            <line x1="985" y1="625" x2="1392" y2="860" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+            <line x1="985" y1="625" x2="1392" y2="860" stroke="#475569" stroke-width="2"/>
+            <line x1="700" y1="790" x2="700" y2="900" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+            <line x1="700" y1="790" x2="700" y2="900" stroke="#475569" stroke-width="2"/>
+            <line x1="415" y1="625" x2="8" y2="860" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+            <line x1="415" y1="625" x2="8" y2="860" stroke="#475569" stroke-width="2"/>
+            <line x1="415" y1="295" x2="8" y2="60" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+            <line x1="415" y1="295" x2="8" y2="60" stroke="#475569" stroke-width="2"/>
+            <line x1="700" y1="130" x2="700" y2="0" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+            <line x1="700" y1="130" x2="700" y2="0" stroke="#475569" stroke-width="2"/>
+            <line x1="985" y1="295" x2="1392" y2="60" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+            <line x1="985" y1="295" x2="1392" y2="60" stroke="#475569" stroke-width="2"/>
+            <!-- Reticle Crosshair HUD -->
+            <circle cx="700" cy="460" r="36" fill="none" stroke="rgba(56,189,248,0.3)" stroke-width="1" stroke-dasharray="4 4" />
+            <line x1="675" y1="460" x2="725" y2="460" stroke="rgba(56,189,248,0.5)" stroke-width="1.2" />
+            <line x1="700" y1="435" x2="700" y2="485" stroke="rgba(56,189,248,0.5)" stroke-width="1.2" />
+            <rect width="1400" height="900" fill="url(#cupolaVignette)" pointer-events="none" />
+        </svg>
+
+        <!-- Top Telemetry Strip -->
+        <div class="cupola-header">
+            <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+                <div class="cupola-badge">
+                    <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981;"></span>
+                    <span id="cupolaTitleText" data-i18n="cupolaTitle">👨‍🚀 ISS キューポラ展望窓 (Cupola Observation Deck)</span>
+                </div>
+                <div class="cupola-telemetry">
+                    <span>高度: <strong id="cupolaAlt" style="color:#38bdf8;">--- km</strong></span>
+                    <span>速度: <strong id="cupolaSpeed" style="color:#38bdf8;">--- km/s</strong></span>
+                    <span>位置: <strong id="cupolaCoords" style="color:#fbbf24;">--°, --°</strong></span>
+                    <span>環境: <strong id="cupolaLighting" style="color:#10b981;">☀️ 昼間域 (Sunlit)</strong></span>
+                </div>
+            </div>
+            <button id="exitCupolaBtn" class="cupola-exit-btn" data-i18n="exitCupola">
+                ✕ 通常視点に戻る (Exit Cupola)
+            </button>
+        </div>
+
+        <!-- Bottom Status Bar -->
+        <div class="cupola-footer">
+            <span id="cupolaFooterText">🛰️ 国際宇宙ステーション (ISS) • 欧州宇宙機関(ESA)製造「キューポラ」展望窓から地球を見下ろしています</span>
+            <span style="color:#38bdf8;">|</span>
+            <span data-i18n="cupolaHint">🖱️ 画面ドラッグで展望窓からの見渡し自由回転</span>
         </div>
     </div>
 </body>
