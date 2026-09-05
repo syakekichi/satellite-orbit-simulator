@@ -34,7 +34,21 @@ jobs:
         env:
           X_AUTH_JSON: ${{ secrets.X_AUTH_JSON }}
         run: |
-          python -c "import os, sys; content = os.environ.get('X_AUTH_JSON', '').strip(); sys.exit('Error: X_AUTH_JSON secret is empty!') if not content else open('auth.json', 'w', encoding='utf-8').write(content)"
+          python - << 'EOF'
+          import os, sys, json
+          content = os.environ.get('X_AUTH_JSON', '').strip()
+          if not content:
+              sys.exit('❌ [ERROR] GitHub Secret "X_AUTH_JSON" is empty!')
+          try:
+              data = json.loads(content)
+              if not isinstance(data, dict):
+                  raise ValueError("Expected a JSON object")
+          except Exception as e:
+              sys.exit(f'❌ [ERROR] X_AUTH_JSON is not valid JSON ({e})!\n⚠️ Make sure you paste the ENTIRE TEXT CONTENT of auth.json, NOT the file name or file path!')
+          with open('auth.json', 'w', encoding='utf-8') as f:
+              f.write(content)
+          print('✅ Successfully restored auth.json')
+          EOF
 
       - name: Run Master Satellite Bot
         env:

@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import json
 from dotenv import load_dotenv
 
 # Windows コンソールの文字コード対応
@@ -103,6 +104,20 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
                     context = browser.new_context(viewport={"width": 1280, "height": 900})
         elif os.path.exists(AUTH_FILE):
             print(f"[INFO] '{AUTH_FILE}' を使用してセッションを復元します（クラウド・汎用モード）")
+            # auth.json が空または不正な形式でないか事前検証
+            try:
+                with open(AUTH_FILE, "r", encoding="utf-8") as f:
+                    auth_content = f.read().strip()
+                if not auth_content:
+                    raise ValueError("ファイルの内容が空です")
+                parsed_state = json.loads(auth_content)
+                if not isinstance(parsed_state, dict):
+                    raise ValueError("JSONオブジェクト形式ではありません")
+            except Exception as e:
+                print(f"❌ [ERROR] '{AUTH_FILE}' の形式が不正です: {e}")
+                print("⚠️ 原因: GitHub Secrets の X_AUTH_JSON に、auth.json のファイル名やパスではなく【ファイルの中身全体（JSONテキスト）】が登録されているか確認してください。")
+                return False
+
             browser = p.chromium.launch(
                 headless=headless,
                 args=[
@@ -150,6 +165,21 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
                 else: context.close()
                 return False
 
+            # 未ログイン状態（セッション無効・失効）の検知
+            # 未ログイン状態で compose/post にアクセスすると、Xはログイン画面やお勧めアカウント/トレンド画面等にリダイレクトします
+            login_btn = page.locator('[data-testid="loginButton"], a[href="/login"], [data-testid="signupButton"]')
+            if (login_btn.count() > 0 and login_btn.first.is_visible()) or ("compose/post" not in current_url and "home" not in current_url):
+                print(f"❌ [NOT LOGGED IN] Xのセッション（auth.json）が無効または期限切れです。")
+                print(f"    (未ログインまたは別画面へリダイレクトされました: {current_url})")
+                print("👉 対処法: 通常のブラウザでアカウントに手動ログインできるか（制限等がかかっていないか）確認し、auth.json を再生成して GitHub Secrets を更新してください。")
+                try:
+                    page.screenshot(path="login_error.png")
+                except:
+                    pass
+                if browser: browser.close()
+                else: context.close()
+                return False
+
             # 新規投稿モーダル内のエディタを取得
             print("[INFO] 新規投稿欄を取得してテキストを入力します...")
             editor = page.locator('div[role="dialog"] div[data-testid="tweetTextarea_0"], div[data-testid="tweetTextarea_0"]').first
@@ -180,14 +210,30 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
             except:
                 pass
 
-            # 送信の実行 (ボタンクリック優先)
+            # 送信の実行 (ボタンクリック + ショートカットの強固な2段構え)
             print("[INFO] ポスト送信を実行中...")
             btn = page.locator('button[data-testid="tweetButtonInline"], button[data-testid="tweetButton"]').first
-            if btn.is_visible() and btn.is_enabled():
-                btn.click()
-            else:
-                editor.focus()
-                editor.press("Control+Enter")
+            submitted = False
+            try:
+                if btn.is_visible(timeout=5000) and btn.is_enabled():
+                    try:
+                        btn.scroll_into_view_if_needed(timeout=2000)
+                    except:
+                        pass
+                    btn.click(force=True, timeout=5000)
+                    submitted = True
+                    print("[INFO] 送信ボタンのクリック（force=True）に成功しました。")
+            except Exception as e:
+                print(f"[WARN] 送信ボタンの直接クリックに失敗 ({e})。Control+Enter ショートカット送信に切り替えます。")
+
+            if not submitted:
+                try:
+                    editor.focus()
+                    editor.press("Control+Enter")
+                    print("[INFO] Control+Enter によるショートカット送信を実行しました。")
+                except Exception as e:
+                    print(f"[WARN] エディタへのControl+Enter送信失敗: {e}")
+                    page.keyboard.press("Control+Enter")
 
             print("[INFO] 送信完了を待機・ダイアログ処理中...")
             time.sleep(5)
