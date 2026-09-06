@@ -496,6 +496,7 @@ aside#sidebarPanel.hud-sidebar {
     min-width: 300px;
     max-width: 520px;
     max-height: calc(100vh - 160px);
+    z-index: 950;
     overflow-y: auto;
     resize: both;
     box-sizing: border-box;

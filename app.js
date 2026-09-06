@@ -965,7 +965,9 @@ const TRANSLATIONS = {
         "soundOn": "🔊 サウンド ON",
         "soundOff": "🔇 サウンド OFF",
         "historicalTimeTravelTitle": "⏳ 歴史的瞬間タイムトラベル",
-        "btnShareTwitter": "𝕏 シェア",
+        "btnShareTwitter": "𝕏 画像付きシェア",
+        "btnSaveScreenshot": "📸 撮影",
+        "headerScreenshot": "📸 スクショ",
         "btnCopyShare": "📋 コピー",
         "btnRelease": "📜 v2.7 更新履歴",
         "btnGuide": "❓ ガイド & 規約",
@@ -1109,7 +1111,9 @@ const TRANSLATIONS = {
         "soundOn": "🔊 Sound ON",
         "soundOff": "🔇 Sound OFF",
         "historicalTimeTravelTitle": "⏳ Historical Time Travel",
-        "btnShareTwitter": "𝕏 Share",
+        "btnShareTwitter": "𝕏 Share with Image",
+        "btnSaveScreenshot": "📸 Capture",
+        "headerScreenshot": "📸 Snapshot",
         "btnCopyShare": "📋 Copy",
         "btnRelease": "📜 v2.7 Release Notes",
         "btnGuide": "❓ Guide & Terms",
@@ -3390,14 +3394,272 @@ function generateCurrentShareData() {
     return { text, url };
 }
 
-function shareCurrentViewToTwitter() {
+// Preload SatViewer3D official QR code for instant capture
+const satViewerQrImage = new Image();
+satViewerQrImage.crossOrigin = 'anonymous';
+satViewerQrImage.src = 'assets/satviewer3d_qr.png?v=20260906_1';
+
+/**
+ * Capture current 3D universe scene as Blob (with authentic brand badge, URL, and QR code)
+ */
+async function captureCurrentSceneBlob() {
+    if (!viewer || !viewer.scene) return null;
+
+    // 最新フレームを確実に同期レンダリング
+    viewer.render();
+    const sourceCanvas = viewer.scene.canvas;
+    if (!sourceCanvas) return null;
+
+    const offscreen = document.createElement('canvas');
+    offscreen.width = sourceCanvas.width;
+    offscreen.height = sourceCanvas.height;
+    const ctx = offscreen.getContext('2d');
+    if (!ctx) return null;
+
+    // WebGL Canvasを描画
+    ctx.drawImage(sourceCanvas, 0, 0);
+
+    const w = offscreen.width;
+    const h = offscreen.height;
+    const scale = Math.max(0.85, Math.min(w, h) / 1080);
+
+    // QRコード画像のロード確認（未ロードならロード待ち）
+    if (!satViewerQrImage.complete || satViewerQrImage.naturalWidth === 0) {
+        await new Promise((resolve) => {
+            satViewerQrImage.onload = resolve;
+            satViewerQrImage.onerror = resolve;
+            setTimeout(resolve, 800);
+        });
+    }
+
+    // 1. 右下：SatViewer3D 公式ブランド ＆ URL ＆ QRコード ガラス調カードバッジ
+    const badgePadding = Math.round(12 * scale);
+    const qrSize = Math.round(82 * scale);
+    const badgeW = Math.round(330 * scale);
+    const badgeH = qrSize + (badgePadding * 2);
+    const badgeX = w - badgeW - Math.round(20 * scale);
+    const badgeY = h - badgeH - Math.round(20 * scale);
+    const radius = Math.round(12 * scale);
+
+    ctx.save();
+    // パネル影
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+    ctx.shadowBlur = 18 * scale;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 6 * scale;
+
+    // パネル背景（半透明深宇宙ネイビー）
+    ctx.fillStyle = 'rgba(11, 19, 41, 0.88)';
+    ctx.beginPath();
+    ctx.roundRect(badgeX, badgeY, badgeW, badgeH, radius);
+    ctx.fill();
+
+    // サイバーシアン境界線
+    ctx.lineWidth = 1.2 * scale;
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+    ctx.stroke();
+    ctx.restore();
+
+    // QRコード描画（白の角丸プレート上にくっきり配置）
+    if (satViewerQrImage.complete && satViewerQrImage.naturalWidth > 0) {
+        const qrX = badgeX + badgeW - qrSize - badgePadding;
+        const qrY = badgeY + badgePadding;
+        const qrPlateRadius = Math.round(6 * scale);
+
+        ctx.save();
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.roundRect(qrX, qrY, qrSize, qrSize, qrPlateRadius);
+        ctx.fill();
+        ctx.drawImage(satViewerQrImage, qrX + 2, qrY + 2, qrSize - 4, qrSize - 4);
+        ctx.restore();
+    }
+
+    // バッジ内テキスト
+    const textLeft = badgeX + badgePadding + Math.round(2 * scale);
+    const currentLangCode = window.currentLang || (typeof currentLang !== 'undefined' ? currentLang : 'ja');
+    const qrScanHint = (currentLangCode === 'ja') 
+        ? '📱 スマホでスキャンして3D起動' 
+        : '📱 Scan QR to launch 3D Earth';
+
+    ctx.save();
+    ctx.textBaseline = 'top';
+
+    // タイトル: SatViewer3D
+    ctx.font = `700 ${Math.round(18 * scale)}px 'Outfit', -apple-system, sans-serif`;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('SatViewer3D', textLeft, badgeY + badgePadding + Math.round(2 * scale));
+
+    // サブタイトル
+    ctx.font = `500 ${Math.round(10.5 * scale)}px 'Outfit', -apple-system, sans-serif`;
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillText('Real-time 3D Space Visualizer', textLeft, badgeY + badgePadding + Math.round(24 * scale));
+
+    // 公式URL: https://satviewer3d.com/
+    ctx.font = `700 ${Math.round(13.5 * scale)}px 'JetBrains Mono', monospace`;
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillText('https://satviewer3d.com/', textLeft, badgeY + badgePadding + Math.round(42 * scale));
+
+    // スキャン案内
+    ctx.font = `500 ${Math.round(10 * scale)}px 'Outfit', -apple-system, sans-serif`;
+    ctx.fillStyle = '#cbd5e1';
+    ctx.fillText(qrScanHint, textLeft, badgeY + badgePadding + Math.round(62 * scale));
+    ctx.restore();
+
+    // 2. 左下：選択中の天体/衛星バッジ
+    let badgeText = '';
+    if (selectedDeepSpaceId && typeof DEEP_SPACE_MISSIONS !== 'undefined') {
+        const m = DEEP_SPACE_MISSIONS.find(x => x.id === selectedDeepSpaceId);
+        badgeText = m ? `${m.symbol} ${m.shortName || m.name}` : `🔭 ${selectedDeepSpaceId}`;
+    } else if (selectedCelestialId) {
+        const bodyNames = {
+            SUN: '☀️ 太陽 (Sun)', MOON: '🌕 月 (Moon)', EARTH: '🌍 地球 (Earth)',
+            MARS: '♂️ 火星 (Mars)', JUPITER: '♃ 木星 (Jupiter)', SATURN: '♄ 土星 (Saturn)',
+            VENUS: '♀️ 金星 (Venus)', MERCURY: '☿ 水星 (Mercury)', URANUS: '♅ 天王星 (Uranus)',
+            NEPTUNE: '♆ 海王星 (Neptune)', CERES: '🪐 ケレス (Ceres)', PLUTO: '🪐 冥王星 (Pluto)',
+            HALLEY: '☄️ ハレー彗星 (Halley)'
+        };
+        badgeText = bodyNames[selectedCelestialId] || `🪐 ${selectedCelestialId}`;
+    } else if (selectedSatIndex >= 0 && satellitesData && satellitesData[selectedSatIndex]) {
+        const sat = satellitesData[selectedSatIndex];
+        const isIss = (sat.name.includes('ISS') || sat.noradId === '25544');
+        badgeText = isIss ? '👨‍🚀 国際宇宙ステーション (ISS)' : `🛰️ ${sat.name}`;
+    }
+
+    if (badgeText) {
+        ctx.save();
+        ctx.font = `700 ${Math.round(18 * scale)}px 'Outfit', -apple-system, sans-serif`;
+        ctx.fillStyle = '#38bdf8';
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+        ctx.shadowBlur = 8 * scale;
+        ctx.shadowOffsetY = 2 * scale;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(badgeText, 24 * scale, h - 24 * scale);
+        ctx.restore();
+    }
+
+    return new Promise((resolve) => {
+        offscreen.toBlob((blob) => {
+            resolve(blob);
+        }, 'image/png');
+    });
+}
+
+function downloadImageBlob(blob, filenamePrefix = 'satviewer3d') {
+    if (!blob) return;
+    try {
+        const downloadUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        const now = new Date();
+        const dateStr = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
+        a.download = `${filenamePrefix}_${dateStr}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(downloadUrl), 5000);
+    } catch (e) {
+        console.warn("Download failed:", e);
+    }
+}
+
+async function saveCurrentSceneScreenshot() {
+    CosmicAudio.playBlip(980, 0.08);
+    showUniversalToast('📸 宇宙空間を撮影中...', '📸', 1500);
+
+    const blob = await captureCurrentSceneBlob();
+    if (!blob) {
+        showUniversalToast('❌ 撮影に失敗しました', '⚠️', 2500);
+        return;
+    }
+
+    // クリップボードへのコピー
+    let copied = false;
+    if (navigator.clipboard && window.ClipboardItem) {
+        try {
+            await navigator.clipboard.write([
+                new ClipboardItem({ 'image/png': blob })
+            ]);
+            copied = true;
+        } catch (e) {}
+    }
+
+    // ファイルダウンロード
+    downloadImageBlob(blob, 'satviewer3d_universe');
+
+    if (copied) {
+        showUniversalToast('📸 宇宙空間を高画質保存しました！（クリップボードにもコピー済み）', '✨', 4000);
+    } else {
+        showUniversalToast('📸 宇宙空間の画像をダウンロード保存しました！', '💾', 3500);
+    }
+}
+
+async function shareCurrentViewToTwitter() {
     const { text, url } = generateCurrentShareData();
     CosmicAudio.playBlip(980, 0.08);
+    showUniversalToast('📸 宇宙画像をキャプチャ中...', '📸', 1200);
+
+    let blob = null;
+    try {
+        blob = await captureCurrentSceneBlob();
+    } catch (e) {
+        console.warn("Failed to capture universe scene:", e);
+    }
+
+    // スマホ等で Web Share API (ファイル添付対応) が使える場合
+    if (blob && navigator.canShare) {
+        const file = new File([blob], 'satviewer3d_universe.png', { type: 'image/png' });
+        if (navigator.canShare({ files: [file] })) {
+            try {
+                await navigator.share({
+                    title: 'SatViewer3D | リアルタイム宇宙空間',
+                    text: `${text}\n#SatViewer3D #宇宙 #人工衛星`,
+                    url: url,
+                    files: [file]
+                });
+                showUniversalToast('✨ 宇宙の画像を共有しました！', '🚀', 3500);
+                return;
+            } catch (err) {
+                if (err.name === 'AbortError') return;
+                console.warn("Web Share failed, fallback to clipboard & tweet intent", err);
+            }
+        }
+    }
+
+    // クリップボードに画像をコピー
+    let copiedToClipboard = false;
+    if (blob && navigator.clipboard && window.ClipboardItem) {
+        try {
+            await navigator.clipboard.write([
+                new ClipboardItem({ 'image/png': blob })
+            ]);
+            copiedToClipboard = true;
+        } catch (e) {
+            console.warn("Clipboard image copy failed:", e);
+        }
+    }
+
+    // 画像自動ダウンロード（手動添付用バックアップ）
+    if (blob) {
+        downloadImageBlob(blob, 'satviewer3d_universe');
+    }
+
+    // Xのツイート作成画面を開く
     const hashtags = 'SatViewer3D,宇宙,人工衛星,天文学';
     const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent(hashtags)}`;
-    window.open(tweetUrl, '_blank', 'width=560,height=440,scrollbars=yes,resizable=yes');
-    showUniversalToast('𝕏 (Twitter) シェア画面を開きました！', '𝕏', 3000);
+    window.open(tweetUrl, '_blank', 'width=580,height=520,scrollbars=yes,resizable=yes');
+
+    // トーストで分かりやすく誘導
+    if (copiedToClipboard) {
+        showUniversalToast('📸 宇宙画像をコピーしました！𝕏の投稿欄で【Ctrl+V】（貼り付け）を押すと画像が添付されます！', '📸', 7000);
+    } else if (blob) {
+        showUniversalToast('📸 宇宙画像を保存しました！𝕏の投稿に画像を添付してください！', '💾', 6000);
+    } else {
+        showUniversalToast('𝕏 (Twitter) シェア画面を開きました！', '𝕏', 3000);
+    }
 }
+
 
 function copyCurrentViewLink() {
     const { text, url } = generateCurrentShareData();
@@ -3502,6 +3764,8 @@ function applyLanguage(lang) {
         'btnCupolaLaunch': 'btnCupola',
         'exitCupolaBtn': 'exitCupola',
         'shareTwitterBtn': 'btnShareTwitter',
+        'saveScreenshotBtn': 'btnSaveScreenshot',
+        'headerScreenshotBtn': 'headerScreenshot',
         'copyShareBtn': 'btnCopyShare',
         'openReleaseBtn': 'btnRelease',
         'openGuideBtn': 'btnGuide',
@@ -14068,6 +14332,22 @@ function setupEventListeners() {
         shareTwitterBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             shareCurrentViewToTwitter();
+        });
+    }
+
+    const saveScreenshotBtn = document.getElementById('saveScreenshotBtn');
+    if (saveScreenshotBtn) {
+        saveScreenshotBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            saveCurrentSceneScreenshot();
+        });
+    }
+
+    const headerScreenshotBtn = document.getElementById('headerScreenshotBtn');
+    if (headerScreenshotBtn) {
+        headerScreenshotBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            saveCurrentSceneScreenshot();
         });
     }
 

@@ -127,7 +127,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260906_1138">
 </head>
 <body>
     <div id="cesiumContainer"></div>
@@ -201,13 +201,16 @@
                     <a href="/articles/" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.5); color: #38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; border-radius:6px;">
                         📚 宇宙コラム
                     </a>
-                    <button id="soundToggleBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer;" title="宇宙アンビエント音 ON/OFF" data-i18n="soundToggle">
+                    <button id="headerScreenshotBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" title="現在の宇宙空間を高画質撮影・保存" data-i18n="headerScreenshot">
+                        📸 スクショ
+                    </button>
+                    <button id="soundToggleBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" title="宇宙アンビエント音 ON/OFF" data-i18n="soundToggle">
                         🔇 サウンド OFF
                     </button>
-                    <button id="openReleaseBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer;" data-i18n="btnRelease">
+                    <button id="openReleaseBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="btnRelease">
                         📜 v2.7 更新履歴
                     </button>
-                    <button id="openGuideBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer;" data-i18n="btnGuide">
+                    <button id="openGuideBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer; white-space:nowrap;" data-i18n="btnGuide">
                         ❓ ガイド & 規約
                     </button>
                 </div>
@@ -421,7 +424,7 @@
             </div>
             </div>
         </div>
-        <div id="detailCard" class="hud-card glass-panel">
+        <div id="detailCard" class="hud-card glass-panel" style="z-index: 1000;">
             <div class="detail-mobile-header">
                 <span class="detail-mobile-title" id="mobileDetailTitle" data-i18n="mobileSheetDetailTitle">📊 衛星詳細情報</span>
                 <button id="closeMobileDetailBtn" class="detail-mobile-close-btn" onclick="window.closeMobileDetail(event)">&times;</button>
@@ -497,15 +500,21 @@
                 </button>
             </div>
             <!-- Social Share Actions Row -->
-            <div class="card-actions" style="margin-top: 6px; display: flex; gap: 6px;">
-                <button class="btn btn-secondary" id="shareTwitterBtn" style="flex: 1; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); color: #f8fafc; font-weight:600; display: flex; align-items: center; justify-content: center; gap: 6px;" title="X (Twitter) で現在の衛星・天体をシェア">
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    <span data-i18n="btnShareTwitter">𝕏 シェア</span>
+            <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
+                <button class="btn btn-secondary" id="shareTwitterBtn" style="width: 100%; padding: 7px 12px; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); color: #f8fafc; font-weight:700; font-size: 0.84rem; display: flex; align-items: center; justify-content: center; gap: 8px;" title="現在の宇宙空間画像付きでX (Twitter) にシェア">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    <span data-i18n="btnShareTwitter">𝕏 画像付きシェア</span>
                 </button>
-                <button class="btn btn-secondary" id="copyShareBtn" style="flex: 1; background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.35); color: #38bdf8; font-weight:600; display: flex; align-items: center; justify-content: center; gap: 6px;" title="共有URLとテキストをクリップボードにコピー">
-                    <span>📋</span>
-                    <span data-i18n="btnCopyShare">コピー</span>
-                </button>
+                <div style="display: flex; gap: 6px;">
+                    <button class="btn btn-secondary" id="saveScreenshotBtn" style="flex: 1; padding: 6px 10px; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); color: #f8fafc; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="現在の宇宙空間を高画質画像として保存・コピー">
+                        <span>📸</span>
+                        <span data-i18n="btnSaveScreenshot">撮影・保存</span>
+                    </button>
+                    <button class="btn btn-secondary" id="copyShareBtn" style="flex: 1; padding: 6px 10px; background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.35); color: #38bdf8; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="共有URLとテキストをクリップボードにコピー">
+                        <span>📋</span>
+                        <span data-i18n="btnCopyShare">コピー</span>
+                    </button>
+                </div>
             </div>
             </div>
         </div>
@@ -739,7 +748,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260906_1112"></script>
+    <script src="app.js?v=20260906_1153"></script>
     
     </div>
         <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
