@@ -128,7 +128,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260906_1350">
+    <link rel="stylesheet" href="styles.css?v=20260906_1835">
 </head>
 <body>
     <div id="cesiumContainer"></div>
@@ -166,46 +166,65 @@
                     <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">खींचकर स्थानांतरित करें</span></div>
                     <button id="toggleHeaderMinBtn" class="panel-min-btn" title="Minimize / Expand">➖</button>
                 </div>
-                <div id="headerIslandContent" class="card-collapsible-content">
+                                <div id="headerIslandContent" class="card-collapsible-content">
                     <div class="stats-pills">
                     <div class="stat-pill">
-                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">Tracked Satellites</span>
+                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">Tracked</span>
                         <span class="stat-value" id="statCount">0</span>
                     </div>
-                    <div class="stat-pill">
-                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">Sim Time</span>
+                    <div class="stat-pill header-time-pill">
+                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">Time</span>
                         <span class="stat-value mono-text" id="statTime">--:--:--</span>
                     </div>
-                    <div class="stat-pill" style="padding: 4px 10px; display: flex; align-items: center; gap: 6px; border-color: rgba(56,189,248,0.5); background: rgba(56, 189, 248, 0.08);">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="#38bdf8" stroke-width="2.2" fill="none" style="filter: drop-shadow(0 0 4px rgba(56,189,248,0.6)); flex-shrink: 0;">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                        </svg>
-                        <select id="langSelect" class="custom-select" style="padding: 2px 4px; font-size: 0.78rem; font-weight:700; border: none; background: transparent; color: #38bdf8; cursor: pointer;" onchange="window.changeLanguage(this.value)">
-                            <option value="ja"  style="background:#0b1329; color:#fff;">🇯🇵 日本語</option>
-                            <option value="en"  style="background:#0b1329; color:#fff;">🇺🇸 English</option>
-                            <option value="de"  style="background:#0b1329; color:#fff;">🇩🇪 Deutsch</option>
-                            <option value="fr"  style="background:#0b1329; color:#fff;">🇫🇷 Français</option>
-                            <option value="es"  style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
-                            <option value="pt"  style="background:#0b1329; color:#fff;">🇵🇹 Português</option>
-                            <option value="it"  style="background:#0b1329; color:#fff;">🇮🇹 Italiano</option>
-                            <option value="ko"  style="background:#0b1329; color:#fff;">🇰🇷 한국어</option>
-                            <option value="nl"  style="background:#0b1329; color:#fff;">🇳🇱 Nederlands</option>
-                            <option value="id"  style="background:#0b1329; color:#fff;">🇮🇩 Bahasa Indonesia</option>
-                            <option value="hi" selected style="background:#0b1329; color:#fff;">🇮🇳 हिन्दी</option>
-                            <option value="ar"  style="background:#0b1329; color:#fff;">🇸🇦 العربية</option>
-                            <option value="zh"  style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
-                            <option value="ru"  style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
-                        </select>
+
+                    <!-- Mobile Menu Toggle Button (Visible only on mobile/narrow screens) -->
+                    <button id="mobileHeaderMenuBtn" class="mobile-header-menu-btn" type="button" aria-expanded="false" aria-label="Menu" onclick="window.toggleMobileHeaderMenu(event)">
+                        <span>☰</span>
+                        <span id="mobileHeaderMenuText" data-i18n="mobileHeaderMenu">Menu</span>
+                        <span class="menu-arrow" id="mobileHeaderMenuArrow">▾</span>
+                    </button>
+
+                    <!-- Actions Group: Desktop inline, Mobile dropdown -->
+                    <div id="headerActionsGroup" class="header-actions-group">
+                        <div class="stat-pill header-lang-pill" style="padding: 4px 10px; display: flex; align-items: center; gap: 6px; border-color: rgba(56,189,248,0.5); background: rgba(56, 189, 248, 0.08);">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="#38bdf8" stroke-width="2.2" fill="none" style="filter: drop-shadow(0 0 4px rgba(56,189,248,0.6)); flex-shrink: 0;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <select id="langSelect" class="custom-select" style="padding: 2px 4px; font-size: 0.78rem; font-weight:700; border: none; background: transparent; color: #38bdf8; cursor: pointer;" onchange="window.changeLanguage(this.value)">
+                                <option value="ja" style="background:#0b1329; color:#fff;">🇯🇵 日本語</option>
+                                <option value="en" style="background:#0b1329; color:#fff;">🇺🇸 English</option>
+                                <option value="de" style="background:#0b1329; color:#fff;">🇩🇪 Deutsch</option>
+                                <option value="fr" style="background:#0b1329; color:#fff;">🇫🇷 Français</option>
+                                <option value="es" style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
+                                <option value="pt" style="background:#0b1329; color:#fff;">🇵🇹 Português</option>
+                                <option value="it" style="background:#0b1329; color:#fff;">🇮🇹 Italiano</option>
+                                <option value="ko" style="background:#0b1329; color:#fff;">🇰🇷 한국어</option>
+                                <option value="nl" style="background:#0b1329; color:#fff;">🇳🇱 Nederlands</option>
+                                <option value="id" style="background:#0b1329; color:#fff;">🇮🇩 Bahasa Indonesia</option>
+                                <option value="hi" selected style="background:#0b1329; color:#fff;">🇮🇳 हिन्दी</option>
+                                <option value="ar" style="background:#0b1329; color:#fff;">🇸🇦 العربية</option>
+                                <option value="zh" style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
+                                <option value="ru" style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
+                            </select>
+                        </div>
+                        <a href="/hi/articles/" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.5); color: #38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; border-radius:6px;">
+                            📚 <span data-i18n="navArticles">Articles</span>
+                        </a>
+                        <button id="headerScreenshotBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="headerScreenshot">
+                            📸 Snapshot
+                        </button>
+                        <button id="soundToggleBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="soundToggle">
+                            🔇 Sound OFF
+                        </button>
+                        <button id="openReleaseBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="btnRelease">
+                            📜 v2.8 Release Notes
+                        </button>
+                        <button id="openGuideBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer; white-space:nowrap;" data-i18n="btnGuide">
+                            ❓ Guide & Terms
+                        </button>
                     </div>
-                    <a href="/en/articles/" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.15); border-color: rgba(56,189,248,0.5); color: #38bdf8; text-decoration:none; display:inline-flex; align-items:center;">📚 लेख</a>
-                    <button id="openReleaseBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer;" data-i18n="btnRelease">
-                        📜 v2.5 更新履歴
-                    </button>
-                    <button id="openGuideBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer;" data-i18n="btnGuide">
-                        ❓ Guide & Terms
-                    </button>
                 </div>
                 </div>
             </div>
@@ -460,6 +479,31 @@
                 </button>
                 <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 Untrack</button>
             </div>
+            <!-- Cupola / Onboard Camera POV Button (Visible when satellite/ISS is selected) -->
+            <div id="cupolaActionRow" class="card-actions" style="margin-top: 6px;">
+                <button class="btn btn-primary cupola-launch-btn" id="btnCupolaLaunch" style="width: 100%; background: linear-gradient(135deg, #0284c7, #06b6d4); font-weight:700; border: 1px solid #38bdf8; box-shadow: 0 0 14px rgba(56,189,248,0.35); display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <span id="cupolaLaunchIcon">👨‍🚀</span>
+                    <span id="cupolaLaunchText" data-i18n="btnCupola">ISS キューポラ展望窓 (搭乗視点)</span>
+                </button>
+            </div>
+            <!-- Social Share Actions Row -->
+            <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
+                <button class="btn btn-secondary" id="shareTwitterBtn" style="width: 100%; padding: 7px 12px; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); color: #f8fafc; font-weight:700; font-size: 0.84rem; display: flex; align-items: center; justify-content: center; gap: 8px;" title="X (Twitter) Share">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    <span data-i18n="btnShareTwitter">𝕏 画像付きシェア</span>
+                </button>
+                <div style="display: flex; gap: 6px;">
+                    <button class="btn btn-secondary" id="saveScreenshotBtn" style="flex: 1; padding: 6px 10px; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); color: #f8fafc; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="Screenshot">
+                        <span>📸</span>
+                        <span data-i18n="btnSaveScreenshot">撮影</span>
+                    </button>
+                    <button class="btn btn-secondary" id="copyShareBtn" style="flex: 1; padding: 6px 10px; background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.35); color: #38bdf8; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="Copy">
+                        <span>📋</span>
+                        <span data-i18n="btnCopyShare">コピー</span>
+                    </button>
+                </div>
+            </div>
+
             </div>
         </div>
 
@@ -481,7 +525,7 @@
                 </div>
                 <div class="modal-tabs">
                     <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 Controls</button>
-                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 v2.7 रिलीज नोट्स</button>
+                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 v2.8 रिलीज नोट्स</button>
                     <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ Disclaimer</button>
                     <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 Privacy Policy</button>
                     <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ About</button>
@@ -505,10 +549,26 @@
                     <div id="tabReleases" class="tab-content">
                         <h3 data-i18n="releaseTitle">📜 SatViewer3D 更新履歴・リリースノート</h3>
                         <div class="release-timeline" style="display:flex; flex-direction:column; gap:16px; margin-top:12px;">
-                            <!-- Version 2.7.0 -->
+                                                        <!-- Version 2.8.0 -->
+                            <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.5); border-radius: 8px; padding: 14px 16px; box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.8.0 (Latest)</span>
+                                    <span style="color: var(--text-muted); font-size:0.75rem;">2026-09-06</span>
+                                </div>
+                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel28Title">👨‍🚀 ISS キューポラ展望窓 (搭乗視点) & 📱 モバイルUI完全刷新・超高解像度SNSシェア</h4>
+                                <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
+                                    <li data-i18n="rel28_1">👨‍🚀 <strong>ISS キューポラ展望窓（搭乗視点POV）モード新設</strong>: 国際宇宙ステーション(ISS)の欧州宇宙機関(ESA)製「キューポラ」展望窓から地球を見下ろす宇宙飛行士POVを完全再現。ドラッグによる360度自由見渡し、EvenOdd SVG高精度フレーム、昼夜判定HUDを搭載。</li>
+                                    <li data-i18n="rel28_2">📱 <strong>スマホ向けモダンUI全面刷新</strong>: 画面幅768px以下のモバイル表示時、ヘッダーアクション群を「☰ メニュー ▾」ドロップダウンにスマート集約。キューポラモード突入時の詳細カード自動退避など、操作性を抜本的に向上。</li>
+                                    <li data-i18n="rel28_3">📸 <strong>超高解像度宇宙撮影 & 𝕏 (Twitter) 画像付きシェア</strong>: リアルタイム3D宇宙シミュレーションの任意アングルを高画質PNGキャプチャし、ダイレクトに画像付きポスト可能な共有エンジンを配備。</li>
+                                    <li data-i18n="rel28_4">🕰️ <strong>歴史的軌道タイムトラベル・プリセット</strong>: 人類初の人工衛星スプートニク1号（1957）、アポロ11号月着陸船（1969）などの歴史的マイルストーン軌道をワンタップで体験可能。</li>
+                                    <li data-i18n="rel28_5">🔊 <strong>コズミック・アンビエント音響エンジン</strong>: 宇宙空間の深淵なドローン環境音、エアロック作動音、インターフェース効果音を備えた Web Audio 音響システムを新設（ON/OFF自由切替）。</li>
+                                </ul>
+                            </div>
+
+<!-- Version 2.7.0 -->
                             <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 8px; padding: 14px 16px;">
                                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.7.0 (Latest)</span>
+                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.7.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-22</span>
                                 </div>
                                 <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel27Title">📡 सटीक पास भविष्यवाणी & 💥 अंतरिक्ष मलबे का विशाल बादल (2,200+ टुकड़े)</h4>
@@ -645,7 +705,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260906_1350"></script>
+    <script src="app.js?v=20260906_1835"></script>
     
     </div>
         <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
@@ -669,6 +729,96 @@
                 <span class="zoom-hint-title">🔍 2 उंगलियों से पिंच करके ज़ूम करें</span>
                 <span class="zoom-hint-sub">पूरी पृथ्वी को देखने के लिए स्क्रीन पिंच करें</span>
             </div>
+        </div>
+    </div>
+    <!-- ISS Cupola View & Satellite POV Fullscreen Cockpit HUD Overlay -->
+    <div id="cupolaOverlay" class="cupola-overlay hidden">
+        <!-- SVG Cockpit Frame (Robust EvenOdd Path: 100% Guaranteed Crisp Transparency Across All Browsers) -->
+        <svg viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
+            <!-- Solid Hull with Cutout Windows (EvenOdd Rule eliminates browser mask bugs) -->
+            <path fill="#090d16" fill-rule="evenodd" d="
+                M -600 -400 L 2000 -400 L 2000 1300 L -600 1300 Z
+                M 700 150 A 310 310 0 1 0 700 770 A 310 310 0 1 0 700 150 Z
+                M 540 60 L 860 60 L 820 135 L 580 135 Z
+                M 1060 160 L 1260 330 L 1190 390 L 1010 250 Z
+                M 1260 590 L 1060 760 L 1010 670 L 1190 530 Z
+                M 860 860 L 540 860 L 580 785 L 820 785 Z
+                M 340 760 L 140 590 L 210 530 L 390 670 Z
+                M 140 330 L 340 160 L 390 250 L 210 390 Z
+            " />
+
+            <!-- Outer Trapezoid Window Bevel Frames -->
+            <polygon points="540,60 860,60 820,135 580,135" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="540,60 860,60 820,135 580,135" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <polygon points="1060,160 1260,330 1190,390 1010,250" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="1060,160 1260,330 1190,390 1010,250" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <polygon points="1260,590 1060,760 1010,670 1190,530" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="1260,590 1060,760 1010,670 1190,530" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <polygon points="860,860 540,860 580,785 820,785" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="860,860 540,860 580,785 820,785" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <polygon points="340,760 140,590 210,530 390,670" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="340,760 140,590 210,530 390,670" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <polygon points="140,330 340,160 390,250 210,390" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="140,330 340,160 390,250 210,390" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <!-- Main Center Circular Window Ring Struts & Atmospheric Glow -->
+            <circle cx="700" cy="460" r="313" fill="none" stroke="#334155" stroke-width="8" />
+            <circle cx="700" cy="460" r="317" fill="none" stroke="#1e293b" stroke-width="6" />
+            <circle cx="700" cy="460" r="309" fill="none" stroke="rgba(56,189,248,0.55)" stroke-width="2" />
+            <circle cx="700" cy="460" r="306" fill="none" stroke="rgba(56,189,248,0.2)" stroke-width="1" />
+
+            <!-- Structural Rivets -->
+            <g id="cupolaRivetsGroup"></g>
+
+            <!-- 6 Radial Structural Bulkheads -->
+            <line x1="985" y1="625" x2="1392" y2="860" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="985" y1="625" x2="1392" y2="860" stroke="#475569" stroke-width="3"/>
+            <line x1="700" y1="790" x2="700" y2="900" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="700" y1="790" x2="700" y2="900" stroke="#475569" stroke-width="3"/>
+            <line x1="415" y1="625" x2="8" y2="860" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="415" y1="625" x2="8" y2="860" stroke="#475569" stroke-width="3"/>
+            <line x1="415" y1="295" x2="8" y2="60" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="415" y1="295" x2="8" y2="60" stroke="#475569" stroke-width="3"/>
+            <line x1="700" y1="130" x2="700" y2="0" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="700" y1="130" x2="700" y2="0" stroke="#475569" stroke-width="3"/>
+            <line x1="985" y1="295" x2="1392" y2="60" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="985" y1="295" x2="1392" y2="60" stroke="#475569" stroke-width="3"/>
+
+            <!-- Center Reticle Crosshair HUD -->
+            <circle cx="700" cy="460" r="36" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1" stroke-dasharray="4 4" />
+            <line x1="675" y1="460" x2="725" y2="460" stroke="rgba(56,189,248,0.6)" stroke-width="1.2" />
+            <line x1="700" y1="435" x2="700" y2="485" stroke="rgba(56,189,248,0.6)" stroke-width="1.2" />
+        </svg>
+
+        <!-- Top Telemetry Strip -->
+        <div class="cupola-header">
+            <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+                <div class="cupola-badge">
+                    <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981;"></span>
+                    <span id="cupolaTitleText" data-i18n="cupolaTitle">👨‍🚀 ISS キューポラ展望窓 (Cupola Observation Deck)</span>
+                </div>
+                <div class="cupola-telemetry">
+                    <span><span data-i18n="cupolaAltLabel">高度:</span> <strong id="cupolaAlt" style="color:#38bdf8;">--- km</strong></span>
+                    <span><span data-i18n="cupolaSpdLabel">速度:</span> <strong id="cupolaSpeed" style="color:#38bdf8;">--- km/s</strong></span>
+                    <span><span data-i18n="cupolaPosLabel">位置:</span> <strong id="cupolaCoords" style="color:#fbbf24;">--°, --°</strong></span>
+                    <span><span data-i18n="cupolaEnvLabel">環境:</span> <strong id="cupolaLighting" style="color:#10b981;">☀️ 昼間域 (Sunlit)</strong></span>
+                </div>
+            </div>
+            <button id="exitCupolaBtn" class="cupola-exit-btn" data-i18n="exitCupola">
+                ✕ 通常視点に戻る (Exit Cupola)
+            </button>
+        </div>
+
+        <!-- Bottom Status Bar -->
+        <div class="cupola-footer">
+            <span id="cupolaFooterText" data-i18n="cupolaFooter">🛰️ 国際宇宙ステーション (ISS) • 欧州宇宙機関(ESA)製造「キューポラ」展望窓から地球を見下ろしています</span>
+            <span style="color:#38bdf8;">|</span>
+            <span data-i18n="cupolaHint">🖱️ 画面ドラッグで展望窓からの見渡し自由回転</span>
         </div>
     </div>
 </body>

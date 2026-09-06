@@ -121,7 +121,7 @@ html, body {
     justify-content: space-between;
     align-items: flex-start;
     pointer-events: none;
-    z-index: 80;
+    z-index: 1050;
 }
 
 .header-left-island {

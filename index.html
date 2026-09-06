@@ -127,7 +127,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260906_1350">
+    <link rel="stylesheet" href="styles.css?v=20260906_1835">
 </head>
 <body>
     <div id="cesiumContainer"></div>
@@ -218,7 +218,7 @@
                             🔇 サウンド OFF
                         </button>
                         <button id="openReleaseBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="btnRelease">
-                            📜 v2.7 更新履歴
+                            📜 v2.8 更新履歴
                         </button>
                         <button id="openGuideBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer; white-space:nowrap;" data-i18n="btnGuide">
                             ❓ ガイド & 規約
@@ -548,7 +548,7 @@
                 </div>
                 <div class="modal-tabs">
                     <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 操作方法</button>
-                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 v2.7 更新履歴</button>
+                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 v2.8 更新履歴</button>
                     <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ 免責事項</button>
                     <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 プライバシーポリシー</button>
                     <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ サイト情報</button>
@@ -572,10 +572,26 @@
                     <div id="tabReleases" class="tab-content">
                         <h3 data-i18n="releaseTitle">📜 SatViewer3D 更新履歴・リリースノート</h3>
                         <div class="release-timeline" style="display:flex; flex-direction:column; gap:16px; margin-top:12px;">
-                            <!-- Version 2.7.0 -->
+                                                        <!-- Version 2.8.0 -->
+                            <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.5); border-radius: 8px; padding: 14px 16px; box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.8.0 (Latest)</span>
+                                    <span style="color: var(--text-muted); font-size:0.75rem;">2026-09-06</span>
+                                </div>
+                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel28Title">👨‍🚀 ISS キューポラ展望窓 (搭乗視点) & 📱 モバイルUI完全刷新・超高解像度SNSシェア</h4>
+                                <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
+                                    <li data-i18n="rel28_1">👨‍🚀 <strong>ISS キューポラ展望窓（搭乗視点POV）モード新設</strong>: 国際宇宙ステーション(ISS)の欧州宇宙機関(ESA)製「キューポラ」展望窓から地球を見下ろす宇宙飛行士POVを完全再現。ドラッグによる360度自由見渡し、EvenOdd SVG高精度フレーム、昼夜判定HUDを搭載。</li>
+                                    <li data-i18n="rel28_2">📱 <strong>スマホ向けモダンUI全面刷新</strong>: 画面幅768px以下のモバイル表示時、ヘッダーアクション群を「☰ メニュー ▾」ドロップダウンにスマート集約。キューポラモード突入時の詳細カード自動退避など、操作性を抜本的に向上。</li>
+                                    <li data-i18n="rel28_3">📸 <strong>超高解像度宇宙撮影 & 𝕏 (Twitter) 画像付きシェア</strong>: リアルタイム3D宇宙シミュレーションの任意アングルを高画質PNGキャプチャし、ダイレクトに画像付きポスト可能な共有エンジンを配備。</li>
+                                    <li data-i18n="rel28_4">🕰️ <strong>歴史的軌道タイムトラベル・プリセット</strong>: 人類初の人工衛星スプートニク1号（1957）、アポロ11号月着陸船（1969）などの歴史的マイルストーン軌道をワンタップで体験可能。</li>
+                                    <li data-i18n="rel28_5">🔊 <strong>コズミック・アンビエント音響エンジン</strong>: 宇宙空間の深淵なドローン環境音、エアロック作動音、インターフェース効果音を備えた Web Audio 音響システムを新設（ON/OFF自由切替）。</li>
+                                </ul>
+                            </div>
+
+<!-- Version 2.7.0 -->
                             <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 8px; padding: 14px 16px;">
                                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.7.0 (Latest)</span>
+                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.7.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-22</span>
                                 </div>
                                 <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel27Title">📡 精密上空通過予報 & 💥 宇宙デブリ・メガクラウド (2,200+破片) メジャーリリース</h4>
@@ -759,7 +775,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260906_1350"></script>
+    <script src="app.js?v=20260906_1835"></script>
     
     </div>
         <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
@@ -858,10 +874,10 @@
                     <span id="cupolaTitleText" data-i18n="cupolaTitle">👨‍🚀 ISS キューポラ展望窓 (Cupola Observation Deck)</span>
                 </div>
                 <div class="cupola-telemetry">
-                    <span>高度: <strong id="cupolaAlt" style="color:#38bdf8;">--- km</strong></span>
-                    <span>速度: <strong id="cupolaSpeed" style="color:#38bdf8;">--- km/s</strong></span>
-                    <span>位置: <strong id="cupolaCoords" style="color:#fbbf24;">--°, --°</strong></span>
-                    <span>環境: <strong id="cupolaLighting" style="color:#10b981;">☀️ 昼間域 (Sunlit)</strong></span>
+                    <span><span data-i18n="cupolaAltLabel">高度:</span> <strong id="cupolaAlt" style="color:#38bdf8;">--- km</strong></span>
+                    <span><span data-i18n="cupolaSpdLabel">速度:</span> <strong id="cupolaSpeed" style="color:#38bdf8;">--- km/s</strong></span>
+                    <span><span data-i18n="cupolaPosLabel">位置:</span> <strong id="cupolaCoords" style="color:#fbbf24;">--°, --°</strong></span>
+                    <span><span data-i18n="cupolaEnvLabel">環境:</span> <strong id="cupolaLighting" style="color:#10b981;">☀️ 昼間域 (Sunlit)</strong></span>
                 </div>
             </div>
             <button id="exitCupolaBtn" class="cupola-exit-btn" data-i18n="exitCupola">
@@ -871,7 +887,7 @@
 
         <!-- Bottom Status Bar -->
         <div class="cupola-footer">
-            <span id="cupolaFooterText">🛰️ 国際宇宙ステーション (ISS) • 欧州宇宙機関(ESA)製造「キューポラ」展望窓から地球を見下ろしています</span>
+            <span id="cupolaFooterText" data-i18n="cupolaFooter">🛰️ 国際宇宙ステーション (ISS) • 欧州宇宙機関(ESA)製造「キューポラ」展望窓から地球を見下ろしています</span>
             <span style="color:#38bdf8;">|</span>
             <span data-i18n="cupolaHint">🖱️ 画面ドラッグで展望窓からの見渡し自由回転</span>
         </div>
