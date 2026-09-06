@@ -3305,6 +3305,30 @@ function enterCupolaMode(satIndex) {
     showUniversalToast(toastMsg, '👨‍🚀', 3500);
 
     document.body.classList.add('cupola-mode-active');
+
+    // Close mobile detail card, sidebar and menus so cupola view is completely unobstructed
+    if (typeof window.closeMobileDetail === 'function') {
+        window.closeMobileDetail();
+    }
+    if (typeof window.closeMobileMenu === 'function') {
+        window.closeMobileMenu();
+    }
+    if (typeof window.closeMobileHeaderMenu === 'function') {
+        window.closeMobileHeaderMenu();
+    }
+    const detailCardEl = document.getElementById('detailCard');
+    if (detailCardEl) {
+        detailCardEl.classList.remove('mobile-open');
+        detailCardEl.classList.add('hidden');
+        detailCardEl.style.display = 'none';
+    }
+    const sidebarPanelEl = document.getElementById('sidebarPanel');
+    if (sidebarPanelEl) {
+        sidebarPanelEl.classList.remove('mobile-open');
+        sidebarPanelEl.classList.add('hidden');
+        sidebarPanelEl.style.display = 'none';
+    }
+
     const overlay = document.getElementById('cupolaOverlay');
     if (overlay) {
         overlay.classList.remove('hidden');
@@ -3461,6 +3485,18 @@ function exitCupolaMode() {
     document.body.classList.remove('cupola-mode-active');
     const overlay = document.getElementById('cupolaOverlay');
     if (overlay) overlay.classList.add('hidden');
+
+    const detailCardEl = document.getElementById('detailCard');
+    if (detailCardEl) {
+        detailCardEl.style.display = '';
+        if (window.innerWidth > 768 && selectedSatIndex >= 0) {
+            detailCardEl.classList.remove('hidden');
+        }
+    }
+    const sidebarPanelEl = document.getElementById('sidebarPanel');
+    if (sidebarPanelEl) {
+        sidebarPanelEl.style.display = '';
+    }
 
     if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex] && satellitesData[selectedSatIndex].currentCartesian) {
         const sat = satellitesData[selectedSatIndex];
