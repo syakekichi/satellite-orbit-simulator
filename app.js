@@ -409,53 +409,8 @@ function inspectCelestialPlanet(body, bodyPos, bodyDir) {
 
     if (isHalley) {
         // --- ハレー彗星：太陽光を浴びて青白く輝く巨大なコマ（ガス雲）と壮大な尾の完全再現 ---
-        // 2. 太陽（原点）と反対方向に伸びる壮大な彗星の尾（イオンテイル＆ダストテイル：長さ3,500万km）
-        const antiSunDir = Cesium.Cartesian3.normalize(bodyPos, new Cesium.Cartesian3());
-        const tailLength = 35000000000; // 35,000,000 km
-        const tailEnd = Cesium.Cartesian3.add(bodyPos, Cesium.Cartesian3.multiplyByScalar(antiSunDir, tailLength, new Cesium.Cartesian3()), new Cesium.Cartesian3());
-
-        // 青い直線的イオンテイル（プラズマ尾）
-        const ionTail = viewer.entities.add({
-            id: 'inspect_halley_ion_tail',
-            name: 'Halley Ion Tail (青色プラズマ尾)',
-            polyline: {
-                positions: [bodyPos, tailEnd],
-                width: 7.0,
-                arcType: Cesium.ArcType.NONE,
-                material: new Cesium.PolylineGlowMaterialProperty({
-                    glowPower: 0.55,
-                    color: Cesium.Color.fromCssColorString('#38bdf8').withAlpha(0.85)
-                }),
-                distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
-            }
-        });
-        activePlanetRingEntities.push(ionTail);
-
-        // 湾曲した白金色ダストテイル（塵の散乱光尾）
-        const dustDir = new Cesium.Cartesian3(
-            antiSunDir.x * 0.94 - antiSunDir.y * 0.18,
-            antiSunDir.y * 0.94 + antiSunDir.x * 0.18,
-            antiSunDir.z
-        );
-        Cesium.Cartesian3.normalize(dustDir, dustDir);
-        const dustTailEnd = Cesium.Cartesian3.add(bodyPos, Cesium.Cartesian3.multiplyByScalar(dustDir, tailLength * 0.85, new Cesium.Cartesian3()), new Cesium.Cartesian3());
-        const dustTail = viewer.entities.add({
-            id: 'inspect_halley_dust_tail',
-            name: 'Halley Dust Tail (白色ダスト尾)',
-            polyline: {
-                positions: [bodyPos, dustTailEnd],
-                width: 5.5,
-                arcType: Cesium.ArcType.NONE,
-                material: new Cesium.PolylineGlowMaterialProperty({
-                    glowPower: 0.45,
-                    color: Cesium.Color.fromCssColorString('#fef08a').withAlpha(0.65)
-                }),
-                distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
-            }
-        });
-        activePlanetRingEntities.push(dustTail);
-
-        // 3. 自発光コマ＆彗星ビルボード（至近距離から超遠方まで黒く消えず、青白く輝くコマオーラと尾を描画）
+        // 自発光コマ＆彗星ビルボード（至近距離から超遠方まで黒く消えず、青白く輝くコマオーラと尾を描画）
+        // ※ 尾をポリライン(線)で描くと軌道線と誤認されるため、美しいベクタービルボードグラフィックとして一体描画
         const cometCanvas = createFaithfulCometCanvas();
         const cometBillboard = viewer.entities.add({
             id: 'inspect_halley_billboard',
@@ -7575,14 +7530,21 @@ const PLANETARY_ORBIT_DATA = {
 };
 
 /**
- * ニュートン法によるケプラー方程式の求解: M = E - e*sin(E)
+ * ケプラー方程式の超高精度・高速求解: M = E - e*sin(E)
+ * （ハレー彗星などの極端な長楕円 e=0.967 でも安定収束するハレー法3次アルゴリズム）
  */
 function solveKeplerEquation(M_rad, e) {
-    let E = M_rad;
-    for (let i = 0; i < 10; i++) {
-        const dE = (E - e * Math.sin(E) - M_rad) / (1 - e * Math.cos(E));
+    let E = (e > 0.8) ? (M_rad + e * Math.sin(M_rad) / (1 - Math.sin(M_rad + e) + Math.sin(M_rad))) : M_rad;
+    if (isNaN(E) || !isFinite(E)) E = Math.PI;
+    for (let i = 0; i < 30; i++) {
+        const sinE = Math.sin(E);
+        const cosE = Math.cos(E);
+        const f = E - e * sinE - M_rad;
+        const fPrime = 1 - e * cosE;
+        if (Math.abs(f) < 1e-9) break;
+        const fDoublePrime = e * sinE;
+        const dE = f / (fPrime - 0.5 * f * fDoublePrime / fPrime);
         E -= dE;
-        if (Math.abs(dE) < 1e-7) break;
     }
     return E;
 }
@@ -10053,18 +10015,36 @@ function drawDeepSpaceOrbit(mission) {
 let celestialOrbitEntity = null;
 
 /**
- * 太陽系惑星の正確なケプラー公転軌道ループ頂点列（Cartesian3[]）を高速算出
+ * 太陽系惑星の正確なケプラー公転軌道ループ頂点列（Cartesian3[]）を幾何学的に高速・滑らかに算出
+ * （ハレー彗星などの高離心率天体でも近日点の角ばりや途切れをゼロにする離心近点角ダイレクト走査）
  */
-function computePlanetaryOrbitPoints(pData, d, eHelio, epsRad, cosEps, sinEps, icrfToFixed, samples = 120) {
+function computePlanetaryOrbitPoints(pData, d, eHelio, epsRad, cosEps, sinEps, icrfToFixed, samples = 360) {
     const pts = [];
-    for (let i = 0; i <= samples; i++) {
-        const stepD = d + (i / samples) * pData.periodDays;
-        const pHelio = computeHeliocentricCoordinates(pData, stepD);
+    const deg2rad = Math.PI / 180;
+    const omega = (pData.w - pData.node) * deg2rad;
+    const nodeRad = pData.node * deg2rad;
+    const incRad = pData.I * deg2rad;
+    const b = pData.a * Math.sqrt(Math.max(0, 1 - pData.e * pData.e));
+    const totalSamples = (pData.e > 0.8) ? 720 : samples;
+
+    for (let i = 0; i <= totalSamples; i++) {
+        // 離心近点角 E (0 から 2π) を直接均等サンプリング（始点と終点が完全に一致し100%閉じたループになる）
+        const E = (i / totalSamples) * Math.PI * 2;
+        const xv = pData.a * (Math.cos(E) - pData.e);
+        const yv = b * Math.sin(E);
+        const r = Math.sqrt(xv * xv + yv * yv);
+        const v = Math.atan2(yv, xv);
+        const u = v + omega;
+
+        // 日心黄道直交座標 (AU)
+        const xh = r * (Math.cos(nodeRad) * Math.cos(u) - Math.sin(nodeRad) * Math.sin(u) * Math.cos(incRad));
+        const yh = r * (Math.sin(nodeRad) * Math.cos(u) + Math.cos(nodeRad) * Math.sin(u) * Math.cos(incRad));
+        const zh = r * (Math.sin(u) * Math.sin(incRad));
 
         // 地球から見た地心黄道直交ベクトル (AU)
-        const gx = pHelio.x - eHelio.x;
-        const gy = pHelio.y - eHelio.y;
-        const gz = pHelio.z - eHelio.z;
+        const gx = xh - eHelio.x;
+        const gy = yh - eHelio.y;
+        const gz = zh - eHelio.z;
         const gDistAu = Math.sqrt(gx * gx + gy * gy + gz * gz);
 
         // ICRF 赤道直交座標
@@ -10113,19 +10093,21 @@ function drawCelestialOrbit(body) {
         icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(effectiveTime);
     } catch(e) {}
 
-    const pts = computePlanetaryOrbitPoints(pData, d, eHelio, epsRad, cosEps, sinEps, icrfToFixed, 120);
+    const samples = (pData.e > 0.8 ? 360 : 120);
+    const pts = computePlanetaryOrbitPoints(pData, d, eHelio, epsRad, cosEps, sinEps, icrfToFixed, samples);
 
     celestialOrbitEntity = viewer.entities.add({
         id: `orbit_celestial_${body.id}`,
         name: `${body.name} Orbit`,
         polyline: {
             positions: pts,
-            width: 3.5,
+            width: 5.0,
             arcType: Cesium.ArcType.NONE,
             material: new Cesium.PolylineGlowMaterialProperty({
-                glowPower: 0.35,
+                glowPower: 0.50,
                 color: Cesium.Color.fromCssColorString(body.color || '#f59e0b')
-            })
+            }),
+            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
         }
     });
 }
@@ -10268,13 +10250,28 @@ function drawAllPlanetaryOrbits() {
         const scaledR = getOrreryRadius(pData.a);
         const scaleMultiplier = scaledR / pData.a;
 
-        // 公転軌道ループ（彗星は近日点付近の曲率が大きいため240サンプル、他は120サンプル）
+        // 公転軌道ループ（離心近点角 E ダイレクト走査により始点・終点が100%完全に閉じた美しいケプラー楕円）
         const pts = [];
-        const samples = (p.id === 'HALLEY' ? 240 : 120);
+        const samples = (p.id === 'HALLEY' ? 720 : 120);
+        const deg2rad = Math.PI / 180;
+        const omega = (pData.w - pData.node) * deg2rad;
+        const nodeRad = pData.node * deg2rad;
+        const incRad = pData.I * deg2rad;
+        const b = pData.a * Math.sqrt(Math.max(0, 1 - pData.e * pData.e));
+
         for (let i = 0; i <= samples; i++) {
-            const stepD = d + (i / samples) * pData.periodDays;
-            const h = computeHeliocentricCoordinates(pData, stepD);
-            pts.push(new Cesium.Cartesian3(h.x * scaleMultiplier, h.y * scaleMultiplier, h.z * scaleMultiplier));
+            const E = (i / samples) * Math.PI * 2;
+            const xv = pData.a * (Math.cos(E) - pData.e);
+            const yv = b * Math.sin(E);
+            const r = Math.sqrt(xv * xv + yv * yv);
+            const v = Math.atan2(yv, xv);
+            const u = v + omega;
+
+            const xh = r * (Math.cos(nodeRad) * Math.cos(u) - Math.sin(nodeRad) * Math.sin(u) * Math.cos(incRad));
+            const yh = r * (Math.sin(nodeRad) * Math.cos(u) + Math.cos(nodeRad) * Math.sin(u) * Math.cos(incRad));
+            const zh = r * (Math.sin(u) * Math.sin(incRad));
+
+            pts.push(new Cesium.Cartesian3(xh * scaleMultiplier, yh * scaleMultiplier, zh * scaleMultiplier));
         }
 
         const isGasGiant = (p.id === 'JUPITER' || p.id === 'SATURN');
@@ -10342,27 +10339,6 @@ function drawAllPlanetaryOrbits() {
         });
         markerEnt.celestialData = { id: p.id };
         solarSystemOrbitEntities.push(markerEnt);
-
-        // ハレー彗星の場合は、太陽（原点）と反対方向へ伸びる美しい彗星の尾を描画！
-        if (p.id === 'HALLEY') {
-            const sunToPos = Cesium.Cartesian3.normalize(curPos, new Cesium.Cartesian3());
-            const tailLength = 18000000; // 18,000 km
-            const tailEnd = Cesium.Cartesian3.add(curPos, Cesium.Cartesian3.multiplyByScalar(sunToPos, tailLength, new Cesium.Cartesian3()), new Cesium.Cartesian3());
-            const tailEnt = viewer.entities.add({
-                id: 'orrery_comet_tail_HALLEY',
-                name: 'Halley Comet Tail',
-                polyline: {
-                    positions: [curPos, tailEnd],
-                    width: 4.5,
-                    arcType: Cesium.ArcType.NONE,
-                    material: new Cesium.PolylineGlowMaterialProperty({
-                        glowPower: 0.5,
-                        color: Cesium.Color.fromCssColorString('#38bdf8').withAlpha(0.7)
-                    })
-                }
-            });
-            solarSystemOrbitEntities.push(tailEnt);
-        }
     });
 
     // 3. ボイジャー1号＆2号の太陽系脱出ハイパーボリック軌道線と現在位置マーカー（Orrery View）
@@ -11270,6 +11246,16 @@ function initCesiumViewer() {
     scene.skyAtmosphere.show = true;    // 地球外周の美しい大気圏光線リングをクッキリ描画
     scene.highDynamicRange = false;     // モバイルHDR減光を防止
     scene.backgroundColor = Cesium.Color.fromCssColorString('#07090e');
+
+    // 深宇宙・太陽系惑星・彗星（ハレー彗星等）の大規模ズームアウト時に軌道線や天体がクリッピングで消えるのを完全防止
+    scene.farToNearRatio = 1.0e9;
+    scene.preRender.addEventListener(() => {
+        if (selectedCelestialId || selectedDeepSpaceId) {
+            if (viewer.camera.frustum.far < 1.0e14) {
+                viewer.camera.frustum.far = 1.0e14;
+            }
+        }
+    });
 
     // Tune Base Layer for Super Vivid Continents & Crisp Oceans
     try {
