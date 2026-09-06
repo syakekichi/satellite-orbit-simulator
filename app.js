@@ -8881,27 +8881,7 @@ function computeDeepSpaceOrbitCenter(mission, time) {
         return marsPos || new Cesium.Cartesian3(2000000000, 0, 0);
     }
 
-    if (mission.id === 'VOYAGER1') {
-        const jsDate = customSimTime || (effectiveTime ? Cesium.JulianDate.toDate(effectiveTime) : new Date());
-        if (jsDate.getUTCFullYear() <= 1980) {
-            try {
-                const jupiterBody = CELESTIAL_BODIES.find(b => b.id === 'JUPITER');
-                const jupPos = computeCelestialPosition(jupiterBody, effectiveTime);
-                if (jupPos) return jupPos;
-            } catch(e) {}
-        }
-        return computeDeepSpacePosition(mission, effectiveTime);
-    }
-
-    if (mission.id === 'VOYAGER2') {
-        const jsDate = customSimTime || (effectiveTime ? Cesium.JulianDate.toDate(effectiveTime) : new Date());
-        if (jsDate.getUTCFullYear() <= 1990) {
-            try {
-                const neptuneBody = CELESTIAL_BODIES.find(b => b.id === 'NEPTUNE');
-                const nepPos = computeCelestialPosition(neptuneBody, effectiveTime);
-                if (nepPos) return nepPos;
-            } catch(e) {}
-        }
+    if (mission.id === 'VOYAGER1' || mission.id === 'VOYAGER2') {
         return computeDeepSpacePosition(mission, effectiveTime);
     }
 
@@ -8944,12 +8924,12 @@ function getDeepSpaceOrbitOverviewOffset(mission) {
         return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
     }
     if (mission.id === 'VOYAGER1') {
-        const dist = 380000000; // 木星とボイジャー1号の機体を斜め手前からしっかり捉える距離
-        return new Cesium.Cartesian3(dist * 0.4, -dist * 0.65, dist * 0.45);
+        const dist = 35000000; // 機体から3.5万km（双曲線軌道線と機体を美しく捉える視点）
+        return new Cesium.Cartesian3(dist * 0.45, -dist * 0.7, dist * 0.4);
     }
     if (mission.id === 'VOYAGER2') {
-        const dist = 120000000; // 海王星とボイジャー2号の機体を捉える距離
-        return new Cesium.Cartesian3(dist * 0.35, -dist * 0.6, dist * 0.5);
+        const dist = 35000000; // 機体から3.5万km（双曲線軌道線と機体を美しく捉える視点）
+        return new Cesium.Cartesian3(dist * 0.45, -dist * 0.7, dist * 0.4);
     }
     if (mission.id === 'SPUTNIK1') {
         const dist = 22000000; // 地球球体とスプートニク1号の軌道全体を見渡す22,000 km
@@ -9749,49 +9729,25 @@ function computeDeepSpacePosition(mission, time) {
     }
 
     if (mission.id === 'VOYAGER1') {
-        const jsDate = customSimTime || (effectiveTime ? Cesium.JulianDate.toDate(effectiveTime) : new Date());
-        if (jsDate.getUTCFullYear() <= 1980) {
-            let jupPos;
-            try {
-                const jupiterBody = CELESTIAL_BODIES.find(b => b.id === 'JUPITER');
-                jupPos = computeCelestialPosition(jupiterBody, effectiveTime);
-            } catch(e) {}
-            if (jupPos) {
-                const offset = new Cesium.Cartesian3(350000000 * 0.75, -350000000 * 0.55, 350000000 * 0.25);
-                return Cesium.Cartesian3.add(jupPos, offset, new Cesium.Cartesian3());
-            }
-        }
-        const dist = 24500000000;
-        const raRad = (17.22 / 24) * Math.PI * 2;
-        const decRad = 12.0 * Math.PI / 180;
-        return new Cesium.Cartesian3(
-            dist * Math.cos(decRad) * Math.cos(raRad),
-            dist * Math.cos(decRad) * Math.sin(raRad),
-            dist * Math.sin(decRad)
-        );
+        let jupPos;
+        try {
+            const jupiterBody = CELESTIAL_BODIES.find(b => b.id === 'JUPITER');
+            jupPos = computeCelestialPosition(jupiterBody, effectiveTime);
+        } catch(e) {}
+        if (!jupPos) jupPos = new Cesium.Cartesian3(778000000000, 0, 0);
+        const offset = new Cesium.Cartesian3(350000000 * 0.75, -350000000 * 0.55, 350000000 * 0.25);
+        return Cesium.Cartesian3.add(jupPos, offset, new Cesium.Cartesian3());
     }
 
     if (mission.id === 'VOYAGER2') {
-        const jsDate = customSimTime || (effectiveTime ? Cesium.JulianDate.toDate(effectiveTime) : new Date());
-        if (jsDate.getUTCFullYear() <= 1990) {
-            let nepPos;
-            try {
-                const neptuneBody = CELESTIAL_BODIES.find(b => b.id === 'NEPTUNE');
-                nepPos = computeCelestialPosition(neptuneBody, effectiveTime);
-            } catch(e) {}
-            if (nepPos) {
-                const offset = new Cesium.Cartesian3(18000000, -22000000, 32000000);
-                return Cesium.Cartesian3.add(nepPos, offset, new Cesium.Cartesian3());
-            }
-        }
-        const dist = 20500000000;
-        const raRad = (20.0 / 24) * Math.PI * 2;
-        const decRad = -56.0 * Math.PI / 180;
-        return new Cesium.Cartesian3(
-            dist * Math.cos(decRad) * Math.cos(raRad),
-            dist * Math.cos(decRad) * Math.sin(raRad),
-            dist * Math.sin(decRad)
-        );
+        let nepPos;
+        try {
+            const neptuneBody = CELESTIAL_BODIES.find(b => b.id === 'NEPTUNE');
+            nepPos = computeCelestialPosition(neptuneBody, effectiveTime);
+        } catch(e) {}
+        if (!nepPos) nepPos = new Cesium.Cartesian3(4500000000000, 0, 0);
+        const offset = new Cesium.Cartesian3(18000000, -22000000, 32000000);
+        return Cesium.Cartesian3.add(nepPos, offset, new Cesium.Cartesian3());
     }
 
     return Cesium.Cartesian3.ZERO;
@@ -10821,7 +10777,9 @@ function selectDeepSpaceMission(missionId, skipFly = false) {
             MARS_MRO: 'assets/sat_images/mars_mro.jpg?v=20260905_1',
             HAYABUSA2: 'assets/sat_images/hayabusa2.jpg?v=20260905_1',
             VOYAGER1: 'assets/sat_images/voyager1.png?v=20260905_1',
-            VOYAGER2: 'assets/sat_images/voyager1.png?v=20260905_1'
+            VOYAGER2: 'assets/sat_images/voyager1.png?v=20260905_1',
+            SPUTNIK1: 'assets/sat_images/sputnik1.jpg?v=20260906_1',
+            APOLLO11: 'assets/sat_images/apollo11.jpg?v=20260906_1'
         };
 
         const imgUrl = missionImages[mission.id];
@@ -10832,7 +10790,16 @@ function selectDeepSpaceMission(missionId, skipFly = false) {
             };
             satImage.src = imgUrl;
             satImage.alt = mission.name;
-            if (satImageCaption) satImageCaption.innerHTML = `<span>🔭 ${mission.shortName}</span><span>Source: NASA / JAXA (Public Domain)</span>`;
+            if (satImageCaption) {
+                const sourceMap = {
+                    SPUTNIK1: 'NASA / Smithsonian (Public Domain)',
+                    APOLLO11: 'NASA (Public Domain)',
+                    HAYABUSA2: 'JAXA (Public Domain)',
+                    JWST: 'NASA / ESA / CSA (Public Domain)'
+                };
+                const srcText = sourceMap[mission.id] || 'NASA / JAXA (Public Domain)';
+                satImageCaption.innerHTML = `<span>🔭 ${mission.shortName}</span><span>Source: ${srcText}</span>`;
+            }
             satImageWrapper.classList.remove('hidden');
         } else {
             satImageWrapper.classList.add('hidden');
@@ -11415,16 +11382,16 @@ function initCesiumViewer() {
             const distToTarget = targetPos ? Cesium.Cartesian3.distance(camera.positionWC, targetPos) : Cesium.Cartesian3.magnitude(camera.positionWC);
 
             // 適応型ステップ: 探査機至近でも深宇宙全体でも快適なプロポーショナルズーム
-            const zoomStep = Math.max(1000, distToTarget * Math.abs(delta) * 0.00035);
+            const zoomStep = Math.max(1000, distToTarget * Math.abs(delta) * 0.00045);
 
             if (delta > 0) {
-                // ズームアウト: 制限なく最大100億メートル（1,000万km）まで広大な宇宙を引いて見渡せる
-                if (distToTarget + zoomStep <= 10000000000) {
+                // ズームアウト: 最大6,000億メートル（6億km = 約4 AU）まで大幅拡大！軌道線全体と太陽系スケールを悠々と一望可能
+                if (distToTarget + zoomStep <= 600000000000) {
                     camera.zoomOut(zoomStep);
                 }
             } else {
-                // ズームイン: 探査機至近（500m）まで精密に寄れる
-                if (distToTarget - zoomStep >= 500) {
+                // ズームイン: 探査機至近（200m）まで精密に寄れる
+                if (distToTarget - zoomStep >= 200) {
                     camera.zoomIn(zoomStep);
                 }
             }
