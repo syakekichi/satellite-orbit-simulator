@@ -10332,6 +10332,7 @@ function drawAllPlanetaryOrbits() {
                 distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
             }
         });
+        orbEnt.celestialData = { id: p.id };
         solarSystemOrbitEntities.push(orbEnt);
 
         // 惑星の現在公転位置マーカー & 多言語ラベル
@@ -10416,6 +10417,7 @@ function drawAllPlanetaryOrbits() {
             distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
         }
     });
+    v1OrbitEnt.deepSpaceData = { id: 'VOYAGER1' };
     solarSystemOrbitEntities.push(v1OrbitEnt);
 
     // ボイジャー1号のマーカー
@@ -10443,6 +10445,7 @@ function drawAllPlanetaryOrbits() {
             disableDepthTestDistance: Number.POSITIVE_INFINITY
         }
     });
+    v1MarkerEnt.deepSpaceData = { id: 'VOYAGER1' };
     solarSystemOrbitEntities.push(v1MarkerEnt);
 
     // ボイジャー2号：地球(1AU) -> 木星 -> 土星 -> 天王星 -> 海王星スイングバイ(30AU) -> 太陽系外脱出(南方-55度)
@@ -10474,6 +10477,7 @@ function drawAllPlanetaryOrbits() {
             distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
         }
     });
+    v2OrbitEnt.deepSpaceData = { id: 'VOYAGER2' };
     solarSystemOrbitEntities.push(v2OrbitEnt);
 
     // ボイジャー2号のマーカー
@@ -10501,6 +10505,7 @@ function drawAllPlanetaryOrbits() {
             disableDepthTestDistance: Number.POSITIVE_INFINITY
         }
     });
+    v2MarkerEnt.deepSpaceData = { id: 'VOYAGER2' };
     solarSystemOrbitEntities.push(v2MarkerEnt);
 }
 
@@ -10589,6 +10594,7 @@ function selectSolarSystemOverview(skipFly = false) {
     const badgeTypeMap = CELESTIAL_BADGE_TYPES.SOLAR_SYSTEM;
     satBadge.textContent = (badgeTypeMap && (badgeTypeMap[lang] || badgeTypeMap['en'])) || '🌌 太陽系 / Planetary System';
     satBadge.style.background = 'linear-gradient(135deg, #3b82f6, #8b5cf6)';
+    satBadge.style.color = '#ffffff';
 
     const ssNames = {
         ja: '🌌 太陽系 (The Solar System)',
@@ -10709,6 +10715,16 @@ function selectDeepSpaceMission(missionId, skipFly = false) {
     selectedCelestialId = null;
     selectedDeepSpaceId = missionId;
 
+    if (typeof setActivePresetBtn === 'function') {
+        const loadDeepSpaceBtn = document.getElementById('loadDeepSpaceBtn');
+        if (loadDeepSpaceBtn) setActivePresetBtn(loadDeepSpaceBtn);
+    }
+    if (sourceStatusBadge) {
+        sourceStatusBadge.textContent = '🔭 深宇宙・月/火星探査機 (8機)';
+        sourceStatusBadge.style.borderColor = 'rgba(245, 158, 11, 0.6)';
+        sourceStatusBadge.style.color = '#fbbf24';
+    }
+
     if (satSelect) {
         const optExists = Array.from(satSelect.options).some(opt => opt.value === `deepspace_${mission.id}`);
         if (!optExists) {
@@ -10784,6 +10800,7 @@ function selectDeepSpaceMission(missionId, skipFly = false) {
     };
     satBadge.textContent = badgeMap[lang] || badgeMap['en'];
     satBadge.style.background = 'linear-gradient(135deg, #f59e0b, #38bdf8)';
+    satBadge.style.color = '#ffffff';
 
     // 多言語タイトル（DEEP_SPACE_DISPLAY_NAMES があれば使用）
     const dispNameMap = (typeof DEEP_SPACE_DISPLAY_NAMES !== 'undefined') ? DEEP_SPACE_DISPLAY_NAMES[mission.id] : null;
@@ -10803,7 +10820,8 @@ function selectDeepSpaceMission(missionId, skipFly = false) {
             MARS_PERSEVERANCE: 'assets/sat_images/mars_perseverance.jpg?v=20260905_1',
             MARS_MRO: 'assets/sat_images/mars_mro.jpg?v=20260905_1',
             HAYABUSA2: 'assets/sat_images/hayabusa2.jpg?v=20260905_1',
-            VOYAGER1: 'assets/sat_images/voyager1.png?v=20260905_1'
+            VOYAGER1: 'assets/sat_images/voyager1.png?v=20260905_1',
+            VOYAGER2: 'assets/sat_images/voyager1.png?v=20260905_1'
         };
 
         const imgUrl = missionImages[mission.id];
@@ -11035,6 +11053,7 @@ function selectCelestialBody(bodyId) {
     const badgeTypeMap = CELESTIAL_BADGE_TYPES[body.id];
     satBadge.textContent = (badgeTypeMap && (badgeTypeMap[lang] || badgeTypeMap['en'])) || `🌌 ${body.type}`;
     satBadge.style.background = 'linear-gradient(135deg, #f59e0b, #ef4444)';
+    satBadge.style.color = '#ffffff';
 
     const bodyNameStr = (localizedNames[body.id] && (localizedNames[body.id][lang] || localizedNames[body.id]['en'])) || body.name;
     satName.textContent = `${body.symbol} ${bodyNameStr}`;
@@ -12356,9 +12375,43 @@ function onSceneClick(clickEvent) {
     const pickedObject = viewer.scene.pick(clickEvent.position);
 
     if (Cesium.defined(pickedObject)) {
-        // 1. Check if Celestial Body / Planet was clicked
+        // 1. Check if Celestial Body, Deep Space Mission, or Orrery Craft/Planet was clicked
         if (pickedObject.id && typeof pickedObject.id === 'object') {
             const entity = pickedObject.id;
+
+            // Deep Space Mission Data
+            if (entity.deepSpaceData && entity.deepSpaceData.id) {
+                selectDeepSpaceMission(entity.deepSpaceData.id);
+                if (satSelect) satSelect.value = `deepspace_${entity.deepSpaceData.id}`;
+                return;
+            }
+            if (typeof entity.id === 'string' && entity.id.startsWith('deepspace_')) {
+                const missionId = entity.id.replace('deepspace_', '');
+                selectDeepSpaceMission(missionId);
+                if (satSelect) satSelect.value = `deepspace_${missionId}`;
+                return;
+            }
+            // Orrery Craft Marker (ボイジャー1号・2号など)
+            if (typeof entity.id === 'string' && entity.id.startsWith('orrery_craft_')) {
+                const missionId = entity.id.replace('orrery_craft_', '');
+                selectDeepSpaceMission(missionId);
+                if (satSelect) satSelect.value = `deepspace_${missionId}`;
+                return;
+            }
+            // Orrery Orbit Line (ボイジャー軌道線、惑星公転軌道線)
+            if (typeof entity.id === 'string' && entity.id.startsWith('orrery_orbit_')) {
+                const targetId = entity.id.replace('orrery_orbit_', '');
+                if (typeof DEEP_SPACE_MISSIONS !== 'undefined' && DEEP_SPACE_MISSIONS.some(m => m.id === targetId)) {
+                    selectDeepSpaceMission(targetId);
+                    if (satSelect) satSelect.value = `deepspace_${targetId}`;
+                    return;
+                } else if (typeof CELESTIAL_BODIES !== 'undefined' && (CELESTIAL_BODIES.some(b => b.id === targetId) || (typeof PLANETARY_ORBIT_DATA !== 'undefined' && PLANETARY_ORBIT_DATA[targetId]))) {
+                    selectCelestialBody(targetId);
+                    if (satSelect) satSelect.value = `celestial_${targetId}`;
+                    return;
+                }
+            }
+            // Celestial Body Data
             if (entity.celestialData && entity.celestialData.id) {
                 selectCelestialBody(entity.celestialData.id);
                 if (satSelect) satSelect.value = `celestial_${entity.celestialData.id}`;
@@ -12371,7 +12424,7 @@ function onSceneClick(clickEvent) {
                 if (satSelect) satSelect.value = `celestial_${bodyId}`;
                 return;
             }
-            if (entity.id === 'orrery_sun') {
+            if (entity.id === 'orrery_sun' || entity.id === 'orrery_sun_sphere') {
                 selectCelestialBody('SUN');
                 if (satSelect) satSelect.value = 'celestial_SUN';
                 return;
@@ -12380,17 +12433,6 @@ function onSceneClick(clickEvent) {
                 const bodyId = entity.id.replace('celestial_', '');
                 selectCelestialBody(bodyId);
                 if (satSelect) satSelect.value = `celestial_${bodyId}`;
-                return;
-            }
-            if (entity.deepSpaceData && entity.deepSpaceData.id) {
-                selectDeepSpaceMission(entity.deepSpaceData.id);
-                if (satSelect) satSelect.value = `deepspace_${entity.deepSpaceData.id}`;
-                return;
-            }
-            if (typeof entity.id === 'string' && entity.id.startsWith('deepspace_')) {
-                const missionId = entity.id.replace('deepspace_', '');
-                selectDeepSpaceMission(missionId);
-                if (satSelect) satSelect.value = `deepspace_${missionId}`;
                 return;
             }
         }
@@ -12403,13 +12445,74 @@ function onSceneClick(clickEvent) {
         }
     }
 
-    // 3. Screen-Space Proximity Detection for Sun Glow Disc & Planets
     const clickPos = clickEvent.position;
     const time = viewer.clock.currentTime;
+    const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || (viewer && viewer.clock.currentTime));
 
+    // 3. Screen-Space Proximity Detection for Orrery View (Sun, Planets & Voyager 1/2)
+    if (selectedCelestialId === 'SOLAR_SYSTEM' || (typeof solarSystemOrbitEntities !== 'undefined' && solarSystemOrbitEntities.length > 0)) {
+        let bestTarget = null;
+        let minDistance = 55; // 55px までのクリック許容半径
+
+        for (let i = 0; i < solarSystemOrbitEntities.length; i++) {
+            const ent = solarSystemOrbitEntities[i];
+            if (!ent || !ent.position) continue;
+
+            const entPos = (typeof ent.position.getValue === 'function') ? ent.position.getValue(effectiveTime) : ent.position;
+            if (!entPos) continue;
+
+            const screenPos = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, entPos);
+            if (!screenPos) continue;
+
+            const dx = screenPos.x - clickPos.x;
+            const dy = screenPos.y - clickPos.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            const isSun = (ent.id === 'orrery_sun' || ent.id === 'orrery_sun_sphere');
+            const hitRadius = isSun ? 65 : 48;
+
+            if (dist <= hitRadius && dist < minDistance) {
+                minDistance = dist;
+                bestTarget = ent;
+            }
+        }
+
+        if (bestTarget) {
+            if (bestTarget.deepSpaceData && bestTarget.deepSpaceData.id) {
+                selectDeepSpaceMission(bestTarget.deepSpaceData.id);
+                if (satSelect) satSelect.value = `deepspace_${bestTarget.deepSpaceData.id}`;
+                return;
+            }
+            if (typeof bestTarget.id === 'string' && bestTarget.id.startsWith('orrery_craft_')) {
+                const missionId = bestTarget.id.replace('orrery_craft_', '');
+                selectDeepSpaceMission(missionId);
+                if (satSelect) satSelect.value = `deepspace_${missionId}`;
+                return;
+            }
+            if (bestTarget.celestialData && bestTarget.celestialData.id) {
+                selectCelestialBody(bestTarget.celestialData.id);
+                if (satSelect) satSelect.value = `celestial_${bestTarget.celestialData.id}`;
+                return;
+            }
+            if (typeof bestTarget.id === 'string' && bestTarget.id.startsWith('orrery_planet_')) {
+                let bodyId = bestTarget.id.replace('orrery_planet_', '');
+                if (bodyId.startsWith('sphere_')) bodyId = bodyId.replace('sphere_', '');
+                selectCelestialBody(bodyId);
+                if (satSelect) satSelect.value = `celestial_${bodyId}`;
+                return;
+            }
+            if (bestTarget.id === 'orrery_sun' || bestTarget.id === 'orrery_sun_sphere') {
+                selectCelestialBody('SUN');
+                if (satSelect) satSelect.value = 'celestial_SUN';
+                return;
+            }
+        }
+    }
+
+    // 4. Screen-Space Proximity Detection for Sun & Real-scale Planets
     for (let i = 0; i < CELESTIAL_BODIES.length; i++) {
         const body = CELESTIAL_BODIES[i];
-        const worldPos = computeCelestialPosition(body, time);
+        const worldPos = computeCelestialPosition(body, effectiveTime);
         if (worldPos) {
             const screenPos = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, worldPos);
             if (screenPos) {
@@ -12428,18 +12531,18 @@ function onSceneClick(clickEvent) {
         }
     }
 
-    // 4. Screen-Space Proximity Detection for Deep Space Missions
+    // 5. Screen-Space Proximity Detection for Deep Space Missions (Real-scale)
     if (typeof DEEP_SPACE_MISSIONS !== 'undefined' && Array.isArray(DEEP_SPACE_MISSIONS)) {
         for (let i = 0; i < DEEP_SPACE_MISSIONS.length; i++) {
             const mission = DEEP_SPACE_MISSIONS[i];
-            const worldPos = computeDeepSpacePosition(mission, time);
+            const worldPos = computeDeepSpacePosition(mission, effectiveTime);
             if (worldPos) {
                 const screenPos = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, worldPos);
                 if (screenPos) {
                     const dx = screenPos.x - clickPos.x;
                     const dy = screenPos.y - clickPos.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist <= 40) {
+                    if (dist <= 42) {
                         selectDeepSpaceMission(mission.id);
                         if (satSelect) satSelect.value = `deepspace_${mission.id}`;
                         return;
@@ -12566,6 +12669,8 @@ function selectSatellite(index) {
 
     // Update Detail Card UI
     satBadge.textContent = sat.name.toUpperCase().includes('STARLINK') ? 'STARLINK' : (sat.name.toUpperCase().includes('DEBRIS') ? 'SPACE DEBRIS' : 'SATELLITE');
+    satBadge.style.background = '';
+    satBadge.style.color = '';
     satName.textContent = getSatDisplayName(sat.name);
     const countryStr = getSatCountry(sat.name);
     satNorad.innerHTML = `<span>NORAD ID: ${escapeHTML(sat.noradId)}</span> <span style="margin-left:8px; padding:2px 8px; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.35); border-radius:4px; font-weight:700; color:#38bdf8; font-size:0.75rem;">${escapeHTML(countryStr)}</span>`;
