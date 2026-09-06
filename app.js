@@ -1,7 +1,14 @@
 
-// Guaranteed Global Mobile Bottom Dock Helpers (100% Direct Response & Double-Guard Control)
+// Guaranteed Global Mobile Bottom Dock Helpers (Debounced & Multi-Trigger Protected)
+let lastMobileMenuToggleTime = 0;
+let lastMobileDetailToggleTime = 0;
+
 window.toggleMobileMenu = function(e) {
     if (e && e.stopPropagation) e.stopPropagation();
+    const now = Date.now();
+    if (now - lastMobileMenuToggleTime < 350) return; // Ignore duplicate events within 350ms
+    lastMobileMenuToggleTime = now;
+
     const sidebar = document.getElementById('sidebarPanel');
     const detail = document.getElementById('detailCard');
     if (detail) {
@@ -33,6 +40,10 @@ window.closeMobileMenu = function(e) {
 
 window.toggleMobileDetail = function(e) {
     if (e && e.stopPropagation) e.stopPropagation();
+    const now = Date.now();
+    if (now - lastMobileDetailToggleTime < 350) return; // Ignore duplicate events within 350ms
+    lastMobileDetailToggleTime = now;
+
     const detail = document.getElementById('detailCard');
     const sidebar = document.getElementById('sidebarPanel');
     if (sidebar) {
@@ -63,28 +74,6 @@ window.closeMobileDetail = function(e) {
     }
 };
 
-
-// Guaranteed Global Mobile Menu Helpers (100% Direct Response & Style Reset)
-window.toggleMobileMenu = function(e) {
-    if (e && e.stopPropagation) e.stopPropagation();
-    const sidebar = document.getElementById('sidebarPanel');
-    if (sidebar) {
-        // Clear any desktop drag inline coordinates that would break fixed bottom-sheet
-        sidebar.style.top = '';
-        sidebar.style.left = '';
-        sidebar.style.right = '';
-        sidebar.style.transform = '';
-        sidebar.classList.toggle('mobile-open');
-    }
-};
-
-window.closeMobileMenu = function(e) {
-    if (e && e.stopPropagation) e.stopPropagation();
-    const sidebar = document.getElementById('sidebarPanel');
-    if (sidebar) {
-        sidebar.classList.remove('mobile-open');
-    }
-};
 
 
 /**
@@ -3546,7 +3535,9 @@ async function captureCurrentSceneBlob() {
     });
 }
 
-function downloadImageBlob(blob, filenamePrefix = 'satviewer3d') {
+let currentCaptureModalBlob = null;
+
+function downloadImageBlob(blob, filenamePrefix = 'satviewer3d', showToast = true) {
     if (!blob) return;
     try {
         const downloadUrl = URL.createObjectURL(blob);
@@ -3559,22 +3550,196 @@ function downloadImageBlob(blob, filenamePrefix = 'satviewer3d') {
         a.click();
         document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(downloadUrl), 5000);
+
+        if (showToast) {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isJa = (window.currentLang || currentLang) === 'ja';
+            if (isIOS) {
+                showUniversalToast(isJa ? '📁 ダウンロード完了！iPhoneの【ファイル】アプリ内「ダウンロード」フォルダをご確認ください' : '📁 Downloaded to Files app "Downloads" folder', '💾', 5500);
+            } else if (isAndroid) {
+                showUniversalToast(isJa ? '📁 ダウンロード完了！【Files】アプリや「ダウンロード」フォルダをご確認ください' : '📁 Downloaded to your Downloads folder', '💾', 5000);
+            } else {
+                showUniversalToast(isJa ? '💾 ダウンロードフォルダに画像を保存しました！' : '💾 Saved to your Downloads folder', '💾', 3500);
+            }
+        }
     } catch (e) {
         console.warn("Download failed:", e);
     }
 }
 
+function showCapturePreviewModal(blob, copiedToClipboard = false) {
+    currentCaptureModalBlob = blob;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isMobile = isIOS || isAndroid || (window.innerWidth <= 768);
+    const isJa = (window.currentLang || currentLang) === 'ja';
+
+    let overlay = document.getElementById('captureModalOverlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'captureModalOverlay';
+        overlay.className = 'capture-modal-overlay';
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeCapturePreviewModal();
+        });
+        document.body.appendChild(overlay);
+    }
+
+    const imgUrl = URL.createObjectURL(blob);
+
+    let title = isJa ? '📸 宇宙空間キャプチャ完了' : '📸 Universe Scene Captured';
+    let guideHtml = '';
+
+    if (isIOS) {
+        if (isJa) {
+            guideHtml = `
+                <div class="capture-guide-box">
+                    <div class="capture-guide-title">📱 写真アプリへの保存方法</div>
+                    <div class="capture-guide-step">① 下の<strong>【写真アプリに保存】</strong>をタップ ➔ 共有メニュー内の <strong>【画像を保存】</strong> を選択</div>
+                    <div class="capture-guide-step">② または<strong>上の画像を長押し</strong> ➔ <strong>【"写真"に追加】</strong></div>
+                    <div class="capture-guide-note">※共有メニューが表示されたら、必ず<strong>【画像を保存】</strong>をお選びください。</div>
+                </div>
+            `;
+        } else {
+            guideHtml = `
+                <div class="capture-guide-box">
+                    <div class="capture-guide-title">📱 How to Save to Photos App</div>
+                    <div class="capture-guide-step">① Tap <strong>【Save to Photos】</strong> below ➔ Select <strong>【Save Image】</strong></div>
+                    <div class="capture-guide-step">② Or <strong>long-press the image</strong> ➔ Select <strong>【Save to Photos】</strong></div>
+                    <div class="capture-guide-note">※ Please select <strong>【Save Image】</strong> in the share menu.</div>
+                </div>
+            `;
+        }
+    } else if (isAndroid) {
+        if (isJa) {
+            guideHtml = `
+                <div class="capture-guide-box">
+                    <div class="capture-guide-title">📱 写真（フォト）アプリへの保存方法</div>
+                    <div class="capture-guide-step">① 下の<strong>【写真アプリに保存】</strong>をタップ</div>
+                    <div class="capture-guide-step">② または<strong>上の画像を長押し</strong> ➔ <strong>【画像をダウンロード】</strong></div>
+                    <div class="capture-guide-note">※端末のフォトやギャラリーアプリに保存されます。</div>
+                </div>
+            `;
+        } else {
+            guideHtml = `
+                <div class="capture-guide-box">
+                    <div class="capture-guide-title">📱 How to Save to Photos / Gallery</div>
+                    <div class="capture-guide-step">① Tap <strong>【Save to Photos】</strong> below</div>
+                    <div class="capture-guide-step">② Or <strong>long-press the image</strong> ➔ Select <strong>【Download image】</strong></div>
+                    <div class="capture-guide-note">※ Saves directly to your Photos or Gallery app.</div>
+                </div>
+            `;
+        }
+    } else {
+        if (isJa) {
+            guideHtml = `
+                <div class="capture-guide-box">
+                    <div class="capture-guide-title">✨ クリップボードに画像をコピーしました！</div>
+                    <div class="capture-guide-step">・SNSや文書で<strong>【Ctrl+V】（貼り付け）</strong>が可能です。</div>
+                    <div class="capture-guide-note">※画像ファイルをPCに保存したい場合は下の【画像をダウンロード】をクリックしてください。</div>
+                </div>
+            `;
+        } else {
+            guideHtml = `
+                <div class="capture-guide-box">
+                    <div class="capture-guide-title">✨ Copied to Clipboard!</div>
+                    <div class="capture-guide-step">・You can paste directly with <strong>【Ctrl+V】</strong>.</div>
+                    <div class="capture-guide-note">※ To save image as a file, click 【Download Image】 below.</div>
+                </div>
+            `;
+        }
+    }
+
+    let actionsHtml = '';
+    if (isMobile) {
+        actionsHtml = `
+            <button class="capture-action-btn capture-btn-primary" id="captureShareBtn">${isJa ? '📱 写真アプリに保存' : '📱 Save to Photos'}</button>
+            <button class="capture-action-btn capture-btn-secondary" id="captureDismissBtn">${isJa ? '✕ 閉じる' : '✕ Close'}</button>
+        `;
+    } else {
+        actionsHtml = `
+            <button class="capture-action-btn capture-btn-primary" id="captureDownloadBtn">${isJa ? '💾 画像をダウンロード' : '💾 Download Image'}</button>
+            <button class="capture-action-btn capture-btn-secondary" id="captureDismissBtn">${isJa ? '✕ 閉じる' : '✕ Close'}</button>
+        `;
+    }
+
+    overlay.innerHTML = `
+        <div class="capture-modal-container">
+            <div class="capture-modal-header">
+                <div class="capture-modal-title">${title}</div>
+                <button class="capture-modal-close" id="closeCaptureModalBtn" aria-label="Close">✕</button>
+            </div>
+            <div class="capture-modal-body">
+                <div class="capture-modal-preview-wrapper">
+                    <img src="${imgUrl}" alt="Capture Preview" class="capture-modal-preview-img" id="captureModalPreviewImg" />
+                </div>
+                ${guideHtml}
+            </div>
+            <div class="capture-modal-actions">
+                ${actionsHtml}
+            </div>
+        </div>
+    `;
+
+    document.getElementById('closeCaptureModalBtn').onclick = closeCapturePreviewModal;
+    document.getElementById('captureDismissBtn').onclick = closeCapturePreviewModal;
+
+    const shareBtn = document.getElementById('captureShareBtn');
+    if (shareBtn) {
+        shareBtn.onclick = async () => {
+            if (!currentCaptureModalBlob) return;
+            const file = new File([currentCaptureModalBlob], 'satviewer3d_universe.png', { type: 'image/png' });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                try {
+                    // ★重要: iOS Safariでは純粋な画像共有として files のみ渡すことで「画像を保存」を確実に表示させます。
+                    await navigator.share({
+                        files: [file]
+                    });
+                    showUniversalToast(isJa ? '✨ 共有メニューの【画像を保存】で写真アプリに保存されます' : '✨ Saved to Photos via Share Sheet', '📸', 4500);
+                    return;
+                } catch (err) {
+                    if (err.name === 'AbortError') return;
+                    console.warn("Share failed, fallback:", err);
+                }
+            }
+
+            // navigator.share が未対応または非セキュア環境の場合
+            showUniversalToast(isJa ? '💡 上の画像を長押しして【"写真"に追加】で写真アプリに保存できます！' : '💡 Long-press the image above to save to Photos!', '📸', 5000);
+            downloadImageBlob(currentCaptureModalBlob, 'satviewer3d_universe', false);
+        };
+    }
+
+    const downloadBtn = document.getElementById('captureDownloadBtn');
+    if (downloadBtn) {
+        downloadBtn.onclick = () => {
+            if (!currentCaptureModalBlob) return;
+            downloadImageBlob(currentCaptureModalBlob, 'satviewer3d_universe', true);
+        };
+    }
+
+    overlay.classList.add('active');
+}
+
+function closeCapturePreviewModal() {
+    const overlay = document.getElementById('captureModalOverlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+    }
+}
+
 async function saveCurrentSceneScreenshot() {
     CosmicAudio.playBlip(980, 0.08);
-    showUniversalToast('📸 宇宙空間を撮影中...', '📸', 1500);
+    const isJa = (window.currentLang || currentLang) === 'ja';
+    showUniversalToast(isJa ? '📸 宇宙空間を撮影中...' : '📸 Capturing universe scene...', '📸', 1500);
 
     const blob = await captureCurrentSceneBlob();
     if (!blob) {
-        showUniversalToast('❌ 撮影に失敗しました', '⚠️', 2500);
+        showUniversalToast(isJa ? '❌ 撮影に失敗しました' : '❌ Capture failed', '⚠️', 2500);
         return;
     }
 
-    // クリップボードへのコピー
+    // クリップボードへのコピー（可能な場合）
     let copied = false;
     if (navigator.clipboard && window.ClipboardItem) {
         try {
@@ -3585,14 +3750,8 @@ async function saveCurrentSceneScreenshot() {
         } catch (e) {}
     }
 
-    // ファイルダウンロード
-    downloadImageBlob(blob, 'satviewer3d_universe');
-
-    if (copied) {
-        showUniversalToast('📸 宇宙空間を高画質保存しました！（クリップボードにもコピー済み）', '✨', 4000);
-    } else {
-        showUniversalToast('📸 宇宙空間の画像をダウンロード保存しました！', '💾', 3500);
-    }
+    // プレビュー＆保存モーダルを表示
+    showCapturePreviewModal(blob, copied);
 }
 
 async function shareCurrentViewToTwitter() {
@@ -5598,15 +5757,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (mobileMenuBtn && sidebarPanel) {
         mobileMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebarPanel.classList.toggle('mobile-open');
+            window.toggleMobileMenu(e);
         });
     }
 
     if (closeMobileSidebarBtn && sidebarPanel) {
         closeMobileSidebarBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebarPanel.classList.remove('mobile-open');
+            window.closeMobileMenu(e);
         });
     }
 
@@ -14090,15 +14247,13 @@ function setupEventListeners() {
 
     if (mobileMenuBtn && sidebarPanel) {
         mobileMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebarPanel.classList.toggle('mobile-open');
+            window.toggleMobileMenu(e);
         });
     }
 
     if (closeMobileSidebarBtn && sidebarPanel) {
         closeMobileSidebarBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebarPanel.classList.remove('mobile-open');
+            window.closeMobileMenu(e);
         });
     }
 
