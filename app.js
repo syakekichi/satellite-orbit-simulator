@@ -3172,6 +3172,42 @@ function executeHistoricalEvent(eventId) {
 let isCupolaActive = false;
 let cupolaTargetSat = null;
 let cupolaPreRenderRemover = null;
+let cupolaYaw = 0;
+let cupolaPitch = 0;
+let isCupolaDragging = false;
+let cupolaLastMousePos = { x: 0, y: 0 };
+let cupolaPointerHandlersInstalled = false;
+
+function initCupolaPointerInteractions() {
+    if (cupolaPointerHandlersInstalled) return;
+    cupolaPointerHandlersInstalled = true;
+
+    const onPointerDown = (e) => {
+        if (!isCupolaActive) return;
+        if (e.target && e.target.closest && (e.target.closest('.cupola-header') || e.target.closest('.cupola-footer'))) return;
+        isCupolaDragging = true;
+        cupolaLastMousePos = { x: e.clientX, y: e.clientY };
+    };
+
+    const onPointerMove = (e) => {
+        if (!isCupolaActive || !isCupolaDragging) return;
+        const dx = e.clientX - cupolaLastMousePos.x;
+        const dy = e.clientY - cupolaLastMousePos.y;
+        cupolaLastMousePos = { x: e.clientX, y: e.clientY };
+
+        cupolaYaw += dx * 0.0035;
+        cupolaPitch = Math.max(-1.1, Math.min(1.1, cupolaPitch - dy * 0.0035));
+    };
+
+    const onPointerUp = () => {
+        isCupolaDragging = false;
+    };
+
+    window.addEventListener('pointerdown', onPointerDown, { passive: true });
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointerup', onPointerUp, { passive: true });
+    window.addEventListener('pointercancel', onPointerUp, { passive: true });
+}
 
 function enterCupolaMode(satIndex) {
     if (typeof satIndex !== 'number' || satIndex < 0) {
@@ -3192,6 +3228,10 @@ function enterCupolaMode(satIndex) {
     isCupolaActive = true;
     cupolaTargetSat = sat;
     selectedSatIndex = satIndex;
+    cupolaYaw = 0;
+    cupolaPitch = 0;
+
+    initCupolaPointerInteractions();
 
     CosmicAudio.playAirlock();
     const isIss = (sat.name.includes('ISS') || sat.noradId === '25544');
@@ -3214,6 +3254,14 @@ function enterCupolaMode(satIndex) {
                 ? '🛰️ 国際宇宙ステーション (ISS) • 欧州宇宙機関(ESA)製造「キューポラ」展望窓から地球を見下ろしています' 
                 : `🛰️ 人工衛星「${sat.name}」搭載オンボード視点カメラから地球を見下ろしています`;
         }
+    }
+
+    // Hide highlight entity and DOM label so they don't block the camera viewport
+    if (targetHighlightEntity) {
+        targetHighlightEntity.show = false;
+    }
+    if (sat.domLabel) {
+        sat.domLabel.style.display = 'none';
     }
 
     viewer.trackedEntity = undefined;
@@ -3266,7 +3314,8 @@ function enterCupolaMode(satIndex) {
             Cesium.Cartesian3.normalize(velDir, velDir);
         }
 
-        const lookDir = Cesium.Cartesian3.normalize(
+        // Base forward-downward looking vector
+        let lookDir = Cesium.Cartesian3.normalize(
             Cesium.Cartesian3.add(
                 Cesium.Cartesian3.multiplyByScalar(nadir, 0.70, new Cesium.Cartesian3()),
                 Cesium.Cartesian3.multiplyByScalar(velDir, 0.55, new Cesium.Cartesian3()),
@@ -3274,6 +3323,21 @@ function enterCupolaMode(satIndex) {
             ),
             new Cesium.Cartesian3()
         );
+
+        // Calculate right vector for free look rotation
+        const rightDir = Cesium.Cartesian3.normalize(
+            Cesium.Cartesian3.cross(lookDir, up, new Cesium.Cartesian3()),
+            new Cesium.Cartesian3()
+        );
+
+        // Apply smooth yaw and pitch rotation
+        if (Math.abs(cupolaYaw) > 0.001 || Math.abs(cupolaPitch) > 0.001) {
+            const yawQuat = Cesium.Quaternion.fromAxisAngle(up, -cupolaYaw, new Cesium.Quaternion());
+            const pitchQuat = Cesium.Quaternion.fromAxisAngle(rightDir, cupolaPitch, new Cesium.Quaternion());
+            const rotQuat = Cesium.Quaternion.multiply(yawQuat, pitchQuat, new Cesium.Quaternion());
+            const rotMatrix = Cesium.Matrix3.fromQuaternion(rotQuat, new Cesium.Matrix3());
+            lookDir = Cesium.Matrix3.multiplyByVector(rotMatrix, lookDir, new Cesium.Cartesian3());
+        }
 
         viewer.camera.setView({
             destination: pos,
@@ -3315,10 +3379,19 @@ function exitCupolaMode() {
     if (!isCupolaActive) return;
     isCupolaActive = false;
     cupolaTargetSat = null;
+    isCupolaDragging = false;
 
     if (cupolaPreRenderRemover) {
         cupolaPreRenderRemover();
         cupolaPreRenderRemover = null;
+    }
+
+    // Restore target highlight entity and DOM label
+    if (targetHighlightEntity) {
+        targetHighlightEntity.show = true;
+    }
+    if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex] && satellitesData[selectedSatIndex].domLabel) {
+        satellitesData[selectedSatIndex].domLabel.style.display = 'block';
     }
 
     document.body.classList.remove('cupola-mode-active');
@@ -11732,6 +11805,21 @@ function initCesiumViewer() {
         console.warn("World Imagery load info:", e);
     }
 
+    // Real-Time Earth at Night (Golden City Lights on the Dark Side of Earth)
+    try {
+        const nightImageryProvider = new Cesium.SingleTileImageryProvider({
+            url: assetPrefix + 'earth_night.jpg',
+            rectangle: Cesium.Rectangle.fromDegrees(-180.0, -90.0, 180.0, 90.0)
+        });
+        const nightLayer = viewer.imageryLayers.addImageryProvider(nightImageryProvider);
+        nightLayer.dayAlpha = 0.0;    // 昼側（太陽光照射面）は自動で非表示
+        nightLayer.nightAlpha = 1.0;  // 夜側（地球の夜エリア）に街の明かりが美しく浮かび上がる
+        nightLayer.brightness = 1.65;
+        nightLayer.contrast = 1.35;
+    } catch (e) {
+        console.warn("Night lights overlay load info:", e);
+    }
+
     // Safe Photo Texture Overlay Loader for Clouds
     const loadSafeSingleTile = (imgUrl, opacity = 1.0) => {
         const img = new Image();
@@ -11739,10 +11827,11 @@ function initCesiumViewer() {
             try {
                 const provider = new Cesium.SingleTileImageryProvider({
                     url: img.src,
-                    rectangle: Cesium.Rectangle.MAX_VALUE
+                    rectangle: Cesium.Rectangle.fromDegrees(-180.0, -90.0, 180.0, 90.0)
                 });
                 const layer = viewer.imageryLayers.addImageryProvider(provider);
                 layer.alpha = opacity;
+                layer.brightness = 1.25;
             } catch (e) {
                 console.warn("Layer add warn:", e);
             }
@@ -11750,7 +11839,9 @@ function initCesiumViewer() {
         img.src = imgUrl;
     };
 
-    // loadSafeSingleTile('earth_clouds.png', 0.35);   // Cloud Atmosphere Overlay
+    try {
+        loadSafeSingleTile(assetPrefix + 'earth_clouds.png', 0.22); // Cloud Atmosphere Overlay
+    } catch (e) {}
 
     // Country Borders & Place Names Overlay
     try {

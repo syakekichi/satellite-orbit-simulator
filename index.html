@@ -127,7 +127,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260906_1237">
+    <link rel="stylesheet" href="styles.css?v=20260906_1328">
 </head>
 <body>
     <div id="cesiumContainer"></div>
@@ -748,7 +748,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260906_1237"></script>
+    <script src="app.js?v=20260906_1328"></script>
     
     </div>
         <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
@@ -777,52 +777,66 @@
 
     <!-- ISS Cupola View & Astronaut POV Overlay -->
     <div id="cupolaOverlay" class="cupola-overlay hidden">
-        <!-- SVG Cockpit Frame -->
-        <svg viewBox="0 0 1400 900" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
-            <defs>
-                <mask id="cupolaWindowsMask">
-                    <rect width="1400" height="900" fill="white" />
-                    <!-- Center Window -->
-                    <circle cx="700" cy="460" r="310" fill="black" />
-                    <!-- 6 Outer Trapezoid Windows -->
-                    <polygon points="540,60 860,60 820,135 580,135" fill="black" />
-                    <polygon points="1060,160 1260,330 1190,390 1010,250" fill="black" />
-                    <polygon points="1260,590 1060,760 1010,670 1190,530" fill="black" />
-                    <polygon points="860,860 540,860 580,785 820,785" fill="black" />
-                    <polygon points="340,760 140,590 210,530 390,670" fill="black" />
-                    <polygon points="140,330 340,160 390,250 210,390" fill="black" />
-                </mask>
-                <radialGradient id="cupolaVignette" cx="50%" cy="51%" r="50%">
-                    <stop offset="65%" stop-color="rgba(0,0,0,0)" />
-                    <stop offset="92%" stop-color="rgba(0,0,0,0.4)" />
-                    <stop offset="100%" stop-color="rgba(0,0,0,0.85)" />
-                </radialGradient>
-            </defs>
-            <rect width="1400" height="900" fill="#090d16" mask="url(#cupolaWindowsMask)" />
-            <!-- Outer Ring Struts -->
-            <circle cx="700" cy="460" r="312" fill="none" stroke="#334155" stroke-width="8" />
-            <circle cx="700" cy="460" r="316" fill="none" stroke="#1e293b" stroke-width="5" />
-            <circle cx="700" cy="460" r="308" fill="none" stroke="rgba(56,189,248,0.45)" stroke-width="1.5" />
-            <!-- Rivets -->
+        <!-- SVG Cockpit Frame (Robust EvenOdd Path: 100% Guaranteed Crisp Transparency Across All Browsers) -->
+        <svg viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;">
+            <!-- Solid Hull with Cutout Windows (EvenOdd Rule eliminates browser mask bugs) -->
+            <path fill="#090d16" fill-rule="evenodd" d="
+                M -600 -400 L 2000 -400 L 2000 1300 L -600 1300 Z
+                M 700 150 A 310 310 0 1 0 700 770 A 310 310 0 1 0 700 150 Z
+                M 540 60 L 860 60 L 820 135 L 580 135 Z
+                M 1060 160 L 1260 330 L 1190 390 L 1010 250 Z
+                M 1260 590 L 1060 760 L 1010 670 L 1190 530 Z
+                M 860 860 L 540 860 L 580 785 L 820 785 Z
+                M 340 760 L 140 590 L 210 530 L 390 670 Z
+                M 140 330 L 340 160 L 390 250 L 210 390 Z
+            " />
+
+            <!-- Outer Trapezoid Window Bevel Frames -->
+            <polygon points="540,60 860,60 820,135 580,135" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="540,60 860,60 820,135 580,135" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <polygon points="1060,160 1260,330 1190,390 1010,250" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="1060,160 1260,330 1190,390 1010,250" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <polygon points="1260,590 1060,760 1010,670 1190,530" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="1260,590 1060,760 1010,670 1190,530" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <polygon points="860,860 540,860 580,785 820,785" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="860,860 540,860 580,785 820,785" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <polygon points="340,760 140,590 210,530 390,670" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="340,760 140,590 210,530 390,670" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <polygon points="140,330 340,160 390,250 210,390" fill="none" stroke="#1e293b" stroke-width="6" />
+            <polygon points="140,330 340,160 390,250 210,390" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1.5" />
+
+            <!-- Main Center Circular Window Ring Struts & Atmospheric Glow -->
+            <circle cx="700" cy="460" r="313" fill="none" stroke="#334155" stroke-width="8" />
+            <circle cx="700" cy="460" r="317" fill="none" stroke="#1e293b" stroke-width="6" />
+            <circle cx="700" cy="460" r="309" fill="none" stroke="rgba(56,189,248,0.55)" stroke-width="2" />
+            <circle cx="700" cy="460" r="306" fill="none" stroke="rgba(56,189,248,0.2)" stroke-width="1" />
+
+            <!-- Structural Rivets -->
             <g id="cupolaRivetsGroup"></g>
-            <!-- 6 Radial Strut Lines -->
-            <line x1="985" y1="625" x2="1392" y2="860" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
-            <line x1="985" y1="625" x2="1392" y2="860" stroke="#475569" stroke-width="2"/>
-            <line x1="700" y1="790" x2="700" y2="900" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
-            <line x1="700" y1="790" x2="700" y2="900" stroke="#475569" stroke-width="2"/>
-            <line x1="415" y1="625" x2="8" y2="860" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
-            <line x1="415" y1="625" x2="8" y2="860" stroke="#475569" stroke-width="2"/>
-            <line x1="415" y1="295" x2="8" y2="60" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
-            <line x1="415" y1="295" x2="8" y2="60" stroke="#475569" stroke-width="2"/>
-            <line x1="700" y1="130" x2="700" y2="0" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
-            <line x1="700" y1="130" x2="700" y2="0" stroke="#475569" stroke-width="2"/>
-            <line x1="985" y1="295" x2="1392" y2="60" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
-            <line x1="985" y1="295" x2="1392" y2="60" stroke="#475569" stroke-width="2"/>
-            <!-- Reticle Crosshair HUD -->
-            <circle cx="700" cy="460" r="36" fill="none" stroke="rgba(56,189,248,0.3)" stroke-width="1" stroke-dasharray="4 4" />
-            <line x1="675" y1="460" x2="725" y2="460" stroke="rgba(56,189,248,0.5)" stroke-width="1.2" />
-            <line x1="700" y1="435" x2="700" y2="485" stroke="rgba(56,189,248,0.5)" stroke-width="1.2" />
-            <rect width="1400" height="900" fill="url(#cupolaVignette)" pointer-events="none" />
+
+            <!-- 6 Radial Structural Bulkheads -->
+            <line x1="985" y1="625" x2="1392" y2="860" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="985" y1="625" x2="1392" y2="860" stroke="#475569" stroke-width="3"/>
+            <line x1="700" y1="790" x2="700" y2="900" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="700" y1="790" x2="700" y2="900" stroke="#475569" stroke-width="3"/>
+            <line x1="415" y1="625" x2="8" y2="860" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="415" y1="625" x2="8" y2="860" stroke="#475569" stroke-width="3"/>
+            <line x1="415" y1="295" x2="8" y2="60" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="415" y1="295" x2="8" y2="60" stroke="#475569" stroke-width="3"/>
+            <line x1="700" y1="130" x2="700" y2="0" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="700" y1="130" x2="700" y2="0" stroke="#475569" stroke-width="3"/>
+            <line x1="985" y1="295" x2="1392" y2="60" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="985" y1="295" x2="1392" y2="60" stroke="#475569" stroke-width="3"/>
+
+            <!-- Center Reticle Crosshair HUD -->
+            <circle cx="700" cy="460" r="36" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="1" stroke-dasharray="4 4" />
+            <line x1="675" y1="460" x2="725" y2="460" stroke="rgba(56,189,248,0.6)" stroke-width="1.2" />
+            <line x1="700" y1="435" x2="700" y2="485" stroke="rgba(56,189,248,0.6)" stroke-width="1.2" />
         </svg>
 
         <!-- Top Telemetry Strip -->
