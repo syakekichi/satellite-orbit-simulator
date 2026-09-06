@@ -189,6 +189,17 @@ html, body {
 .stats-pills {
     display: flex;
     gap: 12px;
+    align-items: center;
+}
+
+.mobile-header-menu-btn {
+    display: none;
+}
+
+.header-actions-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .stat-pill {
@@ -1839,7 +1850,8 @@ html[dir="rtl"] .toggle-switch {
 
     .header-right-island {
         pointer-events: auto !important;
-        padding: 4px 8px !important;
+        position: relative !important;
+        padding: 3px 6px !important;
         border-radius: 20px !important;
         max-width: fit-content !important;
         margin: 0 !important;
@@ -1847,34 +1859,135 @@ html[dir="rtl"] .toggle-switch {
         border: 1px solid rgba(56, 189, 248, 0.35) !important;
     }
 
+    .header-right-island .stats-pills {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 4px !important;
+    }
+
     .header-right-island .panel-drag-bar,
     .header-right-island #statCountLabel,
     .header-right-island #statCount,
-    .header-right-island #statTimeLabel,
-    .header-right-island #openReleaseBtn {
+    .header-right-island #statTimeLabel {
         display: none !important;
     }
 
     .header-right-island .stat-pill {
-        padding: 2px 6px !important;
+        padding: 2px 4px !important;
         border: none !important;
         background: transparent !important;
     }
 
     .header-right-island .stat-value.mono-text {
-        font-size: 0.82rem !important;
+        font-size: 0.74rem !important;
         color: #38bdf8 !important;
         font-weight: 700 !important;
+        white-space: nowrap !important;
+        line-height: 1.15 !important;
     }
 
-    .header-right-island #langSelect {
-        font-size: 0.72rem !important;
-        padding: 2px !important;
+    .mobile-header-menu-btn {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 4px;
+        background: linear-gradient(135deg, rgba(2, 132, 199, 0.45), rgba(99, 102, 241, 0.35)) !important;
+        border: 1px solid rgba(56, 189, 248, 0.55) !important;
+        border-radius: 16px !important;
+        padding: 3px 8px !important;
+        font-size: 0.74rem !important;
+        font-weight: 700 !important;
+        color: #38bdf8 !important;
+        cursor: pointer !important;
+        user-select: none;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        box-shadow: 0 0 10px rgba(56, 189, 248, 0.25) !important;
+        transition: all 0.2s ease;
     }
 
-    .header-right-island #openGuideBtn {
-        padding: 2px 6px !important;
-        font-size: 0.72rem !important;
+    .mobile-header-menu-btn:active,
+    .mobile-header-menu-btn.active {
+        background: linear-gradient(135deg, rgba(2, 132, 199, 0.8), rgba(99, 102, 241, 0.8)) !important;
+        color: #ffffff !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 14px rgba(56, 189, 248, 0.6) !important;
+    }
+
+    .mobile-header-menu-btn .menu-arrow {
+        font-size: 0.62rem;
+        transition: transform 0.2s ease;
+    }
+
+    .mobile-header-menu-btn.active .menu-arrow {
+        transform: rotate(180deg);
+    }
+
+    .header-actions-group {
+        display: none !important;
+    }
+
+    .header-actions-group.open {
+        display: flex !important;
+        flex-direction: column !important;
+        position: absolute !important;
+        top: calc(100% + 8px) !important;
+        right: 0 !important;
+        min-width: 215px !important;
+        background: rgba(10, 16, 32, 0.96) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+        border: 1px solid rgba(56, 189, 248, 0.45) !important;
+        border-radius: 14px !important;
+        padding: 10px !important;
+        gap: 8px !important;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), 0 0 20px rgba(56, 189, 248, 0.25) !important;
+        z-index: 1000010 !important;
+        animation: headerDropdownAnim 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
+
+    @keyframes headerDropdownAnim {
+        from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .header-actions-group.open .header-action-btn,
+    .header-actions-group.open .header-lang-pill {
+        display: flex !important;
+        width: 100% !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        padding: 10px 12px !important;
+        font-size: 0.84rem !important;
+        font-weight: 600 !important;
+        border-radius: 8px !important;
+        box-sizing: border-box !important;
+        text-align: left !important;
+        margin: 0 !important;
+        transition: all 0.15s ease !important;
+    }
+
+    .header-actions-group.open .header-action-btn:active,
+    .header-actions-group.open .header-action-btn:hover {
+        background: rgba(56, 189, 248, 0.25) !important;
+        border-color: #38bdf8 !important;
+        transform: translateX(3px);
+    }
+
+    .header-actions-group.open .header-lang-pill {
+        background: rgba(56, 189, 248, 0.12) !important;
+        border: 1px solid rgba(56, 189, 248, 0.35) !important;
+        gap: 8px !important;
+    }
+
+    .header-actions-group.open .header-lang-pill select {
+        width: 100% !important;
+        font-size: 0.84rem !important;
+        font-weight: 700 !important;
+        color: #38bdf8 !important;
+        background: transparent !important;
+        border: none !important;
+        cursor: pointer !important;
     }
 
     /* 2. Bottom Dock Action Buttons: [🛰️ 衛星選択] and [📊 衛星詳細] */

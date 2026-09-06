@@ -74,6 +74,42 @@ window.closeMobileDetail = function(e) {
     }
 };
 
+window.toggleMobileHeaderMenu = function(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const actionsGroup = document.getElementById('headerActionsGroup');
+    const menuBtn = document.getElementById('mobileHeaderMenuBtn');
+    if (!actionsGroup || !menuBtn) return;
+
+    const isOpen = actionsGroup.classList.toggle('open');
+    menuBtn.classList.toggle('active', isOpen);
+    menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    const arrow = document.getElementById('mobileHeaderMenuArrow');
+    if (arrow) arrow.textContent = isOpen ? '▴' : '▾';
+};
+
+window.closeMobileHeaderMenu = function() {
+    const actionsGroup = document.getElementById('headerActionsGroup');
+    const menuBtn = document.getElementById('mobileHeaderMenuBtn');
+    if (actionsGroup) actionsGroup.classList.remove('open');
+    if (menuBtn) {
+        menuBtn.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+    }
+    const arrow = document.getElementById('mobileHeaderMenuArrow');
+    if (arrow) arrow.textContent = '▾';
+};
+
+// Auto-close header dropdown menu when clicking outside or on mobile action items
+document.addEventListener('click', (e) => {
+    const actionsGroup = document.getElementById('headerActionsGroup');
+    const menuBtn = document.getElementById('mobileHeaderMenuBtn');
+    if (actionsGroup && actionsGroup.classList.contains('open')) {
+        if (!actionsGroup.contains(e.target) && !menuBtn.contains(e.target)) {
+            window.closeMobileHeaderMenu();
+        }
+    }
+});
+
 
 
 /**
@@ -884,6 +920,8 @@ function getSatDisplayName(name) {
 
 const TRANSLATIONS = {
     "ja": {
+        "mobileHeaderMenu": "メニュー",
+        "navArticles": "宇宙コラム",
         "mobileBtnSelect": "🛰️ 衛星選択",
         "mobileBtnDetail": "📊 衛星詳細",
         "mobileSheetSelectTitle": "🛰️ 衛星選択・メニュー",
@@ -1029,6 +1067,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。"
     },
     "en": {
+        "mobileHeaderMenu": "Menu",
+        "navArticles": "Space Articles",
         "mobileBtnSelect": "🛰️ Satellites",
         "mobileBtnDetail": "📊 Details",
         "mobileSheetSelectTitle": "🛰️ Satellites & Menu",
@@ -1175,6 +1215,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "For inquiries and feedback, contact info@satviewer3d.com"
     },
     "de": {
+        "mobileHeaderMenu": "Menü",
+        "navArticles": "Weltraum-Artikel",
         "mobileBtnSelect": "🛰️ Satelliten",
         "mobileBtnDetail": "📊 Details",
         "mobileSheetSelectTitle": "🛰️ Satelliten & Menü",
@@ -1308,6 +1350,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Für Anfragen: info@satviewer3d.com"
     },
     "fr": {
+        "mobileHeaderMenu": "Menu",
+        "navArticles": "Articles spatiaux",
         "mobileBtnSelect": "🛰️ Satellites",
         "mobileBtnDetail": "📊 Détails",
         "mobileSheetSelectTitle": "🛰️ Satellites & Menu",
@@ -1441,6 +1485,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Pour toute demande : info@satviewer3d.com"
     },
     "es": {
+        "mobileHeaderMenu": "Menú",
+        "navArticles": "Artículos espaciales",
         "mobileBtnSelect": "🛰️ Satélites",
         "mobileBtnDetail": "📊 Detalles",
         "mobileSheetSelectTitle": "🛰️ Satélites y Menú",
@@ -1574,6 +1620,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para consultas: info@satviewer3d.com"
     },
     "pt": {
+        "mobileHeaderMenu": "Menu",
+        "navArticles": "Artigos espaciais",
         "mobileBtnSelect": "🛰️ Satélites",
         "mobileBtnDetail": "📊 Detalhes",
         "mobileSheetSelectTitle": "🛰️ Satélites e Menu",
@@ -1707,6 +1755,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Para dúvidas: info@satviewer3d.com"
     },
     "it": {
+        "mobileHeaderMenu": "Menu",
+        "navArticles": "Articoli spaziali",
         "mobileBtnSelect": "🛰️ Satelliti",
         "mobileBtnDetail": "📊 Dettagli",
         "mobileSheetSelectTitle": "🛰️ Satelliti e Menu",
@@ -1840,6 +1890,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Per richieste: info@satviewer3d.com"
     },
     "ko": {
+        "mobileHeaderMenu": "메뉴",
+        "navArticles": "우주 칼럼",
         "mobileBtnSelect": "🛰️ 위성 선택",
         "mobileBtnDetail": "📊 위성 상세",
         "mobileSheetSelectTitle": "🛰️ 위성 선택·메뉴",
@@ -1973,6 +2025,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다."
     },
     "nl": {
+        "mobileHeaderMenu": "Menu",
+        "navArticles": "Ruimtevaartartikelen",
         "mobileBtnSelect": "🛰️ Satellieten",
         "mobileBtnDetail": "📊 Details",
         "mobileSheetSelectTitle": "🛰️ Satellieten & Menu",
@@ -2106,6 +2160,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Voor vragen: info@satviewer3d.com"
     },
     "id": {
+        "mobileHeaderMenu": "Menu",
+        "navArticles": "Artikel Luar Angkasa",
         "mobileBtnSelect": "🛰️ Satelit",
         "mobileBtnDetail": "📊 Detail",
         "mobileSheetSelectTitle": "🛰️ Satelit & Menu",
@@ -2239,6 +2295,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com"
     },
     "hi": {
+        "mobileHeaderMenu": "मेनू",
+        "navArticles": "अंतरिक्ष लेख",
         "mobileBtnSelect": "🛰️ उपग्रह",
         "mobileBtnDetail": "📊 विवरण",
         "mobileSheetSelectTitle": "🛰️ उपग्रह चयन और मेनू",
@@ -2372,6 +2430,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com"
     },
     "ar": {
+        "mobileHeaderMenu": "القائمة",
+        "navArticles": "مقالات الفضاء",
         "mobileBtnSelect": "🛰️ الأقمار",
         "mobileBtnDetail": "📊 التفاصيل",
         "mobileSheetSelectTitle": "🛰️ اختيار الأقمار والقائمة",
@@ -2505,6 +2565,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "للاستفسارات: info@satviewer3d.com"
     },
     "zh": {
+        "mobileHeaderMenu": "菜单",
+        "navArticles": "太空专栏",
         "mobileBtnSelect": "🛰️ 卫星选择",
         "mobileBtnDetail": "📊 卫星详情",
         "mobileSheetSelectTitle": "🛰️ 卫星选择·菜单",
@@ -2638,6 +2700,8 @@ const TRANSLATIONS = {
         "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com"
     },
     "ru": {
+        "mobileHeaderMenu": "Меню",
+        "navArticles": "Космические статьи",
         "mobileBtnSelect": "🛰️ Спутники",
         "mobileBtnDetail": "📊 Детали",
         "mobileSheetSelectTitle": "🛰️ Спутники и меню",
@@ -4001,6 +4065,7 @@ function applyLanguage(lang) {
         'copyShareBtn': 'btnCopyShare',
         'openReleaseBtn': 'btnRelease',
         'openGuideBtn': 'btnGuide',
+        'mobileHeaderMenuText': 'mobileHeaderMenu',
         'modalTitle': 'modalTitle'
     };
 
@@ -12767,13 +12832,14 @@ function updateOffScreenPointer() {
  */
 function formatSimTime(jsDate) {
     const tz = tzSelect ? tzSelect.value : 'JST';
+    let res = '';
     
     if (tz === 'UTC') {
-        return jsDate.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+        res = jsDate.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
     } else if (tz === 'JST') {
         // JST = UTC + 9 Hours
         const jstDate = new Date(jsDate.getTime() + 9 * 60 * 60 * 1000);
-        return jstDate.toISOString().replace('T', ' ').substring(0, 19) + ' JST';
+        res = jstDate.toISOString().replace('T', ' ').substring(0, 19) + ' JST';
     } else if (tz === 'NY') {
         try {
             const formatter = new Intl.DateTimeFormat('ja-JP', {
@@ -12785,9 +12851,9 @@ function formatSimTime(jsDate) {
             const parts = formatter.formatToParts(jsDate);
             const p = {};
             parts.forEach(part => p[part.type] = part.value);
-            return `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}:${p.second} NY`;
+            res = `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}:${p.second} NY`;
         } catch (e) {
-            return jsDate.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+            res = jsDate.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
         }
     } else {
         const y = jsDate.getFullYear();
@@ -12796,8 +12862,14 @@ function formatSimTime(jsDate) {
         const hh = String(jsDate.getHours()).padStart(2, '0');
         const mm = String(jsDate.getMinutes()).padStart(2, '0');
         const ss = String(jsDate.getSeconds()).padStart(2, '0');
-        return `${y}-${m}-${d} ${hh}:${mm}:${ss} LOCAL`;
+        res = `${y}-${m}-${d} ${hh}:${mm}:${ss} LOCAL`;
     }
+
+    if (window.innerWidth <= 768) {
+        // Strip YYYY-MM-DD on mobile for a sleek, compact clock display
+        res = res.replace(/^\d{4}-\d{2}-\d{2}\s*/, '');
+    }
+    return res;
 }
 
 // Global State for Time Control & Multiplier

@@ -127,7 +127,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260906_1328">
+    <link rel="stylesheet" href="styles.css?v=20260906_1342">
 </head>
 <body>
     <div id="cesiumContainer"></div>
@@ -171,48 +171,59 @@
                         <span class="stat-label" id="statCountLabel" data-i18n="statCount">追跡衛星数</span>
                         <span class="stat-value" id="statCount">0</span>
                     </div>
-                    <div class="stat-pill">
+                    <div class="stat-pill header-time-pill">
                         <span class="stat-label" id="statTimeLabel" data-i18n="statTime">シミュレーション時刻</span>
                         <span class="stat-value mono-text" id="statTime">--:--:--</span>
                     </div>
-                    <div class="stat-pill" style="padding: 4px 10px; display: flex; align-items: center; gap: 6px; border-color: rgba(56,189,248,0.5); background: rgba(56, 189, 248, 0.08);">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="#38bdf8" stroke-width="2.2" fill="none" style="filter: drop-shadow(0 0 4px rgba(56,189,248,0.6)); flex-shrink: 0;">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                        </svg>
-                        <select id="langSelect" class="custom-select" style="padding: 2px 4px; font-size: 0.78rem; font-weight:700; border: none; background: transparent; color: #38bdf8; cursor: pointer;" onchange="window.changeLanguage(this.value)">
-                            <option value="ja" selected style="background:#0b1329; color:#fff;">🇯🇵 日本語</option>
-                            <option value="en"  style="background:#0b1329; color:#fff;">🇺🇸 English</option>
-                            <option value="de"  style="background:#0b1329; color:#fff;">🇩🇪 Deutsch</option>
-                            <option value="fr"  style="background:#0b1329; color:#fff;">🇫🇷 Français</option>
-                            <option value="es"  style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
-                            <option value="pt"  style="background:#0b1329; color:#fff;">🇵🇹 Português</option>
-                            <option value="it"  style="background:#0b1329; color:#fff;">🇮🇹 Italiano</option>
-                            <option value="ko"  style="background:#0b1329; color:#fff;">🇰🇷 한국어</option>
-                            <option value="nl"  style="background:#0b1329; color:#fff;">🇳🇱 Nederlands</option>
-                            <option value="id"  style="background:#0b1329; color:#fff;">🇮🇩 Bahasa Indonesia</option>
-                            <option value="hi"  style="background:#0b1329; color:#fff;">🇮🇳 हिन्दी</option>
-                            <option value="ar"  style="background:#0b1329; color:#fff;">🇸🇦 العربية</option>
-                            <option value="zh"  style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
-                            <option value="ru"  style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
-                        </select>
+
+                    <!-- Mobile Menu Toggle Button (Visible only on mobile/narrow screens) -->
+                    <button id="mobileHeaderMenuBtn" class="mobile-header-menu-btn" type="button" aria-expanded="false" aria-label="Menu" onclick="window.toggleMobileHeaderMenu(event)">
+                        <span>☰</span>
+                        <span id="mobileHeaderMenuText" data-i18n="mobileHeaderMenu">メニュー</span>
+                        <span class="menu-arrow" id="mobileHeaderMenuArrow">▾</span>
+                    </button>
+
+                    <!-- Actions Group: Desktop inline, Mobile dropdown -->
+                    <div id="headerActionsGroup" class="header-actions-group">
+                        <div class="stat-pill header-lang-pill" style="padding: 4px 10px; display: flex; align-items: center; gap: 6px; border-color: rgba(56,189,248,0.5); background: rgba(56, 189, 248, 0.08);">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="#38bdf8" stroke-width="2.2" fill="none" style="filter: drop-shadow(0 0 4px rgba(56,189,248,0.6)); flex-shrink: 0;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <select id="langSelect" class="custom-select" style="padding: 2px 4px; font-size: 0.78rem; font-weight:700; border: none; background: transparent; color: #38bdf8; cursor: pointer;" onchange="window.changeLanguage(this.value)">
+                                <option value="ja" selected style="background:#0b1329; color:#fff;">🇯🇵 日本語</option>
+                                <option value="en"  style="background:#0b1329; color:#fff;">🇺🇸 English</option>
+                                <option value="de"  style="background:#0b1329; color:#fff;">🇩🇪 Deutsch</option>
+                                <option value="fr"  style="background:#0b1329; color:#fff;">🇫🇷 Français</option>
+                                <option value="es"  style="background:#0b1329; color:#fff;">🇪🇸 Español</option>
+                                <option value="pt"  style="background:#0b1329; color:#fff;">🇵🇹 Português</option>
+                                <option value="it"  style="background:#0b1329; color:#fff;">🇮🇹 Italiano</option>
+                                <option value="ko"  style="background:#0b1329; color:#fff;">🇰🇷 한국어</option>
+                                <option value="nl"  style="background:#0b1329; color:#fff;">🇳🇱 Nederlands</option>
+                                <option value="id"  style="background:#0b1329; color:#fff;">🇮🇩 Bahasa Indonesia</option>
+                                <option value="hi"  style="background:#0b1329; color:#fff;">🇮🇳 हिन्दी</option>
+                                <option value="ar"  style="background:#0b1329; color:#fff;">🇸🇦 العربية</option>
+                                <option value="zh"  style="background:#0b1329; color:#fff;">🇨🇳 中文</option>
+                                <option value="ru"  style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
+                            </select>
+                        </div>
+                        <a href="/articles/" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.5); color: #38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; border-radius:6px;">
+                            📚 <span data-i18n="navArticles">宇宙コラム</span>
+                        </a>
+                        <button id="headerScreenshotBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" title="現在の宇宙空間を高画質撮影・保存" data-i18n="headerScreenshot">
+                            📸 スクショ
+                        </button>
+                        <button id="soundToggleBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" title="宇宙アンビエント音 ON/OFF" data-i18n="soundToggle">
+                            🔇 サウンド OFF
+                        </button>
+                        <button id="openReleaseBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="btnRelease">
+                            📜 v2.7 更新履歴
+                        </button>
+                        <button id="openGuideBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer; white-space:nowrap;" data-i18n="btnGuide">
+                            ❓ ガイド & 規約
+                        </button>
                     </div>
-                    <a href="/articles/" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.5); color: #38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; border-radius:6px;">
-                        📚 宇宙コラム
-                    </a>
-                    <button id="headerScreenshotBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" title="現在の宇宙空間を高画質撮影・保存" data-i18n="headerScreenshot">
-                        📸 スクショ
-                    </button>
-                    <button id="soundToggleBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" title="宇宙アンビエント音 ON/OFF" data-i18n="soundToggle">
-                        🔇 サウンド OFF
-                    </button>
-                    <button id="openReleaseBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="btnRelease">
-                        📜 v2.7 更新履歴
-                    </button>
-                    <button id="openGuideBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer; white-space:nowrap;" data-i18n="btnGuide">
-                        ❓ ガイド & 規約
-                    </button>
                 </div>
                 </div>
             </div>
@@ -748,7 +759,7 @@
     </div>
     </div>
 
-    <script src="app.js?v=20260906_1328"></script>
+    <script src="app.js?v=20260906_1342"></script>
     
     </div>
         <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
