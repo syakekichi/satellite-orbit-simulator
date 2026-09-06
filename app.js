@@ -9935,29 +9935,49 @@ function drawDeepSpaceOrbit(mission) {
                     } catch(e) {}
                     if (!jupPos) jupPos = new Cesium.Cartesian3(778000000000, 0, 0);
 
-                    // 木星最接近スイングバイ (~35万km) と、太陽系横断・脱出軌道 (~2.8兆m / ~19 AU) の融合連続軌道
-                    // ズームインでも木星の真横の急カーブが見え、ズームアウトしても画面いっぱいに広がり絶対に見失わない！
-                    const v1Count = 180;
-                    for (let i = -v1Count; i <= v1Count; i++) {
-                        const s = i / v1Count; // -1.0 (進入遠景) ~ 0 (近木点) ~ +1.0 (脱出星間空間)
-                        const sign = s < 0 ? -1 : 1;
-                        const t = sign * Math.pow(Math.abs(s), 2.2) * 4.2;
+                    // 木星最接近点（ボイジャー1号本体の位置）
+                    const flybyOffset = new Cesium.Cartesian3(350000000 * 0.75, -350000000 * 0.55, 350000000 * 0.25);
+                    const v1FlybyPos = Cesium.Cartesian3.add(jupPos, flybyOffset, new Cesium.Cartesian3());
 
-                        // 木星重力圏内スイングバイ双曲線成分
-                        const localX = 350000000 * Math.cosh(t * 0.85) - 220000000;
-                        const localY = 480000000 * Math.sinh(t * 0.85);
-                        const localZ = 220000000 * Math.sinh(t * 0.85);
+                    // 進入方向（太陽・地球・内惑星側から木星へ向かう単位ベクトル）
+                    let appDir = new Cesium.Cartesian3(0.85, 0.52, -0.05);
+                    try {
+                        let sunPos;
+                        const sunBody = CELESTIAL_BODIES.find(b => b.id === 'SUN');
+                        sunPos = computeCelestialPosition(sunBody, effectiveTime);
+                        if (sunPos && jupPos) {
+                            appDir = Cesium.Cartesian3.subtract(jupPos, sunPos, new Cesium.Cartesian3());
+                            Cesium.Cartesian3.normalize(appDir, appDir);
+                        }
+                    } catch(e) {}
 
-                        // 太陽系進入・脱出漸近線成分（数百〜数千万kmスケール：ズームアウトしても消えず、カリングされない最適スパン）
-                        const asympDist = sign * Math.pow(Math.abs(s), 2.0) * 1.5e10;
-                        const dirX = s < 0 ? -0.85 : 0.45;
-                        const dirY = s < 0 ? -0.52 : 0.62;
-                        const dirZ = s < 0 ? 0.05 : 0.64; // 北方+35度へ脱出
+                    // 脱出方向（木星から北方+35度星間空間へ向かう単位ベクトル）
+                    let depDir = new Cesium.Cartesian3(0.45, 0.62, 0.64);
+                    try {
+                        const v1Pos = computeDeepSpacePosition(mission, effectiveTime);
+                        if (v1Pos && jupPos) {
+                            depDir = Cesium.Cartesian3.subtract(v1Pos, jupPos, new Cesium.Cartesian3());
+                            Cesium.Cartesian3.normalize(depDir, depDir);
+                        }
+                    } catch(e) {}
 
-                        const hx = localX + dirX * Math.abs(asympDist);
-                        const hy = localY + dirY * asympDist;
-                        const hz = localZ + dirZ * asympDist;
-                        pts.push(Cesium.Cartesian3.add(jupPos, new Cesium.Cartesian3(hx, hy, hz), new Cesium.Cartesian3()));
+                    // 厳密なケプラー双曲線基底（接線方向 T と 偏向法線方向 N）
+                    // 変曲点・S字波打ちは数学的に絶対に発生せず、単調な美しい双曲線となる！
+                    const T = Cesium.Cartesian3.normalize(Cesium.Cartesian3.add(appDir, depDir, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+                    const N = Cesium.Cartesian3.normalize(Cesium.Cartesian3.subtract(depDir, appDir, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+
+                    const R = 3.5e8; // 木星スイングバイ曲率半径 (35万km: 機体位置に完全調和)
+                    const Lmax = 2.8e10; // 2800万km スパン
+                    const v1Samples = 180;
+                    for (let i = -v1Samples; i <= v1Samples; i++) {
+                        const s = i / v1Samples; // -1.0 ~ +1.0
+                        const u = Math.sign(s) * Math.pow(Math.abs(s), 1.8) * Lmax;
+                        const normDist = Math.sqrt(u * u + R * R) - R;
+
+                        const px = v1FlybyPos.x + T.x * u + N.x * normDist;
+                        const py = v1FlybyPos.y + T.y * u + N.y * normDist;
+                        const pz = v1FlybyPos.z + T.z * u + N.z * normDist;
+                        pts.push(new Cesium.Cartesian3(px, py, pz));
                     }
                 } else if (mission.id === 'VOYAGER2') {
                     let nepPos;
@@ -9967,26 +9987,48 @@ function drawDeepSpaceOrbit(mission) {
                     } catch(e) {}
                     if (!nepPos) nepPos = new Cesium.Cartesian3(4500000000000, 0, 0);
 
-                    // 海王星最接近スイングバイ (~3万km) と、太陽系脱出南方軌道 (~2500万km) の融合連続軌道
-                    const v2Count = 180;
-                    for (let i = -v2Count; i <= v2Count; i++) {
-                        const s = i / v2Count;
-                        const sign = s < 0 ? -1 : 1;
-                        const t = sign * Math.pow(Math.abs(s), 2.2) * 4.2;
+                    // 海王星最接近点（ボイジャー2号本体の位置）
+                    const flybyOffset = new Cesium.Cartesian3(18000000, -22000000, 32000000);
+                    const v2FlybyPos = Cesium.Cartesian3.add(nepPos, flybyOffset, new Cesium.Cartesian3());
 
-                        const localX = 28000000 * Math.cosh(t * 0.85) - 18000000;
-                        const localY = 38000000 * Math.sinh(t * 0.85);
-                        const localZ = -48000000 * Math.sinh(t * 0.85);
+                    // 進入方向（天王星側から海王星へ向かう単位ベクトル）
+                    let appDir = new Cesium.Cartesian3(0.75, 0.65, 0.08);
+                    try {
+                        const uBody = CELESTIAL_BODIES.find(b => b.id === 'URANUS');
+                        const uraPos = computeCelestialPosition(uBody, effectiveTime);
+                        if (uraPos && nepPos) {
+                            appDir = Cesium.Cartesian3.subtract(nepPos, uraPos, new Cesium.Cartesian3());
+                            Cesium.Cartesian3.normalize(appDir, appDir);
+                        }
+                    } catch(e) {}
 
-                        const asympDist = sign * Math.pow(Math.abs(s), 2.0) * 2.5e10;
-                        const dirX = s < 0 ? -0.75 : 0.35;
-                        const dirY = s < 0 ? -0.65 : 0.45;
-                        const dirZ = s < 0 ? -0.08 : -0.82; // 南方-55度へ脱出
+                    // 脱出方向（海王星から南方-56度星間空間へ向かう単位ベクトル）
+                    let depDir = new Cesium.Cartesian3(0.35, 0.45, -0.82);
+                    try {
+                        const v2Pos = computeDeepSpacePosition(mission, effectiveTime);
+                        if (v2Pos && nepPos) {
+                            depDir = Cesium.Cartesian3.subtract(v2Pos, nepPos, new Cesium.Cartesian3());
+                            Cesium.Cartesian3.normalize(depDir, depDir);
+                        }
+                    } catch(e) {}
 
-                        const hx = localX + dirX * Math.abs(asympDist);
-                        const hy = localY + dirY * asympDist;
-                        const hz = localZ + dirZ * asympDist;
-                        pts.push(Cesium.Cartesian3.add(nepPos, new Cesium.Cartesian3(hx, hy, hz), new Cesium.Cartesian3()));
+                    // 厳密なケプラー双曲線基底（接線方向 T と 偏向法線方向 N）
+                    // 変曲点・S字波打ちは数学的に絶対に発生せず、単調な美しい双曲線となる！
+                    const T = Cesium.Cartesian3.normalize(Cesium.Cartesian3.add(appDir, depDir, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+                    const N = Cesium.Cartesian3.normalize(Cesium.Cartesian3.subtract(depDir, appDir, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+
+                    const R = 8.0e7; // 海王星スイングバイ曲率半径 (8万km: 海王星半径2.5万km・機体距離4.2万kmに完全調和)
+                    const Lmax = 3.2e10; // 3200万km スパン
+                    const v2Samples = 180;
+                    for (let i = -v2Samples; i <= v2Samples; i++) {
+                        const s = i / v2Samples; // -1.0 ~ +1.0
+                        const u = Math.sign(s) * Math.pow(Math.abs(s), 1.8) * Lmax;
+                        const normDist = Math.sqrt(u * u + R * R) - R;
+
+                        const px = v2FlybyPos.x + T.x * u + N.x * normDist;
+                        const py = v2FlybyPos.y + T.y * u + N.y * normDist;
+                        const pz = v2FlybyPos.z + T.z * u + N.z * normDist;
+                        pts.push(new Cesium.Cartesian3(px, py, pz));
                     }
                 } else if (mission.id === 'HAYABUSA2') {
                     for (let i = 0; i <= sampleCount; i++) {
