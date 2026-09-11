@@ -94,8 +94,76 @@
       gtag('config', 'G-TM540MSBGM');
     </script>
 
-    <!-- Google AdSense Auto-Ads & Verification Script -->
+    <!-- Google AdSense Account Verification & Auto-Ads -->
+    <meta name="google-adsense-account" content="ca-pub-4784691828768361">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- Schema.org JSON-LD Structured Data for High-Quality Web Application & FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://satviewer3d.com/en/#app",
+          "name": "SatViewer3D",
+          "url": "https://satviewer3d.com/en/",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All modern browsers (WebGL 2.0 supported)",
+          "browserRequirements": "Requires WebGL support",
+          "description": "Real-time 3D interactive satellite tracking and orbital mechanics visualization simulator for ISS, Starlink, Hubble, and space debris.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@type": "Organization",
+            "name": "SatViewer3D Team",
+            "url": "https://satviewer3d.com/about.html"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://satviewer3d.com/en/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How does SatViewer3D compute real-time satellite positions?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "SatViewer3D fetches official TLE (Two-Line Element) orbital sets curated by NORAD and CelesTrak. It computes precise satellite positions and velocities in real-time using the standard SGP4 (Simplified General Perturbations-4) mathematical perturbation model."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I track the International Space Station (ISS) in real time?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! You can instantly locate and focus on the ISS via the top presets or sidebar. SatViewer3D displays its ground track, orbital altitude, velocity, and offers an immersive astronaut POV from the ESA Cupola observation deck."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does SatViewer3D work on mobile and tablet devices?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. The simulator is fully responsive with intuitive multi-touch gestures (two-finger pinch zoom, drag rotation) across iOS Safari, Android Chrome, and modern desktop browsers without requiring app installations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is space debris and why is it dangerous?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Space debris consists of defunct satellites, spent rocket stages, and fragments moving at orbital speeds of 7 to 8 km/s. Even millimeter-sized debris can inflict catastrophic damage to operational spacecraft, posing a threat of cascading collisions known as Kessler Syndrome."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,15 +196,17 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260906_1835">
+    <link rel="stylesheet" href="styles.css?v=20260911_1710">
 </head>
 <body>
-    <div id="cesiumContainer"></div>
-    <!-- HTML DOM Overlay Container for Crisp 100% Sharp Satellite Labels -->
-    <div id="labelsContainer" class="labels-container"></div>
-    
-    <!-- UI Overlay HUD -->
-    <div class="hud-layer">
+    <!-- 3D Simulator Fullscreen Viewport Wrapper (100vh First View) -->
+    <div id="simulatorAppWrapper" class="simulator-app-wrapper">
+        <div id="cesiumContainer"></div>
+        <!-- HTML DOM Overlay Container for Crisp 100% Sharp Satellite Labels -->
+        <div id="labelsContainer" class="labels-container"></div>
+        
+        <!-- UI Overlay HUD -->
+        <div class="hud-layer">
         <!-- Top Split HUD Floating Islands (Separated to keep Earth Center View 100% Unobstructed!) -->
         <div class="hud-top-split">
             <!-- Left Island: Brand Logo -->
@@ -687,27 +757,299 @@
                 <div class="spinner"></div>
                 <p id="loadingText" class="loading-text">Computing & loading satellite orbits...</p>
             </div>
-        </div>
-    </div>
+    </div><!-- End of hud-layer -->
 
-    <!-- Application Script (Cache Busted v120) -->
-    <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
-    <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
-        <div class="image-lightbox-backdrop" id="imageLightboxBackdrop" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); }"></div>
-        <div class="image-lightbox-content" onclick="event.stopPropagation();">
-            <button type="button" class="image-lightbox-close" id="imageLightboxClose" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); } event.stopPropagation();" title="閉じる (Esc)">&times;</button>
-            <img id="imageLightboxImg" src="" alt="" class="image-lightbox-img" />
-            <div class="image-lightbox-info">
-                <div id="imageLightboxTitle" class="image-lightbox-title"></div>
-                <div id="imageLightboxCaption" class="image-lightbox-caption"></div>
-            </div>
-        </div>
-    </div>
-    </div>
+        <!-- Scroll Down Hint Banner (Floating on Simulator Viewport Bottom) -->
+        <a href="#siteGuideSection" class="scroll-down-hint" aria-label="Scroll to Satellite Guide">
+            <span class="scroll-hint-text">📜 Space Data & Satellite Guide</span>
+            <span class="scroll-hint-arrow">▼</span>
+        </a>
+
+        <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
+        <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
+            <div class="image-lightbox-backdrop" id="imageLightboxBackdrop" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); }"></div>
+            <div class="image-lightbox-content" onclick="event.stopPropagation();">
+                <button type="button" class="image-lightbox-close" id="imageLightboxClose" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); } event.stopPropagation();" title="Close (Esc)">&times;</button>
+                <img id="imageLightboxImg" src="" alt="" class="image-lightbox-img" />
+                <div class="image-lightbox-info">
+                    <div id="imageLightboxTitle" class="image-lightbox-title"></div>
+                    <div id="imageLightboxCaption" class="image-lightbox-caption"></div>
+                </div>
+            </div><!-- End of image-lightbox-content -->
+        </div><!-- End of imageLightboxModal -->
+    </div><!-- End of hud-layer -->
+    </div><!-- End of #simulatorAppWrapper -->
 
     <script src="app.js?v=20260906_1835"></script>
-    
-    </div>
+
+    <!-- ============================================================
+         SEO & Educational Guide Content Section (Scroll-down Area)
+         ============================================================ -->
+    <section id="siteGuideSection" class="site-guide-section">
+        <div class="guide-container">
+            <!-- Hero Header -->
+            <div class="guide-hero">
+                <div class="guide-badge">🛰️ SatViewer3D Space Science & Tracking Guide</div>
+                <h2 class="guide-hero-title">Orbital Mechanics, Satellite Science & Real-Time 3D Tracking</h2>
+                <p class="guide-hero-desc">
+                    SatViewer3D is an advanced open-science orbital mechanics platform that brings the physics of space flight to life. By coupling mathematical perturbation models (SGP4) with high-fidelity WebGL graphics, users can explore real-time orbital positions, velocities, and ground tracks for thousands of active satellites, space stations, and tracked orbital debris.
+                </p>
+            </div>
+
+            <!-- Card 1: Orbital Mechanics & SGP4 -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🔬</span>
+                    <span>High-Precision SGP4 Orbit Propagation & TLE Orbital Sets</span>
+                </h3>
+                <p>
+                    Calculating the true trajectory of a spacecraft in Earth orbit requires sophisticated numerical and analytic modeling. SatViewer3D ingests standard <strong>Two-Line Element (TLE)</strong> sets curated by the North American Aerospace Defense Command (NORAD) and the United States Space Force via Space-Track and CelesTrak.
+                </p>
+                <p>
+                    Because the Earth is an oblate spheroid rather than a uniform sphere, its equatorial bulge exerts a continuous torque on satellite orbits. Coupled with upper atmospheric drag in low orbits, lunar-solar gravitational tides, and solar radiation pressure, these perturbations cause orbits to evolve over time.
+                </p>
+                <div class="guide-grid-2">
+                    <div class="guide-feature-box">
+                        <h4>📐 SGP4 (Simplified General Perturbations-4)</h4>
+                        <p>The global standard analytical model accounting for Earth oblateness (J2, J3, J4 zonal harmonics), atmospheric drag decays, and secular rates of change in orbital nodes and perigee.</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>⏱️ Millisecond Epoch Time Sync & Time-Machine</h4>
+                        <p>Fully synchronized with Coordinated Universal Time (UTC). Accelerate, reverse, or pinpoint historical rendezvous and upcoming overhead passes with instantaneous propagation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Orbit Types -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🌍</span>
+                    <span>Classification of Earth Orbits & Operational Roles</span>
+                </h3>
+                <p>
+                    Space missions are carefully deployed into designated orbital regimes optimized for their specific scientific, commercial, or military objectives.
+                </p>
+                <div class="guide-grid-3">
+                    <div class="guide-feature-box">
+                        <h4>🛰️ Low Earth Orbit (LEO)</h4>
+                        <p><strong>Altitude: 160 – 2,000 km</strong><br>Orbital period ~90–120 minutes. Home to the International Space Station, Earth observation platforms, and megaconstellations like Starlink. Ideal for high-resolution imaging and low-latency communications.</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🛰️ Medium Earth Orbit (MEO)</h4>
+                        <p><strong>Altitude: 2,000 – 35,786 km</strong><br>Orbital period ~12 hours. The designated regime for Global Navigation Satellite Systems (GNSS), including GPS (USA), Galileo (Europe), and GLONASS (Russia).</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🛰️ Geostationary Orbit (GEO)</h4>
+                        <p><strong>Altitude: 35,786 km (Equatorial)</strong><br>Matches Earth's sidereal rotational period (23h 56m 4s). Spacecraft appear fixed relative to ground stations, powering weather monitoring (GOES, Himawari) and broadcast communications.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Highlighted Spacecraft -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🚀</span>
+                    <span>Highlighted Space Stations & Iconic Missions</span>
+                </h3>
+                <p>
+                    Use SatViewer3D's search and telemetry panels to instantly locate and inspect flagship orbital assets:
+                </p>
+                <div class="guide-grid-2">
+                    <div class="guide-feature-box">
+                        <h4>👨‍🚀 ISS & Tiangong Space Station</h4>
+                        <p>Continuously inhabited orbital research laboratories. The ISS spans the size of an American football field at ~420 km altitude and is easily visible to the naked eye under favorable illumination. Experience the European Space Agency (ESA) Cupola observation deck in first-person 3D.</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🌐 Starlink Megaconstellation</h4>
+                        <p>SpaceX's rapidly expanding network of thousands of mass-produced smallsats providing global low-latency broadband internet access, featuring optical inter-satellite laser links and automated collision-avoidance thrusters.</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🔭 Hubble & James Webb Space Telescopes</h4>
+                        <p>Groundbreaking astronomical observatories unhindered by atmospheric turbulence. Hubble orbits in LEO (~540 km), while JWST operates around the Sun-Earth L2 Lagrange point 1.5 million km away.</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🇯🇵 QZSS "Michibiki" Quasi-Zenith Satellites</h4>
+                        <p>Japan's high-elevation regional constellation utilizing asymmetric figure-8 orbits to ensure continuous line-of-sight satellite positioning across dense urban canyons and mountainous terrain.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Space Debris -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">⚠️</span>
+                    <span>The Space Debris Threat & Kessler Syndrome</span>
+                </h3>
+                <p>
+                    Decades of space launches have left tens of thousands of trackable orbital debris fragments, including spent upper rocket stages, decommissioned spacecraft, and debris generated by hypervelocity collisions and anti-satellite tests.
+                </p>
+                <p>
+                    At orbital velocities averaging 7 to 8 km/s (over Mach 20), even a millimeter-scale paint fleck carries the kinetic energy of a speeding projectile, while centimeter-sized objects can completely obliterate critical spacecraft systems.
+                </p>
+                <div class="guide-feature-box">
+                    <h4>💥 The Kessler Syndrome Scenario</h4>
+                    <p>First modeled by NASA astrophysicist Donald Kessler, this runaway cascade occurs when orbital debris density reaches a tipping point where collisions spawn secondary debris, triggering exponential chain reactions. Global space agencies and private innovators are actively pursuing Active Debris Removal (ADR) and sustainable orbital stewardship.</p>
+                </div>
+            </div>
+
+            <!-- Card 5: FAQ -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">❓</span>
+                    <span>Frequently Asked Questions (FAQ)</span>
+                </h3>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>How accurate are the satellite positions shown in SatViewer3D?</span>
+                    </div>
+                    <div class="faq-answer">
+                        Orbital trajectories are calculated using authoritative TLE ephemeris datasets from Space-Track and CelesTrak, propagated through SGP4 in real time. This delivers accuracy within a few kilometers—ideal for educational research and visual satellite spotting.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>Can I observe satellites passing overhead with the naked eye?</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! Bright objects like the International Space Station, Hubble, and Starlink trains reflect sunlight while ground observers are in twilight (1 to 2 hours after sunset or before sunrise). Use the ground track and pass prediction features to plan your observations.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>Can I use this simulator for academic classes, presentations, or research?</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely. SatViewer3D is free, open-access, and requires no account registration. Educators, students, and astronomy enthusiasts are welcome to use it in classrooms and research presentations (crediting "SatViewer3D" is appreciated).
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>What are the system and browser requirements?</span>
+                    </div>
+                    <div class="faq-answer">
+                        Any modern web browser with WebGL 2.0 support (Google Chrome, Safari, Microsoft Edge, Firefox, Brave) on Windows, macOS, Linux, iOS, or Android will run SatViewer3D without needing plugins or native downloads.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Space Articles Archive -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">📚</span>
+                    <span>Space Science & Deep-Dive Articles</span>
+                </h3>
+                <p>Explore comprehensive technical guides, historical missions, and orbital physics deep-dives:</p>
+                <div class="articles-preview-grid">
+                    <a href="/en/articles/iss-tracker-guide.html" class="article-preview-card">
+                        <span class="tag">Human Spaceflight</span>
+                        <h4>ISS Orbit Tracker & Spotting Guide</h4>
+                        <p>Orbital dynamics of the International Space Station, how to spot it with the naked eye, and the science of microgravity.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
+                    <a href="/en/articles/starlink-constellation.html" class="article-preview-card">
+                        <span class="tag">Megaconstellations</span>
+                        <h4>The Engineering of SpaceX Starlink</h4>
+                        <p>How thousands of low-latency smallsats communicate via laser cross-links, manage orbital disposal, and reduce optical reflectivity.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
+                    <a href="/en/articles/space-debris-crisis.html" class="article-preview-card">
+                        <span class="tag">Orbital Environment</span>
+                        <h4>The Space Debris Crisis & Clean-Up Tech</h4>
+                        <p>Evaluating Kessler Syndrome risks and the latest active debris capture missions utilizing robotic arms and magnetic docking.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
+                    <a href="/en/articles/hubble-vs-jwst.html" class="article-preview-card">
+                        <span class="tag">Space Telescopes</span>
+                        <h4>Hubble vs James Webb Space Telescope</h4>
+                        <p>Optical versus infrared astronomy, low Earth orbit versus Sun-Earth L2 halo orbit, and revolutionary cosmic discoveries.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
+                    <a href="/en/articles/geostationary-orbit.html" class="article-preview-card">
+                        <span class="tag">Orbital Dynamics</span>
+                        <h4>Physics of Geostationary Orbit (GEO)</h4>
+                        <p>Why satellites hover motionlessly at 35,786 km, station-keeping maneuvers, and the feasibility of space elevators.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
+                    <a href="/en/articles/michibiki-qzss.html" class="article-preview-card">
+                        <span class="tag">Navigation</span>
+                        <h4>Japan's QZSS "Michibiki" Constellation</h4>
+                        <p>Asymmetric quasi-zenith orbits designed to overcome urban GPS shadowing and achieve centimeter-level positioning accuracy.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Back to Simulator Floating Button -->
+            <div style="text-align:center;">
+                <a href="#simulatorAppWrapper" class="back-to-simulator-btn">
+                    <span>🚀</span>
+                    <span>Back to 3D Simulator</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Permanent Site Footer (E-E-A-T Compliance)
+         ============================================================ -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h3>
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none" style="vertical-align:middle;">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <ellipse cx="12" cy="12" rx="9" ry="3" transform="rotate(-30 12 12)"></ellipse>
+                        </svg>
+                        <span>SatViewer3D</span>
+                    </h3>
+                    <p>
+                        Real-time 3D interactive satellite tracking and orbital debris simulation platform dedicated to space education, open science, and physics visualization worldwide.
+                    </p>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="/en/">3D Simulator</a></li>
+                        <li><a href="/en/articles/">Space Articles</a></li>
+                        <li><a href="/sitemap.html">Sitemap</a></li>
+                        <li><a href="https://earthquake.satviewer3d.com/" target="_blank" rel="noopener">QuakeViewer3D (Earthquakes)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Information</h4>
+                    <ul>
+                        <li><a href="/about.html">About & Team</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Data Sources & Credits</h4>
+                    <ul>
+                        <li><a href="https://celestrak.org/" target="_blank" rel="noopener nofollow">CelesTrak (TLE)</a></li>
+                        <li><a href="https://www.space-track.org/" target="_blank" rel="noopener nofollow">Space-Track (NORAD)</a></li>
+                        <li><a href="https://www.nasa.gov/" target="_blank" rel="noopener nofollow">NASA</a></li>
+                        <li><a href="https://cesium.com/" target="_blank" rel="noopener nofollow">CesiumJS</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-credits">
+                    <span>&copy; 2026 SatViewer3D. All rights reserved.</span>
+                    <span>Data provided by CelesTrak & NORAD. Powered by CesiumJS.</span>
+                </div>
+                <div>
+                    <span>Hosted on Global Edge Cloud. High-Performance WebGL 2.0.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
         <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
     <div id="zoomHintToast" class="zoom-hint-toast">
         <!-- PC View (Mouse Wheel) -->

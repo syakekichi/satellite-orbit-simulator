@@ -93,8 +93,76 @@
       gtag('config', 'G-TM540MSBGM');
     </script>
 
-    <!-- Google AdSense Auto-Ads & Verification Script -->
+    <!-- Google AdSense Account Verification & Auto-Ads -->
+    <meta name="google-adsense-account" content="ca-pub-4784691828768361">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- Schema.org JSON-LD Structured Data for High-Quality Web Application & FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://satviewer3d.com/#app",
+          "name": "SatViewer3D",
+          "url": "https://satviewer3d.com/",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All modern browsers (WebGL 2.0 supported)",
+          "browserRequirements": "Requires WebGL support",
+          "description": "リアルタイムで地球周回衛星、国際宇宙ステーション(ISS)、スペースデブリの軌道を3D可視化する教育・科学シミュレーター。",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@type": "Organization",
+            "name": "SatViewer3D Team",
+            "url": "https://satviewer3d.com/about.html"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://satviewer3d.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "SatViewer3D はどのようにして人工衛星の軌道を計算していますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "NORAD（北米航空宇宙防衛司令部）および Space-Track / CelesTrak が公開する TLE（2行軌道要素形式）データをもとに、SGP4（Simplified General Perturbations-4）モデルを用いてリアルタイムに高精度な摂動計算を行い、地球周回上の 3 次元位置と速度をミリ秒単位で算出しています。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "国際宇宙ステーション（ISS）の現在地や通過予測を見ることはできますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "はい、サイドバーの「主要な宇宙ステーション」から ISS をワンクリックで選択できます。地上軌跡、現在高度、周回速度、昼夜領域の通過状況、展望窓「キューポラ」からの宇宙飛行士視点（Cupola View）などをリアルタイムに体験可能です。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "スマートフォンやタブレットでも利用できますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "はい。SatViewer3D はレスポンシブデザインとタッチ操作（2本指ピンチズーム・ドラッグ回転）に完全対応しており、iPhone や Android などのモバイルブラウザでもアプリのインストール不要でスムーズに動作します。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "スペースデブリ（宇宙ゴミ）とは何ですか？どのようなリスクがありますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "運用を終えた人工衛星、ロケットの残骸、衝突破片などの不要な人工物体です。秒速7〜8kmという超高速で飛行しているため、1cmの破片であっても稼働中の衛星や宇宙ステーションに衝突すると致命的な損傷を与えます。SatViewer3D ではこれらデブリの密集領域を可視化しています。"
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -127,15 +195,17 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260906_1835">
+    <link rel="stylesheet" href="styles.css?v=20260911_1710">
 </head>
 <body>
-    <div id="cesiumContainer"></div>
-    <!-- HTML DOM Overlay Container for Crisp 100% Sharp Satellite Labels -->
-    <div id="labelsContainer" class="labels-container"></div>
-    
-    <!-- UI Overlay HUD -->
-    <div class="hud-layer">
+    <!-- 3D Simulator Fullscreen Viewport Wrapper (100vh First View) -->
+    <div id="simulatorAppWrapper" class="simulator-app-wrapper">
+        <div id="cesiumContainer"></div>
+        <!-- HTML DOM Overlay Container for Crisp 100% Sharp Satellite Labels -->
+        <div id="labelsContainer" class="labels-container"></div>
+        
+        <!-- UI Overlay HUD -->
+        <div class="hud-layer">
         <!-- Top Split HUD Floating Islands (Separated to keep Earth Center View 100% Unobstructed!) -->
         <div class="hud-top-split">
             <!-- Left Island: Brand Logo -->
@@ -758,26 +828,299 @@
                 <p id="loadingText" class="loading-text">衛星データを計算・ロード中...</p>
             </div>
         </div>
-    </div>
+    </div><!-- End of hud-layer -->
 
-    <!-- Application Script (Cache Busted v120) -->
-    <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
-    <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
-        <div class="image-lightbox-backdrop" id="imageLightboxBackdrop" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); }"></div>
-        <div class="image-lightbox-content" onclick="event.stopPropagation();">
-            <button type="button" class="image-lightbox-close" id="imageLightboxClose" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); } event.stopPropagation();" title="閉じる (Esc)">&times;</button>
-            <img id="imageLightboxImg" src="" alt="" class="image-lightbox-img" />
-            <div class="image-lightbox-info">
-                <div id="imageLightboxTitle" class="image-lightbox-title"></div>
-                <div id="imageLightboxCaption" class="image-lightbox-caption"></div>
-            </div>
-        </div>
-    </div>
-    </div>
+        <!-- Scroll Down Hint Banner (Floating on Simulator Viewport Bottom) -->
+        <a href="#siteGuideSection" class="scroll-down-hint" aria-label="人工衛星解説ガイドへスクロール">
+            <span class="scroll-hint-text">📜 宇宙データ・人工衛星解説ガイド</span>
+            <span class="scroll-hint-arrow">▼</span>
+        </a>
+
+        <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
+        <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
+            <div class="image-lightbox-backdrop" id="imageLightboxBackdrop" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); }"></div>
+            <div class="image-lightbox-content" onclick="event.stopPropagation();">
+                <button type="button" class="image-lightbox-close" id="imageLightboxClose" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); } event.stopPropagation();" title="閉じる (Esc)">&times;</button>
+                <img id="imageLightboxImg" src="" alt="" class="image-lightbox-img" />
+                <div class="image-lightbox-info">
+                    <div id="imageLightboxTitle" class="image-lightbox-title"></div>
+                    <div id="imageLightboxCaption" class="image-lightbox-caption"></div>
+                </div>
+            </div><!-- End of image-lightbox-content -->
+        </div><!-- End of imageLightboxModal -->
+    </div><!-- End of hud-layer -->
+    </div><!-- End of #simulatorAppWrapper -->
 
     <script src="app.js?v=20260906_1835"></script>
-    
-    </div>
+
+    <!-- ============================================================
+         SEO & Educational Guide Content Section (Scroll-down Area)
+         ============================================================ -->
+    <section id="siteGuideSection" class="site-guide-section">
+        <div class="guide-container">
+            <!-- Hero Header -->
+            <div class="guide-hero">
+                <div class="guide-badge">🛰️ SatViewer3D 宇宙データ & 軌道力学解説ガイド</div>
+                <h2 class="guide-hero-title">地球周回軌道のサイエンスとリアルタイム3D追跡</h2>
+                <p class="guide-hero-desc">
+                    SatViewer3D は、最新の軌道力学モデル（SGP4）と高精細 3D WebGL レンダリングを融合させたオープンサイエンス・シミュレーターです。国際宇宙ステーション（ISS）をはじめ、気象衛星、GPS、メガコンステレーション、そして深刻化するスペースデブリ（宇宙ゴミ）まで、地球上空を周回する数千機の宇宙機をリアルタイムに追跡・可視化します。
+                </p>
+            </div>
+
+            <!-- Card 1: 軌道力学とリアルタイム伝播計算の仕組み -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🔬</span>
+                    <span>高精度 SGP4 軌道伝播計算と TLE データの仕組み</span>
+                </h3>
+                <p>
+                    人工衛星の正確な位置を算出するために、SatViewer3D では北米航空宇宙防衛司令部（NORAD）および米宇宙軍の宇宙追跡ネットワーク（SSN: Space Surveillance Network）が観測・公開する <strong>TLE（Two-Line Element: 2行軌道要素形式）</strong> データを活用しています。
+                </p>
+                <p>
+                    地球は完全な球体ではなく赤道付近がわずかに膨らんだ楕円体であり、重力場が一様ではありません。さらに、高度数百キロメートルの低軌道では希薄な大気による減速（大気ドラッグ）を受け、月や太陽の潮汐力・引力摂動、太陽輻射圧などの微細な外乱力が常に衛星に作用します。
+                </p>
+                <div class="guide-grid-2">
+                    <div class="guide-feature-box">
+                        <h4>📐 SGP4（Simplified General Perturbations-4）</h4>
+                        <p>地球の偏平性（J2, J3, J4帯状重力ポテンシャル）や大気抵抗モデル、近地点の移動（永年変化）を高速かつ精密に数学的解析解として解く標準軌道予測アルゴリズムです。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>⏱️ ミリ秒単位の時刻同期とタイムマシン機能</h4>
+                        <p>協定世界時（UTC）および国際原子時（TAI）に厳密に準拠。過去の歴史的ランデブーから数日後の通過予測まで、時間を自在に早送り・巻き戻しして観測できます。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: 地球周回軌道の分類と人工衛星の役割 -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🌍</span>
+                    <span>主要な地球周回軌道の分類と衛星の役割</span>
+                </h3>
+                <p>
+                    人工衛星はそのミッション（地球観測、通信、測位、天文学など）に応じて、高度や軌道傾斜角が厳密に設計された異なる軌道へと投入されます。
+                </p>
+                <div class="guide-grid-3">
+                    <div class="guide-feature-box">
+                        <h4>🛰️ 低軌道 (LEO: Low Earth Orbit)</h4>
+                        <p><strong>高度: 160〜2,000 km</strong><br>周期約90〜120分。ISS、地球観測衛星、Starlinkなどが密集。地上に近く高解像度の撮影や低遅延通信に適しますが、大気減速を受けやすい特徴があります。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🛰️ 中軌道 (MEO: Medium Earth Orbit)</h4>
+                        <p><strong>高度: 2,000〜35,786 km</strong><br>周期約12時間。GPS（米国）、Galileo（欧州）、GLONASS（ロシア）などの全球測位衛星システム（GNSS）がこの軌道面を均等にカバーしています。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🛰️ 静止軌道 (GEO: Geostationary Orbit)</h4>
+                        <p><strong>高度: 35,786 km (赤道上空)</strong><br>周期が地球の自転速度（23時間56分4秒）と完全に一致。地上から常に同じ空の一点に止まって見えるため、気象衛星ひまわりや衛星放送に利用されます。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: 注目ミッション・代表的宇宙機の追跡 -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🚀</span>
+                    <span>注目の宇宙ステーション & 代表的ミッション</span>
+                </h3>
+                <p>
+                    SatViewer3D のリアルタイム検索機能を使うことで、現在宇宙空間で活躍する以下の主要宇宙機を瞬時にフォーカスして追跡できます。
+                </p>
+                <div class="guide-grid-2">
+                    <div class="guide-feature-box">
+                        <h4>👨‍🚀 国際宇宙ステーション (ISS) & 天宮 (Tiangong)</h4>
+                        <p>人類が宇宙で常時生活・実験を行う巨大有人施設。ISS（高度約420km）はサッカー場ほどの広さを持ち、条件が合えば日没後や夜明け前に肉眼で輝く光点として地上から観測できます。当シミュレーターでは欧州宇宙機関（ESA）製造の「キューポラ（Cupola）展望窓」からの宇宙飛行士POV体験も可能です。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🌐 Starlink（スターリンク）メガコンステレーション</h4>
+                        <p>SpaceX社が展開する世界最大の低軌道通信衛星ネットワーク。数千機の小型衛星が編隊を組んで地球全土に高速インターネットを提供しています。打上げ直後の衛星トレイン（光の連なり）は世界中で注目を集めています。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🔭 ハッブル & ジェームズ・ウェッブ宇宙望遠鏡</h4>
+                        <p>大気の揺らぎや光害のない宇宙空間から遠方銀河や太陽系外惑星を観測する宇宙望遠鏡。ハッブル（HST）は低軌道（高度約540km）を周回し、30年以上にわたり宇宙の神秘を解き明かしてきました。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🇯🇵 準天頂衛星「みちびき」 (QZSS)</h4>
+                        <p>日本の上空に常に1機以上が滞在する特殊な準天頂軌道（8の字軌道）を描く日本の測位衛星。超高層ビルの多い日本の都市部や山間部でもGPS電波の死角を解消し、センチメートル級の超高精度測位を実現しています。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: スペースデブリ問題と軌道環境保全 -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">⚠️</span>
+                    <span>スペースデブリ（宇宙ゴミ）問題と「ケスラーシンドローム」</span>
+                </h3>
+                <p>
+                    1957年のスプートニク1号打ち上げ以来、数千回のロケット打ち上げが行われてきました。現在、役目を終えた人工衛星、ロケットの第2段・第3段残骸、過去の衛星破壊実験や衝突事故で生じた無数の破片が「スペースデブリ」として地球周回軌道を高速で漂流しています。
+                </p>
+                <p>
+                    低軌道におけるデブリの相対速度は秒速7〜8km（マッハ20以上）にも達します。わずか1cmの金属破片であっても、その衝突エネルギーは小型乗用車が時速80kmで激突するエネルギーに匹敵し、稼働中の宇宙機やISSの耐圧殻を貫通する破壊力を持ちます。
+                </p>
+                <div class="guide-feature-box">
+                    <h4>💥 連鎖的衝突「ケスラーシンドローム」の脅威</h4>
+                    <p>NASAの科学者ドナルド・ケスラーが提唱した理論で、デブリの密度が臨界点を超えると衝突によって生じた新たな破片がさらに別の物体に衝突し、自己増殖的にデブリが爆発的に増加する現象です。これが現実化すると、特定の軌道帯が数世代にわたり使用不能になる危険性があり、国際的なデブリ低減ガイドラインの制定や、民間企業によるデブリ除去実証実験が進められています。</p>
+                </div>
+            </div>
+
+            <!-- Card 5: よくある質問 (FAQ) -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">❓</span>
+                    <span>よくある質問（FAQ）</span>
+                </h3>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>SatViewer3D の衛星位置はどのくらい正確ですか？</span>
+                    </div>
+                    <div class="faq-answer">
+                        米宇宙軍および CelesTrak が数時間〜1日ごとに更新する最新の TLE データを自動取得し、標準物理エンジン SGP4 でリアルタイム計算しています。一般の目視観測や軌道学習には十分すぎる高精度（数km以内の位置精度）を提供します。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>夜空で実際の人工衛星を目視観測（スポッティング）できますか？</span>
+                    </div>
+                    <div class="faq-answer">
+                        はい。特に国際宇宙ステーション（ISS）やハッブル宇宙望遠鏡、大型通信衛星は、日没直後または日の出前の1〜2時間のあいだ、地上は夜でも上空数百キロは太陽光に照らされているため、星のように動く光点として肉眼で見ることができます。シミュレーターで通過時刻と軌道を確認してみてください。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>学校の授業や自由研究、プレゼンテーションで利用できますか？</span>
+                    </div>
+                    <div class="faq-answer">
+                        はい、完全に無料・登録不要でご利用いただけます。教育機関での授業教材や宇宙科学の研究発表、天体観測イベントなどでの画面共有・スクリーンショットの利用も歓迎しております（「SatViewer3D」のクレジットを記載いただけますと幸いです）。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>対応しているブラウザ環境を教えてください。</span>
+                    </div>
+                    <div class="faq-answer">
+                        WebGL 2.0 に対応したモダンブラウザ（Google Chrome、Safari、Microsoft Edge、Firefox、Brave 等）であれば、Windows、Mac、iPhone、iPad、Android スマートフォンなど全ての端末で追加プラグインなしで動作します。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: おすすめ宇宙コラム・専門解説記事 -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">📚</span>
+                    <span>宇宙コラム・専門解説アーカイブ</span>
+                </h3>
+                <p>人工衛星の歴史、軌道力学の数式、天体望遠鏡の仕組みなどを徹底解説したオリジナル特集記事です。</p>
+                <div class="articles-preview-grid">
+                    <a href="/articles/iss-tracker-guide.html" class="article-preview-card">
+                        <span class="tag">有人宇宙探査</span>
+                        <h4>ISS 軌道追跡ガイド & 「きぼう」観測法</h4>
+                        <p>国際宇宙ステーションの軌道構造、肉眼での目視観測タイミング、日本実験棟「きぼう」の役割を詳しく解説。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
+                    <a href="/articles/starlink-constellation.html" class="article-preview-card">
+                        <span class="tag">メガコンステレーション</span>
+                        <h4>Starlink（スターリンク）の技術革新</h4>
+                        <p>SpaceX が打ち上げる数千機の低軌道衛星網。光害対策、レーザー衛星間通信、軌道離脱技術に迫る。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
+                    <a href="/articles/space-debris-crisis.html" class="article-preview-card">
+                        <span class="tag">宇宙環境</span>
+                        <h4>スペースデブリ危機の真実と軌道清掃</h4>
+                        <p>ケスラーシンドロームの危機と、世界各国が進めるロボットアームや導電性テザーによる能動的デブリ除去技術。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
+                    <a href="/articles/hubble-vs-jwst.html" class="article-preview-card">
+                        <span class="tag">宇宙望遠鏡</span>
+                        <h4>ハッブル vs ジェームズ・ウェッブ宇宙望遠鏡</h4>
+                        <p>可視光のハッブルと赤外線のウェッブ（JWST）。周回軌道（LEO）とラグランジュ点（L2）の決定的な違い。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
+                    <a href="/articles/geostationary-orbit.html" class="article-preview-card">
+                        <span class="tag">軌道力学</span>
+                        <h4>静止軌道 (GEO) の力学と宇宙エレベーター</h4>
+                        <p>高度35,786kmの不思議。なぜ衛星が地上から止まって見えるのか、軌道力学の計算式とともに解明。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
+                    <a href="/articles/michibiki-qzss.html" class="article-preview-card">
+                        <span class="tag">測位衛星</span>
+                        <h4>日本の準天頂衛星「みちびき」 (QZSS)</h4>
+                        <p>日本上空に長時間留まる独自の「8の字軌道」。なぜ日本のGPS精度が劇的に向上したのかを解説。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Back to Simulator Floating Button -->
+            <div style="text-align:center;">
+                <a href="#simulatorAppWrapper" class="back-to-simulator-btn">
+                    <span>🚀</span>
+                    <span>3D シミュレーター操作に戻る</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         Permanent Site Footer (E-E-A-T Compliance)
+         ============================================================ -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h3>
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none" style="vertical-align:middle;">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <ellipse cx="12" cy="12" rx="9" ry="3" transform="rotate(-30 12 12)"></ellipse>
+                        </svg>
+                        <span>SatViewer3D</span>
+                    </h3>
+                    <p>
+                        リアルタイム3D人工衛星・スペースデブリ追跡プラットフォーム。宇宙科学教育の推進とオープンサイエンスを目的とし、最新の軌道力学シミュレーションを世界へ無償提供しています。
+                    </p>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>ナビゲーション</h4>
+                    <ul>
+                        <li><a href="/">3Dシミュレーター</a></li>
+                        <li><a href="/articles/">宇宙コラム一覧</a></li>
+                        <li><a href="/sitemap.html">サイトマップ</a></li>
+                        <li><a href="https://earthquake.satviewer3d.com/" target="_blank" rel="noopener">QuakeViewer3D（地震3D）</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>インフォメーション</h4>
+                    <ul>
+                        <li><a href="/about.html">運営者情報 (About)</a></li>
+                        <li><a href="/privacy.html">プライバシーポリシー</a></li>
+                        <li><a href="/terms.html">利用規約</a></li>
+                        <li><a href="/contact.html">お問い合わせ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>データソース & 協力</h4>
+                    <ul>
+                        <li><a href="https://celestrak.org/" target="_blank" rel="noopener nofollow">CelesTrak (TLE)</a></li>
+                        <li><a href="https://www.space-track.org/" target="_blank" rel="noopener nofollow">Space-Track (NORAD)</a></li>
+                        <li><a href="https://www.nasa.gov/" target="_blank" rel="noopener nofollow">NASA</a></li>
+                        <li><a href="https://cesium.com/" target="_blank" rel="noopener nofollow">CesiumJS</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-credits">
+                    <span>&copy; 2026 SatViewer3D. All rights reserved.</span>
+                    <span>Data provided by CelesTrak & NORAD. Powered by CesiumJS.</span>
+                </div>
+                <div>
+                    <span>Hosted on Global Edge Cloud. High-Performance WebGL 2.0.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
         <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
     <div id="zoomHintToast" class="zoom-hint-toast">
         <!-- PC View (Mouse Wheel) -->
