@@ -2722,6 +2722,9 @@ body.cupola-mode-active .cesium-widget-credits {
     left: 50%;
     transform: translateX(-50%);
     z-index: 1060;
+    pointer-events: auto !important;
+    user-select: none;
+    -webkit-user-select: none;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -2753,6 +2756,11 @@ body.cupola-mode-active .cesium-widget-credits {
 .scroll-down-hint:active {
     transform: translateX(-50%) translateY(1px);
     box-shadow: 0 2px 12px rgba(56, 189, 248, 0.4);
+}
+
+.scroll-hint-arrow,
+.scroll-hint-text {
+    pointer-events: auto;
 }
 
 .scroll-hint-arrow {

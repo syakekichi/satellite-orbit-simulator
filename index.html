@@ -195,7 +195,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260911_1710">
+    <link rel="stylesheet" href="styles.css?v=20260911_1850">
 </head>
 <body>
     <!-- 3D Simulator Fullscreen Viewport Wrapper (100vh First View) -->
@@ -831,7 +831,7 @@
     </div><!-- End of hud-layer -->
 
         <!-- Scroll Down Hint Banner (Floating on Simulator Viewport Bottom) -->
-        <a href="#siteGuideSection" class="scroll-down-hint" aria-label="人工衛星解説ガイドへスクロール">
+        <a href="#siteGuideSection" class="scroll-down-hint" style="pointer-events: auto;" onclick="window.scrollToSiteGuide && window.scrollToSiteGuide(event)" aria-label="人工衛星解説ガイドへスクロール">
             <span class="scroll-hint-text">📜 宇宙データ・人工衛星解説ガイド</span>
             <span class="scroll-hint-arrow">▼</span>
         </a>
@@ -851,7 +851,7 @@
         </div><!-- End of hud-layer -->
     </div><!-- End of #simulatorAppWrapper -->
 
-    <script src="app.js?v=20260911_1845"></script>
+    <script src="app.js?v=20260911_1850"></script>
 
     <!-- ============================================================
          SEO & Educational Guide Content Section (Scroll-down Area)

@@ -15605,9 +15605,22 @@ function setupCameraDPadControls() {
         }
     }
 
+    window.scrollToSiteGuide = scrollToSiteGuide;
+
     if (scrollDownHint) {
         // 1. Direct click on 'Scroll to Satellite Guide' button
         scrollDownHint.addEventListener('click', scrollToSiteGuide);
+
+        // Prevent Cesium canvas from starting drag / D&D operations on mousedown/pointerdown
+        scrollDownHint.addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+        });
+        scrollDownHint.addEventListener('pointerdown', (e) => {
+            e.stopPropagation();
+        });
+        scrollDownHint.addEventListener('touchstart', (e) => {
+            e.stopPropagation();
+        }, { passive: true });
 
         // 2. Prevent Cesium zoom-out when scrolling directly on the button banner
         scrollDownHint.addEventListener('wheel', (e) => {
