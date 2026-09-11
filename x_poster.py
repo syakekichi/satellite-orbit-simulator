@@ -13,6 +13,40 @@ load_dotenv()
 USER_DATA_DIR = os.path.abspath("./chrome_profile")
 AUTH_FILE = os.path.abspath("./auth.json")
 
+def calc_x_text_weight(text: str) -> int:
+    """X の文字数カウント仕様に準拠した重み計算（全角2, 半角1, URL23, 上限280）"""
+    import re, unicodedata
+    clean = re.sub(r'https?://\S+', 'U' * 23, text)
+    w = 0
+    for ch in clean:
+        if unicodedata.east_asian_width(ch) in ('F', 'W') or ord(ch) > 0x1000:
+            w += 2
+        else:
+            w += 1
+    return w
+
+def fit_text_to_x_limit(text: str, max_weight: int = 276) -> str:
+    """文字数制限（280重み）を超える場合に、安全に調整"""
+    if calc_x_text_weight(text) <= max_weight:
+        return text
+
+    lines = text.split('\n')
+    while lines and calc_x_text_weight('\n'.join(lines)) > max_weight:
+        removed = False
+        for idx in range(len(lines) - 1, -1, -1):
+            line = lines[idx].strip()
+            if not line.startswith('http') and not line.startswith('#') and len(line) > 0:
+                if len(line) > 10:
+                    lines[idx] = line[:-8] + '…'
+                else:
+                    lines.pop(idx)
+                removed = True
+                break
+        if not removed:
+            lines.pop()
+
+    return '\n'.join(lines)
+
 def post_via_api(text: str, image_path: str = None) -> bool:
     """X 公式 API (Free Tier / v2 + v1.1 Media) を使用して投稿"""
     api_key = os.getenv("X_API_KEY")
@@ -61,9 +95,19 @@ def post_via_api(text: str, image_path: str = None) -> bool:
 
 def dismiss_modals(page, context=None):
     """ポップアップ・ダイアログ・Graduated Access確認（OKボタン）を即座に消去・承諾"""
-    for _ in range(4):
+    for _ in range(2):
         try:
-            modals = page.locator('button:has-text("OK"), button:has-text("了解"), button:has-text("Got it"), button:has-text("閉じる"), button:has-text("破棄"), button[data-testid="confirmationSheetConfirm"], div[role="dialog"] button, button[aria-label="Close"], button[aria-label="閉じる"]')
+            # 投稿フォーム（tweetTextarea_0）を含むダイアログのボタンは絶対にクリックしない
+            # （div[role="dialog"] button だとツールバーのGIFボタン等を押して海外ミームが添付されてしまうため）
+            modals = page.locator(
+                'div[role="alertdialog"] button, '
+                'div[data-testid="confirmationSheetDialog"] button, '
+                'div[role="dialog"]:not(:has([data-testid="tweetTextarea_0"])) button:has-text("OK"), '
+                'div[role="dialog"]:not(:has([data-testid="tweetTextarea_0"])) button:has-text("了解"), '
+                'div[role="dialog"]:not(:has([data-testid="tweetTextarea_0"])) button:has-text("Got it"), '
+                'div[role="dialog"]:not(:has([data-testid="tweetTextarea_0"])) button:has-text("閉じる"), '
+                'button[data-testid="confirmationSheetConfirm"]'
+            )
             if modals.count() > 0:
                 for i in range(modals.count()):
                     b = modals.nth(i)
@@ -192,6 +236,16 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
             print("[INFO] テキストを入力しました。")
             time.sleep(1)
 
+            # 既存の意図しない添付メディア（古いドラフトや誤添付）があれば削除
+            try:
+                remove_btns = page.locator('button[aria-label="メディアを削除"], button[aria-label="メディアを消去"], button[aria-label="Remove media"], button[aria-label="閉じる"][data-testid="remove-attachment"]')
+                if remove_btns.count() > 0:
+                    for i in range(remove_btns.count()):
+                        remove_btns.nth(i).click(force=True)
+                        time.sleep(0.3)
+            except Exception:
+                pass
+
             # 画像添付
             if image_path and os.path.exists(image_path):
                 abs_path = os.path.abspath(image_path)
@@ -201,8 +255,8 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
                 time.sleep(5)
                 print("[INFO] 画像アップロード待機完了。")
 
-            dismiss_modals(page, context)
-            time.sleep(1)
+            # 画像アップロード後の安定待機
+            time.sleep(2)
 
             # 送信直前スクリーンショット
             try:
@@ -210,7 +264,7 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
             except:
                 pass
 
-            # 送信の実行 (ボタンクリック + ショートカットの強固な2段構え)
+            # 送信の実行 (ボタンクリック + ショートカット)
             print("[INFO] ポスト送信を実行中...")
             btn = page.locator('button[data-testid="tweetButtonInline"], button[data-testid="tweetButton"]').first
             submitted = False
@@ -223,6 +277,11 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
                     btn.click(force=True, timeout=5000)
                     submitted = True
                     print("[INFO] 送信ボタンのクリック（force=True）に成功しました。")
+                elif btn.is_visible() and not btn.is_enabled():
+                    print("❌ [POST BLOCKED] 送信ボタンが無効化されています（文字数オーバー等の可能性）。投稿を中止します。")
+                    if browser: browser.close()
+                    else: context.close()
+                    return False
             except Exception as e:
                 print(f"[WARN] 送信ボタンの直接クリックに失敗 ({e})。Control+Enter ショートカット送信に切り替えます。")
 
@@ -282,6 +341,7 @@ def post_to_x(text: str, image_path: str = None, headless: bool = True) -> bool:
     1. X 公式 API (API Key) が設定されていれば API で即座・確実に投稿
     2. API キーが無い場合やエラー時はブラウザ自動操作でフォールバック
     """
+    text = fit_text_to_x_limit(text)
     if os.getenv("X_API_KEY") and os.getenv("X_ACCESS_TOKEN"):
         success = post_via_api(text, image_path)
         if success:

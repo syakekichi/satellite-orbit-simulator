@@ -538,21 +538,21 @@ def task_starlink_fleet():
 
     templates = [
         (
-            f"🌐【地球を覆い尽くす6,000機の宇宙ネットワーク】\n"
-            f"SpaceXが展開する超巨大衛星網『Starlink（スターリンク）』⚡\n"
-            f"高度約550kmの低軌道に数千機が網の目のように配置され、砂漠や洋上など世界中のあらゆる場所へ高速ネットを供給中🛰️\n\n"
-            f"地球を包む圧倒的な3D衛星スウォームを体感👇\n{WEBSITE_URL}\n#SpaceX #Starlink #スターリンク #宇宙"
+            f"🌐【地球を覆う6,000機の宇宙ネットワーク】\n"
+            f"SpaceXの超巨大衛星網『Starlink』⚡\n"
+            f"高度約550kmの低軌道から世界中へ高速ネットを供給中🛰️\n\n"
+            f"圧倒的な3D衛星スウォームを体感👇\n{WEBSITE_URL}\n#SpaceX #Starlink #宇宙"
         ),
         (
-            f"🛰️【宇宙時代の新風景：メガコンステレーション】\n"
-            f"現在、地球の低軌道には前代未聞のペースで人工衛星が打ち上げられています。\n"
-            f"自律的な衝突回避システムやレーザー光通信で連携する驚異の群制御技術✨\n\n"
-            f"3D地球儀上でリアルタイムに群れを追跡👇\n{WEBSITE_URL}\n#イーロンマスク #SpaceX #テクノロジー"
+            f"🛰️【メガコンステレーションの全貌】\n"
+            f"地球低軌道を埋め尽くす数千機のStarlink衛星網✨\n"
+            f"自律回避とレーザー通信で連携する驚異の宇宙フリート。\n\n"
+            f"3D地球儀でリアルタイム追跡👇\n{WEBSITE_URL}\n#SpaceX #Starlink #テクノロジー"
         ),
         (
             f"🛰️ SpaceX Starlink Mega-Constellation Live!\n"
             f"Over 6,000 active broadband satellites wrapping the globe in low Earth orbit (LEO) 🌐⚡\n\n"
-            f"Explore the full 3D interactive satellite swarm via our link👇\n{WEBSITE_URL}\n#Starlink #SpaceX #Astronomy #Satellite"
+            f"Explore the full 3D interactive satellite swarm via our link👇\n{WEBSITE_URL}\n#Starlink #SpaceX #Astronomy"
         )
     ]
     text = random.choice(templates)
