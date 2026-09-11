@@ -2750,6 +2750,11 @@ body.cupola-mode-active .cesium-widget-credits {
     transform: translateX(-50%) translateY(-2px);
 }
 
+.scroll-down-hint:active {
+    transform: translateX(-50%) translateY(1px);
+    box-shadow: 0 2px 12px rgba(56, 189, 248, 0.4);
+}
+
 .scroll-hint-arrow {
     display: inline-block;
     font-size: 0.75rem;

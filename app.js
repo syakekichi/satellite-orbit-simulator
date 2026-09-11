@@ -1457,7 +1457,8 @@ const TRANSLATIONS = {
         "feat9": "💎 Schwebendes Insel-HUD mit freier Sicht auf die Erde.",
         "feat10": "🌊 Visualisierung der Erdrotations-Wellenbahnen in 3D.",
         "aboutContactTitle": "Kontakt:",
-        "aboutContactDesc": "Für Anfragen: info@satviewer3d.com",
+        "aboutContactDesc": "Für Anfragen: info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 Satelliten aus Spanien & Lateinamerika (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ Historische Zeitreise",
         "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20.07.1969 Mondlandung</span>",
@@ -1631,7 +1632,8 @@ const TRANSLATIONS = {
         "feat9": "💎 HUD en îlots flottants libérant totalement la vue de la Terre.",
         "feat10": "🌊 Visualisation 3D des traces au sol ondulées liées à la rotation terrestre.",
         "aboutContactTitle": "Contact :",
-        "aboutContactDesc": "Pour toute demande : info@satviewer3d.com",
+        "aboutContactDesc": "Pour toute demande : info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 Satellites espagnols et latino-américains (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ Voyage dans le temps historique",
         "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20/07/1969 Alunissage</span>",
@@ -1805,7 +1807,8 @@ const TRANSLATIONS = {
         "feat9": "💎 HUD flotante que mantiene 100% despejada la vista de la Tierra.",
         "feat10": "🌊 Trayectorias sinusoidales 3D por rotación terrestre.",
         "aboutContactTitle": "Contacto:",
-        "aboutContactDesc": "Para consultas: info@satviewer3d.com",
+        "aboutContactDesc": "Para consultas: info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 Satélites de España y Latinoamérica (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ Viaje en el tiempo histórico",
         "eventApollo11": "🌕 <strong>Apolo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20/07/1969 Alunizaje</span>",
@@ -1979,7 +1982,8 @@ const TRANSLATIONS = {
         "feat9": "💎 HUD flutuante que deixa a visão da Terra 100% desobstruída.",
         "feat10": "🌊 Visualização 3D de órbitas onduladas pela rotação da Terra.",
         "aboutContactTitle": "Contato:",
-        "aboutContactDesc": "Para dúvidas: info@satviewer3d.com",
+        "aboutContactDesc": "Para dúvidas: info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 Satélites da Espanha e América Latina (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ Viagem no tempo histórica",
         "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20/07/1969 Pouso lunar</span>",
@@ -2153,7 +2157,8 @@ const TRANSLATIONS = {
         "feat9": "💎 HUD galleggiante che non ostruisce la vista della Terra.",
         "feat10": "🌊 Visualizzazione 3D delle traiettorie ondulate dovute alla rotazione terrestre.",
         "aboutContactTitle": "Contatti:",
-        "aboutContactDesc": "Per richieste: info@satviewer3d.com",
+        "aboutContactDesc": "Per richieste: info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 Satelliti di Spagna e America Latina (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ Viaggio nel tempo storico",
         "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20/07/1969 Allunaggio</span>",
@@ -2327,7 +2332,8 @@ const TRANSLATIONS = {
         "feat9": "💎 지구 시야를 100% 가리지 않는 플로팅 아일랜드 HUD 설계.",
         "feat10": "🌊 지구 자전에 따른 사인파 형태의 다중 회전 궤적(Multi-Lap) 3D 시각화.",
         "aboutContactTitle": "문의:",
-        "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다.",
+        "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다."
+,
         "loadSpanish": "🇪🇸 스페인 및 중남미 위성 (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ 역사적 순간 시간 여행",
         "eventApollo11": "🌕 <strong>아폴로 11호</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1969.07.20 달 착륙</span>",
@@ -2501,7 +2507,8 @@ const TRANSLATIONS = {
         "feat9": "💎 Zwevende HUD met 100% vrij zicht op de aarde.",
         "feat10": "🌊 3D-visualisatie van golfpatronen door aardrotatie.",
         "aboutContactTitle": "Contact:",
-        "aboutContactDesc": "Voor vragen: info@satviewer3d.com",
+        "aboutContactDesc": "Voor vragen: info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 Spaanse en Latijns-Amerikaanse satellieten (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ Historische tijdreis",
         "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20-07-1969 Maanlanding</span>",
@@ -2675,7 +2682,8 @@ const TRANSLATIONS = {
         "feat9": "💎 HUD Melayang Transparan yang Memberikan Pandangan Penuh ke Bumi.",
         "feat10": "🌊 Visualisasi Jejak Gelombang 3D Akibat Rotasi Bumi (Multi-Lap).",
         "aboutContactTitle": "Kontak:",
-        "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com",
+        "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 Satelit Spanyol & Amerika Latin (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ Perjalanan Waktu Bersejarah",
         "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20.07.1969 Pendaratan di Bulan</span>",
@@ -2849,7 +2857,8 @@ const TRANSLATIONS = {
         "feat9": "💎 पारदर्शी फ्लोटिंग HUD जो पृथ्वी दृश्य को अवरुद्ध नहीं करता।",
         "feat10": "🌊 पृथ्वी के घूर्णन के कारण 3D तरंगीय प्रक्षेपवक्र।",
         "aboutContactTitle": "संपर्क:",
-        "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com",
+        "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 स्पेन और लैटिन अमेरिकी उपग्रह (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ ऐतिहासिक टाइम ट्रैवल",
         "eventApollo11": "🌕 <strong>अपोलो 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1969.07.20 चंद्रमा पर लैंडिंग</span>",
@@ -3023,7 +3032,8 @@ const TRANSLATIONS = {
         "feat9": "💎 واجهة عائمة شفافة تمنح رؤية كاملة وغير محجوبة للأرض.",
         "feat10": "🌊 تمثيل ثلاثي الأبعاد للمسارات الموجية الناتجة عن دوران الأرض.",
         "aboutContactTitle": "للتواصل:",
-        "aboutContactDesc": "للاستفسارات: info@satviewer3d.com",
+        "aboutContactDesc": "للاستفسارات: info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 أقمار إسبانيا وأمريكا اللاتينية (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ السفر التاريخي عبر الزمن",
         "eventApollo11": "🌕 <strong>أبولو 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1969.07.20 الهبوط على القمر</span>",
@@ -3197,7 +3207,8 @@ const TRANSLATIONS = {
         "feat9": "💎 100%全景通透的悬浮岛屿HUD设计：中央视界完全开放，零遮挡饱览地球晨昏线与极轨风光。",
         "feat10": "🌊 地球自转波动轨迹可视化(Multi-Lap)：在3D空间中生动展现因地球自转进动形成的周期性正弦波轨迹。",
         "aboutContactTitle": "联系方式:",
-        "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com",
+        "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 西班牙及拉美卫星 (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ 历史时刻时光旅行",
         "eventApollo11": "🌕 <strong>阿波罗11号</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1969.07.20 登月</span>",
@@ -3382,7 +3393,8 @@ const TRANSLATIONS = {
         "feat9": "💎 Прозрачный плавающий интерфейс HUD, не заслоняющий Землю.",
         "feat10": "🌊 3D-визуализация волнообразных траекторий за счет вращения Земли.",
         "aboutContactTitle": "Контакты:",
-        "aboutContactDesc": "По всем вопросам: info@satviewer3d.com",
+        "aboutContactDesc": "По всем вопросам: info@satviewer3d.com"
+,
         "loadSpanish": "🇪🇸 Спутники Испании и Латинской Америки (PAZ, SAOCOM, CHEOPS)",
         "historicalTimeTravelTitle": "⏳ Историческое путешествие во времени",
         "eventApollo11": "🌕 <strong>Аполлон-11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20.07.1969 Высадка на Луну</span>",
@@ -15572,6 +15584,56 @@ function setupCameraDPadControls() {
             });
         });
     }
+
+    // ============================================================
+    // Satellite Guide Scroll & Bottom Zone Mouse Wheel Handler
+    // ============================================================
+    const scrollDownHint = document.querySelector('.scroll-down-hint');
+    function scrollToSiteGuide(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        const target = document.getElementById('siteGuideSection');
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (window.history && window.history.pushState) {
+                window.history.pushState(null, null, '#siteGuideSection');
+            }
+        } else {
+            window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+        }
+    }
+
+    if (scrollDownHint) {
+        // 1. Direct click on 'Scroll to Satellite Guide' button
+        scrollDownHint.addEventListener('click', scrollToSiteGuide);
+
+        // 2. Prevent Cesium zoom-out when scrolling directly on the button banner
+        scrollDownHint.addEventListener('wheel', (e) => {
+            e.stopPropagation();
+            if (e.deltaY > 0) {
+                e.preventDefault();
+                scrollToSiteGuide();
+            }
+        }, { passive: false });
+    }
+
+    // 3. Intercept mouse wheel when cursor is near the bottom of viewport (banner area)
+    // Prevents Cesium from zooming out space when user intends to scroll down to guide!
+    const simWrapper = document.getElementById('simulatorAppWrapper');
+    if (simWrapper) {
+        simWrapper.addEventListener('wheel', (e) => {
+            const bottomZoneHeight = 100;
+            const isNearBottom = (window.innerHeight - e.clientY) <= bottomZoneHeight;
+            if (isNearBottom && e.deltaY > 0 && window.scrollY < 60) {
+                e.stopPropagation();
+                e.preventDefault();
+                scrollToSiteGuide();
+            }
+        }, { passive: false, capture: true });
+    }
+
 }
 
 function setActivePresetBtn(activeBtn) {
