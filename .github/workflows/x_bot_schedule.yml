@@ -2,10 +2,10 @@ name: SatViewer3D X Bot Automation
 
 on:
   schedule:
-    # 4時間ごとに自動実行 (UTC 0:00, 4:00, 8:00, 12:00, 16:00, 20:00)
-    # JST(日本時間): 09:00, 13:00, 17:00, 21:00, 01:00, 05:00
-    - cron: '0 0,4,8,12,16,20 * * *'
-  workflow_dispatch: # GitHubのWeb画面から「Run workflow」でいつでも手動テスト実行可能
+    # 🛰️ アカウント保護とスパム回避のため、1日1回・夜の天体観測ゴールデンタイムに限定実行
+    # UTC 11:00 = JST 20:00 (毎日 夜8時)
+    - cron: '0 11 * * *'
+  workflow_dispatch: # GitHubのWeb画面から「Run workflow」で手動テスト実行可能
 
 jobs:
   tweet:

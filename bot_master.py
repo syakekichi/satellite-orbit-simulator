@@ -20,6 +20,15 @@ plt.rcParams['axes.unicode_minus'] = False
 WEBSITE_URL = "https://satviewer3d.com"
 MODE_FILE = "last_bot_mode.txt"
 
+# X (Twitter) の直リンクスパム判定・インプレッション制限を回避するためのプロフ誘導案内文
+LINK_GUIDE = {
+    "JA": "🔗 リアルタイム3Dシミュレーターはプロフのリンクから👇",
+    "EN": "🔗 Explore 3D orbit simulation via link in bio👇",
+    "ES": "🔗 ¡Simulador 3D en el enlace de nuestro perfil! 👇",
+    "ZH": "🔗 实时3D地球模拟器请见个人简介链接👇",
+    "RU": "🔗 3D симулятор орбиты по ссылке в профиле👇"
+}
+
 # -------------------------------------------------------------
 # 地理・言語判定エンジン (5大宇宙言語: ES, RU, ZH, JA, EN)
 # -------------------------------------------------------------
@@ -234,24 +243,21 @@ def task_iss_live():
                 f"🛰️【今夜、夜空を見上げてみませんか？🔭】\n"
                 f"国際宇宙ステーション（きぼう/ISS）が現在【{ctx['region_ja']}】上空を通過中！\n"
                 f"日没後や夜明け前、スーッと滑るように動く星より明るい光の点があれば、それがISSです✨\n\n"
-                f"リアルタイム3D軌道シミュレーションはこちら👇\n"
-                f"{WEBSITE_URL}\n"
+                f"{LINK_GUIDE['JA']}\n"
                 f"#きぼう #ISS #天体観測 #宇宙"
             ),
             (
                 f"💡【ISSの宇宙雑学】\n"
                 f"現在【{ctx['region_ja']}】上空を飛行中の国際宇宙ステーション（ISS）。\n"
                 f"時速約{speed_km_h:,.0f}kmで地球をたった92分で1周するため、宇宙飛行士は1日に『16回』も日の出と日の入りを目撃します🌅🌌\n\n"
-                f"宇宙から見た地球の3Dライブ軌道はこちら👇\n"
-                f"{WEBSITE_URL}\n"
+                f"{LINK_GUIDE['JA']}\n"
                 f"#宇宙の雑学 #ISS #JAXA #NASA"
             ),
             (
                 f"🚀【地上400kmを飛ぶサッカー場サイズの巨大実験棟】\n"
                 f"時速{speed_km_h:,.0f}kmで爆走中のISS（きぼう）が【{ctx['region_ja']}】上空を航行中！\n"
                 f"重力に引かれて落ち続けながら、地球の丸みに沿って回り続ける軌道力学の奇跡🛰️\n\n"
-                f"リアルタイム3D地球儀で軌道をチェック👇\n"
-                f"{WEBSITE_URL}\n"
+                f"{LINK_GUIDE['JA']}\n"
                 f"#国際宇宙ステーション #3Dシミュレーター"
             )
         ]
@@ -261,13 +267,13 @@ def task_iss_live():
             (
                 f"🛰️ ¡La Estación Espacial Internacional (ISS) sobre {ctx['region_es']}!\n"
                 f"Viajando a {speed_km_h:,.0f} km/h a una altitud de {alt:.0f} km. ¡Visible a simple vista en el cielo despejado! 🔭✨\n\n"
-                f"Sigue la órbita en 3D en directo: {WEBSITE_URL}\n"
+                f"{LINK_GUIDE['ES']}\n"
                 f"#ISS #Espacio #Astronomia"
             ),
             (
                 f"💡 ¿Sabías que los astronautas en la ISS ven 16 amaneceres al día?\n"
                 f"La estación orbita la Tierra cada 90 minutos a {speed_km_h:,.0f} km/h. Ahora sobre {ctx['region_es']} 🌍✨\n\n"
-                f"Rastreo 3D en tiempo real: {WEBSITE_URL}"
+                f"{LINK_GUIDE['ES']}"
             )
         ]
         text = random.choice(templates)
@@ -276,13 +282,13 @@ def task_iss_live():
             (
                 f"🛰️ 国际空间站（ISS）正在飞越【{ctx['region_zh']}】上空！\n"
                 f"时速高达 {speed_km_h:,.0f} km/h，高度 {alt:.0f} km。每90分钟环绕地球一周，夜空晴朗时肉眼清晰可见✨\n\n"
-                f"实时3D地球轨迹追踪: {WEBSITE_URL}\n"
+                f"{LINK_GUIDE['ZH']}\n"
                 f"#国际空间站 #太空 #天文"
             ),
             (
                 f"🌌【太空冷知识】空间站里的宇航员每天能看16次日出日落！\n"
                 f"目前ISS正以秒速 7.7 km 高速掠过【{ctx['region_zh']}】上空 🛰️\n\n"
-                f"3D地球轨道追踪: {WEBSITE_URL}"
+                f"{LINK_GUIDE['ZH']}"
             )
         ]
         text = random.choice(templates)
@@ -290,20 +296,20 @@ def task_iss_live():
         text = (
             f"🛰️ Международная космическая станция (МКС) над {ctx['region_ru']}!\n"
             f"Скорость {speed_km_h:,.0f} км/ч на высоте {alt:.0f} км. Полный оборот вокруг Земли за 92 минуты! 🔭✨\n\n"
-            f"3D отслеживание орбиты: {WEBSITE_URL}"
+            f"{LINK_GUIDE['RU']}"
         )
     else:
         templates = [
             (
                 f"🛰️ International Space Station (ISS) Live Flyover!\n"
                 f"Zooming over {ctx['region_en']} at {speed_km_h:,.0f} km/h ({alt:.0f} km altitude). Visible to the naked eye as a brilliant gliding star under clear twilight skies! 🔭🌌\n\n"
-                f"Track live 3D orbital trajectory: {WEBSITE_URL}\n"
+                f"{LINK_GUIDE['EN']}\n"
                 f"#ISS #Space #Astronomy #NASA"
             ),
             (
                 f"💡 ISS Fun Fact: Astronauts aboard see 16 sunrises and sunsets every single day!\n"
                 f"Cruising at 7.7 km/s over {ctx['region_en']}. Spot it in the night sky 🌍✨\n\n"
-                f"Interactive 3D Digital Globe: {WEBSITE_URL}"
+                f"{LINK_GUIDE['EN']}"
             )
         ]
         text = random.choice(templates)
@@ -366,12 +372,12 @@ def task_tiangong_live():
                 f"🇨🇳【中国空间站（天宫）实时飞越】\n"
                 f"天和核心舱与问天、梦天实验舱正在飞越【{ctx['region_zh']}】上空！\n"
                 f"时速高达 {speed_km_h:,.0f} km/h，每90分钟环绕地球一周。夜空晴朗时肉眼清晰可见✨\n\n"
-                f"空间站实时3D地球轨迹追踪👇\n{WEBSITE_URL}\n#中国空间站 #天宫空间站 #航天"
+                f"{LINK_GUIDE['ZH']}\n#中国空间站 #天宫空间站 #航天"
             ),
             (
                 f"🌌【天宫太空漫步】中国空间站目前高度约 {alt:.0f} km，正在以秒速 7.7 km 高速掠过【{ctx['region_zh']}】！\n"
                 f"三舱T字构型在宇宙中熠熠生辉 🛰️✨\n\n"
-                f"3D地球轨道追踪: {WEBSITE_URL}\n#天宫 #航天科技"
+                f"{LINK_GUIDE['ZH']}\n#天宫 #航天科技"
             )
         ]
         text = random.choice(templates)
@@ -381,12 +387,12 @@ def task_tiangong_live():
                 f"🛰️【もうひとつの宇宙ステーション】\n"
                 f"中国の宇宙ステーション『天宮（Tiangong/CSS）』が現在【{ctx['region_ja']}】上空を通過中！\n"
                 f"天和コアモジュールを中心に3人の宇宙飛行士が滞在。高度約{alt:.0f}kmを時速約{speed_km_h:,.0f}kmで飛行中✨\n\n"
-                f"ISSと天宮の軌道を3D地球儀でチェック👇\n{WEBSITE_URL}\n#宇宙ステーション #天宮 #天体観測"
+                f"{LINK_GUIDE['JA']}\n#宇宙ステーション #天宮 #天体観測"
             ),
             (
                 f"💡【宇宙の豆知識】地球周回軌道上には現在、ISSと天宮という2大有人ステーションが常時周回しています。\n"
                 f"現在【{ctx['region_ja']}】上空を航行中！夕方や早朝には明るい光の点として観測できます🔭\n\n"
-                f"リアルタイム3D軌道シミュレーション👉 {WEBSITE_URL}\n#天宮 #宇宙開発"
+                f"{LINK_GUIDE['JA']}\n#天宮 #宇宙開発"
             )
         ]
         text = random.choice(templates)
@@ -394,19 +400,19 @@ def task_tiangong_live():
         text = (
             f"🛰️ ¡La Estación Espacial Tiangong sobre {ctx['region_es']}!\n"
             f"Orbitando a {speed_km_h:,.0f} km/h en órbita terrestre baja 🌌✨\n\n"
-            f"Sigue la trayectoria 3D en directo: {WEBSITE_URL}"
+            f"{LINK_GUIDE['ES']}"
         )
     elif ctx["lang"] == "RU":
         text = (
             f"🛰️ Китайская орбитальная станция «Тяньгун» над {ctx['region_ru']}!\n"
             f"Скорость {speed_km_h:,.0f} км/ч на высоте ~{alt:.0f} км 🌌✨\n\n"
-            f"3D отслеживание орбиты: {WEBSITE_URL}"
+            f"{LINK_GUIDE['RU']}"
         )
     else:
         text = (
             f"🛰️ Tiangong Space Station (CSS) Live Orbit Tracker!\n"
             f"Zooming over {ctx['region_en']} at {speed_km_h:,.0f} km/h ({alt:.0f} km LEO) 🌌✨\n\n"
-            f"Track real-time 3D orbit via our link: {WEBSITE_URL}\n#Tiangong #SpaceStation #Astronomy"
+            f"{LINK_GUIDE['EN']}\n#Tiangong #SpaceStation #Astronomy"
         )
     return text, out_img
 
@@ -468,17 +474,17 @@ def task_spanish_radar():
 
     templates = [
         (
-            f"🛰️ ¡Constelación de satélites de España y Latinoamérica en órbita!\n"
-            f"Rastreando en directo PAZ (radar SAR), SAOCOM 1A/1B (radar banda L), CHEOPS e HISPASAT 📡✨\n\n"
-            f"Capaces de ver a través de nubes y en plena noche. Sigue su órbita 3D interactiva en directo👇\n"
-            f"{WEBSITE_URL}\n"
-            f"#Satélites #España #Ciencia #PAZ #SAOCOM"
+            f"🛰️ ¡Satélites de España y Latinoamérica en órbita!\n"
+            f"Rastreo en directo: PAZ (SAR), SAOCOM 1A/1B (radar L) y CHEOPS 📡✨\n"
+            f"Observación de la Tierra día y noche.\n\n"
+            f"{LINK_GUIDE['ES']}\n"
+            f"#Satélites #España #Ciencia"
         ),
         (
             f"📡【雲も夜も透視する最新レーダー衛星群】\n"
             f"スペインの地球観測レーダー衛星『PAZ』やアルゼンチンの巨大アンテナ衛星『SAOCOM 1A/1B』を追跡中！\n"
             f"悪天候でも地殻変動や洪水被害を宇宙からミリ単位で検知する驚異の技術✨\n\n"
-            f"リアルタイム3D地球儀でチェック👇\n{WEBSITE_URL}\n#宇宙開発 #衛星観測"
+            f"{LINK_GUIDE['JA']}\n#宇宙開発 #衛星観測"
         )
     ]
     text = random.choice(templates)
@@ -541,18 +547,18 @@ def task_starlink_fleet():
             f"🌐【地球を覆う6,000機の宇宙ネットワーク】\n"
             f"SpaceXの超巨大衛星網『Starlink』⚡\n"
             f"高度約550kmの低軌道から世界中へ高速ネットを供給中🛰️\n\n"
-            f"圧倒的な3D衛星スウォームを体感👇\n{WEBSITE_URL}\n#SpaceX #Starlink #宇宙"
+            f"{LINK_GUIDE['JA']}\n#SpaceX #Starlink #宇宙"
         ),
         (
             f"🛰️【メガコンステレーションの全貌】\n"
             f"地球低軌道を埋め尽くす数千機のStarlink衛星網✨\n"
             f"自律回避とレーザー通信で連携する驚異の宇宙フリート。\n\n"
-            f"3D地球儀でリアルタイム追跡👇\n{WEBSITE_URL}\n#SpaceX #Starlink #テクノロジー"
+            f"{LINK_GUIDE['JA']}\n#SpaceX #Starlink #テクノロジー"
         ),
         (
             f"🛰️ SpaceX Starlink Mega-Constellation Live!\n"
             f"Over 6,000 active broadband satellites wrapping the globe in low Earth orbit (LEO) 🌐⚡\n\n"
-            f"Explore the full 3D interactive satellite swarm via our link👇\n{WEBSITE_URL}\n#Starlink #SpaceX #Astronomy"
+            f"{LINK_GUIDE['EN']}\n#Starlink #SpaceX #Astronomy"
         )
     ]
     text = random.choice(templates)
@@ -618,21 +624,21 @@ def task_starlink_train():
 
     templates = [
         (
-            f"🌌【夜空に浮かぶ銀河鉄道：スターリンクトレイン】\n"
-            f"SpaceXが打ち上げた直後の衛星群が一列に並んで移動する神秘の天体ショー✨\n"
-            f"打ち上げから数日間限定で、星のような光の点が数珠つなぎになって夜空をスーッと横切る姿が肉眼でも観測できます🔭\n\n"
-            f"次の通過予測と3D軌道はこちら👇\n{WEBSITE_URL}\n#スターリンクトレイン #SpaceX #天体観測 #星空"
+            f"🌌【夜空を駆ける銀河鉄道：スターリンクトレイン】\n"
+            f"SpaceX打ち上げ直後の衛星群が一列に並んで夜空を移動する天体ショー✨\n"
+            f"星のような光の点が数珠つなぎで肉眼でも見えます🔭\n\n"
+            f"{LINK_GUIDE['JA']}\n#スターリンクトレイン #SpaceX #天体観測"
         ),
         (
-            f"💡【なぜ一列に並んで光るの？】\n"
-            f"ロケット1機で数十機同時に宇宙へ放出されたスターリンク衛星は、最初はお互いに近い距離で同じ軌道を飛びます。\n"
-            f"その後、イオンエンジンで数週間かけて徐々に本来の定位置へ散らばっていくため、この『光の列車』は超激レアな初期限定の光景です🛰️✨\n\n"
-            f"3D地球儀で現在地をチェック👉 {WEBSITE_URL}\n#宇宙の不思議 #Starlink"
+            f"💡【なぜ一列に並んで光る？】\n"
+            f"同時に放出された衛星群は初期に同じ軌道を並走します。\n"
+            f"数週間で散らばるため、この『光の列車』は打ち上げ直後限定の超激レアな光景です🛰️✨\n\n"
+            f"{LINK_GUIDE['JA']}\n#宇宙の不思議 #Starlink"
         ),
         (
-            f"✨ Witness the real-life 'Galaxy Express' in the night sky!\n"
-            f"SpaceX Starlink Train: A freshly launched batch of satellites orbiting in a glowing single-file line 🌌🛰️\n\n"
-            f"Track real-time 3D orbital train via our profile link: {WEBSITE_URL}\n#StarlinkTrain #SpaceX #Astronomy"
+            f"✨ Witness the 'Galaxy Express' in the night sky!\n"
+            f"SpaceX Starlink Train: Freshly launched satellites orbiting in a glowing single-file line 🌌🛰️\n\n"
+            f"{LINK_GUIDE['EN']}\n#StarlinkTrain #SpaceX #Astronomy"
         )
     ]
     text = random.choice(templates)
@@ -690,21 +696,21 @@ def task_space_debris():
 
     templates = [
         (
-            f"💥【秒速8kmの宇宙の弾丸：スペースデブリ】\n"
-            f"役目を終えた人工衛星やロケットの破片である『宇宙デブリ』。\n"
-            f"わずか1cmのネジでも、時速28,000kmの猛スピードではライフル弾の数十倍のエネルギーで宇宙ステーションを貫通します🛡️\n\n"
-            f"宇宙の安全を守るリアルタイム3Dデブリ監視レーダーはこちら👇\n{WEBSITE_URL}\n#宇宙デブリ #宇宙開発 #JAXA #NASA"
+            f"💥【秒速8kmの宇宙弾丸：スペースデブリ】\n"
+            f"役目を終えた衛星や破片である宇宙ゴミ。\n"
+            f"時速28,000kmの猛スピードでは、わずか1cmのネジでもライフル弾の数十倍の衝撃力に達します🛡️\n\n"
+            f"{LINK_GUIDE['JA']}\n#宇宙デブリ #宇宙開発 #JAXA #NASA"
         ),
         (
-            f"🛰️【ケスラー・シンドロームの脅威とは？】\n"
-            f"デブリ同士が衝突して破片がネズミ算式に増え、宇宙空間が使えなくなる連鎖反応の危機。\n"
-            f"SatViewer3Dでは、地球周回軌道上に漂うデブリの位置をリアルタイムに3Dマッピング監視中⚡\n\n"
-            f"3D地球儀で危険エリアをチェック👉 {WEBSITE_URL}\n#宇宙ゴミ #サイエンス"
+            f"🛰️【ケスラー・シンドロームの脅威】\n"
+            f"デブリ衝突の連鎖で宇宙が使えなくなる連鎖反応の危機。\n"
+            f"地球周回軌道に漂うデブリの位置をリアルタイムに3Dマッピング監視中⚡\n\n"
+            f"{LINK_GUIDE['JA']}\n#宇宙ゴミ #サイエンス"
         ),
         (
             f"🛡️ High-Speed Orbital Space Debris Live Tracking!\n"
-            f"Cataloged fragmentation debris hurtling through LEO at 27,000+ km/h. Constant vigilance for manned stations like ISS and CSS 🛰️💥\n\n"
-            f"Explore 3D collision risk visualizer: {WEBSITE_URL}\n#SpaceDebris #Astronomy #Space"
+            f"Cataloged fragmentation debris hurtling through LEO at 27,000+ km/h. Constant vigilance for ISS & CSS 🛰️💥\n\n"
+            f"{LINK_GUIDE['EN']}\n#SpaceDebris #Astronomy #Space"
         )
     ]
     text = random.choice(templates)
@@ -763,21 +769,21 @@ def task_hubble_live():
     templates = [
         (
             f"🔭【打ち上げから35年超：宇宙の瞳ハッブル望遠鏡】\n"
-            f"無数の美しい星雲や深宇宙の銀河を捉え続けてきた『ハッブル宇宙望遠鏡 (HST)』✨\n"
-            f"現在【{ctx['region_ja']}】上空を高度約{alt:.0f}km、時速{speed_km_h:,.0f}kmで元気に航行中！\n\n"
-            f"レジェンド望遠鏡のリアルタイム3D軌道はこちら👇\n{WEBSITE_URL}\n#ハッブル宇宙望遠鏡 #NASA #天文学 #宇宙"
+            f"美しい星雲や銀河を捉え続けてきた『ハッブル宇宙望遠鏡』✨\n"
+            f"現在【{ctx['region_ja']}】上空を高度約{alt:.0f}km、時速{speed_km_h:,.0f}kmで航行中！\n\n"
+            f"{LINK_GUIDE['JA']}\n#ハッブル宇宙望遠鏡 #NASA #天文学 #宇宙"
         ),
         (
             f"💡【ハッブルの驚異の手ブレ補正技術】\n"
-            f"時速27,000kmで猛スピード周回しながら、1.6km先の髪の毛の太さに焦点を合わせ続ける驚異の姿勢制御技術🔭\n"
-            f"現在も深宇宙を見つめ続けるハッブルの現在地を3D地球儀で追跡中🛰️\n\n"
-            f"3D軌道シミュレーション👉 {WEBSITE_URL}\n#宇宙の不思議 #サイエンス"
+            f"時速27,000kmで猛スピード周回しながら、1.6km先の髪の毛の太さに焦点を合わせ続ける驚異の姿勢制御🔭\n"
+            f"深宇宙を見つめ続けるハッブルの現在地を3D地球儀で追跡中🛰️\n\n"
+            f"{LINK_GUIDE['JA']}\n#宇宙の不思議 #サイエンス"
         ),
         (
             f"🔭 Hubble Space Telescope (HST) Live Orbit Tracker!\n"
             f"Cruising at {speed_km_h:,.0f} km/h over {ctx['region_en']} at ~{alt:.0f} km altitude.\n"
-            f"35+ years of peering into the deepest corners of the universe 🌌✨\n\n"
-            f"Track real-time 3D orbit: {WEBSITE_URL}\n#Hubble #NASA #Astronomy"
+            f"35+ years peering into deep space 🌌✨\n\n"
+            f"{LINK_GUIDE['EN']}\n#Hubble #NASA #Astronomy"
         )
     ]
     text = random.choice(templates)
@@ -848,13 +854,13 @@ def task_satellite_spotlight():
         (
             f"🛰️【人工衛星スポットライト：{sat['name']}】\n"
             f"✨ {sat['badge']}\n\n"
-            f"💡 {sat['fact']}\n\n"
-            f"リアルタイム3D地球軌道シミュレーションはこちら👇\n{WEBSITE_URL}\n#宇宙開発 #人工衛星 #科学"
+            f"💡 {sat['fact'][:75]}…\n\n"
+            f"{LINK_GUIDE['JA']}\n#宇宙開発 #人工衛星 #科学"
         ),
         (
             f"🌌【宇宙の歴史を刻む名機：{sat['name']}】\n"
-            f"{sat['fact']}\n\n"
-            f"宇宙空間での現在地と軌道を3D地球儀で体感👉 {WEBSITE_URL}\n#宇宙 #テクノロジー"
+            f"{sat['fact'][:85]}…\n\n"
+            f"{LINK_GUIDE['JA']}\n#宇宙 #テクノロジー"
         )
     ]
     text = random.choice(templates)
@@ -940,19 +946,17 @@ def task_asteroid_alert():
 
     templates = [
         (
-            f"☄️【地球接近小惑星レーダー：{ast['name']}】\n"
-            f"🏷️ 分類: {ast['type']}\n"
+            f"☄️【地球接近小惑星：{ast['name']}】\n"
             f"📏 直径: {ast['diameter']} | ⚡ 速度: {ast['speed']}\n"
-            f"🎯 最接近予報: {ast['flyby']}\n"
-            f"📍 距離: {ast['dist']}\n\n"
-            f"💡 {ast['fact']}\n\n"
-            f"3D太陽系・接近軌道シミュレーターはこちら👇\n{WEBSITE_URL}\n#小惑星 #宇宙 #天文 #NASA #JAXA"
+            f"🎯 最接近: {ast['flyby']}\n"
+            f"📍 距離: {ast['dist'][:25]}\n\n"
+            f"{LINK_GUIDE['JA']}\n#小惑星 #宇宙 #天文 #NASA #JAXA"
         ),
         (
-            f"🌍【地球防衛の最前線：小惑星 {ast['name']}】\n"
-            f"最接近時には {ast['dist']} の超至近距離を通過予測！\n"
-            f"{ast['fact']}\n\n"
-            f"リアルタイム3D軌道シミュレーションで接近の様子を体感👉 {WEBSITE_URL}\n#天体衝突 #サイエンス"
+            f"🌍【地球防衛：小惑星 {ast['name']}】\n"
+            f"最接近時には地球から {ast['dist'][:25]} を通過予測！\n"
+            f"秒速約{ast['speed']}で飛行する天体を3Dレーダーで監視中🛰️\n\n"
+            f"{LINK_GUIDE['JA']}\n#天体衝突 #サイエンス #宇宙"
         )
     ]
     text = random.choice(templates)
