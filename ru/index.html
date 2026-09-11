@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <base href="/">
-    <title>SatViewer3D | 3D трекер спутников и симулятор космического мусора в реальном времени</title>
+    <title>SatViewer3D | 3D симулятор орбит спутников и космического мусора в реальном времени</title>
     
     <!-- SEO & Search Optimization Meta Tags -->
-    <meta name="description" content="SatViewer3D — бесплатный веб-симулятор для 3D-отслеживания спутников (МКС, Starlink, метеоспутники) и космического мусора на околоземной орбите в реальном времени с прогнозом сближений.">
-    <meta name="keywords" content="SatViewer3D, трекер спутников, орбитальный симулятор 3D, космический мусор, МКС онлайн, Starlink трекер, отслеживание спутников в реальном времени">
+    <meta name="description" content="SatViewer3D — бесплатный интерактивный 3D-симулятор движения космических аппаратов на базе модели SGP4. Отслеживание МКС, ГЛОНАСС, Starlink и космического мусора в реальном времени.">
+    <meta name="keywords" content="SatViewer3D, трекер спутников, МКС онлайн, ГЛОНАСС, Starlink 3D, космический мусор, орбитальный симулятор, прогноз сближений">
     <meta name="author" content="SatViewer3D">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://satviewer3d.com/ru/">
@@ -32,50 +32,75 @@
 
     <!-- OGP (Open Graph Protocol) -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="SatViewer3D | 3D-трекер спутников и космического мусора в реальном времени">
-    <meta property="og:description" content="3D-моделирование орбит МКС, Starlink и космического мусора в реальном времени.">
+    <meta property="og:title" content="SatViewer3D | 3D симулятор орбит спутников и космического мусора в реальном времени">
+    <meta property="og:description" content="SatViewer3D — бесплатный интерактивный 3D-симулятор движения космических аппаратов на базе модели SGP4. Отслеживание МКС, ГЛОНАСС, Starlink и космического мусора в реальном времени.">
     <meta property="og:url" content="https://satviewer3d.com/ru/">
     <meta property="og:site_name" content="SatViewer3D">
     <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
     <meta property="og:locale" content="ru_RU">
-    <meta property="og:locale:alternate" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta property="og:locale:alternate" content="zh_CN">
     <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:locale:alternate" content="ru_RU">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SatViewer3D | 3D-трекер спутников и космического мусора">
-    <meta name="twitter:description" content="Отслеживайте тысячи спутников и космический мусор в 3D в реальном времени.">
+    <meta name="twitter:title" content="SatViewer3D | 3D симулятор орбит спутников и космического мусора в реальном времени">
+    <meta name="twitter:description" content="SatViewer3D — бесплатный интерактивный 3D-симулятор движения космических аппаратов на базе модели SGP4. Отслеживание МКС, ГЛОНАСС, Starlink и космического мусора в реальном времени.">
     <meta name="twitter:image" content="https://satviewer3d.com/feature_graphic.png">
 
     <!-- JSON-LD Structured Data for Google Rich Snippets -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "SatViewer3D",
-      "alternateName": ["SatViewer 3D", "3D-трекер спутников"],
-      "url": "https://satviewer3d.com/ru/",
-      "image": "https://satviewer3d.com/feature_graphic.png",
-      "description": "SatViewer3D — бесплатный симулятор 3D-отслеживания спутников и космического мусора в реальном времени.",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "All",
-      "browserRequirements": "Requires WebGL support",
-      "inLanguage": ["ja", "en", "de", "fr", "es", "pt", "it", "ko", "nl", "id", "hi", "ar", "zh", "ru"],
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SatViewer3D",
+        "alternateName": ["SatViewer 3D", "SatViewer3D | 3D симулятор орбит спутников и космического мусора в реальном времени"],
+        "url": "https://satviewer3d.com/ru/",
+        "image": "https://satviewer3d.com/feature_graphic.png",
+        "description": "SatViewer3D — бесплатный интерактивный 3D-симулятор движения космических аппаратов на базе модели SGP4. Отслеживание МКС, ГЛОНАСС, Starlink и космического мусора в реальном времени.",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires WebGL 2.0 support",
+        "inLanguage": ["ru", "en", "ja"],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
       },
-      "featureList": [
-        "3D-визуализация орбит в реальном времени",
-        "Отслеживание спутников МКС и Starlink",
-        "Анализ риска столкновений с мусором (24ч MOID)",
-        "Прогноз пролетов над горизонтом",
-        "Поддержка 5 языков (Русский, Английский, Японский, Китайский, Испанский)"
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "С какой точностью отображаются спутники в SatViewer3D?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Орбиты моделируются алгоритмом SGP4 на основе свежих данных TLE от CelesTrak и NORAD. Погрешность в пространстве обычно не превышает нескольких километров, что идеально подходит для любительской астрономии и учебных задач."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Можно ли увидеть спутники невооруженным глазом?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да! Такие яркие объекты, как МКС и «поезда» Starlink, освещаются Солнцем в сумерках, когда на Земле уже темно, и видны на небе как плавно плывущие яркие звезды."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Разрешено ли использовать симулятор на уроках и в научных проектах?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да, платформа полностью бесплатна, работает без регистрации и приветствуется к использованию в школах, университетах и научных клубах."
+            }
+          }
+        ]
+      }
+    ]
     </script>
 
     <!-- Web App Manifest for PWA & Android TWA -->
@@ -94,8 +119,76 @@
       gtag('config', 'G-TM540MSBGM');
     </script>
 
-    <!-- Google AdSense Auto-Ads & Verification Script -->
+    <!-- Google AdSense Account Verification & Auto-Ads -->
+    <meta name="google-adsense-account" content="ca-pub-4784691828768361">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- Schema.org JSON-LD Structured Data for High-Quality Web Application & FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://satviewer3d.com/en/#app",
+          "name": "SatViewer3D",
+          "url": "https://satviewer3d.com/en/",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All modern browsers (WebGL 2.0 supported)",
+          "browserRequirements": "Requires WebGL support",
+          "description": "Real-time 3D interactive satellite tracking and orbital mechanics visualization simulator for ISS, Starlink, Hubble, and space debris.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@type": "Organization",
+            "name": "SatViewer3D Team",
+            "url": "https://satviewer3d.com/about.html"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://satviewer3d.com/en/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How does SatViewer3D compute real-time satellite positions?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "SatViewer3D fetches official TLE (Two-Line Element) orbital sets curated by NORAD and CelesTrak. It computes precise satellite positions and velocities in real-time using the standard SGP4 (Simplified General Perturbations-4) mathematical perturbation model."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I track the International Space Station (ISS) in real time?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! You can instantly locate and focus on the ISS via the top presets or sidebar. SatViewer3D displays its ground track, orbital altitude, velocity, and offers an immersive astronaut POV from the ESA Cupola observation deck."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does SatViewer3D work on mobile and tablet devices?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. The simulator is fully responsive with intuitive multi-touch gestures (two-finger pinch zoom, drag rotation) across iOS Safari, Android Chrome, and modern desktop browsers without requiring app installations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is space debris and why is it dangerous?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Space debris consists of defunct satellites, spent rocket stages, and fragments moving at orbital speeds of 7 to 8 km/s. Even millimeter-sized debris can inflict catastrophic damage to operational spacecraft, posing a threat of cascading collisions known as Kessler Syndrome."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,15 +221,17 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260906_1835">
+    <link rel="stylesheet" href="styles.css?v=20260911_1710">
 </head>
 <body>
-    <div id="cesiumContainer"></div>
-    <!-- HTML DOM Overlay Container for Crisp 100% Sharp Satellite Labels -->
-    <div id="labelsContainer" class="labels-container"></div>
-    
-    <!-- UI Overlay HUD -->
-    <div class="hud-layer">
+    <!-- 3D Simulator Fullscreen Viewport Wrapper (100vh First View) -->
+    <div id="simulatorAppWrapper" class="simulator-app-wrapper">
+        <div id="cesiumContainer"></div>
+        <!-- HTML DOM Overlay Container for Crisp 100% Sharp Satellite Labels -->
+        <div id="labelsContainer" class="labels-container"></div>
+        
+        <!-- UI Overlay HUD -->
+        <div class="hud-layer">
         <!-- Top Split HUD Floating Islands (Separated to keep Earth Center View 100% Unobstructed!) -->
         <div class="hud-top-split">
             <!-- Left Island: Brand Logo -->
@@ -155,7 +250,7 @@
                     </div>
                     <div>
                         <h1 class="app-title">SatViewer3D</h1>
-                        <p class="app-subtitle">3D-визуализация спутников и мусора</p>
+                        <p class="app-subtitle">3D симулятор спутников и космического мусора в реальном времени</p>
                     </div>
                 </div>
             </div>
@@ -163,24 +258,24 @@
             <!-- Right Island: Quick Stats & Language Selector -->
             <div id="headerRightIsland" class="header-right-island glass-panel">
                 <div class="panel-drag-bar drag-handle" style="margin-bottom:4px; padding:2px 4px; font-size:0.65rem; display:flex; justify-content:space-between; align-items:center;">
-                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">Перетащить панель</span></div>
-                    <button id="toggleHeaderMinBtn" class="panel-min-btn" title="Свернуть / Развернуть">➖</button>
+                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">Drag to move</span></div>
+                    <button id="toggleHeaderMinBtn" class="panel-min-btn" title="Minimize / Expand">➖</button>
                 </div>
                                 <div id="headerIslandContent" class="card-collapsible-content">
                     <div class="stats-pills">
                     <div class="stat-pill">
-                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">Tracked</span>
+                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">Спутников на орбите</span>
                         <span class="stat-value" id="statCount">0</span>
                     </div>
                     <div class="stat-pill header-time-pill">
-                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">Time</span>
+                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">Время симуляции</span>
                         <span class="stat-value mono-text" id="statTime">--:--:--</span>
                     </div>
 
                     <!-- Mobile Menu Toggle Button (Visible only on mobile/narrow screens) -->
                     <button id="mobileHeaderMenuBtn" class="mobile-header-menu-btn" type="button" aria-expanded="false" aria-label="Menu" onclick="window.toggleMobileHeaderMenu(event)">
                         <span>☰</span>
-                        <span id="mobileHeaderMenuText" data-i18n="mobileHeaderMenu">Menu</span>
+                        <span id="mobileHeaderMenuText" data-i18n="mobileHeaderMenu">Меню</span>
                         <span class="menu-arrow" id="mobileHeaderMenuArrow">▾</span>
                     </button>
 
@@ -210,19 +305,19 @@
                             </select>
                         </div>
                         <a href="/ru/articles/" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.5); color: #38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; border-radius:6px;">
-                            📚 <span data-i18n="navArticles">Articles</span>
+                            📚 <span data-i18n="navArticles">Статьи о космосе</span>
                         </a>
                         <button id="headerScreenshotBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="headerScreenshot">
-                            📸 Snapshot
+                            📸 Снимок HD
                         </button>
                         <button id="soundToggleBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="soundToggle">
-                            🔇 Sound OFF
+                            🔇 Звук ВЫКЛ
                         </button>
                         <button id="openReleaseBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="btnRelease">
-                            📜 v2.8 Release Notes
+                            📜 v2.8 Релиз
                         </button>
                         <button id="openGuideBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer; white-space:nowrap;" data-i18n="btnGuide">
-                            ❓ Guide & Terms
+                            ❓ Гайд и условия
                         </button>
                     </div>
                 </div>
@@ -235,51 +330,51 @@
                 <!-- Mobile Bottom Dock Action Buttons (FABs) -->
         <div class="mobile-bottom-dock">
             <button id="mobileMenuBtn" class="mobile-menu-btn" onclick="window.toggleMobileMenu(event)">
-                <span id="mobileMenuText" data-i18n="mobileBtnSelect">🛰️ Спутники</span>
+                <span id="mobileMenuText" data-i18n="mobileBtnSelect">🛰️ Satellites</span>
             </button>
             <button id="mobileDetailBtn" class="mobile-detail-btn" onclick="window.toggleMobileDetail(event)">
-                <span id="mobileDetailText" data-i18n="mobileBtnDetail">📊 Детали</span>
+                <span id="mobileDetailText" data-i18n="mobileBtnDetail">📊 Details</span>
             </button>
         </div>
 
         <!-- Sidebar Navigation & Control -->
         <aside id="sidebarPanel" class="hud-sidebar glass-panel">
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ Перетащить</span></div>
-                <button id="toggleSidebarMinBtn" class="panel-min-btn" title="Свернуть / Развернуть">➖</button>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ Drag Panel</span></div>
+                <button id="toggleSidebarMinBtn" class="panel-min-btn" title="Minimize / Expand">➖</button>
             </div>
                         
                         <div class="sidebar-mobile-header">
-                <span class="sidebar-mobile-title" id="mobileSidebarTitle" data-i18n="mobileSheetSelectTitle">🛰️ Спутники и меню</span>
+                <span class="sidebar-mobile-title" id="mobileSidebarTitle" data-i18n="mobileSheetSelectTitle">🛰️ Satellites & Menu</span>
                 <button id="closeMobileSidebarBtn" class="sidebar-mobile-close-btn" onclick="window.closeMobileMenu(event)">&times;</button>
             </div>
             <div id="sidebarContent" class="sidebar-collapsible-content">
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <span data-i18n="secSelect">Выбрать / Найти спутник</span>
+                    <span data-i18n="secSelect">Select / Search Satellite</span>
                 </h2>
                 
                                 <!-- Smart Guide Popup Tooltip -->
                 <div id="satSelectGuideTooltip" class="sat-guide-tooltip">
                     <div class="tooltip-pulse-dot"></div>
                     <div class="tooltip-content">
-                        <div class="tooltip-title" data-i18n="tooltipGuideTitle">💡 Выбирайте и отслеживайте любой спутник!</div>
-                        <div class="tooltip-desc" data-i18n="tooltipGuideDesc">Отслеживайте Starlink, телескоп Хаббл, метеоспутники и многое другое.</div>
+                        <div class="tooltip-title" data-i18n="tooltipGuideTitle">💡 Switch & Track Any Satellite!</div>
+                        <div class="tooltip-desc" data-i18n="tooltipGuideDesc">Select and track Starlink, Hubble, Himawari weather satellites, and more.</div>
                     </div>
-                    <button id="closeGuideTooltipBtn" class="tooltip-close-btn" title="閉じる">&times;</button>
+                    <button id="closeGuideTooltipBtn" class="tooltip-close-btn" title="Close">&times;</button>
                 </div>
                 
                 <!-- Dropdown Selector -->
                 <div class="select-box">
                     <select id="satSelect" class="custom-select">
-                        <option value="" data-i18n="selectPlaceholder">-- Выберите спутник или мусор --</option>
+                        <option value="" data-i18n="selectPlaceholder">-- Select Satellite / Debris --</option>
                     </select>
                 </div>
 
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Или поиск по названию/NORAD ID..." autocomplete="off">
-                    <button id="clearSearch" class="btn-icon hidden" title="Очистить">&times;</button>
+                    <input type="text" id="searchInput" placeholder="Search by name or NORAD ID..." autocomplete="off">
+                    <button id="clearSearch" class="btn-icon hidden" title="Clear">&times;</button>
                 </div>
                 <div id="searchResults" class="search-results-list"></div>
             </div>
@@ -287,99 +382,123 @@
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                    <span data-i18n="secSource">Источники данных и пресеты</span>
+                    <span data-i18n="secSource">Satellite Data Source & Presets</span>
                 </h2>
                 <div class="source-buttons">
-                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ Основные спутники (МКС, Starlink, мусор)</button>
-                    <button class="btn btn-secondary" id="loadDeepSpaceBtn" style="border-color:rgba(245,158,11,0.5); color:#fbbf24;" data-i18n="loadDeepSpace">🔭 Дальний космос и JWST</button>
-                    <button class="btn btn-secondary" id="loadSolarSystemBtn" style="border-color:rgba(168,85,247,0.5); color:#c084fc;" data-i18n="loadSolarSystem">🌌 Солнечная система Оррери (8 планет и Солнце)</button>
-            <button class="btn btn-secondary" id="loadSpanishBtn" style="border-color:rgba(239,68,68,0.45); color:#f87171;" data-i18n="loadSpanish">🇪🇸 Спутники Испании и Латинской Америки (PAZ, SAOCOM)</button>
-                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Полная группировка Starlink (2000 спутников)</button>
-                    <button class="btn btn-secondary" id="loadDebrisBtn" data-i18n="loadDebris">💥 Мегаоблако космического мусора (2 200+ обломков)</button>
+                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ Major Satellites (ISS, Starlink, Debris)</button>
+                    <button class="btn btn-secondary" id="loadDeepSpaceBtn" style="border-color:rgba(245,158,11,0.5); color:#fbbf24;" data-i18n="loadDeepSpace">🔭 Deep Space & JWST (Webb, Artemis, MRO)</button>
+                    <button class="btn btn-secondary" id="loadSolarSystemBtn" style="border-color:rgba(168,85,247,0.5); color:#c084fc;" data-i18n="loadSolarSystem">🌌 Solar System Orrery (8 Planets & Sun)</button>
+            <button class="btn btn-secondary" id="loadSpanishBtn" style="border-color:rgba(239,68,68,0.45); color:#f87171;" data-i18n="loadSpanish">🇪🇸 Spain & Latin America Satellites (PAZ, SAOCOM, CHEOPS)</button>
+                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Starlink Full Constellation (2,000 sats)</button>
+                    <button class="btn btn-secondary" id="loadDebrisBtn" data-i18n="loadDebris">💥 Space Debris Mega-Cloud (2,200+ Fragments)</button>
                 </div>
-                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ Пресет основных спутников загружен</div>
+                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ Major Satellites Loaded</div>
             </div>
 
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span data-i18n="secTime">Управление временем и скоростью</span>
+                    <span data-i18n="secTime">Time Controls & Simulation Speed</span>
                 </h2>
                 <div class="speed-buttons">
-                    <button class="speed-btn" data-speed="0" data-i18n="speedStop">⏸️ Пауза</button>
-                    <button class="speed-btn" data-speed="1" data-i18n="speedReal">▶️ 1x (Реально)</button>
+                    <button class="speed-btn" data-speed="0" data-i18n="speedStop">⏸️ Pause</button>
+                    <button class="speed-btn" data-speed="1" data-i18n="speedReal">▶️ 1x (Real)</button>
                     <button class="speed-btn active" data-speed="10">⏩ 10x</button>
                     <button class="speed-btn" data-speed="100">⏩ 100x</button>
                     <button class="speed-btn" data-speed="1000">🚀 1000x</button>
                 </div>
                 <div class="time-adjust-row">
-                    <input type="text" id="timePickerInput" lang="ru" class="custom-select" style="font-size: 0.8rem; padding: 6px;" placeholder="📅 Select Date & Time...">
-                    <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="Сбросить на текущее время" data-i18n="resetNow">🔄 Сейчас</button>
+                    <input type="text" id="timePickerInput" lang="en" class="custom-select" style="font-size: 0.8rem; padding: 6px;" placeholder="📅 Выбрать дату и время...">
+                    <button id="resetNowBtn" class="time-btn" data-i18n="resetNow">🔄 Сейчас</button>
+                </div>
+
+                <!-- Historical Time Travel Presets -->
+                <div class="time-travel-box">
+                    <div style="font-size:0.75rem; font-weight:700; color:#fbbf24; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+                        <span>⏳</span> <span data-i18n="historicalTimeTravelTitle">Historical Time Travel</span>
+                    </div>
+                    <div class="historical-event-buttons" style="display:grid; grid-template-columns: 1fr 1fr; gap:5px;">
+                        <button class="btn btn-secondary historical-btn" data-event="apollo11" data-i18n="eventApollo11" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="Jul 20, 1969 20:17 UTC">
+                            🌕 <strong>Apollo 11</strong><br><span style="font-size:0.65rem; opacity:0.8;">1969.07.20 Moon Landing</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="voyager1" data-i18n="eventVoyager1" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="Mar 5, 1979 12:05 UTC">
+                            🪐 <strong>Voyager 1</strong><br><span style="font-size:0.65rem; opacity:0.8;">1979.03.05 Jupiter Flyby</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="halley1986" data-i18n="eventHalley" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="Feb 9, 1986 00:00 UTC">
+                            ☄️ <strong>Halley's Comet</strong><br><span style="font-size:0.65rem; opacity:0.8;">1986.02.09 Perihelion</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="voyager2neptune" data-i18n="eventVoyager2" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="Aug 25, 1989 03:56 UTC">
+                            🌊 <strong>Voyager 2</strong><br><span style="font-size:0.65rem; opacity:0.8;">1989.08.25 Neptune Flyby</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="sputnik1" data-i18n="eventSputnik1" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3; grid-column: 1 / -1;" title="Oct 4, 1957 19:28 UTC">
+                            🛰️ <strong>Sputnik 1 (Dawn of Space Age)</strong><br><span style="font-size:0.65rem; opacity:0.8;">1957.10.04 First Satellite</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    <span data-i18n="secDisplay">Настройки отображения</span>
+                    <span data-i18n="secDisplay">Display Settings</span>
                 </h2>
                 <div class="control-group">
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleLabels" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleLabels">Метки спутников в 3D</span>
+                        <span class="toggle-label" data-i18n="toggleLabels">Show 3D Satellite Labels</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleOrbits" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleOrbits">Отображать орбиту</span>
+                        <span class="toggle-label" data-i18n="toggleOrbits">Show Orbit Path</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleMultiLap" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 Трасса нескольких витков</span>
+                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 Multi-Lap Ground Track</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleAtmosphere" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleAtmosphere">Атмосфера и освещение</span>
+                        <span class="toggle-label" data-i18n="toggleAtmosphere">Atmosphere & Sunlight</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggle2D">
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggle2D">Режим 2D-карты</span>
+                        <span class="toggle-label" data-i18n="toggle2D">2D Map Mode</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleBorders" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleBorders">🌐 Границы и города</span>
+                        <span class="toggle-label" data-i18n="toggleBorders">🌐 Borders & Place Labels</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleCelestial" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleCelestial">🌌 Солнце, Луна и планеты (Марс/Венера/Юпитер/Сатурн)</span>
+                        <span class="toggle-label" data-i18n="toggleCelestial">🌌 Sun, Moon & Planets (Mars/Venus/Jupiter/Saturn)</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleDeepSpace" checked>
                         <span class="slider" style="background: rgba(245, 158, 11, 0.4);"></span>
-                        <span class="toggle-label" data-i18n="toggleDeepSpace">🔭 深宇宙・月/火星探査機 & JWST</span>
+                        <span class="toggle-label" data-i18n="toggleDeepSpace">🔭 Deep Space & JWST Probes</span>
                     </label>
-                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="Оценка мусора">
+                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="Debris Risk Analysis">
                         <input type="checkbox" id="toggleDebrisRisk">
                         <span class="slider purple-slider"></span>
-                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 Оценка сближения с мусором</span>
+                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 Space Debris Risk Analysis</span>
                     </label>
 
                     <div class="control-group" style="margin-top: 12px; display: flex; flex-direction: column; gap: 4px;">
-                        <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="labelTimezone">Часовой пояс</span>
+                        <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="labelTimezone">Timezone Display</span>
                         <select id="tzSelect" class="custom-select" style="padding: 6px 10px; font-size: 0.8rem;">
-                            <option value="MSK" selected>🇷🇺 Московское время (MSK / UTC+3)</option>
-                            <option value="UTC">🌐 Всемирное время (UTC)</option>
-                            <option value="CET">🇪🇸 Центральноевропейское (CET)</option>
-                            <option value="NY">🇺🇸 Нью-Йорк (EST/EDT)</option>
-                            <option value="JST">🇯🇵 Японское время (JST)</option>
-                            <option value="CST">🇨🇳 Китайское время (CST)</option>
-                            <option value="LOCAL">💻 Местное время браузера</option>
+                            <option value="LOCAL" selected>💻 Local Browser Time</option>
+                            <option value="UTC">🌐 Universal Time (UTC)</option>
+                            <option value="NY">🇺🇸 New York (EST/EDT)</option>
+                            <option value="CET">🇪🇸 Central European (CET)</option>
+                            <option value="JST">🇯🇵 Japan Std Time (JST)</option>
+                            <option value="CST">🇨🇳 China Std Time (CST)</option>
+                            <option value="MSK">🇷🇺 Moscow Time (MSK)</option>
                         </select>
                     </div>
                 </div>
@@ -394,32 +513,32 @@
         <!-- 3D Camera Direction Control D-Pad HUD -->
         <div id="cameraDPad" class="camera-dpad-hud glass-panel">
             <div class="panel-drag-bar drag-handle" style="margin-bottom:6px; padding:4px 8px; font-size:0.68rem; display:flex; justify-content:space-between; align-items:center; width:100%;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">Камера</span></div>
-                <button id="toggleCamMinBtn" class="panel-min-btn" title="Свернуть / Развернуть">➖</button>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">Camera</span></div>
+                <button id="toggleCamMinBtn" class="panel-min-btn" title="Minimize / Expand">➖</button>
             </div>
             <div id="dpadContent" class="card-collapsible-content">
                 <div class="dpad-grid">
                 <div></div>
-                <button class="dpad-btn dpad-up" id="btnCamUp" title="Вверх (▲)">▲</button>
+                <button class="dpad-btn dpad-up" id="btnCamUp" title="Up (▲)">▲</button>
                 <div></div>
-                <button class="dpad-btn dpad-left" id="btnCamLeft" title="Влево (◀)">◀</button>
-                <button class="dpad-btn dpad-reset" id="btnCamReset" title="Сброс (🏠)">🏠</button>
-                <button class="dpad-btn dpad-right" id="btnCamRight" title="Вправо (▶)">▶</button>
+                <button class="dpad-btn dpad-left" id="btnCamLeft" title="Left (◀)">◀</button>
+                <button class="dpad-btn dpad-reset" id="btnCamReset" title="Reset (🏠)">🏠</button>
+                <button class="dpad-btn dpad-right" id="btnCamRight" title="Right (▶)">▶</button>
                 <div></div>
-                <button class="dpad-btn dpad-down" id="btnCamDown" title="Вниз (▼)">▼</button>
+                <button class="dpad-btn dpad-down" id="btnCamDown" title="Down (▼)">▼</button>
                 <div></div>
             </div>
             </div>
         </div>
         <div id="detailCard" class="hud-card glass-panel">
             <div class="detail-mobile-header">
-                <span class="detail-mobile-title" id="mobileDetailTitle" data-i18n="mobileSheetDetailTitle">📊 Информация о спутнике</span>
+                <span class="detail-mobile-title" id="mobileDetailTitle" data-i18n="mobileSheetDetailTitle">📊 Satellite Details</span>
                 <button id="closeMobileDetailBtn" class="detail-mobile-close-btn" onclick="window.closeMobileDetail(event)">&times;</button>
             </div>
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">Перетащить</span></div>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">Drag Card</span></div>
                 <div style="display:flex; gap:6px; align-items:center;">
-                    <button id="toggleDetailMinBtn" class="panel-min-btn" title="Свернуть / Развернуть">➖</button>
+                    <button id="toggleDetailMinBtn" class="panel-min-btn" title="Minimize / Expand">➖</button>
                     <button id="closeDetail" class="btn-close" style="position:static;">&times;</button>
                 </div>
             </div>
@@ -432,74 +551,71 @@
                     <img id="satImage" class="sat-image" src="" alt="" loading="lazy" />
                     <div id="satImageCaption" class="sat-image-caption"></div>
                 </div>
-                <div id="satDescription" class="sat-description-text">Описание спутника</div>
+                <div id="satDescription" class="sat-description-text">Satellite Description</div>
             </div>
             <div class="card-body grid-2col">
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelAlt">Высота (Altitude)</span>
+                    <span class="data-label" data-i18n="labelAlt">Altitude</span>
                     <span class="data-value" id="satAlt">--- km</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelVel">Скорость (Velocity)</span>
+                    <span class="data-label" data-i18n="labelVel">Velocity</span>
                     <span class="data-value" id="satVel">--- km/s</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelLat">Широта (Latitude)</span>
+                    <span class="data-label" data-i18n="labelLat">Latitude</span>
                     <span class="data-value" id="satLat">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelLon">Долгота (Longitude)</span>
+                    <span class="data-label" data-i18n="labelLon">Longitude</span>
                     <span class="data-value" id="satLon">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelInc">Наклонение (Inclination)</span>
+                    <span class="data-label" data-i18n="labelInc">Inclination</span>
                     <span class="data-value" id="satInc">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelPeriod">Период (Period)</span>
+                    <span class="data-label" data-i18n="labelPeriod">Period</span>
                     <span class="data-value" id="satPeriod">--- min</span>
                 </div>
                 <div class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.25);">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 Прогноз пролета</span>
-                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPS" data-i18n="btnGeo">📍Мое место</button>
+                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 Next Overhead Pass</span>
+                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPS" data-i18n="btnGeo">📍Current Location</button>
                     </div>
-                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">Вычисление...</span>
-                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">Прогноз: Вычисление</span>
+                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">Calculating...</span>
+                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">Pass Time: Calculating</span>
                 </div>
                 <div id="debrisRiskRow" class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.4);">
-                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 Оценка сближения с мусором (MOID)</span>
-                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 Безопасно</span>
+                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 Space Debris Closest Approach (MOID)</span>
+                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 SAFE</span>
                 </div>
             </div>
             <div class="card-actions">
-                <button class="btn btn-primary" id="trackBtn">
-                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
-                    <span data-i18n="btnTrack">🎯 Следить</span>
-                </button>
-                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 Отпустить</button>
+                <button class="btn btn-primary" id="trackBtn"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg><span data-i18n="btnTrack">🎯 Слежение камерой</span></button>
+                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 Сбросить слежение</button>
             </div>
             <!-- Cupola / Onboard Camera POV Button (Visible when satellite/ISS is selected) -->
             <div id="cupolaActionRow" class="card-actions" style="margin-top: 6px;">
                 <button class="btn btn-primary cupola-launch-btn" id="btnCupolaLaunch" style="width: 100%; background: linear-gradient(135deg, #0284c7, #06b6d4); font-weight:700; border: 1px solid #38bdf8; box-shadow: 0 0 14px rgba(56,189,248,0.35); display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <span id="cupolaLaunchIcon">👨‍🚀</span>
-                    <span id="cupolaLaunchText" data-i18n="btnCupola">ISS キューポラ展望窓 (搭乗視点)</span>
+                    <span id="cupolaLaunchText" data-i18n="btnCupola">Купол МКС (Вид космонавта POV)</span>
                 </button>
             </div>
             <!-- Social Share Actions Row -->
             <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
                 <button class="btn btn-secondary" id="shareTwitterBtn" style="width: 100%; padding: 7px 12px; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); color: #f8fafc; font-weight:700; font-size: 0.84rem; display: flex; align-items: center; justify-content: center; gap: 8px;" title="X (Twitter) Share">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    <span data-i18n="btnShareTwitter">𝕏 画像付きシェア</span>
+                    <span data-i18n="btnShareTwitter">𝕏 Поделиться со снимком</span>
                 </button>
                 <div style="display: flex; gap: 6px;">
                     <button class="btn btn-secondary" id="saveScreenshotBtn" style="flex: 1; padding: 6px 10px; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); color: #f8fafc; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="Screenshot">
                         <span>📸</span>
-                        <span data-i18n="btnSaveScreenshot">撮影</span>
+                        <span data-i18n="btnSaveScreenshot">Снимок</span>
                     </button>
                     <button class="btn btn-secondary" id="copyShareBtn" style="flex: 1; padding: 6px 10px; background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.35); color: #38bdf8; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="Copy">
                         <span>📋</span>
-                        <span data-i18n="btnCopyShare">コピー</span>
+                        <span data-i18n="btnCopyShare">Копия</span>
                     </button>
                 </div>
             </div>
@@ -511,8 +627,8 @@
         <div id="edgePointer" class="edge-pointer-hud hidden">
             <span class="pointer-arrow" id="pointerArrow">👈</span>
             <div class="pointer-content">
-                <span class="pointer-name" id="pointerName">СПУТНИК</span>
-                <span class="pointer-hint" data-i18n="pointerHint">За экраном (Нажмите для перехода)</span>
+                <span class="pointer-name" id="pointerName">SATELLITE</span>
+                <span class="pointer-hint" data-i18n="pointerHint">Off-screen (Click to move camera)</span>
             </div>
         </div>
 
@@ -520,34 +636,34 @@
         <div id="guideModal" class="modal-overlay hidden">
             <div class="modal-content glass-panel">
                 <div class="modal-header">
-                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D Руководство и условия</h2>
+                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D User Guide & Legal Terms</h2>
                     <button id="closeGuideBtn" class="btn-close">&times;</button>
                 </div>
                 <div class="modal-tabs">
-                    <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 Управление</button>
-                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 v2.8 Примечания к выпуску</button>
-                    <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ Отказ от ответственности</button>
-                    <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 Конфиденциальность</button>
-                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ О сервисе</button>
+                    <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 Controls</button>
+                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 v2.8 Release Notes</button>
+                    <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ Disclaimer</button>
+                    <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 Privacy Policy</button>
+                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ About</button>
                 </div>
                 <div class="modal-body">
                     <!-- Tab 1: Controls -->
                     <div id="tabControls" class="tab-content active">
-                        <h3 data-i18n="guideTitleControls">🖱️ Навигация в 3D-пространстве</h3>
+                        <h3 data-i18n="guideTitleControls">🖱️ 3D Navigation Guide</h3>
                         <ul class="guide-list">
-                            <li><strong data-i18n="guideWheel">Колесо мыши / Тач</strong>: <span data-i18n="guideWheelDesc">Плавное масштабирование.</span></li>
-                            <li><strong data-i18n="guideDrag">Левая кнопка + Перетаскивание</strong>: <span data-i18n="guideDragDesc">Вращение Земли на 360 градусов.</span></li>
-                            <li><strong data-i18n="guideTilt">Правая кнопка / Ctrl + Перетаскивание</strong>: <span data-i18n="guideTiltDesc">Наклон и угол обзора.</span></li>
-                            <li><strong data-i18n="guideClick">Клик / Поиск спутника</strong>: <span data-i18n="guideClickDesc">Просмотр параметров высоты, скорости и сближений.</span></li>
-                            <li><strong data-i18n="guideFocus">🎯 Следить</strong>: <span data-i18n="guideFocusDesc">Автоматическое слежение камерой за спутником.</span></li>
-                            <li><strong data-i18n="guideRadar">🔮 Анализ сближений</strong>: <span data-i18n="guideRadarDesc">Расчет пересечения орбит за 24 часа.</span></li>
+                            <li><strong data-i18n="guideWheel">Mouse Wheel / Touch</strong>: <span data-i18n="guideWheelDesc">Silky smooth ultra-fine zoom in/out.</span></li>
+                            <li><strong data-i18n="guideDrag">Left Drag</strong>: <span data-i18n="guideDragDesc">Rotate Earth in full 360-degree freedom.</span></li>
+                            <li><strong data-i18n="guideTilt">Right Drag / Ctrl + Drag</strong>: <span data-i18n="guideTiltDesc">Tilt camera and change pitch angle.</span></li>
+                            <li><strong data-i18n="guideClick">Click / Search Satellite</strong>: <span data-i18n="guideClickDesc">Select satellite to view live altitude, speed, and collision risks.</span></li>
+                            <li><strong data-i18n="guideFocus">🎯 Track Camera</strong>: <span data-i18n="guideFocusDesc">Auto-lock camera on moving satellite.</span></li>
+                            <li><strong data-i18n="guideRadar">🔮 Space Debris Risk</strong>: <span data-i18n="guideRadarDesc">Real-time 24h orbital crossing analysis (MOID).</span></li>
                         </ul>
                     </div>
 
                     
                     <!-- Tab: Release Notes -->
                     <div id="tabReleases" class="tab-content">
-                        <h3 data-i18n="releaseTitle">📜 SatViewer3D 更新履歴・リリースノート</h3>
+                        <h3 data-i18n="releaseTitle">📜 SatViewer3D Release Notes & Changelog</h3>
                         <div class="release-timeline" style="display:flex; flex-direction:column; gap:16px; margin-top:12px;">
                                                         <!-- Version 2.8.0 -->
                             <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.5); border-radius: 8px; padding: 14px 16px; box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);">
@@ -555,13 +671,13 @@
                                     <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.8.0 (Latest)</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-09-06</span>
                                 </div>
-                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel28Title">👨‍🚀 ISS キューポラ展望窓 (搭乗視点) & 📱 モバイルUI完全刷新・超高解像度SNSシェア</h4>
+                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel28Title">👨‍🚀 ISS Cupola Observation Deck (Astronaut POV) & 📱 Mobile Modern UI Overhaul</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel28_1">👨‍🚀 <strong>ISS キューポラ展望窓（搭乗視点POV）モード新設</strong>: 国際宇宙ステーション(ISS)の欧州宇宙機関(ESA)製「キューポラ」展望窓から地球を見下ろす宇宙飛行士POVを完全再現。ドラッグによる360度自由見渡し、EvenOdd SVG高精度フレーム、昼夜判定HUDを搭載。</li>
-                                    <li data-i18n="rel28_2">📱 <strong>スマホ向けモダンUI全面刷新</strong>: 画面幅768px以下のモバイル表示時、ヘッダーアクション群を「☰ メニュー ▾」ドロップダウンにスマート集約。キューポラモード突入時の詳細カード自動退避など、操作性を抜本的に向上。</li>
-                                    <li data-i18n="rel28_3">📸 <strong>超高解像度宇宙撮影 & 𝕏 (Twitter) 画像付きシェア</strong>: リアルタイム3D宇宙シミュレーションの任意アングルを高画質PNGキャプチャし、ダイレクトに画像付きポスト可能な共有エンジンを配備。</li>
-                                    <li data-i18n="rel28_4">🕰️ <strong>歴史的軌道タイムトラベル・プリセット</strong>: 人類初の人工衛星スプートニク1号（1957）、アポロ11号月着陸船（1969）などの歴史的マイルストーン軌道をワンタップで体験可能。</li>
-                                    <li data-i18n="rel28_5">🔊 <strong>コズミック・アンビエント音響エンジン</strong>: 宇宙空間の深淵なドローン環境音、エアロック作動音、インターフェース効果音を備えた Web Audio 音響システムを新設（ON/OFF自由切替）。</li>
+                                    <li data-i18n="rel28_1">👨‍🚀 <strong>ISS Cupola Observation Deck (Astronaut POV)</strong>: Experience authentic astronaut view looking down at Earth through the ESA-manufactured Cupola module with 360° drag panoramic lookaround, crisp EvenOdd SVG frame, and live daylight/night telemetry.</li>
+                                    <li data-i18n="rel28_2">📱 <strong>Mobile Modern UI Overhaul</strong>: Sleek '☰ Menu ▾' dropdown consolidating header actions on mobile screens (&lt;=768px) and seamless auto-hiding of detail cards during Cupola exploration.</li>
+                                    <li data-i18n="rel28_3">📸 <strong>Ultra-HD Space Capture & 𝕏 (Twitter) Image Sharing</strong>: Instant high-resolution screenshot capture and direct image sharing to X (Twitter) with orbital telemetry metadata.</li>
+                                    <li data-i18n="rel28_4">🕰️ <strong>Historical Orbit Time-Travel Presets</strong>: 1-click travel to historic space missions including Sputnik 1 (1957) and Apollo 11 Lunar Module (1969).</li>
+                                    <li data-i18n="rel28_5">🔊 <strong>Cosmic Ambient Sound Engine</strong>: Synthesized procedural deep-space drones, airlock pressurization audio, and interface telemetry blips with toggleable audio controls.</li>
                                 </ul>
                             </div>
 
@@ -571,13 +687,13 @@
                                     <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.7.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-22</span>
                                 </div>
-                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel27Title">📡 Точный прогноз пролета & 💥 Мегаоблако космического мусора (2 200+ обломков)</h4>
+                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel27Title">📡 Next Pass Sky Trajectory & 💥 Space Debris Mega-Cloud (2,200+ Fragments)</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel27_1">📡 <strong>Астрономический движок прогноза пролета SGP4/SEZ</strong>: Прогнозирует дату, время и 16-румбовую траекторию по небу с обратным отсчетом секунд.</li>
-                                    <li data-i18n="rel27_2">💥 <strong>Мегаоблако космического мусора (2 200+ обломков)</strong>: Новый пресет с 2 200 реальными обломками столкновений и ступеней ракет на 60 fps.</li>
-                                    <li data-i18n="rel27_3">🔮 <strong>Радар сближения с 2 200 обломками</strong>: Расчет минимальной дистанции и оценка риска столкновения на 24 часа вперед.</li>
-                                    <li data-i18n="rel27_4">🗺️ <strong>Стабильное панорамирование камеры в 2D-карте</strong>: Плавное центрирование на спутниках без искажения угла обзора.</li>
-                                    <li data-i18n="rel27_5">🛡️ <strong>Усиление безопасности и мультиязычность</strong>: Защита от XSS и мгновенная загрузка 3D-Земли на 14 языках.</li>
+                                    <li data-i18n="rel27_1">📡 <strong>Astronomical SGP4/SEZ Next Pass Prediction Engine</strong>: Predicts exact date, time, and 16-compass sky trajectory (rise, max elevation, set) with live ticking countdown.</li>
+                                    <li data-i18n="rel27_2">💥 <strong>Space Debris Mega-Cloud (2,200+ Fragments)</strong>: New 1-click preset rendering 2,200+ real-world collision fragments (Cosmos 2251, Iridium 33, Fengyun-1C, rocket stages) at 60fps.</li>
+                                    <li data-i18n="rel27_3">🔮 <strong>Full 2,200-Debris Proximity Radar</strong>: Evaluates real-time closest orbital conjunctions and 24-hour collision risk across all 2,200 debris particles.</li>
+                                    <li data-i18n="rel27_4">🗺️ <strong>Smooth 2D World Map Camera Panning</strong>: Stabilizes camera view in 2D map mode when switching satellites without vertical distortion.</li>
+                                    <li data-i18n="rel27_5">🛡️ <strong>Security Hardening & Multilingual Assets</strong>: XSS sanitization defenses and dynamic asset paths for seamless multilingual portals.</li>
                                 </ul>
                             </div>
 
@@ -605,13 +721,13 @@
                                     <span style="background: rgba(245, 158, 11, 0.2); color:#fbbf24; border: 1px solid rgba(245,158,11,0.4); font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.5.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-21</span>
                                 </div>
-                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel25Title">🪐 3D太陽系・惑星探査 & 世界14言語宇宙百科事典 メジャーアップデート</h4>
+                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel25Title">🪐 3D Solar System, Planetary Exploration & 14-Language Space Encyclopedia</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel25_1">🪐 <strong>太陽・月・主要惑星のリアルタイム3D探査モード</strong>: 太陽、月、火星、木星、土星、天王星、金星、水星への急接近・360度D&D自由回転・超精密マイクロズームを完全実装。</li>
-                                    <li data-i18n="rel25_2">📷 <strong>NASA公式実写フォトテクスチャ</strong>: 探査機の実写高精細テクスチャを全天体に適用し、圧倒的リアリズムを実現。</li>
-                                    <li data-i18n="rel25_3">💍 <strong>本物の3D直交惑星リング</strong>: 土星の氷の多重環（カッシーニ間隙・傾斜角26.7度）と天王星の縦向き垂直リング（傾斜角97.8度）を天文学的物理パラメータで完全再現。</li>
-                                    <li data-i18n="rel25_4">🌡️ <strong>表面温度HUD & 太陽黒点物理解説</strong>: 各惑星の寒暖差や太陽黒点の温度メカニズム（~4,000℃）を専用HUDメトリクスとして新設。</li>
-                                    <li data-i18n="rel25_5">🌐 <strong>世界14言語での天体百科事典・検索</strong>: 発見史や各国の探査機ミッション（アポロ、ボイジャー、カッシーニ、JAXA等）を含む全テキストを14言語に完全ローカライズ。</li>
+                                    <li data-i18n="rel25_1">🪐 <strong>3D Celestial Body Inspection Mode</strong>: Smooth camera fly-to, 360° D&D orbit rotation, and precision micro-zoom for Sun, Moon, Mars, Jupiter, Saturn, Uranus, Venus, and Mercury.</li>
+                                    <li data-i18n="rel25_2">📷 <strong>Authentic NASA Photo Textures</strong>: Real spacecraft imagery applied to all planetary bodies for breathtaking realism.</li>
+                                    <li data-i18n="rel25_3">💍 <strong>True 3D Cartesian Rings</strong>: Multi-layered gold/ice rings for Saturn (with Cassini division at 26.7° tilt) and vertical rings for Uranus (97.8° tilt).</li>
+                                    <li data-i18n="rel25_4">🌡️ <strong>Dedicated Surface Temp HUD & Sunspot Physics</strong>: Comprehensive thermal metrics and scientific explanations for sunspot magnetism (~4,000°C).</li>
+                                    <li data-i18n="rel25_5">🌐 <strong>14-Language Global Encyclopedia & Search</strong>: Complete localization for discovery histories, exploration missions (Apollo, Voyager, Cassini, JAXA, etc.).</li>
                                 </ul>
                             </div>
 
@@ -621,11 +737,11 @@
                                     <span style="background: rgba(168, 85, 247, 0.25); color:#c084fc; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px; border: 1px solid rgba(168,85,247,0.4);">v2.0.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-20</span>
                                 </div>
-                                <h4 style="color:#c084fc; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel20Title">🔮 宇宙デブリ衝突リスク予測 & Starlinkメガコンステレーション</h4>
+                                <h4 style="color:#c084fc; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel20Title">🔮 Orbital Debris Collision Risk Radar & Starlink Constellation</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel20_1">🔮 <strong>24時間デブリ衝突リスクレーダー</strong>: 過去の衛星衝突破片（COSMOS, FENGYUN等）の軌道交差距離（MOID）をリアルタイム計算。</li>
-                                    <li data-i18n="rel20_2">🛰️ <strong>Starlink 2,000機コンステレーション</strong>: SpaceXのメガコンステレーション衛星群をブラウザ上で完全描画。</li>
-                                    <li data-i18n="rel20_3">📡 <strong>GPS現在地上空通過予測</strong>: 現在地からの可視パス、最接近仰角、通過カウントダウン自動計算。</li>
+                                    <li data-i18n="rel20_1">🔮 <strong>24-Hour Space Debris Collision Warning</strong>: Real-time minimum orbital intersection distance (MOID) calculations.</li>
+                                    <li data-i18n="rel20_2">🛰️ <strong>Starlink 2,000-Satellite Mega-Constellation</strong>: Full global orbital coverage grid rendered directly in the browser.</li>
+                                    <li data-i18n="rel20_3">📡 <strong>GPS-Based Overhead Pass Forecast</strong>: Live visible pass countdown, max elevation, and sky trajectory.</li>
                                 </ul>
                             </div>
 
@@ -635,9 +751,9 @@
                                     <span style="background: rgba(255, 255, 255, 0.1); color:#94a3b8; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v1.0.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-20</span>
                                 </div>
-                                <h4 style="color:#94a3b8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel10Title">🌍 SatViewer3D 正式ローンチ</h4>
+                                <h4 style="color:#94a3b8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel10Title">🌍 SatViewer3D Official Launch</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#94a3b8; line-height:1.65;">
-                                    <li data-i18n="rel10_1">WebAssembly / WebGL / CesiumJSを活用したリアルタイム3D人工衛星軌道シミュレーターの初版リリース。</li>
+                                    <li data-i18n="rel10_1">Initial release of high-precision real-time 3D satellite and space debris orbit simulation platform.</li>
                                 </ul>
                             </div>
 
@@ -646,35 +762,36 @@
 
                     <!-- Tab 2: Disclaimer -->
                     <div id="tabDisclaimer" class="tab-content">
-                        <h3 data-i18n="guideTitleDisclaimer">⚠️ Отказ от ответственности (Disclaimer)</h3>
-                        <p data-i18n="discText1">Все орбитальные данные и прогнозы в SatViewer3D рассчитываются в реальном времени на основе открытых данных TLE от CelesTrak и Space-Track в образовательных и исследовательских целях.</p>
+                        <h3 data-i18n="guideTitleDisclaimer">⚠️ Disclaimer</h3>
+                        <p data-i18n="discText1">All orbital data, positions, pass predictions, and collision risk computations provided by SatViewer3D are calculated in real-time based on public TLE data from CelesTrak and Space-Track for educational, research, and observational purposes.</p>
+                        <p data-i18n="discText2">Data is not intended for operational spacecraft maneuvers or collision avoidance navigation. The operator assumes no liability for damages resulting from the use of this service.</p>
                     </div>
 
                     <!-- Tab 3: Privacy Policy -->
                     <div id="tabPrivacy" class="tab-content">
-                        <h3 data-i18n="guideTitlePrivacy">🔒 Конфиденциальность (Google AdSense)</h3>
-                        <p><strong data-i18n="privText1Title">Реклама:</strong><br><span data-i18n="privText1Desc">Сайт может использовать сторонние рекламные сервисы (Google AdSense), применяющие анонимные Cookie.</span></p>
-                        <p><strong data-i18n="privText2Title">Аналитика:</strong><br><span data-i18n="privText2Desc">Мы используем аналитические инструменты для сбора анонимных данных о трафике.</span></p>
+                        <h3 data-i18n="guideTitlePrivacy">🔒 Privacy Policy (Google AdSense Compliant)</h3>
+                        <p><strong data-i18n="privText1Title">Advertising:</strong><br><span data-i18n="privText1Desc">This website may use third-party advertising services (e.g., Google AdSense). Advertisers may use cookies to show relevant ads based on visits.</span></p>
+                        <p><strong data-i18n="privText2Title">Analytics:</strong><br><span data-i18n="privText2Desc">This website uses analytics tools to collect anonymous traffic data.</span></p>
                     </div>
 
                     <!-- Tab 4: About & Contact -->
                     <div id="tabAbout" class="tab-content">
-                        <h3 data-i18n="guideTitleAbout">ℹ️ О проекте SatViewer3D</h3>
-                        <p data-i18n="aboutText1">SatViewer3D — это симулятор для 3D-визуализации искусственных спутников Земли и космического мусора в реальном времени.</p>
+                        <h3 data-i18n="guideTitleAbout">ℹ️ About SatViewer3D</h3>
+                        <p data-i18n="aboutText1">SatViewer3D is a real-time 3D visualization simulator for Earth-orbiting artificial satellites (ISS, Starlink, weather satellites) and space debris.</p>
                         
                         <!-- Sister Service: QuakeViewer3D -->
                         <div style="background:rgba(15,23,42,0.75); border:1px solid rgba(239,68,68,0.4); border-radius:8px; padding:14px 16px; margin: 14px 0;">
-                            <h4 style="color:#f87171; font-size:0.92rem; margin:0 0 8px 0;" data-i18n="sisterQuakeTitle">🌋 Родственный проект: QuakeViewer3D</h4>
-                            <p style="margin:0 0 8px 0; font-size:0.82rem; color:#cbd5e1; line-height:1.6;" data-i18n="sisterQuakeDesc">Глобальный 3D-мониторинг землетрясений в реальном времени, глубина гипоцентров, тектонические плиты и разрез мантии Земли.</p>
-                            <a href="https://earthquake.satviewer3d.com/ru/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; color:#f87171; text-decoration:none; font-size:0.82rem; font-weight:600;">
-                                <span>🌋 Открыть QuakeViewer3D &rarr;</span>
+                            <h4 style="color:#f87171; font-size:0.92rem; margin:0 0 8px 0;" data-i18n="sisterQuakeTitle">🌋 Sister Service: QuakeViewer3D</h4>
+                            <p style="margin:0 0 8px 0; font-size:0.82rem; color:#cbd5e1; line-height:1.6;" data-i18n="sisterQuakeDesc">Explore global real-time seismic activity, hypocenter focal depth, tectonic plate boundaries, and internal Earth mantle cross-section cutaway in full 3D.</p>
+                            <a href="https://earthquake.satviewer3d.com/en/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; color:#f87171; text-decoration:none; font-size:0.82rem; font-weight:600;">
+                                <span>🌋 Launch QuakeViewer3D &rarr;</span>
                             </a>
                         </div>
 
                         <p><strong>Data & Orbit Sources:</strong> NORAD / Space-Track (Public TLE Data), JAXA & NASA</p>
                         <p><strong>Domain:</strong> satviewer3d.com</p>
-                        <p><strong data-i18n="aboutContactTitle">Контакты:</strong> <span data-i18n="aboutContactDesc">По вопросам и предложениям: info@satviewer3d.com</span></p>
-                        <p style="margin-top: 18px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.78rem; color: var(--text-muted);">&copy; <span class="copyrightYearRef">2026</span> SatViewer3D. Все права защищены.</p>
+                        <p><strong data-i18n="aboutContactTitle">Contact:</strong> <span data-i18n="aboutContactDesc">For inquiries and suggestions, please contact info@satviewer3d.com</span></p>
+                        <p style="margin-top: 18px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.78rem; color: var(--text-muted);">&copy; <span class="copyrightYearRef">2026</span> SatViewer3D. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>
@@ -684,29 +801,253 @@
         <div id="loadingOverlay" class="loading-overlay hidden" style="display:none;">
             <div class="spinner-container">
                 <div class="spinner"></div>
-                <p id="loadingText" class="loading-text">Вычисление и загрузка орбит спутников...</p>
+                <p id="loadingText" class="loading-text">Computing & loading satellite orbits...</p>
             </div>
-        </div>
-    </div>
+    </div><!-- End of hud-layer -->
 
-    <!-- Application Script (Cache Busted v120) -->
-    <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
-    <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
-        <div class="image-lightbox-backdrop" id="imageLightboxBackdrop" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); }"></div>
-        <div class="image-lightbox-content" onclick="event.stopPropagation();">
-            <button type="button" class="image-lightbox-close" id="imageLightboxClose" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); } event.stopPropagation();" title="閉じる (Esc)">&times;</button>
-            <img id="imageLightboxImg" src="" alt="" class="image-lightbox-img" />
-            <div class="image-lightbox-info">
-                <div id="imageLightboxTitle" class="image-lightbox-title"></div>
-                <div id="imageLightboxCaption" class="image-lightbox-caption"></div>
-            </div>
-        </div>
-    </div>
-    </div>
+        <!-- Scroll Down Hint Banner (Floating on Simulator Viewport Bottom) -->
+        <a href="#siteGuideSection" class="scroll-down-hint" aria-label="Scroll to Satellite Guide">
+            <span class="scroll-hint-text">📜 Space Data & Satellite Guide</span>
+            <span class="scroll-hint-arrow">▼</span>
+        </a>
+
+        <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
+        <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
+            <div class="image-lightbox-backdrop" id="imageLightboxBackdrop" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); }"></div>
+            <div class="image-lightbox-content" onclick="event.stopPropagation();">
+                <button type="button" class="image-lightbox-close" id="imageLightboxClose" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); } event.stopPropagation();" title="Close (Esc)">&times;</button>
+                <img id="imageLightboxImg" src="" alt="" class="image-lightbox-img" />
+                <div class="image-lightbox-info">
+                    <div id="imageLightboxTitle" class="image-lightbox-title"></div>
+                    <div id="imageLightboxCaption" class="image-lightbox-caption"></div>
+                </div>
+            </div><!-- End of image-lightbox-content -->
+        </div><!-- End of imageLightboxModal -->
+    </div><!-- End of hud-layer -->
+    </div><!-- End of #simulatorAppWrapper -->
 
     <script src="app.js?v=20260906_1835"></script>
+
+    <!-- ============================================================
+         SEO & Educational Guide Content Section (Scroll-down Area)
+         ============================================================ -->
     
-    </div>
+    <!-- ============================================================
+         SEO & Educational Guide Content Section (Scroll-down Area)
+         ============================================================ -->
+    <section id="siteGuideSection" class="site-guide-section">
+        <div class="guide-container">
+            <!-- Hero Header -->
+            <div class="guide-hero">
+                <div class="guide-badge">🛰️ SatViewer3D Научно-образовательный портал</div>
+                <h2 class="guide-hero-title">Орбитальная механика, космические аппараты и физика околоземного пространства</h2>
+                <p class="guide-hero-desc">SatViewer3D сочетает физические законы Кеплера и строгие аналитические модели возмущений SGP4 с современной интерактивной 3D-графикой в браузере. Вычисляйте в реальном времени координаты, векторы скоростей и трассы полета тысяч искусственных спутников, пилотируемых станций и каталогизированных обломков.</p>
+            </div>
+
+            <!-- Card 1: Orbital Mechanics & SGP4 -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🔬</span>
+                    <span>Высокоточная модель SGP4 и двухстрочные элементы TLE</span>
+                </h3>
+                <p>Расчет реального движения космического аппарата требует учета множества гравитационных и аэродинамических факторов. SatViewer3D использует официальные наборы орбитальных элементов TLE (Two-Line Elements), предоставляемые NORAD и Космическими силами США через Space-Track.</p>
+                <p>Поскольку форма Земли представляет собой сжатый у полюсов эллипсоид, экваториальное утолщение создает постоянный возмущающий момент, вызывающий прецессию плоскости орбиты. В сочетании с торможением в термосфере и солнечным давлением это приводит к непрерывной эволюции параметров движения.</p>
+                <div class="guide-grid-2">
+                    <div class="guide-feature-box">
+                        <h4>📐 Модель SGP4 (Simplified General Perturbations-4)</h4>
+                        <p>Мировой стандарт аналитического расчета зональных гармоник геопотенциала (J2, J3, J4), аэродинамического торможения и вековых изменений положения перигея.</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>⏱️ Синхронизация по времени UTC и орбитальная машина времени</h4>
+                        <p>Полная синхронизация со всемирным координированным временем (UTC). Ускоряйте полет до 1 000 крат, возвращайтесь к легендарным запускам прошлого или прогнозируйте пролеты над вашим городом.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Orbit Types -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🌍</span>
+                    <span>Классификация околоземных орбит и их назначение</span>
+                </h3>
+                <p>Космические аппараты выводятся на строго определенные орбиты в зависимости от поставленных перед ними научно-технических задач:</p>
+                <div class="guide-grid-3">
+                    <div class="guide-feature-box">
+                        <h4>🛰️ Низкая околоземная орбита (НОО / LEO)</h4>
+                        <p>Высота: 160 – 2 000 км. Период обращения 90–120 минут. Область работы Международной космической станции (МКС), аппаратов ДЗЗ и созвездий связи Starlink. Обеспечивает минимальную задержку сигнала и высокое разрешение съемки.</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🛰️ Средняя околоземная орбита (СОО / MEO)</h4>
+                        <p>Высота: 2 000 – 35 786 км. Период обращения около 12 часов. Традиционное пространство для глобальных навигационных спутниковых систем: ГЛОНАСС (Россия), GPS (США), Galileo (ЕС) и BeiDou (Китай).</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🛰️ Геостационарная орбита (ГСО / GEO)</h4>
+                        <p>Высота: 35 786 км строго над экватором. Период обращения равен звездным суткам (23 ч 56 мин 4 с). Спутник неподвижно «зависает» над выбранной точкой Земли, что критично для гидрометеорологии и прямого телевещания.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Highlighted Missions -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🚀</span>
+                    <span>Флагманские космические программы и пилотируемые полеты</span>
+                </h3>
+                <p>Интерактивная панель SatViewer3D позволяет в один клик переключиться на ключевые объекты космонавтики:</p>
+                <div class="guide-grid-2">
+                    <div class="guide-feature-box">
+                        <h4>🇷🇺 МКС и Российский сегмент</h4>
+                        <p>Крупнейший международный орбитальный комплекс массой свыше 400 тонн на высоте 420 км. Включает модули «Звезда», «Наука», «Поиск» и регулярно принимает корабли «Союз МС» и «Прогресс МС».</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🛰️ Спутниковая система ГЛОНАСС</h4>
+                        <p>Российская глобальная навигационная спутниковая система, состоящая из аппаратов серий «Глонасс-М» и «Глонасс-К», обеспечивающая непрерывное координатно-временное обеспечение по всей планете.</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>👨‍🚀 Обзорный иллюминатор Cupola</h4>
+                        <p>Семиоконный купол станции, построенный ЕКА, откуда экипаж наблюдает потрясающие виды атмосферы, полярных сияний и океанов. Опробуйте 3D-режим вида от первого лица.</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🔭 Орбитальные телескопы Хаббл и Джеймс Уэбб</h4>
+                        <p>Инструменты, перевернувшие современную астрофизику. Хаббл функционирует на НОО (540 км), а телескоп «Джеймс Уэбб» расположен в 1,5 млн км от Земли в окрестности точки Лагранжа L2.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Space Debris & Collision Risk -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">💥</span>
+                    <span>Проблема космического мусора и синдром Кесслера</span>
+                </h3>
+                <p>За десятилетия космических пусков на орбитах скопились десятки тысяч отработавших ступеней ракет, разгонных блоков и осколков аварийных разрушений. При относительных скоростях столкновения в 7–8 км/с (свыше 20 Махов) даже миллиметровая песчинка обладает кинетической энергией пули крупного калибра.</p>
+                <p>At relative velocities exceeding 7 to 8 km/s, even minute paint flecks pack the destructive kinetic energy of a rifle bullet. SatViewer3D calculates real-time 24-hour Minimum Orbit Intersection Distances (MOID) to help visualise collision risk.</p>
+                <div class="guide-feature-box">
+                    <h4>🔮 24-Hour Orbital Proximity Radar</h4>
+                    <p>Calculates real-time close conjunctions and relative velocities between active satellites and high-risk orbital debris fields.</p>
+                </div>
+            </div>
+
+            <!-- Card 5: FAQ Section -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">❓</span>
+                    <span>Frequently Asked Questions (FAQ)</span>
+                </h3>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>С какой точностью отображаются спутники в SatViewer3D?</span>
+                    </div>
+                    <div class="faq-answer">Орбиты моделируются алгоритмом SGP4 на основе свежих данных TLE от CelesTrak и NORAD. Погрешность в пространстве обычно не превышает нескольких километров, что идеально подходит для любительской астрономии и учебных задач.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>Можно ли увидеть спутники невооруженным глазом?</span>
+                    </div>
+                    <div class="faq-answer">Да! Такие яркие объекты, как МКС и «поезда» Starlink, освещаются Солнцем в сумерках, когда на Земле уже темно, и видны на небе как плавно плывущие яркие звезды.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>Разрешено ли использовать симулятор на уроках и в научных проектах?</span>
+                    </div>
+                    <div class="faq-answer">Да, платформа полностью бесплатна, работает без регистрации и приветствуется к использованию в школах, университетах и научных клубах.</div>
+                </div>
+            </div>
+
+            <!-- Card 6: Space Articles Archive -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">📚</span>
+                    <span>Статьи о космосе</span>
+                </h3>
+                <div class="articles-preview-grid">
+                    <a href="/ru/articles/iss-tracker-guide.html" class="article-preview-card">
+                        <span class="tag">ISS</span>
+                        <h4>ISS Orbit Tracker & Guide</h4>
+                        <p>Real-time orbital tracking and sighting guide for the International Space Station.</p>
+                        <span class="read-more">&rarr;</span>
+                    </a>
+                    <a href="/ru/articles/starlink-constellation.html" class="article-preview-card">
+                        <span class="tag">Starlink</span>
+                        <h4>SpaceX Starlink Constellation</h4>
+                        <p>Megaconstellation engineering, laser cross-links, and orbital dynamics.</p>
+                        <span class="read-more">&rarr;</span>
+                    </a>
+                    <a href="/ru/articles/space-debris-crisis.html" class="article-preview-card">
+                        <span class="tag">Debris</span>
+                        <h4>Space Debris Crisis & Kessler Syndrome</h4>
+                        <p>Orbital hypervelocity collisions and active removal technologies.</p>
+                        <span class="read-more">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Back to Simulator Floating Button -->
+            <div style="text-align:center;">
+                <a href="#simulatorAppWrapper" class="back-to-simulator-btn">
+                    <span>🚀</span>
+                    <span>Вернуться к 3D симулятору</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Permanent Site Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h3>
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none" style="vertical-align:middle;">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <ellipse cx="12" cy="12" rx="9" ry="3" transform="rotate(-30 12 12)"></ellipse>
+                        </svg>
+                        <span>SatViewer3D</span>
+                    </h3>
+                    <p>Интерактивная 3D-платформа реального времени для изучения спутников и космического мусора, открытой науки и популяризации астрономии.</p>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="/ru/">3D Симулятор</a></li>
+                        <li><a href="/ru/articles/">Статьи о космосе</a></li>
+                        <li><a href="/sitemap.html">Карта сайта</a></li>
+                        <li><a href="https://earthquake.satviewer3d.com/ru/" target="_blank" rel="noopener">QuakeViewer3D (Землетрясения)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Information</h4>
+                    <ul>
+                        <li><a href="/about.html">О проекте и команде</a></li>
+                        <li><a href="/privacy.html">Политика конфиденциальности</a></li>
+                        <li><a href="/terms.html">Условия использования</a></li>
+                        <li><a href="/contact.html">Обратная связь</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Sources & Credits</h4>
+                    <ul>
+                        <li><a href="https://celestrak.org/" target="_blank" rel="noopener nofollow">CelesTrak (TLE)</a></li>
+                        <li><a href="https://www.space-track.org/" target="_blank" rel="noopener nofollow">Space-Track (NORAD)</a></li>
+                        <li><a href="https://www.nasa.gov/" target="_blank" rel="noopener nofollow">NASA</a></li>
+                        <li><a href="https://cesium.com/" target="_blank" rel="noopener nofollow">CesiumJS</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-credits">
+                    <span>© 2026 SatViewer3D. Все права защищены. Орбитальные данные предоставлены CelesTrak и NORAD. Графика на базе CesiumJS.</span>
+                </div>
+                <div>
+                    <span>Hosted on Global Edge Cloud. High-Performance WebGL 2.0.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
         <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
     <div id="zoomHintToast" class="zoom-hint-toast">
         <!-- PC View (Mouse Wheel) -->
@@ -715,8 +1056,8 @@
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none"><rect x="6" y="3" width="12" height="18" rx="6"></rect><line x1="12" y1="7" x2="12" y2="11" stroke="#38bdf8" stroke-width="2.5"></line></svg>
             </div>
             <div class="zoom-hint-text">
-                <span class="zoom-hint-title">🔍 Колесико мыши для масштаба</span>
-                <span class="zoom-hint-sub">Прокрутите, чтобы увидеть всю Землю</span>
+                <span class="zoom-hint-title">🔍 Колесо мыши для зума</span>
+                <span class="zoom-hint-sub">Крутите колесо, чтобы увидеть всю Землю</span>
             </div>
         </div>
         <!-- Touch / Mobile View (2-Finger Pinch) -->
@@ -725,8 +1066,8 @@
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg>
             </div>
             <div class="zoom-hint-text">
-                <span class="zoom-hint-title">🔍 Жест двумя пальцами для масштаба</span>
-                <span class="zoom-hint-sub">Сведите пальцы, чтобы увидеть всю Землю</span>
+                <span class="zoom-hint-title">🔍 Жест двумя пальцами для зума</span>
+                <span class="zoom-hint-sub">Сведите пальцы, чтобы увидеть планету целиком</span>
             </div>
         </div>
     </div>
@@ -799,25 +1140,23 @@
             <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
                 <div class="cupola-badge">
                     <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981;"></span>
-                    <span id="cupolaTitleText" data-i18n="cupolaTitle">👨‍🚀 ISS キューポラ展望窓 (Cupola Observation Deck)</span>
+                    <span id="cupolaTitleText" data-i18n="cupolaTitle">Обзорный купол МКС (вид из иллюминатора)</span>
                 </div>
                 <div class="cupola-telemetry">
-                    <span><span data-i18n="cupolaAltLabel">高度:</span> <strong id="cupolaAlt" style="color:#38bdf8;">--- km</strong></span>
-                    <span><span data-i18n="cupolaSpdLabel">速度:</span> <strong id="cupolaSpeed" style="color:#38bdf8;">--- km/s</strong></span>
-                    <span><span data-i18n="cupolaPosLabel">位置:</span> <strong id="cupolaCoords" style="color:#fbbf24;">--°, --°</strong></span>
-                    <span><span data-i18n="cupolaEnvLabel">環境:</span> <strong id="cupolaLighting" style="color:#10b981;">☀️ 昼間域 (Sunlit)</strong></span>
+                    <span><span data-i18n="cupolaAltLabel">Alt:</span> <strong id="cupolaAlt" style="color:#38bdf8;">--- km</strong></span>
+                    <span><span data-i18n="cupolaSpdLabel">Speed:</span> <strong id="cupolaSpeed" style="color:#38bdf8;">--- km/s</strong></span>
+                    <span><span data-i18n="cupolaPosLabel">Coords:</span> <strong id="cupolaCoords" style="color:#fbbf24;">--°, --°</strong></span>
+                    <span><span data-i18n="cupolaEnvLabel">Lighting:</span> <strong id="cupolaLighting" style="color:#10b981;">☀️ Sunlit (Daytime)</strong></span>
                 </div>
             </div>
-            <button id="exitCupolaBtn" class="cupola-exit-btn" data-i18n="exitCupola">
-                ✕ 通常視点に戻る (Exit Cupola)
-            </button>
+            <button id="exitCupolaBtn" class="cupola-exit-btn" data-i18n="exitCupola">✕ Вернуться к орбитальному виду</button>
         </div>
 
         <!-- Bottom Status Bar -->
         <div class="cupola-footer">
-            <span id="cupolaFooterText" data-i18n="cupolaFooter">🛰️ 国際宇宙ステーション (ISS) • 欧州宇宙機関(ESA)製造「キューポラ」展望窓から地球を見下ろしています</span>
+            <span id="cupolaFooterText" data-i18n="cupolaFooter">🛰️ Международная космическая станция • Вид на Землю через обзорные иллюминаторы модуля Cupola</span>
             <span style="color:#38bdf8;">|</span>
-            <span data-i18n="cupolaHint">🖱️ 画面ドラッグで展望窓からの見渡し自由回転</span>
+            <span data-i18n="cupolaHint">🖱️ Двигайте экран, чтобы оглядеться по сторонам</span>
         </div>
     </div>
 </body>

@@ -1096,7 +1096,14 @@ const TRANSLATIONS = {
         "feat9": "💎 地球視界を 100% 遮らない 浮遊アイランドHUD: 画面中央を完全透過開放し、地球と極軌道を障害物ゼロで観測。",
         "feat10": "🌊 地球自転の波状パターン可視化 (Multi-Lap): 地球の自転に伴う軌道面歳差のサインカーブ波状軌跡を 3D 空間で表現。",
         "aboutContactTitle": "お問い合わせ:",
-        "aboutContactDesc": "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。"
+        "aboutContactDesc": "ご意見・ご要望・不具合のご報告は info@satviewer3d.com までお願いいたします。",
+        "loadSpanish": "🇪🇸 スペイン・中南米衛星 (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "歴史的瞬間タイムトラベル",
+        "eventApollo11": "🌕 <strong>アポロ11号</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1969.07.20 月着陸</span>",
+        "eventVoyager1": "🪐 <strong>ボイジャー1号</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1979.03.05 木星接近</span>",
+        "eventHalley": "☄️ <strong>ハレー彗星</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1986.02.09 近日点</span>",
+        "eventVoyager2": "🌊 <strong>ボイジャー2号</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1989.08.25 海王星</span>",
+        "eventSputnik1": "🛰️ <strong>スプートニク1号 (宇宙時代の幕開け)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1957.10.04 人類初の人工衛星</span>"
     },
     "en": {
         "mobileHeaderMenu": "Menu",
@@ -1276,7 +1283,14 @@ const TRANSLATIONS = {
         "feat9": "💎 Unobstructed Floating Island HUD: Fully transparent center view allowing zero-obstruction observation of Earth and polar orbits.",
         "feat10": "🌊 Earth Rotation Wave Ground Tracks (Multi-Lap): Visualization of orbital plane precession and sine-wave ground tracks in 3D space.",
         "aboutContactTitle": "Contact:",
-        "aboutContactDesc": "For inquiries and feedback, contact info@satviewer3d.com"
+        "aboutContactDesc": "For inquiries and feedback, contact info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 Spain & Latin America Satellites (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "Historical Time Travel",
+        "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1969.07.20 Moon Landing</span>",
+        "eventVoyager1": "🪐 <strong>Voyager 1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1979.03.05 Jupiter Flyby</span>",
+        "eventHalley": "☄️ <strong>Halley's Comet</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1986.02.09 Perihelion</span>",
+        "eventVoyager2": "🌊 <strong>Voyager 2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1989.08.25 Neptune Flyby</span>",
+        "eventSputnik1": "🛰️ <strong>Sputnik 1 (Dawn of Space Age)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1957.10.04 First Satellite</span>"
     },
     "de": {
         "mobileHeaderMenu": "Menü",
@@ -1443,7 +1457,14 @@ const TRANSLATIONS = {
         "feat9": "💎 Schwebendes Insel-HUD mit freier Sicht auf die Erde.",
         "feat10": "🌊 Visualisierung der Erdrotations-Wellenbahnen in 3D.",
         "aboutContactTitle": "Kontakt:",
-        "aboutContactDesc": "Für Anfragen: info@satviewer3d.com"
+        "aboutContactDesc": "Für Anfragen: info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 Satelliten aus Spanien & Lateinamerika (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ Historische Zeitreise",
+        "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20.07.1969 Mondlandung</span>",
+        "eventVoyager1": "🪐 <strong>Voyager 1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">05.03.1979 Jupiter-Vorbeiflug</span>",
+        "eventHalley": "☄️ <strong>Halleyscher Komet</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">09.02.1986 Perihel</span>",
+        "eventVoyager2": "🌊 <strong>Voyager 2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">25.08.1989 Neptun-Vorbeiflug</span>",
+        "eventSputnik1": "🛰️ <strong>Sputnik 1 (Beginn des Raumzeitalters)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">04.10.1957 Erster Satellit</span>"
     },
     "fr": {
         "mobileHeaderMenu": "Menu",
@@ -1610,7 +1631,14 @@ const TRANSLATIONS = {
         "feat9": "💎 HUD en îlots flottants libérant totalement la vue de la Terre.",
         "feat10": "🌊 Visualisation 3D des traces au sol ondulées liées à la rotation terrestre.",
         "aboutContactTitle": "Contact :",
-        "aboutContactDesc": "Pour toute demande : info@satviewer3d.com"
+        "aboutContactDesc": "Pour toute demande : info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 Satellites espagnols et latino-américains (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ Voyage dans le temps historique",
+        "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20/07/1969 Alunissage</span>",
+        "eventVoyager1": "🪐 <strong>Voyager 1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">05/03/1979 Survol de Jupiter</span>",
+        "eventHalley": "☄️ <strong>Comète de Halley</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">09/02/1986 Périhélie</span>",
+        "eventVoyager2": "🌊 <strong>Voyager 2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">25/08/1989 Survol de Neptune</span>",
+        "eventSputnik1": "🛰️ <strong>Spoutnik 1 (L'ère spatiale commence)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">04/10/1957 Premier satellite</span>"
     },
     "es": {
         "mobileHeaderMenu": "Menú",
@@ -1777,7 +1805,14 @@ const TRANSLATIONS = {
         "feat9": "💎 HUD flotante que mantiene 100% despejada la vista de la Tierra.",
         "feat10": "🌊 Trayectorias sinusoidales 3D por rotación terrestre.",
         "aboutContactTitle": "Contacto:",
-        "aboutContactDesc": "Para consultas: info@satviewer3d.com"
+        "aboutContactDesc": "Para consultas: info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 Satélites de España y Latinoamérica (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ Viaje en el tiempo histórico",
+        "eventApollo11": "🌕 <strong>Apolo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20/07/1969 Alunizaje</span>",
+        "eventVoyager1": "🪐 <strong>Voyager 1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">05/03/1979 Sobrevuelo de Júpiter</span>",
+        "eventHalley": "☄️ <strong>Cometa Halley</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">09/02/1986 Perihelio</span>",
+        "eventVoyager2": "🌊 <strong>Voyager 2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">25/08/1989 Sobrevuelo de Neptuno</span>",
+        "eventSputnik1": "🛰️ <strong>Sputnik 1 (Amanecer de la era espacial)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">04/10/1957 Primer satélite</span>"
     },
     "pt": {
         "mobileHeaderMenu": "Menu",
@@ -1944,7 +1979,14 @@ const TRANSLATIONS = {
         "feat9": "💎 HUD flutuante que deixa a visão da Terra 100% desobstruída.",
         "feat10": "🌊 Visualização 3D de órbitas onduladas pela rotação da Terra.",
         "aboutContactTitle": "Contato:",
-        "aboutContactDesc": "Para dúvidas: info@satviewer3d.com"
+        "aboutContactDesc": "Para dúvidas: info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 Satélites da Espanha e América Latina (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ Viagem no tempo histórica",
+        "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20/07/1969 Pouso lunar</span>",
+        "eventVoyager1": "🪐 <strong>Voyager 1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">05/03/1979 Sobrevôo de Júpiter</span>",
+        "eventHalley": "☄️ <strong>Cometa Halley</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">09/02/1986 Periélio</span>",
+        "eventVoyager2": "🌊 <strong>Voyager 2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">25/08/1989 Sobrevôo de Netuno</span>",
+        "eventSputnik1": "🛰️ <strong>Sputnik 1 (Início da era espacial)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">04/10/1957 Primeiro satélite</span>"
     },
     "it": {
         "mobileHeaderMenu": "Menu",
@@ -2111,7 +2153,14 @@ const TRANSLATIONS = {
         "feat9": "💎 HUD galleggiante che non ostruisce la vista della Terra.",
         "feat10": "🌊 Visualizzazione 3D delle traiettorie ondulate dovute alla rotazione terrestre.",
         "aboutContactTitle": "Contatti:",
-        "aboutContactDesc": "Per richieste: info@satviewer3d.com"
+        "aboutContactDesc": "Per richieste: info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 Satelliti di Spagna e America Latina (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ Viaggio nel tempo storico",
+        "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20/07/1969 Allunaggio</span>",
+        "eventVoyager1": "🪐 <strong>Voyager 1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">05/03/1979 Sorvolo di Giove</span>",
+        "eventHalley": "☄️ <strong>Cometa di Halley</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">09/02/1986 Perielio</span>",
+        "eventVoyager2": "🌊 <strong>Voyager 2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">25/08/1989 Sorvolo di Nettuno</span>",
+        "eventSputnik1": "🛰️ <strong>Sputnik 1 (L'inizio dell'era spaziale)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">04/10/1957 Primo satellite</span>"
     },
     "ko": {
         "mobileHeaderMenu": "메뉴",
@@ -2278,7 +2327,14 @@ const TRANSLATIONS = {
         "feat9": "💎 지구 시야를 100% 가리지 않는 플로팅 아일랜드 HUD 설계.",
         "feat10": "🌊 지구 자전에 따른 사인파 형태의 다중 회전 궤적(Multi-Lap) 3D 시각화.",
         "aboutContactTitle": "문의:",
-        "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다."
+        "aboutContactDesc": "문의 사항은 info@satviewer3d.com 으로 연락주시기 바랍니다.",
+        "loadSpanish": "🇪🇸 스페인 및 중남미 위성 (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ 역사적 순간 시간 여행",
+        "eventApollo11": "🌕 <strong>아폴로 11호</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1969.07.20 달 착륙</span>",
+        "eventVoyager1": "🪐 <strong>보이저 1호</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1979.03.05 목성 접근</span>",
+        "eventHalley": "☄️ <strong>핼리 혜성</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1986.02.09 근일점</span>",
+        "eventVoyager2": "🌊 <strong>보이저 2호</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1989.08.25 해왕성</span>",
+        "eventSputnik1": "🛰️ <strong>스푸트니크 1호 (우주 시대의 개막)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1957.10.04 인류 최초의 인공위성</span>"
     },
     "nl": {
         "mobileHeaderMenu": "Menu",
@@ -2445,7 +2501,14 @@ const TRANSLATIONS = {
         "feat9": "💎 Zwevende HUD met 100% vrij zicht op de aarde.",
         "feat10": "🌊 3D-visualisatie van golfpatronen door aardrotatie.",
         "aboutContactTitle": "Contact:",
-        "aboutContactDesc": "Voor vragen: info@satviewer3d.com"
+        "aboutContactDesc": "Voor vragen: info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 Spaanse en Latijns-Amerikaanse satellieten (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ Historische tijdreis",
+        "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20-07-1969 Maanlanding</span>",
+        "eventVoyager1": "🪐 <strong>Voyager 1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">05-03-1979 Jupiter scheervlucht</span>",
+        "eventHalley": "☄️ <strong>Komeet Halley</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">09-02-1986 Perihelium</span>",
+        "eventVoyager2": "🌊 <strong>Voyager 2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">25-08-1989 Neptunus scheervlucht</span>",
+        "eventSputnik1": "🛰️ <strong>Spoetnik 1 (Begin van het ruimtetijdperk)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">04-10-1957 Eerste satelliet</span>"
     },
     "id": {
         "mobileHeaderMenu": "Menu",
@@ -2612,7 +2675,14 @@ const TRANSLATIONS = {
         "feat9": "💎 HUD Melayang Transparan yang Memberikan Pandangan Penuh ke Bumi.",
         "feat10": "🌊 Visualisasi Jejak Gelombang 3D Akibat Rotasi Bumi (Multi-Lap).",
         "aboutContactTitle": "Kontak:",
-        "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com"
+        "aboutContactDesc": "Untuk pertanyaan: info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 Satelit Spanyol & Amerika Latin (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ Perjalanan Waktu Bersejarah",
+        "eventApollo11": "🌕 <strong>Apollo 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20.07.1969 Pendaratan di Bulan</span>",
+        "eventVoyager1": "🪐 <strong>Voyager 1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">05.03.1979 Melintasi Jupiter</span>",
+        "eventHalley": "☄️ <strong>Komet Halley</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">09.02.1986 Perihelion</span>",
+        "eventVoyager2": "🌊 <strong>Voyager 2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">25.08.1989 Melintasi Neptunus</span>",
+        "eventSputnik1": "🛰️ <strong>Sputnik 1 (Awal Era Antariksa)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">04.10.1957 Satelit Buatan Pertama</span>"
     },
     "hi": {
         "mobileHeaderMenu": "मेनू",
@@ -2779,7 +2849,14 @@ const TRANSLATIONS = {
         "feat9": "💎 पारदर्शी फ्लोटिंग HUD जो पृथ्वी दृश्य को अवरुद्ध नहीं करता।",
         "feat10": "🌊 पृथ्वी के घूर्णन के कारण 3D तरंगीय प्रक्षेपवक्र।",
         "aboutContactTitle": "संपर्क:",
-        "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com"
+        "aboutContactDesc": "पूछताछ के लिए: info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 स्पेन और लैटिन अमेरिकी उपग्रह (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ ऐतिहासिक टाइम ट्रैवल",
+        "eventApollo11": "🌕 <strong>अपोलो 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1969.07.20 चंद्रमा पर लैंडिंग</span>",
+        "eventVoyager1": "🪐 <strong>वॉयेजर 1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1979.03.05 बृहस्पति फ्लाईबाई</span>",
+        "eventHalley": "☄️ <strong>हैली धूमकेतु</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1986.02.09 उपसौर</span>",
+        "eventVoyager2": "🌊 <strong>वॉयेजर 2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1989.08.25 नेपच्यून फ्लाईबाई</span>",
+        "eventSputnik1": "🛰️ <strong>स्पुतनिक 1 (अंतरिक्ष युग की शुरुआत)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1957.10.04 पहला उपग्रह</span>"
     },
     "ar": {
         "mobileHeaderMenu": "القائمة",
@@ -2946,7 +3023,14 @@ const TRANSLATIONS = {
         "feat9": "💎 واجهة عائمة شفافة تمنح رؤية كاملة وغير محجوبة للأرض.",
         "feat10": "🌊 تمثيل ثلاثي الأبعاد للمسارات الموجية الناتجة عن دوران الأرض.",
         "aboutContactTitle": "للتواصل:",
-        "aboutContactDesc": "للاستفسارات: info@satviewer3d.com"
+        "aboutContactDesc": "للاستفسارات: info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 أقمار إسبانيا وأمريكا اللاتينية (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ السفر التاريخي عبر الزمن",
+        "eventApollo11": "🌕 <strong>أبولو 11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1969.07.20 الهبوط على القمر</span>",
+        "eventVoyager1": "🪐 <strong>فوياجر 1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1979.03.05 التحليق قرب المشتري</span>",
+        "eventHalley": "☄️ <strong>مذنب هالي</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1986.02.09 نقطة الحضيض</span>",
+        "eventVoyager2": "🌊 <strong>فوياجر 2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1989.08.25 التحليق قرب نبتون</span>",
+        "eventSputnik1": "🛰️ <strong>سبوتنيك 1 (فجر عصر الفضاء)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1957.10.04 أول قمر صناعي</span>"
     },
     "zh": {
         "mobileHeaderMenu": "菜单",
@@ -3113,7 +3197,21 @@ const TRANSLATIONS = {
         "feat9": "💎 100%全景通透的悬浮岛屿HUD设计：中央视界完全开放，零遮挡饱览地球晨昏线与极轨风光。",
         "feat10": "🌊 地球自转波动轨迹可视化(Multi-Lap)：在3D空间中生动展现因地球自转进动形成的周期性正弦波轨迹。",
         "aboutContactTitle": "联系方式:",
-        "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com"
+        "aboutContactDesc": "意见反馈与商务合作请联系: info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 西班牙及拉美卫星 (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ 历史时刻时光旅行",
+        "eventApollo11": "🌕 <strong>阿波罗11号</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1969.07.20 登月</span>",
+        "eventVoyager1": "🪐 <strong>旅行者1号</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1979.03.05 木星飞掠</span>",
+        "eventHalley": "☄️ <strong>哈雷彗星</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1986.02.09 近日点</span>",
+        "eventVoyager2": "🌊 <strong>旅行者2号</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1989.08.25 海王星飞掠</span>",
+        "eventSputnik1": "🛰️ <strong>斯普特尼克1号 (太空时代的黎明)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">1957.10.04 人类首颗人造卫星</span>",
+        "sisterQuakeTitle": "🌋 姊妹站点：QuakeViewer3D",
+        "sisterQuakeDesc": "在全三维视角下探索全球实时地震活动、震源深度、板块构造边界与地球内部地幔剖面切片。",
+        "soundToggle": "🔇 声音静音",
+        "satBadgeStarlink": "星链卫星",
+        "satBadgeDebris": "太空碎片",
+        "satBadgeSatellite": "人造卫星",
+        "visualLabel": "📸 外观图像"
     },
     "ru": {
         "mobileHeaderMenu": "Меню",
@@ -3284,7 +3382,14 @@ const TRANSLATIONS = {
         "feat9": "💎 Прозрачный плавающий интерфейс HUD, не заслоняющий Землю.",
         "feat10": "🌊 3D-визуализация волнообразных траекторий за счет вращения Земли.",
         "aboutContactTitle": "Контакты:",
-        "aboutContactDesc": "По всем вопросам: info@satviewer3d.com"
+        "aboutContactDesc": "По всем вопросам: info@satviewer3d.com",
+        "loadSpanish": "🇪🇸 Спутники Испании и Латинской Америки (PAZ, SAOCOM, CHEOPS)",
+        "historicalTimeTravelTitle": "⏳ Историческое путешествие во времени",
+        "eventApollo11": "🌕 <strong>Аполлон-11</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">20.07.1969 Высадка на Луну</span>",
+        "eventVoyager1": "🪐 <strong>Вояджер-1</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">05.03.1979 Пролет Юпитера</span>",
+        "eventHalley": "☄️ <strong>Комета Галлея</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">09.02.1986 Перигелий</span>",
+        "eventVoyager2": "🌊 <strong>Вояджер-2</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">25.08.1989 Пролет Нептуна</span>",
+        "eventSputnik1": "🛰️ <strong>Спутник-1 (Рассвет космической эры)</strong><br><span style=\"font-size:0.65rem; opacity:0.8;\">04.10.1957 Первый искусственный спутник</span>"
     }
 };
 
@@ -4643,7 +4748,28 @@ function applyLanguage(lang) {
 
 // Guaranteed Global changeLanguage Function for OnChange Event
 window.changeLanguage = function(lang) {
+    if (!lang) return;
+    localStorage.setItem('sat_lang', lang);
     applyLanguage(lang);
+
+    const validLangs = ['ja', 'en', 'de', 'fr', 'es', 'pt', 'it', 'ko', 'nl', 'id', 'hi', 'ar', 'zh', 'ru'];
+    if (!validLangs.includes(lang)) return;
+
+    // Determine current language from URL pathname
+    const currentPath = window.location.pathname;
+    let currentLangInPath = 'ja';
+    for (const l of validLangs) {
+        if (l !== 'ja' && (currentPath === '/' + l || currentPath.startsWith('/' + l + '/'))) {
+            currentLangInPath = l;
+            break;
+        }
+    }
+
+    // Only redirect if changing to a different language directory
+    if (currentLangInPath !== lang) {
+        const target = (lang === 'ja') ? '/' : '/' + lang + '/';
+        window.location.href = target;
+    }
 };
 
 // Major Satellites Built-in TLE Preset (Clean International English Names)
@@ -13705,7 +13831,17 @@ function selectSatellite(index) {
     satSelect.value = index;
 
     // Update Detail Card UI
-    satBadge.textContent = sat.name.toUpperCase().includes('STARLINK') ? 'STARLINK' : (sat.name.toUpperCase().includes('DEBRIS') ? 'SPACE DEBRIS' : 'SATELLITE');
+    const activeLang = window.currentLang || currentLang || 'ja';
+    const langDict = (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[activeLang]) || {};
+    let badgeText = 'SATELLITE';
+    if (sat.name.toUpperCase().includes('STARLINK')) {
+        badgeText = langDict.satBadgeStarlink || 'STARLINK';
+    } else if (sat.name.toUpperCase().includes('DEBRIS')) {
+        badgeText = langDict.satBadgeDebris || (activeLang === 'zh' ? '太空碎片' : (activeLang === 'ja' ? '宇宙デブリ' : 'SPACE DEBRIS'));
+    } else {
+        badgeText = langDict.satBadgeSatellite || (activeLang === 'zh' ? '人造卫星' : (activeLang === 'ja' ? '人工衛星' : 'SATELLITE'));
+    }
+    satBadge.textContent = badgeText;
     satBadge.style.background = '';
     satBadge.style.color = '';
     satName.textContent = getSatDisplayName(sat.name);
@@ -13717,8 +13853,44 @@ function selectSatellite(index) {
         const imgInfo = getSatImageInfo(sat.name);
         if (imgInfo && imgInfo.url) {
             satImage.src = imgInfo.url;
-            satImage.alt = imgInfo.alt || sat.name;
-            if (satImageCaption) satImageCaption.innerHTML = `<span>📸 外観イメージ</span><span>${imgInfo.caption}</span>`;
+            let altText = imgInfo.alt || sat.name;
+            if (activeLang === 'zh') {
+                if (altText === 'International Space Station in orbit') altText = '在轨国际空间站 (ISS)';
+                else if (altText === 'Hubble Space Telescope') altText = '哈勃空间望远镜';
+                else if (altText.includes('Starlink Satellite')) altText = 'SpaceX 星链通信卫星';
+            }
+            satImage.alt = altText;
+            const visualLabelMap = {
+                zh: '📸 外观图像',
+                ja: '📸 外観イメージ',
+                en: '📸 Visual Appearance',
+                es: '📸 Aspecto Visual',
+                fr: '📸 Apparence Visuelle',
+                de: '📸 Visuelles Erscheinungsbild',
+                ru: '📸 Внешний вид',
+                ko: '📸 외형 이미지',
+                it: '📸 Aspetto Visivo',
+                pt: '📸 Aparência Visual',
+                nl: '📸 Visueel Uiterlijk',
+                id: '📸 Tampilan Visual',
+                hi: '📸 दृश्य उपस्थिति',
+                ar: '📸 المظهر المرئي'
+            };
+            const curVisualLabel = visualLabelMap[activeLang] || visualLabelMap['en'];
+            let captionText = imgInfo.caption || '';
+            if (activeLang === 'zh') {
+                captionText = captionText
+                    .replace(/Photo:/g, '照片：')
+                    .replace(/Illustration:/g, '示意图：')
+                    .replace(/\(Public Domain\)/g, '(公有领域)')
+                    .replace(/Ames Research Center/g, '艾姆斯研究中心');
+            } else if (activeLang === 'ja') {
+                captionText = captionText
+                    .replace(/Photo:/g, '写真：')
+                    .replace(/Illustration:/g, 'イラスト：')
+                    .replace(/\(Public Domain\)/g, '(パブリックドメイン)');
+            }
+            if (satImageCaption) satImageCaption.innerHTML = `<span>${curVisualLabel}</span><span>${captionText}</span>`;
             satImageWrapper.classList.remove('hidden');
         } else {
             satImageWrapper.classList.add('hidden');
@@ -14549,7 +14721,9 @@ function setupEventListeners() {
         if (!satImage || !satImage.src || (satImageWrapper && satImageWrapper.classList.contains('hidden'))) return;
         if (imageLightboxImg) imageLightboxImg.src = satImage.src;
         if (imageLightboxImg) imageLightboxImg.alt = satImage.alt || 'Satellite Image';
-        if (imageLightboxTitle) imageLightboxTitle.innerHTML = satName ? satName.textContent : '📸 外観イメージ';
+        const curLangForLightbox = window.currentLang || currentLang || 'ja';
+        const defaultLightboxTitle = (curLangForLightbox === 'zh' ? '📸 外观图像' : (curLangForLightbox === 'ja' ? '📸 外観イメージ' : '📸 Visual Appearance'));
+        if (imageLightboxTitle) imageLightboxTitle.innerHTML = satName ? satName.textContent : defaultLightboxTitle;
         if (imageLightboxCaption) imageLightboxCaption.innerHTML = satImageCaption ? satImageCaption.innerHTML : '';
         if (imageLightboxModal) {
             imageLightboxModal.style.display = 'flex';

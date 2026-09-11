@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <base href="/">
-    <title>SatViewer3D | 实时3D人造卫星与太空碎片轨道追踪模拟器</title>
+    <title>SatViewer3D | 实时3D人造卫星与空间碎片轨道模拟器</title>
     
     <!-- SEO & Search Optimization Meta Tags -->
-    <meta name="description" content="SatViewer3D 是一款免费的实时 3D 轨道跟踪模拟器。实时追踪国际空间站 (ISS)、星链 (Starlink)、北斗、气象卫星及太空垃圾，具备碰撞风险预测与过境预报功能。">
-    <meta name="keywords" content="SatViewer3D, 人造卫星追踪, 3D轨道模拟器, 空间碎片, 太空垃圾, 国际空间站追踪, 星链追踪, 实时卫星地图, 北斗卫星">
+    <meta name="description" content="SatViewer3D 是一款免费开源的实时3D太空轨道模拟器，基于SGP4摄动模型高精度追踪中国空间站(天宫)、国际空间站(ISS)、星链(Starlink)、北斗卫星与太空垃圾碎片。">
+    <meta name="keywords" content="SatViewer3D, 卫星追踪, 3D卫星地图, 天宫空间站, 国际空间站, 星链, 北斗导航, 太空碎片, 轨道模拟器, 碰撞预测">
     <meta name="author" content="SatViewer3D">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://satviewer3d.com/zh/">
     
-                <!-- Multilingual Alternate Links (hreflang) -->
+    <!-- Multilingual Alternate Links (hreflang) -->
     <link rel="alternate" hreflang="ja" href="https://satviewer3d.com/">
     <link rel="alternate" hreflang="en" href="https://satviewer3d.com/en/">
     <link rel="alternate" hreflang="de" href="https://satviewer3d.com/de/">
@@ -33,49 +33,82 @@
     <!-- OGP (Open Graph Protocol) -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="SatViewer3D | 实时3D人造卫星与空间碎片轨道模拟器">
-    <meta property="og:description" content="实时3D可视化追踪国际空间站 (ISS)、星链、北斗导航卫星及太空碎片，提供轨道计算与碰撞预警。">
+    <meta property="og:description" content="SatViewer3D 是一款免费开源的实时3D太空轨道模拟器，基于SGP4摄动模型高精度追踪中国空间站(天宫)、国际空间站(ISS)、星链(Starlink)、北斗卫星与太空垃圾碎片。">
     <meta property="og:url" content="https://satviewer3d.com/zh/">
     <meta property="og:site_name" content="SatViewer3D">
     <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
     <meta property="og:locale" content="zh_CN">
-    <meta property="og:locale:alternate" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
+    <meta property="og:locale:alternate" content="zh_CN">
     <meta property="og:locale:alternate" content="es_ES">
     <meta property="og:locale:alternate" content="ru_RU">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SatViewer3D | 实时3D人造卫星与空间碎片轨道模拟器">
-    <meta name="twitter:description" content="在实时 3D 空间中探索数千颗人造卫星与空间碎片。">
+    <meta name="twitter:description" content="SatViewer3D 是一款免费开源的实时3D太空轨道模拟器，基于SGP4摄动模型高精度追踪中国空间站(天宫)、国际空间站(ISS)、星链(Starlink)、北斗卫星与太空垃圾碎片。">
     <meta name="twitter:image" content="https://satviewer3d.com/feature_graphic.png">
 
     <!-- JSON-LD Structured Data for Google Rich Snippets -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "SatViewer3D",
-      "alternateName": ["SatViewer 3D", "实时3D人造卫星模拟器"],
-      "url": "https://satviewer3d.com/zh/",
-      "image": "https://satviewer3d.com/feature_graphic.png",
-      "description": "SatViewer3D 是一款免费的实时 3D 卫星与太空碎片轨道追踪模拟器。",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "All",
-      "browserRequirements": "Requires WebGL support",
-      "inLanguage": ["ja", "en", "de", "fr", "es", "pt", "it", "ko", "nl", "id", "hi", "ar", "zh", "ru"],
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SatViewer3D",
+        "alternateName": ["SatViewer 3D", "SatViewer3D | 实时3D人造卫星与空间碎片轨道模拟器"],
+        "url": "https://satviewer3d.com/zh/",
+        "image": "https://satviewer3d.com/feature_graphic.png",
+        "description": "SatViewer3D 是一款免费开源的实时3D太空轨道模拟器，基于SGP4摄动模型高精度追踪中国空间站(天宫)、国际空间站(ISS)、星链(Starlink)、北斗卫星与太空垃圾碎片。",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires WebGL 2.0 support",
+        "inLanguage": ["zh", "en", "ja"],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
       },
-      "featureList": [
-        "实时 3D 轨道可视化",
-        "ISS 与 Starlink 卫星跟踪",
-        "24小时太空碎片碰撞风险分析",
-        "过境预报与地面轨迹",
-        "支持 5 种主流语言 (中文, 英文, 日文, 西文, 俄文)"
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "SatViewer3D 显示的卫星位置有多高精度？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "本模拟器基于 Space-Track 和 CelesTrak 每日公布的标准 TLE 根数，通过 SGP4 分析模型在浏览器端按物理时钟实时积分求解，几何位置误差通常在数公里以内，非常适合天文观测、过境拍摄与科普教育。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "肉眼能在夜空中看到卫星过境吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "可以！在日落后或日出前的黄昏时分（地面处于夜色而数百公里高空仍被太阳照射），天宫空间站、国际空间站以及新发射的星链队列会反射强烈日光，呈现为无声穿行夜空的明亮星点。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "可以将本模拟器用于教学展示或科研报告吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "完全欢迎！SatViewer3D 坚持开源免费与开放科学原则，无需注册登录，欢迎各大高校、中小学科技课堂及天文爱好者广泛引用。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "运行本模拟器需要什么设备与浏览器环境？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "支持 WebGL 2.0 的现代主流浏览器（如 Google Chrome、Apple Safari、Microsoft Edge、Mozilla Firefox 等）均可在 Windows、macOS、Linux、iOS 和 Android 设备上原生流畅运行，无需安装任何额外插件。"
+            }
+          }
+        ]
+      }
+    ]
     </script>
 
     <!-- Web App Manifest for PWA & Android TWA -->
@@ -94,8 +127,76 @@
       gtag('config', 'G-TM540MSBGM');
     </script>
 
-    <!-- Google AdSense Auto-Ads & Verification Script -->
+    <!-- Google AdSense Account Verification & Auto-Ads -->
+    <meta name="google-adsense-account" content="ca-pub-4784691828768361">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4784691828768361" crossorigin="anonymous"></script>
+
+    <!-- Schema.org JSON-LD Structured Data for High-Quality Web Application & FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://satviewer3d.com/zh/#app",
+          "name": "SatViewer3D",
+          "url": "https://satviewer3d.com/zh/",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All modern browsers (WebGL 2.0 supported)",
+          "browserRequirements": "Requires WebGL support",
+          "description": "专为全球航天教育、开放科学探索与三维物理可视化而设计的实时人造卫星与空间碎片轨道模拟平台。",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@type": "Organization",
+            "name": "SatViewer3D Team",
+            "url": "https://satviewer3d.com/about.html"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://satviewer3d.com/zh/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "SatViewer3D 显示的卫星位置有多高精度？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "本模拟器基于 Space-Track 和 CelesTrak 每日公布的标准 TLE 根数，通过 SGP4 分析模型在浏览器端按物理时钟实时积分求解，几何位置误差通常在数公里以内，非常适合天文观测、过境拍摄与科普教育。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "肉眼能在夜空中看到卫星过境吗？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "可以！在日落后或日出前的黄昏时分（地面处于夜色而数百公里高空仍被太阳照射），天宫空间站、国际空间站以及新发射的星链队列会反射强烈日光，呈现为无声穿行夜空的明亮星点。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "可以将本模拟器用于教学展示或科研报告吗？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "完全欢迎！SatViewer3D 坚持开源免费与开放科学原则，无需注册登录，欢迎各大高校、中小学科技课堂及天文爱好者广泛引用。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "什么是空间碎片？为什么具有致命危险？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "空间碎片包括废弃卫星、火箭残骸及爆炸解体碎片。在 7 至 8 km/s 的超高速相对运动下，即使是毫米级微小碎片也蕴含穿透航天器装甲的巨大动能，可能诱发失控的级联相撞（凯斯勒综合征）。"
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -109,7 +210,7 @@
     <!-- satellite.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
     
-            <!-- Flatpickr Dark Theme Date-Time Picker for 100% Guaranteed Multilingual Calendar (14 Languages) -->
+    <!-- Flatpickr Dark Theme Date-Time Picker for 100% Guaranteed Multilingual Calendar (14 Languages) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -128,15 +229,17 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260906_1835">
+    <link rel="stylesheet" href="styles.css?v=20260911_1710">
 </head>
 <body>
-    <div id="cesiumContainer"></div>
-    <!-- HTML DOM Overlay Container for Crisp 100% Sharp Satellite Labels -->
-    <div id="labelsContainer" class="labels-container"></div>
-    
-    <!-- UI Overlay HUD -->
-    <div class="hud-layer">
+    <!-- 3D Simulator Fullscreen Viewport Wrapper (100vh First View) -->
+    <div id="simulatorAppWrapper" class="simulator-app-wrapper">
+        <div id="cesiumContainer"></div>
+        <!-- HTML DOM Overlay Container for Crisp 100% Sharp Satellite Labels -->
+        <div id="labelsContainer" class="labels-container"></div>
+        
+        <!-- UI Overlay HUD -->
+        <div class="hud-layer">
         <!-- Top Split HUD Floating Islands (Separated to keep Earth Center View 100% Unobstructed!) -->
         <div class="hud-top-split">
             <!-- Left Island: Brand Logo -->
@@ -155,7 +258,7 @@
                     </div>
                     <div>
                         <h1 class="app-title">SatViewer3D</h1>
-                        <p class="app-subtitle">实时人造卫星与空间碎片 3D 可视化</p>
+                        <p class="app-subtitle">实时3D人造卫星与空间碎片轨道模拟器</p>
                     </div>
                 </div>
             </div>
@@ -163,24 +266,24 @@
             <!-- Right Island: Quick Stats & Language Selector -->
             <div id="headerRightIsland" class="header-right-island glass-panel">
                 <div class="panel-drag-bar drag-handle" style="margin-bottom:4px; padding:2px 4px; font-size:0.65rem; display:flex; justify-content:space-between; align-items:center;">
-                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">拖动移动面板</span></div>
+                    <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragHeader">⋮⋮ 拖拽移动</span></div>
                     <button id="toggleHeaderMinBtn" class="panel-min-btn" title="最小化 / 展开">➖</button>
                 </div>
-                                <div id="headerIslandContent" class="card-collapsible-content">
+                <div id="headerIslandContent" class="card-collapsible-content">
                     <div class="stats-pills">
                     <div class="stat-pill">
-                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">Tracked</span>
+                        <span class="stat-label" id="statCountLabel" data-i18n="statCount">追踪卫星总数</span>
                         <span class="stat-value" id="statCount">0</span>
                     </div>
                     <div class="stat-pill header-time-pill">
-                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">Time</span>
+                        <span class="stat-label" id="statTimeLabel" data-i18n="statTime">模拟推演时间</span>
                         <span class="stat-value mono-text" id="statTime">--:--:--</span>
                     </div>
 
                     <!-- Mobile Menu Toggle Button (Visible only on mobile/narrow screens) -->
-                    <button id="mobileHeaderMenuBtn" class="mobile-header-menu-btn" type="button" aria-expanded="false" aria-label="Menu" onclick="window.toggleMobileHeaderMenu(event)">
+                    <button id="mobileHeaderMenuBtn" class="mobile-header-menu-btn" type="button" aria-expanded="false" aria-label="菜单" onclick="window.toggleMobileHeaderMenu(event)">
                         <span>☰</span>
-                        <span id="mobileHeaderMenuText" data-i18n="mobileHeaderMenu">Menu</span>
+                        <span id="mobileHeaderMenuText" data-i18n="mobileHeaderMenu">菜单</span>
                         <span class="menu-arrow" id="mobileHeaderMenuArrow">▾</span>
                     </button>
 
@@ -210,19 +313,19 @@
                             </select>
                         </div>
                         <a href="/zh/articles/" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.5); color: #38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; border-radius:6px;">
-                            📚 <span data-i18n="navArticles">Articles</span>
+                            📚 <span data-i18n="navArticles">太空专栏</span>
                         </a>
                         <button id="headerScreenshotBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="headerScreenshot">
-                            📸 Snapshot
+                            📸 截屏
                         </button>
                         <button id="soundToggleBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="soundToggle">
-                            🔇 Sound OFF
+                            🔇 声音静音
                         </button>
                         <button id="openReleaseBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="btnRelease">
-                            📜 v2.8 Release Notes
+                            📜 v2.8 更新日志
                         </button>
                         <button id="openGuideBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer; white-space:nowrap;" data-i18n="btnGuide">
-                            ❓ Guide & Terms
+                            ❓ 使用指南与协议
                         </button>
                     </div>
                 </div>
@@ -230,9 +333,7 @@
             </div>
         </div>
 
-                
-
-                <!-- Mobile Bottom Dock Action Buttons (FABs) -->
+        <!-- Mobile Bottom Dock Action Buttons (FABs) -->
         <div class="mobile-bottom-dock">
             <button id="mobileMenuBtn" class="mobile-menu-btn" onclick="window.toggleMobileMenu(event)">
                 <span id="mobileMenuText" data-i18n="mobileBtnSelect">🛰️ 卫星选择</span>
@@ -245,11 +346,11 @@
         <!-- Sidebar Navigation & Control -->
         <aside id="sidebarPanel" class="hud-sidebar glass-panel">
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ 拖拽面板</span></div>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragPanel">⋮⋮ 拖拽移动面板</span></div>
                 <button id="toggleSidebarMinBtn" class="panel-min-btn" title="最小化 / 展开">➖</button>
             </div>
                         
-                        <div class="sidebar-mobile-header">
+            <div class="sidebar-mobile-header">
                 <span class="sidebar-mobile-title" id="mobileSidebarTitle" data-i18n="mobileSheetSelectTitle">🛰️ 卫星选择·菜单</span>
                 <button id="closeMobileSidebarBtn" class="sidebar-mobile-close-btn" onclick="window.closeMobileMenu(event)">&times;</button>
             </div>
@@ -257,29 +358,29 @@
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <span data-i18n="secSelect">选择 / 搜索卫星</span>
+                    <span data-i18n="secSelect">选择并搜索天体 / 卫星</span>
                 </h2>
                 
-                                <!-- Smart Guide Popup Tooltip -->
+                <!-- Smart Guide Popup Tooltip -->
                 <div id="satSelectGuideTooltip" class="sat-guide-tooltip">
                     <div class="tooltip-pulse-dot"></div>
                     <div class="tooltip-content">
                         <div class="tooltip-title" data-i18n="tooltipGuideTitle">💡 点击可切换任意卫星！</div>
                         <div class="tooltip-desc" data-i18n="tooltipGuideDesc">自由选择并追踪星链(Starlink)、哈勃望远镜、向日葵气象卫星等。</div>
                     </div>
-                    <button id="closeGuideTooltipBtn" class="tooltip-close-btn" title="閉じる">&times;</button>
+                    <button id="closeGuideTooltipBtn" class="tooltip-close-btn" title="关闭">&times;</button>
                 </div>
                 
                 <!-- Dropdown Selector -->
                 <div class="select-box">
                     <select id="satSelect" class="custom-select">
-                        <option value="" data-i18n="selectPlaceholder">-- 请选择卫星或太空垃圾 --</option>
+                        <option value="" data-i18n="selectPlaceholder">-- 选择太阳系行星、人造卫星或空间碎片 --</option>
                     </select>
                 </div>
 
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="或输入卫星名称、NORAD ID 搜索..." autocomplete="off">
-                    <button id="clearSearch" class="btn-icon hidden" title="清除">&times;</button>
+                    <input type="text" id="searchInput" placeholder="搜索天体名、卫星名或NORAD编号..." autocomplete="off">
+                    <button id="clearSearch" class="btn-icon hidden" title="清空">&times;</button>
                 </div>
                 <div id="searchResults" class="search-results-list"></div>
             </div>
@@ -290,101 +391,125 @@
                     <span data-i18n="secSource">卫星数据源与预设</span>
                 </h2>
                 <div class="source-buttons">
-                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ 主要卫星 (空间站, 星链, 气象, 碎片)</button>
-                    <button class="btn btn-secondary" id="loadDeepSpaceBtn" style="border-color:rgba(245,158,11,0.5); color:#fbbf24;" data-i18n="loadDeepSpace">🔭 深空探测器与韦伯望远镜</button>
+                    <button class="btn btn-secondary active" id="loadMajorBtn" data-i18n="loadMajor">⭐ 核心著名卫星 (空间站, 气象卫星, 导航, 碎片)</button>
+                    <button class="btn btn-secondary" id="loadDeepSpaceBtn" style="border-color:rgba(245,158,11,0.5); color:#fbbf24;" data-i18n="loadDeepSpace">🔭 深空·月球/火星探测器 & 韦伯望远镜 (JWST, Artemis, MRO)</button>
                     <button class="btn btn-secondary" id="loadSolarSystemBtn" style="border-color:rgba(168,85,247,0.5); color:#c084fc;" data-i18n="loadSolarSystem">🌌 太阳系全景公转仪 (八大行星与太阳)</button>
-            <button class="btn btn-secondary" id="loadSpanishBtn" style="border-color:rgba(239,68,68,0.45); color:#f87171;" data-i18n="loadSpanish">🇪🇸 西班牙及拉美卫星群 (PAZ, SAOCOM, CHEOPS)</button>
-                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ Starlink 星链完整星座 (2,000颗)</button>
+                    <button class="btn btn-secondary" id="loadSpanishBtn" style="border-color:rgba(239,68,68,0.45); color:#f87171;" data-i18n="loadSpanish">🇪🇸 西班牙及拉美卫星 (PAZ, SAOCOM, CHEOPS)</button>
+                    <button class="btn btn-secondary" id="loadLocalBtn" data-i18n="loadLocal">🛰️ 星链(Starlink) 巨型星座 (2,000颗全量)</button>
                     <button class="btn btn-secondary" id="loadDebrisBtn" data-i18n="loadDebris">💥 太空垃圾碎片巨型云 (2,200+ 碎片)</button>
                 </div>
-                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ 已加载主要卫星预设</div>
+                <div id="sourceStatusBadge" class="source-status-badge" data-i18n="badgeMajor">⭐ 核心卫星预设已载入</div>
             </div>
 
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span data-i18n="secTime">时间控制与倍速</span>
+                    <span data-i18n="secTime">时间控制与倍速调节</span>
                 </h2>
                 <div class="speed-buttons">
                     <button class="speed-btn" data-speed="0" data-i18n="speedStop">⏸️ 暂停</button>
-                    <button class="speed-btn" data-speed="1" data-i18n="speedReal">▶️ 1x (实时)</button>
+                    <button class="speed-btn" data-speed="1" data-i18n="speedReal">▶️ 1x (真实时间)</button>
                     <button class="speed-btn active" data-speed="10">⏩ 10x</button>
                     <button class="speed-btn" data-speed="100">⏩ 100x</button>
                     <button class="speed-btn" data-speed="1000">🚀 1000x</button>
                 </div>
                 <div class="time-adjust-row">
-                    <input type="text" id="timePickerInput" lang="zh" class="custom-select" style="font-size: 0.8rem; padding: 6px;" placeholder="📅 Select Date & Time...">
-                    <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="重置为当前时间" data-i18n="resetNow">🔄 当前时间</button>
+                    <input type="text" id="timePickerInput" lang="zh" class="custom-select" style="font-size: 0.8rem; padding: 6px;" placeholder="📅 选择日期与时间...">
+                    <button id="resetNowBtn" class="time-btn" data-i18n="resetNow">🔄 重置当前时间</button>
+                </div>
+
+                <!-- Historical Time Travel Presets -->
+                <div class="time-travel-box">
+                    <div style="font-size:0.75rem; font-weight:700; color:#fbbf24; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+                        <span>⏳</span> <span data-i18n="historicalTimeTravelTitle">⏳ 历史时刻时光旅行</span>
+                    </div>
+                    <div class="historical-event-buttons" style="display:grid; grid-template-columns: 1fr 1fr; gap:5px;">
+                        <button class="btn btn-secondary historical-btn" data-event="apollo11" data-i18n="eventApollo11" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="1969.07.20 20:17 UTC">
+                            🌕 <strong>阿波罗11号</strong><br><span style="font-size:0.65rem; opacity:0.8;">1969.07.20 登月</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="voyager1" data-i18n="eventVoyager1" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="1979.03.05 12:05 UTC">
+                            🪐 <strong>旅行者1号</strong><br><span style="font-size:0.65rem; opacity:0.8;">1979.03.05 木星飞掠</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="halley1986" data-i18n="eventHalley" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="1986.02.09 00:00 UTC">
+                            ☄️ <strong>哈雷彗星</strong><br><span style="font-size:0.65rem; opacity:0.8;">1986.02.09 近日点</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="voyager2neptune" data-i18n="eventVoyager2" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="1989.08.25 03:56 UTC">
+                            🌊 <strong>旅行者2号</strong><br><span style="font-size:0.65rem; opacity:0.8;">1989.08.25 海王星飞掠</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="sputnik1" data-i18n="eventSputnik1" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3; grid-column: 1 / -1;" title="1957.10.04 19:28 UTC">
+                            🛰️ <strong>斯普特尼克1号 (太空时代的黎明)</strong><br><span style="font-size:0.65rem; opacity:0.8;">1957.10.04 人类首颗人造卫星</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <div class="sidebar-section">
                 <h2 class="section-title">
                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    <span data-i18n="secDisplay">显示设置</span>
+                    <span data-i18n="secDisplay">视图与图层设置</span>
                 </h2>
                 <div class="control-group">
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleLabels" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleLabels">显示 3D 空间卫星标签</span>
+                        <span class="toggle-label" data-i18n="toggleLabels">在3D空间中显示卫星标签</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleOrbits" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleOrbits">显示所选卫星轨道</span>
+                        <span class="toggle-label" data-i18n="toggleOrbits">显示选中卫星的运行轨道</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleMultiLap" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 显示多圈轨迹 (地球自转波浪模式)</span>
+                        <span class="toggle-label" data-i18n="toggleMultiLap">🌐 显示多圈次地面星下点轨迹</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleAtmosphere" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleAtmosphere">大气层与太阳光照</span>
+                        <span class="toggle-label" data-i18n="toggleAtmosphere">逼真大气层与太阳光照</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggle2D">
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggle2D">2D 世界地图模式</span>
+                        <span class="toggle-label" data-i18n="toggle2D">2D平面世界地图视图</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleBorders" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleBorders">🌐 国界线与城市地名</span>
+                        <span class="toggle-label" data-i18n="toggleBorders">🌐 国家边界与主要地名</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleCelestial" checked>
                         <span class="slider"></span>
-                        <span class="toggle-label" data-i18n="toggleCelestial">🌌 太阳、月球与主要行星 (火星/金星/木星/土星)</span>
+                        <span class="toggle-label" data-i18n="toggleCelestial">🌌 太阳、月球及太阳系主要行星</span>
                     </label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="toggleDeepSpace" checked>
                         <span class="slider" style="background: rgba(245, 158, 11, 0.4);"></span>
-                        <span class="toggle-label" data-i18n="toggleDeepSpace">🔭 深宇宙・月/火星探査機 & JWST</span>
+                        <span class="toggle-label" data-i18n="toggleDeepSpace">🔭 深空·月球/火星探测器 & JWST</span>
                     </label>
-                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="碎片分析">
+                    <label class="toggle-switch" style="margin-top: 4px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 8px;" title="空间碎片碰撞预警">
                         <input type="checkbox" id="toggleDebrisRisk">
                         <span class="slider purple-slider"></span>
-                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 空间碎片危险分析</span>
+                        <span class="toggle-label" style="color: #c084fc; font-weight: 600;" data-i18n="toggleDebrisRisk">🔮 空间碎片碰撞预警模式</span>
                     </label>
 
                     <div class="control-group" style="margin-top: 12px; display: flex; flex-direction: column; gap: 4px;">
                         <span class="toggle-label" style="font-size: 0.8rem; color: var(--text-muted);" data-i18n="labelTimezone">时间显示时区</span>
                         <select id="tzSelect" class="custom-select" style="padding: 6px 10px; font-size: 0.8rem;">
-                            <option value="CST" selected>🇨🇳 中国标准时间 (CST / UTC+8)</option>
+                            <option value="LOCAL" selected>💻 本地浏览器时间</option>
                             <option value="UTC">🌐 协调世界时 (UTC)</option>
                             <option value="NY">🇺🇸 纽约时间 (EST/EDT)</option>
-                            <option value="CET">🇪🇸 中欧时间 (CET)</option>
-                            <option value="JST">🇯🇵 日本标准时间 (JST)</option>
-                            <option value="MSK">🇷🇺 莫斯科时间 (MSK)</option>
-                            <option value="LOCAL">💻 本地浏览器时间</option>
+                            <option value="CET">🇪🇸 中欧时间 (CET / UTC+1)</option>
+                            <option value="JST">🇯🇵 日本标准时间 (JST / UTC+9)</option>
+                            <option value="CST">🇨🇳 中国标准时间 (CST / UTC+8)</option>
+                            <option value="MSK">🇷🇺 莫斯科时间 (MSK / UTC+3)</option>
                         </select>
                     </div>
                 </div>
                 <div class="sidebar-copyright" style="margin-top: 10px; margin-bottom: 0; padding-top: 8px; padding-bottom: 0; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.3px;">
-                    &copy; <span id="copyrightYear">2026</span> SatViewer3D. All Rights Reserved.
+                    &copy; <span id="copyrightYear">2026</span> SatViewer3D. 保留所有权利。
                 </div>
             </div>
             </div>
@@ -394,7 +519,7 @@
         <!-- 3D Camera Direction Control D-Pad HUD -->
         <div id="cameraDPad" class="camera-dpad-hud glass-panel">
             <div class="panel-drag-bar drag-handle" style="margin-bottom:6px; padding:4px 8px; font-size:0.68rem; display:flex; justify-content:space-between; align-items:center; width:100%;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">相机控制</span></div>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragCam">相机视角平移控制</span></div>
                 <button id="toggleCamMinBtn" class="panel-min-btn" title="最小化 / 展开">➖</button>
             </div>
             <div id="dpadContent" class="card-collapsible-content">
@@ -403,7 +528,7 @@
                 <button class="dpad-btn dpad-up" id="btnCamUp" title="向上 (▲)">▲</button>
                 <div></div>
                 <button class="dpad-btn dpad-left" id="btnCamLeft" title="向左 (◀)">◀</button>
-                <button class="dpad-btn dpad-reset" id="btnCamReset" title="重置 (🏠)">🏠</button>
+                <button class="dpad-btn dpad-reset" id="btnCamReset" title="重置视角 (🏠)">🏠</button>
                 <button class="dpad-btn dpad-right" id="btnCamRight" title="向右 (▶)">▶</button>
                 <div></div>
                 <button class="dpad-btn dpad-down" id="btnCamDown" title="向下 (▼)">▼</button>
@@ -417,7 +542,7 @@
                 <button id="closeMobileDetailBtn" class="detail-mobile-close-btn" onclick="window.closeMobileDetail(event)">&times;</button>
             </div>
             <div class="panel-drag-bar drag-handle" style="display:flex; justify-content:space-between; align-items:center;">
-                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">拖拽卡片</span></div>
+                <div><span class="drag-dots">⋮⋮</span> <span data-i18n="dragDetail">拖拽移动详情卡片</span></div>
                 <div style="display:flex; gap:6px; align-items:center;">
                     <button id="toggleDetailMinBtn" class="panel-min-btn" title="最小化 / 展开">➖</button>
                     <button id="closeDetail" class="btn-close" style="position:static;">&times;</button>
@@ -425,81 +550,78 @@
             </div>
             <div id="detailCardContent" class="card-collapsible-content">
             <div class="card-header">
-                <span class="badge badge-accent" id="satBadge">STARLINK</span>
+                <span class="badge badge-accent" id="satBadge">人造卫星</span>
                 <h3 id="satName" class="card-title">STARLINK-XXXX</h3>
                 <p id="satNorad" class="card-subtitle">NORAD ID: ------</p>
                 <div id="satImageWrapper" class="sat-image-wrapper hidden">
                     <img id="satImage" class="sat-image" src="" alt="" loading="lazy" />
                     <div id="satImageCaption" class="sat-image-caption"></div>
                 </div>
-                <div id="satDescription" class="sat-description-text">卫星描述信息</div>
+                <div id="satDescription" class="sat-description-text">卫星详细描述</div>
             </div>
             <div class="card-body grid-2col">
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelAlt">高度 (Altitude)</span>
+                    <span class="data-label" data-i18n="labelAlt">轨道高度</span>
                     <span class="data-value" id="satAlt">--- km</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelVel">速度 (Velocity)</span>
+                    <span class="data-label" data-i18n="labelVel">运行速度</span>
                     <span class="data-value" id="satVel">--- km/s</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelLat">纬度 (Latitude)</span>
+                    <span class="data-label" data-i18n="labelLat">地理纬度</span>
                     <span class="data-value" id="satLat">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelLon">经度 (Longitude)</span>
+                    <span class="data-label" data-i18n="labelLon">地理经度</span>
                     <span class="data-value" id="satLon">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelInc">轨道倾角 (Inclination)</span>
+                    <span class="data-label" data-i18n="labelInc">轨道倾角</span>
                     <span class="data-value" id="satInc">---°</span>
                 </div>
                 <div class="data-item">
-                    <span class="data-label" data-i18n="labelPeriod">运行周期 (Period)</span>
+                    <span class="data-label" data-i18n="labelPeriod">运行周期</span>
                     <span class="data-value" id="satPeriod">--- min</span>
                 </div>
                 <div class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.25);">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 下次过境预报</span>
-                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPS定位" data-i18n="btnGeo">📍当前位置</button>
+                        <span class="data-label" style="color: var(--accent-cyan); font-weight:600;" data-i18n="labelPass">📡 本地过境预报 (GPS位置)</span>
+                        <button id="geoLocateBtn" class="btn-icon" style="font-size:0.75rem; color:var(--accent-blue);" title="GPS" data-i18n="btnGeo">📍获取GPS定位</button>
                     </div>
-                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">正在计算...</span>
-                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">过境时间计算中</span>
+                    <span class="data-value mono-text" id="passCountdown" style="color: #38bdf8; font-size: 1.05rem; margin-top:2px;">计算中...</span>
+                    <span id="passMetaInfo" style="font-size:0.72rem; color: var(--text-muted);">过境时间：计算中...</span>
                 </div>
                 <div id="debrisRiskRow" class="data-item full-width-item" style="grid-column: 1 / -1; background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.4);">
-                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 空间碎片最接近 (MOID 碰撞预警)</span>
-                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 安全 (SAFE)</span>
+                    <span class="data-label" style="color: #c084fc; font-weight:600;" data-i18n="labelRisk">🔮 空间碎片交会风险 (MOID)</span>
+                    <span class="data-value mono-text" id="debrisProximity" style="color: #10b981; font-size: 1.05rem; margin-top:2px;">🟢 安全轨道</span>
                 </div>
             </div>
             <div class="card-actions">
-                <button class="btn btn-primary" id="trackBtn">
-                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
-                    <span data-i18n="btnTrack">🎯 锁定追踪</span>
-                </button>
-                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 解除锁定</button>
+                <button class="btn btn-primary" id="trackBtn"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg><span data-i18n="btnTrack">🎯 视角锁定追踪</span></button>
+                <button class="btn btn-secondary" id="untrackBtn" data-i18n="btnUntrack">🔓 解锁相机视角</button>
             </div>
             <!-- Cupola / Onboard Camera POV Button (Visible when satellite/ISS is selected) -->
             <div id="cupolaActionRow" class="card-actions" style="margin-top: 6px;">
                 <button class="btn btn-primary cupola-launch-btn" id="btnCupolaLaunch" style="width: 100%; background: linear-gradient(135deg, #0284c7, #06b6d4); font-weight:700; border: 1px solid #38bdf8; box-shadow: 0 0 14px rgba(56,189,248,0.35); display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <span id="cupolaLaunchIcon">👨‍🚀</span>
-                    <span id="cupolaLaunchText" data-i18n="btnCupola">ISS キューポラ展望窓 (搭乗視点)</span>
+                    <span id="cupolaLaunchText" data-i18n="btnCupola">👨‍🚀 ISS 穹顶观测舱 (宇航员视角)</span>
                 </button>
             </div>
             <!-- Social Share Actions Row -->
             <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
-                <button class="btn btn-secondary" id="shareTwitterBtn" style="width: 100%; padding: 7px 12px; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); color: #f8fafc; font-weight:700; font-size: 0.84rem; display: flex; align-items: center; justify-content: center; gap: 8px;" title="X (Twitter) Share">
+                <button class="btn btn-secondary" id="shareTwitterBtn" style="width: 100%; padding: 7px 12px; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); color: #f8fafc; font-weight:700; font-size: 0.84rem; display: flex; align-items: center; justify-content: center; gap: 8px;" title="分享至 X (Twitter)">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    <span data-i18n="btnShareTwitter">𝕏 画像付きシェア</span>
+                    <span data-i18n="btnShareTwitter">𝕏 带图分享</span>
                 </button>
                 <div style="display: flex; gap: 6px;">
-                    <button class="btn btn-secondary" id="saveScreenshotBtn" style="flex: 1; padding: 6px 10px; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); color: #f8fafc; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="Screenshot">
+                    <button class="btn btn-secondary" id="saveScreenshotBtn" style="flex: 1; padding: 6px 10px; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); color: #f8fafc; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="拍照保存">
                         <span>📸</span>
-                        <span data-i18n="btnSaveScreenshot">撮影</span>
+                        <span data-i18n="btnSaveScreenshot">拍照保存</span>
                     </button>
-                    <button class="btn btn-secondary" id="copyShareBtn" style="flex: 1; padding: 6px 10px; background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.35); color: #38bdf8; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="Copy">
+                    <button class="btn btn-secondary" id="copyShareBtn" style="flex: 1; padding: 6px 10px; background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.35); color: #38bdf8; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="复制">
                         <span>📋</span>
-                        <span data-i18n="btnCopyShare">コピー</span>
+                        <span data-i18n="btnCopyShare">复制</span>
                     </button>
                 </div>
             </div>
@@ -511,8 +633,8 @@
         <div id="edgePointer" class="edge-pointer-hud hidden">
             <span class="pointer-arrow" id="pointerArrow">👈</span>
             <div class="pointer-content">
-                <span class="pointer-name" id="pointerName">SATELLITE</span>
-                <span class="pointer-hint" data-i18n="pointerHint">在视野外 (点击移动相机)</span>
+                <span class="pointer-name" id="pointerName">人造卫星</span>
+                <span class="pointer-hint" data-i18n="pointerHint">目标在屏幕视界外 (点击定位)</span>
             </div>
         </div>
 
@@ -520,7 +642,7 @@
         <div id="guideModal" class="modal-overlay hidden">
             <div class="modal-content glass-panel">
                 <div class="modal-header">
-                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D 操作指南与条款</h2>
+                    <h2 id="modalTitle" class="modal-title" data-i18n="modalTitle">SatViewer3D 用户指南与服务条款</h2>
                     <button id="closeGuideBtn" class="btn-close">&times;</button>
                 </div>
                 <div class="modal-tabs">
@@ -528,44 +650,43 @@
                     <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 v2.8 更新日志</button>
                     <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ 免责声明</button>
                     <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 隐私政策</button>
-                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ 关于网站</button>
+                    <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ 关于项目</button>
                 </div>
                 <div class="modal-body">
                     <!-- Tab 1: Controls -->
                     <div id="tabControls" class="tab-content active">
-                        <h3 data-i18n="guideTitleControls">🖱️ 3D 空间导航指南</h3>
+                        <h3 data-i18n="guideTitleControls">🖱️ 3D三维交互指南</h3>
                         <ul class="guide-list">
-                            <li><strong data-i18n="guideWheel">滚轮 / 触摸手势</strong>: <span data-i18n="guideWheelDesc">1/10 微速丝滑平稳缩放。</span></li>
-                            <li><strong data-i18n="guideDrag">左键拖拽</strong>: <span data-i18n="guideDragDesc">全向 360 度自由旋转地球。</span></li>
-                            <li><strong data-i18n="guideTilt">右键拖拽 / Ctrl + 拖拽</strong>: <span data-i18n="guideTiltDesc">调整俯仰视角。</span></li>
-                            <li><strong data-i18n="guideClick">点击 / 搜索卫星</strong>: <span data-i18n="guideClickDesc">查看实时高度、速度及碎片接近预警。</span></li>
-                            <li><strong data-i18n="guideFocus">🎯 锁定追踪</strong>: <span data-i18n="guideFocusDesc">相机自动锁定跟随运行中的卫星。</span></li>
-                            <li><strong data-i18n="guideRadar">🔮 碎片碰撞预警</strong>: <span data-i18n="guideRadarDesc">实时计算未来 24 小时轨道交会 (MOID)。</span></li>
+                            <li><strong data-i18n="guideWheel">鼠标滚轮 / 触控手势</strong>: <span data-i18n="guideWheelDesc">以 1/10 细腻微调速度平滑缩放。</span></li>
+                            <li><strong data-i18n="guideDrag">左键点击 + 拖拽</strong>: <span data-i18n="guideDragDesc">360度全方位自由旋转地球与深空天体。</span></li>
+                            <li><strong data-i18n="guideTilt">右键 / Ctrl + 拖拽</strong>: <span data-i18n="guideTiltDesc">调整观察视角的俯仰与倾斜度。</span></li>
+                            <li><strong data-i18n="guideClick">点击卫星或行星天体</strong>: <span data-i18n="guideClickDesc">查看实时轨道参数并锁定跟踪相机。</span></li>
+                            <li><strong data-i18n="guideFocus">🎯 追踪锁定</strong>: <span data-i18n="guideFocusDesc">镜头将自动跟随目标在宇宙空间中飞行。</span></li>
+                            <li><strong data-i18n="guideRadar">🔮 空间碎片交会雷达</strong>: <span data-i18n="guideRadarDesc">实时计算未来24小时内的轨道交会距离(MOID)。</span></li>
                         </ul>
                     </div>
 
-                    
                     <!-- Tab: Release Notes -->
                     <div id="tabReleases" class="tab-content">
-                        <h3 data-i18n="releaseTitle">📜 SatViewer3D 更新履歴・リリースノート</h3>
+                        <h3 data-i18n="releaseTitle">📜 SatViewer3D 更新日志与版本历史</h3>
                         <div class="release-timeline" style="display:flex; flex-direction:column; gap:16px; margin-top:12px;">
-                                                        <!-- Version 2.8.0 -->
+                            <!-- Version 2.8.0 -->
                             <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.5); border-radius: 8px; padding: 14px 16px; box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);">
                                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.8.0 (Latest)</span>
+                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.8.0 (最新)</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-09-06</span>
                                 </div>
-                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel28Title">👨‍🚀 ISS キューポラ展望窓 (搭乗視点) & 📱 モバイルUI完全刷新・超高解像度SNSシェア</h4>
+                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel28Title">👨‍🚀 ISS 穹顶观测舱 (宇航员视角) & 📱 移动端UI全面重构・超高清社媒分享</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel28_1">👨‍🚀 <strong>ISS キューポラ展望窓（搭乗視点POV）モード新設</strong>: 国際宇宙ステーション(ISS)の欧州宇宙機関(ESA)製「キューポラ」展望窓から地球を見下ろす宇宙飛行士POVを完全再現。ドラッグによる360度自由見渡し、EvenOdd SVG高精度フレーム、昼夜判定HUDを搭載。</li>
-                                    <li data-i18n="rel28_2">📱 <strong>スマホ向けモダンUI全面刷新</strong>: 画面幅768px以下のモバイル表示時、ヘッダーアクション群を「☰ メニュー ▾」ドロップダウンにスマート集約。キューポラモード突入時の詳細カード自動退避など、操作性を抜本的に向上。</li>
-                                    <li data-i18n="rel28_3">📸 <strong>超高解像度宇宙撮影 & 𝕏 (Twitter) 画像付きシェア</strong>: リアルタイム3D宇宙シミュレーションの任意アングルを高画質PNGキャプチャし、ダイレクトに画像付きポスト可能な共有エンジンを配備。</li>
-                                    <li data-i18n="rel28_4">🕰️ <strong>歴史的軌道タイムトラベル・プリセット</strong>: 人類初の人工衛星スプートニク1号（1957）、アポロ11号月着陸船（1969）などの歴史的マイルストーン軌道をワンタップで体験可能。</li>
-                                    <li data-i18n="rel28_5">🔊 <strong>コズミック・アンビエント音響エンジン</strong>: 宇宙空間の深淵なドローン環境音、エアロック作動音、インターフェース効果音を備えた Web Audio 音響システムを新設（ON/OFF自由切替）。</li>
+                                    <li data-i18n="rel28_1">👨‍🚀 <strong>ISS 穹顶观测舱 (宇航员第一视角POV)</strong>: 逼真还原宇航员从欧空局制造的穹顶舱俯瞰地球视角，支持360度自由拖拽环视、EvenOdd SVG高精度窗框及昼夜实时HUD。</li>
+                                    <li data-i18n="rel28_2">📱 <strong>移动端现代UI全面重构</strong>: 在手机屏幕（<=768px）下将顶部按钮整合进“☰ 菜单 ▾”下拉框，进入穹顶舱时自动收起详情卡片，视界全无遮挡。</li>
+                                    <li data-i18n="rel28_3">📸 <strong>超清太空拍摄 & 𝕏 (Twitter) 带图即时分享</strong>: 实时抓取高清太空视角截图，支持带轨道遥测数据一键分享至 X。</li>
+                                    <li data-i18n="rel28_4">🕰️ <strong>历史航天轨道时光旅行预设</strong>: 一键穿越至人类首颗人造卫星斯普特尼克1号（1957）、阿波罗11号登月舱（1969）等标志性历史任务。</li>
+                                    <li data-i18n="rel28_5">🔊 <strong>宇宙氛围音效引擎</strong>: 配备深空氛围背景音、气闸舱加压音效与遥测交互提示音的 Web Audio 声音系统（支持开关）。</li>
                                 </ul>
                             </div>
 
-<!-- Version 2.7.0 -->
+                            <!-- Version 2.7.0 -->
                             <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 8px; padding: 14px 16px;">
                                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                                     <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.7.0</span>
@@ -581,7 +702,6 @@
                                 </ul>
                             </div>
 
-
                             <!-- Version 2.6.0 -->
                             <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 8px; padding: 14px 16px;">
                                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
@@ -590,28 +710,27 @@
                                 </div>
                                 <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel26Title">🛰️ 引路7星体制圆满完成 & 美国及全球主力卫星官方视觉全面升级</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel26_1">🇯🇵 <strong>新增引路7号 (QZS-7)</strong>: 完整加入2026年8月11日由H3火箭9号机发射的最新导航卫星轨道数据(TLE)与内阁府官方1080p 3D机体图。</li>
-                                    <li data-i18n="rel26_2">🛰️ <strong>引路全8星独立高清视觉</strong>: 严格区分1号至7号机及1R号机，全面采用JAXA与内阁府特设官网独家1080p机体CG。</li>
-                                    <li data-i18n="rel26_3">🇺🇸 <strong>美军及主力卫星真实机体更新</strong>: 全面换装NASA Ames官方4K星链(长太阳翼展开)、USA-245(锁眼KH-11光学侦察望远镜)、SBIRS与X-37B太空图。</li>
-                                    <li data-i18n="rel26_4">🌐 <strong>14种语言任务卡片全量同步</strong>: 完整翻译7星体制自主高精度定位及日美联合太空态势感知(SDA)光学载荷详情。</li>
-                                    <li data-i18n="rel26_5">📑 <strong>侧边栏列表序号精细化排序</strong>: 优化卫星列表顺序，确保引路1号至7号机按数字自然顺序规范排列。</li>
+                                    <li data-i18n="rel26_1">🇯🇵 新增引路7号 (QZS-7): 完整加入2026年8月11日由H3火箭9号机发射的最新导航卫星轨道数据(TLE)与内阁府官方1080p 3D机体图。</li>
+                                    <li data-i18n="rel26_2">🛰️ 引路全8星独立高清视觉: 严格区分1号至7号机及1R号机，全面采用JAXA与内阁府特设官网独家1080p机体CG。</li>
+                                    <li data-i18n="rel26_3">🇺🇸 美军及主力卫星真实机体更新: 全面换装NASA Ames官方4K星链(长太阳翼展开)、USA-245(锁眼KH-11光学侦察望远镜)、SBIRS与X-37B太空图。</li>
+                                    <li data-i18n="rel26_4">🌐 14种语言任务卡片全量同步: 完整翻译7星体制自主高精度定位及日美联合太空态势感知(SDA)光学载荷详情。</li>
+                                    <li data-i18n="rel26_5">📑 侧边栏列表序号精细化排序: 优化卫星列表顺序，确保引路1号至7号机按数字自然顺序规范排列。</li>
                                 </ul>
                             </div>
 
-                            
                             <!-- Version 2.5.0 -->
                             <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 8px; padding: 14px 16px;">
                                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                                     <span style="background: rgba(245, 158, 11, 0.2); color:#fbbf24; border: 1px solid rgba(245,158,11,0.4); font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.5.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-21</span>
                                 </div>
-                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel25Title">🪐 3D太陽系・惑星探査 & 世界14言語宇宙百科事典 メジャーアップデート</h4>
+                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel25Title">🪐 3D太阳系行星探索与14语言深空百科重磅更新</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel25_1">🪐 <strong>太陽・月・主要惑星のリアルタイム3D探査モード</strong>: 太陽、月、火星、木星、土星、天王星、金星、水星への急接近・360度D&D自由回転・超精密マイクロズームを完全実装。</li>
-                                    <li data-i18n="rel25_2">📷 <strong>NASA公式実写フォトテクスチャ</strong>: 探査機の実写高精細テクスチャを全天体に適用し、圧倒的リアリズムを実現。</li>
-                                    <li data-i18n="rel25_3">💍 <strong>本物の3D直交惑星リング</strong>: 土星の氷の多重環（カッシーニ間隙・傾斜角26.7度）と天王星の縦向き垂直リング（傾斜角97.8度）を天文学的物理パラメータで完全再現。</li>
-                                    <li data-i18n="rel25_4">🌡️ <strong>表面温度HUD & 太陽黒点物理解説</strong>: 各惑星の寒暖差や太陽黒点の温度メカニズム（~4,000℃）を専用HUDメトリクスとして新設。</li>
-                                    <li data-i18n="rel25_5">🌐 <strong>世界14言語での天体百科事典・検索</strong>: 発見史や各国の探査機ミッション（アポロ、ボイジャー、カッシーニ、JAXA等）を含む全テキストを14言語に完全ローカライズ。</li>
+                                    <li data-i18n="rel25_1">🪐 太阳、月球及全各大行星3D探索模式：支持360度自由旋转与超高精微调缩放。</li>
+                                    <li data-i18n="rel25_2">📷 NASA官方实拍高分辨率纹理，呈现极致太空视觉质感。</li>
+                                    <li data-i18n="rel25_3">💍 真实3D空间行星光环：完全重现土星多层冰环与天王星垂直光环。</li>
+                                    <li data-i18n="rel25_4">🌡️ 表面温度HUD与太阳黑子物理机制(~4,000℃)科普。</li>
+                                    <li data-i18n="rel25_5">🌐 全球14种语言深空百科全书与实时天体搜索支持。</li>
                                 </ul>
                             </div>
 
@@ -621,11 +740,11 @@
                                     <span style="background: rgba(168, 85, 247, 0.25); color:#c084fc; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px; border: 1px solid rgba(168,85,247,0.4);">v2.0.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-20</span>
                                 </div>
-                                <h4 style="color:#c084fc; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel20Title">🔮 宇宙デブリ衝突リスク予測 & Starlinkメガコンステレーション</h4>
+                                <h4 style="color:#c084fc; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel20Title">🔮 太空碎片碰撞风险雷达与星链星座</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel20_1">🔮 <strong>24時間デブリ衝突リスクレーダー</strong>: 過去の衛星衝突破片（COSMOS, FENGYUN等）の軌道交差距離（MOID）をリアルタイム計算。</li>
-                                    <li data-i18n="rel20_2">🛰️ <strong>Starlink 2,000機コンステレーション</strong>: SpaceXのメガコンステレーション衛星群をブラウザ上で完全描画。</li>
-                                    <li data-i18n="rel20_3">📡 <strong>GPS現在地上空通過予測</strong>: 現在地からの可視パス、最接近仰角、通過カウントダウン自動計算。</li>
+                                    <li data-i18n="rel20_1">🔮 24小时空间碎片交会预警(MOID)实时计算。</li>
+                                    <li data-i18n="rel20_2">🛰️ SpaceX星链(Starlink) 2,000颗巨型星座全球轨道网。</li>
+                                    <li data-i18n="rel20_3">📡 GPS当前地理位置卫星过境预报与倒计时。</li>
                                 </ul>
                             </div>
 
@@ -635,47 +754,46 @@
                                     <span style="background: rgba(255, 255, 255, 0.1); color:#94a3b8; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v1.0.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-20</span>
                                 </div>
-                                <h4 style="color:#94a3b8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel10Title">🌍 SatViewer3D 正式ローンチ</h4>
+                                <h4 style="color:#94a3b8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel10Title">🌍 SatViewer3D 正式上线</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#94a3b8; line-height:1.65;">
-                                    <li data-i18n="rel10_1">WebAssembly / WebGL / CesiumJSを活用したリアルタイム3D人工衛星軌道シミュレーターの初版リリース。</li>
+                                    <li data-i18n="rel10_1">基于WebAssembly/WebGL的实时3D卫星与太空碎片轨道模拟器初版发布。</li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
 
                     <!-- Tab 2: Disclaimer -->
                     <div id="tabDisclaimer" class="tab-content">
-                        <h3 data-i18n="guideTitleDisclaimer">⚠️ 免责声明 (Disclaimer)</h3>
-                        <p data-i18n="discText1">SatViewer3D 提供的所有轨道位置与预警均基于 CelesTrak 和 Space-Track 公开 TLE 数据实时计算，仅供科普、天文观测与研究使用。</p>
-                        <p data-i18n="discText2">本站数据不用于真实航天器变轨或避撞导航，开发者不对任何使用后果承担责任。</p>
+                        <h3 data-i18n="guideTitleDisclaimer">⚠️ 法律免责声明</h3>
+                        <p data-i18n="discText1">所有卫星轨道数据均基于CelesTrak和Space-Track的公开TLE数据实时计算推演。</p>
+                        <p data-i18n="discText2">本模拟器数据仅供航天科研、天文科普与教学参考，不用于实际航天器测控避碰作业。</p>
                     </div>
 
                     <!-- Tab 3: Privacy Policy -->
                     <div id="tabPrivacy" class="tab-content">
-                        <h3 data-i18n="guideTitlePrivacy">🔒 隐私政策 (Google AdSense 准则)</h3>
-                        <p><strong data-i18n="privText1Title">关于广告服务:</strong><br><span data-i18n="privText1Desc">本网站可能使用第三方广告服务（如 Google AdSense），可能会使用匿名 Cookie 来展示相关广告。</span></p>
-                        <p><strong data-i18n="privText2Title">关于访问统计:</strong><br><span data-i18n="privText2Desc">我们使用分析工具收集匿名的流量数据。</span></p>
+                        <h3 data-i18n="guideTitlePrivacy">🔒 隐私权政策 (遵循 Google AdSense 规范)</h3>
+                        <p><strong data-i18n="privText1Title">广告投放声明:</strong><br><span data-i18n="privText1Desc">本网站使用第三方广告服务(如 Google AdSense)以支持免费运营。</span></p>
+                        <p><strong data-i18n="privText2Title">流量分析声明:</strong><br><span data-i18n="privText2Desc">我们可能收集匿名访问流量以持续优化模拟器性能。</span></p>
                     </div>
 
                     <!-- Tab 4: About & Contact -->
                     <div id="tabAbout" class="tab-content">
-                        <h3 data-i18n="guideTitleAbout">ℹ️ 关于 SatViewer3D</h3>
-                        <p data-i18n="aboutText1">SatViewer3D 是一款针对人造卫星（空间站、星链、北斗等）与空间碎片的实时 3D 可视化模拟器。</p>
+                        <h3 data-i18n="guideTitleAbout">ℹ️ 关于 SatViewer3D 项目</h3>
+                        <p data-i18n="aboutText1">SatViewer3D 是一款基于 WebGL、WebAssembly 与 CesiumJS 打造的高性能全交互式 3D 太空模拟器。</p>
                         
                         <!-- Sister Service: QuakeViewer3D -->
                         <div style="background:rgba(15,23,42,0.75); border:1px solid rgba(239,68,68,0.4); border-radius:8px; padding:14px 16px; margin: 14px 0;">
-                            <h4 style="color:#f87171; font-size:0.92rem; margin:0 0 8px 0;" data-i18n="sisterQuakeTitle">🌋 姊妹服务：QuakeViewer3D</h4>
-                            <p style="margin:0 0 8px 0; font-size:0.82rem; color:#cbd5e1; line-height:1.6;" data-i18n="sisterQuakeDesc">以全 3D 方式探索全球实时地震活动、震源深度、构造板块边界以及地球地幔内部三维剖面。</p>
+                            <h4 style="color:#f87171; font-size:0.92rem; margin:0 0 8px 0;" data-i18n="sisterQuakeTitle">🌋 姊妹站点：QuakeViewer3D</h4>
+                            <p style="margin:0 0 8px 0; font-size:0.82rem; color:#cbd5e1; line-height:1.6;" data-i18n="sisterQuakeDesc">在全三维视角下探索全球实时地震活动、震源深度、板块构造边界与地球内部地幔剖面切片。</p>
                             <a href="https://earthquake.satviewer3d.com/zh/" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; color:#f87171; text-decoration:none; font-size:0.82rem; font-weight:600;">
-                                <span>🌋 打开 QuakeViewer3D &rarr;</span>
+                                <span>🌋 开启 QuakeViewer3D &rarr;</span>
                             </a>
                         </div>
 
-                        <p><strong>Data & Orbit Sources:</strong> NORAD / Space-Track (公开 TLE 数据), JAXA & NASA</p>
-                        <p><strong>Domain:</strong> satviewer3d.com</p>
-                        <p><strong data-i18n="aboutContactTitle">联系我们:</strong> <span data-i18n="aboutContactDesc">如有问题或建议，请联系 info@satviewer3d.com</span></p>
-                        <p style="margin-top: 18px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.78rem; color: var(--text-muted);">&copy; <span class="copyrightYearRef">2026</span> SatViewer3D. All Rights Reserved.</p>
+                        <p><strong>数据与轨道来源：</strong> NORAD / Space-Track (公开 TLE 数据), JAXA 与 NASA</p>
+                        <p><strong>官方域名：</strong> satviewer3d.com</p>
+                        <p><strong data-i18n="aboutContactTitle">联系方式:</strong> <span data-i18n="aboutContactDesc">意见反馈与商务合作请联系: info@satviewer3d.com</span></p>
+                        <p style="margin-top: 18px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); text-align: center; font-size: 0.78rem; color: var(--text-muted);">&copy; <span class="copyrightYearRef">2026</span> SatViewer3D. 保留所有权利。</p>
                     </div>
                 </div>
             </div>
@@ -685,30 +803,276 @@
         <div id="loadingOverlay" class="loading-overlay hidden" style="display:none;">
             <div class="spinner-container">
                 <div class="spinner"></div>
-                <p id="loadingText" class="loading-text">正在计算并加载卫星轨道数据...</p>
+                <p id="loadingText" class="loading-text">正在计算并加载卫星轨道...</p>
             </div>
         </div>
-    </div>
 
-    <!-- Application Script (Cache Busted v120) -->
-    <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
-    <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
-        <div class="image-lightbox-backdrop" id="imageLightboxBackdrop" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); }"></div>
-        <div class="image-lightbox-content" onclick="event.stopPropagation();">
-            <button type="button" class="image-lightbox-close" id="imageLightboxClose" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); } event.stopPropagation();" title="閉じる (Esc)">&times;</button>
-            <img id="imageLightboxImg" src="" alt="" class="image-lightbox-img" />
-            <div class="image-lightbox-info">
-                <div id="imageLightboxTitle" class="image-lightbox-title"></div>
-                <div id="imageLightboxCaption" class="image-lightbox-caption"></div>
-            </div>
-        </div>
-    </div>
-    </div>
+        <!-- Scroll Down Hint Banner (Floating on Simulator Viewport Bottom) -->
+        <a href="#siteGuideSection" class="scroll-down-hint" aria-label="前往卫星指南与空间科学专栏">
+            <span class="scroll-hint-text">📜 空间科学与卫星数据指南</span>
+            <span class="scroll-hint-arrow">▼</span>
+        </a>
+
+        <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
+        <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
+            <div class="image-lightbox-backdrop" id="imageLightboxBackdrop" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); }"></div>
+            <div class="image-lightbox-content" onclick="event.stopPropagation();">
+                <button type="button" class="image-lightbox-close" id="imageLightboxClose" onclick="const m = document.getElementById('imageLightboxModal'); if (m) { m.style.display='none'; m.classList.add('hidden'); } event.stopPropagation();" title="关闭 (Esc)">&times;</button>
+                <img id="imageLightboxImg" src="" alt="" class="image-lightbox-img" />
+                <div class="image-lightbox-info">
+                    <div id="imageLightboxTitle" class="image-lightbox-title"></div>
+                    <div id="imageLightboxCaption" class="image-lightbox-caption"></div>
+                </div>
+            </div><!-- End of image-lightbox-content -->
+        </div><!-- End of imageLightboxModal -->
+    </div><!-- End of hud-layer -->
+    </div><!-- End of #simulatorAppWrapper -->
 
     <script src="app.js?v=20260906_1835"></script>
-    
-    </div>
-        <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
+
+    <!-- ============================================================
+         SEO & Educational Guide Content Section (Scroll-down Area)
+         ============================================================ -->
+    <section id="siteGuideSection" class="site-guide-section">
+        <div class="guide-container">
+            <!-- Hero Header -->
+            <div class="guide-hero">
+                <div class="guide-badge">🛰️ SatViewer3D 空间科学与卫星跟踪指南</div>
+                <h2 class="guide-hero-title">天体力学、实时卫星追踪与空间物理学</h2>
+                <p class="guide-hero-desc">SatViewer3D 是一项基于开放科学理念构建的先进轨道力学模拟平台，将严谨的开普勒轨道物理学与现代 WebGL 3D 渲染深度融合。通过接入美国空军与 NORAD 公布的 SGP4 分析模型与最新 TLE 星历数据，实时计算并呈现全球数千颗在轨人造卫星、载人空间站与太空垃圾碎片的精准时空位置。</p>
+            </div>
+
+            <!-- Card 1: Orbital Mechanics & SGP4 -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🔬</span>
+                    <span>高精度 SGP4 轨道摄动传播算法与 TLE 星历</span>
+                </h3>
+                <p>计算航天器在近地空间中的真实运行轨迹需要克服诸多复杂的非球形引力摄动。SatViewer3D 实时接入 Space-Track 与 CelesTrak 权威发布的双行轨道根数 (TLE, Two-Line Elements) 数据集。</p>
+                <p>由于地球是赤道略微膨胀的扁球体，其非均匀引力场对倾斜轨道产生持续的进动力矩。加之高层热层大气的连续气动阻力、日月引潮力与太阳光辐射压，卫星轨道要素随时都在动态变化。</p>
+                <div class="guide-grid-2">
+                    <div class="guide-feature-box">
+                        <h4>📐 SGP4 (简化常规摄动模型第4版)</h4>
+                        <p>国际公认的标准解析摄动模型，精准求解地球引力场扁率谐波(J2, J3, J4)进动效应以及近地点与升交点赤经的长期摄动变化。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>⏱️ 毫秒级 UTC 全球时钟同步与时光机</h4>
+                        <p>严格对齐协调世界时(UTC)。支持任意拖动时间轴、加速至1,000倍速或时光倒流至阿波罗登月等历史里程碑时刻。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Orbit Types -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🌍</span>
+                    <span>地球轨道类型划分与其空间应用职能</span>
+                </h3>
+                <p>航天任务根据其探测目的与通信需求被精确部署在各具物理特性的轨道高度层中：</p>
+                <div class="guide-grid-3">
+                    <div class="guide-feature-box">
+                        <h4>🛰️ 近地轨道 (LEO)</h4>
+                        <p>高度：160 – 2,000 km。周期约 90–120 分钟。中国空间站(天宫)、国际空间站(ISS)、高分辨率对地观测卫星及星链(Starlink)巨型通信星座的运行家园。具备高空间分辨率与毫秒级通信低延迟。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🛰️ 中圆地球轨道 (MEO)</h4>
+                        <p>高度：2,000 – 35,786 km。周期约 12 小时。全球卫星导航系统的核心部署空域，包括中国北斗(BeiDou)、美国GPS、欧洲伽利略(Galileo)与俄罗斯格洛纳斯(GLONASS)。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🛰️ 地球同步静止轨道 (GEO)</h4>
+                        <p>高度：35,786 km (赤道上空)。运行周期严格等于地球恒星自转周期(23时56分4秒)。在地面观测者视角下相对静止，是风云气象卫星、天链中继卫星与大型广播通信卫星的生命线。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Highlighted Missions -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">🚀</span>
+                    <span>旗舰载人航天、深空探测器与中国航天成就</span>
+                </h3>
+                <p>通过 SatViewer3D 的实时遥测面板与智能搜索框，即刻近距离交互观测人类顶尖空间资产：</p>
+                <div class="guide-grid-2">
+                    <div class="guide-feature-box">
+                        <h4>🇨🇳 中国天宫空间站 (Tiangong)</h4>
+                        <p>三舱组合体（天和核心舱、问天实验舱、梦天实验舱）长期在轨稳定运行，飞行高度约 400 km。具备完全自主受控变轨能力与全天候高可靠生命保障系统。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🌐 北斗三号全球卫星导航系统 (BeiDou-3)</h4>
+                        <p>由 GEO、IGSO 和 MEO 多种异构轨道混合构成的全球卫星星座，独创星间链路与短报文通信体制，提供全球厘米级高精度定位服务。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>👨‍🚀 国际空间站 (ISS) 与 ESA 观测穹顶</h4>
+                        <p>长达百余米的跨国载人实验平台，运行在 420 km 轨道。本模拟器内置高精度 ESA 穹顶舱 POV 交互视角，体验航天员俯瞰地球的震撼视界。</p>
+                    </div>
+                    <div class="guide-feature-box">
+                        <h4>🔭 詹姆斯·韦伯 (JWST) 与哈勃空间望远镜</h4>
+                        <p>摆脱大气湍流干扰的天文学利器。哈勃运行在 540 km 近地轨道，而韦伯望远镜则定点于距地 150 万公里的日地 L2 拉格朗日平动点。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Space Debris & Collision Risk -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">💥</span>
+                    <span>空间碎片严峻威胁与凯斯勒级联碰撞综合征</span>
+                </h3>
+                <p>半个多世纪的航天发射留下了数以万计的报废火箭残骸与失控卫星解体碎片。在 7 至 8 km/s（超 20 倍音速）的相对碰撞速度下，毫米级微小碎片即蕴含高速穿甲弹丸级别的破坏动能。</p>
+                <p>在超过 7 至 8 km/s 的相对速度下，微小的脱落漆皮也蕴含步枪子弹般的破坏动能。SatViewer3D 实时求解未来 24 小时最小轨道交会距离 (MOID)，直观量化潜在在轨相撞隐患。</p>
+                <div class="guide-feature-box">
+                    <h4>🔮 24小时在轨接近雷达</h4>
+                    <p>实时求解在轨活跃卫星与高危空间碎片群之间的最近交会距离与相对速度，全天候评估碰撞风险。</p>
+                </div>
+            </div>
+
+            <!-- Card 5: FAQ Section -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">❓</span>
+                    <span>常见问题解答 (FAQ)</span>
+                </h3>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>SatViewer3D 显示的卫星位置有多高精度？</span>
+                    </div>
+                    <div class="faq-answer">本模拟器基于 Space-Track 和 CelesTrak 每日公布的标准 TLE 根数，通过 SGP4 分析模型在浏览器端按物理时钟实时积分求解，几何位置误差通常在数公里以内，非常适合天文观测、过境拍摄与科普教育。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>肉眼能在夜空中看到卫星过境吗？</span>
+                    </div>
+                    <div class="faq-answer">可以！在日落后或日出前的黄昏时分（地面处于夜色而数百公里高空仍被太阳照射），天宫空间站、国际空间站以及新发射的星链队列会反射强烈日光，呈现为无声穿行夜空的明亮星点。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>可以将本模拟器用于教学展示或科研报告吗？</span>
+                    </div>
+                    <div class="faq-answer">完全欢迎！SatViewer3D 坚持开源免费与开放科学原则，无需注册登录，欢迎各大高校、中小学科技课堂及天文爱好者广泛引用。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-q-mark">Q</span>
+                        <span>运行本模拟器需要什么设备与浏览器环境？</span>
+                    </div>
+                    <div class="faq-answer">支持 WebGL 2.0 的现代主流浏览器（如 Google Chrome、Apple Safari、Microsoft Edge、Mozilla Firefox 等）均可在 Windows、macOS、Linux、iOS 和 Android 设备上原生流畅运行，无需安装任何额外插件。</div>
+                </div>
+            </div>
+
+            <!-- Card 6: Space Articles Archive -->
+            <div class="guide-card">
+                <h3 class="guide-card-title">
+                    <span class="guide-card-title-icon">📚</span>
+                    <span>太空专栏精选文章</span>
+                </h3>
+                <p>深入了解航天工程深度解析、载人航天任务与开普勒轨道力学：</p>
+                <div class="articles-preview-grid">
+                    <a href="/zh/articles/iss-tracker-guide.html" class="article-preview-card">
+                        <span class="tag">载人空间站</span>
+                        <h4>国际空间站 (ISS) 轨道追踪与观测指南</h4>
+                        <p>国际空间站实时轨道追踪、夜空肉眼观测技巧与微重力科学实验全解析。</p>
+                        <span class="read-more">阅读专栏 &rarr;</span>
+                    </a>
+                    <a href="/zh/articles/starlink-constellation.html" class="article-preview-card">
+                        <span class="tag">巨型星座</span>
+                        <h4>SpaceX 星链 (Starlink) 巨型星座解析</h4>
+                        <p>低轨宽带通信星座工程架构、星间激光链路与“星链列车”夜空观测指南。</p>
+                        <span class="read-more">阅读专栏 &rarr;</span>
+                    </a>
+                    <a href="/zh/articles/space-debris-crisis.html" class="article-preview-card">
+                        <span class="tag">空间环境</span>
+                        <h4>太空垃圾危机与凯斯勒级联碰撞现象</h4>
+                        <p>超高速碰撞动能破坏力、太空垃圾演化机制与在轨主动清除前沿技术。</p>
+                        <span class="read-more">阅读专栏 &rarr;</span>
+                    </a>
+                    <a href="/zh/articles/tiangong-space-station.html" class="article-preview-card">
+                        <span class="tag">中国航天</span>
+                        <h4>中国“天宫”空间站全貌深度解析</h4>
+                        <p>天和核心舱、问天与梦天实验舱三舱构型、神舟飞船交会对接及巡天望远镜。</p>
+                        <span class="read-more">阅读专栏 &rarr;</span>
+                    </a>
+                    <a href="/zh/articles/geostationary-orbit.html" class="article-preview-card">
+                        <span class="tag">轨道力学</span>
+                        <h4>地球同步静止轨道 (GEO) 物理机制</h4>
+                        <p>为什么人造卫星能在 35,786 公里赤道高空相对地面静止？在轨定点与轨道保持。</p>
+                        <span class="read-more">阅读专栏 &rarr;</span>
+                    </a>
+                    <a href="/zh/articles/sar-satellite-radar.html" class="article-preview-card">
+                        <span class="tag">对地观测</span>
+                        <h4>合成孔径雷达 (SAR) 卫星微波成像</h4>
+                        <p>穿透厚重云层与黑夜全天候对地毫米级成像，PAZ与SAOCOM雷达卫星应用全景。</p>
+                        <span class="read-more">阅读专栏 &rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Back to Simulator Floating Button -->
+            <div style="text-align:center;">
+                <a href="#simulatorAppWrapper" class="back-to-simulator-btn">
+                    <span>🚀</span>
+                    <span>返回 3D 模拟器</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Permanent Site Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h3>
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none" style="vertical-align:middle;">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <ellipse cx="12" cy="12" rx="9" ry="3" transform="rotate(-30 12 12)"></ellipse>
+                        </svg>
+                        <span>SatViewer3D</span>
+                    </h3>
+                    <p>专为全球航天教育、开放科学探索与三维物理可视化而设计的实时人造卫星与空间碎片轨道模拟平台。</p>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>快捷导航</h4>
+                    <ul>
+                        <li><a href="/zh/">3D 模拟器</a></li>
+                        <li><a href="/zh/articles/">太空专栏</a></li>
+                        <li><a href="/sitemap.html">网站地图</a></li>
+                        <li><a href="https://earthquake.satviewer3d.com/zh/" target="_blank" rel="noopener">QuakeViewer3D (全球地震)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>相关信息</h4>
+                    <ul>
+                        <li><a href="/about.html">关于与团队</a></li>
+                        <li><a href="/privacy.html">隐私政策</a></li>
+                        <li><a href="/terms.html">使用条款</a></li>
+                        <li><a href="/contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>数据来源与致谢</h4>
+                    <ul>
+                        <li><a href="https://celestrak.org/" target="_blank" rel="noopener nofollow">CelesTrak (TLE)</a></li>
+                        <li><a href="https://www.space-track.org/" target="_blank" rel="noopener nofollow">Space-Track (NORAD)</a></li>
+                        <li><a href="https://www.nasa.gov/" target="_blank" rel="noopener nofollow">NASA</a></li>
+                        <li><a href="https://cesium.com/" target="_blank" rel="noopener nofollow">CesiumJS</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-credits">
+                    <span>© 2026 SatViewer3D. 保留所有权利。轨道数据由 CelesTrak 与 NORAD 提供，底层引擎由 CesiumJS 驱动。</span>
+                </div>
+                <div>
+                    <span>托管于全球边缘云平台 • 高性能 WebGL 2.0</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Zoom Navigation Hint Toast (Auto-Dismiss, Pure CSS Device Differentiated!) -->
     <div id="zoomHintToast" class="zoom-hint-toast">
         <!-- PC View (Mouse Wheel) -->
         <div class="zoom-hint-pc-content">
@@ -716,8 +1080,8 @@
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none"><rect x="6" y="3" width="12" height="18" rx="6"></rect><line x1="12" y1="7" x2="12" y2="11" stroke="#38bdf8" stroke-width="2.5"></line></svg>
             </div>
             <div class="zoom-hint-text">
-                <span class="zoom-hint-title">🔍 鼠标滚轮缩放视野</span>
-                <span class="zoom-hint-sub">滚动鼠标可纵览地球全景</span>
+                <span class="zoom-hint-title">🔍 鼠标滚轮缩放</span>
+                <span class="zoom-hint-sub">滚动滚轮以俯瞰完整地球全貌</span>
             </div>
         </div>
         <!-- Touch / Mobile View (2-Finger Pinch) -->
@@ -726,11 +1090,12 @@
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="#38bdf8" stroke-width="2" fill="none"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg>
             </div>
             <div class="zoom-hint-text">
-                <span class="zoom-hint-title">🔍 双指捏合缩放视野</span>
-                <span class="zoom-hint-sub">双指捏合屏幕可纵览地球全景</span>
+                <span class="zoom-hint-title">🔍 双指捏合缩放</span>
+                <span class="zoom-hint-sub">捏合屏幕以俯瞰完整地球全貌</span>
             </div>
         </div>
     </div>
+
     <!-- ISS Cupola View & Satellite POV Fullscreen Cockpit HUD Overlay -->
     <div id="cupolaOverlay" class="cupola-overlay hidden">
         <!-- SVG Cockpit Frame (Robust EvenOdd Path: 100% Guaranteed Crisp Transparency Across All Browsers) -->
@@ -800,25 +1165,23 @@
             <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
                 <div class="cupola-badge">
                     <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981;"></span>
-                    <span id="cupolaTitleText" data-i18n="cupolaTitle">👨‍🚀 ISS キューポラ展望窓 (Cupola Observation Deck)</span>
+                    <span id="cupolaTitleText" data-i18n="cupolaTitle">👨‍🚀 ISS 国际空间站穹顶观测舱</span>
                 </div>
                 <div class="cupola-telemetry">
                     <span><span data-i18n="cupolaAltLabel">高度:</span> <strong id="cupolaAlt" style="color:#38bdf8;">--- km</strong></span>
                     <span><span data-i18n="cupolaSpdLabel">速度:</span> <strong id="cupolaSpeed" style="color:#38bdf8;">--- km/s</strong></span>
-                    <span><span data-i18n="cupolaPosLabel">位置:</span> <strong id="cupolaCoords" style="color:#fbbf24;">--°, --°</strong></span>
-                    <span><span data-i18n="cupolaEnvLabel">環境:</span> <strong id="cupolaLighting" style="color:#10b981;">☀️ 昼間域 (Sunlit)</strong></span>
+                    <span><span data-i18n="cupolaPosLabel">坐标:</span> <strong id="cupolaCoords" style="color:#fbbf24;">--°, --°</strong></span>
+                    <span><span data-i18n="cupolaEnvLabel">环境:</span> <strong id="cupolaLighting" style="color:#10b981;">☀️ 昼间区域 (Sunlit)</strong></span>
                 </div>
             </div>
-            <button id="exitCupolaBtn" class="cupola-exit-btn" data-i18n="exitCupola">
-                ✕ 通常視点に戻る (Exit Cupola)
-            </button>
+            <button id="exitCupolaBtn" class="cupola-exit-btn" data-i18n="exitCupola">✕ 退出穹顶舱 (轨道视角)</button>
         </div>
 
         <!-- Bottom Status Bar -->
         <div class="cupola-footer">
-            <span id="cupolaFooterText" data-i18n="cupolaFooter">🛰️ 国際宇宙ステーション (ISS) • 欧州宇宙機関(ESA)製造「キューポラ」展望窓から地球を見下ろしています</span>
+            <span id="cupolaFooterText" data-i18n="cupolaFooter">🛰️ 国际空间站 (ISS) • 欧空局制造“穹顶舱”俯瞰地球中</span>
             <span style="color:#38bdf8;">|</span>
-            <span data-i18n="cupolaHint">🖱️ 画面ドラッグで展望窓からの見渡し自由回転</span>
+            <span data-i18n="cupolaHint">🖱️ 拖拽画面可360度环视穹顶观测窗</span>
         </div>
     </div>
 </body>

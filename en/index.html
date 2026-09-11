@@ -337,7 +337,7 @@
                         <div class="tooltip-title" data-i18n="tooltipGuideTitle">💡 Switch & Track Any Satellite!</div>
                         <div class="tooltip-desc" data-i18n="tooltipGuideDesc">Select and track Starlink, Hubble, Himawari weather satellites, and more.</div>
                     </div>
-                    <button id="closeGuideTooltipBtn" class="tooltip-close-btn" title="閉じる">&times;</button>
+                    <button id="closeGuideTooltipBtn" class="tooltip-close-btn" title="Close">&times;</button>
                 </div>
                 
                 <!-- Dropdown Selector -->
@@ -385,6 +385,30 @@
                 <div class="time-adjust-row">
                     <input type="text" id="timePickerInput" lang="en" class="custom-select" style="font-size: 0.8rem; padding: 6px;" placeholder="📅 Select Date & Time...">
                     <button id="resetNowBtn" class="btn btn-secondary" style="font-size: 0.78rem; padding: 6px 10px; width: auto; white-space: nowrap;" title="Reset to Current Time" data-i18n="resetNow">🔄 Now</button>
+                </div>
+
+                <!-- Historical Time Travel Presets -->
+                <div class="time-travel-box">
+                    <div style="font-size:0.75rem; font-weight:700; color:#fbbf24; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+                        <span>⏳</span> <span data-i18n="historicalTimeTravelTitle">Historical Time Travel</span>
+                    </div>
+                    <div class="historical-event-buttons" style="display:grid; grid-template-columns: 1fr 1fr; gap:5px;">
+                        <button class="btn btn-secondary historical-btn" data-event="apollo11" data-i18n="eventApollo11" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="Jul 20, 1969 20:17 UTC">
+                            🌕 <strong>Apollo 11</strong><br><span style="font-size:0.65rem; opacity:0.8;">1969.07.20 Moon Landing</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="voyager1" data-i18n="eventVoyager1" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="Mar 5, 1979 12:05 UTC">
+                            🪐 <strong>Voyager 1</strong><br><span style="font-size:0.65rem; opacity:0.8;">1979.03.05 Jupiter Flyby</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="halley1986" data-i18n="eventHalley" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="Feb 9, 1986 00:00 UTC">
+                            ☄️ <strong>Halley's Comet</strong><br><span style="font-size:0.65rem; opacity:0.8;">1986.02.09 Perihelion</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="voyager2neptune" data-i18n="eventVoyager2" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3;" title="Aug 25, 1989 03:56 UTC">
+                            🌊 <strong>Voyager 2</strong><br><span style="font-size:0.65rem; opacity:0.8;">1989.08.25 Neptune Flyby</span>
+                        </button>
+                        <button class="btn btn-secondary historical-btn" data-event="sputnik1" data-i18n="eventSputnik1" style="font-size:0.72rem; padding:5px 6px; text-align:left; line-height:1.3; grid-column: 1 / -1;" title="Oct 4, 1957 19:28 UTC">
+                            🛰️ <strong>Sputnik 1 (Dawn of Space Age)</strong><br><span style="font-size:0.65rem; opacity:0.8;">1957.10.04 First Satellite</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -553,23 +577,23 @@
             <div id="cupolaActionRow" class="card-actions" style="margin-top: 6px;">
                 <button class="btn btn-primary cupola-launch-btn" id="btnCupolaLaunch" style="width: 100%; background: linear-gradient(135deg, #0284c7, #06b6d4); font-weight:700; border: 1px solid #38bdf8; box-shadow: 0 0 14px rgba(56,189,248,0.35); display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <span id="cupolaLaunchIcon">👨‍🚀</span>
-                    <span id="cupolaLaunchText" data-i18n="btnCupola">ISS キューポラ展望窓 (搭乗視点)</span>
+                    <span id="cupolaLaunchText" data-i18n="btnCupola">ISS Cupola View (Astronaut POV)</span>
                 </button>
             </div>
             <!-- Social Share Actions Row -->
             <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
                 <button class="btn btn-secondary" id="shareTwitterBtn" style="width: 100%; padding: 7px 12px; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); color: #f8fafc; font-weight:700; font-size: 0.84rem; display: flex; align-items: center; justify-content: center; gap: 8px;" title="X (Twitter) Share">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    <span data-i18n="btnShareTwitter">𝕏 画像付きシェア</span>
+                    <span data-i18n="btnShareTwitter">𝕏 Share with Image</span>
                 </button>
                 <div style="display: flex; gap: 6px;">
                     <button class="btn btn-secondary" id="saveScreenshotBtn" style="flex: 1; padding: 6px 10px; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); color: #f8fafc; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="Screenshot">
                         <span>📸</span>
-                        <span data-i18n="btnSaveScreenshot">撮影</span>
+                        <span data-i18n="btnSaveScreenshot">Snapshot</span>
                     </button>
                     <button class="btn btn-secondary" id="copyShareBtn" style="flex: 1; padding: 6px 10px; background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.35); color: #38bdf8; font-weight:600; font-size: 0.78rem; display: flex; align-items: center; justify-content: center; gap: 5px;" title="Copy">
                         <span>📋</span>
-                        <span data-i18n="btnCopyShare">コピー</span>
+                        <span data-i18n="btnCopyShare">Copy</span>
                     </button>
                 </div>
             </div>
@@ -617,7 +641,7 @@
                     
                     <!-- Tab: Release Notes -->
                     <div id="tabReleases" class="tab-content">
-                        <h3 data-i18n="releaseTitle">📜 SatViewer3D 更新履歴・リリースノート</h3>
+                        <h3 data-i18n="releaseTitle">📜 SatViewer3D Release Notes & Changelog</h3>
                         <div class="release-timeline" style="display:flex; flex-direction:column; gap:16px; margin-top:12px;">
                                                         <!-- Version 2.8.0 -->
                             <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.5); border-radius: 8px; padding: 14px 16px; box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);">
@@ -625,13 +649,13 @@
                                     <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.8.0 (Latest)</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-09-06</span>
                                 </div>
-                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel28Title">👨‍🚀 ISS キューポラ展望窓 (搭乗視点) & 📱 モバイルUI完全刷新・超高解像度SNSシェア</h4>
+                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel28Title">👨‍🚀 ISS Cupola Observation Deck (Astronaut POV) & 📱 Mobile Modern UI Overhaul</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel28_1">👨‍🚀 <strong>ISS キューポラ展望窓（搭乗視点POV）モード新設</strong>: 国際宇宙ステーション(ISS)の欧州宇宙機関(ESA)製「キューポラ」展望窓から地球を見下ろす宇宙飛行士POVを完全再現。ドラッグによる360度自由見渡し、EvenOdd SVG高精度フレーム、昼夜判定HUDを搭載。</li>
-                                    <li data-i18n="rel28_2">📱 <strong>スマホ向けモダンUI全面刷新</strong>: 画面幅768px以下のモバイル表示時、ヘッダーアクション群を「☰ メニュー ▾」ドロップダウンにスマート集約。キューポラモード突入時の詳細カード自動退避など、操作性を抜本的に向上。</li>
-                                    <li data-i18n="rel28_3">📸 <strong>超高解像度宇宙撮影 & 𝕏 (Twitter) 画像付きシェア</strong>: リアルタイム3D宇宙シミュレーションの任意アングルを高画質PNGキャプチャし、ダイレクトに画像付きポスト可能な共有エンジンを配備。</li>
-                                    <li data-i18n="rel28_4">🕰️ <strong>歴史的軌道タイムトラベル・プリセット</strong>: 人類初の人工衛星スプートニク1号（1957）、アポロ11号月着陸船（1969）などの歴史的マイルストーン軌道をワンタップで体験可能。</li>
-                                    <li data-i18n="rel28_5">🔊 <strong>コズミック・アンビエント音響エンジン</strong>: 宇宙空間の深淵なドローン環境音、エアロック作動音、インターフェース効果音を備えた Web Audio 音響システムを新設（ON/OFF自由切替）。</li>
+                                    <li data-i18n="rel28_1">👨‍🚀 <strong>ISS Cupola Observation Deck (Astronaut POV)</strong>: Experience authentic astronaut view looking down at Earth through the ESA-manufactured Cupola module with 360° drag panoramic lookaround, crisp EvenOdd SVG frame, and live daylight/night telemetry.</li>
+                                    <li data-i18n="rel28_2">📱 <strong>Mobile Modern UI Overhaul</strong>: Sleek '☰ Menu ▾' dropdown consolidating header actions on mobile screens (&lt;=768px) and seamless auto-hiding of detail cards during Cupola exploration.</li>
+                                    <li data-i18n="rel28_3">📸 <strong>Ultra-HD Space Capture & 𝕏 (Twitter) Image Sharing</strong>: Instant high-resolution screenshot capture and direct image sharing to X (Twitter) with orbital telemetry metadata.</li>
+                                    <li data-i18n="rel28_4">🕰️ <strong>Historical Orbit Time-Travel Presets</strong>: 1-click travel to historic space missions including Sputnik 1 (1957) and Apollo 11 Lunar Module (1969).</li>
+                                    <li data-i18n="rel28_5">🔊 <strong>Cosmic Ambient Sound Engine</strong>: Synthesized procedural deep-space drones, airlock pressurization audio, and interface telemetry blips with toggleable audio controls.</li>
                                 </ul>
                             </div>
 
@@ -675,13 +699,13 @@
                                     <span style="background: rgba(245, 158, 11, 0.2); color:#fbbf24; border: 1px solid rgba(245,158,11,0.4); font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.5.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-21</span>
                                 </div>
-                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel25Title">🪐 3D太陽系・惑星探査 & 世界14言語宇宙百科事典 メジャーアップデート</h4>
+                                <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel25Title">🪐 3D Solar System, Planetary Exploration & 14-Language Space Encyclopedia</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel25_1">🪐 <strong>太陽・月・主要惑星のリアルタイム3D探査モード</strong>: 太陽、月、火星、木星、土星、天王星、金星、水星への急接近・360度D&D自由回転・超精密マイクロズームを完全実装。</li>
-                                    <li data-i18n="rel25_2">📷 <strong>NASA公式実写フォトテクスチャ</strong>: 探査機の実写高精細テクスチャを全天体に適用し、圧倒的リアリズムを実現。</li>
-                                    <li data-i18n="rel25_3">💍 <strong>本物の3D直交惑星リング</strong>: 土星の氷の多重環（カッシーニ間隙・傾斜角26.7度）と天王星の縦向き垂直リング（傾斜角97.8度）を天文学的物理パラメータで完全再現。</li>
-                                    <li data-i18n="rel25_4">🌡️ <strong>表面温度HUD & 太陽黒点物理解説</strong>: 各惑星の寒暖差や太陽黒点の温度メカニズム（~4,000℃）を専用HUDメトリクスとして新設。</li>
-                                    <li data-i18n="rel25_5">🌐 <strong>世界14言語での天体百科事典・検索</strong>: 発見史や各国の探査機ミッション（アポロ、ボイジャー、カッシーニ、JAXA等）を含む全テキストを14言語に完全ローカライズ。</li>
+                                    <li data-i18n="rel25_1">🪐 <strong>3D Celestial Body Inspection Mode</strong>: Smooth camera fly-to, 360° D&D orbit rotation, and precision micro-zoom for Sun, Moon, Mars, Jupiter, Saturn, Uranus, Venus, and Mercury.</li>
+                                    <li data-i18n="rel25_2">📷 <strong>Authentic NASA Photo Textures</strong>: Real spacecraft imagery applied to all planetary bodies for breathtaking realism.</li>
+                                    <li data-i18n="rel25_3">💍 <strong>True 3D Cartesian Rings</strong>: Multi-layered gold/ice rings for Saturn (with Cassini division at 26.7° tilt) and vertical rings for Uranus (97.8° tilt).</li>
+                                    <li data-i18n="rel25_4">🌡️ <strong>Dedicated Surface Temp HUD & Sunspot Physics</strong>: Comprehensive thermal metrics and scientific explanations for sunspot magnetism (~4,000°C).</li>
+                                    <li data-i18n="rel25_5">🌐 <strong>14-Language Global Encyclopedia & Search</strong>: Complete localization for discovery histories, exploration missions (Apollo, Voyager, Cassini, JAXA, etc.).</li>
                                 </ul>
                             </div>
 
@@ -691,11 +715,11 @@
                                     <span style="background: rgba(168, 85, 247, 0.25); color:#c084fc; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px; border: 1px solid rgba(168,85,247,0.4);">v2.0.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-20</span>
                                 </div>
-                                <h4 style="color:#c084fc; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel20Title">🔮 宇宙デブリ衝突リスク予測 & Starlinkメガコンステレーション</h4>
+                                <h4 style="color:#c084fc; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel20Title">🔮 Orbital Debris Collision Risk Radar & Starlink Constellation</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
-                                    <li data-i18n="rel20_1">🔮 <strong>24時間デブリ衝突リスクレーダー</strong>: 過去の衛星衝突破片（COSMOS, FENGYUN等）の軌道交差距離（MOID）をリアルタイム計算。</li>
-                                    <li data-i18n="rel20_2">🛰️ <strong>Starlink 2,000機コンステレーション</strong>: SpaceXのメガコンステレーション衛星群をブラウザ上で完全描画。</li>
-                                    <li data-i18n="rel20_3">📡 <strong>GPS現在地上空通過予測</strong>: 現在地からの可視パス、最接近仰角、通過カウントダウン自動計算。</li>
+                                    <li data-i18n="rel20_1">🔮 <strong>24-Hour Space Debris Collision Warning</strong>: Real-time minimum orbital intersection distance (MOID) calculations.</li>
+                                    <li data-i18n="rel20_2">🛰️ <strong>Starlink 2,000-Satellite Mega-Constellation</strong>: Full global orbital coverage grid rendered directly in the browser.</li>
+                                    <li data-i18n="rel20_3">📡 <strong>GPS-Based Overhead Pass Forecast</strong>: Live visible pass countdown, max elevation, and sky trajectory.</li>
                                 </ul>
                             </div>
 
@@ -705,9 +729,9 @@
                                     <span style="background: rgba(255, 255, 255, 0.1); color:#94a3b8; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v1.0.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-08-20</span>
                                 </div>
-                                <h4 style="color:#94a3b8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel10Title">🌍 SatViewer3D 正式ローンチ</h4>
+                                <h4 style="color:#94a3b8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel10Title">🌍 SatViewer3D Official Launch</h4>
                                 <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#94a3b8; line-height:1.65;">
-                                    <li data-i18n="rel10_1">WebAssembly / WebGL / CesiumJSを活用したリアルタイム3D人工衛星軌道シミュレーターの初版リリース。</li>
+                                    <li data-i18n="rel10_1">Initial release of high-precision real-time 3D satellite and space debris orbit simulation platform.</li>
                                 </ul>
                             </div>
 
@@ -1142,25 +1166,25 @@
             <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
                 <div class="cupola-badge">
                     <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981;"></span>
-                    <span id="cupolaTitleText" data-i18n="cupolaTitle">👨‍🚀 ISS キューポラ展望窓 (Cupola Observation Deck)</span>
+                    <span id="cupolaTitleText" data-i18n="cupolaTitle">👨‍🚀 ISS Cupola Observation Deck</span>
                 </div>
                 <div class="cupola-telemetry">
-                    <span><span data-i18n="cupolaAltLabel">高度:</span> <strong id="cupolaAlt" style="color:#38bdf8;">--- km</strong></span>
-                    <span><span data-i18n="cupolaSpdLabel">速度:</span> <strong id="cupolaSpeed" style="color:#38bdf8;">--- km/s</strong></span>
-                    <span><span data-i18n="cupolaPosLabel">位置:</span> <strong id="cupolaCoords" style="color:#fbbf24;">--°, --°</strong></span>
-                    <span><span data-i18n="cupolaEnvLabel">環境:</span> <strong id="cupolaLighting" style="color:#10b981;">☀️ 昼間域 (Sunlit)</strong></span>
+                    <span><span data-i18n="cupolaAltLabel">Alt:</span> <strong id="cupolaAlt" style="color:#38bdf8;">--- km</strong></span>
+                    <span><span data-i18n="cupolaSpdLabel">Speed:</span> <strong id="cupolaSpeed" style="color:#38bdf8;">--- km/s</strong></span>
+                    <span><span data-i18n="cupolaPosLabel">Coords:</span> <strong id="cupolaCoords" style="color:#fbbf24;">--°, --°</strong></span>
+                    <span><span data-i18n="cupolaEnvLabel">Lighting:</span> <strong id="cupolaLighting" style="color:#10b981;">☀️ Sunlit (Daytime)</strong></span>
                 </div>
             </div>
             <button id="exitCupolaBtn" class="cupola-exit-btn" data-i18n="exitCupola">
-                ✕ 通常視点に戻る (Exit Cupola)
+                ✕ Exit Cupola (Orbit View)
             </button>
         </div>
 
         <!-- Bottom Status Bar -->
         <div class="cupola-footer">
-            <span id="cupolaFooterText" data-i18n="cupolaFooter">🛰️ 国際宇宙ステーション (ISS) • 欧州宇宙機関(ESA)製造「キューポラ」展望窓から地球を見下ろしています</span>
+            <span id="cupolaFooterText" data-i18n="cupolaFooter">🛰️ International Space Station (ISS) • ESA Cupola Observation Module looking down at Earth</span>
             <span style="color:#38bdf8;">|</span>
-            <span data-i18n="cupolaHint">🖱️ 画面ドラッグで展望窓からの見渡し自由回転</span>
+            <span data-i18n="cupolaHint">🖱️ Drag to look around the cupola windows</span>
         </div>
     </div>
 </body>
