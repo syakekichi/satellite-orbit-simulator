@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /cdn-cgi/
 Allow: /
 
 Sitemap: https://satviewer3d.com/sitemap.xml
