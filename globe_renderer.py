@@ -562,9 +562,11 @@ def render_3d_animation(center_lat, center_lon,
                 g_val = int(t_color[3:5], 16)
                 b_val = int(t_color[5:7], 16)
 
+                alt_km = trail.get("alt_km", 400.0)
                 prev_pt = None
                 for pt in pts:
-                    sx_p, sy_p, z_p = project_3d(pt[0], pt[1], pt[2], center_lat, curr_lon, globe_cx, globe_cy, globe_radius)
+                    p_alt = pt[2] if len(pt) > 2 else alt_km
+                    sx_p, sy_p, z_p = project_3d(pt[0], pt[1], p_alt, center_lat, curr_lon, globe_cx, globe_cy, globe_radius)
                     if z_p > -0.05:
                         if prev_pt and prev_pt[2] > -0.05:
                             alpha_line = 180 if z_p > 0.1 else 70

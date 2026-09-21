@@ -184,7 +184,20 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
 
         try:
             print("[INFO] Xの新規ポスト作成画面を開きます (compose/post)...")
-            page.goto("https://x.com/compose/post", wait_until="domcontentloaded")
+            nav_success = False
+            for attempt in range(1, 4):
+                try:
+                    page.goto("https://x.com/compose/post", wait_until="domcontentloaded", timeout=45000)
+                    nav_success = True
+                    break
+                except Exception as net_err:
+                    print(f"[WARN] ページ遷移に失敗 (試行 {attempt}/3: {net_err})")
+                    if attempt < 3:
+                        print("[INFO] ネットワーク復帰を待機中 (6秒後に再試行)...")
+                        time.sleep(6)
+            if not nav_success:
+                raise Exception("Xの新規ポスト画面 (compose/post) へのアクセスがタイムアウトしました。")
+
             time.sleep(4)
             dismiss_modals(page, context)
 
