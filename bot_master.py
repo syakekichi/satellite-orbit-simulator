@@ -226,11 +226,11 @@ def task_iss_live():
             badge_color="#38BDF8",
             title=f"ISS (ZARYA) • {ctx['region_en']}",
             metrics=[
-                {"label": "ORBITAL SPEED / 飛行速度", "value": f"{speed_km_h:,.0f} km/h (7.7 km/s)", "color": "#38BDF8"},
-                {"label": "CURRENT ALTITUDE / 高度", "value": f"{alt:.1f} km (LEO)", "color": "#F8FAFC"},
-                {"label": "FLYOVER REGION / 通過地域", "value": f"{ctx['region_ja']} / {ctx['region_en']}", "color": "#4ADE80"},
-                {"label": "COORDINATES / 現在座標", "value": f"{abs(lat):.1f}°{'N' if lat>=0 else 'S'}, {abs(lon):.1f}°{'E' if lon>=0 else 'W'}", "color": "#94A3B8"},
-                {"label": "ORBITAL PERIOD / 公転周期", "value": "92.8 min (1日に地球を約16周)", "color": "#FACC15"}
+                {"label": "ORBITAL SPEED", "value": f"{speed_km_h:,.0f} km/h (7.7 km/s)", "color": "#38BDF8"},
+                {"label": "CURRENT ALTITUDE", "value": f"{alt:.1f} km (LEO)", "color": "#F8FAFC"},
+                {"label": "FLYOVER REGION", "value": ctx['region_en'][:32], "color": "#4ADE80"},
+                {"label": "COORDINATES", "value": f"{abs(lat):.1f}°{'N' if lat>=0 else 'S'}, {abs(lon):.1f}°{'E' if lon>=0 else 'W'}", "color": "#94A3B8"},
+                {"label": "ORBITAL PERIOD", "value": "92.8 min (~16 orbits/day)", "color": "#FACC15"}
             ],
             site_url="satviewer3d.com",
             out_path=out_img
@@ -301,11 +301,11 @@ def task_tiangong_live():
         badge_color="#F59E0B",
         title=f"Tiangong (CSS) • {ctx['region_en']}",
         metrics=[
-            {"label": "ORBITAL SPEED / 飛行速度", "value": f"{speed_km_h:,.0f} km/h (7.7 km/s)", "color": "#F59E0B"},
-            {"label": "CURRENT ALTITUDE / 高度", "value": f"{alt:.1f} km (LEO)", "color": "#F8FAFC"},
-            {"label": "FLYOVER REGION / 通過地域", "value": f"{ctx['region_ja']} / {ctx['region_en']}", "color": "#4ADE80"},
-            {"label": "COORDINATES / 現在座標", "value": f"{abs(lat):.1f}°{'N' if lat>=0 else 'S'}, {abs(lon):.1f}°{'E' if lon>=0 else 'W'}", "color": "#94A3B8"},
-            {"label": "CORE MODULES / 構成モジュール", "value": "Tianhe (天和) / Wentian (問天) / Mengtian (夢天)", "color": "#FDE68A"}
+            {"label": "ORBITAL SPEED", "value": f"{speed_km_h:,.0f} km/h (7.7 km/s)", "color": "#F59E0B"},
+            {"label": "CURRENT ALTITUDE", "value": f"{alt:.1f} km (LEO)", "color": "#F8FAFC"},
+            {"label": "FLYOVER REGION", "value": ctx['region_en'][:32], "color": "#4ADE80"},
+            {"label": "COORDINATES", "value": f"{abs(lat):.1f}°{'N' if lat>=0 else 'S'}, {abs(lon):.1f}°{'E' if lon>=0 else 'W'}", "color": "#94A3B8"},
+            {"label": "CORE MODULES", "value": "Tianhe / Wentian / Mengtian", "color": "#FDE68A"}
         ],
         site_url="satviewer3d.com",
         out_path=out_img
@@ -370,12 +370,12 @@ def task_spanish_radar():
         markers=markers,
         badge="SPAIN & LATAM SATELLITE RADAR",
         badge_color="#EF4444",
-        title="Constelación España & LATAM",
+        title="Constellation Spain & LATAM",
         metrics=[
-            {"label": "PRIMARY SATELLITES / 監視衛星", "value": "PAZ (SAR Radar) / SAOCOM 1A/1B", "color": "#EF4444"},
-            {"label": "MISSIONS / 主な任務", "value": "Earth Observation, Flood & Seismic Radar", "color": "#F8FAFC"},
-            {"label": "TRACKED ASSETS / 追跡機数", "value": f"{len(markers)} Satellites in LEO & GEO", "color": "#38BDF8"},
-            {"label": "TECHNOLOGY / 技術", "value": "X-Band & L-Band Synthetic Aperture", "color": "#4ADE80"},
+            {"label": "PRIMARY SATELLITES", "value": "PAZ (SAR Radar) / SAOCOM 1A/1B", "color": "#EF4444"},
+            {"label": "PRIMARY MISSIONS", "value": "Earth Observation & Seismic Radar", "color": "#F8FAFC"},
+            {"label": "TRACKED ASSETS", "value": f"{len(markers)} Satellites in LEO & GEO", "color": "#38BDF8"},
+            {"label": "TECHNOLOGY", "value": "X-Band & L-Band Synthetic Aperture", "color": "#4ADE80"},
             {"label": "ORBITAL COVERAGE", "value": "Global Coverage with 24h Revisit", "color": "#FACC15"}
         ],
         site_url="satviewer3d.com",
@@ -441,11 +441,11 @@ def task_starlink_fleet():
         badge_color="#00F0FF",
         title="Starlink Mega-Constellation",
         metrics=[
-            {"label": "CONSTELLATION STATUS / 稼働状況", "value": "Over 6,000+ Active Satellites", "color": "#00F0FF"},
-            {"label": "ALTITUDE / 軌道高度", "value": "540 - 570 km (Low Earth Orbit)", "color": "#F8FAFC"},
-            {"label": "PLOTTED ON 3D GLOBE / 画面描画数", "value": f"{len(markers)} High-Priority Satellites", "color": "#4ADE80"},
+            {"label": "CONSTELLATION STATUS", "value": "Over 6,000+ Active Satellites", "color": "#00F0FF"},
+            {"label": "ALTITUDE", "value": "540 - 570 km (Low Earth Orbit)", "color": "#F8FAFC"},
+            {"label": "PLOTTED ON 3D GLOBE", "value": f"{len(markers)} High-Priority Satellites", "color": "#4ADE80"},
             {"label": "INTERNET COVERAGE", "value": "Global High-Speed Low-Latency", "color": "#FACC15"},
-            {"label": "ORBIT SPEED / 周回速度", "value": "Approx. 27,000 km/h (95 min/orbit)", "color": "#94A3B8"}
+            {"label": "ORBIT SPEED", "value": "Approx. 27,000 km/h (95 min/orbit)", "color": "#94A3B8"}
         ],
         site_url="satviewer3d.com",
         out_path=out_img
@@ -514,9 +514,9 @@ def task_starlink_train():
         badge_color="#F59E0B",
         title="SpaceX Starlink Train (Batch)",
         metrics=[
-            {"label": "PHENOMENON / 天体現象", "value": "Naked-Eye Starlink Pearl String", "color": "#F59E0B"},
-            {"label": "TRAIN FLEET SIZE / 追跡数", "value": f"{len(markers)} Recently Launched Sats", "color": "#F8FAFC"},
-            {"label": "ORBITAL ALTITUDE / 軌道高度", "value": "300 - 450 km (Orbit Raising)", "color": "#4ADE80"},
+            {"label": "PHENOMENON", "value": "Naked-Eye Starlink Pearl String", "color": "#F59E0B"},
+            {"label": "TRAIN FLEET SIZE", "value": f"{len(markers)} Freshly Launched Sats", "color": "#F8FAFC"},
+            {"label": "ORBITAL ALTITUDE", "value": "300 - 450 km (Orbit Raising)", "color": "#4ADE80"},
             {"label": "VISIBILITY CONDITION", "value": "Optimal at Dusk / Dawn (Twilight)", "color": "#FACC15"},
             {"label": "ORBIT VELOCITY", "value": "Approx. 27,600 km/h", "color": "#94A3B8"}
         ],
@@ -575,14 +575,14 @@ def task_space_debris():
     render_3d_globe(
         center_lat=15.0, center_lon=120.0,
         markers=markers,
-        badge="SPACE DEBRIS RADAR • 警告",
+        badge="SPACE DEBRIS RADAR • WARNING",
         badge_color="#EF4444",
         title="Orbital Space Debris Risk Radar",
         metrics=[
-            {"label": "MONITORED OBJECTS / 監視物体数", "value": f"{len(markers)} Tracked Cataloged Debris", "color": "#EF4444"},
-            {"label": "RELATIVE VELOCITY / 相対衝突速度", "value": "Up to 10 - 15 km/s (超音速の数十倍)", "color": "#F8FAFC"},
-            {"label": "RISK ASSESSMENT / 警戒レベル", "value": "High Collision Probability in LEO", "color": "#F97316"},
-            {"label": "ALTITUDE ZONE / 危険高度帯", "value": "700 - 1,000 km (Congested Belt)", "color": "#FACC15"},
+            {"label": "MONITORED OBJECTS", "value": f"{len(markers)} Tracked Cataloged Debris", "color": "#EF4444"},
+            {"label": "RELATIVE VELOCITY", "value": "Up to 10 - 15 km/s (Hypersonic)", "color": "#F8FAFC"},
+            {"label": "RISK ASSESSMENT", "value": "High Collision Probability in LEO", "color": "#F97316"},
+            {"label": "CONGESTED ALTITUDE", "value": "700 - 1,000 km (Critical Belt)", "color": "#FACC15"},
             {"label": "COLLISION AVOIDANCE", "value": "Active Maneuver Shielding Monitored", "color": "#94A3B8"}
         ],
         site_url="satviewer3d.com",
@@ -644,11 +644,11 @@ def task_hubble_live():
         badge_color="#F59E0B",
         title=f"Hubble (HST) • {ctx['region_en']}",
         metrics=[
-            {"label": "PRIMARY MISSION / 任務", "value": "Deep Space Optical Observatory", "color": "#F59E0B"},
-            {"label": "ORBIT SPEED / 飛行速度", "value": f"{speed_km_h:,.0f} km/h (7.5 km/s)", "color": "#F8FAFC"},
-            {"label": "CURRENT ALTITUDE / 高度", "value": f"{alt:.1f} km (LEO)", "color": "#4ADE80"},
-            {"label": "ORBITAL PERIOD / 公転周期", "value": "95.4 min (地球を約95分で1周)", "color": "#FACC15"},
-            {"label": "LAUNCH YEAR / 打ち上げ", "value": "1990 (35+ Years in Service)", "color": "#94A3B8"}
+            {"label": "PRIMARY MISSION", "value": "Deep Space Optical Observatory", "color": "#F59E0B"},
+            {"label": "ORBIT SPEED", "value": f"{speed_km_h:,.0f} km/h (7.5 km/s)", "color": "#F8FAFC"},
+            {"label": "CURRENT ALTITUDE", "value": f"{alt:.1f} km (LEO)", "color": "#4ADE80"},
+            {"label": "ORBITAL PERIOD", "value": "95.4 min (~15 orbits/day)", "color": "#FACC15"},
+            {"label": "SERVICE TIMELINE", "value": "1990 - Present (35+ Years Active)", "color": "#94A3B8"}
         ],
         site_url="satviewer3d.com",
         out_path=out_img
@@ -4187,6 +4187,39 @@ def task_satellite_spotlight():
     display_name = sat.get("name_en", sat["name"])
     short_label = display_name.split(" (")[0][:16]
 
+    # 英語ミッション説明・トリビアの抽出
+    import re
+    def _smart_truncate(text, max_len):
+        words = text.split()
+        res = []
+        curr = 0
+        for w in words:
+            addition = len(w) + (1 if res else 0)
+            if curr + addition <= max_len:
+                res.append(w)
+                curr += addition
+            else:
+                break
+        return " ".join(res)
+
+    mission_en = ""
+    feature_en = ""
+    if "story_en" in sat:
+        lines = [l.strip() for l in sat["story_en"].split("\n") if l.strip()]
+        if len(lines) >= 2:
+            m_text = re.sub(r'^[^\w\s]+', '', lines[1]).strip()
+            m_text = re.sub(r'[^\w\s\-\.,/]+$', '', m_text).strip()
+            mission_en = _smart_truncate(m_text, 36)
+        if len(lines) >= 3:
+            t_text = re.sub(r'^(💡\s*)?(Trivia:\s*)?', '', lines[2], flags=re.IGNORECASE).strip()
+            t_text = re.sub(r'[^\w\s\-\.,/]+$', '', t_text).strip()
+            feature_en = _smart_truncate(t_text, 42)
+
+    if not mission_en:
+        mission_en = "Earth & Space Exploration Mission"
+    if not feature_en:
+        feature_en = "Active Satellite in Global Fleet"
+
     out_img = "post_card.png"
     render_3d_globe(
         center_lat=s_lat, center_lon=s_lon,
@@ -4197,8 +4230,8 @@ def task_satellite_spotlight():
         badge_color=sat["color"],
         title=display_name[:28],
         metrics=[
-            {"label": "SATELLITE MISSION", "value": sat.get("badge", "")[:32], "color": sat.get("color", "#38BDF8")},
-            {"label": "CURIOUS FEATURE", "value": sat.get("badge", "")[:46] + "...", "color": "#F8FAFC"},
+            {"label": "SATELLITE MISSION", "value": mission_en, "color": sat.get("color", "#38BDF8")},
+            {"label": "KEY TRIVIA / FEATURE", "value": feature_en, "color": "#F8FAFC"},
             {"label": "ORBIT ALTITUDE", "value": f"~{s_alt:,.0f} km" if s_alt < 100000 else f"Deep Space (~{s_alt:,.0f} km)", "color": "#4ADE80"},
             {"label": "INTERACTIVE 3D SIMULATION", "value": "Real-Time Tracking & Telemetry", "color": "#38BDF8"},
             {"label": "GLOBAL CATALOG", "value": "Active Worldwide Space Fleet", "color": "#FACC15"}
