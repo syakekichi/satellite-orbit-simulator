@@ -277,39 +277,44 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
             except:
                 pass
 
-            # 送信の実行 (ボタンクリック + ショートカット)
+            # 送信の実行 (キーボードショートカット Control+Enter 最優先 + ダイアログ消失の厳格検証)
             print("[INFO] ポスト送信を実行中...")
-            btn = page.locator('button[data-testid="tweetButtonInline"], button[data-testid="tweetButton"]').first
-            submitted = False
             try:
-                if btn.is_visible(timeout=5000) and btn.is_enabled():
-                    try:
-                        btn.scroll_into_view_if_needed(timeout=2000)
-                    except:
-                        pass
-                    btn.click(force=True, timeout=5000)
-                    submitted = True
-                    print("[INFO] 送信ボタンのクリック（force=True）に成功しました。")
-                elif btn.is_visible() and not btn.is_enabled():
-                    print("❌ [POST BLOCKED] 送信ボタンが無効化されています（文字数オーバー等の可能性）。投稿を中止します。")
-                    if browser: browser.close()
-                    else: context.close()
-                    return False
+                editor.focus()
+                time.sleep(0.5)
+                page.keyboard.press("Control+Enter")
+                print("[INFO] Control+Enter によるショートカット送信を実行しました。")
             except Exception as e:
-                print(f"[WARN] 送信ボタンの直接クリックに失敗 ({e})。Control+Enter ショートカット送信に切り替えます。")
+                print(f"[WARN] editor.focus / shortcut error: {e}")
 
-            if not submitted:
+            # ダイアログ内の送信ボタンも補助クリック
+            dialog_btn = page.locator('div[role="dialog"] button[data-testid="tweetButton"]').first
+            try:
+                if dialog_btn.is_visible(timeout=3000) and dialog_btn.is_enabled():
+                    dialog_btn.click(timeout=3000)
+                    print("[INFO] ダイアログ内送信ボタンをクリックしました。")
+            except:
+                pass
+
+            # ダイアログが消える（送信完了）まで最大12秒待機
+            dialog_detached = False
+            try:
+                page.wait_for_selector('div[role="dialog"]', state='detached', timeout=12000)
+                dialog_detached = True
+                print("🎉 [VERIFIED] 投稿ダイアログの消失（送信完了）を確認しました！")
+            except Exception:
+                print("[WARN] 初回送信でダイアログが閉じませんでした。再試行します...")
                 try:
                     editor.focus()
-                    editor.press("Control+Enter")
-                    print("[INFO] Control+Enter によるショートカット送信を実行しました。")
-                except Exception as e:
-                    print(f"[WARN] エディタへのControl+Enter送信失敗: {e}")
                     page.keyboard.press("Control+Enter")
-
-            print("[INFO] 送信完了を待機・ダイアログ処理中...")
-            time.sleep(5)
-            dismiss_modals(page, context)
+                    time.sleep(1)
+                    if dialog_btn.is_visible() and dialog_btn.is_enabled():
+                        dialog_btn.click(force=True, timeout=3000)
+                    page.wait_for_selector('div[role="dialog"]', state='detached', timeout=8000)
+                    dialog_detached = True
+                    print("🎉 [VERIFIED] 再試行により投稿ダイアログの消失（送信完了）を確認しました！")
+                except Exception as e2:
+                    print(f"❌ [WARN] ダイアログがまだ表示されています: {e2}")
 
             # 送信後スクリーンショット
             try:
@@ -327,6 +332,12 @@ def post_via_browser(text: str, image_path: str = None, headless: bool = True) -
                     if browser: browser.close()
                     else: context.close()
                     return False
+
+            if not dialog_detached:
+                print("❌ [POST FAILED] 投稿ダイアログが閉じないため、投稿に失敗したと判定します。")
+                if browser: browser.close()
+                else: context.close()
+                return False
 
             print("🎉 [VERIFIED] 投稿が正常に送信されました！")
             try:
