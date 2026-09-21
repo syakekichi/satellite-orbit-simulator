@@ -22,11 +22,11 @@ MODE_FILE = "last_bot_mode.txt"
 
 # X (Twitter) の直リンクスパム判定・インプレッション制限を回避するためのプロフ誘導案内文
 LINK_GUIDE = {
-    "JA": "🔗 3Dリアルタイム軌道はプロフから👇",
-    "EN": "🔗 Track live 3D orbit in bio👇",
-    "ES": "🔗 ¡Simulador 3D en el enlace de nuestro perfil! 👇",
-    "ZH": "🔗 实时3D地球模拟器请见个人简介链接👇",
-    "RU": "🔗 3D симулятор орбиты по ссылке в профиле👇"
+    "JA": "🔗 3Dリアルタイム軌道はプロフから👆",
+    "EN": "🔗 Track live 3D orbit in bio 👆",
+    "ES": "🔗 ¡Simulador 3D en el enlace de nuestro perfil! 👆",
+    "ZH": "🔗 实时3D地球模拟器请见个人简介链接👆",
+    "RU": "🔗 3D симулятор орбиты по ссылке в профиле👆"
 }
 
 # -------------------------------------------------------------
@@ -2406,7 +2406,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
         'tags': '#PleiadesNeo #Airbus',
         'name_en': 'Pleiades Neo (Airbus Optical Fleet)',
         'story_en': '📸 [Pleiades Neo / Airbus 30cm Fleet]\n'
-                    'Airbus constellation capturing 30cm commercial imagery with multiple daily revisits! ✨\n'
+                    'Airbus constellation capturing 30cm imagery with multiple daily revisits! ✨\n'
                     '💡 Trivia: Uses laser crosslinks to deliver emergency images to ground in minutes.',
         'tags_en': '#PleiadesNeo #Airbus #EarthImagery'},
     {   'id': 'SPUTNIK-1',
@@ -2964,8 +2964,8 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
         'tags': '#チャンドラヤーン #月の水',
         'name_en': 'Chandrayaan-1 (Discovery of Lunar Water)',
         'story_en': '💧 [Chandrayaan-1 / Finding Lunar Water]\n'
-                    "India's first Moon orbiter discovered definitive evidence of water molecules on the Moon! 🌔\n"
-                    '💡 Trivia: Shattered the long-held myth that the Moon was completely bone dry.',
+                    "India's first Moon probe discovered definitive proof of water molecules on the Moon! 🌔\n"
+                    '💡 Trivia: Shattered the long-held myth that the Moon was bone dry.',
         'tags_en': '#Chandrayaan1 #ISRO #MoonWater'},
     {   'id': 'MANGALYAAN',
         'name': 'マンガルヤーン (MOM / インド火星探査機)',
@@ -3872,7 +3872,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
         'tags': '#ビーナスエクスプレス #金星探査',
         'name_en': 'Venus Express (ESA Venus Explorer)',
         'story_en': '🌪️ [Venus Express / Hurricane Winds]\n'
-                    "Probed Venus's 400 km/h super-rotating atmosphere and giant double-eyed polar hurricane! 🔥\n"
+                    "Probed Venus's 400 km/h super-rotating atmosphere and giant polar hurricane! 🔥\n"
                     '💡 Trivia: Found sulfur dioxide spikes on Venus, suggesting active volcanic eruptions.',
         'tags_en': '#VenusExpress #ESA #Venus'},
     {   'id': 'BEPICOLOMBO',
