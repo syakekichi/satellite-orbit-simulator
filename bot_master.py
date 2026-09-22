@@ -22,11 +22,11 @@ MODE_FILE = "last_bot_mode.txt"
 
 # X (Twitter) の直リンクスパム判定・インプレッション制限を回避するためのプロフ誘導案内文
 LINK_GUIDE = {
-    "JA": "🔗 3Dリアルタイム軌道はプロフから👆",
-    "EN": "🔗 Track live 3D orbit in bio 👆",
-    "ES": "🔗 ¡Simulador 3D en el enlace de nuestro perfil! 👆",
-    "ZH": "🔗 实时3D地球模拟器请见个人简介链接👆",
-    "RU": "🔗 3D симулятор орбиты по ссылке в профиле👆"
+    "JA": "3Dリアルタイム軌道はプロフから 👆",
+    "EN": "Track live 3D orbit (link in bio) 👆",
+    "ES": "¡Simulador 3D en el enlace de nuestro perfil! 👆",
+    "ZH": "实时3D地球模拟器请见个人简介链接 👆",
+    "RU": "3D симулятор орбиты по ссылке в профиле 👆"
 }
 
 # -------------------------------------------------------------
@@ -239,20 +239,20 @@ def task_iss_live():
     # 世界中の宇宙ファンに向け、英語テキストを標準生成
     templates = [
         (
-            f"🛰️ International Space Station (ISS) Live Flyover!\n"
-            f"Zooming over {ctx['region_en']} at {speed_km_h:,.0f} km/h ({alt:.0f} km altitude). Visible to the naked eye as a brilliant gliding star under clear twilight skies! 🔭🌌\n\n"
+            f"International Space Station (ISS) Live Flyover 🛰️\n"
+            f"The ISS is currently flying over {ctx['region_en']} at {speed_km_h:,.0f} km/h ({alt:.0f} km altitude). It is visible to the naked eye as a brilliant gliding star in the clear twilight sky! 🔭✨\n\n"
             f"{LINK_GUIDE['EN']}\n"
             f"#ISS #Space #Astronomy #NASA"
         ),
         (
-            f"💡 ISS Space Trivia:\n"
-            f"Cruising at 7.7 km/s over {ctx['region_en']}! Orbiting Earth every 92 minutes, astronauts witness 16 sunrises and sunsets every 24 hours 🌅🌌\n\n"
+            f"International Space Station Orbital Fact 🛰️\n"
+            f"The ISS is cruising at 7.7 km/s over {ctx['region_en']}. Orbiting Earth every 92 minutes, the astronauts aboard witness 16 sunrises and sunsets every 24 hours! 🌅✨\n\n"
             f"{LINK_GUIDE['EN']}\n"
             f"#ISS #SpaceTrivia #NASA"
         ),
         (
-            f"🚀 Football-field-sized orbital laboratory in flight!\n"
-            f"The ISS is soaring over {ctx['region_en']} at {speed_km_h:,.0f} km/h. Tracking real-time orbital physics live on 3D globe 🛰️✨\n\n"
+            f"Orbital Laboratory Live Pass 🛰️\n"
+            f"The International Space Station is soaring over {ctx['region_en']} at {speed_km_h:,.0f} km/h. Track its real-time telemetry and orbital path in 3D! 🌌✨\n\n"
             f"{LINK_GUIDE['EN']}\n"
             f"#SpaceStation #Orbit #Science"
         )
@@ -313,13 +313,13 @@ def task_tiangong_live():
 
     templates = [
         (
-            f"🛰️ Tiangong Space Station (CSS) Live Orbit Tracker!\n"
-            f"Zooming over {ctx['region_en']} at {speed_km_h:,.0f} km/h (~{alt:.0f} km LEO) hosting three taikonauts aboard Tianhe core module 🌌✨\n\n"
+            f"Tiangong Space Station (CSS) Live Orbit Tracker 🛰️\n"
+            f"The Chinese Space Station is flying over {ctx['region_en']} at {speed_km_h:,.0f} km/h (~{alt:.0f} km altitude), hosting three taikonauts aboard the Tianhe module! 🌌✨\n\n"
             f"{LINK_GUIDE['EN']}\n#Tiangong #SpaceStation #Astronomy"
         ),
         (
-            f"💡 Space Trivia: Humanity currently maintains TWO permanently crewed outposts in orbit—the ISS and Tiangong!\n"
-            f"Passing over {ctx['region_en']} right now at 7.7 km/s 🛰️✨\n\n"
+            f"Tiangong Orbital Science Fact 🛰️\n"
+            f"Humanity currently maintains two permanently crewed outposts in orbit: the ISS and Tiangong. The station is passing over {ctx['region_en']} at 7.7 km/s! ✨\n\n"
             f"{LINK_GUIDE['EN']}\n#Tiangong #SpaceScience #Orbit"
         )
     ]
@@ -384,14 +384,13 @@ def task_spanish_radar():
 
     templates = [
         (
-            f"📡 Spain & Latin America Radar Fleet in Orbit!\n"
-            f"Live Tracking: PAZ (X-band SAR), SAOCOM 1A/1B (giant L-band), and CHEOPS 🛰️✨\n"
-            f"All-weather radar mapping soil moisture, floods, and seismic shifts day and night!\n\n"
+            f"Earth Radar Sentinel Fleet in Orbit 🛰️\n"
+            f"The PAZ and SAOCOM radar satellites are actively scanning our planet, mapping soil moisture, flood hazards, and seismic shifts day and night! 📡✨\n\n"
             f"{LINK_GUIDE['EN']}\n#EarthObservation #Radar #Space"
         ),
         (
-            f"🛰️ Earth Radar Sentinel Fleet in Orbit!\n"
-            f"Tracking PAZ (X-band SAR) and SAOCOM 1A/1B radar satellites mapping our planet day and night through clouds and storms 📡✨\n\n"
+            f"Synthetic Aperture Radar Fleet Active 🛰️\n"
+            f"Tracking European and Latin American radar satellites in orbit. These spacecraft pierce through clouds and darkness to monitor ground shifts worldwide! 📡✨\n\n"
             f"{LINK_GUIDE['EN']}\n#EarthObservation #Radar #Space"
         )
     ]
@@ -452,13 +451,13 @@ def task_starlink_fleet():
 
     templates = [
         (
-            f"🌐 SpaceX Starlink Mega-Constellation Live Tracker!\n"
-            f"Over 6,000 active broadband satellites wrapping the globe at ~550 km LEO to beam high-speed internet anywhere on Earth 🛰️⚡\n\n"
+            f"SpaceX Starlink Constellation Live Radar 🛰️\n"
+            f"Over 6,000 active broadband satellites are orbiting Earth at an altitude of ~550 km to deliver high-speed internet globally ⚡\n\n"
             f"{LINK_GUIDE['EN']}\n#Starlink #SpaceX #MegaConstellation"
         ),
         (
-            f"💡 Autonomous space fleet in low Earth orbit:\n"
-            f"Thousands of Starlink satellites continuously coordinate orbital positions and dodge debris using AI and ion thrusters 🤖🛰️\n\n"
+            f"SpaceX Starlink Autonomous Fleet 🛰️\n"
+            f"Thousands of Starlink satellites in low Earth orbit coordinate their paths and avoid space debris using onboard AI and ion thrusters 🤖\n\n"
             f"{LINK_GUIDE['EN']}\n#SpaceX #Starlink #Technology"
         )
     ]
@@ -525,13 +524,13 @@ def task_starlink_train():
 
     templates = [
         (
-            f"✨ Witness the 'Galaxy Express' in the night sky!\n"
-            f"SpaceX Starlink Train: Freshly launched satellites orbiting in a glowing single-file pearl-necklace line 🌌🛰️\n\n"
+            f"SpaceX Starlink Train Sighting 🛰️✨\n"
+            f"A newly launched batch of Starlink satellites is orbiting in a glowing single-file line across the night sky.\n\n"
             f"{LINK_GUIDE['EN']}\n#StarlinkTrain #SpaceX #Astronomy"
         ),
         (
-            f"💡 Why do Starlink satellites form a glowing train?\n"
-            f"Deployed into the same orbit, they travel together for days before slowly spacing out into operational planes! 🛰️✨\n\n"
+            f"SpaceX Starlink Orbital Formation 🛰️✨\n"
+            f"After deployment into low Earth orbit, Starlink satellites travel closely together in a pearl-string train before maneuvering into their final orbits.\n\n"
             f"{LINK_GUIDE['EN']}\n#SpaceTrivia #Starlink #SpaceX"
         )
     ]
@@ -590,13 +589,13 @@ def task_space_debris():
 
     templates = [
         (
-            f"💥 Orbital Space Debris Risk Radar!\n"
-            f"Dead rocket stages and fragments hurtling at 28,000 km/h (8 km/s)! In LEO, even a 1cm bolt strikes with the explosive force of an anvil 🛡️⚡\n\n"
+            f"Orbital Space Debris Risk Radar 💥\n"
+            f"Thousands of spent rocket stages and fragments are hurtling through low Earth orbit at speeds up to 28,000 km/h (8 km/s) 🛡️⚡\n\n"
             f"{LINK_GUIDE['EN']}\n#SpaceDebris #KesslerSyndrome #LEO"
         ),
         (
-            f"🛡️ Defending the Orbital Commons:\n"
-            f"Tracking thousands of cataloged debris objects threatening the ISS and active satellites. Preventing the runaway Kessler Syndrome chain reaction 🛰️💥\n\n"
+            f"Space Debris Collision Warning 💥\n"
+            f"Ground radar networks track thousands of orbital fragments threatening the ISS and active satellites to prevent the catastrophic Kessler syndrome 🛰️🛡️\n\n"
             f"{LINK_GUIDE['EN']}\n#SpaceSafety #SpaceScience"
         )
     ]
@@ -655,13 +654,13 @@ def task_hubble_live():
 
     templates = [
         (
-            f"🔭 Hubble Space Telescope (HST) Live Orbit Tracker!\n"
-            f"Cruising at {speed_km_h:,.0f} km/h over {ctx['region_en']} (~{alt:.0f} km altitude). Celebrating 35+ years of peering deep into the cosmos 🌌✨\n\n"
+            f"Hubble Space Telescope (HST) Live Orbit 🔭\n"
+            f"The Hubble Space Telescope is cruising over {ctx['region_en']} at {speed_km_h:,.0f} km/h ({alt:.0f} km altitude), observing the universe for over 35 years 🌌✨\n\n"
             f"{LINK_GUIDE['EN']}\n#Hubble #NASA #Astronomy"
         ),
         (
-            f"💡 Hubble's Incredible Precision:\n"
-            f"While orbiting at 27,000 km/h, Hubble locks onto targets with the accuracy of holding a laser beam steady on a hair 1.6 km away! 🔭✨\n\n"
+            f"Hubble Space Telescope Ultra Precision 🔭\n"
+            f"While orbiting Earth at 27,000 km/h, Hubble locks onto cosmic targets with the accuracy of aiming a laser at a human hair 1.6 km away ✨\n\n"
             f"{LINK_GUIDE['EN']}\n#Hubble #SpaceTrivia #NASA"
         )
     ]
@@ -3584,7 +3583,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
         'name_en': 'Opportunity Rover (Mars Exploration)',
         'story_en': '🚙 [Opportunity / 15-Year Mars Rover]\n'
                     'Designed for 90 days, drove 45 km over 15 years, proving past salty lakes! 🪨\n'
-                    '💡 Trivia: Worked tirelessly until a planet-wide dust storm finally blanketed its solar panels.',
+                    '💡 Trivia: Worked until a planet-wide dust storm finally blanketed its solar panels.',
         'tags_en': '#Opportunity #MarsRover #NASA'},
     {   'id': 'SPIRIT',
         'name': 'スピリット (Spirit / NASA火星探査車)',
@@ -3743,7 +3742,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
         'tags': '#NEOWISE #小惑星探査',
         'name_en': 'NEOWISE (Asteroid Hunter / NASA)',
         'story_en': '☄️ [NEOWISE / Planetary Defense Hunter]\n'
-                    'Infrared surveyor detecting thousands of dark asteroids and comets passing close to Earth! 🔭\n'
+                    'Infrared surveyor detecting thousands of dark asteroids and comets near Earth! 🔭\n'
                     '💡 Trivia: Discovered the famous naked-eye Comet NEOWISE (C/2020 F3) in 2020.',
         'tags_en': '#NEOWISE #Asteroids #Comets'},
     {   'id': 'GLOBALSTAR',
@@ -4241,7 +4240,21 @@ def task_satellite_spotlight():
 
     # 世界中の宇宙ファンに向け、英語解説・トリビアを最優先で投稿
     if "story_en" in sat:
-        clean_story = sat['story_en'].replace('・', ' & ')
+        raw_story = sat['story_en'].replace('・', ' & ')
+        lines = raw_story.split('\n')
+        if lines:
+            first_line = lines[0].strip()
+            m = re.match(r'^([^\w\s\[\(]+)\s*(.*)$', first_line)
+            if m:
+                emoji, rest = m.group(1), m.group(2)
+                clean_title = re.sub(r'^\[(.*)\]$', r'\1', rest).strip()
+                lines[0] = f"{clean_title} {emoji}".strip()
+            else:
+                lines[0] = re.sub(r'^\[(.*)\]$', r'\1', first_line).strip()
+            clean_story = "\n".join(lines)
+        else:
+            clean_story = raw_story
+
         text = (
             f"{clean_story}\n\n"
             f"{LINK_GUIDE['EN']}\n"
@@ -4255,7 +4268,7 @@ def task_satellite_spotlight():
         )
     else:
         text = (
-            f"🛰️ Satellite Spotlight: {display_name}\n\n"
+            f"Satellite Spotlight: {display_name} 🛰️\n\n"
             f"{LINK_GUIDE['EN']}\n#Space #Satellite"
         )
 
@@ -4340,15 +4353,13 @@ def task_asteroid_alert():
 
     templates = [
         (
-            f"☄️ Near-Earth Asteroid Alert: {ast['name']}!\n"
-            f"📏 Diameter: {ast['diameter']} | ⚡ Speed: {ast['speed']}\n"
-            f"🎯 Next Flyby: {ast['flyby']}\n"
-            f"📍 Distance: {ast['dist'][:25]}\n\n"
-            f"{LINK_GUIDE['EN']}\n#Asteroid #PlanetaryDefense #NASA #Astronomy"
+            f"Near-Earth Asteroid Flyby Alert ☄️\n"
+            f"Asteroid {ast['name']} ({ast['diameter']}) will make its next close approach to Earth on {ast['flyby']} at a relative speed of {ast['speed']}.\n\n"
+            f"{LINK_GUIDE['EN']}\n#Asteroid #PlanetaryDefense #Astronomy"
         ),
         (
-            f"🌍 Planetary Defense: Asteroid {ast['name']}\n"
-            f"Tracking this near-Earth space rock cruising at {ast['speed']} relative velocity! Live 3D Keplerian orbital radar simulation 🛰️🔭\n\n"
+            f"Planetary Defense Asteroid Radar 🔭\n"
+            f"Astronomers are monitoring asteroid {ast['name']} as it travels through deep space at {ast['speed']} relative velocity.\n\n"
             f"{LINK_GUIDE['EN']}\n#Asteroids #SpaceSafety #Science"
         )
     ]
