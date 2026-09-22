@@ -390,10 +390,9 @@ def task_spanish_radar():
             f"{LINK_GUIDE['EN']}\n#EarthObservation #Radar #Space"
         ),
         (
-            f"🛰️ ¡Satélites de España y Latinoamérica en órbita!\n"
-            f"Rastreo en directo: PAZ (SAR), SAOCOM 1A/1B (radar L) y CHEOPS 📡✨\n"
-            f"Observación de la Tierra día y noche.\n\n"
-            f"{LINK_GUIDE['ES']}\n#Satélites #España #Ciencia"
+            f"🛰️ Earth Radar Sentinel Fleet in Orbit!\n"
+            f"Tracking PAZ (X-band SAR) and SAOCOM 1A/1B radar satellites mapping our planet day and night through clouds and storms 📡✨\n\n"
+            f"{LINK_GUIDE['EN']}\n#EarthObservation #Radar #Space"
         )
     ]
     text = random.choice(templates)
@@ -764,7 +763,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
                     '💡【トリビア】センサーを絶対零度（-273.1℃）まで極冷して観測！',
         'tags': '#XRISM #JAXA',
         'name_en': 'XRISM (JAXA・NASA)',
-        'story_en': '🌌 [XRISM / JAXA・NASA]\n'
+        'story_en': '🌌 [XRISM / JAXA & NASA]\n'
                     'Probing black holes and supernovas with unprecedented X-ray spectral precision! ❄️🔭\n'
                     '💡 Trivia: Spectrometer is cooled to -273.1°C, just 0.05°C above absolute zero!',
         'tags_en': '#XRISM #JAXA #NASA #Astronomy'},
@@ -1165,7 +1164,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
                     '💡【トリビア】災害時に地上の通信網が途絶しても個人アンテナで交信できる砦！',
         'tags': '#ふじ3号 #アマチュア無線',
         'name_en': 'Fuji-3 (JAS-2 / Ham Radio)',
-        'story_en': '📻 [Fuji-3 (JAS-2) / JAXA・JARL]\n'
+        'story_en': '📻 [Fuji-3 (JAS-2) / JAXA & JARL]\n'
                     'Amateur radio satellite relaying voice & packet messages across continents! 📡✨\n'
                     '💡 Trivia: Provided emergency communications when ground networks failed in disasters.',
         'tags_en': '#Fuji3 #AmateurRadio #HamRadio'},
@@ -1229,7 +1228,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
                     '💡【トリビア】気候変動で最大の謎とされる「雲の温暖化効果」を解明へ！',
         'tags': '#EarthCARE #はくりゅう',
         'name_en': 'Hakuryu (EarthCARE / JAXA・ESA)',
-        'story_en': '🐉 [Hakuryu (EarthCARE) / JAXA・ESA]\n'
+        'story_en': '🐉 [Hakuryu (EarthCARE) / JAXA & ESA]\n'
                     "Carries the world's first Doppler cloud radar to measure falling droplet speeds! ☁️\n"
                     '💡 Trivia: Solves how clouds cool or warm Earth in global climate models.',
         'tags_en': '#EarthCARE #Hakuryu #ESA #JAXA'},
@@ -1309,7 +1308,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
                     '💡【トリビア】最後は土星の大気圏へ突入し消滅する「グランドフィナーレ」で幕！',
         'tags': '#カッシーニ #土星',
         'name_en': 'Cassini (Saturn Orbiter / NASA・ESA)',
-        'story_en': '🪐 [Cassini / NASA・ESA]\n'
+        'story_en': '🪐 [Cassini / NASA & ESA]\n'
                     'Found water geysers erupting on moon Enceladus and probed Saturn across 294 orbits! ❄️\n'
                     '💡 Trivia: Ended with a planned dive into Saturn to protect pristine moons.',
         'tags_en': '#Cassini #Saturn #NASA #ESA'},
@@ -1357,7 +1356,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
                     '💡【トリビア】宇宙で数百個の機構が1つの失敗もなく展開された工学の最高傑作！',
         'tags': '#JWST #宇宙望遠鏡',
         'name_en': 'James Webb Space Telescope (JWST)',
-        'story_en': '🔭 [JWST / NASA・ESA]\n'
+        'story_en': '🔭 [JWST / NASA & ESA]\n'
                     'With its 6.5m gold mirror at L2, JWST captures light from stars born 13.5B years ago! ✨\n'
                     '💡 Trivia: Chilled to -233°C beneath a tennis-court-sized Kapton sunshield.',
         'tags_en': '#JWST #JamesWebb #NASA #Astronomy'},
@@ -1639,7 +1638,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
                     '💡【トリビア】一般市民が公開画像をネットで探して新彗星を発見する快挙も！',
         'tags': '#SOHO #太陽観測',
         'name_en': 'SOHO (Solar Observatory / ESA・NASA)',
-        'story_en': '☀️ [SOHO / ESA・NASA]\n'
+        'story_en': '☀️ [SOHO / ESA & NASA]\n'
                     'Observes the solar corona and solar wind continuously from the L1 point! ☄️\n'
                     '💡 Trivia: Citizen scientists examining its public images have discovered 5,000+ comets!',
         'tags_en': '#SOHO #Sun #Comets #NASA'},
@@ -1863,7 +1862,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
                     '💡【トリビア】Google Earthのタイムラプス過去動画はこの衛星画像のおかげ！',
         'tags': '#Landsat #NASA',
         'name_en': 'Landsat 9 (NASA・USGS)',
-        'story_en': '🌍 [Landsat 9 / NASA・USGS]\n'
+        'story_en': '🌍 [Landsat 9 / NASA & USGS]\n'
                     'Continuing 50+ years of Earth imaging, tracking deforestation and glacier retreat! 🌿\n'
                     "💡 Trivia: Longest continuous space-based record of Earth's land surface.",
         'tags_en': '#Landsat #NASA #USGS #Climate'},
@@ -1927,7 +1926,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
                     '💡【トリビア】洪水や渇水、温暖化による水資源の危機を宇宙から監視中！',
         'tags': '#SWOT #NASA',
         'name_en': 'SWOT (NASA・CNES Water Sentinel)',
-        'story_en': '🌊 [SWOT / NASA・CNES]\n'
+        'story_en': '🌊 [SWOT / NASA & CNES]\n'
                     "Uses radar interferometry to survey water elevation across 95% of Earth's lakes & rivers! 🛰️\n"
                     '💡 Trivia: Measures ocean and freshwater levels within centimeter accuracy.',
         'tags_en': '#SWOT #NASA #CNES #Hydrology'},
@@ -2181,7 +2180,7 @@ FEATURED_SATELLITES = [   {   'id': 'MICHIBIKI-7',
                     '💡【トリビア】太陽表面に無数に燃え盛る小型フレア「キャンプファイア」を発見！',
         'tags': '#ソーラーオービター #太陽探査',
         'name_en': 'Solar Orbiter (ESA・NASA)',
-        'story_en': '☀️ [Solar Orbiter / ESA・NASA]\n'
+        'story_en': '☀️ [Solar Orbiter / ESA & NASA]\n'
                     'Tilting its orbit out of the ecliptic to capture the first direct views of solar poles! 🔥\n'
                     "💡 Trivia: Spotted miniature flare phenomena nicknamed 'campfires' on the Sun.",
         'tags_en': '#SolarOrbiter #ESA #Sun #NASA'},
@@ -4242,8 +4241,9 @@ def task_satellite_spotlight():
 
     # 世界中の宇宙ファンに向け、英語解説・トリビアを最優先で投稿
     if "story_en" in sat:
+        clean_story = sat['story_en'].replace('・', ' & ')
         text = (
-            f"{sat['story_en']}\n\n"
+            f"{clean_story}\n\n"
             f"{LINK_GUIDE['EN']}\n"
             f"{sat.get('tags_en', '#Space #Satellite #Science')}"
         )
