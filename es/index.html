@@ -221,7 +221,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260911_1850">
+    <link rel="stylesheet" href="styles.css?v=20261008_1935">
 </head>
 <body>
     <!-- 3D Simulator Fullscreen Viewport Wrapper (100vh First View) -->
@@ -819,11 +819,18 @@
             </div>
     </div><!-- End of hud-layer -->
 
-        <!-- Scroll Down Hint Banner (Floating on Simulator Viewport Bottom) -->
-        <a href="#siteGuideSection" class="scroll-down-hint" style="pointer-events: auto;" onclick="window.scrollToSiteGuide && window.scrollToSiteGuide(event)" aria-label="Scroll to Satellite Guide">
-            <span class="scroll-hint-text">📜 Space Data & Satellite Guide</span>
-            <span class="scroll-hint-arrow">▼</span>
-        </a>
+        <!-- Floating Guide & Articles Strip (Bottom Center of Viewport) -->
+        <div class="viewport-bottom-strip">
+            <a href="#siteGuideSection" class="scroll-down-hint" style="pointer-events: auto;" onclick="window.scrollToSiteGuide && window.scrollToSiteGuide(event)" aria-label="Desplazarse a la Guía Espacial">
+                <span class="scroll-hint-text">📜 Guía de Satélites y Ciencia Espacial</span>
+                <span class="scroll-hint-arrow">▼</span>
+            </a>
+            <a href="/en/articles/voyager-1-interstellar-mission" class="featured-article-chip">
+                <span class="chip-badge">Artículo Destacado</span>
+                <span class="chip-text">🚀 Voyager 1: Ciencia del Espacio Interestelar</span>
+                <span class="chip-arrow">&rarr;</span>
+            </a>
+        </div>
 
         <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
         <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
@@ -840,7 +847,7 @@
         </div><!-- End of hud-layer -->
     </div><!-- End of #simulatorAppWrapper -->
 
-    <script src="app.js?v=20260911_1850"></script>
+    <script src="app.js?v=20261008_1935"></script>
 
     <!-- ============================================================
          SEO & Educational Guide Content Section (Scroll-down Area)
@@ -1001,7 +1008,7 @@
 
             <!-- Back to Simulator Floating Button -->
             <div style="text-align:center;">
-                <a href="#simulatorAppWrapper" class="back-to-simulator-btn">
+                <a href="/es/#simulatorAppWrapper" class="back-to-simulator-btn" onclick="window.scrollToSimulator && window.scrollToSimulator(event)">
                     <span>🚀</span>
                     <span>Back to 3D Simulator</span>
                 </a>

@@ -2849,6 +2849,99 @@ body.cupola-mode-active .cesium-widget-credits {
 }
 
 /* ============================================================
+   Viewport Bottom Strip & Featured Article Chip
+   ============================================================ */
+.viewport-bottom-strip {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1060;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.viewport-bottom-strip > * {
+    pointer-events: auto !important;
+}
+
+.viewport-bottom-strip .scroll-down-hint {
+    position: static;
+    transform: none;
+    animation: none;
+}
+
+.featured-article-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(251, 191, 36, 0.45);
+    border-radius: 9999px;
+    color: #f8fafc;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 16px rgba(251, 191, 36, 0.15);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.featured-article-chip:hover {
+    background: rgba(15, 23, 42, 0.98);
+    border-color: #fbbf24;
+    color: #ffffff;
+    box-shadow: 0 6px 24px rgba(251, 191, 36, 0.35);
+    transform: translateY(-2px);
+}
+
+.chip-badge {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #000000;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.chip-text {
+    color: #f8fafc;
+}
+
+.chip-arrow {
+    color: #fbbf24;
+    transition: transform 0.2s ease;
+}
+
+.featured-article-chip:hover .chip-arrow {
+    transform: translateX(3px);
+}
+
+@media (max-width: 768px) {
+    .viewport-bottom-strip {
+        bottom: 64px;
+        flex-direction: column;
+        gap: 6px;
+        width: 90%;
+        max-width: 360px;
+    }
+    .viewport-bottom-strip .scroll-down-hint,
+    .featured-article-chip {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.76rem;
+        padding: 6px 12px;
+    }
+}
+
+/* ============================================================
    SEO & Educational Guide Content Section (Scroll-down Area)
    ============================================================ */
 .site-guide-section {

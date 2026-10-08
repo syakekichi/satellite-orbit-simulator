@@ -15907,6 +15907,29 @@ function setupCameraDPadControls() {
         }, { passive: false, capture: true });
     }
 
+    // 4. Back to 3D Simulator Top Handler (Guaranteed to stay on current language page!)
+    function scrollToSimulator(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        const wrapper = document.getElementById('simulatorAppWrapper');
+        if (wrapper) {
+            wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        if (window.history && window.history.replaceState) {
+            const path = window.location.pathname;
+            window.history.replaceState(null, null, path);
+        }
+    }
+    window.scrollToSimulator = scrollToSimulator;
+
+    document.querySelectorAll('.back-to-simulator-btn').forEach(btn => {
+        btn.addEventListener('click', scrollToSimulator);
+    });
+
 }
 
 function setActivePresetBtn(activeBtn) {

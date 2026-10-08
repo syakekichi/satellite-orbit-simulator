@@ -15,6 +15,8 @@
   <url><loc>https://satviewer3d.com/ru/articles/</loc><lastmod>2026-08-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://satviewer3d.com/pt/articles/</loc><lastmod>2026-09-11</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <!-- Japanese Articles -->
+  <url><loc>https://satviewer3d.com/articles/voyager-1-interstellar-mission</loc><lastmod>2026-09-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://satviewer3d.com/articles/sputnik-1-space-race</loc><lastmod>2026-09-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://satviewer3d.com/articles/iss-tracker-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://satviewer3d.com/articles/starlink-constellation</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://satviewer3d.com/articles/tiangong-space-station</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -26,6 +28,8 @@
   <url><loc>https://satviewer3d.com/articles/sgp4-tle-orbit-math</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://satviewer3d.com/articles/satellite-spotting-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <!-- EN Articles -->
+  <url><loc>https://satviewer3d.com/en/articles/voyager-1-interstellar-mission</loc><lastmod>2026-09-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://satviewer3d.com/en/articles/sputnik-1-space-race</loc><lastmod>2026-09-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://satviewer3d.com/en/articles/iss-tracker-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://satviewer3d.com/en/articles/starlink-constellation</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://satviewer3d.com/en/articles/tiangong-space-station</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>

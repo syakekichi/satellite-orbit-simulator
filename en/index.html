@@ -196,7 +196,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260911_1850">
+    <link rel="stylesheet" href="styles.css?v=20261008_1935">
 </head>
 <body>
     <!-- 3D Simulator Fullscreen Viewport Wrapper (100vh First View) -->
@@ -797,11 +797,18 @@
             </div>
     </div><!-- End of hud-layer -->
 
-        <!-- Scroll Down Hint Banner (Floating on Simulator Viewport Bottom) -->
-        <a href="#siteGuideSection" class="scroll-down-hint" style="pointer-events: auto;" onclick="window.scrollToSiteGuide && window.scrollToSiteGuide(event)" aria-label="Scroll to Satellite Guide">
-            <span class="scroll-hint-text">📜 Space Data & Satellite Guide</span>
-            <span class="scroll-hint-arrow">▼</span>
-        </a>
+        <!-- Floating Guide & Articles Strip (Bottom Center of Viewport) -->
+        <div class="viewport-bottom-strip">
+            <a href="#siteGuideSection" class="scroll-down-hint" style="pointer-events: auto;" onclick="window.scrollToSiteGuide && window.scrollToSiteGuide(event)" aria-label="Scroll to Space Guide">
+                <span class="scroll-hint-text">📜 Space Data & Satellite Guide</span>
+                <span class="scroll-hint-arrow">▼</span>
+            </a>
+            <a href="/en/articles/voyager-1-interstellar-mission" class="featured-article-chip">
+                <span class="chip-badge">Featured</span>
+                <span class="chip-text">🚀 Voyager 1: Interstellar Mission Science</span>
+                <span class="chip-arrow">&rarr;</span>
+            </a>
+        </div>
 
         <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
         <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
@@ -818,7 +825,7 @@
         </div><!-- End of hud-layer -->
     </div><!-- End of #simulatorAppWrapper -->
 
-    <script src="app.js?v=20260911_1850"></script>
+    <script src="app.js?v=20261008_1935"></script>
 
     <!-- ============================================================
          SEO & Educational Guide Content Section (Scroll-down Area)
@@ -982,6 +989,18 @@
                 </h3>
                 <p>Explore comprehensive technical guides, historical missions, and orbital physics deep-dives:</p>
                 <div class="articles-preview-grid">
+                    <a href="/en/articles/voyager-1-interstellar-mission" class="article-preview-card">
+                        <span class="tag">Deep Space Exploration</span>
+                        <h4>Voyager 1 Current Location & Interstellar Science</h4>
+                        <p>Flying over 24 billion km from Earth into interstellar space: RTG nuclear power, deep-space telemetry, and humanity's farthest journey.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
+                    <a href="/en/articles/sputnik-1-space-race" class="article-preview-card">
+                        <span class="tag">Spaceflight History</span>
+                        <h4>How Sputnik 1 Changed the World Forever</h4>
+                        <p>October 4, 1957: humanity's very first artificial satellite, the Sputnik shockwave, and the dawn of the global space race.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
                     <a href="/en/articles/iss-tracker-guide" class="article-preview-card">
                         <span class="tag">Human Spaceflight</span>
                         <h4>ISS Orbit Tracker & Spotting Guide</h4>
@@ -1006,6 +1025,18 @@
                         <p>Optical versus infrared astronomy, low Earth orbit versus Sun-Earth L2 halo orbit, and revolutionary cosmic discoveries.</p>
                         <span class="read-more">Read Article &rarr;</span>
                     </a>
+                    <a href="/en/articles/tiangong-space-station" class="article-preview-card">
+                        <span class="tag">Space Station</span>
+                        <h4>China's Tiangong Space Station Guide</h4>
+                        <p>Architecture of the T-shaped 400 km orbiting laboratory: Tianhe core module, Wentian & Mengtian science racks.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
+                    <a href="/en/articles/sar-satellite-radar" class="article-preview-card">
+                        <span class="tag">Earth Observation</span>
+                        <h4>Synthetic Aperture Radar (SAR) Satellites</h4>
+                        <p>Microwave imaging physics penetrating night and clouds to monitor millimetric ground deformation and flood disasters.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
                     <a href="/en/articles/geostationary-orbit" class="article-preview-card">
                         <span class="tag">Orbital Dynamics</span>
                         <h4>Physics of Geostationary Orbit (GEO)</h4>
@@ -1018,12 +1049,24 @@
                         <p>Asymmetric quasi-zenith orbits designed to overcome urban GPS shadowing and achieve centimeter-level positioning accuracy.</p>
                         <span class="read-more">Read Article &rarr;</span>
                     </a>
+                    <a href="/en/articles/sgp4-tle-orbit-math" class="article-preview-card">
+                        <span class="tag">Orbital Mechanics</span>
+                        <h4>Understanding TLEs & SGP4 Mathematics</h4>
+                        <p>From Keplerian orbital elements to real-time SGP4 perturbation equations calculating satellite vectors with millisecond precision.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
+                    <a href="/en/articles/satellite-spotting-guide" class="article-preview-card">
+                        <span class="tag">Stargazing Guide</span>
+                        <h4>Beginner's Guide to Satellite Spotting</h4>
+                        <p>How to identify ISS and Starlink passes in the night sky with the naked eye, optimal twilight timing, and azimuth readings.</p>
+                        <span class="read-more">Read Article &rarr;</span>
+                    </a>
                 </div>
             </div>
 
             <!-- Back to Simulator Floating Button -->
             <div style="text-align:center;">
-                <a href="#simulatorAppWrapper" class="back-to-simulator-btn">
+                <a href="/en/#simulatorAppWrapper" class="back-to-simulator-btn" onclick="window.scrollToSimulator && window.scrollToSimulator(event)">
                     <span>🚀</span>
                     <span>Back to 3D Simulator</span>
                 </a>

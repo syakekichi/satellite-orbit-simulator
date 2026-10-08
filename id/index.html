@@ -221,7 +221,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260911_1850">
+    <link rel="stylesheet" href="styles.css?v=20261008_1935">
 </head>
 <body>
     <!-- 3D Simulator Fullscreen Viewport Wrapper (100vh First View) -->
@@ -304,7 +304,7 @@
                                 <option value="ru" style="background:#0b1329; color:#fff;">🇷🇺 Русский</option>
                             </select>
                         </div>
-                        <a href="/id/articles/" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.5); color: #38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; border-radius:6px;">
+                        <a href="/en/articles/" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.5); color: #38bdf8; text-decoration:none; display:inline-flex; align-items:center; gap:4px; border-radius:6px;">
                             📚 <span data-i18n="navArticles">Artikel Antariksa</span>
                         </a>
                         <button id="headerScreenshotBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="headerScreenshot">
@@ -819,11 +819,18 @@
             </div>
     </div><!-- End of hud-layer -->
 
-        <!-- Scroll Down Hint Banner (Floating on Simulator Viewport Bottom) -->
-        <a href="#siteGuideSection" class="scroll-down-hint" style="pointer-events: auto;" onclick="window.scrollToSiteGuide && window.scrollToSiteGuide(event)" aria-label="Scroll to Satellite Guide">
-            <span class="scroll-hint-text">📜 Space Data & Satellite Guide</span>
-            <span class="scroll-hint-arrow">▼</span>
-        </a>
+        <!-- Floating Guide & Articles Strip (Bottom Center of Viewport) -->
+        <div class="viewport-bottom-strip">
+            <a href="#siteGuideSection" class="scroll-down-hint" style="pointer-events: auto;" onclick="window.scrollToSiteGuide && window.scrollToSiteGuide(event)" aria-label="Scroll to Space Guide">
+                <span class="scroll-hint-text">📜 Panduan Satelit & Sains Antariksa</span>
+                <span class="scroll-hint-arrow">▼</span>
+            </a>
+            <a href="/en/articles/voyager-1-interstellar-mission" class="featured-article-chip">
+                <span class="chip-badge">Artikel Pilihan</span>
+                <span class="chip-text">🚀 Voyager 1: Sains Ruang Antarbintang</span>
+                <span class="chip-arrow">&rarr;</span>
+            </a>
+        </div>
 
         <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
         <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
@@ -840,7 +847,7 @@
         </div><!-- End of hud-layer -->
     </div><!-- End of #simulatorAppWrapper -->
 
-    <script src="app.js?v=20260911_1850"></script>
+    <script src="app.js?v=20261008_1935"></script>
 
     <!-- ============================================================
          SEO & Educational Guide Content Section (Scroll-down Area)
@@ -978,19 +985,19 @@
                     <span>Artikel Antariksa</span>
                 </h3>
                 <div class="articles-preview-grid">
-                    <a href="/id/articles/iss-tracker-guide" class="article-preview-card">
+                    <a href="/en/articles/iss-tracker-guide" class="article-preview-card">
                         <span class="tag">ISS</span>
                         <h4>ISS Orbit Tracker & Guide</h4>
                         <p>Real-time orbital tracking and sighting guide for the International Space Station.</p>
                         <span class="read-more">&rarr;</span>
                     </a>
-                    <a href="/id/articles/starlink-constellation" class="article-preview-card">
+                    <a href="/en/articles/starlink-constellation" class="article-preview-card">
                         <span class="tag">Starlink</span>
                         <h4>SpaceX Starlink Constellation</h4>
                         <p>Megaconstellation engineering, laser cross-links, and orbital dynamics.</p>
                         <span class="read-more">&rarr;</span>
                     </a>
-                    <a href="/id/articles/space-debris-crisis" class="article-preview-card">
+                    <a href="/en/articles/space-debris-crisis" class="article-preview-card">
                         <span class="tag">Debris</span>
                         <h4>Space Debris Crisis & Kessler Syndrome</h4>
                         <p>Orbital hypervelocity collisions and active removal technologies.</p>
@@ -1001,7 +1008,7 @@
 
             <!-- Back to Simulator Floating Button -->
             <div style="text-align:center;">
-                <a href="#simulatorAppWrapper" class="back-to-simulator-btn">
+                <a href="/id/#simulatorAppWrapper" class="back-to-simulator-btn" onclick="window.scrollToSimulator && window.scrollToSimulator(event)">
                     <span>🚀</span>
                     <span>Kembali ke Simulator 3D</span>
                 </a>
@@ -1027,7 +1034,7 @@
                     <h4>Navigation</h4>
                     <ul>
                         <li><a href="/id/">Simulator 3D</a></li>
-                        <li><a href="/id/articles/">Artikel Antariksa</a></li>
+                        <li><a href="/en/articles/">Artikel Antariksa</a></li>
                         <li><a href="/sitemap">Peta Situs</a></li>
                         <li><a href="https://earthquake.satviewer3d.com/id/" target="_blank" rel="noopener">QuakeViewer3D (Gempa Bumi)</a></li>
                     </ul>

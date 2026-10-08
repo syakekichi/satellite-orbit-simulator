@@ -195,7 +195,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260911_1850">
+    <link rel="stylesheet" href="styles.css?v=20261008_1935">
 </head>
 <body>
     <!-- 3D Simulator Fullscreen Viewport Wrapper (100vh First View) -->
@@ -844,11 +844,18 @@
         </div>
     </div><!-- End of hud-layer -->
 
-        <!-- Scroll Down Hint Banner (Floating on Simulator Viewport Bottom) -->
-        <a href="#siteGuideSection" class="scroll-down-hint" style="pointer-events: auto;" onclick="window.scrollToSiteGuide && window.scrollToSiteGuide(event)" aria-label="人工衛星解説ガイドへスクロール">
-            <span class="scroll-hint-text">📜 宇宙データ・人工衛星解説ガイド</span>
-            <span class="scroll-hint-arrow">▼</span>
-        </a>
+        <!-- Floating Guide & Articles Strip (Bottom Center of Viewport) -->
+        <div class="viewport-bottom-strip">
+            <a href="#siteGuideSection" class="scroll-down-hint" style="pointer-events: auto;" onclick="window.scrollToSiteGuide && window.scrollToSiteGuide(event)" aria-label="人工衛星解説ガイドへスクロール">
+                <span class="scroll-hint-text">📜 宇宙データ・人工衛星解説ガイド</span>
+                <span class="scroll-hint-arrow">▼</span>
+            </a>
+            <a href="/articles/voyager-1-interstellar-mission" class="featured-article-chip">
+                <span class="chip-badge">注目コラム</span>
+                <span class="chip-text">🚀 ボイジャー1号の現在地と深宇宙の科学</span>
+                <span class="chip-arrow">&rarr;</span>
+            </a>
+        </div>
 
         <!-- Fullscreen Satellite & Planet Image Lightbox Modal -->
         <div id="imageLightboxModal" class="image-lightbox-modal hidden" onclick="this.style.display='none'; this.classList.add('hidden');">
@@ -865,7 +872,7 @@
         </div><!-- End of hud-layer -->
     </div><!-- End of #simulatorAppWrapper -->
 
-    <script src="app.js?v=20260911_1850"></script>
+    <script src="app.js?v=20261008_1935"></script>
 
     <!-- ============================================================
          SEO & Educational Guide Content Section (Scroll-down Area)
@@ -1029,6 +1036,18 @@
                 </h3>
                 <p>人工衛星の歴史、軌道力学の数式、天体望遠鏡の仕組みなどを徹底解説したオリジナル特集記事です。</p>
                 <div class="articles-preview-grid">
+                    <a href="/articles/voyager-1-interstellar-mission" class="article-preview-card">
+                        <span class="tag">深宇宙探査</span>
+                        <h4>ボイジャー1号の現在地と星間空間の科学</h4>
+                        <p>地球から240億km彼方を飛行し続ける人類最遠の探査機。原子力電池（RTG）と深宇宙通信の驚異。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
+                    <a href="/articles/sputnik-1-space-race" class="article-preview-card">
+                        <span class="tag">宇宙開発史</span>
+                        <h4>スプートニク1号が世界を変えた日</h4>
+                        <p>1957年10月4日、人類初の人工衛星打ち上げ。世界を震撼させたスプートニク・ショックと宇宙開発競争の夜明け。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
                     <a href="/articles/iss-tracker-guide" class="article-preview-card">
                         <span class="tag">有人宇宙探査</span>
                         <h4>ISS 軌道追跡ガイド & 「きぼう」観測法</h4>
@@ -1053,6 +1072,18 @@
                         <p>可視光のハッブルと赤外線のウェッブ（JWST）。周回軌道（LEO）とラグランジュ点（L2）の決定的な違い。</p>
                         <span class="read-more">記事を読む &rarr;</span>
                     </a>
+                    <a href="/articles/tiangong-space-station" class="article-preview-card">
+                        <span class="tag">宇宙ステーション</span>
+                        <h4>中国宇宙ステーション「天宮」の全貌</h4>
+                        <p>高度400kmを周回するT字型ステーション。コアモジュール天和と実験モジュール問天・夢天の技術構造。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
+                    <a href="/articles/sar-satellite-radar" class="article-preview-card">
+                        <span class="tag">地球観測</span>
+                        <h4>合成開口レーダー（SAR衛星）の科学</h4>
+                        <p>夜間や雲を透過して地表ミリ単位の地殻変動や災害被害を捉えるマイクロ波観測技術のメカニズム。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
                     <a href="/articles/geostationary-orbit" class="article-preview-card">
                         <span class="tag">軌道力学</span>
                         <h4>静止軌道 (GEO) の力学と宇宙エレベーター</h4>
@@ -1065,12 +1096,24 @@
                         <p>日本上空に長時間留まる独自の「8の字軌道」。なぜ日本のGPS精度が劇的に向上したのかを解説。</p>
                         <span class="read-more">記事を読む &rarr;</span>
                     </a>
+                    <a href="/articles/sgp4-tle-orbit-math" class="article-preview-card">
+                        <span class="tag">軌道計算数学</span>
+                        <h4>TLE 軌道要素と SGP4 モデルの数学</h4>
+                        <p>ケプラーの6要素からSGP4摂動計算アルゴリズムまで、コンピュータが衛星位置をミリ秒単位で算出する数理。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
+                    <a href="/articles/satellite-spotting-guide" class="article-preview-card">
+                        <span class="tag">天体観測</span>
+                        <h4>夜空の人工衛星ワッチャー入門</h4>
+                        <p>初心者でもISSやスターリンクを夜空で見つけるコツ。肉眼観測に最適な時間帯と仰角・方位の読み方。</p>
+                        <span class="read-more">記事を読む &rarr;</span>
+                    </a>
                 </div>
             </div>
 
             <!-- Back to Simulator Floating Button -->
             <div style="text-align:center;">
-                <a href="#simulatorAppWrapper" class="back-to-simulator-btn">
+                <a href="/#simulatorAppWrapper" class="back-to-simulator-btn" onclick="window.scrollToSimulator && window.scrollToSimulator(event)">
                     <span>🚀</span>
                     <span>3D シミュレーター操作に戻る</span>
                 </a>
