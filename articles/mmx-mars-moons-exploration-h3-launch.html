@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>【本日打ち上げ】火星衛星探査機MMX：三菱重工H3ロケットと挑む世界初の火星圏サンプルリターン | SatViewer3D 宇宙科学コラム</title>
-    <meta name="description" content="本日種子島から打ち上げられるJAXA火星衛星探査機MMX。火星圏からの世界初サンプルリターン、三菱重工のH3ロケット最強形態「H3-24L」による惑星遷移軌道投入の全貌を徹底解説。">
-    <meta name="keywords" content="MMX, 火星衛星探査計画, JAXA, H3ロケット, H3-24L, 三菱重工業, フォボス, ダイモス, サンプルリターン, 火星探査">
+    <title>【祝・打ち上げ成功】火星衛星探査機MMX：H3ロケットで宇宙へ！探査機の現在地とこれからの航海 | SatViewer3D 宇宙科学コラム</title>
+    <meta name="description" content="2026年10月20日早朝、種子島から打ち上げられたJAXA火星衛星探査機MMXが軌道投入に成功！太陽電池パドル展開や通信確立など現在の状況、火星圏サンプルリターン計画の全貌を徹底解説。">
+    <meta name="keywords" content="MMX, 火星衛星探査計画, 打ち上げ成功, JAXA, H3ロケット, H3-24L, 三菱重工業, フォボス, ダイモス, サンプルリターン, 火星探査">
     <meta name="author" content="SatViewer3D 開発運営チーム">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://satviewer3d.com/articles/mmx-mars-moons-exploration-h3-launch">
@@ -16,8 +16,8 @@
 
     <!-- OGP -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="【本日打ち上げ】火星衛星探査機MMX：三菱重工H3ロケットと挑む世界初の火星圏サンプルリターン">
-    <meta property="og:description" content="本日種子島から打ち上げられるJAXA火星衛星探査機MMX。火星圏からの世界初サンプルリターン、三菱重工のH3ロケット最強形態「H3-24L」による惑星遷移軌道投入の全貌を徹底解説。">
+    <meta property="og:title" content="【祝・打ち上げ成功】火星衛星探査機MMX：H3ロケットで宇宙へ！探査機の現在地とこれからの航海">
+    <meta property="og:description" content="2026年10月20日早朝、種子島から打ち上げられたJAXA火星衛星探査機MMXが軌道投入に成功！太陽電池パドル展開や通信確立など現在の状況、火星圏サンプルリターン計画の全貌を徹底解説。">
     <meta property="og:url" content="https://satviewer3d.com/articles/mmx-mars-moons-exploration-h3-launch">
     <meta property="og:site_name" content="SatViewer3D">
     <meta property="og:image" content="https://satviewer3d.com/feature_graphic.png">
@@ -33,6 +33,7 @@
         .article-title { font-size: 1.85rem; color: #ffffff; line-height: 1.35; margin-bottom: 12px; }
         .article-meta { font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
         .meta-badge { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .meta-badge-success { background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-weight: 700; border: 1px solid rgba(34, 197, 94, 0.4); }
         .toc-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
         .toc-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; font-size: 1rem; }
         .toc-list { list-style-type: decimal; padding-left: 20px; font-size: 0.9rem; color: #cbd5e1; }
@@ -46,7 +47,9 @@
         li { margin-bottom: 8px; }
         strong { color: #ffffff; }
         .callout { background: rgba(56, 189, 248, 0.08); border-left: 4px solid var(--accent-blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; color: #e2e8f0; }
+        .callout-success { background: rgba(34, 197, 94, 0.08); border-left: 4px solid #22c55e; border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; color: #e2e8f0; }
         .callout-title { font-weight: 700; color: var(--accent-blue); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .callout-title-success { font-weight: 700; color: #4ade80; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
         .simulator-cta { background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(99,102,241,0.15)); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 24px; text-align: center; margin: 36px 0; }
         .simulator-cta h3 { color: #ffffff; font-size: 1.25rem; margin-bottom: 10px; }
         .simulator-cta p { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 16px; }
@@ -62,11 +65,12 @@
             <div class="breadcrumb">
                 <a href="/">SatViewer3D</a> &gt; <a href="/articles/">宇宙科学コラム</a> &gt; 記事
             </div>
-            <h1 class="article-title">【本日打ち上げ】火星衛星探査機MMX：三菱重工H3ロケットと挑む世界初の火星圏サンプルリターン</h1>
+            <h1 class="article-title">【祝・打ち上げ成功】火星衛星探査機MMX：H3ロケットで宇宙へ！探査機の現在地とこれからの航海</h1>
             <div class="article-meta">
+                <span class="meta-badge-success">🚀 打ち上げ成功</span>
                 <span class="meta-badge">深宇宙探査・惑星科学</span>
-                <span>📅 公開日: 2026-10-20</span>
-                <span>⏱️ 読了時間: 約 6 分</span>
+                <span>📅 最終更新: 2026-10-20</span>
+                <span>⏱️ 読了時間: 約 7 分</span>
                 <span>✍️ 著者: SatViewer3D 編集部</span>
             </div>
         </div>
@@ -74,20 +78,36 @@
         <div class="toc-box">
             <div class="toc-title">📑 目次</div>
             <ol class="toc-list">
-                <li><a href="#sec1">MMXとは？火星の2大衛星を目指す日本の大型惑星探査計画</a></li>
-                <li><a href="#sec2">なぜ「衛星」なのか？火星本体のタイムカプセルと起源の謎</a></li>
-                <li><a href="#sec3">4トンの巨躯を支える3段モジュール構造と二重化サンプラー</a></li>
-                <li><a href="#sec4">仏独共同開発の小型ローバー「IDEFIX」による先行偵察</a></li>
-                <li><a href="#sec5">打ち上げを担う三菱重工とH3ロケット最強形態「H3-24L」の初挑戦</a></li>
-                <li><a href="#sec6">2031年地球帰還へのロードマップとSatViewer3Dでの追跡</a></li>
+                <li><a href="#sec1">【速報】打ち上げ成功！H3-24Lから探査機分離・初期運用の現在状況</a></li>
+                <li><a href="#sec2">MMXとは？火星の2大衛星を目指す日本の大型惑星探査計画</a></li>
+                <li><a href="#sec3">なぜ「衛星」なのか？火星本体のタイムカプセルと起源の謎</a></li>
+                <li><a href="#sec4">4トンの巨躯を支える3段モジュール構造と二重化サンプラー</a></li>
+                <li><a href="#sec5">仏独共同開発の小型ローバー「IDEFIX」による先行偵察</a></li>
+                <li><a href="#sec6">三菱重工とH3ロケット最強形態「H3-24L」が果たした歴史的快挙</a></li>
+                <li><a href="#sec7">2031年地球帰還へのロードマップとSatViewer3Dでの追跡</a></li>
             </ol>
         </div>
 
-        <h2 id="sec1">1. MMXとは？火星の2大衛星を目指す日本の大型惑星探査計画</h2>
-        <p>本日（2026年10月20日 午前4時41分）、JAXA（宇宙航空研究開発機構）が主導し、三菱重工業（MHI）が打ち上げ執行責任を担う火星衛星探査計画<strong>「MMX（Martian Moons eXploration）」</strong>が、種子島宇宙センターから宇宙へと旅立ちます。</p>
-        <p>MMXは、火星の2つの衛星「**フォボス（Phobos）**」と「**ダイモス（Deimos）**」を巡り、フォボス表面に着陸して土壌（レゴリス）を採取、地球へと持ち帰る（サンプルリターン）大型探査機です。「はやぶさ」「はやぶさ2」で世界を驚かせた小惑星サンプルリターンの技術を結集し、人類史上初となる「火星圏からの物質回収」に挑戦します。</p>
+        <h2 id="sec1">1. 【速報】打ち上げ成功！H3-24Lから探査機分離・初期運用の現在状況</h2>
+        <div class="callout-success">
+            <div class="callout-title-success">🎉 2026年10月20日 午前4時41分03秒：完璧な打ち上げと軌道投入</div>
+            <p>JAXAおよび三菱重工業は、種子島宇宙センター大型ロケット発射場から**H3ロケット10号機（H3-24L形態）**を定刻通り打ち上げました。ロケットは順調に飛行し、搭載されていた火星衛星探査機「MMX」を計画通りの火星遷移軌道へ正常に分離・投入したことが確認されました。</p>
+        </div>
 
-        <h2 id="sec2">2. なぜ「衛星」なのか？火星本体のタイムカプセルと起源の謎</h2>
+        <h3>現在の探査機ステータス（ヘルスチェック良好）</h3>
+        <p>探査機分離後、宇宙航空研究開発機構（JAXA）相模原キャンパスの運用管制室および深宇宙追跡局を通じて、以下の初期シーケンスがすべて正常に完了したことが確認されています：</p>
+        <ul>
+            <li><strong>太陽電池パドル（SAP）の正常展開：</strong> 分離後、電力を賄う太陽電池パドルがスムーズに展開され、太陽電池による所定の発電電力を確認。</li>
+            <li><strong>太陽捕捉制御の完了：</strong> 探査機が自律的に姿勢を制御し、太陽電池パネルを太陽に向けた安定した姿勢（スリーアクシス安定状態）を確立。</li>
+            <li><strong>地上局との双方向通信確立：</strong> 長野県のJAXA美笹深宇宙探査用地上局をはじめとする国際深宇宙ネットワーク（DSN）局において、探査機からの電波信号を正常に受信し、テレメトリ（機体温度、電圧、各機器ステータス）が極めて健全であることが判明。</li>
+        </ul>
+        <p>現在、MMXは地球の重力圏を完全に脱出し、秒速約11kmを超える超高速で太陽周回の<strong>火星遷移軌道（惑星間軌道）</strong>を飛行中です。これより約10ヶ月間にわたる初期機能確認フェーズおよび巡航航行へと移行し、<strong>2027年8月頃の火星接近・軌道投入</strong>を目指します。</p>
+
+        <h2 id="sec2">2. MMXとは？火星の2大衛星を目指す日本の大型惑星探査計画</h2>
+        <p><strong>MMX（Martian Moons eXploration）</strong>は、火星の2つの衛星「**フォボス（Phobos）**」と「**ダイモス（Deimos）**」を巡り、フォボス表面に着陸して土壌（レゴリス）を採取、地球へと持ち帰る（サンプルリターン）大型探査機です。</p>
+        <p>「はやぶさ」「はやぶさ2」で世界を驚かせた日本の小惑星サンプルリターン技術を結集し、火星圏（火星およびその衛星）からのサンプルリターンという**人類史上・世界初**の金字塔に挑みます。</p>
+
+        <h2 id="sec3">3. なぜ「衛星」なのか？火星本体のタイムカプセルと起源の謎</h2>
         <p>火星探査といえば火星本体への着陸が連想されがちですが、なぜMMXは火星の小さな月（衛星）を目指すのでしょうか。そこには惑星科学における2大フロンティアが存在します。</p>
 
         <h3>① 衛星誕生の起源をめぐる謎（捕獲説 vs 巨大衝突説）</h3>
@@ -107,7 +127,7 @@
             <p>フォボスの表面重力は地球のわずか約0.001G。着陸というよりも「極微重力天体へのドッキング（係留）」に近い超精密なスラスタ制御が求められます。</p>
         </div>
 
-        <h2 id="sec3">3. 4トンの巨躯を支える3段モジュール構造と二重化サンプラー</h2>
+        <h2 id="sec4">4. 4トンの巨躯を支える3段モジュール構造と二重化サンプラー</h2>
         <p>MMXの打ち上げ時重量は約4トン。日本がこれまでに宇宙へ送り出した探査機の中で最大・最重量の機体です。ミッション進行に応じて分離する3つのモジュールで構成されています：</p>
         <ul>
             <li><strong>推進モジュール（PM）：</strong> 地球脱出から火星遷移、火星周回軌道投入までの長距離航行エンジンを担う。</li>
@@ -122,26 +142,27 @@
             <li><strong>ニューマチックサンプラー：</strong> 着陸脚接地と同時に高圧ガスを噴射し、巻き上がった粒子を瞬間的に吸引。</li>
         </ul>
 
-        <h2 id="sec4">4. 仏独共同開発の小型ローバー「IDEFIX」による先行偵察</h2>
+        <h2 id="sec5">5. 仏独共同開発の小型ローバー「IDEFIX」による先行偵察</h2>
         <p>MMXには、フランス国立宇宙研究センター（CNES）とドイツ航空宇宙センター（DLR）が共同開発した小型ローバー<strong>「IDEFIX（イデフィクス）」</strong>が同乗しています。</p>
-        <p>母船MMXの着陸に先駆けて高度数十メートルからフォボス表面へ自由落下投下され、車輪で走行しながらフォボス表面の土壌硬度や物理特性、車輪のスリップ挙動、高解像度画像を事前調査します。このデータにより、MMX本体の安全かつ確実なタッチダウンが担保されます。</p>
+        <p>母船MMXの着陸に先駆けて高度数十メートルからフォボス表面へ自由落下投下され、車輪で走行しながらフォボス表面の土壌硬度や物理特性、車輪のスリップ挙動、高解像度画像を事前調査します。このデータにより、MMX本体のタッチダウン安全性が担保されます。</p>
 
-        <h2 id="sec5">5. 打ち上げを担う三菱重工とH3ロケット最強形態「H3-24L」の初挑戦</h2>
-        <p>本日早朝、種子島からMMXを打ち上げるのは、三菱重工業が打ち上げ執行責任を持つ**H3ロケット10号機**です。このミッションには日本のロケット技術の最高峰が集約されています：</p>
+        <h2 id="sec6">6. 三菱重工とH3ロケット最強形態「H3-24L」が果たした歴史的快挙</h2>
+        <p>今回の打ち上げ執行責任を担った三菱重工業にとって、本日のミッションは**H3ロケットが世界水準の深宇宙打ち上げ能力を実証した記念碑的フライト**となりました：</p>
         <ul>
-            <li><strong>最強推力「24形態」の実戦初投入：</strong> メインエンジン「LE-9」を2基、固体ロケットブースター「SRB-3」を**4本**装着した、H3シリーズ最強の推力を誇るヘビーリフト仕様。</li>
-            <li><strong>大型ロングフェアリング（Type-L）：</strong> 4トンにおよぶ巨大探査機を丸ごと保護して大気圏を突破する長胴型フェアリング。</li>
-            <li><strong>H3初の惑星間軌道（脱出軌道）投入：</strong> 地球低軌道ではなく、地球の重力を振り切って火星へと向かう超高速脱出軌道への第2段再着火・高精度誘導を実施。</li>
+            <li><strong>最強推力「24形態」の初フライト大成功：</strong> メインエンジン「LE-9」を2基、固体ロケットブースター「SRB-3」を**4本**装着した最大推力構成が完璧に機能。</li>
+            <li><strong>ロングフェアリング（Type-L）の空力安定性：</strong> 4トンの大型機を包み込み、大気圏を予定通りの弾道で突破。</li>
+            <li><strong>深宇宙脱出軌道への第2段再着火・高精度誘導：</strong> 地球低軌道での待機後、第2段「LE-5B-3」エンジンの再着火による加速噴射を精密に完遂し、火星へと向かう双曲線軌道へ投入することに成功しました。</li>
         </ul>
 
-        <h2 id="sec6">6. 2031年地球帰還へのロードマップとSatViewer3Dでの追跡</h2>
-        <p>MMXの今後のマイルストーンは以下の通りです：</p>
+        <h2 id="sec7">7. 2031年地球帰還へのロードマップとSatViewer3Dでの追跡</h2>
+        <p>宇宙へ飛び立ったMMXの今後のマイルストーンは以下の通りです：</p>
         <ul>
-            <li><strong>2026年10月20日：</strong> 種子島から打ち上げ、火星遷移軌道へ投入</li>
-            <li><strong>2027年：</strong> 火星周回軌道へ投入、フォボス疑似周回軌道での観測</li>
-            <li><strong>2028〜2029年：</strong> フォボス着陸・サンプル採取、ダイモス接近探査</li>
-            <li><strong>2030年：</strong> 火星圏離脱・地球帰還軌道へ</li>
-            <li><strong>2031年7月：</strong> 地球帰還（オーストラリア・ウーメラ砂漠にてサンプルカプセル回収）</li>
+            <li><strong>2026年10月20日：</strong> 【完了】種子島から打ち上げ成功、火星遷移軌道へ投入</li>
+            <li><strong>2026年10月〜2027年7月：</strong> 惑星間巡航フェーズ（軌道修正マニューバ、機器初期校正）</li>
+            <li><strong>2027年8月頃：</strong> 火星接近・火星周回軌道投入（MOI）、フォボス疑似周回軌道（QSO）へ移行</li>
+            <li><strong>2028〜2029年頃：</strong> ローバーIDEFIX投下、フォボス着陸・サンプル採取（目標10g以上）、ダイモス接近観測</li>
+            <li><strong>2030年頃：</strong> 火星圏離脱・地球帰還軌道投入（TEI）</li>
+            <li><strong>2031年度（7月頃予定）：</strong> 地球帰還（オーストラリア・ウーメラ砂漠にてサンプルカプセル回収）</li>
         </ul>
 
         <div class="simulator-cta">
