@@ -9142,6 +9142,24 @@ function computePlanetEphemeris(bodyId, time) {
 // ==========================================================================
 const DEEP_SPACE_MISSIONS = [
     {
+        id: 'MMX',
+        name: 'Martian Moons eXploration (MMX / 火星衛星探査機)',
+        shortName: 'MMX',
+        symbol: '🔴',
+        color: '#f43f5e',
+        parent: 'SUN',
+        distKm: 149600000,
+        periodDays: 300,
+        type: 'MARS_PROBE',
+        launchDate: '2026-10-20 04:41:03 JST (H3-24L)',
+        rocket: 'H3 Launch Vehicle Flight 10 (H3-24L)',
+        agency: 'JAXA / CNES / DLR / NASA',
+        site: 'Earth-Mars Heliocentric Transfer Orbit (TMI Trajectory)',
+        instruments: 'Core Sampler, Pneumatic Sampler, IDEFIX Rover, TENGOO, OROCHI, MIRS, MEGANE',
+        speedKmS: '11.35 km/s (Heliocentric Cruise)',
+        modelType: 'MMX'
+    },
+    {
         id: 'JWST',
         name: 'James Webb Space Telescope (JWST / ジェイムズ・ウェッブ宇宙望遠鏡)',
         shortName: 'JWST',
@@ -9493,6 +9511,17 @@ const DEEP_SPACE_DISPLAY_NAMES = {
 };
 
 const DEEP_SPACE_DESCRIPTIONS = {
+    "MMX": {
+        "ja": "JAXAが主導しCNES・DLR・NASAが国際協力する世界初の火星圏サンプルリターン探査機。2026年10月20日04:41 JSTに種子島宇宙センターからH3ロケット10号機（H3-24L）で打ち上げ完全成功！太陽電池パドルの展開、太陽捕捉、美笹深宇宙探査用地上局をはじめとする各局との双方向通信を正常確立し、現在秒速11km超で地球-火星遷移軌道を飛行中。2027年8月に火星周回軌道へ到達し、衛星フォボスへの着陸・サンプル採取および小型ローバー「IDEFIX」の投下探査を行い、2031年7月に地球へカプセル帰還する計画です。",
+        "en": "Japan's flagship Martian Moons eXploration (MMX) mission, led by JAXA in partnership with CNES, DLR, and NASA. Successfully launched on October 20, 2026, at 04:41 JST atop an H3-24L rocket from Tanegashima. Telemetry acquisition and solar array deployment are fully nominal as MMX cruises along its trans-Mars injection trajectory at over 11 km/s. Scheduled to arrive at Mars in August 2027 to land on Phobos, deploy the IDEFIX rover, collect pristine surface samples, and return the capsule to Earth by July 2031.",
+        "de": "JAXAs wegweisende Marsmond-Explorationsmission MMX in Kooperation mit CNES, DLR und NASA. Erfolgreich gestartet am 20. Oktober 2026 mit einer H3-24L-Rakete von Tanegashima.",
+        "fr": "Mission d'exploration des lunes de Mars (MMX) dirigee par la JAXA avec le CNES, le DLR et la NASA. Lancee avec succes le 20 octobre 2026 sur H3-24L.",
+        "es": "Mision insignia de exploracion de las lunas de Marte (MMX) liderada por JAXA con CNES, DLR y NASA. Lanzada con exito el 20 de octubre de 2026 en un cohete H3-24L.",
+        "pt": "Missao de exploracao das luas de Marte (MMX) liderada pela JAXA com CNES, DLR e NASA. Lancada com sucesso em 20 de outubro de 2026 a bordo do H3-24L.",
+        "it": "Missione di esplorazione delle lune di Marte (MMX) guidata da JAXA con CNES, DLR e NASA. Lanciata con successo il 20 ottobre 2026.",
+        "ko": "JAXA가 주도하고 CNES, DLR, NASA가 협력하는 세계 최초의 화성권 샘플 리턴 탐사선 MMX. 2026년 10월 20일 H3-24L 로켓으로 발사 성공.",
+        "zh": "由JAXA主导、CNES/DLR/NASA国际合作的世界首个火星圈采样返回探测器MMX。2026年10月20日搭乘H3-24L运载火箭成功发射。"
+    },
     "JWST": {
         "ja": "NASA・ESA・CSAが共同開発した人類史上最強の次世代宇宙望遠鏡。※地球の赤道上空3.6万kmにとどまる「静止衛星」とは全く異なり、月（約38万km）のさらに4倍も遠い約150万km彼方の「太陽-地球 第2ラグランジュ点（L2）」を半年かけて1周する巨大なハロー軌道を飛行しています。18枚の金コーティング・ベリリウム製六角形主鏡（口径6.5m）とテニスコート大の5層サンシールドを備え、絶対零度近くの極低温（-233℃以下）から135億年以上前の宇宙黎明期の最遠銀河や太陽系外惑星の大気成分を直接検出しています。",
         "en": "The premier deep space observatory developed by NASA, ESA, and CSA. Unlike geostationary satellites orbiting 36,000 km above Earth, JWST is stationed ~1.5 million km away (4 times farther than the Moon) in a wide Halo orbit around the Sun-Earth L2 Lagrange point, completing one orbit every ~6 months. Featuring a 6.5-meter gold-coated beryllium mirror and tennis-court-sized sunshield, it operates below -233°C to observe the universe's first luminous galaxies from 13.5 billion years ago and analyze exoplanet atmospheres.",
@@ -9656,6 +9685,13 @@ const DEEP_SPACE_DESCRIPTIONS = {
 };
 
 const DEEP_SPACE_SPECS = {
+    "MMX": {
+        agency: { ja: "JAXA / CNES (仏) / DLR (独) / NASA (米)", en: "JAXA / CNES (France) / DLR (Germany) / NASA" },
+        orbitType: { ja: "地球-火星 太陽周回ホーマン遷移軌道 (TMI / 2027年8月火星到達)", en: "Heliocentric Earth-Mars Transfer Orbit (MOI August 2027)" },
+        dimensions: { ja: "打上時全備質量: 約4,000 kg / 3モジュール構成 (推進PM・探査EM・復帰RM)", en: "Wet Mass: ~4,000 kg / 3-Module Architecture (PM, EM, RM)" },
+        instruments: { ja: "二重サンプラー (コア/空圧式), 小型探査車IDEFIX, 望遠カメラTENGOO, 分光器MIRS/MEGANE", en: "Dual Samplers (Core/Pneumatic), IDEFIX Rover, TENGOO, MIRS, MEGANE" },
+        scienceGoal: { ja: "火星衛星フォボスからの世界初サンプルリターン、衛星起源解明 & 太古火星物質の採取", en: "World-first Martian moon sample return, solving Phobos origin & ancient Mars volatiles" }
+    },
     "JWST": {
         agency: { ja: "NASA / ESA / CSA (欧州宇宙機関・カナダ宇宙庁)", en: "NASA / ESA / CSA International Collaboration" },
         orbitType: { ja: "太陽-地球 L2 ラグランジュ点 ハロー軌道 (~150万km / 非静止軌道・約半年周期公転)", en: "Sun-Earth L2 Lagrange Point Halo Orbit (~1.5M km / Non-Geostationary, ~6-month period)" },
@@ -11079,6 +11115,23 @@ function createDeepSpaceBillboard(mission) {
 
 function computeDeepSpacePosition(mission, time) {
     if (!viewer) return Cesium.Cartesian3.ZERO;
+    if (mission.id === 'MMX') {
+        // MMX打ち上げ: 2026-10-20 04:41:03 JST
+        const T0 = 1792438863000;
+        const T1 = 1818255600000; // 2027-08-15
+        const nowMs = simDate.getTime();
+        const u = Math.min(1.0, Math.max(0.0001, (nowMs - T0) / (T1 - T0)));
+        const rAU = 1.0 + u * 0.524;
+        const rMeters = rAU * 149597870700;
+        const theta = 0.35 + u * 2.96;
+        const zRatio = Math.sin(u * Math.PI) * 0.032;
+        return new Cesium.Cartesian3(
+            rMeters * Math.cos(theta),
+            rMeters * Math.sin(theta) * 0.96,
+            rMeters * zRatio
+        );
+    }
+
 
     const simDate = customSimTime || (time ? Cesium.JulianDate.toDate(time) : new Date());
     const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || viewer.clock.currentTime);
@@ -11269,6 +11322,21 @@ function drawDeepSpaceOrbit(mission) {
                 const pts = [];
                 const sampleCount = 120;
 
+                                if (mission.id === 'MMX') {
+                    for (let i = 0; i <= sampleCount; i++) {
+                        const u = i / sampleCount;
+                        const rAU = 1.0 + u * 0.524;
+                        const rMeters = rAU * 149597870700;
+                        const theta = 0.35 + u * 2.96;
+                        const zRatio = Math.sin(u * Math.PI) * 0.032;
+                        pts.push(new Cesium.Cartesian3(
+                            rMeters * Math.cos(theta),
+                            rMeters * Math.sin(theta) * 0.96,
+                            rMeters * zRatio
+                        ));
+                    }
+                    return pts;
+                }
                 if (mission.id === 'JWST') {
                     let sunPos;
                     try {
@@ -11902,6 +11970,73 @@ function drawAllPlanetaryOrbits() {
     });
     v1MarkerEnt.deepSpaceData = { id: 'VOYAGER1' };
     solarSystemOrbitEntities.push(v1MarkerEnt);
+
+    // MMX 火星遷移軌道 (Trans-Mars Injection)
+    const ptsMMX = [];
+    const mmxSteps = 100;
+    const nowSimMs = (customSimTime ? customSimTime.getTime() : Date.now());
+    const mmxT0 = 1792438863000;
+    const mmxT1 = 1818255600000;
+    const mmxProgress = Math.min(1.0, Math.max(0.001, (nowSimMs - mmxT0) / (mmxT1 - mmxT0)));
+
+    for (let i = 0; i <= mmxSteps; i++) {
+        const u = i / mmxSteps;
+        const au = 1.0 + u * 0.524;
+        const r = getOrreryRadius(au);
+        const theta = 0.35 + u * 2.96;
+        const zRatio = Math.sin(u * Math.PI) * 0.032;
+        ptsMMX.push(new Cesium.Cartesian3(
+            r * Math.cos(theta),
+            r * Math.sin(theta) * 0.96,
+            r * zRatio
+        ));
+    }
+    const mmxOrbitEnt = viewer.entities.add({
+        id: 'orrery_orbit_MMX',
+        name: 'MMX Trans-Mars Trajectory',
+        polyline: {
+            positions: ptsMMX,
+            width: 5.0,
+            arcType: Cesium.ArcType.NONE,
+            material: new Cesium.PolylineGlowMaterialProperty({
+                glowPower: 0.58,
+                color: Cesium.Color.fromCssColorString('#f43f5e')
+            }),
+            distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, Number.MAX_VALUE)
+        }
+    });
+    mmxOrbitEnt.deepSpaceData = { id: 'MMX' };
+    solarSystemOrbitEntities.push(mmxOrbitEnt);
+
+    // MMX現在地マーカー
+    const mmxMarkerIdx = Math.min(mmxSteps, Math.floor(mmxSteps * mmxProgress));
+    const mmxMarkerPos = ptsMMX[mmxMarkerIdx];
+    const mmxMarkerEnt = viewer.entities.add({
+        id: 'orrery_craft_MMX',
+        name: 'MMX',
+        position: mmxMarkerPos,
+        point: {
+            pixelSize: 20,
+            color: Cesium.Color.fromCssColorString('#f43f5e'),
+            outlineColor: Cesium.Color.WHITE,
+            outlineWidth: 2.5,
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+        },
+        label: {
+            text: '🔴 MMX (' + ((lang === 'ja') ? '火星遷移軌道' : 'Trans-Mars') + ')',
+            font: 'bold 13px "Inter", "Segoe UI", sans-serif',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            fillColor: Cesium.Color.fromCssColorString('#fda4af'),
+            outlineColor: Cesium.Color.BLACK,
+            outlineWidth: 3.5,
+            verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+            pixelOffset: new Cesium.Cartesian2(0, -18),
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+        }
+    });
+    mmxMarkerEnt.deepSpaceData = { id: 'MMX' };
+    solarSystemOrbitEntities.push(mmxMarkerEnt);
+
 
     // ボイジャー2号：地球(1AU) -> 木星 -> 土星 -> 天王星 -> 海王星スイングバイ(30AU) -> 太陽系外脱出(南方-55度)
     const ptsVoyager2 = [];
@@ -13071,6 +13206,7 @@ function updateDropdownOptions() {
     };
 
     const deepSpaceNames = (typeof DEEP_SPACE_DISPLAY_NAMES !== 'undefined') ? DEEP_SPACE_DISPLAY_NAMES : {
+        MMX: { ja: '🔴 MMX (火星衛星探査機 / 火星遷移軌道)', en: '🔴 MMX (Martian Moons eXploration / Trans-Mars)' },
         JWST: { ja: '🔭 JWST (ジェイムズ・ウェッブ宇宙望遠鏡 / L2)', en: '🔭 JWST (James Webb Space Telescope / L2)' },
         ARTEMIS_ORION: { ja: '🚀 アルテミス・オリオン有人探査船 (月DRO軌道)', en: '🚀 Artemis Orion Spacecraft (Lunar DRO)' },
         LRO: { ja: '🌕 LRO (月周回偵察探査衛星 / 月低軌道)', en: '🌕 LRO (Lunar Reconnaissance Orbiter)' },
@@ -16040,6 +16176,7 @@ function performSearch(rawQuery) {
         LRO: ['LRO', 'LUNAR RECONNAISSANCE', '月周回', 'ルナー', 'MOON ORBITER', '月探査衛星'],
         MARS_PERSEVERANCE: ['PERSEVERANCE', 'パーサヴィアランス', 'パーサビアランス', 'MARS ROVER', '火星探査車', 'ジェゼロ', 'JEZERO', 'ローバー'],
         MARS_MRO: ['MRO', 'MARS RECONNAISSANCE', 'マーズ・リコネサンス', 'HIRISE', '火星探査機', '火星衛星'],
+        MMX: ['MMX', 'MARTIAN MOONS', '火星衛星探査機', 'フォボス', 'PHOBOS', 'H3-24L', 'JAXA MMX'],
         HAYABUSA2: ['HAYABUSA2', 'HAYABUSA', 'はやぶさ2', 'はやぶさ', 'ハヤブサ', 'RYUGU', 'リュウグウ', '小惑星探査', '小惑星'],
         VOYAGER1: ['VOYAGER', 'VOYAGER1', 'ボイジャー', 'ボイジャー1号', 'INTERSTELLAR', '星間', '最遠', 'ゴールデンレコード']
     };
@@ -16267,3 +16404,19 @@ function hideLoading() {
         overlay.style.pointerEvents = 'none';
     }
 }
+
+
+// Global shortcut to track MMX live in 3D
+window.trackMMXLive = function() {
+    if (typeof selectDeepSpaceMission === 'function') {
+        selectDeepSpaceMission('MMX');
+        if (typeof satSelect !== 'undefined' && satSelect) satSelect.value = 'deepspace_MMX';
+        if (typeof showUniversalToast === 'function') {
+            const lang = window.currentLang || 'ja';
+            const msg = (lang === 'ja')
+                ? '🔴 火星衛星探査機 MMX リアルタイム追跡中<br><span style="font-size:0.75rem; color:#cbd5e1;">地球-火星遷移軌道 (秒速11.3km) | 2027年8月火星到達予定</span>'
+                : '🔴 Tracking MMX Live en route to Mars<br><span style="font-size:0.75rem; color:#cbd5e1;">Trans-Mars Trajectory (11.3 km/s) | Mars Arrival Aug 2027</span>';
+            showUniversalToast(msg, '🚀', 6000);
+        }
+    }
+};
