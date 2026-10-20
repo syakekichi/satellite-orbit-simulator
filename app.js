@@ -12458,6 +12458,7 @@ function selectDeepSpaceMission(missionId, skipFly = false) {
 
     if (satImageWrapper && satImage) {
         const missionImages = {
+            MMX: 'assets/sat_images/mmx.jpg?v=20261020_1',
             JWST: 'assets/sat_images/jwst.png?v=20260905_1',
             ARTEMIS_ORION: 'assets/sat_images/artemis_orion.jpg?v=20260905_1',
             LRO: 'assets/sat_images/lro.jpg?v=20260905_1',
@@ -12480,6 +12481,7 @@ function selectDeepSpaceMission(missionId, skipFly = false) {
             satImage.alt = mission.name;
             if (satImageCaption) {
                 const sourceMap = {
+                    MMX: 'JAXA / CNES / DLR (Public Domain & Press Kit)',
                     SPUTNIK1: 'NASA / Smithsonian (Public Domain)',
                     APOLLO11: 'NASA (Public Domain)',
                     HAYABUSA2: 'JAXA (Public Domain)',
