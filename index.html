@@ -288,7 +288,7 @@
                             🔇 サウンド OFF
                         </button>
                         <button id="openReleaseBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:700; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: #38bdf8; cursor:pointer; white-space:nowrap;" data-i18n="btnRelease">
-                            📜 v2.10 更新履歴
+                            📜 v2.11 更新履歴
                         </button>
                         <button id="openGuideBtn" class="btn btn-secondary header-action-btn" style="padding: 4px 10px; font-size: 0.78rem; font-weight:600; background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.4); color: #c084fc; cursor:pointer; white-space:nowrap;" data-i18n="btnGuide">
                             ❓ ガイド & 規約
@@ -619,7 +619,7 @@
                 </div>
                 <div class="modal-tabs">
                     <button class="modal-tab active" data-tab="tabControls" data-i18n="tabControls">🎮 操作方法</button>
-                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 v2.10 更新履歴</button>
+                    <button class="modal-tab" data-tab="tabReleases" data-i18n="tabReleases">📜 v2.11 更新履歴</button>
                     <button class="modal-tab" data-tab="tabDisclaimer" data-i18n="tabDisclaimer">⚠️ 免責事項</button>
                     <button class="modal-tab" data-tab="tabPrivacy" data-i18n="tabPrivacy">🔒 プライバシーポリシー</button>
                     <button class="modal-tab" data-tab="tabAbout" data-i18n="tabAbout">ℹ️ サイト情報</button>
@@ -643,10 +643,24 @@
                     <div id="tabReleases" class="tab-content">
                         <h3 data-i18n="releaseTitle">📜 SatViewer3D 更新履歴・リリースノート</h3>
                         <div class="release-timeline" style="display:flex; flex-direction:column; gap:16px; margin-top:12px;">
+                            <!-- Version 2.11.0 -->
+                            <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(244, 63, 94, 0.5); border-radius: 8px; padding: 14px 16px; box-shadow: 0 0 16px rgba(244, 63, 94, 0.2);">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                    <span style="background: linear-gradient(135deg, #f43f5e, #fb7185); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.11.0 (Latest)</span>
+                                    <span style="color: var(--text-muted); font-size:0.75rem;">2026-10-20</span>
+                                </div>
+                                <h4 style="color:#fb7185; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel211Title">🔴 火星衛星探査機 MMX 3Dリアルタイム追跡 & 実機ビジュアル・深宇宙Orrery統合</h4>
+                                <ul style="margin:0; padding-left:18px; font-size:0.82rem; color:#cbd5e1; line-height:1.65;">
+                                    <li data-i18n="rel211_1">🚀 <strong>火星衛星探査機 MMX（JAXA / H3-24L）のリアルタイム3D追跡</strong>: 2026年10月20日に打ち上げ成功した日本の大型惑星探査機MMXの地球-火星間ホーマン遷移ケプラー軌道推算モデルを新規実装。地球脱出から2027年8月火星到達までのリアルタイム座標・進行進捗度（%）を精密算出。</li>
+                                    <li data-i18n="rel211_2">🌌 <strong>太陽系 Orrery View ＆ 深宇宙探査機モードへの完全統合</strong>: 太陽中心のOrreryビューで地球と火星の間に美しく弧を描く発光遷移軌道を可視化。ワンクリックLIVE追跡ボタンでスムーズにカメラが探査機へ追従。</li>
+                                    <li data-i18n="rel211_3">📸 <strong>MMX 実機高解像度レンダリング画像＆ライトボックス拡大</strong>: 金色MLI断熱材や大型ソーラーパネル、火星・フォボスを捉えた実機CGを詳細パネルに搭載。フルスクリーンライトボックス表示に対応。</li>
+                                    <li data-i18n="rel211_4">📚 <strong>宇宙科学・経済コラム 5記事を新規公開</strong>: MMX打ち上げ詳報をはじめ、SpaceX株の全国民配布構想と将来のUHI/UBI、宇宙経済の定量的財務試算、未公開株（プレIPO）購入ガイド、日本への波及予測を日英両言語で追加。</li>
+                                </ul>
+                            </div>
                             <!-- Version 2.10.0 -->
                             <div class="release-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.5); border-radius: 8px; padding: 14px 16px; box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);">
                                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                                    <span style="background: linear-gradient(135deg, #10b981, #06b6d4); color:#fff; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.10.0 (Latest)</span>
+                                    <span style="background: rgba(56, 189, 248, 0.25); color:#38bdf8; border: 1px solid rgba(56,189,248,0.4); font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">v2.10.0</span>
                                     <span style="color: var(--text-muted); font-size:0.75rem;">2026-10-08</span>
                                 </div>
                                 <h4 style="color:#38bdf8; font-size:0.95rem; margin:0 0 8px 0;" data-i18n="rel210Title">📚 宇宙科学コラムアーカイブ全12記事拡充 & 多言語ナビゲーション・回遊UI刷新</h4>
