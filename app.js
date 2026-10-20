@@ -10416,7 +10416,7 @@ function computeDeepSpaceOrbitCenter(mission, time) {
         return marsPos || new Cesium.Cartesian3(2000000000, 0, 0);
     }
 
-    if (mission.id === 'VOYAGER1' || mission.id === 'VOYAGER2') {
+    if (mission.id === 'VOYAGER1' || mission.id === 'VOYAGER2' || mission.id === 'MMX') {
         return computeDeepSpacePosition(mission, effectiveTime);
     }
 
@@ -10473,6 +10473,10 @@ function getDeepSpaceOrbitOverviewOffset(mission) {
     if (mission.id === 'HAYABUSA2') {
         const dist = 50000000;
         return new Cesium.Cartesian3(dist * 0.4, -dist * 0.6, dist * 0.5);
+    }
+    if (mission.id === 'MMX') {
+        const dist = 35000000;
+        return new Cesium.Cartesian3(dist * 0.45, -dist * 0.75, dist * 0.5);
     }
     const dist = 50000000;
     return new Cesium.Cartesian3(0, -dist * 0.6, dist * 0.7);
@@ -11121,18 +11125,39 @@ function computeDeepSpacePosition(mission, time) {
     if (mission.id === 'MMX') {
         // MMX打ち上げ: 2026-10-20 04:41:03 JST
         const T0 = 1792438863000;
-        const T1 = 1818255600000; // 2027-08-15
+        const T1 = 1818255600000; // 2027-08-15 火星到着予定
         const nowMs = simDate.getTime();
         const u = Math.min(1.0, Math.max(0.0001, (nowMs - T0) / (T1 - T0)));
-        const rAU = 1.0 + u * 0.524;
-        const rMeters = rAU * 149597870700;
-        const theta = 0.35 + u * 2.96;
-        const zRatio = Math.sin(u * Math.PI) * 0.032;
-        return new Cesium.Cartesian3(
-            rMeters * Math.cos(theta),
-            rMeters * Math.sin(theta) * 0.96,
-            rMeters * zRatio
-        );
+
+        let marsPos;
+        try {
+            const marsBody = CELESTIAL_BODIES.find(b => b.id === 'MARS');
+            marsPos = computeCelestialPosition(marsBody, effectiveTime);
+        } catch(e) {}
+        if (!marsPos || Cesium.Cartesian3.magnitude(marsPos) < 1000) {
+            marsPos = new Cesium.Cartesian3(8000000000, 4000000000, 1000000000);
+        }
+
+        const marsDist = Cesium.Cartesian3.magnitude(marsPos);
+        const marsDir = Cesium.Cartesian3.normalize(marsPos, new Cesium.Cartesian3());
+        const earthExitPos = Cesium.Cartesian3.multiplyByScalar(marsDir, 7800000, new Cesium.Cartesian3());
+
+        const zUp = Cesium.Cartesian3.UNIT_Z;
+        let sideVec = Cesium.Cartesian3.cross(marsDir, zUp, new Cesium.Cartesian3());
+        if (Cesium.Cartesian3.magnitude(sideVec) < 0.01) {
+            sideVec = new Cesium.Cartesian3(0, 1, 0);
+        } else {
+            Cesium.Cartesian3.normalize(sideVec, sideVec);
+        }
+
+        const currentInterp = Cesium.Cartesian3.lerp(earthExitPos, marsPos, u, new Cesium.Cartesian3());
+        const bulgeDist = Math.sin(u * Math.PI) * (marsDist * 0.22);
+        const bulgeVec = Cesium.Cartesian3.multiplyByScalar(sideVec, bulgeDist, new Cesium.Cartesian3());
+        const zOffset = Cesium.Cartesian3.multiplyByScalar(zUp, Math.sin(u * Math.PI) * (marsDist * 0.04), new Cesium.Cartesian3());
+
+        const finalPos = Cesium.Cartesian3.add(currentInterp, bulgeVec, new Cesium.Cartesian3());
+        Cesium.Cartesian3.add(finalPos, zOffset, finalPos);
+        return finalPos;
     }
 
 
@@ -11324,17 +11349,36 @@ function drawDeepSpaceOrbit(mission) {
                 const sampleCount = 120;
 
                                 if (mission.id === 'MMX') {
+                    let marsPos;
+                    try {
+                        const marsBody = CELESTIAL_BODIES.find(b => b.id === 'MARS');
+                        marsPos = computeCelestialPosition(marsBody, effectiveTime);
+                    } catch(e) {}
+                    if (!marsPos || Cesium.Cartesian3.magnitude(marsPos) < 1000) {
+                        marsPos = new Cesium.Cartesian3(8000000000, 4000000000, 1000000000);
+                    }
+
+                    const marsDist = Cesium.Cartesian3.magnitude(marsPos);
+                    const marsDir = Cesium.Cartesian3.normalize(marsPos, new Cesium.Cartesian3());
+                    const earthExitPos = Cesium.Cartesian3.multiplyByScalar(marsDir, 7800000, new Cesium.Cartesian3());
+
+                    const zUp = Cesium.Cartesian3.UNIT_Z;
+                    let sideVec = Cesium.Cartesian3.cross(marsDir, zUp, new Cesium.Cartesian3());
+                    if (Cesium.Cartesian3.magnitude(sideVec) < 0.01) {
+                        sideVec = new Cesium.Cartesian3(0, 1, 0);
+                    } else {
+                        Cesium.Cartesian3.normalize(sideVec, sideVec);
+                    }
+
                     for (let i = 0; i <= sampleCount; i++) {
                         const u = i / sampleCount;
-                        const rAU = 1.0 + u * 0.524;
-                        const rMeters = rAU * 149597870700;
-                        const theta = 0.35 + u * 2.96;
-                        const zRatio = Math.sin(u * Math.PI) * 0.032;
-                        pts.push(new Cesium.Cartesian3(
-                            rMeters * Math.cos(theta),
-                            rMeters * Math.sin(theta) * 0.96,
-                            rMeters * zRatio
-                        ));
+                        const currentInterp = Cesium.Cartesian3.lerp(earthExitPos, marsPos, u, new Cesium.Cartesian3());
+                        const bulgeDist = Math.sin(u * Math.PI) * (marsDist * 0.22);
+                        const bulgeVec = Cesium.Cartesian3.multiplyByScalar(sideVec, bulgeDist, new Cesium.Cartesian3());
+                        const zOffset = Cesium.Cartesian3.multiplyByScalar(zUp, Math.sin(u * Math.PI) * (marsDist * 0.04), new Cesium.Cartesian3());
+                        const pt = Cesium.Cartesian3.add(currentInterp, bulgeVec, new Cesium.Cartesian3());
+                        Cesium.Cartesian3.add(pt, zOffset, pt);
+                        pts.push(pt);
                     }
                     return pts;
                 }
@@ -11972,7 +12016,7 @@ function drawAllPlanetaryOrbits() {
     v1MarkerEnt.deepSpaceData = { id: 'VOYAGER1' };
     solarSystemOrbitEntities.push(v1MarkerEnt);
 
-    // MMX 火星遷移軌道 (Trans-Mars Injection)
+    // MMX 火星遷移軌道 (Trans-Mars Injection: 地球軌道から火星軌道へ)
     const ptsMMX = [];
     const mmxSteps = 100;
     const nowSimMs = (customSimTime ? customSimTime.getTime() : Date.now());
@@ -11980,15 +12024,24 @@ function drawAllPlanetaryOrbits() {
     const mmxT1 = 1818255600000;
     const mmxProgress = Math.min(1.0, Math.max(0.001, (nowSimMs - mmxT0) / (mmxT1 - mmxT0)));
 
+    const d0_launch = 9788.32;
+    const d1_arrival = 10087.125;
+    const eLaunchH = computeHeliocentricCoordinates(PLANETARY_ORBIT_DATA.EARTH, d0_launch);
+    const mArrivalH = computeHeliocentricCoordinates(PLANETARY_ORBIT_DATA.MARS, d1_arrival);
+
+    const thetaLaunch = Math.atan2(eLaunchH.y, eLaunchH.x);
+    let thetaArrival = Math.atan2(mArrivalH.y, mArrivalH.x);
+    while (thetaArrival < thetaLaunch) thetaArrival += Math.PI * 2;
+
     for (let i = 0; i <= mmxSteps; i++) {
         const u = i / mmxSteps;
         const au = 1.0 + u * 0.524;
         const r = getOrreryRadius(au);
-        const theta = 0.35 + u * 2.96;
-        const zRatio = Math.sin(u * Math.PI) * 0.032;
+        const theta = thetaLaunch + u * (thetaArrival - thetaLaunch);
+        const zRatio = Math.sin(u * Math.PI) * 0.025;
         ptsMMX.push(new Cesium.Cartesian3(
             r * Math.cos(theta),
-            r * Math.sin(theta) * 0.96,
+            r * Math.sin(theta),
             r * zRatio
         ));
     }
