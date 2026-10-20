@@ -12350,6 +12350,7 @@ function selectSolarSystemOverview(skipFly = false) {
     if (debrisProximity) debrisProximity.textContent = sStat.status;
 
     detailCard.classList.remove('hidden');
+    updateSelectedDeepSpaceDetails(customSimTime || new Date());
 
     if (!skipFly) {
         viewSolarSystemOverview();
@@ -14024,6 +14025,100 @@ let fpInstance = null; // Flatpickr Multilingual Calendar Instance
 /**
  * Clock Tick Handler with Time Multiplier Speed & Dynamic Orbit Sync
  */
+
+/**
+ * 選択中の深宇宙探査機のリアルタイムテレメトリ（対地距離・速度・火星残距離・進捗率等）を毎フレーム更新
+ */
+function updateSelectedDeepSpaceDetails(simDate) {
+    if (!selectedDeepSpaceId) return;
+    const mission = DEEP_SPACE_MISSIONS.find(m => m.id === selectedDeepSpaceId);
+    if (!mission) return;
+
+    const langSelect = document.getElementById('langSelect');
+    const lang = window.currentLang || currentLang || (langSelect && langSelect.value) || 'ja';
+    const nowMs = simDate ? simDate.getTime() : Date.now();
+
+    if (mission.id === 'MMX') {
+        const T0 = 1792438863000; // 2026-10-20 04:41:03 JST (H3-24L 打上)
+        const T1 = 1818255600000; // 2027-08-15 00:00:00 JST (火星到着予定)
+        const totalDurationSec = (T1 - T0) / 1000;
+        const elapsedSec = (nowMs - T0) / 1000;
+        const u = Math.min(1.0, Math.max(0.0, elapsedSec / totalDurationSec));
+
+        // 1. 地球からの実距離（km: 下1桁までリアルタイム算出）
+        let distEarthKm;
+        if (elapsedSec <= 0) {
+            distEarthKm = 300.0;
+        } else if (elapsedSec < 86400 * 2) {
+            // 初期脱出フェーズ (重力脱出・双曲線航法)
+            const effectiveSpeed = Math.max(7.2, 11.35 - (elapsedSec / (86400 * 2)) * 4.15);
+            distEarthKm = 300.0 + (effectiveSpeed * elapsedSec);
+        } else {
+            // 惑星間遷移フェーズ (ケプラー日心幾何学距離)
+            const d = (nowMs / 86400000.0) + 2440587.5 - 2451545.0;
+            const eH = computeHeliocentricCoordinates(PLANETARY_ORBIT_DATA.EARTH, d);
+            const rAU = 1.0 + u * 0.524;
+            const d0_launch = 9788.32;
+            const d1_arrival = 10087.125;
+            const eLaunchH = computeHeliocentricCoordinates(PLANETARY_ORBIT_DATA.EARTH, d0_launch);
+            const mArrivalH = computeHeliocentricCoordinates(PLANETARY_ORBIT_DATA.MARS, d1_arrival);
+            const theta0 = Math.atan2(eLaunchH.y, eLaunchH.x);
+            let theta1 = Math.atan2(mArrivalH.y, mArrivalH.x);
+            while (theta1 < theta0) theta1 += Math.PI * 2;
+            const theta = theta0 + u * (theta1 - theta0);
+
+            const mmxX = rAU * Math.cos(theta);
+            const mmxY = rAU * Math.sin(theta);
+            const dx = mmxX - eH.x;
+            const dy = mmxY - eH.y;
+            distEarthKm = Math.sqrt(dx * dx + dy * dy) * 149597870.7;
+        }
+
+        // 2. 火星までの残距離（km）
+        const d_now = (nowMs / 86400000.0) + 2440587.5 - 2451545.0;
+        const marsH = computeHeliocentricCoordinates(PLANETARY_ORBIT_DATA.MARS, d_now);
+        const rAU_now = 1.0 + u * 0.524;
+        const d0_launch = 9788.32;
+        const d1_arrival = 10087.125;
+        const eLaunchH = computeHeliocentricCoordinates(PLANETARY_ORBIT_DATA.EARTH, d0_launch);
+        const mArrivalH = computeHeliocentricCoordinates(PLANETARY_ORBIT_DATA.MARS, d1_arrival);
+        const theta0 = Math.atan2(eLaunchH.y, eLaunchH.x);
+        let theta1 = Math.atan2(mArrivalH.y, mArrivalH.x);
+        while (theta1 < theta0) theta1 += Math.PI * 2;
+        const theta_now = theta0 + u * (theta1 - theta0);
+        const mmxX_now = rAU_now * Math.cos(theta_now);
+        const mmxY_now = rAU_now * Math.sin(theta_now);
+        const dxM = mmxX_now - marsH.x;
+        const dyM = mmxY_now - marsH.y;
+        const distMarsKm = Math.max(500, Math.sqrt(dxM * dxM + dyM * dyM) * 149597870.7);
+
+        // 3. リアルタイム速度
+        const helioSpeed = 32.4 - u * 8.3;
+        const earthRelSpeed = (elapsedSec < 86400 * 2) ? (11.35 - (elapsedSec / 172800) * 4.15) : (4.5 + Math.sin(u * Math.PI) * 1.8);
+
+        // DOM 反映（下1桁まで正確にリアルタイム描画）
+        if (satAlt) satAlt.textContent = `${distEarthKm.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} km`;
+        if (satVel) satVel.textContent = `${helioSpeed.toFixed(2)} km/s (対地 ${earthRelSpeed.toFixed(2)} km/s)`;
+        if (satLat) satLat.textContent = (lang === 'ja') ? `火星遷移軌道 (${(u * 100).toFixed(4)}%)` : `Trans-Mars (${(u * 100).toFixed(4)}%)`;
+        const daysLeft = Math.max(0, (totalDurationSec - elapsedSec) / 86400);
+        if (satPeriod) satPeriod.textContent = (lang === 'ja') ? `残り ${daysLeft.toFixed(1)} 日` : `${daysLeft.toFixed(1)} d left`;
+
+        const debrisProximity = document.getElementById('debrisProximity');
+        if (debrisProximity) {
+            debrisProximity.textContent = (lang === 'ja')
+                ? `火星まで残り: ${distMarsKm.toLocaleString(undefined, { maximumFractionDigits: 0 })} km`
+                : `Dist to Mars: ${distMarsKm.toLocaleString(undefined, { maximumFractionDigits: 0 })} km`;
+        }
+    } else {
+        const effTime = viewer ? viewer.clock.currentTime : null;
+        const pos = computeDeepSpacePosition(mission, effTime);
+        if (pos && satAlt) {
+            const distKm = Cesium.Cartesian3.magnitude(pos) / 1000.0;
+            satAlt.textContent = `${distKm.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} km`;
+        }
+    }
+}
+
 function onClockTick(clock) {
     const now = Date.now();
     const deltaMs = now - lastRealTime;
@@ -14046,6 +14141,9 @@ function onClockTick(clock) {
     statTime.textContent = formatSimTime(customSimTime);
     updateSatellitePositions(customSimTime);
     updateDeepSpaceDomLabels(viewer ? viewer.clock.currentTime : null);
+    if (selectedDeepSpaceId) {
+        updateSelectedDeepSpaceDetails(customSimTime);
+    }
 
     // Dynamically update Orbit Line as simulation time progresses so satellite never drifts from line in 2nd/3rd laps!
     if (selectedSatIndex >= 0 && satellitesData[selectedSatIndex]) {
