@@ -11115,6 +11115,9 @@ function createDeepSpaceBillboard(mission) {
 
 function computeDeepSpacePosition(mission, time) {
     if (!viewer) return Cesium.Cartesian3.ZERO;
+    const simDate = customSimTime || (time ? Cesium.JulianDate.toDate(time) : new Date());
+    const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || viewer.clock.currentTime);
+
     if (mission.id === 'MMX') {
         // MMX打ち上げ: 2026-10-20 04:41:03 JST
         const T0 = 1792438863000;
@@ -11133,8 +11136,6 @@ function computeDeepSpacePosition(mission, time) {
     }
 
 
-    const simDate = customSimTime || (time ? Cesium.JulianDate.toDate(time) : new Date());
-    const effectiveTime = customSimTime ? Cesium.JulianDate.fromDate(customSimTime) : (time || viewer.clock.currentTime);
     const d = (simDate.getTime() / 86400000.0) + 2440587.5 - 2451545.0;
 
     if (mission.id === 'JWST') {
