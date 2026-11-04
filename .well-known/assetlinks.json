@@ -1,0 +1,16 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.satviewer3d.twa",
+      "sha256_cert_fingerprints": [
+        "A1:89:1C:2A:92:C9:F9:9A:8F:E2:97:64:A6:92:18:18:EA:01:D6:D4:2B:E3:C8:16:0B:A0:D1:17:BA:7E:54:B9",
+        "CA:3F:EB:A7:7B:17:F5:05:64:03:1A:1C:68:20:36:97:51:4F:DB:23:93:B3:BE:FD:9A:DC:02:82:AE:77:2E:2C",
+        "C6:D3:23:17:01:4D:DD:B9:99:D1:5B:E1:BB:76:BB:B7:B0:6E:3D:5F:6D:0E:1E:E1:FB:CA:FF:D0:2B:66:96:59"
+      ]
+    }
+  }
+]
