@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Main Simulator Pages -->
-  <url><loc>https://satviewer3d.com/</loc><lastmod>2026-08-29</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://satviewer3d.com/en/</loc><lastmod>2026-08-29</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://satviewer3d.com/id/</loc><lastmod>2026-10-08</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://satviewer3d.com/es/</loc><lastmod>2026-08-29</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-  <url><loc>https://satviewer3d.com/zh/</loc><lastmod>2026-08-29</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-  <url><loc>https://satviewer3d.com/ru/</loc><lastmod>2026-08-29</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-  <url><loc>https://satviewer3d.com/pt/</loc><lastmod>2026-09-11</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <!-- Main Simulator Pages (High Priority) -->
+  <url><loc>https://satviewer3d.com/</loc><lastmod>2026-11-18</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://satviewer3d.com/en/</loc><lastmod>2026-11-18</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+
   <!-- Articles Portal Pages -->
-  <url><loc>https://satviewer3d.com/articles/</loc><lastmod>2026-08-29</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://satviewer3d.com/en/articles/</loc><lastmod>2026-08-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://satviewer3d.com/es/articles/</loc><lastmod>2026-08-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://satviewer3d.com/zh/articles/</loc><lastmod>2026-08-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://satviewer3d.com/ru/articles/</loc><lastmod>2026-08-29</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/</loc><lastmod>2026-09-11</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <!-- Japanese Articles -->
+  <url><loc>https://satviewer3d.com/articles/</loc><lastmod>2026-11-18</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://satviewer3d.com/en/articles/</loc><lastmod>2026-11-18</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- High-Quality Japanese Space Science Articles -->
   <url><loc>https://satviewer3d.com/articles/mmx-mars-moons-exploration-h3-launch</loc><lastmod>2026-10-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://satviewer3d.com/articles/voyager-1-interstellar-mission</loc><lastmod>2026-09-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://satviewer3d.com/articles/sputnik-1-space-race</loc><lastmod>2026-09-06</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -29,7 +22,8 @@
   <url><loc>https://satviewer3d.com/articles/hubble-vs-jwst</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://satviewer3d.com/articles/sgp4-tle-orbit-math</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://satviewer3d.com/articles/satellite-spotting-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <!-- EN Articles -->
+
+  <!-- High-Quality English Space Science Articles -->
   <url><loc>https://satviewer3d.com/en/articles/mmx-mars-moons-exploration-h3-launch</loc><lastmod>2026-10-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://satviewer3d.com/en/articles/voyager-1-interstellar-mission</loc><lastmod>2026-09-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://satviewer3d.com/en/articles/sputnik-1-space-race</loc><lastmod>2026-09-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -43,58 +37,11 @@
   <url><loc>https://satviewer3d.com/en/articles/hubble-vs-jwst</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://satviewer3d.com/en/articles/sgp4-tle-orbit-math</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://satviewer3d.com/en/articles/satellite-spotting-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <!-- ES Articles -->
-  <url><loc>https://satviewer3d.com/es/articles/iss-tracker-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/es/articles/starlink-constellation</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/es/articles/tiangong-space-station</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/es/articles/sar-satellite-radar</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/es/articles/space-debris-crisis</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/es/articles/geostationary-orbit</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/es/articles/michibiki-qzss</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/es/articles/hubble-vs-jwst</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/es/articles/sgp4-tle-orbit-math</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/es/articles/satellite-spotting-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <!-- ZH Articles -->
-  <url><loc>https://satviewer3d.com/zh/articles/iss-tracker-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/zh/articles/starlink-constellation</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/zh/articles/tiangong-space-station</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/zh/articles/sar-satellite-radar</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/zh/articles/space-debris-crisis</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/zh/articles/geostationary-orbit</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/zh/articles/michibiki-qzss</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/zh/articles/hubble-vs-jwst</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/zh/articles/sgp4-tle-orbit-math</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/zh/articles/satellite-spotting-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <!-- RU Articles -->
-  <url><loc>https://satviewer3d.com/ru/articles/iss-tracker-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/ru/articles/starlink-constellation</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/ru/articles/tiangong-space-station</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/ru/articles/sar-satellite-radar</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/ru/articles/space-debris-crisis</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/ru/articles/geostationary-orbit</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/ru/articles/michibiki-qzss</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/ru/articles/hubble-vs-jwst</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/ru/articles/sgp4-tle-orbit-math</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/ru/articles/satellite-spotting-guide</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <!-- PT Articles -->
-  <url><loc>https://satviewer3d.com/pt/articles/voyager-1-interstellar-mission</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/sputnik-1-space-race</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/iss-tracker-guide</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/starlink-constellation</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/tiangong-space-station</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/sar-satellite-radar</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/space-debris-crisis</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/geostationary-orbit</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/michibiki-qzss</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/hubble-vs-jwst</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/sgp4-tle-orbit-math</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://satviewer3d.com/pt/articles/satellite-spotting-guide</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <!-- ID Articles -->
-  <url><loc>https://satviewer3d.com/id/articles/voyager-1-interstellar-mission</loc><lastmod>2026-10-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <!-- Static Pages -->
-  <url><loc>https://satviewer3d.com/about</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://satviewer3d.com/privacy</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://satviewer3d.com/terms</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://satviewer3d.com/contact</loc><lastmod>2026-08-29</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://satviewer3d.com/sitemap</loc><lastmod>2026-08-29</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+
+  <!-- Static Trust & Policy Pages -->
+  <url><loc>https://satviewer3d.com/about</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://satviewer3d.com/privacy</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://satviewer3d.com/terms</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://satviewer3d.com/contact</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://satviewer3d.com/sitemap</loc><lastmod>2026-11-18</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
 </urlset>
